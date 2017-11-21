@@ -13,18 +13,17 @@ gulp.task('build', shell.task([         // gitbook destroys everything in the _b
 gulp.task('deploy', ['build'], shell.task(
     [ 'git add . ',
       'git ci -am "new version"', // commit changes
-      'git push ghio master', // push changes to github repo
       'git push origin master' // push changes to gitbook repo
     ]
   )
 );
 
 gulp.task('ghrepo', shell.task( // Open a browser in the github book repo
-  'hub browse ULL-PFPDI-GITHUB-1718/ull-pfpdi-github-1718.github.io'
+  'hub browse etsiiull/gitbook-skeleton.github.io'
 ));
 
 gulp.task('apuntes', shell.task( // Open web browser in the github deployment of this book
-  'open https://ull-pfpdi-github-1718.github.io'
+  'open https://gitbook-skeleton.github.io'
 ));
 
 gulp.task("pre-install", shell.task([ // global dependencies
