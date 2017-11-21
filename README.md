@@ -5,10 +5,11 @@ Skeleton to build a book with gitbook and deploy it to GitHub pages
 ### Instrucciones para los autores
 
 * Fork or clone this repo
+* Modify the files (gulpfile.js, index.html, etc.)
 * In GitHub settings of the repo, set the `master` branch for GitHub pages
 * El libro está alojado en el repo [https://github.com/etsiiull/gitbook-skeleton](https://github.com/etsiiull/gitbook-skeleton)
 * Instale [git](https://git-scm.com/)
-* Clone el libro en su máquina: `git clone https://github.com/etsiiull/ull-pfpdi-github-1718.github.io.git` 
+* Clone el libro en su máquina: `git clone https://github.com/etsiiull/gitbook-skeleton.git` 
 * Instale [NodeJS](https://nodejs.org/es/)
 * Instale [gitbook](https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md) en su ordenador
 * Instale [gulp](https://gulpjs.com/) globalmente: `npm i -g gulp`
