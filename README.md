@@ -4,7 +4,7 @@ Skeleton to build a book with gitbook and deploy it to GitHub pages
 
 ### Instrucciones para los autores
 
-* Fork or clone this repo
+* Fork or clone this repo `hub clone etsiiull/gitbook-skeleton`
 * Modify the files (gulpfile.js, index.html, etc.)
 * In GitHub settings of the repo, set the `master` branch for GitHub pages
 * El libro está alojado en el repo [https://github.com/etsiiull/gitbook-skeleton](https://github.com/etsiiull/gitbook-skeleton)
