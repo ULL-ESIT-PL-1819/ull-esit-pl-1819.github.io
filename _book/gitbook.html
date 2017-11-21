@@ -1,0 +1,276 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Markdown y GitBook · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="./" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="gitbook.html">
+            
+                <a href="gitbook.html">
+            
+                    
+                    Markdown y GitBook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >Markdown y GitBook</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <ul>
+<li><a href="https://casianorodriguezleon.gitbooks.io/elaboracion-de-material-docente-con-gitbook/content/" target="_blank">Apuntes de Markdown y GitBook</a> En Gitbook</li>
+<li><a href="https://ull-pfpdi-gitbook-1617.github.io/Elaboracion-de-Material-Docente-con-GitBook/" target="_blank">Apuntes de Markdown y GitBook</a> En GitHub</li>
+</ul>
+<h3 id="notas">Notas</h3>
+<p>Cuando se despliega un libro gitbook en las GitHub Pages
+yo suelo hacerlo as&#xED;:</p>
+<ol>
+<li>Crear un fichero <code>.nojekyll</code> para inhibir el uso de <code>jekyll</code><pre><code class="lang-bash">~/GitBook/Library/Import/curso-gihub(master)]$ ls <span class="hljs-_">-l</span> .nojekyll 
+-rw-r--r--  1 casiano  staff  0 17 nov 15:02 .nojekyll
+</code></pre>
+</li>
+<li>A&#xF1;adir el directorio/carpeta con los HTML generados  <code>_book/</code>  al repo<pre><code class="lang-bash">[~/GitBook/Library/Import/curso-gihub(master)]$ git add _book
+</code></pre>
+</li>
+<li>Configurar el repo remoto en GitHub para que las p&#xE1;ginas se sirvan desde la rama <code>master</code> (settings del repo, seccion gh-pages)
+<img src="resources/settingghpages.png" alt=""></li>
+<li>Poner en la ra&#xED;z del repo un fichero <code>index.html</code> que redirige a <code>_book/index.html</code> como este:<pre><code class="lang-html"> <span class="hljs-meta">&lt;!DOCTYPE HTML&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en-US&quot;</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+                 <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>
+                 <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;refresh&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;1; url=_book/&quot;</span>&gt;</span>
+                 <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript">
+                         <span class="hljs-built_in">window</span>.location.href = <span class="hljs-string">&quot;_book/&quot;</span>
+                 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                 <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Page Redirection<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+         <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+         <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+                 <span class="hljs-comment">&lt;!-- <span class="hljs-doctag">Note:</span> don&apos;t tell people to `click` the link, just tell them that it is a link. --&gt;</span>
+                 If you are not redirected automatically, follow this <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&apos;_book/&apos;</span>&gt;</span>link to the book<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>.
+         <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+ <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+</li>
+<li>Aseg&#xFA;rese que el directorio <code>_book</code>no es ignorado en <code>.gitignore</code> </li>
+</ol>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Introduction">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Markdown y GitBook","level":"1.2","depth":1,"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["youtube","copy-code-button"],"pluginsConfig":{"youtube":{},"copy-code-button":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"gitbook.md","mtime":"2017-11-21T12:08:51.772Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-11-21T12:29:10.820Z"},"basePath":".","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="gitbook/gitbook.js"></script>
+    <script src="gitbook/theme.js"></script>
+    
+        
+        <script src="gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
