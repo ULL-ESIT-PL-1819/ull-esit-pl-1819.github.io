@@ -19,11 +19,11 @@ gulp.task('deploy', ['build'], shell.task(
 );
 
 gulp.task('ghrepo', shell.task( // Open a browser in the github book repo
-  'hub browse etsiiull/gitbook-skeleton.github.io'
+  'hub browse etsiiull/gitbook-skeleton'
 ));
 
 gulp.task('apuntes', shell.task( // Open web browser in the github deployment of this book
-  'open https://gitbook-skeleton.github.io'
+  'open https://etsiiull.github.io/gitbook-skeleton'
 ));
 
 gulp.task("pre-install", shell.task([ // global dependencies
@@ -32,13 +32,8 @@ gulp.task("pre-install", shell.task([ // global dependencies
 ]));
 
 gulp.task("push", shell.task([ // push to github not to gitbook
-      'git ci -am "new version" && git push ghio master && git push origin master',
+      'git ci -am "new version" && git push origin master',
 ]));
-
-gulp.task('gbapuntes', shell.task( // Open web browser in the github deployment of this book
-  'open https://casianorodriguezleon.gitbooks.io/curso-github/content/'
-));
-
 
 gulp.task('serve', shell.task([         // gitbook destroys everything in the _book directory!
         'gitbook serve',                // build HTML in _book
