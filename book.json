@@ -1,0 +1,8 @@
+{
+    "plugins": [
+        "youtube",
+        "copy-code-button"
+    ],
+    "pluginsConfig": {
+    }
+}

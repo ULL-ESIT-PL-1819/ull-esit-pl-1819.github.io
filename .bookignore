@@ -1,0 +1,8 @@
+_book-git
+gulpfile.js
+*.swp
+package*.json
+post-book
+.gitignore
+.bookignore
+docs
