@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://git.gitbook.com/casianorodriguezleon/curso-github.git"
+    "url": "https://github.com/etsiiull/gitbook-skeleton"
   },
-  "keywords": [],
+  "keywords": ["gitbook", "github pages"],
   "author": "Casiano Rodriguez-Leon <casiano.rodriguez.leon@gmail.com> (https://github.com/crguezl)",
   "license": "ISC",
   "dependencies": {
