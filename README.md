@@ -16,7 +16,7 @@ Assume you want to create a book inside the Github organization
               npm i -g gitbook-cli
 * [Join GitHub](https://github.com/join?source=header-home)
 * Install [hub](https://github.com/github/hub) (optional)
-* El esqueleto de libro está alojado en el repo [https://github.com/etsiiull/gitbook-skeleton](https://github.com/etsiiull/gitbook-skeleton)
+* The skeleton of the book is hosted in this repo: [https://github.com/etsiiull/gitbook-skeleton](https://github.com/etsiiull/gitbook-skeleton)
   * Fork or clone this repo `hub clone etsiiull/gitbook-skeleton my-repo`
   * Alternatively, clone the book in your machine using: `git clone https://github.com/etsiiull/gitbook-skeleton.git` 
 * Modify the files `gulpfile.js` and `package.json`
