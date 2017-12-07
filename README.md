@@ -7,10 +7,10 @@ Skeleton to build a book with gitbook and deploy it to GitHub pages
 Assume you want to create a book inside the Github organization
 `my-organization` with name `my-repo`. Follow these steps:
 
-* Instale [git](https://git-scm.com/)
-* Instale [NodeJS](https://nodejs.org/es/)
-* Instale [gulp](https://gulpjs.com/) globalmente: `npm i -g gulp`
-* Instale [gitbook](https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md) en su ordenador
+* Install [git](https://git-scm.com/)
+* Install [NodeJS](https://nodejs.org/es/)
+* Install [gulp](https://gulpjs.com/) globally: `npm i -g gulp`
+* Install [gitbook](https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md) in your computer
   * Install `gitbook-cli`:
 
               npm i -g gitbook-cli
@@ -33,7 +33,7 @@ Assume you want to create a book inside the Github organization
   ```
 * In GitHub settings of the repo, set the `master` branch for GitHub pages
 * Run `gitbook install` to install plugins from registry.
-* Instale las dependencias de este libro/proyecto `npm i`
+* Install the dependencies of this book/project `npm i`
 * Escriba en [markdown](https://es.wikipedia.org/wiki/Markdown)  los textos que desee
 * Compile el libro con `gulp build` para producir el HTML
 * Para desplegar su version en GitHub escriba `gulp deploy`
