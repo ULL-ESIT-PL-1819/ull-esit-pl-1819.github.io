@@ -12,7 +12,7 @@ Skeleton to build a book with gitbook and deploy it to GitHub pages
 
               npm i -g gitbook-cli
 * [Hágase miembro de GitHub](https://github.com/join?source=header-home)
-* Install [hub](https://github.com/github/hub)
+* Install [hub](https://github.com/github/hub) (optional)
 * El esqueleto de libro está alojado en el repo [https://github.com/etsiiull/gitbook-skeleton](https://github.com/etsiiull/gitbook-skeleton)
   * Fork or clone this repo `hub clone etsiiull/gitbook-skeleton my-repo`
   * Alternatively, clone the book in your machine using: `git clone https://github.com/etsiiull/gitbook-skeleton.git` 
