@@ -20,6 +20,7 @@ Skeleton to build a book with gitbook and deploy it to GitHub pages
   * Substitute all the appearances of `etsiiull` by `my-repo` in `gulpfile.js`,
      `package.json`
 * Remove the `origin` remote: `git remote rm origin`
+  - Or alternatively rename the remote `git remote rename origin etsiiull`
 * Crea en GitHub el nuevo repo: `hub create ULL-ESIT-GRADOII-TFG/my-repo`
   ```
   [~/TFGsrc/my-repo(master)]$ git remote -v
