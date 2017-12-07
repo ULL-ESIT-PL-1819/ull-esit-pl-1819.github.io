@@ -14,7 +14,7 @@ Assume you want to create a book inside the Github organization
   * Install `gitbook-cli`:
 
               npm i -g gitbook-cli
-* [Hágase miembro de GitHub](https://github.com/join?source=header-home)
+* [Join GitHub](https://github.com/join?source=header-home)
 * Install [hub](https://github.com/github/hub) (optional)
 * El esqueleto de libro está alojado en el repo [https://github.com/etsiiull/gitbook-skeleton](https://github.com/etsiiull/gitbook-skeleton)
   * Fork or clone this repo `hub clone etsiiull/gitbook-skeleton my-repo`
