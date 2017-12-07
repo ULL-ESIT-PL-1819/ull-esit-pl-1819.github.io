@@ -161,29 +161,48 @@
                                 <h1 id="skeleton-to-build-a-gitbook-and-deploy-it-to-github-pages">Skeleton to build a GitBook and Deploy it to GitHub Pages</h1>
 <p>Skeleton to build a book with gitbook and deploy it to GitHub pages</p>
 <h3 id="instrucciones-para-los-autores">Instrucciones para los autores</h3>
+<p>Assume you want to create a book inside the Github organization
+<code>my-organization</code> with name <code>my-repo</code>. Follow these steps:</p>
 <ul>
-<li>Fork or clone this repo <code>hub clone etsiiull/gitbook-skeleton my-repo</code></li>
-<li>Modify the files (gulpfile.js, index.html, etc.)</li>
-<li>Remove the <code>origin</code> remote: <code>git remote rm origin</code></li>
-<li>Crea en GitHub el nuevo repo: <code>hub create ULL-ESIT-GRADOII-TFG/tfg-ideas</code><pre><code>[~/TFGsrc/tfg-ideas(master)]$ git remote -v
-origin    https://github.com/ULL-ESIT-GRADOII-TFG/tfg-ideas.git (fetch)
-origin    https://github.com/ULL-ESIT-GRADOII-TFG/tfg-ideas.git (push)
+<li>Install <a href="https://git-scm.com/" target="_blank">git</a></li>
+<li>Install <a href="https://nodejs.org/es/" target="_blank">NodeJS</a></li>
+<li>Install <a href="https://gulpjs.com/" target="_blank">gulp</a> globally: <code>npm i -g gulp</code></li>
+<li><p>Install <a href="https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md" target="_blank">gitbook</a> in your computer</p>
+<ul>
+<li><p>Install <code>gitbook-cli</code>:</p>
+<pre><code>      npm i -g gitbook-cli
 </code></pre></li>
-<li>In GitHub settings of the repo, set the <code>master</code> branch for GitHub pages</li>
-<li>El libro est&#xE1; alojado en el repo <a href="https://github.com/etsiiull/gitbook-skeleton" target="_blank">https://github.com/etsiiull/gitbook-skeleton</a></li>
-<li>Instale <a href="https://git-scm.com/" target="_blank">git</a></li>
-<li>Clone el libro en su m&#xE1;quina: <code>git clone https://github.com/etsiiull/gitbook-skeleton.git</code> </li>
-<li>Instale <a href="https://nodejs.org/es/" target="_blank">NodeJS</a></li>
-<li>Instale <a href="https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md" target="_blank">gitbook</a> en su ordenador</li>
-<li>Instale <a href="https://gulpjs.com/" target="_blank">gulp</a> globalmente: <code>npm i -g gulp</code></li>
+</ul>
+</li>
+<li><a href="https://github.com/join?source=header-home" target="_blank">Join GitHub</a></li>
+<li>Install <a href="https://github.com/github/hub" target="_blank">hub</a> (optional)</li>
+<li>The skeleton of the book is hosted in this repo: <a href="https://github.com/etsiiull/gitbook-skeleton" target="_blank">https://github.com/etsiiull/gitbook-skeleton</a><ul>
+<li>Fork or clone this repo <code>hub clone etsiiull/gitbook-skeleton my-repo</code></li>
+<li>Alternatively, clone the book in your machine using: <code>git clone https://github.com/etsiiull/gitbook-skeleton.git</code> </li>
+</ul>
+</li>
+<li>Modify the files <code>gulpfile.js</code> and <code>package.json</code><ul>
+<li>Substitute all the appearances of <code>etsiiull</code> by <code>my-organization</code> in <code>gulpfile.js</code>,</li>
+<li>Substitute all the appearances of <code>gitbook-skeleton</code> by <code>my-repo</code> in <code>gulpfile.js</code>, <code>package.json</code></li>
+<li>Change the <code>name</code>, <code>description</code>, author<code>,</code>keywords<code>, etc. in</code>package.json`</li>
+</ul>
+</li>
+<li>Remove the <code>origin</code> remote: <code>git remote rm origin</code><ul>
+<li>Or alternatively rename the remote <code>git remote rename origin etsiiull</code></li>
+</ul>
+</li>
+<li>Create the new repo in GitHub: <code>hub create my-organization/my-repo</code><pre><code>[~/TFGsrc/my-repo(master)]$ git remote -v
+origin    https://github.com/my-organization/my-repo.git (fetch)
+origin    https://github.com/my-organization/my-repo.git (push)
+</code></pre></li>
+<li>In GitHub go to the settings of the new repo and set the <code>master</code> branch as the branch for GitHub pages</li>
 <li>Run <code>gitbook install</code> to install plugins from registry.</li>
-<li>Instale las dependencias de este libro/proyecto <code>npm i</code></li>
-<li><a href="https://github.com/join?source=header-home" target="_blank">H&#xE1;gase miembro de GitHub</a></li>
-<li>Escriba en <a href="https://es.wikipedia.org/wiki/Markdown" target="_blank">markdown</a>  los textos que desee</li>
-<li>Compile el libro con <code>gulp build</code> para producir el HTML</li>
-<li>Para desplegar su version en GitHub escriba <code>gulp deploy</code></li>
-<li>Visite <a href="https://etsiiull.github.io/gitbook-skeleton/_book/" target="_blank">https://etsiiull.github.io/gitbook-skeleton</a> para ver el resultado</li>
-<li>Para mas detalles mira la secci&#xF3;n <a href="gitbook.html">Markdown y GitBook</a></li>
+<li>Install the dependencies of this book/project <code>npm i</code></li>
+<li>Write in <a href="https://es.wikipedia.org/wiki/Markdown" target="_blank">markdown</a> the contents of your book</li>
+<li>Compile the book with <code>gulp build</code> to produce the HTML</li>
+<li>To deploy your book in GitHub write <code>gulp deploy</code></li>
+<li>Visit <a href="https://etsiiull.github.io/gitbook-skeleton/_book/" target="_blank">https://my-repo.github.io</a> to see the result</li>
+<li>For more details see the section <a href="gitbook.html">Markdown and GitBook</a></li>
 </ul>
 
                                 
@@ -224,7 +243,7 @@ origin    https://github.com/ULL-ESIT-GRADOII-TFG/tfg-ideas.git (push)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Markdown y GitBook","level":"1.2","depth":1,"path":"gitbook.md","ref":"gitbook.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["youtube","copy-code-button"],"pluginsConfig":{"youtube":{},"copy-code-button":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-11-21T12:50:05.369Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-11-21T13:13:10.998Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Introduction","level":"1.1","depth":1,"next":{"title":"Markdown y GitBook","level":"1.2","depth":1,"path":"gitbook.md","ref":"gitbook.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["youtube","copy-code-button"],"pluginsConfig":{"youtube":{},"copy-code-button":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2017-12-07T20:53:26.467Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-12-07T20:54:53.907Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
