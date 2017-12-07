@@ -24,19 +24,20 @@ Assume you want to create a book inside the Github organization
   * Substitute all the appearances of `gitbook-skeleton` by `my-repo` in `gulpfile.js`,
      `package.json`
 * Remove the `origin` remote: `git remote rm origin`
-  - Or alternatively rename the remote 
-* Crea en GitHub el nuevo repo: `hub create ULL-ESIT-GRADOII-TFG/my-repo`
+  - Or alternatively rename the remote `git remote rename origin etsiiull`
+* Create the new repo in GitHub: `hub create ULL-ESIT-GRADOII-TFG/my-repo`
   ```
   [~/TFGsrc/my-repo(master)]$ git remote -v
   origin	https://github.com/ULL-ESIT-GRADOII-TFG/my-repo.git (fetch)
   origin	https://github.com/ULL-ESIT-GRADOII-TFG/my-repo.git (push)
   ```
-* In GitHub settings of the repo, set the `master` branch for GitHub pages
+* In GitHub go to the settings of the new repo and set the `master` branch as the branch for GitHub pages
 * Run `gitbook install` to install plugins from registry.
 * Install the dependencies of this book/project `npm i`
-* Escriba en [markdown](https://es.wikipedia.org/wiki/Markdown)  los textos que desee
-* Compile el libro con `gulp build` para producir el HTML
-* Para desplegar su version en GitHub escriba `gulp deploy`
-* Visite [https://my-repo.github.io](https://etsiiull.github.io/gitbook-skeleton/_book/) para ver el resultado
-* Para mas detalles mira la sección [Markdown y GitBook](gitbook.md)
+* Write in [markdown](https://es.wikipedia.org/wiki/Markdown) the contents of your book
+* Compile the book with `gulp build` to produce the HTML
+* To deploy your book in GitHub write `gulp deploy`
+* Visit [https://my-repo.github.io](https://etsiiull.github.io/gitbook-skeleton/_book/) to see the result
+* For more details see the section [Markdown and GitBook](gitbook.md)
+
 
