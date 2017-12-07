@@ -1,19 +1,19 @@
 {
-  "name": "curso-gihub",
+  "name": "ULL-ESIT-PL-1718",
   "version": "1.0.0",
-  "description": "### Profesorado",
-  "main": "gulpfile.js",
+  "description": "ULL ESIT Language Processors course 17/18",
+  "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp build"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/etsiiull/gitbook-skeleton"
+    "url": "https://github.com/ULL-ESIT-PL-1718/ull-esit-pl-1718.github.io"
   },
-  "keywords": ["gitbook", "github pages"],
+  "keywords": ["Language processors", "compilers", gitbook", "github pages"],
   "author": "Casiano Rodriguez-Leon <casiano.rodriguez.leon@gmail.com> (https://github.com/crguezl)",
   "license": "ISC",
   "dependencies": {
-    "gulp-shell": "^0.6.3"
+    "gulp-shell": "*"
   }
 }

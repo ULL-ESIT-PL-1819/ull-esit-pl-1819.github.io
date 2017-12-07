@@ -19,11 +19,11 @@ gulp.task('deploy', ['build'], shell.task(
 );
 
 gulp.task('ghrepo', shell.task( // Open a browser in the github book repo
-  'hub browse etsiiull/gitbook-skeleton'
+  'hub browse ULL-ESIT-PL-1718/ull-esit-pl-1718.github.io'
 ));
 
 gulp.task('apuntes', shell.task( // Open web browser in the github deployment of this book
-  'open https://etsiiull.github.io/gitbook-skeleton'
+  'open https://ULL-ESIT-PL-1718.github.io/ull-esit-pl-1718.github.io'
 ));
 
 gulp.task("pre-install", shell.task([ // global dependencies
