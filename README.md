@@ -13,9 +13,9 @@ Skeleton to build a book with gitbook and deploy it to GitHub pages
               npm i -g gitbook-cli
 * [Hágase miembro de GitHub](https://github.com/join?source=header-home)
 * Install [hub](https://github.com/github/hub)
-* El libro está alojado en el repo [https://github.com/etsiiull/gitbook-skeleton](https://github.com/etsiiull/gitbook-skeleton)
+* El esqueleto de libro está alojado en el repo [https://github.com/etsiiull/gitbook-skeleton](https://github.com/etsiiull/gitbook-skeleton)
   * Fork or clone this repo `hub clone etsiiull/gitbook-skeleton my-repo`
-  * Clone el libro en su máquina: `git clone https://github.com/etsiiull/gitbook-skeleton.git` 
+  * Alternatively, clone the book in your machine usign: `git clone https://github.com/etsiiull/gitbook-skeleton.git` 
 * Modify the files (gulpfile.js, index.html, etc.)
   * Substitute all the appearances of `etsiiull` by `my-repo` in `gulpgile.js`,
      `package.json`
