@@ -21,8 +21,8 @@ Assume you want to create a book inside the Github organization
   * Alternatively, clone the book in your machine using: `git clone https://github.com/etsiiull/gitbook-skeleton.git` 
 * Modify the files `gulpfile.js` and `package.json`
   * Substitute all the appearances of `etsiiull` by `my-organization` in `gulpfile.js`,
-  * Substitute all the appearances of `gitbook-skeleton` by `my-repo` in `gulpfile.js`,
-     `package.json`
+  * Substitute all the appearances of `gitbook-skeleton` by `my-repo` in `gulpfile.js`, `package.json`
+  * Change the `author` and `keywords` in `package.json`
 * Remove the `origin` remote: `git remote rm origin`
   - Or alternatively rename the remote `git remote rename origin etsiiull`
 * Create the new repo in GitHub: `hub create my-organization/my-repo`
