@@ -17,7 +17,7 @@ Skeleton to build a book with gitbook and deploy it to GitHub pages
   * Fork or clone this repo `hub clone etsiiull/gitbook-skeleton my-repo`
   * Alternatively, clone the book in your machine using: `git clone https://github.com/etsiiull/gitbook-skeleton.git` 
 * Modify the files (gulpfile.js, index.html, etc.)
-  * Substitute all the appearances of `etsiiull` by `my-repo` in `gulpgile.js`,
+  * Substitute all the appearances of `etsiiull` by `my-repo` in `gulpfile.js`,
      `package.json`
 * Remove the `origin` remote: `git remote rm origin`
 * Crea en GitHub el nuevo repo: `hub create ULL-ESIT-GRADOII-TFG/my-repo`
