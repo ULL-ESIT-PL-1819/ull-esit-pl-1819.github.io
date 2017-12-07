@@ -9,6 +9,7 @@ Skeleton to build a book with gitbook and deploy it to GitHub pages
 * Instale [gulp](https://gulpjs.com/) globalmente: `npm i -g gulp`
 * Instale [gitbook](https://github.com/GitbookIO/gitbook/blob/master/docs/setup.md) en su ordenador
   * Install `gitbook-cli`:
+
               npm i -g gitbook-cli
 * [Hágase miembro de GitHub](https://github.com/join?source=header-home)
 * Install [hub](https://github.com/github/hub)
