@@ -10,7 +10,7 @@
 ### Packrattle: GLL en JS
 
 * [Packrattle](https://github.com/robey/packrattle)
-* [Tutorial](https://raw.githubusercontent.com/robey/packrattle/master/docs/tutorial.md)
+* [Tutorial](https://github.com/robey/packrattle/blob/master/docs/tutorial.md)
 * [Packrattle API](https://github.com/robey/packrattle/blob/master/docs/api.md)
 
 ### Repo con Ejemplos
