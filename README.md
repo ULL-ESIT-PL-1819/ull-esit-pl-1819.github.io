@@ -25,11 +25,11 @@ Assume you want to create a book inside the Github organization
      `package.json`
 * Remove the `origin` remote: `git remote rm origin`
   - Or alternatively rename the remote `git remote rename origin etsiiull`
-* Create the new repo in GitHub: `hub create ULL-ESIT-GRADOII-TFG/my-repo`
+* Create the new repo in GitHub: `hub create my-organization/my-repo`
   ```
   [~/TFGsrc/my-repo(master)]$ git remote -v
-  origin	https://github.com/ULL-ESIT-GRADOII-TFG/my-repo.git (fetch)
-  origin	https://github.com/ULL-ESIT-GRADOII-TFG/my-repo.git (push)
+  origin	https://github.com/my-organization/my-repo.git (fetch)
+  origin	https://github.com/my-organization/my-repo.git (push)
   ```
 * In GitHub go to the settings of the new repo and set the `master` branch as the branch for GitHub pages
 * Run `gitbook install` to install plugins from registry.
