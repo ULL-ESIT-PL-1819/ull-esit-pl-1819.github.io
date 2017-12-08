@@ -1,0 +1,619 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Expresiones Regulares · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="regexpejercicios.html" />
+    
+    
+    <link rel="prev" href="../" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Expresiones Regulares
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="regexpejercicios.html">
+            
+                <a href="regexpejercicios.html">
+            
+                    
+                    Ejercicios de Expresiones Regulares
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../parsing/">
+            
+                <a href="../parsing/">
+            
+                    
+                    Parsing
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../tdop/tdop.md">
+            
+                <span>
+            
+                    
+                    Top Down Operator Precedence Analysis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../recursivodescendente/README.md">
+            
+                <span>
+            
+                    
+                    Análisis Recursivo Descendente
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../parsing/recursivodescendente/">
+            
+                <a href="../parsing/recursivodescendente/">
+            
+                    
+                    RD
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../parsing/eloquentjs/">
+            
+                <a href="../parsing/eloquentjs/">
+            
+                    
+                    EJS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../parsing/gll/">
+            
+                <a href="../parsing/gll/">
+            
+                    
+                    GLL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../parsing/tdop/">
+            
+                <a href="../parsing/tdop/">
+            
+                    
+                    tdop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="../parsing/grammars/">
+            
+                <a href="../parsing/grammars/">
+            
+                    
+                    Grammars
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="../parsing/pltutlisperator/">
+            
+                <a href="../parsing/pltutlisperator/">
+            
+                    
+                    Lisp
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../biblio.html">
+            
+                <a href="../biblio.html">
+            
+                    
+                    Bibliografia
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../author-instructions.html">
+            
+                <a href="../author-instructions.html">
+            
+                    
+                    Author instructions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../gitbook.html">
+            
+                <a href="../gitbook.html">
+            
+                    
+                    Markdown y GitBook
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Expresiones Regulares</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h3 id="tutoriales-sobre-regexp">Tutoriales sobre RegExp</h3>
+<h4 id="w3schools">W3Schools</h4>
+<ul>
+<li><a href="https://www.w3schools.com/jsref/jsref_obj_regexp.asp" target="_blank">w3schools.com: JavaScript RegExp Reference</a></li>
+<li><a href="https://www.w3schools.com/js/js_regexp.asp" target="_blank">w3schools.com: JavaScript Regular Expressions</a></li>
+</ul>
+<h4 id="mdn">MDN</h4>
+<ul>
+<li><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions" target="_blank">MDN: Tutorial on Regular Expressions</a></li>
+<li><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp" target="_blank">MDN: API de la Clase RegExp</a></li>
+</ul>
+<h4 id="eloquent-js">Eloquent JS</h4>
+<ul>
+<li><a href="http://eloquentjavascript.net/09_regexp.html" target="_blank">Eloquent JS: Chapter 9: Regular Expressions</a></li>
+</ul>
+<h3 id="regexp-objects">RegExp Objects</h3>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Regexp" target="_blank">RegExp Objects</a></li>
+</ul>
+<h5 id="el-constructor">El Constructor</h5>
+<p>The <code>RegExp</code> constructor creates a regular expression object for matching text with a pattern.</p>
+<p>Literal and constructor notations are possible:</p>
+<pre><code>/pattern/flags; 
+new RegExp(pattern [, flags]);
+</code></pre><ul>
+<li>The literal notation provides compilation of the regular expression
+when the expression is evaluated. </li>
+<li>Use literal notation when the regular
+expression will remain constant. </li>
+<li>For example, if you use literal notation
+to construct a regular expression used in a loop, the regular expression
+won&apos;t be recompiled on each iteration.</li>
+<li>The constructor of the regular expression object, for example,
+<code>new RegExp(&quot;ab+c&quot;)</code>, provides runtime compilation of the regular
+expression. </li>
+<li>Use the constructor function when you know the regular
+expression pattern will be changing, or you don&apos;t know the pattern and
+are getting it from another source, such as user input.</li>
+<li>When using the constructor function, the normal string escape rules
+(preceding special characters with <code>\</code> when included in a string) are
+necessary. For example, the following are equivalent:</li>
+</ul>
+<pre><code>var re = /\w+/;
+var re = new RegExp(&quot;\\w+&quot;);
+</code></pre><h5 id="exec">exec</h5>
+<ul>
+<li>RegExp.prototype.<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/RegExp/exec" target="_blank">exec</a></li>
+</ul>
+<p>The <code>exec()</code> method executes a search for a match in a specified string. Returns a result array, or <code>null</code>.</p>
+<p>If you are executing a match simply to find <code>true</code> or <code>false</code>, 
+use the <code>RegExp.prototype.test()</code> method or the <code>String.prototype.search()</code> method.</p>
+<h5 id="search">search</h5>
+<ul>
+<li>String.prototype.<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/search" target="_blank">search</a></li>
+</ul>
+<p><code>str.search(regexp)</code></p>
+<p>If successful, <code>search</code> returns the index of the regular expression inside
+the string. Otherwise, it returns <code>-1</code>.</p>
+<p>When you want to know whether a pattern is found in a string use <code>search</code>
+(similar to the regular expression <code>test</code> method); for more information
+(but slower execution) use <code>match</code> (similar to the regular expression
+<code>exec</code> method).</p>
+<h5 id="match">match</h5>
+<ul>
+<li>String.prototype.<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/match" target="_blank">match</a></li>
+<li>String.prototype.<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/replace" target="_blank">replace</a></li>
+</ul>
+<h5 id="replace">replace</h5>
+<p>The <code>replace()</code> method returns a new string with some or all matches of
+a pattern replaced by a replacement.<br>The pattern can be a string or a <code>RegExp</code>, 
+and the replacement can be a string or a function to be called
+for each match.</p>
+<pre><code>&gt; re = /apples/gi
+/apples/gi
+&gt; str = &quot;Apples are round, and apples are juicy.&quot;
+&apos;Apples are round, and apples are juicy.&apos;
+&gt; newstr = str.replace(re, &quot;oranges&quot;)
+&apos;oranges are round, and oranges are juicy.&apos;
+</code></pre><p>The replacement string can be a function to be invoked to create the
+new substring (to put in place of the substring received from parameter
+<code>#1</code>). The arguments supplied to this function are:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Possible name</strong></th>
+<th><strong>Supplied value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>match</td>
+<td>The matched substring. (Corresponds to <code>$&amp;</code>.)</td>
+</tr>
+<tr>
+<td><code>p1</code>, <code>p2</code>, ...</td>
+<td>The nth parenthesized submatch string, provided the first argument to replace was a RegExp object. (Corresponds to <code>$1</code>, <code>$2</code>, etc.) For example, if <code>/(\a+)(\b+)/</code>, was given, <code>p1</code> is the match for <code>\a+</code>, and <code>p2</code> for <code>\b+</code>.</td>
+</tr>
+<tr>
+<td><code>offset</code></td>
+<td>The <code>offset</code> of the matched substring within the total string being examined  (For example, if the total string was <code>&quot;abcd&quot;</code>, and the                  matched substring was <code>&quot;bc&quot;</code>, then this argument will be <code>1</code></td>
+</tr>
+<tr>
+<td>string</td>
+<td>The total string being examined</td>
+</tr>
+</tbody>
+</table>
+<h6 id="ejemplo-de-replace">Ejemplo de <code>replace</code></h6>
+<pre><code class="lang-bash">[~/javascript/learning]$ <span class="hljs-built_in">pwd</span> -P
+/Users/casiano/<span class="hljs-built_in">local</span>/src/javascript/learning
+[~/javascript/learning]$ cat f2c.js
+</code></pre>
+<pre><code class="lang-javascript"><span class="hljs-meta">#!/usr/bin/env node</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f2c</span>(<span class="hljs-params">x</span>)
+</span>{
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">convert</span>(<span class="hljs-params">str, p1, offset, s</span>)
+  </span>{
+    <span class="hljs-keyword">return</span> ((p1<span class="hljs-number">-32</span>) * <span class="hljs-number">5</span>/<span class="hljs-number">9</span>) + <span class="hljs-string">&quot;C&quot;</span>;
+  }
+  <span class="hljs-keyword">var</span> s = <span class="hljs-built_in">String</span>(x);
+  <span class="hljs-keyword">var</span> test = <span class="hljs-regexp">/(\d+(?:\.\d*)?)F\b/g</span>;
+  <span class="hljs-keyword">return</span> s.replace(test, convert);
+}
+
+<span class="hljs-keyword">var</span> arg = process.argv[<span class="hljs-number">2</span>] || <span class="hljs-string">&quot;32F&quot;</span>;
+<span class="hljs-built_in">console</span>.log(f2c(arg));
+</code></pre>
+<p>Ejecuci&#xF3;n:</p>
+<pre><code class="lang-bash">[~/javascript/learning]$ ./f2c.js 100F
+37.77777777777778C
+[~/javascript/learning]$ ./f2c.js 
+0C
+</code></pre>
+<h3 id="extensiones">Extensiones a las Expresiones Regulares </h3>
+<h5 id="expresiones-regulares-extendidas-a-la-perl">Expresiones Regulares Extendidas (a la Perl)</h5>
+<ul>
+<li><a href="https://github.com/ULL-ESIT-GRADOII-PL/xregexp-example" target="_blank"> GitHub repo ilustrando el uso de XRegExp URL</a></li>
+<li><a href="https://github.com/slevithan/xregexp" target="_blank">xregexp repo en GitHub. Documentaci&#xF3;n</a></li>
+<li><a href="http://xregexp.com/" target="_blank">http://xregexp.com/ website</a>: Documentaci&#xF3;n</li>
+<li><a href="http://xregexp.com/api/" target="_blank">API de XRegExp</a><ul>
+<li><a href="http://xregexp.com/api/#XRegExp" target="_blank">XRegExp</a></li>
+<li><a href="http://xregexp.com/api/#addToken" target="_blank">XRegExp.addToken</a></li>
+<li><a href="http://xregexp.com/api/#build" target="_blank">XRegExp.build</a> (addon)</li>
+<li><a href="http://xregexp.com/api/#cache" target="_blank">XRegExp.cache</a></li>
+<li><a href="http://xregexp.com/api/#escape" target="_blank">XRegExp.escape</a></li>
+<li><a href="http://xregexp.com/api/#exec" target="_blank">XRegExp.exec</a></li>
+<li><a href="http://xregexp.com/api/#forEach" target="_blank">XRegExp.forEach</a></li>
+<li><a href="http://xregexp.com/api/#globalize" target="_blank">XRegExp.globalize</a></li>
+<li><a href="http://xregexp.com/api/#install" target="_blank">XRegExp.install</a></li>
+<li><a href="http://xregexp.com/api/#isInstalled" target="_blank">XRegExp.isInstalled</a></li>
+<li><a href="http://xregexp.com/api/#isRegExp" target="_blank">XRegExp.isRegExp</a></li>
+<li><a href="http://xregexp.com/api/#match" target="_blank">XRegExp.match</a></li>
+<li><a href="http://xregexp.com/api/#matchChain" target="_blank">XRegExp.matchChain</a></li>
+<li><a href="http://xregexp.com/api/#matchRecursive" target="_blank">XRegExp.matchRecursive</a> (addon)</li>
+<li><a href="http://xregexp.com/api/#replace" target="_blank">XRegExp.replace</a></li>
+<li><a href="http://xregexp.com/api/#replaceEach" target="_blank">XRegExp.replaceEach</a></li>
+<li><a href="http://xregexp.com/api/#split" target="_blank">XRegExp.split</a></li>
+<li><a href="http://xregexp.com/api/#test" target="_blank">XRegExp.test</a></li>
+<li><a href="http://xregexp.com/api/#uninstall" target="_blank">XRegExp.uninstall</a></li>
+<li><a href="http://xregexp.com/api/#union" target="_blank">XRegExp.union</a></li>
+<li><a href="http://xregexp.com/api/#version" target="_blank">XRegExp.version</a></li>
+</ul>
+</li>
+</ul>
+<h6 id="xregexp-instance-properties">XRegExp instance properties</h6>
+<ul>
+<li><a href="http://xregexp.com/api/#dot-source" target="_blank"><regexp>.xregexp.source</regexp></a></li>
+<li><a href="http://xregexp.com/api/#dot-flags" target="_blank"><regexp>.xregexp.flags</regexp></a></li>
+</ul>
+<h5 id="extensiones-a-las-expresiones-regulares-en-ecma6">Extensiones a las Expresiones Regulares en ECMA6</h5>
+<ul>
+<li><a href="http://www.2ality.com/2015/07/regexp-es6.html" target="_blank">New regular expression features in ECMAScript 6</a></li>
+</ul>
+<pre><code class="lang-javascript">&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;\u03A0&quot;</span>)
+&#x3A0;
+&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;\u03B1&quot;</span>)
+&#x3B1;
+&gt; <span class="hljs-string">&quot;&#x3A0;&#x3B1;&quot;</span>.match(<span class="hljs-regexp">/\u03A0(\u03B1)/</span>)
+[ <span class="hljs-string">&apos;&#x3A0;&#x3B1;&apos;</span>, <span class="hljs-string">&apos;&#x3B1;&apos;</span>, index: <span class="hljs-number">0</span>, input: <span class="hljs-string">&apos;&#x3A0;&#x3B1;&apos;</span> ]
+</code></pre>
+<p>De <a href="http://eloquentjavascript.net/09_regexp.html" target="_blank">EloquentJS</a>:</p>
+<blockquote>
+<p>By a strange historical accident, <code>\s</code> (whitespace) does not have
+this problem and matches all characters that the Unicode standard
+considers whitespace, including things like the nonbreaking space
+and the Mongolian vowel separator:</p>
+</blockquote>
+<p><img src="mongolianvowel.png" alt="`\s` casa con el car&#xE1;cter unicode Mongolian Vowel"></p>
+<h3 id="ejercicios">Ejercicios</h3>
+<ul>
+<li><a href="regexpejercicios.html">Ejercicios de Expresiones Regulares</a></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="regexpejercicios.html" class="navigation navigation-next " aria-label="Next page: Ejercicios de Expresiones Regulares">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Expresiones Regulares","level":"1.2","depth":1,"next":{"title":"Ejercicios de Expresiones Regulares","level":"1.2.1","depth":2,"path":"regexp/regexpejercicios.md","ref":"regexp/regexpejercicios.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["youtube","copy-code-button"],"pluginsConfig":{"youtube":{},"copy-code-button":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"regexp/README.md","mtime":"2017-12-08T00:01:58.471Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-12-08T00:04:24.812Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
