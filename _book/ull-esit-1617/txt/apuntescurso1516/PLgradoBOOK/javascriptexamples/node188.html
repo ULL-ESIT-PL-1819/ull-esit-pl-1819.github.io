@@ -1,0 +1,348 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>El método run de Rack::Handler::WEBrick</TITLE>
+<META NAME="description" CONTENT="El método run de Rack::Handler::WEBrick">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node189.html">
+<LINK REL="previous" HREF="node187.html">
+<LINK REL="up" HREF="node163.html">
+<LINK REL="next" HREF="node189.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html5174"
+  HREF="node189.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5168"
+  HREF="node163.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5162"
+  HREF="node187.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5170"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5172"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5175"
+  HREF="node189.html">Documentación</A>
+<B>Sup:</B> <A NAME="tex2html5169"
+  HREF="node163.html">Rack, un Webserver Ruby</A>
+<B> Ant:</B> <A NAME="tex2html5163"
+  HREF="node187.html">Rack::URLMap</A>
+<B> Con:</B> 
+<A NAME="tex2html5170"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html5172"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION0121250000000000000000">
+El método <TT>run</TT> de Rack::Handler::WEBrick</A>
+</H1>
+
+<P>
+Véa por ejemplo una versión del código de <code>run</code> de 
+<A NAME="tex2html528"
+  HREF="https://github.com/rack/rack/blob/master/lib/rack/handler/webrick.rb">Rack::Handler::WEBrick</A>:
+(puede encontrarse una en
+<A NAME="tex2html529"
+  HREF="https://github.com/rack/rack/blob/master/lib/rack/handler/webrick.rb">Rack::Handler::WEBrick</A>):
+<PRE>
+  def self.run(app, options={})
+    options[:BindAddress] = options.delete(:Host) if options[:Host]
+    options[:Port] ||= 8080
+    @server = ::WEBrick::HTTPServer.new(options)
+    @server.mount "/", Rack::Handler::WEBrick, app 
+    yield @server  if block_given?
+    @server.start
+  end
+</PRE>
+
+<P>
+
+<OL>
+<LI>Vemos que <code>run</code> espera un objeto <code>app</code> que representa la
+aplicación y un hash de opciones.
+</LI>
+<LI>Si arrancamos un servidor en 127.0.0.1, sólo escucha en
+localhost; 
+si lo arrancamos en 0.0.0.0, 
+escucha a cualquier IP, en particular en nuestra IP local.
+
+<P>
+Veamos el siguiente experimento:
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ cat bindaddress0000.rb 
+require 'rack'
+
+#ENV['RACK-ENV'] = 'production'
+
+app = lambda { |e| 
+ [200, { 'content-type' =&gt; 'text/html'}, ["&lt;h1&gt;hello world!&lt;/h1&gt;"]]
+ }
+
+ Rack::Handler::WEBrick.run app, { :Host =&gt; '0.0.0.0' }
+</PRE>
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ ifconfig  en0 | grep 'inet\&gt;'
+  inet 192.168.0.103
+</PRE>
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ ruby bindaddress0000.rb 
+[2013-09-23 12:04:36] INFO  WEBrick 1.3.1
+[2013-09-23 12:04:36] INFO  ruby 1.9.3 (2013-02-22) [x86_64-darwin11.4.2]
+[2013-09-23 12:04:36] INFO  WEBrick::HTTPServer#start: pid=8720 port=8080
+</PRE>
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ curl -v 'http://192.168.0.103:8080'* About to connect() to 192.168.0.103 port 8080 (#0)
+*   Trying 192.168.0.103... connected
+* Connected to 192.168.0.103 (192.168.0.103) port 8080 (#0)
+&gt; GET / HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+&gt; Host: 192.168.0.103:8080
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 200 OK 
+&lt; Content-Type: text/html
+&lt; Server: WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)
+&lt; Date: Mon, 23 Sep 2013 11:11:40 GMT
+&lt; Content-Length: 21
+&lt; Connection: Keep-Alive
+&lt; 
+* Connection #0 to host 192.168.0.103 left intact
+* Closing connection #0
+&lt;h1&gt;hello world!&lt;/h1&gt;
+</PRE>
+
+<P>
+<PRE>
+ [~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ cat bindaddress127001.rb 
+ require 'rack'
+
+ #ENV['RACK-ENV'] = 'production'
+
+ app = lambda { |e| 
+  [200, { 'content-type' =&gt; 'text/html'}, ["&lt;h1&gt;hello world!&lt;/h1&gt;"]]
+  }
+
+  Rack::Handler::WEBrick.run app, { :Host =&gt; '127.0.0.1' }
+</PRE>
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ ruby bindaddress127001.rb 
+[2013-09-23 12:13:07] INFO  WEBrick 1.3.1
+[2013-09-23 12:13:07] INFO  ruby 1.9.3 (2013-02-22) [x86_64-darwin11.4.2]
+[2013-09-23 12:13:07] INFO  WEBrick::HTTPServer#start: pid=8993 port=8080
+</PRE>
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ curl -v 'http://192.168.0.103:8080'
+* About to connect() to 192.168.0.103 port 8080 (#0)
+*   Trying 192.168.0.103... Connection refused
+* couldn't connect to host
+* Closing connection #0
+curl: (7) couldn't connect to host
+</PRE>
+</LI>
+<LI>Luego se crea un nuevo objeto que representa al servidor con 
+<code>@server = ::WEBrick::HTTPServer.new(options)</code>.
+
+<P>
+Esto crea un nuevo objeto 
+<A NAME="tex2html530"
+  HREF="https://github.com/nahi/webrick/blob/master/lib/webrick/httpserver.rb">WEBrick HTTP server</A>
+de acuerdo a <code>options</code>.
+Un servidor HTTP tiene los siguientes atributos:
+
+<OL>
+<LI><code>AccessLog</code>: An array of access logs.  See WEBrick::AccessLog
+</LI>
+<LI><code>BindAddress</code>: Local address for the server to bind to
+</LI>
+<LI><code>DocumentRoot</code>: Root path to serve files from
+</LI>
+<LI><code>DocumentRootOptions</code>: Options for the default HTTPServlet::FileHandler
+</LI>
+<LI><code>HTTPVersion</code>: The HTTP version of this server
+</LI>
+<LI><code>Port</code>: Port to listen on
+</LI>
+<LI><code>RequestCallback</code>: Called with a request and response before each
+       request is serviced.
+</LI>
+<LI><code>RequestTimeout</code>: Maximum time to wait between requests
+</LI>
+<LI><code>ServerAlias</code>: Array of alternate names for this server for virtual
+               hosting
+</LI>
+<LI><code>ServerName</code>: Name for this server for virtual hosting
+</LI>
+</OL>
+</LI>
+<LI><code>mount</code> recibe un directorio y un servlet. Un servlet es una
+clase que se usa para extender las capacidades
+de un servidor. En este caso estamos extendiendo <code>@server</code> que
+es un servidor <code>WEBrick::HTTPServer</code>
+con las capacidades definidas en la clase <code>Rack::Handler::WEBrick</code>.
+La sintáxis de <code>mount</code> es:
+<PRE>
+   mount(dir, servlet, *options)
+</PRE>
+Las opciones son pasadas al servlet en el momento de la creación
+del servlet.
+</LI>
+<LI>Observamos  que <code>run</code> puede ir seguido de un bloque al que se le pasa como argumento
+el objeto server
+<PRE>
+yield @server  if block_given?
+</PRE>
+Este bloque puede ser usado como una nueva oportunidad para configurar el server
+</LI>
+<LI>Se arranca el servidor con la llamada al método <code>start</code> definido
+en 
+<A NAME="tex2html531"
+  HREF="https://github.com/nahi/webrick/blob/master/lib/webrick/server.rb"><TT>webrick/server.rb</TT></A>
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html5174"
+  HREF="node189.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5168"
+  HREF="node163.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5162"
+  HREF="node187.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5170"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5172"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5175"
+  HREF="node189.html">Documentación</A>
+<B>Sup:</B> <A NAME="tex2html5169"
+  HREF="node163.html">Rack, un Webserver Ruby</A>
+<B> Ant:</B> <A NAME="tex2html5163"
+  HREF="node187.html">Rack::URLMap</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

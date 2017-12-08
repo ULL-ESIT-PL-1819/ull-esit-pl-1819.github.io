@@ -1,0 +1,465 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The gem omniauth-google-oauth2</TITLE>
+<META NAME="description" CONTENT="The gem omniauth-google-oauth2">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node274.html">
+<LINK REL="previous" HREF="node272.html">
+<LINK REL="up" HREF="node268.html">
+<LINK REL="next" HREF="node274.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html6765"
+  HREF="node274.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6759"
+  HREF="node268.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6753"
+  HREF="node272.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6761"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6763"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html6766"
+  HREF="node274.html">Using OAuth 2.0 to</A>
+<B>Sup:</B> <A NAME="tex2html6760"
+  HREF="node268.html">Oauth: Google, Twitter, GitHub,</A>
+<B> Ant:</B> <A NAME="tex2html6754"
+  HREF="node272.html">OmniAuth OAuth2 gem</A>
+<B> Con:</B> 
+<A NAME="tex2html6761"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html6763"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><UL>
+<LI><A NAME="tex2html6767"
+  HREF="node273.html#SECTION013450010000000000000">Introducción</A>
+<LI><A NAME="tex2html6768"
+  HREF="node273.html#SECTION013450020000000000000">Configuration</A>
+<LI><A NAME="tex2html6769"
+  HREF="node273.html#SECTION013450030000000000000">Auth Hash</A>
+</UL></UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION013450000000000000000">
+The gem omniauth-google-oauth2</A>
+</H1>
+
+<P>
+
+<H4><A NAME="SECTION013450010000000000000">
+Introducción</A>
+</H4>
+  
+
+The 
+
+<P>
+<A NAME="tex2html742"
+  HREF="https://github.com/zquestz/omniauth-google-oauth2">gem omniauth-google-oauth2</A>
+provides a
+strategy to authenticate with Google via OAuth2 in OmniAuth.
+
+<P>
+Get your API key at: 
+
+<P>
+<A NAME="tex2html743"
+  HREF="https://code.google.com/apis/console/">https://code.google.com/apis/console/</A>
+<P>
+Note the Client ID and the Client Secret.
+
+<P>
+For more details, read the Google docs: 
+
+<P>
+<A NAME="tex2html744"
+  HREF="https://developers.google.com/accounts/docs/OAuth2">https://developers.google.com/accounts/docs/OAuth2</A>.
+
+<P>
+
+<H4><A NAME="SECTION013450020000000000000">
+Configuration</A>
+</H4>
+  
+
+<P>
+You can configure several options, which you pass in to the <code>provider</code>
+method via a hash:
+
+<P>
+
+<UL>
+<LI><code>scope</code> A 
+<FONT COLOR="#0000ff"> comma-separated list of permissions you want to
+request from the user</FONT>. 
+See the 
+<A NAME="tex2html745"
+  HREF="https://developers.google.com/oauthplayground/">Google OAuth 2.0 Playground</A>
+for a full
+list of available permissions. 
+
+<P>
+Caveats:
+
+<UL>
+<LI>The <code>userinfo.email</code> and <code>userinfo.profile</code> 
+scopes are used by default. By
+defining your own scope, you override these defaults. If you need these
+scopes, don't forget to add them yourself!
+</LI>
+<LI>Scopes starting with <code>https://www.googleapis.com/auth/</code> 
+do not need that
+prefix specified. 
+
+<P>
+So while you can use the smaller scope <code>books</code> since that
+permission starts with the mentioned prefix, you should use the full scope
+URL <code>https://docs.google.com/feeds/</code> 
+to access a user's docs, for example.
+</LI>
+</UL>
+</LI>
+<LI><code>prompt</code> A space-delimited list of string values that
+determines whether the user is re-prompted for authentication and/or
+consent. Possible values are:
+
+<P>
+
+<UL>
+<LI><code>none</code> No authentication or consent pages will be displayed;
+
+<FONT COLOR="#ff0000"> it will return an error if the user is not already authenticated and
+has not pre-configured consent for the requested scopes</FONT>. 
+
+<P>
+This can be
+used as a method to check for existing authentication and/or consent.
+</LI>
+<LI><code>consent</code> The user will always be prompted for consent,
+even if he has previously allowed access a given set of scopes.
+</LI>
+<LI><code>select_account</code> The user will always be prompted to select
+a user account. This allows a user who has multiple current account
+sessions to select one amongst them.
+</LI>
+</UL>
+
+<P>
+
+<UL>
+<LI>If no value is specified, the user only sees the 
+<FONT COLOR="#ff0000"> authentication page</FONT>
+if he is not logged in 
+</LI>
+<LI>and only sees the 
+<FONT COLOR="#ff0000"> consent page</FONT> the first time he
+authorizes a given set of scopes.
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI><code>image_aspect_ratio</code> The shape of the user's profile
+picture. Possible values are:
+
+<P>
+
+<UL>
+<LI><code>original</code> Picture maintains its original aspect ratio.
+</LI>
+<LI><code>square</code> Picture presents equal width and height.
+Defaults to <code>original</code>.
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI><code>image_size</code> The size of the user's profile picture. 
+
+<P>
+The image
+returned will have width equal to the given value and variable height,
+according to the <code>image_aspect_ratio chosen</code>. 
+
+<P>
+Additionally, a picture with
+specific width and height can be requested by setting this option to a
+hash with <code>width</code> and <code>height</code> as keys. 
+
+<P>
+If only width or height is specified,
+a picture whose width or height is closest to the requested size and
+requested aspect ratio will be returned. 
+
+<P>
+Defaults to the original width
+and height of the picture.
+
+<P>
+</LI>
+<LI><code>name</code> The name of the strategy. 
+The default name is
+<code>google_oauth2</code> but it can be changed to any value, for example <code>google</code>. 
+The
+OmniAuth URL will thus change to <code>/auth/google</code> 
+and the <code>provider</code> key in
+the 
+<FONT COLOR="#0000ff"> auth hash</FONT> will then return <code>google</code>.
+
+<P>
+</LI>
+<LI><code>access_type</code> Defaults to <code>offline</code>, 
+so a refresh token is sent
+to be used when the user is not present at the browser. Can be set to
+<code>online</code>. 
+
+<P>
+Note that if you need a refresh token, google requires you to
+also to specify the option prompt: 'consent', which is not a default.
+
+<P>
+</LI>
+<LI><code>login_hint</code> When your app knows which user it is trying
+to authenticate, it can provide this parameter as a hint to the
+authentication server. Passing this hint suppresses the account chooser
+and either pre-fill the email box on the sign-in form, or select the
+proper session (if the user is using multiple sign-in), which can
+help you avoid problems that occur if your app logs in the wrong user
+account. The value can be either an email address or the sub string,
+which is equivalent to the user's Google+ ID.
+
+<P>
+</LI>
+<LI><code>include_granted_scopes</code> 
+If this is provided with the value
+<code>true</code>, and the authorization request is granted, the authorization will
+include any previous authorizations granted to this user/application
+combination for other scopes. See Google's 
+<A NAME="tex2html746"
+  HREF="https://developers.google.com/accounts/docs/OAuth2WebServer#incrementalAuth">Incremental Autorization</A>
+for
+additional details.
+</LI>
+</UL>
+
+<P>
+Here's an example of a possible configuration where 
+
+<P>
+
+<UL>
+<LI>the strategy name is changed, 
+</LI>
+<LI>the user is asked for extra permissions, 
+</LI>
+<LI>the user is always
+prompted to select his account when logging in and 
+</LI>
+<LI>the user's profile
+picture is returned as a thumbnail:
+</LI>
+</UL>
+
+<P>
+<PRE>
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"],
+    {
+      :name =&gt; "google",
+      :scope =&gt; "userinfo.email, userinfo.profile, plus.me, http://gdata.youtube.com",
+      :prompt =&gt; "select_account",
+      :image_aspect_ratio =&gt; "square",
+      :image_size =&gt; 50
+    }
+end
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION013450030000000000000">
+Auth Hash</A>
+</H4>
+  
+
+Here's an example of an authentication hash available in the callback
+by accessing <code>request.env["omniauth.auth"]</code>:
+
+<P>
+<PRE>
+{
+    :provider =&gt; "google_oauth2",
+    :uid =&gt; "123456789",
+    :info =&gt; {
+        :name =&gt; "John Doe",
+        :email =&gt; "john@company_name.com",
+        :first_name =&gt; "John",
+        :last_name =&gt; "Doe",
+        :image =&gt; "https://lh3.googleusercontent.com/url/photo.jpg"
+    },
+    :credentials =&gt; {
+        :token =&gt; "token",
+        :refresh_token =&gt; "another_token",
+        :expires_at =&gt; 1354920555,
+        :expires =&gt; true
+    },
+    :extra =&gt; {
+        :raw_info =&gt; {
+            :id =&gt; "123456789",
+            :email =&gt; "user@domain.example.com",
+            :verified_email =&gt; true,
+            :name =&gt; "John Doe",
+            :given_name =&gt; "John",
+            :family_name =&gt; "Doe",
+            :link =&gt; "https://plus.google.com/123456789",
+            :picture =&gt; "https://lh3.googleusercontent.com/url/photo.jpg",
+            :gender =&gt; "male",
+            :birthday =&gt; "0000-06-25",
+            :locale =&gt; "en",
+            :hd =&gt; "company_name.com"
+        }
+    }
+}
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html6765"
+  HREF="node274.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6759"
+  HREF="node268.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6753"
+  HREF="node272.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6761"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6763"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html6766"
+  HREF="node274.html">Using OAuth 2.0 to</A>
+<B>Sup:</B> <A NAME="tex2html6760"
+  HREF="node268.html">Oauth: Google, Twitter, GitHub,</A>
+<B> Ant:</B> <A NAME="tex2html6754"
+  HREF="node272.html">OmniAuth OAuth2 gem</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

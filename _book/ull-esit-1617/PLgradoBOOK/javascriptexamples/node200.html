@@ -1,0 +1,179 @@
+
+<H1><A NAME="SECTION058280000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:consejoseyapp"><tex2html_anchor_mark></A><BR>
+Diseño de Analizadores con <TT>Parse::Eyapp</TT>
+</H1>
+A la hora de construir un analizador sintáctico tenga en cuenta 
+las siguientes normas de buena programación:
+
+<P>
+
+<OL>
+<LI>Comienze trabajando en el cuerpo de la gramática.
+</LI>
+<LI>Olvídese al principio del 
+analizador léxico. Su primer objetivo es tener una gramática limpia
+de conflictos y que reconozca el lenguaje dado. 
+</LI>
+<LI>Sustituya las repeticiones
+BNF por listas usando los operadores <tex2html_verb_mark>2801<tex2html_verb_mark> <tex2html_verb_mark>2802<tex2html_verb_mark>, <tex2html_verb_mark>2803<tex2html_verb_mark> y sus variantes con separadores. 
+Si una variable describe una lista de <tex2html_verb_mark>2804<tex2html_verb_mark> pongale un adjetivo adecuado como
+<tex2html_verb_mark>2805<tex2html_verb_mark>. 
+<SPAN ID="txt18160">Ponga nombres significativos a las variables y terminales</SPAN>. 
+No los llame <tex2html_verb_mark>2806<tex2html_verb_mark>, <tex2html_verb_mark>2807<tex2html_verb_mark>, etc.
+</LI>
+<LI>Si tiene un elemento opcional en la BNF, por ejemplo, en la regla: 
+
+<P>
+functiondefinition <tex2html_verbatim_mark>#math7204#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37893#</SPAN>
+<tex2html_verbatim_mark>mathend000# <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37895#</SPAN>
+<tex2html_verbatim_mark>mathend000# basictype <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37897#</SPAN>
+<tex2html_verbatim_mark>mathend000# functionheader functionbody
+
+<P>
+use el operador <tex2html_verb_mark>2808<tex2html_verb_mark>.
+</LI>
+<LI>Cada par de reglas que introduzca vuelva a recompilar con <tex2html_verb_mark>2809<tex2html_verb_mark> la gramática
+para ver si se introducido ambiguedad. Cuando estoy editando la gramática
+suelo escribir a menudo la orden 
+
+<P>
+<tex2html_verb_mark>2811<tex2html_verb_mark> 
+
+<P>
+para recompilar:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=411><PRE><tex2html_verbatim_mark>verbatim6238#</PRE></TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+
+<P>
+Esto llama a <tex2html_verb_mark>2812<tex2html_verb_mark> con el fichero bajo edición. Si hay errores o conflictos (esto es,
+hemos introducido ambiguedad) los detectarémos enseguida.
+Procure detectar la aparición de un conflicto lo antes posible.
+Observe el sangrado del ejemplo. Es el que le recomiendo.
+</LI>
+<LI>Cuando esté en el proceso de construcción de la gramática y aún le queden
+por rellenar variables sintácticas, declárelas como terminales mediante
+<tex2html_verb_mark>2814<tex2html_verb_mark>. De esta manera
+evitará las quejas de <tex2html_verb_mark>2815<tex2html_verb_mark>.
+
+<P>
+</LI>
+<LI><#18168#><B>Resolución de Ambiguedades y Conflictos</B><#18168#>
+
+<P>
+Las operaciones de asignación tienen la prioridad mas baja,
+seguidas  de las lógicas, los test de igualdad,
+los de comparación, a continuación las aditivas, multiplicativas y por 
+último las operaciones de tipo <tex2html_verb_mark>2816<tex2html_verb_mark> y <tex2html_verb_mark>2817<tex2html_verb_mark>.
+Exprese la asociatividad natural y la
+prioridad especificada usando
+los mecanismos que <tex2html_verb_mark>2818<tex2html_verb_mark> provee al efecto: <tex2html_verb_mark>2820<tex2html_verb_mark>, <tex2html_verb_mark>2821<tex2html_verb_mark>,
+<tex2html_verb_mark>2823<tex2html_verb_mark> y <tex2html_verb_mark>2824<tex2html_verb_mark>.
+
+<P>
+</LI>
+<LI>La gramática de SimpleC es ambigua, ya que para una sentencia como 
+
+<P>
+<DIV ALIGN="CENTER">
+if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37900#</SPAN>
+<tex2html_verbatim_mark>mathend000# then if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37902#</SPAN>
+<tex2html_verbatim_mark>mathend000# then <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37904#</SPAN>
+<tex2html_verbatim_mark>mathend000# else <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37906#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+existen dos árboles posibles: uno que asocia el ``else'' con el primer ``if'' y otra
+que lo asocia con el segundo. Los dos árboles corresponden a las
+dos posibles parentizaciones:
+
+<P>
+<DIV ALIGN="CENTER">
+if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37908#</SPAN>
+<tex2html_verbatim_mark>mathend000# then (if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37910#</SPAN>
+<tex2html_verbatim_mark>mathend000# then <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37912#</SPAN>
+<tex2html_verbatim_mark>mathend000# else <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37914#</SPAN>
+<tex2html_verbatim_mark>mathend000#)
+
+</DIV>
+
+<P>
+Esta es la regla de prioridad usada en la mayor parte de los lenguajes:
+un ``else'' casa con el ``if'' mas cercano. La otra posible parentización
+es:
+
+<P>
+<DIV ALIGN="CENTER">
+if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37916#</SPAN>
+<tex2html_verbatim_mark>mathend000# then (if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37918#</SPAN>
+<tex2html_verbatim_mark>mathend000# then <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37920#</SPAN>
+<tex2html_verbatim_mark>mathend000#) else <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37922#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+<SPAN  CLASS="textbf">La conducta por defecto de <#18175#><TT>eyapp</TT><#18175#> es parentizar a derechas</SPAN>.
+El generador  <#18176#><TT>eyapp</TT><#18176#>  nos informará del conflicto pero si no se le indica 
+como resolverlo parentizará a derechas.
+Resuelva este conflicto.
+
+<P>
+</LI>
+<LI><#18177#><I>¿Que clase de árbol debe producir el analizador?</I><#18177#>
+La respuesta es que sea lo mas abstracto posible.
+Debe 
+
+<UL>
+<LI>Contener toda la información necesaria para el manejo eficiente
+de las fases subsiguientes: Análisis de ámbito, Comprobación de tipos,
+Optimización independiente de la máquina, etc.
+</LI>
+<LI>Ser uniforme
+</LI>
+<LI>Legible (human-friendly)
+</LI>
+<LI>No contener nodos que no portan información. 
+</LI>
+</UL>
+
+<P>
+El siguiente ejemplo muestra una versión aceptable de árbol abstracto.
+Cuando se le proporciona el programa de entrada:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6239#</PRE>
+
+<P>
+El siguiente árbol ha sido producido por un analizador usando la directiva 
+<tex2html_verb_mark>2826<tex2html_verb_mark> y añadiendo las correspondientes acciones de <tex2html_verb_mark>2827<tex2html_verb_mark>.
+Puede considerarse un ejemplo aceptable de AST:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6240#</PRE>
+
+<P>
+Es deseable  darle una estructura uniforme al árbol. Por ejemplo, como consecuencia 
+de que la gramática admite funciones con declaración implícita del tipo
+retornado cuando este es entero
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6241#</PRE>
+</LI>
+</OL>
+
+<P>
+se producen dos tipos de árboles. Es conveniente
+convertir las definiciones de función con declaración 
+implícita en el mismo árbol que se obtiene con 
+declaración explícita. 
+
+<P>

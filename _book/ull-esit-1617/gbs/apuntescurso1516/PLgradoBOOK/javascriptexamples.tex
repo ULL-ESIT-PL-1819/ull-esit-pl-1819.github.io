@@ -1,0 +1,296 @@
+
+
+
+
+
+\documentclass[11pt,a4paper,oneside,onecolumn]{book}
+\usepackage{epsfig} %,boxedminipage}
+\usepackage{latexsym,amsfonts,amssymb,amstext,amsthm,float,amsmath,dsfont}
+\usepackage[spanish]{babel}    
+\usepackage{ucs}
+\usepackage{color}
+\usepackage[utf8x]{inputenc}
+\usepackage{alltt}
+\usepackage{html}
+\usepackage{makeidx}
+\usepackage{hyperref}
+
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{listings}
+\lstloadlanguages{Ruby}
+\lstset{%
+backgroundcolor=\color{GreenYellow},
+basicstyle=\ttfamily\color{black},
+commentstyle = \ttfamily\color{red},
+keywordstyle=\ttfamily\color{blue},
+stringstyle=\color{orange}}
+
+%\topmargin -4 mm
+\voffset -10 mm
+\topmargin 0 mm
+%\headheight 10 mm
+\headheight 0 mm
+%\headsep 10 mm
+\headsep 0 mm
+
+%\textheight 229 mm
+\textheight 256 mm
+
+\oddsidemargin -5.4 mm
+\evensidemargin -5.4 mm
+
+\textwidth 17 cm
+\columnsep 10 mm
+
+\input{booktt/commontex/commands.tex}
+
+%\pagestyle{empty}
+\pagestyle{plain} %each page number
+
+%\input{amssym.def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Apuntes de la Asignatura Procesadores de Lenguajes\
+  }
+\author{Casiano R. León \thanks{DEIOC Universidad de La Laguna}}
+%%%%5   \date{\normalsize\today}
+
+\makeindex
+
+%%%%%%%%%%%%%%%%012345678012345678
+
+  \htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=35 
+                 alt="Apuntes de LPP"
+                ]
+     {logoLPP.png}}
+     {http://nereida.deioc.ull.es/perlexamples/index.html}} 
+
+  \htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=50 
+                 alt="PL moodle 2014/2015"
+                ]
+     {moodleLHPlogo.jpeg}}
+     {https://campusvirtual.ull.es/1415/course/view.php?id=5669}} 
+
+  \htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=50 
+                 alt="PL moodle 2013/2014"
+                ]
+     {moodleLHPlogo.jpeg}}
+     {http://campusvirtual.ull.es/1314/course/view.php?id=1104}} 
+
+  \htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=30 
+                 alt="ps"
+                ]
+     {gv.jpeg}}
+     {javascriptexamples.pdf}} 
+
+  \htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=27 
+                 alt="comunidad g+ PL1415"
+                ]
+     {perl6.jpg}}
+     {https://plus.google.com/u/0/communities/103299470687051533933}} 
+
+  \htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=35 
+                 alt="google"
+                ]
+     {ggoogle.gif}}
+     {http://www.google.es/}} 
+
+  \htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=35 
+                 alt="etsii"
+                ]
+     {etsii.png}}
+     {http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es}} 
+
+  \htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=35 
+                 alt="ull"
+                ]
+     {ull.gif}}
+     {http://www.ull.es/}} 
+
+  \htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=32 
+                 alt="crguezl at github"
+                ]
+     {logopcgull.gif}}
+     {https://github.com/crguezl}} 
+
+
+
+
+
+\begin{document}
+
+\topmargin=5pt
+\maketitle
+
+
+\tableofcontents 
+\listoffigures
+\listoftables
+
+
+\chapter*{A Juana}
+\vspace{8cm}
+{\it
+\begin{Large}
+\begin{verse}
+\flushright 
+For it is in teaching that we learn\\
+And it is in understanding that we are understood
+\end{verse}
+\end{Large}
+}
+
+\chapter*{Agradecimientos/Acknowledgments}
+\begin{verse}
+%\flushright \it
+%I'd like to thank 
+%\vspace{2cm}
+%\vspace{2cm}
+
+A mis alumnos de 
+Procesadores de Lenguajes del Grado de Informática
+de la Escuela Superior de Informática en la Universidad de La Laguna
+\end{verse}
+
+
+
+
+\part{PARTE: APUNTES DE PROCESADORES DE LENGUAJES}
+
+%2 expresiones regulares analisis lexico
+\input{chapter2/regexp.tex}
+
+%\input{chapter2/flex.tex}
+
+%\input{chapter2/sed.tex}
+
+%\input{chapter2/perlregexp.tex}
+
+\chapter{Analizadores Descendentes Predictivos en JavaScript}
+  \input{chapter_descendente/predictive_parser.tex}
+
+\chapter{Análisis Sintáctico Mediante Precedencia de Operadores en JavaScript}
+
+  \input{chapter_descendente/calculadora.tex}
+
+  \input{chapter_descendente/topdownprecedence.tex}
+
+\chapter{Análisis Descendente mediante Parsing Expresion Grammars en JavaScript}
+  \input{chapter_descendente/pegjs.tex}
+
+%\chapter{Análisis Sintáctico Descendente en Perl}
+%\input{chapter_descendente/descendente_en_perl.tex}
+
+\chapter{Análisis Sintáctico Ascendente en JavaScript}
+\input{chapter_bottomup/jison.tex}
+
+%\chapter{Análisis Sintáctico Ascendente en Perl}
+%\input{chapter_bottomup/analisis_bottomup_en_perl.tex}
+
+%\chapter{Análisis Sintáctico Ascendente en C con {\tt yacc} y {\tt bison}}
+%\input{chapter_bottomup/yaccexamples.tex}
+
+\chapter{Análisis Sintáctico Ascendente en Ruby}
+\input{chapter_bottomup/analisis_bottomup_en_ruby.tex}
+
+%\chapter{Análisis de Ámbito en Perl con Eyapp}
+%\input{chapter_ambito/ambito_perl_simplec.tex}
+
+%\chapter{Análisis Semántico}
+
+%\chapter{Generación de Código}
+
+%\chapter{Optimización de Código}
+
+\chapter{Transformaciones Árbol}
+\input{chapter_tree_transformations/treetransformations.tex}
+
+%\chapter{Definición y Diseño de Lenguajes}
+
+
+%\part{SEGUNDA PARTE: APUNTES DE JAVASCRIPT}
+
+%1 edit chapter1/chapter1.erb
+%\input{chapter1/chapter1.tex}
+
+%\part{TERCERA PARTE: HTTP}
+
+%\part{CUARTA PARTE: CSS}
+%\input{html/css.tex}
+
+
+%\part{QUINTA PARTE: HTML}
+%\input{html/html.tex}
+
+%\part{SEXTA PARTE: XML}
+%\input{chapterxml/xml.tex}
+
+
+\part{PARTE: CREATE YOUR OWN PROGRAMMING LANGUAGE}
+\input{PL101/pl101.tex}
+
+%\part{PARTE: SINATRA}
+%\input{sinatra/sinatra.tex}
+
+%\part{PARTE: HERRAMIENTAS}
+
+\part{PARTE: APUNTES DE COFFESCRIPT}
+\chapter{CoffeeScript. Introducción}
+\label{chapter:coffeescript}
+\input{coffeescript/coffeescript.tex}
+
+\chapter{CoffeeScript y Express}
+\label{chapter:coffeescriptexpress}
+\input{coffeescript/coffeepress.tex}
+
+%
+%\chapter{Heroku}
+%\label{chapter:heroku}
+%\input{heroku.tex}
+%
+%\chapter{DataMapper}
+%\label{chapter:datamapper}
+%\input{chapter11/datamapper.tex}
+%
+%\chapter{Slim}
+%\label{chapter:slim}
+%\input{slim.tex}
+%
+%\chapter{Oauth: Google, Twitter, GitHub, Facebook}
+%\label{chapter:googleoauth}
+%\input{googleoauth.tex}
+
+%\part{PARTE: BITÁCORA DEL CURSO}
+% bitacora.erb!!!
+%\input{chapter99/bitacora1213.tex}
+%\input{chapter99/bitacora1314.tex}
+
+\tableofcontents 
+\listoffigures
+\listoftables
+
+\printindex
+
+\bibliographystyle{unsrt}
+%\bibliographystyle{plain}
+%\bibliography{perlbib/perl}
+\bibliography{perlbib/ruby}
+\end{document}

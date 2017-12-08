@@ -1,0 +1,421 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Definición Dirigida por la Sintáxis</TITLE>
+<META NAME="description" CONTENT="Definición Dirigida por la Sintáxis">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node61.html">
+<LINK REL="previous" HREF="node59.html">
+<LINK REL="up" HREF="node43.html">
+<LINK REL="next" HREF="node61.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html2209"
+  HREF="node61.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2203"
+  HREF="node43.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2197"
+  HREF="node59.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2205"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2207"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html2210"
+  HREF="node61.html">Ejercicios: Casos de Estudio</A>
+<B>Sup:</B> <A NAME="tex2html2204"
+  HREF="node43.html">Análisis Sintáctico Ascendente en</A>
+<B> Ant:</B> <A NAME="tex2html2198"
+  HREF="node59.html">Manejo en jison de</A>
+<B> Con:</B> 
+<A NAME="tex2html2205"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html2207"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION045170000000000000000">
+Definición Dirigida por la Sintáxis</A>
+</H1>
+Una <A NAME="9608"></A><SPAN  CLASS="textbf">definición dirigida por la sintáxis</SPAN> es un pariente cercano
+de los esquemas de traducción. En una definición dirigida por la
+sintáxis una gramática <!-- MATH
+ $G = (V, \Sigma, P, S)$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="126" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img213.png"
+ ALT="$ G = (V, \Sigma, P, S)$"></SPAN> se aumenta 
+con nuevas características:
+
+<UL>
+<LI>A cada símbolo <!-- MATH
+ $S \in V \cup \Sigma$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="84" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img214.png"
+ ALT="$ S \in V \cup \Sigma$"></SPAN> de la gramática se le asocian
+cero o mas atributos. Un atributo queda caracterizado por un identificador
+o nombre y un tipo o clase. A este nivel son <A NAME="9610"></A><SPAN  CLASS="textbf">atributos formales</SPAN>,
+como los parámetros formales, en el sentido de que su realización 
+se produce cuando el nodo del árbol es creado.
+</LI>
+<LI>A cada regla de producción <!-- MATH
+ $A \rightarrow X_1 X_2 \ldots X_n \in P$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="173" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img215.png"
+ ALT="$ A \rightarrow X_1 X_2 \ldots X_n \in P$"></SPAN>
+se le asocian un conjunto de <A NAME="9612"></A><SPAN  CLASS="textbf">reglas de evaluación de los atributos</SPAN>
+o <A NAME="9614"></A><SPAN  CLASS="textbf">reglas semánticas</SPAN> que indican que el atributo en la parte
+izquierda de la regla semántica depende de los atributos que aparecen en la parte
+derecha de la regla. El atributo que aparece en la parte izquierda de la regla semántica
+puede estar asociado con un símbolo en la parte derecha de la regla de producción.
+</LI>
+<LI>Los atributos de cada símbolo de la gramática <!-- MATH
+ $X \in V \cup \Sigma$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="88" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img206.png"
+ ALT="$ X \in V \cup \Sigma$"></SPAN>
+se dividen en dos grupos disjuntos: <A NAME="9616"></A><SPAN  CLASS="textbf">atributos sintetizados</SPAN>
+y <A NAME="9618"></A><SPAN  CLASS="textbf">atributos heredados</SPAN>. Un atributo de <SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img207.png"
+ ALT="$ X$"></SPAN> es un <A NAME="9620"></A><SPAN  CLASS="textbf">atributo heredado</SPAN> 
+si depende de atributos de su padre y hermános en el árbol.
+Un <A NAME="9622"></A><SPAN  CLASS="textbf">atributo sintetizado</SPAN> es aquél tal que el valor del atributo depende
+de los valores de los atributos de los hijos, 
+es decir en tal caso <SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img207.png"
+ ALT="$ X$"></SPAN> ha de ser una variable sintáctica
+y los atributos en la parte derecha de la regla semántica deben
+ser atributos de símbolos en la parte derecha de la regla de producción 
+asociada.
+</LI>
+<LI>Los atributos predefinidos se denominán <A NAME="9624"></A><SPAN  CLASS="textbf">atributos intrínsecos</SPAN>.
+Ejemplos de atributos intrínsecos son los atributos 
+sintetizados de los terminales, los cuáles se han
+computado durante la fase de análisis léxico. También
+son atributos intrínsecos los atributos heredados del símbolo
+de arranque, los cuales son pasados como parámetros 
+al comienzo de la computación.
+</LI>
+</UL>
+
+<P>
+La diferencia principal con un esquema de traducción está en que
+no se especifica el orden de ejecución de las reglas semánticas.
+Se asume que, bien de forma manual o automática, se resolverán
+las dependencias existentes entre los atributos determinadas
+por la aplicación de las reglas semánticas, de manera
+que serán evaluados primero aquellos atributos que no dependen
+de ningún otro, despues los que dependen de estos, etc. siguiendo
+un esquema de ejecución que viene guiado por las dependencias
+existentes entre los datos.
+
+<P>
+Aunque hay muchas formas de realizar un evaluador de una definición
+dirigida por la sintáxis, conceptualmente, tal evaluador debe:
+
+<P>
+
+<OL>
+<LI>Construir el árbol de análisis sintáctico para la gramática
+y la entrada dadas.
+</LI>
+<LI>Analizar las reglas semánticas para determinar los atributos,
+su clase y las dependencias entre los mismos.
+</LI>
+<LI>Construir el <A NAME="9626"></A><SPAN  CLASS="textbf">grafo de dependencias</SPAN> de los atributos,
+el cual tiene
+un nodo para cada ocurrencia de un atributo en el árbol de análisis
+sintáctico etiquetado con dicho atributo. El grafo tiene una arista entre dos
+nodos si existe una dependencia entre los dos atributos a través de alguna
+regla semántica. 
+</LI>
+<LI>Supuesto que el grafo de dependencias determina un <A NAME="9628"></A><SPAN  CLASS="textbf">orden parcial</SPAN>
+(esto es cumple las propiedades reflexiva, antisimétrica y transitiva) 
+construir un <A NAME="9630"></A><SPAN  CLASS="textbf">orden topológico</SPAN> compatible con el orden parcial.
+</LI>
+<LI>Evaluar las reglas semánticas de acuerdo con el orden topológico.
+</LI>
+</OL>
+
+<P>
+Una definición dirigida por la sintáxis en la que las reglas semánticas
+no tienen efectos laterales se denomina una <A NAME="9632"></A><SPAN  CLASS="textbf">gramática atribuída</SPAN>.
+
+<P>
+Si la definición dirigida por la sintáxis puede ser realizada 
+mediante un esquema de traducción se dice que es <A NAME="9634"></A><SPAN  CLASS="textbf">L-atribuída</SPAN>.
+Para que una definición dirigida por la sintáxis sea L-atribuída
+deben cumplirse que cualquiera que sea la regla de producción
+<!-- MATH
+ $A \rightarrow X_1 \ldots X_n$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="117" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img216.png"
+ ALT="$ A \rightarrow X_1 \ldots X_n$"></SPAN>, los atributos heredados de
+<SPAN CLASS="MATH"><IMG
+ WIDTH="26" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img205.png"
+ ALT="$ X_j$"></SPAN> pueden depender únicamente de:
+
+<OL>
+<LI>Los atributos de los símbolos a la izquierda de <SPAN CLASS="MATH"><IMG
+ WIDTH="26" HEIGHT="32" ALIGN="MIDDLE" BORDER="0"
+ SRC="img205.png"
+ ALT="$ X_j$"></SPAN>
+</LI>
+<LI>Los atributos heredados de <SPAN CLASS="MATH"><IMG
+ WIDTH="18" HEIGHT="15" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="$ A$"></SPAN>
+</LI>
+</OL>
+
+<P>
+Nótese que las restricciones se refieren a los atributos heredados.
+El cálculo de los atributos sintetizados no supone 
+problema para un esquema de traducción. Si la gramática
+es LL(1), resulta fácil realizar una definición 
+L-atribuída en un analizador descendente recursivo predictivo.
+
+<P>
+Si la definición dirigida por la sintáxis sólo utiliza 
+atributos sintetizados se denomina <A NAME="9636"></A><SPAN  CLASS="textbf">S-atribuída</SPAN>. Una
+definición S-atribuída puede ser fácilmente trasladada a un programa
+<code>jison</code>.
+
+<P>
+<P>
+<DIV><B>Ejercicio  <SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">1</SPAN></B> &nbsp; 
+<I>El siguiente es un ejemplo de definición dirigida por la sintáxis:
+<BR>
+<BR>
+</I>
+<DIV ALIGN="CENTER"><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><I>
+S <!-- MATH
+ $\rightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img36.png"
+ ALT="$ \rightarrow$"></SPAN> a A C   </I></TD>
+<TD ALIGN="LEFT"><I> <code>$C{i} = $A{s}</code></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+
+S <!-- MATH
+ $\rightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img36.png"
+ ALT="$ \rightarrow$"></SPAN> b A B C </I></TD>
+<TD ALIGN="LEFT"><I> <code>$C{i} = $A{s}</code></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+
+C <!-- MATH
+ $\rightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img36.png"
+ ALT="$ \rightarrow$"></SPAN> c       </I></TD>
+<TD ALIGN="LEFT"><I> <code>$C{s} = $C{i}</code></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+
+A <!-- MATH
+ $\rightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img36.png"
+ ALT="$ \rightarrow$"></SPAN> a       </I></TD>
+<TD ALIGN="LEFT"><I> <code>$A{s} = "a"</code></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+
+B <!-- MATH
+ $\rightarrow$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img36.png"
+ ALT="$ \rightarrow$"></SPAN> b       </I></TD>
+<TD ALIGN="LEFT"><I> <code>$B{s} = "b"</code></I></TD>
+</TR>
+</TABLE></DIV><I>
+<BR>
+<BR>
+</I>
+<P>
+<I>Determine un orden correcto de evaluación de la anterior
+definición dirigida por la sintáxis para la entrada <code>b a b c</code>.</I></DIV><P></P>
+
+<P>
+<P>
+<DIV><B>Ejercicio  <SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">17</SPAN>.<SPAN CLASS="arabic">2</SPAN></B> &nbsp; 
+<I>Lea el artículo 
+<A NAME="tex2html339"
+  HREF="ftp://www.cocolab.com/products/cocktail/doc.pdf/industry.pdf">Are Attribute Grammars used in Industry?</A>
+por Josef Grosch
+</I>
+<BLOCKQUOTE><I>I am observing a lack of education and knowledge about compiler
+construction in industry. When I am asking the participants of our
+trainings or the employees we met in our projects then only few people
+have learned about compiler construction during their education. For
+many of them compiler construction has a bad reputation because of what
+and how they have learned about this topic. Even fewer people have a
+usable knowledge about compilers. Even fewer people know about the theory
+of attribute grammars. And even fewer people know how to use attribute
+grammars for solving practical problems.  Nevertheless, attribute grammars
+are used in industry. However, in many cases the people in industry
+do not know about this fact. They are running prefabricated subsystems
+constructed by external companies such as ours. These subsystems are
+for example parsers which use attribute grammar technology.
+</I></BLOCKQUOTE></DIV><P></P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html2209"
+  HREF="node61.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2203"
+  HREF="node43.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2197"
+  HREF="node59.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2205"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2207"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html2210"
+  HREF="node61.html">Ejercicios: Casos de Estudio</A>
+<B>Sup:</B> <A NAME="tex2html2204"
+  HREF="node43.html">Análisis Sintáctico Ascendente en</A>
+<B> Ant:</B> <A NAME="tex2html2198"
+  HREF="node59.html">Manejo en jison de</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-10-06</I>
+</ADDRESS>
+</BODY>
+</HTML>

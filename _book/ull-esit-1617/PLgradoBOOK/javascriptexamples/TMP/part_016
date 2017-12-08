@@ -1,0 +1,358 @@
+<tex2html_file>#./chapter2/sed.tex#
+\chapter<<3108>>Expresiones Regulares en sed<<3108>>·
+El editor <tex2html_verb_mark>455<tex2html_verb_mark> es un editor no interactivo que actúa
+ejecutando los comandos (similares a los de <tex2html_verb_mark>456<tex2html_verb_mark>) que
+figuran en el guión <tex2html_verb_mark>457<tex2html_verb_mark> (\index<<3323>>script sed<<3323>>\emph<<3324>>script sed<<3324>>) 
+sobre los ficheros de entrada y escribiendo el resultado en la salida estandar.
+Normalmente se llama en una de estas dos formas:
+\begin<<3110>>tex2html_preform<<3110>><tex2html_verbatim_mark>verbatim700#\end<<3111>>tex2html_preform<<3111>>
+Si no se especifican ficheros de entrada, <tex2html_verb_mark>458<tex2html_verb_mark> lee su entrada 
+desde la entrada estandar.
+\begin<<3335>>tex2html_deferred<<3335>>\par\end<<3336>>tex2html_deferred<<3336>>
+Todos los comandos en el guión son ejecutados sobre todas las líneas de la
+entrada, salvo que las condiciones en el ámbito del comando indiquen lo contrario.
+\begin<<3337>>tex2html_deferred<<3337>>\par\end<<3338>>tex2html_deferred<<3338>>
+\begin<<3112>>tex2html_preform<<3112>><tex2html_verbatim_mark>verbatim701#\end<<3113>>tex2html_preform<<3113>>
+como se ve en el ejemplo, si un comando cambia la entrada, los siguientes 
+comandos se aplican a la línea modificada (denominada \index<<3325>>pattern space<<3325>>\emph<<3326>>pattern space<<3326>>).
+\begin<<3339>>tex2html_deferred<<3339>>\par\end<<3340>>tex2html_deferred<<3340>>
+Los comandos <tex2html_verb_mark>459<tex2html_verb_mark> tienen el formato:
+\begin<<3341>>tex2html_deferred<<3341>>\par\end<<3342>>tex2html_deferred<<3342>>
+\begin<<3115>>tex2html_preform<<3115>><tex2html_verbatim_mark>verbatim702#\end<<3116>>tex2html_preform<<3116>>
+\begin<<3343>>tex2html_deferred<<3343>>\par\end<<3344>>tex2html_deferred<<3344>>
+\section<<3117>>Transferencia de Control<<3117>>
+La orden \emph<<3118>>b<<3118>> tiene la sintáxis:\\ 
+<<3119>>\begin<<3345>>tex2html_deferred<<3345>>\it\end<<3346>>tex2html_deferred<<3346>>[address1][,address2]b[label]<<3119>>\\ 
+Transfiere el control a la etiqueta especificada. Si no se especifica
+la etiqueta, el control se transfiere al final del <<3120>>\begin<<3347>>tex2html_deferred<<3347>>\it\end<<3348>>tex2html_deferred<<3348>>script<<3120>>, por lo que
+no se aplica ningún otro comando a la línea actual. Los dos siguientes
+ejemplos utilizan <<3121>>\begin<<3349>>tex2html_deferred<<3349>>\it\end<<3350>>tex2html_deferred<<3350>>b<<3121>>:
+\begin<<3122>>tex2html_preform<<3122>><tex2html_verbatim_mark>verbatim703#\end<<3123>>tex2html_preform<<3123>>
+Utilizando <<3124>>\begin<<3351>>tex2html_deferred<<3351>>\it\end<<3352>>tex2html_deferred<<3352>>b<<3124>> con una etiqueta:
+\begin<<3125>>tex2html_preform<<3125>><tex2html_verbatim_mark>verbatim704#\end<<3126>>tex2html_preform<<3126>>
+\begin<<3353>>tex2html_deferred<<3353>>\par\end<<3354>>tex2html_deferred<<3354>>
+\section<<3127>>Inserción de Texto<<3127>>
+El uso de llaves \{, \} permite  ejecutar los comandos en la lista entre llaves
+a las líneas seleccionadas. La llave que cierra debe estar en su propia línea aparte.
+Las llaves nos permiten, como se ve en el ejemplo, anidar selecciones
+y expresar condiciones del tipo ``si esta entre estos dos patrones y además 
+está entre estos otros dos \ldots''.\\ 
+\begin<<3355>>tex2html_deferred<<3355>>\par\end<<3356>>tex2html_deferred<<3356>>
+Los comandos <<3128>>\begin<<3357>>tex2html_deferred<<3357>>\it\end<<3358>>tex2html_deferred<<3358>>a<<3128>> e <<3129>>\begin<<3359>>tex2html_deferred<<3359>>\it\end<<3360>>tex2html_deferred<<3360>>i<<3129>> tienen una sintaxis parecida:\\ 
+<<3319>>\begin<<3361>>tex2html_deferred<<3361>>\it\end<<3362>>tex2html_deferred<<3362>>
+\begin<<3130>>tabular<<3130>><<3131>>c|c<<3131>>
+	[address]a\begin<<3327>>tex2html_wrap_inline<<3327>>$\backslash$\end<<3328>>tex2html_wrap_inline<<3328>>\space ;SPMamp; [address]i\begin<<3329>>tex2html_wrap_inline<<3329>>$\backslash$\end<<3330>>tex2html_wrap_inline<<3330>>\\  
+        text                   ;SPMamp; text\\ 
+\end<<3132>>tabular<<3132>>\\ 
+<<3319>>
+<<3133>>\begin<<3363>>tex2html_deferred<<3363>>\it\end<<3364>>tex2html_deferred<<3364>>a<<3133>> añade (<<3134>>\begin<<3365>>tex2html_deferred<<3365>>\it\end<<3366>>tex2html_deferred<<3366>>i<<3134>> inserta) el texto en cada línea que
+casa con la dirección especificada.
+El <<3135>>\begin<<3367>>tex2html_deferred<<3367>>\it\end<<3368>>tex2html_deferred<<3368>>text<<3135>> no queda disponible en el ``<<3136>>\begin<<3369>>tex2html_deferred<<3369>>\it\end<<3370>>tex2html_deferred<<3370>>pattern space<<3136>>'',
+de manera que los subsiguientes comandos no le afectan. El
+siguiente ejemplo convierte un fichero <<3137>>\begin<<3371>>tex2html_deferred<<3371>>\it\end<<3372>>tex2html_deferred<<3372>>ascii<<3137>> a <<3138>>\begin<<3373>>tex2html_deferred<<3373>>\it\end<<3374>>tex2html_deferred<<3374>>html<<3138>>:
+\begin<<3139>>tex2html_preform<<3139>><tex2html_verbatim_mark>verbatim705#\end<<3140>>tex2html_preform<<3140>>
+\begin<<3375>>tex2html_deferred<<3375>>\par\end<<3376>>tex2html_deferred<<3376>>
+\section<<3141>>Trasferencia de Control Condicional<<3141>>
+La sintaxis de la orden <<3142>>\begin<<3377>>tex2html_deferred<<3377>>\it\end<<3378>>tex2html_deferred<<3378>>t<<3142>> es:
+\begin<<3143>>center<<3143>> <<3144>>\begin<<3379>>tex2html_deferred<<3379>>\it\end<<3380>>tex2html_deferred<<3380>>[address1][,address2]t[label]<<3144>> \end<<3145>>center<<3145>>
+Si la sustitución tiene éxito, se bifurca a <<3146>>\begin<<3381>>tex2html_deferred<<3381>>\it\end<<3382>>tex2html_deferred<<3382>>label<<3146>>, Si la etiqueta no se especifica, 
+se salta al final del <<3147>>\begin<<3383>>tex2html_deferred<<3383>>\it\end<<3384>>tex2html_deferred<<3384>>script<<3147>>.\\ 
+Consideremos el siguiente fichero de entrada:
+\begin<<3148>>tex2html_preform<<3148>><tex2html_verbatim_mark>verbatim706#\end<<3149>>tex2html_preform<<3149>>
+Se asume que siempre que figura el teléfono se ha puesto la dirección y que si está
+la dirección se ha escrito el nombre. Se pretenden rellenar las líneas con un campo por defecto:
+\begin<<3150>>tex2html_preform<<3150>><tex2html_verbatim_mark>verbatim707#\end<<3151>>tex2html_preform<<3151>>
+Esta es la llamada al script y la salida generada:
+\begin<<3152>>tex2html_preform<<3152>><tex2html_verbatim_mark>verbatim708#\end<<3153>>tex2html_preform<<3153>>
+\begin<<3385>>tex2html_deferred<<3385>>\par\end<<3386>>tex2html_deferred<<3386>>
+\noindent \emph<<3154>>Ejemplo:<<3154>>
+\begin<<3387>>tex2html_deferred<<3387>>\par\end<<3388>>tex2html_deferred<<3388>>
+El fichero de entrada es un \emph<<3155>>folder<<3155>> de 
+\verb 
+\ldots
+\begin<<3156>>tex2html_preform<<3156>><tex2html_verbatim_mark>verbatim709#\end<<3157>>tex2html_preform<<3157>>
+\ldots
+\begin<<3389>>tex2html_deferred<<3389>>\par\end<<3390>>tex2html_deferred<<3390>>
+Se trata de escribir un script que produzca como salida los \emph<<3158>>emails<<3158>>
+de los diferentes alumnos. Esta es una solución (suponemos que el \emph<<3159>>script<<3159>> se llama con la opción \verb \begin<<3160>>tex2html_preform<<3160>><tex2html_verbatim_mark>verbatim710#\end<<3161>>tex2html_preform<<3161>>
+\begin<<3391>>tex2html_deferred<<3391>>\par\end<<3392>>tex2html_deferred<<3392>>
+Una característica no comentada y observada en algunos <tex2html_verb_mark>462<tex2html_verb_mark>, incluyendo 
+la versión Linux, es que, si existen varias sustituciones consecutivas antes de la
+sentencia de transferencia de control, basta con que una tenga éxito para que el salto
+se realice. 
+\begin<<3393>>tex2html_deferred<<3393>>\par\end<<3394>>tex2html_deferred<<3394>>
+\section<<3162>>Rangos<<3162>>
+Cuando se usan dos direcciones separadas por una coma, el rango que
+representan se extiende desde la primera línea que casa con el patrón
+hasta la siguiente línea que casa con el segundo patrón.
+El siguiente <<3163>>\begin<<3395>>tex2html_deferred<<3395>>\it\end<<3396>>tex2html_deferred<<3396>>script<<3163>> muestra las tablas que aparecen en un fichero \begin<<3397>>tex2html_deferred<<3397>>\LaTeX\end<<3398>>tex2html_deferred<<3398>>:
+\begin<<3164>>tex2html_preform<<3164>><tex2html_verbatim_mark>verbatim711#\end<<3165>>tex2html_preform<<3165>>
+\begin<<3399>>tex2html_deferred<<3399>>\par\end<<3400>>tex2html_deferred<<3400>>
+La siguiente selección para un rango comienza después de la
+última línea del rango previo; esto es, si el rango es /A/,/B/,
+el primer conjunto de líneas que casa va desde la primera
+aparicion de /A/ hasta la siguiente aparición de /B/. Asi,
+el número mínimo de líneas seleccionadas (si no es cero)
+es dos. Sólo en el caso en que la primera dirección es una
+expresión regular y la segunda un número de línea que viene
+antes de la línea que casa, es que sólo se selecciona una
+línea de emparejamiento.  No hay por tanto solapes entre dos
+casamientos en un misma rango de direcciones.  
+El siguiente ejemplo ilustra la forma en la que <tex2html_verb_mark>463<tex2html_verb_mark> interpreta
+los rangos de direcciones. Es una aproximación al problema de escribir
+los comentarios de un programa <<3166>>\begin<<3401>>tex2html_deferred<<3401>>\it\end<<3402>>tex2html_deferred<<3402>>C<<3166>>.
+\begin<<3167>>tex2html_preform<<3167>><tex2html_verbatim_mark>verbatim712#\end<<3168>>tex2html_preform<<3168>>
+Este <<3169>>\begin<<3403>>tex2html_deferred<<3403>>\it\end<<3404>>tex2html_deferred<<3404>>script<<3169>> puede funcionar con programas cuyos
+comentarios (no anidados) empiecen y terminen en líneas 
+diferentes, como el del ejemplo:
+\begin<<3170>>tex2html_preform<<3170>><tex2html_verbatim_mark>verbatim713#\end<<3171>>tex2html_preform<<3171>>
+La ejecución del script selecciona los dos grupos de líneas
+que contienen comentarios:
+\begin<<3172>>tex2html_preform<<3172>><tex2html_verbatim_mark>verbatim714#\end<<3173>>tex2html_preform<<3173>>
+Sin embargo, el script fallará en este otro ejemplo:
+\begin<<3174>>tex2html_preform<<3174>><tex2html_verbatim_mark>verbatim715#\end<<3175>>tex2html_preform<<3175>>
+La ejecución del programa da como resultado:
+\begin<<3176>>tex2html_preform<<3176>><tex2html_verbatim_mark>verbatim716#\end<<3177>>tex2html_preform<<3177>>
+\begin<<3405>>tex2html_deferred<<3405>>\par\end<<3406>>tex2html_deferred<<3406>>
+\section<<3320>>Siguiente Línea: La orden <<3178>>\begin<<3407>>tex2html_deferred<<3407>>\it\end<<3408>>tex2html_deferred<<3408>>n<<3178>><<3320>>
+Mediante la orden <<3179>>\begin<<3409>>tex2html_deferred<<3409>>\it\end<<3410>>tex2html_deferred<<3410>>n<<3179>> podemos reemplazar el espacio de
+patrones actual por la siguiente línea. Si no se ha utilizado
+la opción <tex2html_verb_mark>464<tex2html_verb_mark> en la ejecución de <tex2html_verb_mark>465<tex2html_verb_mark>, el contenido del espacio
+de patrones se imprimirá antes de ser eliminada. El control
+pasa al comando siguiendo al comando <<3180>>\begin<<3411>>tex2html_deferred<<3411>>\it\end<<3412>>tex2html_deferred<<3412>>n<<3180>> y no al primer
+comando del <<3181>>\begin<<3413>>tex2html_deferred<<3413>>\it\end<<3414>>tex2html_deferred<<3414>>script<<3181>>. Se trata, por tanto, de una orden que
+altera la conducta habitual de <tex2html_verb_mark>466<tex2html_verb_mark>: Lo común es que, cuando se lee una nueva
+línea, se ejecute el primer comando del guión.
+\begin<<3415>>tex2html_deferred<<3415>>\par\end<<3416>>tex2html_deferred<<3416>>
+El siguiente ejemplo extrae los comentarios de un programa <<3182>>\begin<<3417>>tex2html_deferred<<3417>>\it\end<<3418>>tex2html_deferred<<3418>>C<<3182>>.
+Se asume que, aunque los comentarios se pueden extender sobre
+varias líneas, no existe mas de un comentario por línea.
+\begin<<3183>>tex2html_preform<<3183>><tex2html_verbatim_mark>verbatim717#\end<<3184>>tex2html_preform<<3184>>
+Supongamos el siguiente programa de prueba:
+\begin<<3185>>tex2html_preform<<3185>><tex2html_verbatim_mark>verbatim718#\end<<3186>>tex2html_preform<<3186>>
+La salida al ejecutar el programa es la siguiente:
+\begin<<3187>>tex2html_preform<<3187>><tex2html_verbatim_mark>verbatim719#\end<<3188>>tex2html_preform<<3188>>
+Observe la desaparición de la línea \mbox<<3189>>`` still empty */''<<3189>> 
+debido a la existencia de dos comentarios, uno de ellos inacabado 
+en la línea anterior. 
+\begin<<3419>>tex2html_deferred<<3419>>\par\end<<3420>>tex2html_deferred<<3420>>
+\section<<3190>>Manipulando tablas numéricas<<3190>>
+El siguiente ejemplo intercambia la primera y ultima columnas
+de un fichero como el que sigue:
+\begin<<3191>>tex2html_preform<<3191>><tex2html_verbatim_mark>verbatim720#\end<<3192>>tex2html_preform<<3192>>
+La parte mas complicada es preservar el sangrado.
+El truco reside, en parte, en el patrón central \begin<<3331>>tex2html_wrap_inline<<3331>>$\backslash$\end<<3332>>tex2html_wrap_inline<<3332>>2, que 
+memoriza los blancos después de la primera columna y un sólo blanco 
+antes de la última.
+\begin<<3193>>tex2html_preform<<3193>><tex2html_verbatim_mark>verbatim721#\end<<3194>>tex2html_preform<<3194>>
+El siguiente ejemplo utiliza
+una opción del operador de sustitución que permite decidir que aparición
+del patrón deseamos sustituir. Asi,
+\begin<<3421>>tex2html_deferred<<3421>>\par\end<<3422>>tex2html_deferred<<3422>>
+<tex2html_verb_mark>467<tex2html_verb_mark>
+\begin<<3423>>tex2html_deferred<<3423>>\par\end<<3424>>tex2html_deferred<<3424>>
+sustituirá la 3 aparición de <tex2html_verb_mark>468<tex2html_verb_mark> por <tex2html_verb_mark>469<tex2html_verb_mark>, obviando las otras.
+\begin<<3425>>tex2html_deferred<<3425>>\par\end<<3426>>tex2html_deferred<<3426>>
+El ejemplo selecciona la columna dos del fichero:
+\begin<<3195>>tex2html_preform<<3195>><tex2html_verbatim_mark>verbatim722#\end<<3196>>tex2html_preform<<3196>>
+Mas general que el anterior, el siguiente ejemplo elimina 
+un número de columnas arbitrario <tex2html_verb_mark>470<tex2html_verb_mark> por la izquierda y otro 
+número <tex2html_verb_mark>471<tex2html_verb_mark> por la derecha.
+Para lograrlo, es necesario utilizar un un guión para la <tex2html_verb_mark>472<tex2html_verb_mark> 
+que llama al correspondiente guión <tex2html_verb_mark>473<tex2html_verb_mark>. Los parámetros 
+son introducidos en el guión <tex2html_verb_mark>474<tex2html_verb_mark> mediante el uso apropiado
+de las comillas dobles y simples:
+\begin<<3427>>tex2html_deferred<<3427>>\par\end<<3428>>tex2html_deferred<<3428>>
+\begin<<3197>>tex2html_preform<<3197>><tex2html_verbatim_mark>verbatim723#\end<<3198>>tex2html_preform<<3198>>
+Veamos un ejemplo de uso:
+\begin<<3199>>tex2html_preform<<3199>><tex2html_verbatim_mark>verbatim724#\end<<3200>>tex2html_preform<<3200>>
+\begin<<3429>>tex2html_deferred<<3429>>\par\end<<3430>>tex2html_deferred<<3430>>
+\section<<3201>>Traducción entre Tablas<<3201>>
+El  comando <<3202>>\begin<<3431>>tex2html_deferred<<3431>>\it\end<<3432>>tex2html_deferred<<3432>>y<<3202>> realiza una traducción entre dos tablas de caracteres.
+Observa el ejemplo:
+\begin<<3203>>tex2html_preform<<3203>><tex2html_verbatim_mark>verbatim725#\end<<3204>>tex2html_preform<<3204>>
+Obtenemos asi los contenidos del fichero en mayúsculas:
+\begin<<3205>>tex2html_preform<<3205>><tex2html_verbatim_mark>verbatim726#\end<<3206>>tex2html_preform<<3206>>
+\begin<<3433>>tex2html_deferred<<3433>>\par\end<<3434>>tex2html_deferred<<3434>>
+\section<<3207>>Del espacio de Patrones al de Mantenimiento<<3207>>
+En <tex2html_verb_mark>475<tex2html_verb_mark> se dispone, como en muchos otros editores
+de una zona de memoria a la que se puede enviar texto ``cortado''
+o `copiado'' y desde la cual se puede recuperar el texto para 
+insertarlo en la zona de trabajo  (<<3208>>\begin<<3435>>tex2html_deferred<<3435>>\it\end<<3436>>tex2html_deferred<<3436>>pattern space<<3208>>).
+en la jerga <tex2html_verb_mark>476<tex2html_verb_mark> dicho espacio se conoce como \emph<<3209>>hold space<<3209>>.
+El contenido del espacio de patrones (<<3210>>\begin<<3437>>tex2html_deferred<<3437>>\it\end<<3438>>tex2html_deferred<<3438>>pattern space<<3210>>) puede moverse al espacio 
+de mantenimiento (\emph<<3211>>hold space<<3211>>) y recíprocamente:
+\begin<<3439>>tex2html_deferred<<3439>>\par\end<<3440>>tex2html_deferred<<3440>>
+\vspace<<3212>>1cm<<3212>>
+\begin<<3213>>tabular<<3213>><<3214>>|l|c|l|<<3214>>
+\hline
+\emph<<3215>>Hold<<3215>>     ;SPMamp; h ó H ;SPMamp; Copia o añade (append) los contenidos del <<3216>>\begin<<3441>>tex2html_deferred<<3441>>\it\end<<3442>>tex2html_deferred<<3442>>pattern space<<3216>> al <<3217>>\begin<<3443>>tex2html_deferred<<3443>>\it\end<<3444>>tex2html_deferred<<3444>>hold space<<3217>>. \\ 
+\hline
+\emph<<3218>>Get<<3218>>      ;SPMamp; g ó G ;SPMamp; Copia o añade los contenidos del <<3219>>\begin<<3445>>tex2html_deferred<<3445>>\it\end<<3446>>tex2html_deferred<<3446>>hold space<<3219>> al <<3220>>\begin<<3447>>tex2html_deferred<<3447>>\it\end<<3448>>tex2html_deferred<<3448>>pattern space<<3220>>.\\ 
+\hline
+\emph<<3221>>Exchange<<3221>> ;SPMamp;   x   ;SPMamp; Intercambia los contenidos del <<3222>>\begin<<3449>>tex2html_deferred<<3449>>\it\end<<3450>>tex2html_deferred<<3450>>hold space<<3222>> y el <<3223>>\begin<<3451>>tex2html_deferred<<3451>>\it\end<<3452>>tex2html_deferred<<3452>>pattern space<<3223>> \\ 
+\hline
+\end<<3224>>tabular<<3224>>
+\vspace<<3225>>1cm<<3225>>
+\begin<<3453>>tex2html_deferred<<3453>>\par\end<<3454>>tex2html_deferred<<3454>>
+Los comandos en minúsculas sobrescriben mientras que los que van en mayúsculas añaden.
+Asi <<3226>>\begin<<3455>>tex2html_deferred<<3455>>\it\end<<3456>>tex2html_deferred<<3456>>h<<3226>> copia los contenidos del <<3227>>\begin<<3457>>tex2html_deferred<<3457>>\it\end<<3458>>tex2html_deferred<<3458>>pattern space<<3227>> en el <<3228>>\begin<<3459>>tex2html_deferred<<3459>>\it\end<<3460>>tex2html_deferred<<3460>>hold space<<3228>>, borrando los
+contenidos previos que estuvieran en el <<3229>>\begin<<3461>>tex2html_deferred<<3461>>\it\end<<3462>>tex2html_deferred<<3462>>hold space<<3229>>. Las orden <<3230>>\begin<<3463>>tex2html_deferred<<3463>>\it\end<<3464>>tex2html_deferred<<3464>>G<<3230>> añade (paste)
+los contenidos del <<3231>>\begin<<3465>>tex2html_deferred<<3465>>\it\end<<3466>>tex2html_deferred<<3466>>hold space<<3231>> al espacio de patrones actual (por el final).  
+Las dos cadenas se enlazan a través de un retorno de carro.
+\begin<<3467>>tex2html_deferred<<3467>>\par\end<<3468>>tex2html_deferred<<3468>>
+\noindent <<3232>>\begin<<3469>>tex2html_deferred<<3469>>\bf\end<<3470>>tex2html_deferred<<3470>>Ejemplo<<3232>>
+Este guión intenta mediante una heurística poner la definiciones de 
+funciones C al final del fichero, suponiendo que una definición de función
+comienza en la columna 1 y que se caracterizan mediante uno o dos identificadores 
+seguidos de un paréntesis:
+\begin<<3233>>tex2html_preform<<3233>><tex2html_verbatim_mark>verbatim727#\end<<3234>>tex2html_preform<<3234>>
+Ejemplo de uso:
+\begin<<3235>>tex2html_preform<<3235>><tex2html_verbatim_mark>verbatim728#\end<<3236>>tex2html_preform<<3236>>
+Al ejecutar nuestro <<3237>>\begin<<3471>>tex2html_deferred<<3471>>\it\end<<3472>>tex2html_deferred<<3472>>script<<3237>> obtenemos la salida:
+\begin<<3238>>tex2html_preform<<3238>><tex2html_verbatim_mark>verbatim729#\end<<3239>>tex2html_preform<<3239>>
+\begin<<3473>>tex2html_deferred<<3473>>\par\end<<3474>>tex2html_deferred<<3474>>
+\noindent <<3240>>\begin<<3475>>tex2html_deferred<<3475>>\bf\end<<3476>>tex2html_deferred<<3476>>Ejemplo<<3240>>
+El siguiente guión invierte los contenidos de un fichero:
+\begin<<3241>>tex2html_preform<<3241>><tex2html_verbatim_mark>verbatim730#\end<<3242>>tex2html_preform<<3242>>
+He aqui el resultado de una ejecución:
+\begin<<3477>>tex2html_deferred<<3477>>\par\end<<3478>>tex2html_deferred<<3478>>
+\begin<<3243>>tex2html_preform<<3243>><tex2html_verbatim_mark>verbatim731#\end<<3244>>tex2html_preform<<3244>>
+\begin<<3479>>tex2html_deferred<<3479>>\par\end<<3480>>tex2html_deferred<<3480>>
+\noindent <<3245>>\begin<<3481>>tex2html_deferred<<3481>>\bf\end<<3482>>tex2html_deferred<<3482>>Ejemplo<<3245>>
+\begin<<3483>>tex2html_deferred<<3483>>\par\end<<3484>>tex2html_deferred<<3484>>
+Supuesto un fichero de entrada con formato:
+\label<<3246>>section:alumnos<<3246>>
+\ldots
+\begin<<3247>>tex2html_preform<<3247>><tex2html_verbatim_mark>verbatim732#\end<<3248>>tex2html_preform<<3248>>
+\ldots
+\begin<<3485>>tex2html_deferred<<3485>>\par\end<<3486>>tex2html_deferred<<3486>>
+Se pretenden extraer los apellidos y el nombre, concatenados con una coma. He aqui una posible solución:
+\begin<<3249>>tex2html_preform<<3249>><tex2html_verbatim_mark>verbatim733#\end<<3250>>tex2html_preform<<3250>>
+\begin<<3487>>tex2html_deferred<<3487>>\par\end<<3488>>tex2html_deferred<<3488>>
+\section<<3321>>La orden <<3251>>\begin<<3489>>tex2html_deferred<<3489>>\it\end<<3490>>tex2html_deferred<<3490>>N<<3251>><<3321>>
+<<3252>>\begin<<3491>>tex2html_deferred<<3491>>\it\end<<3492>>tex2html_deferred<<3492>>N<<3252>> añade la siguiente línea de entrada al espacio de
+patrones. Las dos líneas se separan mediante un retorno de
+carro. Después de su ejecución, el comando <<3253>>\begin<<3493>>tex2html_deferred<<3493>>\it\end<<3494>>tex2html_deferred<<3494>>N<<3253>> pasa el control a los
+subsiguientes comandos en el <<3254>>\begin<<3495>>tex2html_deferred<<3495>>\it\end<<3496>>tex2html_deferred<<3496>>script<<3254>>.\\ 
+El siguiente ejemplo propuesto en \cite<<3255>>sedawk<<3255>> muestra una
+búsqueda y sustitución multilínea. Se trata de sustituir la
+cadena ``Owner and Operator Guide'' por ``Installation Guide'', cualquiera que sea su posición en una línea o entre ellas.
+Los autores de \cite<<3256>>sedawk<<3256>> y \cite<<3257>>power<<3257>> proponen la siguiente
+solución:
+\begin<<3258>>tex2html_preform<<3258>><tex2html_verbatim_mark>verbatim734#\end<<3259>>tex2html_preform<<3259>>
+Veamos primero los contenidos del fichero de prueba:
+\begin<<3260>>tex2html_preform<<3260>><tex2html_verbatim_mark>verbatim735#\end<<3261>>tex2html_preform<<3261>>
+La ejecución del <<3262>>\begin<<3497>>tex2html_deferred<<3497>>\it\end<<3498>>tex2html_deferred<<3498>>script<<3262>> da la siguiente salida:
+\begin<<3263>>tex2html_preform<<3263>><tex2html_verbatim_mark>verbatim736#\end<<3264>>tex2html_preform<<3264>>
+Uno de los problemas, que aparece en el primer párrafo del
+ejemplo de prueba, es que la segunda línea leída debe ser
+;SPMquot;reciclada;SPMquot;
+para su uso en la siguiente búsqueda. El segundo fallo, 
+que aparece en el último párrafo, es consecuencia de la
+limitación del <<3265>>\begin<<3499>>tex2html_deferred<<3499>>\it\end<<3500>>tex2html_deferred<<3500>>script<<3265>> para trabajar con  patrones partidos
+en más de dos líneas.\\ 
+Consideremos esta otra solución:
+\begin<<3266>>tex2html_preform<<3266>><tex2html_verbatim_mark>verbatim737#\end<<3267>>tex2html_preform<<3267>>
+Este otro <<3268>>\begin<<3501>>tex2html_deferred<<3501>>\it\end<<3502>>tex2html_deferred<<3502>>script<<3268>> hace que <<3269>>\begin<<3503>>tex2html_deferred<<3503>>\tt\end<<3504>>tex2html_deferred<<3504>>sed<<3269>> permanezca en un bucle mientras
+la línea adjuntada en segundo lugar contenga un prefijo estricto 
+de la cadena buscada. 
+\begin<<3505>>tex2html_deferred<<3505>>\par\end<<3506>>tex2html_deferred<<3506>>
+\begin<<3270>>tex2html_preform<<3270>><tex2html_verbatim_mark>verbatim738#\end<<3271>>tex2html_preform<<3271>>
+Un problema que aparece con esta aproximación es la presencia
+de líneas muy largas. Las líneas permanecen en el espacio de trabajo
+mientras terminen en un prefijo de la cadena buscada. Para
+que la salida quepa en la hoja he
+tenido que partir las líneas del fichero de salida, lo que he indicado con los
+símbolos \begin<<3333>>tex2html_wrap_inline<<3333>>$\backslash$\end<<3334>>tex2html_wrap_inline<<3334>>. Considere esta modificación:
+\begin<<3272>>tex2html_preform<<3272>><tex2html_verbatim_mark>verbatim739#\end<<3273>>tex2html_preform<<3273>>
+Es indudable la ventaja de disponer de esta
+capacidad de búsqueda multilínea no puede realizarse con 
+otras utilidades como <<3274>>\begin<<3507>>tex2html_deferred<<3507>>\it\end<<3508>>tex2html_deferred<<3508>>ex<<3274>> o <<3275>>\begin<<3509>>tex2html_deferred<<3509>>\it\end<<3510>>tex2html_deferred<<3510>>vi<<3275>>.
+\begin<<3511>>tex2html_deferred<<3511>>\par\end<<3512>>tex2html_deferred<<3512>>
+\section<<3322>>Suprimir: El Comando <<3276>>\begin<<3513>>tex2html_deferred<<3513>>\it\end<<3514>>tex2html_deferred<<3514>>D<<3276>><<3322>>
+El comando <<3277>>\begin<<3515>>tex2html_deferred<<3515>>\it\end<<3516>>tex2html_deferred<<3516>>D<<3277>> suprime la primera parte (hasta el retorno de
+carro empotrado) en un espacio de patrones multilínea y bifurca al
+primer comando en el <<3278>>\begin<<3517>>tex2html_deferred<<3517>>\it\end<<3518>>tex2html_deferred<<3518>>script<<3278>>. El retorno de carro empotrado puede
+describirse mediante la secuencia de escape \verb el espacio de patrones quede vacío como consecuencia de la supresión,
+se lee una nueva línea.
+\begin<<3519>>tex2html_deferred<<3519>>\par\end<<3520>>tex2html_deferred<<3520>>
+El siguiente ejemplo compacta una secuencia de líneas vacías en una sóla línea vacía.
+\begin<<3279>>tex2html_preform<<3279>><tex2html_verbatim_mark>verbatim740#\end<<3280>>tex2html_preform<<3280>>
+Si la línea  es vacía se lee la línea siguiente. Si esta también es vacía el espacio de patrones contiene
+\verb (sin que se lea una nueva línea).
+Por tanto nada ha sido impreso, no se ejecuta el comnado final <tex2html_verb_mark>479<tex2html_verb_mark> que actúa por defecto.
+Como el espacio de trabajo contiene \verb con el patrón especificado en línea 2
+y se lee la siguiente línea. Si esta nueva línea es no vacía, no se ejecutará la orden
+\verb vacía y la nueva línea no vacía.
+\begin<<3521>>tex2html_deferred<<3521>>\par\end<<3522>>tex2html_deferred<<3522>>
+Al ejecutar este ``<<3281>>\begin<<3523>>tex2html_deferred<<3523>>\it\end<<3524>>tex2html_deferred<<3524>>script<<3281>>'' sobre un fichero conteniendo una secuencia de líneas en blanco:
+\begin<<3525>>tex2html_deferred<<3525>>\par\end<<3526>>tex2html_deferred<<3526>>
+\begin<<3282>>tex2html_preform<<3282>><tex2html_verbatim_mark>verbatim741#\end<<3283>>tex2html_preform<<3283>>
+Se obtiene el resultado:
+\begin<<3284>>tex2html_preform<<3284>><tex2html_verbatim_mark>verbatim742#\end<<3285>>tex2html_preform<<3285>>
+Un buen ejercicio es intentar predecir la conducta de esta otra solución alternativa,
+en la que la supresión \emph<<3286>>D<<3286>>  es sustituida por la \emph<<3287>>d<<3287>>:
+\begin<<3288>>tex2html_preform<<3288>><tex2html_verbatim_mark>verbatim743#\end<<3289>>tex2html_preform<<3289>>
+¿Qué ocurrirá? ¿Es correcta esta segunda solución? 
+\begin<<3527>>tex2html_deferred<<3527>>\par\end<<3528>>tex2html_deferred<<3528>>
+\section<<3290>>Búsqueda entre líneas<<3290>>
+Este otro caso, tambien esta tomado de \cite<<3291>>sedawk<<3291>> y \cite<<3292>>power<<3292>>.
+Se trata de extender la capacidad de búsqueda de \emph<<3293>>grep<<3293>>, de modo que el 
+patrón pueda ser encontrado incluso si se encuentra diseminado
+entre a lo mas dos líneas. El <<3294>>\begin<<3529>>tex2html_deferred<<3529>>\it\end<<3530>>tex2html_deferred<<3530>>script<<3294>> presentado es una ligera variante
+del que aparece en \cite<<3295>>sedawk<<3295>> y escribe la(s) líneas que
+casan precedidas del número de la segunda línea.
+\begin<<3296>>tex2html_preform<<3296>><tex2html_verbatim_mark>verbatim744#\end<<3297>>tex2html_preform<<3297>>
+Así, con el ejemplo ``multiline.test'' usado anteriormente
+obtenemos la siguiente salida:
+\begin<<3298>>tex2html_preform<<3298>><tex2html_verbatim_mark>verbatim745#\end<<3299>>tex2html_preform<<3299>>
+Primero se busca el patrón <tex2html_verb_mark>482<tex2html_verb_mark> en la línea actual.
+Observe el habilidoso uso de las comillas simples y dobles para permitir
+la sustitución de la variable. La primera comilla simple cierra
+la comilla simple al final de la línea 10. Las comillas dobles
+hacen que la \emph<<3300>>shell<<3300>> sustituya \verb permite continuar el texto sin sustituciones.
+\begin<<3531>>tex2html_deferred<<3531>>\par\end<<3532>>tex2html_deferred<<3532>>
+Si se encuentra el patrón de búsqueda, imprimimos el número de línea (comando <<3301>>\begin<<3533>>tex2html_deferred<<3533>>\tt\end<<3534>>tex2html_deferred<<3534>>=<<3301>>) y la línea.
+Si no, leemos la siguiente línea, formando un patrón multilínea. 
+Salvamos las dos líneas en el <<3302>>\begin<<3535>>tex2html_deferred<<3535>>\it\end<<3536>>tex2html_deferred<<3536>>hold space<<3302>>.
+Entonces intentamos buscar el patrón <tex2html_verb_mark>484<tex2html_verb_mark> en
+la línea que acaba de incorporarse. Es por eso que eliminamos 
+del espacio de patrones la primera línea con la orden 
+<tex2html_verb_mark>485<tex2html_verb_mark>. Si se encuentra, imprimimos y se repite el ciclo.
+Si no, recuperamos las dos líneas del <<3303>>\begin<<3537>>tex2html_deferred<<3537>>\it\end<<3538>>tex2html_deferred<<3538>>hold space<<3303>> 
+sustituimos el retorno de carro por un blanco y realizamos 
+una nueva busqueda.
+Si tiene éxito, se obtienen las dos líneas y se imprimen.
+En caso contrario, esto es, si el patrón no se ha encontrado en ninguna
+de las dos líneas, es necesario preservar la última para el siguiente
+ciclo. Por eso, se obtienen una vez mas las líneas del <<3304>>\begin<<3539>>tex2html_deferred<<3539>>\it\end<<3540>>tex2html_deferred<<3540>>hold space<<3304>>
+y se suprime con \emph<<3305>>D<<3305>> la primera de ellas. Dado que \emph<<3306>>D<<3306>> 
+devuelve el control al comienzo del <<3307>>\begin<<3541>>tex2html_deferred<<3541>>\it\end<<3542>>tex2html_deferred<<3542>>script<<3307>>, la segunda línea no es eliminada. 
+De todos modos,  el <<3308>>\begin<<3543>>tex2html_deferred<<3543>>\it\end<<3544>>tex2html_deferred<<3544>>script<<3308>> no es capaz de captar cuando un prefijo del patrón 
+aparece  al final de esta segunda línea, como muestra el
+ejemplo de prueba. En el primer párrafo el patrón se encuentra
+dos veces y sólo es encontrado una.
+\begin<<3545>>tex2html_deferred<<3545>>\par\end<<3546>>tex2html_deferred<<3546>>
+\section<<3309>>Seleccionando Items en un Registro Multilínea<<3309>>
+El ejercicio resuelto aqui consiste en listar los alumnos que han seleccionado un determinado grupo de prácticas.
+Suponemos la organización del fichero de entrada descrita en la sección  \ref<<3310>>section:alumnos<<3310>>. 
+El \emph<<3311>>script<<3311>> recibe como primer argumento el nombre del fichero conteniendo la carpeta de correo (\verb asociada con la asignatura y como segundo argumento el grupo. Un primer \emph<<3312>>script<<3312>> que no es descrito
+aqui, denominado <tex2html_verb_mark>487<tex2html_verb_mark> produce como salida el archivo con la estructura
+descrita en la sección \ref<<3313>>section:alumnos<<3313>>. El segundo guión, denominado <tex2html_verb_mark>488<tex2html_verb_mark> y que es
+el que nos ocupa, produce como salida los alumnos que pertenecen a ese grupo ed prácticas.
+\begin<<3547>>tex2html_deferred<<3547>>\par\end<<3548>>tex2html_deferred<<3548>>
+Estos son los contenidos del \emph<<3314>>script<<3314>> <tex2html_verb_mark>489<tex2html_verb_mark>:
+\begin<<3315>>tex2html_preform<<3315>><tex2html_verbatim_mark>verbatim746#\end<<3316>>tex2html_preform<<3316>>
+Los contenidos del fichero \verb \begin<<3317>>tex2html_preform<<3317>><tex2html_verbatim_mark>verbatim747#\end<<3318>>tex2html_preform<<3318>>
+De nuevo hacemos uso de las comillas simples y dobles
+en este ejemplo.
+Obsérvese como se proteje el guión <tex2html_verb_mark>491<tex2html_verb_mark> entre las líneas 3 y 16. 
+En la línea 16 el cierre de la comilla simple y el uso de la doble comilla 
+permite la actuación de la interpretación de la <tex2html_verb_mark>492<tex2html_verb_mark>, sustituyendo 
+<tex2html_verb_mark>493<tex2html_verb_mark> que coincide con el
+parámetro pasado en la llamada como <tex2html_verb_mark>494<tex2html_verb_mark>. La siguiente comilla 
+simple en esa línea permite la protección del resto
+del guión.
+<tex2html_endfile>#./chapter2/sed.tex#
+\begin<<3549>>tex2html_deferred<<3549>>\par\end<<3550>>tex2html_deferred<<3550>>

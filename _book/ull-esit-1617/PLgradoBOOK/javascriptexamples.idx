@@ -1,0 +1,250 @@
+\indexentry{netcat|hyperpage}{34}
+\indexentry{core module|hyperpage}{36}
+\indexentry{partially done|hyperpage}{37}
+\indexentry{Pr\IeC {\'a}ctica!Conversor de Temperaturas|hyperpage}{64}
+\indexentry{Pr\IeC {\'a}ctica!Comma Separated Values|hyperpage}{65}
+\indexentry{Pr\IeC {\'a}ctica!Palabras Repetidas|hyperpage}{72}
+\indexentry{INI|hyperpage}{76}
+\indexentry{Pr\IeC {\'a}ctica!Ficheros INI|hyperpage}{76}
+\indexentry{Pr\IeC {\'a}ctica!Analizador L\IeC {\'e}xico para Un Subconjunto de JavaScript|hyperpage}{80}
+\indexentry{secci\'on de definiciones|hyperpage}{83}
+\indexentry{secci\'on de reglas|hyperpage}{83}
+\indexentry{secci\'on de c\'odigo|hyperpage}{83}
+\indexentry{regla por defecto|hyperpage}{83}
+\indexentry{script sed|hyperpage}{113}
+\indexentry{pattern space|hyperpage}{113}
+\indexentry{\tt  pos|hyperpage}{166}
+\indexentry{zero-width assertions|hyperpage}{169}
+\indexentry{zero-width assertions|hyperpage}{192}
+\indexentry{postponed regular subexpression|hyperpage}{201}
+\indexentry{opciones de l\IeC {\'\i }nea|hyperpage}{224}
+\indexentry{Opci\IeC {\'o}n de perl -p|hyperpage}{224}
+\indexentry{Opci\IeC {\'o}n de perl -n|hyperpage}{224}
+\indexentry{Opci\IeC {\'o}n de perl -i|hyperpage}{224}
+\indexentry{Pr\IeC {\'a}ctica!Un lenguaje para Componer Invitaciones|hyperpage}{227}
+\indexentry{Document Type Definition|hyperpage}{228}
+\indexentry{DTD|hyperpage}{228}
+\indexentry{esquema de traducci\IeC {\'o}n|hyperpage}{238}
+\indexentry{Pr\IeC {\'a}ctica!Traducci\IeC {\'o}n de {\tt  invitation} a {\tt  HTML}|hyperpage}{244}
+\indexentry{miscreant grammar|hyperpage}{291}
+\indexentry{Pr\IeC {\'a}ctica!Calculadora con {\tt  Regexp::Grammars}|hyperpage}{312}
+\indexentry{Repaso!Las Bases|hyperpage}{319}
+\indexentry{Pr\IeC {\'a}ctica!Crear y documentar el M\IeC {\'o}dulo {\tt  PL::Tutu}|hyperpage}{320}
+\indexentry{Repaso!Fases de un Compilador|hyperpage}{325}
+\indexentry{Pr\IeC {\'a}ctica!Fases de un Compilador|hyperpage}{327}
+\indexentry{Ejercicio!La opci\IeC {\'o}n {\tt  g}|hyperpage}{332}
+\indexentry{Ejercicio!Opciones {\tt  g} y {\tt  c} en Expresiones Regulares|hyperpage}{332}
+\indexentry{Ejercicio!El orden de las expresiones regulares|hyperpage}{333}
+\indexentry{Ejercicio!Regexp para cadenas|hyperpage}{333}
+\indexentry{Ejercicio!El {\tt  or} es vago|hyperpage}{333}
+\indexentry{Pr\IeC {\'a}ctica!N\IeC {\'u}meros de L\IeC {\'\i }nea, Errores, Cadenas y Comentarios|hyperpage}{333}
+\indexentry{Abigail|hyperpage}{335}
+\indexentry{Extreme Programming|hyperpage}{341}
+\indexentry{Pr\IeC {\'a}ctica!Pruebas en el An\IeC {\'a}lisis L\IeC {\'e}xico|hyperpage}{345}
+\indexentry{perfilado|hyperpage}{351}
+\indexentry{profiling|hyperpage}{351}
+\indexentry{profiler|hyperpage}{351}
+\indexentry{Repaso!Pruebas en el An\IeC {\'a}lisis L\IeC {\'e}xico|hyperpage}{353}
+\indexentry{\IeC {\'a}rbol sint\IeC {\'a}ctico concreto|hyperpage}{355}
+\indexentry{Ejercicio!Recorrido del \IeC {\'a}rbol en un ADPR|hyperpage}{358}
+\indexentry{Ejercicio!Factores Comunes|hyperpage}{358}
+\indexentry{m\IeC {\'a}ximo factor com\IeC {\'u}n|hyperpage}{358}
+\indexentry{Ejercicio!Construir los $FIRST$|hyperpage}{360}
+\indexentry{Ejercicio!Calcular los $FOLLOW$|hyperpage}{360}
+\indexentry{Pr\IeC {\'a}ctica!Construcci\IeC {\'o}n de los FIRST y los FOLLOW|hyperpage}{360}
+\indexentry{LL(1)|hyperpage}{362}
+\indexentry{Ejercicio!Caracterizaci\IeC {\'o}n de una gram\IeC {\'a}tica LL(1) |hyperpage}{362}
+\indexentry{Ejercicio!Ambiguedad y LL(1)|hyperpage}{362}
+\indexentry{Pr\IeC {\'a}ctica!Un analizador APDR|hyperpage}{362}
+\indexentry{Pr\IeC {\'a}ctica!Generaci\IeC {\'o}n Autom\IeC {\'a}tica de Analizadores Predictivos|hyperpage}{363}
+\indexentry{here document|hyperpage}{367}
+\indexentry{documento aqui|hyperpage}{367}
+\indexentry{esquema de traducci\IeC {\'o}n|hyperpage}{368}
+\indexentry{acciones sem\IeC {\'a}nticas|hyperpage}{368}
+\indexentry{atributo sintetizado|hyperpage}{369}
+\indexentry{atributo heredado|hyperpage}{369}
+\indexentry{gram\IeC {\'a}tica es recursiva por la izquierda|hyperpage}{369}
+\indexentry{recursiva por la izquierda|hyperpage}{369}
+\indexentry{recursiva por la derecha|hyperpage}{370}
+\indexentry{Pr\IeC {\'a}ctica!Eliminaci\IeC {\'o}n de la Recursividad por la Izquierda|hyperpage}{372}
+\indexentry{\IeC {\'a}rbol de an\IeC {\'a}lisis abstracto|hyperpage}{373}
+\indexentry{AAA|hyperpage}{373}
+\indexentry{abstract syntax tree|hyperpage}{373}
+\indexentry{AST|hyperpage}{373}
+\indexentry{alfabeto con funci\IeC {\'o}n de aridad|hyperpage}{373}
+\indexentry{funci\IeC {\'o}n de aridad|hyperpage}{373}
+\indexentry{lenguaje \IeC {\'a}rbol homog\IeC {\'e}neo|hyperpage}{373}
+\indexentry{\IeC {\'a}rboles|hyperpage}{373}
+\indexentry{t\IeC {\'e}rminos|hyperpage}{373}
+\indexentry{gram\IeC {\'a}tica \IeC {\'a}rbol regular|hyperpage}{373}
+\indexentry{deriva en un paso en el \IeC {\'a}rbol|hyperpage}{373}
+\indexentry{lenguaje \IeC {\'a}rbol generado por una gram\IeC {\'a}tica|hyperpage}{373}
+\indexentry{\IeC {\'a}rbol de an\IeC {\'a}lisis sint\IeC {\'a}ctico abstracto|hyperpage}{375}
+\indexentry{lista de no terminales|hyperpage}{376}
+\indexentry{clase|hyperpage}{376}
+\indexentry{m\IeC {\'e}todo|hyperpage}{376}
+\indexentry{objeto|hyperpage}{376}
+\indexentry{lista de no terminales|hyperpage}{380}
+\indexentry{Pr\IeC {\'a}ctica!Arbol de An\IeC {\'a}lisis Abstracto|hyperpage}{383}
+\indexentry{Pr\IeC {\'a}ctica!Declaraciones Autom\IeC {\'a}ticas|hyperpage}{386}
+\indexentry{Pr\IeC {\'a}ctica!An\IeC {\'a}lisis Sem\IeC {\'a}ntico|hyperpage}{386}
+\indexentry{Pr\IeC {\'a}ctica!Plegado de las Constantes|hyperpage}{389}
+\indexentry{m\IeC {\'e}todo abstracto|hyperpage}{389}
+\indexentry{reglas de transformaci\IeC {\'o}n|hyperpage}{390}
+\indexentry{esquema de traducci\IeC {\'o}n \IeC {\'a}rbol|hyperpage}{390}
+\indexentry{patr\IeC {\'o}n \IeC {\'a}rbol|hyperpage}{390}
+\indexentry{patr\IeC {\'o}n de entrada|hyperpage}{390}
+\indexentry{normalizaci\IeC {\'o}n del \IeC {\'a}rbol|hyperpage}{390}
+\indexentry{patrones \IeC {\'a}rbol|hyperpage}{390}
+\indexentry{casamiento de \IeC {\'a}rboles|hyperpage}{390}
+\indexentry{patr\IeC {\'o}n|hyperpage}{390}
+\indexentry{patr\IeC {\'o}n lineal|hyperpage}{390}
+\indexentry{sustituci\IeC {\'o}n|hyperpage}{391}
+\indexentry{casa con un \IeC {\'a}rbol|hyperpage}{391}
+\indexentry{casa con la sustituci\IeC {\'o}n|hyperpage}{391}
+\indexentry{aut\IeC {\'o}mata \IeC {\'a}rbol|hyperpage}{392}
+\indexentry{isa|hyperpage}{392}
+\indexentry{can|hyperpage}{392}
+\indexentry{VERSION|hyperpage}{392}
+\indexentry{Pr\IeC {\'a}ctica!Casando y Transformando \IeC {\'A}rboles|hyperpage}{394}
+\indexentry{Pr\IeC {\'a}ctica!C\IeC {\'a}lculo de las Direcciones|hyperpage}{397}
+\indexentry{Pr\IeC {\'a}ctica!Generaci\IeC {\'o}n de C\IeC {\'o}digo|hyperpage}{406}
+\indexentry{Peephole optimization|hyperpage}{408}
+\indexentry{compilador cruzado|hyperpage}{408}
+\indexentry{Pr\IeC {\'a}ctica!Optimizaci\IeC {\'o}n Peephole|hyperpage}{408}
+\indexentry{bloque b\IeC {\'a}sico|hyperpage}{409}
+\indexentry{\IeC {\'a}rbol sint\IeC {\'a}ctico concreto|hyperpage}{410}
+\indexentry{Pr\IeC {\'a}ctica!Secuencia de Asignaciones Simples|hyperpage}{414}
+\indexentry{Pr\IeC {\'a}ctica!Calculadora con Listas de Expresiones y Variables|hyperpage}{419}
+\indexentry{LR|hyperpage}{419}
+\indexentry{antiderivaci\IeC {\'o}n|hyperpage}{419}
+\indexentry{rightmost derivation|hyperpage}{419}
+\indexentry{lenguaje de las formas sentenciales a rderechas|hyperpage}{420}
+\indexentry{handle|hyperpage}{420}
+\indexentry{mango|hyperpage}{420}
+\indexentry{manecilla|hyperpage}{420}
+\indexentry{mango|hyperpage}{420}
+\indexentry{handle|hyperpage}{420}
+\indexentry{aut\IeC {\'o}mata finito no determinista con $\epsilon $-transiciones|hyperpage}{421}
+\indexentry{NFA|hyperpage}{421}
+\indexentry{Primeros|hyperpage}{422}
+\indexentry{siguientes|hyperpage}{422}
+\indexentry{aut\IeC {\'o}mata finito determinista|hyperpage}{423}
+\indexentry{DFA|hyperpage}{423}
+\indexentry{algoritmo de construcci\IeC {\'o}n del subconjunto|hyperpage}{423}
+\indexentry{clausura|hyperpage}{423}
+\indexentry{funci\IeC {\'o}n de transici\IeC {\'o}n del aut\IeC {\'o}mata|hyperpage}{423}
+\indexentry{tabla de saltos|hyperpage}{424}
+\indexentry{tabla de gotos|hyperpage}{424}
+\indexentry{tabla de acciones|hyperpage}{424}
+\indexentry{goto|hyperpage}{424}
+\indexentry{SLR|hyperpage}{424}
+\indexentry{tabla de acciones|hyperpage}{424}
+\indexentry{acciones de desplazamiento|hyperpage}{424}
+\indexentry{acciones shift|hyperpage}{424}
+\indexentry{acci\IeC {\'o}n de reducci\IeC {\'o}n|hyperpage}{424}
+\indexentry{SLR|hyperpage}{425}
+\indexentry{SLR|hyperpage}{425}
+\indexentry{conflicto shift-reduce|hyperpage}{425}
+\indexentry{conflicto de desplazamiento-reducci\IeC {\'o}n|hyperpage}{425}
+\indexentry{conflicto reduce-reduce|hyperpage}{425}
+\indexentry{reducci\IeC {\'o}n-reducci\IeC {\'o}n|hyperpage}{425}
+\indexentry{LALR|hyperpage}{426}
+\indexentry{items n\IeC {\'u}cleo|hyperpage}{429}
+\indexentry{Pr\IeC {\'a}ctica!Calculadora con Funciones|hyperpage}{429}
+\indexentry{Pr\IeC {\'a}ctica!Traducci\IeC {\'o}n de Infijo a Postfijo|hyperpage}{431}
+\indexentry{reducci\IeC {\'o}n por defecto|hyperpage}{436}
+\indexentry{conflicto shift-reduce|hyperpage}{444}
+\indexentry{conflicto de desplazamiento-reducci\IeC {\'o}n|hyperpage}{444}
+\indexentry{conflicto reduce-reduce|hyperpage}{444}
+\indexentry{reducci\IeC {\'o}n-reducci\IeC {\'o}n|hyperpage}{444}
+\indexentry{yydebug|hyperpage}{446}
+\indexentry{esquema de traducci\IeC {\'o}n|hyperpage}{449}
+\indexentry{definici\IeC {\'o}n dirigida por la sint\IeC {\'a}xis|hyperpage}{449}
+\indexentry{atributos formales|hyperpage}{449}
+\indexentry{reglas de evaluaci\IeC {\'o}n de los atributos|hyperpage}{449}
+\indexentry{reglas sem\IeC {\'a}nticas|hyperpage}{449}
+\indexentry{atributos sintetizados|hyperpage}{449}
+\indexentry{atributos heredados|hyperpage}{449}
+\indexentry{atributo heredado|hyperpage}{449}
+\indexentry{atributo sintetizado|hyperpage}{449}
+\indexentry{atributos intr\IeC {\'\i }nsecos|hyperpage}{449}
+\indexentry{grafo de dependencias|hyperpage}{450}
+\indexentry{orden parcial|hyperpage}{450}
+\indexentry{orden topol\IeC {\'o}gico|hyperpage}{450}
+\indexentry{gram\IeC {\'a}tica atribu\IeC {\'\i }da|hyperpage}{450}
+\indexentry{L-atribu\IeC {\'\i }da|hyperpage}{450}
+\indexentry{S-atribu\IeC {\'\i }da|hyperpage}{450}
+\indexentry{atributos de los s\IeC {\'\i }mbolos|hyperpage}{454}
+\indexentry{trimming|hyperpage}{456}
+\indexentry{LR|hyperpage}{459}
+\indexentry{antiderivaci\IeC {\'o}n|hyperpage}{459}
+\indexentry{rightmost derivation|hyperpage}{459}
+\indexentry{mango|hyperpage}{460}
+\indexentry{handle|hyperpage}{460}
+\indexentry{aut\IeC {\'o}mata finito no determinista con $\epsilon $-transiciones|hyperpage}{461}
+\indexentry{NFA|hyperpage}{461}
+\indexentry{Primeros|hyperpage}{461}
+\indexentry{siguientes|hyperpage}{461}
+\indexentry{aut\IeC {\'o}mata finito determinista|hyperpage}{462}
+\indexentry{DFA|hyperpage}{462}
+\indexentry{algoritmo de construcci\IeC {\'o}n del subconjunto|hyperpage}{462}
+\indexentry{clausura|hyperpage}{462}
+\indexentry{funci\IeC {\'o}n de transici\IeC {\'o}n del aut\IeC {\'o}mata|hyperpage}{462}
+\indexentry{tabla de saltos|hyperpage}{463}
+\indexentry{tabla de gotos|hyperpage}{463}
+\indexentry{tabla de acciones|hyperpage}{463}
+\indexentry{goto|hyperpage}{463}
+\indexentry{SLR|hyperpage}{463}
+\indexentry{tabla de acciones|hyperpage}{463}
+\indexentry{acciones de desplazamiento|hyperpage}{463}
+\indexentry{acciones shift|hyperpage}{463}
+\indexentry{acci\IeC {\'o}n de reducci\IeC {\'o}n|hyperpage}{463}
+\indexentry{SLR|hyperpage}{463}
+\indexentry{SLR|hyperpage}{464}
+\indexentry{conflicto shift-reduce|hyperpage}{464}
+\indexentry{conflicto de desplazamiento-reducci\IeC {\'o}n|hyperpage}{464}
+\indexentry{conflicto reduce-reduce|hyperpage}{464}
+\indexentry{reducci\IeC {\'o}n-reducci\IeC {\'o}n|hyperpage}{464}
+\indexentry{LALR|hyperpage}{465}
+\indexentry{items n\IeC {\'u}cleo|hyperpage}{465}
+\indexentry{yydebug|hyperpage}{469}
+\indexentry{conflicto shift-reduce|hyperpage}{470}
+\indexentry{conflicto de desplazamiento-reducci\IeC {\'o}n|hyperpage}{470}
+\indexentry{conflicto reduce-reduce|hyperpage}{470}
+\indexentry{reducci\IeC {\'o}n-reducci\IeC {\'o}n|hyperpage}{470}
+\indexentry{yydebug|hyperpage}{472}
+\indexentry{esquema de traducci\IeC {\'o}n|hyperpage}{478}
+\indexentry{definici\IeC {\'o}n dirigida por la sint\IeC {\'a}xis|hyperpage}{479}
+\indexentry{atributos formales|hyperpage}{479}
+\indexentry{reglas de evaluaci\IeC {\'o}n de los atributos|hyperpage}{479}
+\indexentry{reglas sem\IeC {\'a}nticas|hyperpage}{479}
+\indexentry{atributos sintetizados|hyperpage}{479}
+\indexentry{atributos heredados|hyperpage}{479}
+\indexentry{atributo heredado|hyperpage}{479}
+\indexentry{atributo sintetizado|hyperpage}{479}
+\indexentry{atributos intr\IeC {\'\i }nsecos|hyperpage}{479}
+\indexentry{grafo de dependencias|hyperpage}{480}
+\indexentry{orden parcial|hyperpage}{480}
+\indexentry{orden topol\IeC {\'o}gico|hyperpage}{480}
+\indexentry{gram\IeC {\'a}tica atribu\IeC {\'\i }da|hyperpage}{480}
+\indexentry{L-atribu\IeC {\'\i }da|hyperpage}{480}
+\indexentry{S-atribu\IeC {\'\i }da|hyperpage}{480}
+\indexentry{\tt  YYSemval|hyperpage}{480}
+\indexentry{atributos heredados|hyperpage}{480}
+\indexentry{esquema de traducci\IeC {\'o}n|hyperpage}{481}
+\indexentry{definici\IeC {\'o}n dirigida por la sint\IeC {\'a}xis|hyperpage}{485}
+\indexentry{acci\IeC {\'o}n en medio de la regla|hyperpage}{486}
+\indexentry{Pr\IeC {\'a}ctica!Un C simplificado|hyperpage}{494}
+\indexentry{\tt  yacc|hyperpage}{498}
+\indexentry{\tt  bison|hyperpage}{498}
+\indexentry{\tt  flex|hyperpage}{502}
+\indexentry{\tt  LEX|hyperpage}{502}
+\indexentry{Pr\IeC {\'a}ctica!Uso de {\tt  Yacc} y {\tt  Lex}|hyperpage}{503}
+\indexentry{Pr\IeC {\'a}ctica! El An\IeC {\'a}lisis de las Acciones|hyperpage}{508}
+\indexentry{rendimiento|hyperpage}{509}
+\indexentry{\tt  Benchmark|hyperpage}{509}
+\indexentry{Pr\IeC {\'a}ctica! Autoacciones|hyperpage}{509}
+\indexentry{Pr\IeC {\'a}ctica!Nuevos M\IeC {\'e}todos|hyperpage}{510}
+\indexentry{Pr\IeC {\'a}ctica!Generaci\IeC {\'o}n Autom\IeC {\'a}tica de \IeC {\'A}rboles|hyperpage}{511}
+\indexentry{Pr\IeC {\'a}ctica!Construcci\IeC {\'o}n del AST para el Lenguaje Simple C|hyperpage}{518}

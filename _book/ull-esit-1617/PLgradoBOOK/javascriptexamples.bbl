@@ -1,0 +1,62 @@
+\begin{thebibliography}{10}
+
+\bibitem{osmani2012learning}
+A.~Osmani.
+\newblock {\em {\htmladdnormallink{Learning JavaScript Design
+  Patterns}{http://addyosmani.com/resources/essentialjsdesignpatterns/book/}}}.
+\newblock Oreilly and Associate Series. O'Reilly Media, Incorporated, 2012.
+
+\bibitem{learningnode}
+S.~Powers.
+\newblock {\em Learning Node}.
+\newblock Oreilly and Associate Series. O'Reilly Media, Incorporated, 2012.
+
+\bibitem{eloquentjavascript}
+M.~Haverbeke.
+\newblock {\em Eloquent JavaScript: A Modern Introduction to Programming}.
+\newblock No Starch Press Series. No Starch Press, 2011.
+
+\bibitem{holzner2003sams}
+S.~Holzner.
+\newblock {\em Sams Teach Yourself Xml in 21 Days}.
+\newblock Sams Teach Yourself. Sams, 2003.
+
+\bibitem{pilgrimhtml5}
+Mark Pilgrim.
+\newblock {\em {\htmladdnormallink{Dive into
+  HTML5}{http://diveinto.html5doctor.com/index.html}}}.
+\newblock http://diveinto.html5doctor.com/index.html, 2013.
+
+\bibitem{sedawk}
+Dale Dougherty.
+\newblock {\em Sed and AWK}.
+\newblock O'Reilly \& Associates, Inc., Sebastopol, CA, USA, 1991.
+
+\bibitem{power}
+Jerry Peek, Tim O'Reilly, Dale Dougherty, Mike Loukides, Chris Torek, Bruce
+  Barnett, Jonathan Kamens, Gene Spafford, and Simson Garfinkel.
+\newblock {\em UNIX power tools}.
+\newblock Bantam Books, Inc., New York, NY, USA, 1993.
+
+\bibitem{friedl}
+Jefrrey~E.F. Friedl.
+\newblock {\em Mastering Regular Expressions}.
+\newblock O'Reilly, USA, 1997.
+\newblock ISBN 1-56592-257-3.
+
+\bibitem{wilson2008beautiful}
+G.~Wilson and A.~Oram.
+\newblock {\em Beautiful Code: Leading Programmers Explain How They Think}.
+\newblock O'Reilly Media, 2008.
+
+\bibitem{CasianoIntroAPerl}
+Casiano~Rodriguez Leon.
+\newblock {\em {Perl: Fundamentos}}.
+\newblock {\tt http://nereida.deioc.ull.es/\~{}lhp/perlexamples/}, 2001.
+
+\bibitem{perltesting}
+Ian Langworth and chromatic.
+\newblock {\em Perl Testing: A Developer's Notebook}.
+\newblock O'Reilly Media, Inc., 2005.
+
+\end{thebibliography}

@@ -1,0 +1,975 @@
+
+<!DOCTYPE HTML>
+<html lang="es" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>8. Qué es el Shady Dom · presentaciones</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.2">
+        <meta name="author" content="ULL-ESIT-SYTW-1617">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-advanced-emoji/emoji-website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-codetabs/codetabs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="polymerDom.html" />
+    
+    
+    <link rel="prev" href="shadowDom.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Escribe para buscar" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../angular/">
+            
+                <a href="../angular/">
+            
+                    
+                    Angular
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../apis-de-js/">
+            
+                <a href="../apis-de-js/">
+            
+                    
+                    APIs de JS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../audio-y-video-en-js/">
+            
+                <a href="../audio-y-video-en-js/">
+            
+                    
+                    Audio y Vídeo en JS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../babel-es6-es7-y-es8/">
+            
+                <a href="../babel-es6-es7-y-es8/">
+            
+                    
+                    Babel ES6, ES7 y ES8
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../babel-es6-es7-y-es8/proceso-de-introduccion-de-nuevas-caracteristicas.html">
+            
+                <a href="../babel-es6-es7-y-es8/proceso-de-introduccion-de-nuevas-caracteristicas.html">
+            
+                    
+                    1. Proceso de Introducción de Nuevas Características
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../babel-es6-es7-y-es8/babel.html">
+            
+                <a href="../babel-es6-es7-y-es8/babel.html">
+            
+                    
+                    2. Babel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../babel-es6-es7-y-es8/funciones-flecha.html">
+            
+                <a href="../babel-es6-es7-y-es8/funciones-flecha.html">
+            
+                    
+                    3. Funciones Flecha
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../babel-es6-es7-y-es8/deconstrucciones.html">
+            
+                <a href="../babel-es6-es7-y-es8/deconstrucciones.html">
+            
+                    
+                    4. Deconstrucciones
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../babel-es6-es7-y-es8/operador-de-dispersion.html">
+            
+                <a href="../babel-es6-es7-y-es8/operador-de-dispersion.html">
+            
+                    
+                    5. Operador de Dispersión
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../babel-es6-es7-y-es8/iteradores.html">
+            
+                <a href="../babel-es6-es7-y-es8/iteradores.html">
+            
+                    
+                    6. Iteradores
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../babel-es6-es7-y-es8/nueva-sintaxis-en-bucles-for.html">
+            
+                <a href="../babel-es6-es7-y-es8/nueva-sintaxis-en-bucles-for.html">
+            
+                    
+                    7. Nueva sintaxis en bucles for
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../babel-es6-es7-y-es8/operador-bind.html">
+            
+                <a href="../babel-es6-es7-y-es8/operador-bind.html">
+            
+                    
+                    8. Operador bind
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.9" data-path="../babel-es6-es7-y-es8/import.html">
+            
+                <a href="../babel-es6-es7-y-es8/import.html">
+            
+                    
+                    9. Import
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.10" data-path="../babel-es6-es7-y-es8/export.html">
+            
+                <a href="../babel-es6-es7-y-es8/export.html">
+            
+                    
+                    10. Export
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.11" data-path="../babel-es6-es7-y-es8/async-y-await.html">
+            
+                <a href="../babel-es6-es7-y-es8/async-y-await.html">
+            
+                    
+                    11. Async y Await
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.12" data-path="../babel-es6-es7-y-es8/integracion-de-babel-con-gulp.html">
+            
+                <a href="../babel-es6-es7-y-es8/integracion-de-babel-con-gulp.html">
+            
+                    
+                    12. Integración de Babel con Gulp
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.13" data-path="../babel-es6-es7-y-es8/integracion-con-express.html">
+            
+                <a href="../babel-es6-es7-y-es8/integracion-con-express.html">
+            
+                    
+                    13. Integración con Express
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../bootstrap/">
+            
+                <a href="../bootstrap/">
+            
+                    
+                    Bootstrap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../canvas/">
+            
+                <a href="../canvas/">
+            
+                    
+                    Canvas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="../cloud-9/">
+            
+                <a href="../cloud-9/">
+            
+                    
+                    Cloud 9
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="../edicion-de-video/">
+            
+                <a href="../edicion-de-video/">
+            
+                    
+                    Edición de vídeo
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../edicion-de-video/conceptos-fotografia.html">
+            
+                <a href="../edicion-de-video/conceptos-fotografia.html">
+            
+                    
+                    1. Conceptos básicos de fotografía
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../edicion-de-video/conceptos-video.html">
+            
+                <a href="../edicion-de-video/conceptos-video.html">
+            
+                    
+                    2. Conceptos básicos de vídeo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../edicion-de-video/edicion.html">
+            
+                <a href="../edicion-de-video/edicion.html">
+            
+                    
+                    3. Edición
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../edicion-de-video/edicion-lineal.html">
+            
+                <a href="../edicion-de-video/edicion-lineal.html">
+            
+                    
+                    4. Edición lineal
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" data-path="../edicion-de-video/edicion-no-lineal.html">
+            
+                <a href="../edicion-de-video/edicion-no-lineal.html">
+            
+                    
+                    5. Edición no lineal
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.6" data-path="../edicion-de-video/procesado.html">
+            
+                <a href="../edicion-de-video/procesado.html">
+            
+                    
+                    6. Procesado
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.7" data-path="../edicion-de-video/frozen.html">
+            
+                <a href="../edicion-de-video/frozen.html">
+            
+                    
+                    7. Frozen
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.8" data-path="../edicion-de-video/codecs.html">
+            
+                <a href="../edicion-de-video/codecs.html">
+            
+                    
+                    8. Códecs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.9" data-path="../edicion-de-video/bibliografia.html">
+            
+                <a href="../edicion-de-video/bibliografia.html">
+            
+                    
+                    9. Bibliografía
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="../graphics/">
+            
+                <a href="../graphics/">
+            
+                    
+                    Graphics
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.11" data-path="../juegos-en-js/">
+            
+                <a href="../juegos-en-js/">
+            
+                    
+                    Juegos en JS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.12" data-path="../laravel/">
+            
+                <a href="../laravel/">
+            
+                    
+                    Laravel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.13" data-path="../materialize/">
+            
+                <a href="../materialize/">
+            
+                    
+                    Materialize
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.14" data-path="../meteor/">
+            
+                <a href="../meteor/">
+            
+                    
+                    Meteor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.15" data-path="../parallax-y-materialize-2/">
+            
+                <a href="../parallax-y-materialize-2/">
+            
+                    
+                    Parallax y Materialize 2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.16" data-path="../phantomjs/">
+            
+                <a href="../phantomjs/">
+            
+                    
+                    PhantomJS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Polymer
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.17.1" data-path="introduccion.html">
+            
+                <a href="introduccion.html">
+            
+                    
+                    1. Introducción a Polymer y sus conceptos
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.2" data-path="bower.html">
+            
+                <a href="bower.html">
+            
+                    
+                    2. Bower
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.3" data-path="htmlImport.html">
+            
+                <a href="htmlImport.html">
+            
+                    
+                    3. HTML import
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.4" data-path="customElements.html">
+            
+                <a href="customElements.html">
+            
+                    
+                    4. Qué es un custom element
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.5" data-path="HtmlTemplates.html">
+            
+                <a href="HtmlTemplates.html">
+            
+                    
+                    5. HTML Template
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.6" data-path="localDom.html">
+            
+                <a href="localDom.html">
+            
+                    
+                    6. Local DOM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.7" data-path="shadowDom.html">
+            
+                <a href="shadowDom.html">
+            
+                    
+                    7. Shadow DOM
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.17.8" data-path="shadyDom.html">
+            
+                <a href="shadyDom.html">
+            
+                    
+                    8. Qué es el Shady Dom
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.9" data-path="polymerDom.html">
+            
+                <a href="polymerDom.html">
+            
+                    
+                    9. API DOM Polymer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.10" data-path="behaviors.html">
+            
+                <a href="behaviors.html">
+            
+                    
+                    10. Qué es un behavior
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.17.11" data-path="vulcanize.html">
+            
+                <a href="vulcanize.html">
+            
+                    
+                    11. Vulcanize o vulcanizado
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.18" data-path="../react/">
+            
+                <a href="../react/">
+            
+                    
+                    React
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.19" data-path="../shopify/">
+            
+                <a href="../shopify/">
+            
+                    
+                    Shopify
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Publicado con GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >8. Qué es el Shady Dom</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="8-qu&#xE9;-es-el-shady-dom">8. Qu&#xE9; es el Shady Dom</h1>
+<p>Como ya se coment&#xF3; anteriormente, el <a href="shadowDom.html">shadow Dom</a> es una de las caracter&#xED;sticas principales para la creaci&#xF3;n de web components pero, el uso del shadow dom si no se es un desarrollador experimentado es tedioso y complicado de usar.
+Polymer, adem&#xE1;s de trabajar con el shadow dom, tambi&#xE9;n permite trabajar con lo que se le denomina <strong>Shady DOM</strong>. El shady dom, permite acceder al arbol dom que se crea del componente de una manera m&#xE1;s facil que como se har&#xED;a utilizando el shadow dom.</p>
+<h2 id="uso-del-this">Uso del this.$</h2>
+<p>Para acceder a los elementos del DOM de el elemento creado s&#xF3;lo basta con acceder mediante la utilizaci&#xF3;n de la sentencia <code>this.$.identificador del elemento a acceder</code>. A continuaci&#xF3;n, se muestra un ejemplo pr&#xE1;ctico del uso del shady DOM</p>
+<pre><code class="lang-html"><span class="hljs-comment">&lt;!--starwars.html--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;import&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;bower_components/polymer/polymer.html&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">dom-module</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;star-wars&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;main&quot;</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h3</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;name&quot;</span>&gt;</span>Luke Skywalker<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;description&quot;</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>especie:<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;specie&quot;</span>&gt;</span>humana<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>planeta natal:<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;homeworld&quot;</span>&gt;</span>Tatooine<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>ocupaci&#xF3;n:<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;occupation&quot;</span>&gt;</span>maestro jedy<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+  Polymer({
+    <span class="hljs-keyword">is</span>: <span class="hljs-string">&quot;star-wars&quot;</span>
+  });
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dom-module</span>&gt;</span>
+</code></pre>
+<p>Para acceder al elemento con id specie por ejemplo, habr&#xED;a que &#xE1;&#xF1;adir la siguiente sentencia</p>
+<pre><code class="lang-javascript">nombrefuncion: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">this</span>.$.specie.style.color=<span class="hljs-string">&quot;#123456&quot;</span>
+}
+</code></pre>
+<p>Esto permitir&#xE1; de una manera simple acceder a cualquier nodo de nuestro elemento simplemente utilizando <code>this.$.id</code> , haciendo mucho m&#xE1;s f&#xE1;cil la modificaci&#xF3;n del nodo de nuestro elemento el arbol local que se crea.</p>
+<h3 id="uso-del-this">Uso del this.$$</h3>
+<p>La sentencia this.$ funciona cuando el nodo est&#xE1; inclu&#xED;do dentro del template del elemento que se esta creando. En caso de que se quiera acceder al nodo de un elemento que se cree  posteriormente dentro de una funci&#xF3;n por ejemplo, habr&#xED;a que a&#xF1;adir la sentencia <code>this.$$.(id del nodo)</code>. A continuaci&#xF3;n, se muestra un ejemplo claro de c&#xF3;mo funcionar&#xED;a this.$$ .</p>
+<pre><code class="lang-javascript">  nombrefuncion: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> item = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&apos;li&apos;</span>);
+    item.innerHTML = <span class="hljs-string">&quot;&lt;b&gt;notas:&lt;/b&gt; &lt;span id=&apos;notes&apos;&gt;su padre es Darth Vader&lt;/span&gt;&quot;</span>;
+    Polymer.dom(<span class="hljs-keyword">this</span>.$.description).appendChild(item);
+  }
+</code></pre>
+<p>Polymer para crear nodos dentro de un elemento posee su propia API y tiene una serie de funciones que se detallan en <a href="polymerDom.html">Polymer.dom</a>. En esta ocasi&#xF3;n, se est&#xE1; creando un elemento del tipo <code>li</code> que es hijo del nodo <code>description</code> y que lo que hace es mostrar una informaci&#xF3;n con respecto a lo que contiene ese elemento.
+En esta ocasi&#xF3;n, si se quisiera utilizar la sentencia  <code>this.$.notes.style.color=&quot;#123456&quot;</code> dar&#xED;a error, ya que el nodo no est&#xE1; creado en el template como tal sino que est&#xE1; creado posteriormente. Para modificar el nodo, se debe utilizar la sentencia <code>this.$$(&quot;#notes&quot;).style.color = &quot;#123456&quot;</code></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="shadowDom.html" class="navigation navigation-prev " aria-label="Previous page: 7. Shadow DOM">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="polymerDom.html" class="navigation navigation-next " aria-label="Next page: 9. API DOM Polymer">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"8. Qué es el Shady Dom","level":"1.17.8","depth":2,"next":{"title":"9. API DOM Polymer","level":"1.17.9","depth":2,"path":"polymer/polymerDom.md","ref":"polymer/polymerDom.md","articles":[]},"previous":{"title":"7. Shadow DOM","level":"1.17.7","depth":2,"path":"polymer/shadowDom.md","ref":"polymer/shadowDom.md","articles":[]},"dir":"ltr"},"config":{"plugins":["advanced-emoji","collapsible-menu","js-console","youtube","codetabs","es6tabs-stage-0","livereload"],"license":"MIT","root":"./txt","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"collapsible-menu":{},"youtube":{},"livereload":{},"es6tabs":{"presets":["es2015","stage-0"]},"search":{},"codetabs":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"js-console":{},"highlight":{},"es6tabs-stage-0":{"presets":["es2015","react"]},"advanced-emoji":{"embedEmojis":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"ghPages":"http://ULL-ESIT-SYTW-1617.github.io/presentaciones-todos","theme":"default","author":"ULL-ESIT-SYTW-1617","name":"presentaciones","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"repo":"https://github.com/ULL-ESIT-SYTW-1617/presentaciones-todos","structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"presentaciones","language":"es","gitbook":"*","description":"Libro de las presentaciones de SYTW del curso 2016/17"},"file":{"path":"polymer/shadyDom.md","mtime":"2016-11-30T09:23:54.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-30T10:08:49.571Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-collapsible-menu/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-js-console/console-ui.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-codetabs/codetabs.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

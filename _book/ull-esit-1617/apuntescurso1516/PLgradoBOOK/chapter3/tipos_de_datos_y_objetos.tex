@@ -1,0 +1,1529 @@
+\section{Números}
+
+\section{Texto}
+\section{Arrays}
+\section{Hashes}
+\section{Rangos}
+\section{Símbolos}
+\section{Booleanos}
+
+\section{Objetos}
+\label{section:objetos}
+
+\subsection{Referencias a Objetos}
+
+\begin{verbatim}
+>> person1 = "Tim"
+=> "Tim"
+>> person1.class
+=> String
+>> person1.object_id
+=> 2150445000
+>> person2 = person1
+=> "Tim"
+>> person1[0] = "J"
+=> "J"
+>> person2
+=> "Jim"
+\end{verbatim}
+
+\begin{verbatim}
+>> person2 = person1.dup
+=> "Jim"
+>> person1[0] = "T"
+=> "T"
+>> person2
+=> "Jim"
+>> person1
+=> "Tim"
+\end{verbatim}
+
+\begin{verbatim}
+>> person2 = person1.clone
+=> "Tim"
+>> person1[0] = "W"
+=> "W"
+>> person2
+=> "Tim"
+>> person1
+=> "Wim"
+\end{verbatim}
+
+\subsubsection{Valores Inmediatos}
+
+\begin{verbatim}
+[16:51][~/Dropbox/Public/LPP/1213(master)]$ irb
+ruby-1.9.2-p290 :001 > a = 2
+ => 2 
+ruby-1.9.2-p290 :002 > b = a
+ => 2 
+ruby-1.9.2-p290 :003 > b = 5
+ => 5 
+ruby-1.9.2-p290 :004 > a
+ => 2 
+ruby-1.9.2-p290 :005 > b
+ => 5 
+ruby-1.9.2-p290 :006 > c = :z
+ => :z 
+ruby-1.9.2-p290 :007 > d = c
+ => :z 
+ruby-1.9.2-p290 :008 > d = :w
+ => :w 
+ruby-1.9.2-p290 :009 > c
+ => :z 
+ruby-1.9.2-p290 :010 > d
+ => :w 
+ruby-1.9.2-p290 :011 > 
+
+\end{verbatim}
+
+\subsection{Vida de un Objeto}
+
+Garbage collection does not mean that memory leaks are impossible:
+any code that creates long-lived references to objects that would otherwise be short-lived can be a
+source of memory leaks.
+
+\subsection{Identidad de un Objeto}
+\begin{verbatim}
+ruby-1.9.2-p290 :003 > a = 4
+ => 4 
+ruby-1.9.2-p290 :004 > a.__id__
+ => 9 
+ruby-1.9.2-p290 :005 > a.object_id
+ => 9 
+ruby-1.9.2-p290 :006 > x = "hello"
+ => "hello" 
+ruby-1.9.2-p290 :007 > x.__id__
+ => 70103467703860 
+ruby-1.9.2-p290 :008 > x.object_id
+ => 70103467703860 
+
+\end{verbatim}
+
+Es único durante la vida del objeto.
+\subsection{Clase y Tipo de un Objeto}
+
+Repasa la sección \ref{subsub:tiposypatos}.
+
+El tipo de un objeto es el conjunto de conductas que caracterizan al objeto.
+Es el conjunto de métodos a los que puede responder.
+
+
+\subsection{Igualdad de Objetos}
+
+
+
+\subsubsection{El método {\tt equal?}}
+Usado para comprobar cuando se refieren al mismo objeto.
+
+\begin{verbatim}
+ruby-1.9.2-p290 :009 > a = "hello"
+ => "hello" 
+ruby-1.9.2-p290 :010 > b = c = "hello"
+ => "hello" 
+ruby-1.9.2-p290 :011 > a.equal? b
+ => false 
+ruby-1.9.2-p290 :012 > b.equal? c
+ => true 
+
+\end{verbatim}
+
+\subsubsection{El operador {\tt ==}}
+
+\begin{verbatim}
+ruby-1.9.2-p290 :013 > a = "hello"
+ => "hello" 
+ruby-1.9.2-p290 :014 > b = c = "hello"
+ => "hello" 
+ruby-1.9.2-p290 :015 > a == b
+ => true 
+\end{verbatim}
+
+\subsubsection{El método {\tt eql?}}
+
+\begin{verbatim}
+ruby-1.9.2-p290 :019 > 1 == 1.0
+ => true 
+ruby-1.9.2-p290 :020 > 1.eql? 1.0
+ => false 
+
+\end{verbatim}
+\subsubsection{El operador {\tt ===}}
+
+\begin{verbatim}
+ruby-1.9.2-p290 :019 > 1 == 1.0
+ => true 
+ruby-1.9.2-p290 :020 > 1.eql? 1.0
+ => false 
+ruby-1.9.2-p290 :021 > (1..10) === 5
+ => true 
+ruby-1.9.2-p290 :022 > /\d+/ === "a432b"
+ => true 
+ruby-1.9.2-p290 :023 > /\d+/ === "acb"
+ => false 
+ruby-1.9.2-p290 :024 > String === 's'
+ => true 
+ruby-1.9.2-p290 :025 > String === 32
+ => false 
+ruby-1.9.2-p290 :026 > :s === "s"
+ => false 
+ruby-1.9.2-p290 :027 > :s === "t"
+ => false 
+
+\end{verbatim}
+
+\subsubsection{El operador {\tt =\~{}}}
+
+
+\subsection{Orden en Objetos}
+
+\subsection{Conversión de Objetos}
+
+\subsection{Copia de Objetos}
+
+\subsection{Marshalling}
+Serializar un objeto es convertirlo en una cadena de bytes 
+con la idea de almacenarlo para su uso posterior o para
+su uso por otro programa o proceso. 
+Podemos utilizar el módulo \rubymod{Marshal} para ello.
+
+Podemos usar marshalling  para guardar el estado de un objeto \verb|o|:
+en un fichero \verb|objmsh|
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ cat -n marshal2.rb 
+     1  require "Klass"
+     2  
+     3  o = Klass.new("hello", { :a => 1, :b => 2} ) 
+     4  File.open("objmsh", "wb") do |f|
+     5    data = Marshal.dump(o, f) 
+     6  end
+\end{verbatim}
+La clase \verb|Klass| esta definida así:
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ cat -n Klass.rb 
+     1  class Klass 
+     2    def initialize(str, hash)
+     3      @str, @hash = str, hash 
+     4    end 
+     5  
+     6    def to_s
+     7     h = @hash.keys.map { |x| "#{x} => #{@hash[x]}" }.join(" ")
+     8     "str = '#@str' hash = {#{h}}"
+     9    end 
+    10  end
+\end{verbatim}
+Podemos cargar posteriormente el objeto
+en la ejecución de un script usando \verb|Marshal.load|. 
+De este modo es posible guardar el estado de un programa entre ejecuciones:
+
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ cat -n marshal3.rb 
+     1  require "Klass"
+     2  
+     3  obj = nil
+     4  File.open("objmsh","rb") {|f| obj = Marshal.load(f)}
+     5  puts obj.inspect
+     6  puts obj
+\end{verbatim}
+La ejecución de \verb|marshal2.rb| serializa el objeto y lo guarda en un fichero:
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ ruby marshal2.rb
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ ls -ltr | tail -1
+-rw-r--r--  1 casianorodriguezleon  staff    43 13 oct 21:29 objmsh
+\end{verbatim}
+
+
+La ejecución de \verb|marshal3.rb| 
+reconstruye el objeto usando \verb|Marshal.load|:
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ ruby marshal3.rb
+#<Klass:0x10016a020 @hash={:a=>1, :b=>2}, @str="hello">
+str = 'hello' hash = {a => 1 b => 2}
+\end{verbatim}
+
+\subsubsection{Marshalling Datos entre Procesos que se Comunican}
+\label{section:forkandmarshalling}
+
+\begin{verbatim}
+MacBookdeCasiano:distributedRuby casiano$ cat -n fork.rb
+     1  #!/usr/bin/env ruby -w
+     2  def do_in_child
+     3    read, write = IO.pipe
+     4  
+     5    pid = fork do
+     6      read.close
+     7      result = yield
+     8      write.puts [Marshal.dump(result)].pack("m")
+     9      exit!
+    10    end
+    11  
+    12    write.close
+    13    puts "In father. PID = #{Process.pid}"
+    14    result = read.read
+    15    Process.wait2(pid)
+    16    r = Marshal.load(result.unpack("m")[0])
+    17    puts "#{Process.pid}: #{r.inspect}"
+    18  end
+    19  
+    20  do_in_child do
+    21    puts "In child. PID = #{Process.pid}"
+    22    { :a => 1, :b => 2 } 
+    23  end
+\end{verbatim}
+%
+%
+\begin{itemize}
+\item
+El método \verb|pipe| de \rubymod{IO} crea un canal y retorna los extremos del mismo.
+Es necesario que los dos procesos que usan la pareja para comunicarse cierren el extremo 
+del canal que no usen. El extremo de lectura de un canal no generará un
+final de fichero si hay escritores que tienen el canal abierto.
+En el caso del padre, el \verb|read| no terminaría nunca 
+si no cierra primero el canal de escritura.
+%
+%
+\item En la línea 5, la llamada al método \verb|fork| de la clase \rubymod{Process} 
+hace que se cree un proceso hijo.
+El \verb|fork| retorna al proceso padre el \verb|PID| del proceso hijo.
+El proceso hijo recibe un \verb|nil|.
+La sintáxis de \verb|fork| es:
+\begin{verbatim}
+  fork [{ block }] → fixnum or nil 
+\end{verbatim}
+
+Si se especifica un bloque - como ocurre en el ejemplo -
+es el código de ese bloque el que se ejecuta como subproceso. En tal caso
+el fin del bloque indica el final del proceso que por defecto termina con un estatus 0.
+Por tanto, en este caso, la llamada a \verb|exit!| es un exceso y podría ser eliminada, pero es la forma de 
+hacer explícita la terminación del proceso.
+El proceso padre deberá esperar por la terminación de los procesos hijos usando un \verb|wait|
+o bien no esperar usando un \verb|detach| para hacer explícito su desinterés en el estatus del hijo.
+La no realización de este protocolo puede conducir a la proliferación de zombies.
+
+Se puede ver si \verb|fork| está disponible consultando  \verb|Process.respond_to?(:fork)|.
+\item
+El método \verb|pack| de la clase 
+\rubymod{Array} tiene la sintáxis:
+\begin{verbatim}
+  arr.pack ( aTemplateString ) -> aBinaryString
+\end{verbatim}
+La llamada empaqueta los contenidos de \verb|arr| en una secuencia 
+binaria de acuerdo con las directivas especificadas en
+\verb|aTemplateString|. 
+
+Así en la línea:
+\begin{verbatim}
+     write.puts [Marshal.dump(result)].pack("m")
+\end{verbatim}
+El formato \verb|"m"| en el parámetro de template indica que la cadena binaria producida por 
+\verb|Marshal.dump(result)|será codificada en Base64.
+
+Base64 denota un grupo de esquemas de codificación que representan datos binarios
+en una cadena en formato ASCII.
+Estos esquemas se usan cuando hay necesidad de codificar datos binarios que deben 
+ser almacenados y transferidos sobre un medio que fué diseñado para tratar con datos de tipo texto.
+De esta forma se asegura  que los datos permanecen intactos durante el transporte.
+Entre otras aplicaciones, es habitual ver el uso de Base64 en 
+el uso de email via MIME y en el almacenamiento de datos complejos en XML.
+
+
+En este ejemplo el uso de \verb|pack| y \verb|unpack| parece innecesario ya que el canal está ya en un modo de
+transmisión binario de manera que caracteres como el retorno de carro o el tabulador no se interpreten.
+Se puede eliminar el uso de \verb|pack| y \verb|unpack| si se usa \verb|syswrite|:
+\begin{verbatim}
+ 8     write.syswrite Marshal.dump(result)
+\end{verbatim}
+y ahora la lectura y reconstrucción de la estructura queda simplificada:
+\begin{verbatim}
+ 14   result = read.read
+ 15   Process.wait2(pid)
+ 16   r = Marshal.load(result)
+\end{verbatim}
+\item
+El método \verb|read| de la clase  \rubymod{IO}
+\begin{verbatim}
+  read([length [, buffer]]) => string, buffer, or nil 
+\end{verbatim}
+
+lee a lo mas \verb|length| bytes del stream de I/O, o hasta el final de fichero si se omite o es \verb|nil|. 
+Si se especifica el \verb|buffer|, lo leído se guarda en el mismo.
+Cuando el método \verb|read| alcanza el  final de fichero retorna \verb|nil| o \verb|""|. 
+\item
+La llamada al método \verb|exit!| de la clase \rubymod{Process} termina inmediatamente el proceso hijo.
+\item
+La llamada a \verb|wait2|
+hace que el proceso padre espere a la salida del proceso hijo.
+El método \verb|wait2| retorna un array que contiene el 
+PID del proceso hijo y su estatus de salida (que es un objeto 
+\rubyclass{Process::Status}{Process/Status}).
+\end{itemize}
+
+
+Cuando se ejecuta el programa anterior produce una salida parecida a esta:
+
+\begin{verbatim}
+MacBookdeCasiano:distributedRuby casiano$ ./fork.rb 
+In father. PID = 6583
+In child. PID = 6584
+6583: {:a=>1, :b=>2}
+
+\end{verbatim}
+
+
+\subsubsection{Ejercicios}
+\label{ejercicios:procesos}
+\begin{enumerate}
+\item ¿Que contiene la variable global \verb|$$|?
+\item ¿Que contiene la variable global \verb|$?|?
+ ¿Cual será la salida?
+(Véase \rubyclass{Process::Status}{Process/Status}).
+\begin{verbatim}
+>> `ls noexiste`
+ls: noexiste: No such file or directory
+=> ""
+>> $?
+=> #<Process::Status: pid=1717,exited(1)>
+>> $?.exitstatus
+=> 
+>> $?.pid
+=> 
+>> $?.signaled?
+=> false
+>> $?.success?
+=> 
+>> $?.termsig
+=> nil
+\end{verbatim}
+\item ¿Cual será la salida de este programa?
+\begin{verbatim}
+if (pid = fork) then puts $$ else puts $$ end
+\end{verbatim}
+\item ¿Cual será la salida de este programa?
+\begin{verbatim}
+     1  a = 4
+     2  if (pid = fork)
+     3    puts "#{$$}: #{a}"
+     4  else 
+     5    puts "#{$$}: #{a}"
+     6    a  = 5
+     7    puts "#{$$}: #{a}"
+     8    exit!
+     9  end
+    10  Process.wait2
+    11  puts "#{$$}: #{a}"
+\end{verbatim}
+\item
+El programa unix \verb|bc| implementa una calculadora. He aqui un ejemplo de sesión
+\begin{verbatim}
+~/rubytesting/distributedRuby$ bc
+bc 1.06
+Copyright 1991-1994, 1997, 1998, 2000 Free Software Foundation, Inc.
+This is free software with ABSOLUTELY NO WARRANTY.
+For details type `warranty'. 
+a = 2*-4
+a
+-8      
+b = 9+a
+b
+1
+^D
+~/rubytesting/distributedRuby$
+\end{verbatim}
+¿Cuál es la salida del siguiente programa?
+Véase la documentación de \rubycoreclassmethod{popen}{IO}.
+\begin{verbatim}
+~/rubytesting/distributedRuby$ cat -n bc.rb 
+     1  IO.popen("bc", "r+") do |pipe|
+     2    pipe.puts("a = 2*-4")
+     3    pipe.puts("a")
+     4    output = pipe.gets
+     5    puts output
+     6  
+     7    pipe.puts("b = 9+a")
+     8    pipe.puts("b")
+     9    pipe.close_write  
+    10    output = pipe.gets
+    11    puts output
+    12  end
+\end{verbatim}
+\end{enumerate}
+
+
+\subsubsection{Marshalling con YAML}
+\label{section:YAML}
+
+La librería \rubystdlibclass{YAML}{yaml/rdoc/YAML} nos permite cierta interoperabilidad entre lenguajes.
+
+La interoperabilidad entre lenguajes es la posibilidad de que el código interactúe con código escrito en un lenguaje de programación diferente. 
+La interoperabilidad entre lenguajes puede ayudar a maximizar la reutilización de código y, por tanto, puede mejorar la eficacia del proceso de programación.
+
+Aquí tenemos un ejemplo:
+
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ cat -n marshallingWithYAML.rb 
+     1  require 'YAML'
+     2  
+     3  fred = {}
+     4  fred['name'] = "Fred Astair"
+     5  fred['age'] = 54
+     6  
+     7  laura = {}
+     8  laura['name'] = "Laura Higgins"
+     9  laura['age'] = 45
+    10  
+    11  test_data = [ fred, laura ]
+    12  
+    13  puts "The array dumped by Ruby in YAML format:\n"+YAML::dump(test_data)
+    14  
+    15  IO.popen('perl perlscript.pl', "w+") do |pipe|
+    16    pipe.puts YAML::dump(test_data)
+    17    pipe.close_write  
+    18    output = pipe.read
+    19    puts "The perl script produced this output:\n<<\n#{output}>>"
+    20  end
+\end{verbatim}
+Este es el código del script Perl arrancado desde Ruby:
+\begin{verbatim}
+/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ cat -n perlscript.pl 
+     1  use strict;
+     2  use warnings;
+     3  $| = 1;
+     4  
+     5  use YAML;
+     6  
+     7  $/ = undef;
+     8  my $rubypersons = <STDIN>;
+     9  my $perlpersons = Load($rubypersons);
+    10  for (@$perlpersons) {
+    11    print($_->{name},"\n");
+    12  }
+\end{verbatim}
+Este es el resultado de la ejecución:
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ ruby marshallingWithYAML.rb 
+The array dumped by Ruby in YAML format:
+--- 
+- name: Fred Astair
+  age: 54
+- name: Laura Higgins
+  age: 45
+The perl script produced this output:
+<<
+Fred Astair
+Laura Higgins
+>>
+\end{verbatim}
+
+\subsubsection{Marshalling con PStore}
+
+La librería \rubystdlibclass{PStore}{pstore/rdoc/PStore} nos permite almacenar y recuperar estructuras de datos en un fichero.
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ cat -n trivialclass.rb 
+     1  class Person
+     2    attr_accessor :name, :job, :gender, :age
+     3  end
+\end{verbatim}
+
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ cat -n marshalWithPStore.rb
+     1  require "trivialclass"
+     2  require "pstore"
+     3  
+     4  fred = Person.new
+     5  fred.name = 'Fred Bloggs'
+     6  fred.age = 54
+     7  
+     8  laura = Person.new
+     9  laura.name = "Laura Higgins"
+    10  laura.age = 45
+    11  
+    12  store = PStore.new("persistentobjects")
+    13  store.transaction do
+    14    store[:people] ||= []
+    15    store[:people] << fred << laura
+    16  end
+\end{verbatim}
+El método \verb|transaction(read_only=false)|
+abre una nueva transacción del almacenamiento de datos.
+El código que se pasa como bloque puede leer y escribir datos en el fichero.
+El final del bloque produce un commit automático de los cambios.
+Es posible producir explícitamente el final de la transacción
+llamando a \verb|PStore::commit|:
+\begin{verbatim}
+require "pstore"
+
+store = PStore.new("data_file.pstore")
+store.transaction do  # begin transaction
+  # load some data into the store...
+  store[:one] = 1
+  store[:two] = 2
+
+  store.commit        # end transaction here, committing changes
+
+  store[:three] = 3   # this change is never reached
+end
+\end{verbatim}
+también es posible finalizar la transacción llamando a \verb|abort|:
+\begin{verbatim}
+require "pstore"
+
+store = PStore.new("data_file.pstore")
+store.transaction do  # begin transaction
+  store[:one] = 1     # this change is not applied, see below...
+  store[:two] = 2     # this change is not applied, see below...
+
+  store.abort         # end transaction here, discard all changes
+
+  store[:three] = 3   # this change is never reached
+end
+\end{verbatim}
+Si se genera una excepción dentro del bloque se produce una llamada a \verb|abort|.
+
+
+Si el argumento \verb|read_only| es \verb|true|, 
+sólo se podrá acceder para lectura al almacen de datos durante 
+la transacción y cualquier intento de 
+cambiarlo producirá una excepción \verb|PStore::Error|.
+
+Nótese que \rubystdlibclass{PStore}{pstore/rdoc/PStore} no soporta transacciones anidadas.
+
+El siguiente script recupera los datos almacenados:
+
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ cat -n useMarshalWithPStore.rb
+     1  require "trivialclass"
+     2  require "pstore"
+     3  store = PStore.new("persistentobjects")
+     4  people = []
+     5  store.transaction do
+     6    people = store[:people]
+     7  end
+     8  people.each { |o|
+     9    puts o.inspect
+    10  }
+\end{verbatim}
+
+Sigue un ejemplo de ejecución:
+
+
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ ruby marshalWithPStore.rb 
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ ls -ltr | tail -1
+-rw-r--r--  1 casianorodriguezleon  staff    77 16 oct 12:48 persistentobjects
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ ruby useMarshalWithPStore.rb 
+#<Person:0x10036ee48 @name="Fred Bloggs", @age=54>
+#<Person:0x10036ed80 @name="Laura Higgins", @age=45>
+\end{verbatim}
+
+\begin{exercise}
+Si se ejecuta por segunda vez:
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ ruby marshalWithPStore.rb 
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ ls -ltr | tail -1
+-rw-r--r--  1 casianorodriguezleon  staff   125 16 oct 12:49 persistentobjects
+\end{verbatim}
+Obtenemos:
+\begin{verbatim}
+~/rubytesting/TheRubyProgrammingLanguage/Chapter7ClassesAndModules$ ruby useMarshalWithPStore.rb 
+#<Person:0x10036ee48 @name="Fred Bloggs", @age=54>
+#<Person:0x10036ed80 @name="Laura Higgins", @age=45>
+#<Person:0x10036ed08 @name="Fred Bloggs", @age=54>
+#<Person:0x10036ec90 @name="Laura Higgins", @age=45>
+\end{verbatim}
+¿Cual es la razón?
+\end{exercise}
+
+\subsubsection{Marshalling Lambdas y Procs}
+\label{susection:marshallinglambdas}
+Los métodos \verb|dump| y \verb|load| no funcionan con objetos 
+de la clase \rubymod{Proc}.
+Cuando ejecutamos este programa:
+\begin{verbatim}
+~/rubytesting/distributedRuby/serializeProc$ cat -n marshal2.rb 
+     1  o = Proc.new { |a,b | a+b }  
+     2  File.open("objmsh", "wb") do |f|
+     3    data = Marshal.dump(o, f) 
+     4  end
+\end{verbatim}
+Obtenemos un mensaje de error:
+
+\begin{verbatim}
+~/rubytesting/distributedRuby/serializeProc$ ruby marshal2.rb 
+marshal2.rb:3:in `dump': no marshal_dump is defined for class Proc (TypeError)
+  from marshal2.rb:3
+  from marshal2.rb:2:in `open'
+  from marshal2.rb:2
+\end{verbatim}
+
+Algunos objetos no pueden ser volcados. Si nuestra clase tiene necesidades especiales
+debemos implementar nuestra propia estrategia de serialización definiendo dos métodos:
+\begin{enumerate}
+\item \verb|_dump|
+
+El método de instancia \verb|_dump| debe retornar una cadena \rubymod{String}
+que contenga la información necesaria para la reconstrucción del objeto hasta 
+la profundidad indicada por un parámetro entero.
+Un valor de \verb|-1| de dicho parámetro indica que desactivamos la comprobación de profundidad.
+
+\item \verb|_load|
+
+El método de clase \verb|_load| toma una \rubymod{String} y devuelve el objeto reconstruido.
+\end{enumerate}
+
+Veamos un ejemplo de uso de \verb|_dump| y \verb|_load|.
+La clase \verb|SerializableProc| 
+permite serializar \rubymod{Proc}s:
+
+\begin{verbatim}
+~/rubytesting/distributedRuby/serializeProc$ cat -n SerializableProc.rb 
+     1  class SerializableProc
+     2  
+     3     def initialize( block )
+     4       @block = block
+     5       @block.sub!(/^/,'lambda ') unless @block =~/^\s*(?:lambda|proc)/
+     6       # Test if block is valid.
+     7       @func = eval "#{@block}"
+     8     end
+     9  
+    10  
+    11     def call(* args)
+    12       @func.call(* args)
+    13     end
+    14  
+    15     def arity
+    16       @func.arity
+    17     end
+    18  
+    19     def _dump(limit)
+    20       @block
+    21     end
+    22  
+    23     def self._load(s)
+    24       self.new(s)
+    25     end
+    26  
+    27  end
+\end{verbatim}
+Este código hace uso de la clase:
+\begin{verbatim}
+~/rubytesting/distributedRuby/serializeProc$ cat -n marshalproc2.rb 
+     1  
+     2  require "SerializableProc"
+     3  
+     4  
+     5  if $0 == __FILE__
+     6  
+     7     code = SerializableProc.new %q{ { |a,b| a+b }}
+     8  
+     9     # Marshal
+    10     File.open('proc.marshalled', 'w') { |file| Marshal.dump(code, file) }
+    11     code = File.open('proc.marshalled') { |file| Marshal.load(file) }
+    12  
+    13     p code.call( 1, 2 )
+    14  
+    15     p code.arity
+    16  
+    17  end
+\end{verbatim}
+Sigue una ejecución:
+\begin{verbatim}
+~/rubytesting/distributedRuby/serializeProc$ ruby marshalproc2.rb 
+3
+2
+\end{verbatim}
+
+%Esta otra solución "memoiza" en un hash la relación entre el fuente y el código:
+%
+%\begin{verbatim}
+%~/rubytesting/distributedRuby/serializeProc$ cat -n marshallproc.rb 
+%     1  class SerializableProc
+%     2  
+%     3     @@cache = {}
+%     4     def initialize( block )
+%     5       @block = block
+%     6       @block.sub!(/^/,'lambda ') unless @block =~/^\s*(?:lambda|proc)/
+%     7       # Test if block is valid.
+%     8       @@cache[__id__] = eval "#{@block}"
+%     9     end
+%    10  
+%    11  
+%    12     def call(* args)
+%    13       @@cache[__id__].call(* args)
+%    14     end
+%    15  
+%    16     def arity
+%    17       @@cache[__id__].arity
+%    18     end
+%    19  
+%    20     def _dump(limit)
+%    21       @block
+%    22     end
+%    23  
+%    24     def self._load(s)
+%    25       self.new(s)
+%    26     end
+%    27  
+%    28  end
+%    29  
+%    30  
+%    31  if $0 == __FILE__
+%    32  
+%    33     code = SerializableProc.new %q{ { |a,b| a+b }}
+%    34  
+%    35     # Marshal
+%    36     File.open('proc.marshalled', 'w') { |file| Marshal.dump(code, file) }
+%    37     code = File.open('proc.marshalled') { |file| Marshal.load(file) }
+%    38  
+%    39     p code.call( 1, 2 )
+%    40  
+%    41     p code.arity
+%    42  
+%    43  end
+%\end{verbatim}
+
+Este otro código muestra otra solución que no hace uso de \verb|_dump| y \verb|_load|:
+\begin{verbatim}
+~/rubytesting/distributedRuby/serializeProc$ cat -n serializableProc2.rb 
+     1  class SerializableProc
+     2  
+     3     @@cache = {}
+     4     def initialize( block )
+     5       @block = block
+     6       @block.sub!(/^/,'lambda ') unless @block =~/^\s*(?:lambda|proc)/
+     7       # Test if block is valid.
+     8       @@cache[@block] = eval "#{@block}"
+     9     end
+    10  
+    11  
+    12     def call(* args)
+    13       @@cache[@block].call(* args)
+    14     end
+    15  
+    16     def arity
+    17       @@cache[@block].arity
+    18     end
+    19  
+    20  end
+    21  
+    22  
+    23  if $0 == __FILE__
+    24  
+    25     require 'yaml'
+    26     require 'pstore'
+    27  
+    28     code = SerializableProc.new %q{ { |a,b| a+b }}
+    29  
+    30     # Marshal
+    31     File.open('proc.marshalled', 'w') { |file| Marshal.dump(code, file) }
+    32     code = File.open('proc.marshalled') { |file| Marshal.load(file) }
+    33  
+    34     p code.call( 1, 2 )
+    35  
+    36     # PStore
+    37     store = PStore.new('proc.pstore')
+    38     store.transaction do
+    39       store['proc'] = code
+    40     end
+    41     store.transaction do
+    42       code = store['proc']
+    43     end
+    44  
+    45     p code.call( 1, 2 )
+    46  
+    47     # YAML
+    48     File.open('proc.yaml', 'w') { |file| YAML.dump(code, file) }
+    49     code = File.open('proc.yaml') { |file| YAML.load(file) }
+    50  
+    51     p code.call( 1, 2 )
+    52  
+    53     p code.arity
+    54  
+    55  end
+\end{verbatim}
+La solución "memoiza" en un hash que es un atributo de la clase la relación entre el fuente y el código.
+Cuando se ejecuta el código anterior se obtiene:
+\begin{verbatim}
+~/rubytesting/distributedRuby/serializeProc$ ruby serializableProc2.rb 
+3
+3
+3
+2
+\end{verbatim}
+
+\subsubsectionpractica{Procesos Concurrentes}
+Generalize el ejemplo visto en la sección \ref{subsection:forkandmarshalling}
+escribiendo un método \verb|prun| que permita lanzar un número dado de procesos:
+
+
+\begin{verbatim}
+res = prun(
+     :one     => lambda { |n| "#{n} is 1" },
+     :three   => lambda { |n| "#{n} is 3" },
+     'two'    => lambda { |n| n*4 }
+)
+
+puts res.inspect
+
+res = prun(
+     [2, 3, 7] => lambda { |n| n[0]+n[1]+n[2] },
+     [4, 5]    => lambda { |n| n[0]*n[1] }
+)
+
+puts res.inspect
+\end{verbatim}
+Este programa debería producir una salida similar a esta:
+\begin{verbatim}
+~/rubytesting/distributedRuby$ ruby parfork2.rb 
+{"two"=>"twotwotwotwo", :one=>"one is 1", :three=>"three is 3"}
+{[2, 3, 7]=>12, [4, 5]=>20}
+\end{verbatim}
+\begin{itemize}
+\item
+Cada lambda es ejecutada en un proceso distinto. 
+\item 
+Las lambdas reciben un único argumento que es la clave
+asociada en el hash.
+\item
+El resultado \verb|res| devuelto por \verb|prun| será un hash cuyas claves son las mismas que se han pasado como argumentos
+y cuyos valores contienen los resultados devueltos por las correspondientes lambdas.
+\item
+Puede ser útil usar un canal de comunicaciones distinto para cada hijo
+\item
+El proceso padre deberá sincronizarse con cada uno de los procesos hijos
+\item
+El valor retornado por \verb|wait2| contiene el PID del hijo. Esta información puede ser usada para 
+que el proceso padre determine que canal usar para la lectura
+\end{itemize}
+
+
+
+\subsection{Objetos Manchados: Tainting}
+
+
+\subsection{Congelación: freezing}
+\label{subsection:freezing}
+
+\begin{verbatim}
+>> person2 = person1
+=> "Wim"
+>> person1.freeze
+=> "Wim"
+>> person2[0] = "R"
+TypeError: can't modify frozen string
+  from (irb):18:in `[]='
+  from (irb):18
+\end{verbatim}
+
+\begin{verbatim}
+~/rubytesting$ cat -n freeze.rb 
+     1  begin
+     2    a = [1,2,3].freeze
+     3    puts a
+     4    a << [4,7] # this raises an exception
+     5    puts a
+     6  rescue
+     7    puts "Exception <#{$!.class}> raised <#{$!}>"
+     8  end
+~/rubytesting$ ruby freeze.rb 
+1
+2
+3
+Exception <TypeError> raised <can't modify frozen array>
+\end{verbatim}
+
+\begin{verbatim}
+pp@nereida:~/LPPbook$ irb
+irb(main):001:0> 
+irb(main):002:0* 
+irb(main):003:0* quit
+lpp@nereida:~/LPPbook$ irb
+irb(main):001:0> q = "hello"
+=> "hello"
+irb(main):002:0> q.freeze
+=> "hello"
+irb(main):003:0> q.object_id
+=> 70233414821660
+irb(main):004:0> q += " world"
+=> "hello world"
+irb(main):005:0> q.object_id
+=> 70233414771300
+irb(main):006:0> q.freeze
+=> "hello world"
+irb(main):007:0> q << " world"
+TypeError: can't modify frozen string
+        from (irb):7:in `<<'
+        from (irb):7
+        from :0
+\end{verbatim}
+
+No hay manera de descongelar un objeto sobre el que ha sido llamado 
+\verb|freeze|.
+
+\section{Ejercicios}
+\label{ejercicios:schwartz}
+\begin{enumerate}
+\item Explique porque es ineficiente esta forma de ordenar:
+\begin{verbatim}
+>> system 'ls -l c*.rb'
+-rw-r--r--  1 casianorodriguezleon  staff  296 17 oct 22:12 calif.rb
+-rw-r--r--  1 casianorodriguezleon  staff  320 26 sep 08:12 case.rb
+-rw-r--r--  1 casianorodriguezleon  staff  526 10 oct 12:51 chuchu.rb
+-rw-r--r--  1 casianorodriguezleon  staff   95  7 oct 16:27 closure.rb
+=> true
+>> files = Dir['c*.rb']
+=> ["calif.rb", "case.rb", "chuchu.rb", "closure.rb"]
+>> fs = files.sort { |a,b| File.new(b).mtime <=> File.new(a).mtime }
+=> ["calif.rb", "chuchu.rb", "closure.rb", "case.rb"]
+\end{verbatim}
+\item 
+El método \verb|stat| de la clase \rubymod{File} nos permite consultar el estado de un fichero:
+\begin{verbatim}
+>> File.stat("calif.rb")
+=> #<File::Stat dev=0xe000002, ino=29688777, mode=0100644, nlink=1, uid=501, gid=20, rdev=0x0, size=296, blksize=4096, blocks=8, atime=Tue Oct 18 12:17:42 +0100 2011, mtime=Mon Oct 17 22:12:56 +0100 2011, ctime=Mon Oct 17 22:12:56 +0100 2011>
+\end{verbatim}
+Por ejemplo, el método \verb|mtime| permite ver la fecha de la última modificación de un fichero:
+\begin{verbatim}
+>> File.stat("calif.rb").mtime
+=> Mon Oct 17 22:12:56 0100 2011
+>> File.stat("calif.rb").mtime.class
+=> Time
+>> File.stat("calif.rb").mtime.to_i
+=> 1318885976
+>> File.stat("case.rb").mtime
+=> Mon Sep 26 08:12:29 0100 2011
+>> File.stat("case.rb").mtime.to_i
+=> 1317021149
+>> File.stat("case.rb").mtime < File.stat("calif.rb").mtime
+=> true
+\end{verbatim}
+¿Cuales son las salidas de los siguientes comandos?
+\begin{verbatim}
+>> files = Dir['c*.rb']
+=> ["calif.rb", "case.rb", "chuchu.rb", "closure.rb"]
+>> sf = files.collect { |f| [File.stat(f).mtime, f] }
+=> [[Mon Oct 17 22:12:56 0100 2011, "calif.rb"], [Mon Sep 26 08:12:29 0100 2011, "case.rb"], [Mon Oct 10 12:51:38 0100 2011, "chuchu.rb"], [Fri Oct 07 16:27:40 0100 2011, "closure.rb"]]
+>> tf = sf.sort
+=> 
+>> tf.collect { |f| f[1] }
+=> 
+\end{verbatim}
+Esta forma de ordenar un \rubymod{Array} según ciertos valores, denominada {\it Schwartzian Transform}, consiste en tres pasos:
+\begin{enumerate}
+\item Crear un array de pares manteniendo la correspondencia entre cada elemento del array y el valor asociado
+\item Ordenar el array de pares de acuerdo a la primera componente. El orden de arrays es el lexicográfico:
+\begin{verbatim}
+>> [2,"a"] <=> [2,"b"]
+=> -1
+>> [2,"b"] <=> [2,"a"]
+=> 1
+>> [2,"b"] <=> [2,"b"]
+=> 0
+\end{verbatim}
+\item Proyectar el array ordenado en la segunda componente
+\end{enumerate}
+\item El método \verb|sort_by| ordena utilizando un conjunto de claves generadas a partir de los valores
+usando un bloque dado:
+\begin{verbatim}
+>> %w{apple pear fig}.sort_by { |w| -w.length }
+=> ["apple", "pear", "fig"]
+\end{verbatim}
+Para hacerlo utiliza el algoritmo {\it Schwartzian Transform}.
+
+¿Cuál es la salida de esta sentencia?
+\begin{verbatim}
+>> Dir['c*.rb'].sort_by { |f| File.stat(f).mtime }
+=> 
+\end{verbatim}
+\item
+¿Cuales son las salidas de los siguientes comandos?
+\begin{verbatim}
+>> h = { :a => 3, :b => 2, :c => 1 }
+=> {:b=>2, :c=>1, :a=>3}
+>> h.sort_by { |x| x[1] }
+=> [[:c, 1], [:b, 2], [:a, 3]]
+>> h.sort_by { |x| x[1] }.collect { |z| z[0] }
+=> 
+\end{verbatim}
+
+\end{enumerate}
+
+\section{Ejercicios}
+\label{ejercicios:hashes}
+\begin{enumerate}
+\item
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> h = {:one => 1, :two => 2}
+=> {:one=>1, :two=>2}
+>> h.index 1
+=> 
+>> h.index 2
+=> 
+>> h.key?(:a)
+=> 
+>> h.key?(:one)
+=> 
+>> h.has_key?(:one)
+=> 
+>> h.include?(:one)
+=> 
+>> h.member?(:one)
+=> 
+>> h.value?(1)
+=> 
+>> h.value?(3)
+=> 
+>> h.has_value?(1)
+=> 
+\end{verbatim}
+\item
+Es posible especificar un valor por defecto para un Hash.
+El método \verb|default| retorna el valor por defecto.
+
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> h = Hash.new("Go Fish")
+=> {}
+>> h.default
+=> 
+>> h["a"] = 100
+=> 100
+>> h["b"] = 200
+=> 
+>> h["a"]
+=> 
+>> h["c"]
+=> 
+>> h["c"].upcase! 
+=> "GO FISH"
+>> h["c"]
+=> 
+>> h["d"]
+=> 
+>> h.keys
+=> 
+\end{verbatim}
+\item
+Se puede pasar al constructor de la clase \verb|Hash|
+un bloque de código
+que se encarga de computar el valor por defecto.
+Al bloque se le pasa el hash y la clave.
+
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> h = Hash.new { |hash, key| hash[key] = "Go Fish: #{key}" }
+=> {}
+>> h["c"]           
+=> 
+>> h["d"]         
+=> 
+>> h.keys          
+=> 
+\end{verbatim}
+\item
+Este ejercicio muestra como un hash puede ser utilizado en ruby para
+\wikip{memoizar}{Memoization} un cálculo.
+
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> fact = Hash.new { |h,k| if k > 1 then h[k] = k*h[k-1] else h[1] = 1 end }
+=> {}
+>> fact[4]
+=> 
+>> fact
+=> 
+\end{verbatim}
+\item
+¿Que resultados se obtienen en las siguientes operaciones
+(véase la entrada en la Wikipedia para \wikip{Números de Fibonacci}{Fibonacci\_number})?
+\begin{verbatim}
+>> fib = Hash.new { |h,k| if k > 1 then h[k] = h[k-1]+h[k-2] end }
+=> {}
+>> fib[0], fib[1] = 0, 1
+=> [0, 1]
+>> fib[7]
+=> 13
+>> fib
+=> 
+>> fib.sort
+=> 
+>> fib[12]
+=> 144
+>> fib.sort
+=> 
+>> fib.keys.sort { |a,b| a.to_s <=> b.to_s }.each { |k| puts "#{k} => #{fib[k]}" }
+
+
+
+
+
+
+
+
+
+
+
+
+
+=> 
+\end{verbatim}
+\item
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> h = {}
+=> {}
+>> h[:a] = 1
+=> 1
+>> h.store(:b, 2)
+=> 
+>> h
+=> 
+>> h.replace({1 => :a, 2 => :b})
+=> {1=>:a, 2=>:b}
+>> h
+=> 
+>> h.replace({1 => :a, 2 => :b, 3 => :c})
+=> 
+\end{verbatim}
+\item
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> 
+?>   class Hash
+>>      def []= (*keys)
+>>        value = keys.pop
+>>        keys.each{|key| store(key, value) }
+>>      end 
+>>    end 
+=> nil
+>>    hsh = {}
+=> {}
+>>    hsh[:a, :b, :c] = 42
+=> 42
+>>    hsh 
+=> 
+>>    hsh[:a, :b] = "foo"
+=> "foo"
+>>    hsh[:a].upcase!
+=> 
+>>    hsh[:b]
+=> 
+\end{verbatim}
+
+\item
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> h = { :a => 1, :b => 2 }
+=> {:b=>2, :a=>1}
+>> h.fetch(:a)
+=> 1
+>> h.fetch(:c)
+IndexError: key not found
+  from (irb):18:in `fetch'
+  from (irb):18
+  from :0
+>> h[:c]
+=> 
+>> h.fetch(:c, 33)
+=> 
+>> h
+=> {:b=>2, :a=>1}
+>> h.fetch(:c) { |k| "#{k} oppps!" }
+=> 
+\end{verbatim}
+
+\item
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> h = { :a => 1, :b => 2, :c => 3 }
+=> {:b=>2, :c=>3, :a=>1}
+>> h.values_at(:a, :b)
+=> [1, 2]
+>> h.values_at(:d, :d, :a)
+=> 
+>> h.values_at(:c)
+=> 
+\end{verbatim}
+\item
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> h = { :a => 1, :b => 2, :c => 3 }
+=> {:b=>2, :c=>3, :a=>1}
+>> h.select { |k,v| v % 2 == 0 }
+=> 
+>> h = { :a => 1, :b => 2}
+=> {:b=>2, :a=>1}
+>> h.merge({:a => 3, :c => 3})
+=> 
+>> h
+=> 
+>> h.merge!({:a => 3, :c => 3})
+=> 
+>> h
+=> 
+\end{verbatim}
+\item
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> h = { :a => 1, :b => 2}
+=> {:b=>2, :a=>1}
+>> j = {:a => 3, :c => 3}
+=> {:c=>3, :a=>3}
+>> h.merge(j) { |k,a,b| a}
+=> 
+>> h.merge(j) { |k,a,b| (a+b)/2}
+=> 
+\end{verbatim}
+\item
+La clase \verb|Hash| dispone del método \verb#Hash[ [key =>|, value]* ]# 
+que crea un nuevo hash con los objetos específicados.
+Es equivalente a \verb|{ key, value, ... }|. 
+Debe haber un número par de argumentos.
+
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> a = [:a, 1, :b, 2, :c, 3]
+=> [:a, 1, :b, 2, :c, 3]
+>> Hash[*a]
+=> 
+>> b = [[:a, 1], [:b, 2], [:c, 3]]
+=> [[:a, 1], [:b, 2], [:c, 3]]
+>> b.flatten
+=> 
+>> Hash[*b.flatten]
+=> 
+>> x = ["a" => 100, "b" => 200]
+=> [{"a"=>100, "b"=>200}]
+>> h = Hash[*x]
+=> 
+\end{verbatim}
+\item
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> h = { :a => 1, :b => 2}
+=> {:b=>2, :a=>1}
+>> Array[*h]
+=> 
+>> Array[*h].flatten
+=> 
+\end{verbatim}
+\item
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> a = ('a'..'z').to_a
+=> 
+>> a.map { |x| [ x,  nil ] }
+=> 
+>> a.map { |x| [ x,  nil ] }.flatten
+=> 
+>> Hash[* a.map { |x| [ x,  nil ] }.flatten]
+=> 
+\end{verbatim}
+\item
+¿Que resultados se obtienen en las siguientes operaciones?
+\begin{verbatim}
+>> h = {:a => 1, :b =>2, :c => 3}
+=> {:b=>2, :c=>3, :a=>1}
+>> h.invert
+=> 
+>> h.to_s
+=> 
+>> h.inspect
+=> 
+\end{verbatim}
+
+\end{enumerate}
+
+\sectionpractica{Ordenar por Calificaciones}
+Se tiene un fichero de entrada con calificaciones de alumnos como el que sigue:
+\begin{verbatim}
+Ferrer Pérez, Eduardo & 9'6\\
+García  García, Laura & 7'5 \\
+García Medina, Anai & 6'5\\
+García Rodríguez, Pedro & 7'2\\
+González del Castillo, Jorge & 5'0\\
+Hernández Pérez, Daniel & 5'0\\
+Marrero Díaz, Jose Antonio & 8'0\\
+Marrero Piñero, Sergio & 7'2\\
+Padrón Padrón, Adolfo & 5'0\\
+Pedrín Ruiz, Ana & 9'6\\
+Pedrínez Pérez, Ignacio & 7'5\\
+Piñero Piñero, Antonio & 5'3\\
+Pérez García, Adolfo & 9'5\\
+Pérez González, Germán & 5'0\\
+Pérez Pedrínez, Maria & 5'0\\
+Ramos Ramos, Ignacio & 5'0\\
+Rodríguez González, Andrés & 10'0\\
+Rodríguez Rodríguez, Jorge & 9'2\\
+\end{verbatim}
+Se pide escribir un programa que muestre el listado de alumnos ordenados
+en orden decreciente de calificaciones.
+
+Sugerencias:
+
+\begin{enumerate}
+\item
+Puede leer el fichero completo en un array usando \verb|readlines|:
+\begin{verbatim}
+>> f = File.open('notas')
+=> #<File:notas>
+>> x = f.readlines
+=> ["Ferrer P\303\251rez, Eduardo & 9'6\\\\\n", ... , "Rodr\303\255guez Rodr\303\255guez, Jorge & 9'2\\\\\n"]
+>> puts x[-1]
+Rodríguez Rodríguez, Jorge & 9'2\\
+=> nil
+\end{verbatim}
+\item
+Ahora deberá construir un hash indexado
+en los nombres de los alumnos y cuyos valores sean las calificaciones:
+\begin{verbatim}
+>> y = x.map { |alu| alu =~ /(.*)\s+\&\s+(\d+'\d*)/;  [$1, $2] }
+=> [["Ferrer P\303\251rez, Eduardo", "9'6"], ... , ["Rodr\303\255guez Rodr\303\255guez, Jorge", "9'2"]]
+>> puts y[-1]
+Rodríguez Rodríguez, Jorge
+9'2
+>> h =  Hash[*y.flatten]
+=> {"Pedr\303\255nez P\303\251rez, Ignacio"=>"7'5", ... , "Marrero Pi\303\261ero, Sergio"=>"7'2"}
+>> h.keys
+=> ["Pedr\303\255nez P\303\251rez, Ignacio", ... , "Marrero Pi\303\261ero, Sergio"]
+>> h["Pedr\303\255nez P\303\251rez, Ignacio"]
+=> "7'5"
+\end{verbatim}
+\item
+Ordene el hash en orden decreciente de calificaciones.
+Observe que las números se han escrito según la convención española de usar apóstrofes
+en vez del punto decimal. Una posibilidad es que utilices \rubycoreinstancemethod{gsub}{String}
+para hacer sustituciones
+y convertir los apóstrofes en puntos:
+\begin{verbatim}
+>> "7'5".gsub(/(\d+)'(\d*)/, '\1.\2')
+=> "7.5"
+>> "7".gsub(/(\d+)'(\d*)/, '\1.\2')
+=> "7"
+\end{verbatim}
+\item
+Es posible ordenar los elementos de un hash según sus claves:
+\begin{verbatim}
+irb(main):005:0> h = {'a' => 3, 'b' =>2, 'c' => 1}
+=> {"a"=>3, "b"=>2, "c"=>1}
+irb(main):008:0> h.sort
+=> [["a", 3], ["b", 2], ["c", 1]]
+\end{verbatim}
+Se puede pasar un bloque a \verb|sort|. El bloque recibe los dos elementos
+a comparar. Los elementos son parejas clave-valor:
+\begin{verbatim}
+irb(main):006:0> h.sort { |a,b| a[0] <=> b[0] }
+=> [["a", 3], ["b", 2], ["c", 1]]
+irb(main):007:0> h.sort { |a,b| a[1] <=> b[1] }
+=> [["c", 1], ["b", 2], ["a", 3]]
+\end{verbatim}
+\end{enumerate}
+
+
+\section{Ejercicios}
+
+\begin{enumerate}
+\item
+¿Que resultados dan las siguientes operaciones?
+\begin{verbatim}
+>> a = 1..10
+=> 1..10
+>> a.class
+=> Range
+>> a.to_a
+=> 
+>> b = 1...10
+=> 1....10
+>> b.to_a
+=> 
+>> b.include? 10
+=> 
+>> b.include? 8
+=> 
+>> b.step(2) {|x| print "#{x} " }
+
+>> 1..3.to_a
+
+\end{verbatim}
+\item
+¿Que resultados dan las siguientes operaciones?
+\begin{verbatim}
+>> r = 0...100
+=> 0....100
+>> r.member? 50
+=> 
+>> r.include? 99.9
+=> 
+>> r.member? 99.9
+=> 
+\end{verbatim}
+\item
+¿Que resultados dan las siguientes operaciones?
+\begin{verbatim}
+>> true.class
+=> 
+>> false.class
+=> 
+>> puts "hello" if 0
+
+>> puts "hello" if nil
+
+>> puts "hello" if ""
+
+>> 
+\end{verbatim}
+\item
+¿Que resultados dan las siguientes operaciones?
+\begin{verbatim}
+>> x = :sym
+=> :sym
+>> x.class
+=> 
+>> x == 'sym'
+=> 
+>> x == :sym
+=> 
+>> z = :'a long symbol'
+=> :"a long symbol"
+>> z.class
+=> 
+>> x == 'sym'.to_sym
+=> 
+>> x.to_s == 'sym'
+=> 
+\end{verbatim}
+\end{enumerate}
+
+\section{Ejercicios}
+\begin{enumerate}
+\item ¿Que resultados se dan?
+
+\begin{verbatim}
+>> s = "Ruby"
+=> "Ruby"
+>> t = s
+=> "Ruby"
+>> t[-1] = ""
+=> ""
+>> print s
+
+>> t = "Java"
+=> "Java"
+>> print s, t
+
+\end{verbatim}
+\item ¿Que resultados se dan?
+\begin{verbatim}
+>> x = "hello"
+=> "hello"
+>> x.id
+(irb):97: warning: Object#id will be deprecated; use Object#object_id
+=> 2149253820
+>> x.object_id
+=> 
+>> x.__id__
+=> 
+\end{verbatim}
+\item ¿Que retorna el método \verb|hash| proveído por la clase \verb|Object|?
+\end{enumerate}
+

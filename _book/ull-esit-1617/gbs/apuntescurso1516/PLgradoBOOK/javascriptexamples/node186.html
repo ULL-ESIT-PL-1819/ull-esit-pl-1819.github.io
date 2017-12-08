@@ -1,0 +1,257 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Rack::Mount</TITLE>
+<META NAME="description" CONTENT="Rack::Mount">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node187.html">
+<LINK REL="previous" HREF="node185.html">
+<LINK REL="up" HREF="node163.html">
+<LINK REL="next" HREF="node187.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html5146"
+  HREF="node187.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5140"
+  HREF="node163.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5134"
+  HREF="node185.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5142"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5144"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5147"
+  HREF="node187.html">Rack::URLMap</A>
+<B>Sup:</B> <A NAME="tex2html5141"
+  HREF="node163.html">Rack, un Webserver Ruby</A>
+<B> Ant:</B> <A NAME="tex2html5135"
+  HREF="node185.html">Rack::Cascade</A>
+<B> Con:</B> 
+<A NAME="tex2html5142"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html5144"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION0121230000000000000000">
+Rack::Mount</A>
+</H1>
+
+<P>
+
+<OL>
+<LI>A <A NAME="12604"></A><SPAN  CLASS="textbf">router</SPAN> is similar to a Rack middleware. 
+
+<P>
+</LI>
+<LI>The main difference is
+that it doesn’t wrap a single Rack endpoint, but keeps a list of
+endpoints, just like <A NAME="tex2html519"
+  HREF="http://rack.rubyforge.org/doc/Rack/Cascade.html">Rack::Cascade</A> does. 
+
+<P>
+</LI>
+<LI>Depending on some criteria,
+usually the requested path, the router will then decide what endpoint
+to hand the request to. 
+
+<P>
+</LI>
+<LI>Most routers differ in the way they decide which endpoint to hand
+the request to. 
+
+<P>
+</LI>
+<LI>All routers meant for general usage do offer routing
+based on the path, but how complex their path matching might be
+varies. 
+
+<P>
+</LI>
+<LI>While <A NAME="tex2html520"
+  HREF="http://rack.rubyforge.org/doc/Rack/URLMap.html">Rack::URLMap</A> only matches prefixes, most other routers
+allow simple wildcard matching. 
+
+<P>
+</LI>
+<LI>Both <A NAME="tex2html521"
+  HREF="http://rack.rubyforge.org/doc/Rack/Mount.html">Rack::Mount</A>, which is used by
+Rails, and Sinatra allow arbitrary matching logic.
+
+<P>
+</LI>
+<LI>However, such flexibility comes at a price: <A NAME="tex2html522"
+  HREF="http://rack.rubyforge.org/doc/Rack/Mount.html">Rack::Mount</A> and Sinatra
+have a routing complexity of O(n), meaning that in the worst-case
+scenario an incoming request has to be matched against all the
+defined routes. 
+
+<P>
+</LI>
+<LI><A NAME="tex2html523"
+  HREF="http://rack.rubyforge.org/doc/Rack/Mount.html">Rack::Mount</A> is known to produce fast routing, however its API is
+not meant to be used directly but rather by other libraries, like
+the Rails routes DSL. 
+
+<P>
+</LI>
+</OL>
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-mount]$ cat config.ru 
+require 'sinatra/base'
+require 'rack/mount'
+
+class Foo &lt; Sinatra::Base
+  get('/foo') { 'foo' }
+  get('/fou') { 'fou' }
+end
+
+class Bar &lt; Sinatra::Base
+  get('/bar') { 'bar' }
+  get('/ba')  { 'ba' }
+end
+
+Routes = Rack::Mount::RouteSet.new do |set|
+  set.add_route Foo, :path_info =&gt; %r{^/fo[ou]$}
+  set.add_route Bar, :path_info =&gt; %r{^/bar?$}
+end
+
+run Routes
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html5146"
+  HREF="node187.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5140"
+  HREF="node163.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5134"
+  HREF="node185.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5142"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5144"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5147"
+  HREF="node187.html">Rack::URLMap</A>
+<B>Sup:</B> <A NAME="tex2html5141"
+  HREF="node163.html">Rack, un Webserver Ruby</A>
+<B> Ant:</B> <A NAME="tex2html5135"
+  HREF="node185.html">Rack::Cascade</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,1069 @@
+\chapter{Expresiones Regulares en sed}·
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+El editor \verb|sed| es un editor no interactivo que actúa
+ejecutando los comandos (similares a los de \verb|ex|) que
+figuran en el guión \verb|sed| (\cei{script sed}) 
+sobre los ficheros de entrada y escribiendo el resultado en la salida estandar.
+Normalmente se llama en una de estas dos formas:
+\begin{verbatim}
+sed [opciones] 'comando' fichero(s)
+sed [opciones] -f guion fichero(s)
+\end{verbatim}
+Si no se especifican ficheros de entrada, \verb|sed| lee su entrada 
+desde la entrada estandar.
+
+Todos los comandos en el guión son ejecutados sobre todas las líneas de la
+entrada, salvo que las condiciones en el ámbito del comando indiquen lo contrario.
+
+\begin{verbatim}
+nereida:~/sed> cat b.without.sed
+#example of succesive replacements
+s/fish/cow/
+s/cow/horse/
+nereida:~/sed> cat b.test
+fish
+cow
+nereida:~/sed> sed -f b.without.sed b.test
+horse
+horse
+\end{verbatim}
+como se ve en el ejemplo, si un comando cambia la entrada, los siguientes 
+comandos se aplican a la línea modificada (denominada \cei{pattern space}).
+
+Los comandos \verb|sed| tienen el formato:
+
+\begin{verbatim}
+[direccion1][,direccion2][!]comando[argumentos]
+\end{verbatim}
+
+\section{Transferencia de Control}
+La orden \emph{b} tiene la sintáxis:\\
+{\it [address1][,address2]b[label]}\\
+Transfiere el control a la etiqueta especificada. Si no se especifica
+la etiqueta, el control se transfiere al final del {\it script}, por lo que
+no se aplica ningún otro comando a la línea actual. Los dos siguientes
+ejemplos utilizan {\it b}:
+\begin{verbatim}
+$ cat b.sed
+s/fish/cow/
+b
+s/cow/horse/
+$ sed -f b.sed b.test
+cow
+cow
+\end{verbatim}
+Utilizando {\it b} con una etiqueta:
+\begin{verbatim}
+$ cat blabel.sed
+s/fish/cow/
+b another
+s/cow/horse/
+:another
+s/cow/cat/
+$ sed -f blabel.sed b.test
+cat
+cat
+\end{verbatim}
+
+\section{Inserción de Texto}
+El uso de llaves \{, \} permite  ejecutar los comandos en la lista entre llaves
+a las líneas seleccionadas. La llave que cierra debe estar en su propia línea aparte.
+Las llaves nos permiten, como se ve en el ejemplo, anidar selecciones
+y expresar condiciones del tipo ``si esta entre estos dos patrones y además 
+está entre estos otros dos \ldots''.\\
+
+Los comandos {\it a} e {\it i} tienen una sintaxis parecida:\\
+{\it
+\begin{tabular}{c|c}
+	[address]a$\backslash$ & [address]i$\backslash$\\ 
+        text                   & text\\
+\end{tabular}\\
+}
+{\it a} añade ({\it i} inserta) el texto en cada línea que
+casa con la dirección especificada.
+El {\it text} no queda disponible en el ``{\it pattern space}'',
+de manera que los subsiguientes comandos no le afectan. El
+siguiente ejemplo convierte un fichero {\it ascii} a {\it html}:
+\begin{verbatim}
+$ cat aandi.sed
+1{
+i\
+<html>\
+<head>\
+<title>
+p
+i\
+</title>\
+</head>\
+<body bgcolor=white>
+}
+$a\
+</pre>\
+</body>\
+</html>
+$ cat aandi.test
+hello.world!
+$ sed -f aandi.sed aandi.test
+<html>
+<head>
+<title>
+hello.world!
+</title>
+</head>
+<body bgcolor=white>
+hello.world!
+</pre>
+</body>
+</html>
+\end{verbatim}
+
+\section{Trasferencia de Control Condicional}
+La sintaxis de la orden {\it t} es:
+\begin{center} {\it [address1][,address2]t[label]} \end{center}
+Si la sustitución tiene éxito, se bifurca a {\it label}, Si la etiqueta no se especifica, 
+se salta al final del {\it script}.\\
+Consideremos el siguiente fichero de entrada:
+\begin{verbatim}
+$ cat t.test
+name: "fulano de tal" address: "Leganitos,4" phone: "342255"
+name: "fulano de cual"
+name: "fulano de alli" address: "Legitos,4"
+name: "zutano de tal"  address: "Leg,8"  phone: "342255"
+\end{verbatim}
+Se asume que siempre que figura el teléfono se ha puesto la dirección y que si está
+la dirección se ha escrito el nombre. Se pretenden rellenar las líneas con un campo por defecto:
+\begin{verbatim}
+$ cat t.sed
+/name:/{
+s/.*name:[ ]*".*"[ ]*address:[ ]*".*"[ ].*phone:[ ]*".*".*/&/
+t
+s/.*name:[ ]*".*"[ ]*address:[ ]*".*"/& phone: "????"/
+t
+s/.*name:[ ]*".*"/& address: "???? ????" phone: "????"/
+}
+\end{verbatim}
+Esta es la llamada al script y la salida generada:
+\begin{verbatim}
+$ sed -f t.sed t.test
+name: "fulano de tal" address: "Leganitos,4" phone: "342255"
+name: "fulano de cual" address: "???? ????" phone: "????"
+name: "fulano de alli" address: "Legitos,4" phone: "????"
+name: "zutano de tal"  address: "Leg,8"  phone: "342255"
+$       
+\end{verbatim}
+
+\noindent \emph{Ejemplo:}
+
+El fichero de entrada es un \emph{folder} de 
+\verb%pine% en el que los mensajes recibidos tienen el formato:
+
+\ldots
+\begin{verbatim}
+01_NAME: XXX
+02_SURNAME: XXX
+03_TITLE: SISTEMAS
+04_OtherTitle:
+05_BIRTHDAY: XXX
+06_BIRTHMONTH: XXX
+07_BIRTHYEAR: XXX
+08_ADDRESSFAMILY: XXX
+09_ADDRESSACTUAL: XXX
+10_POSTALCODE: XXX
+11_EMAIL: XXX@csi.ull.es
+12_TELEPHONE: XXX
+13_FAX: XXX
+14_LABGROUP: xxx
+15_COMMENTS:                              
+\end{verbatim}
+\ldots
+
+Se trata de escribir un script que produzca como salida los \emph{emails}
+de los diferentes alumnos. Esta es una solución (suponemos que el \emph{script} se llama con la opción \verb%-n%):
+\begin{verbatim}
+#!/bin/sed -f
+/^11_EMAIL:/{
+s/11_EMAIL: *\([a-zA-Z0-9]*@[a-zA-Z0-9.]*\)/\1/
+t print
+s/11_EMAIL: *\([a-zA-Z0-9]*\)/\1@csi.ull.es/
+:print
+p
+}
+\end{verbatim}
+
+Una característica no comentada y observada en algunos \verb|sed|, incluyendo 
+la versión Linux, es que, si existen varias sustituciones consecutivas antes de la
+sentencia de transferencia de control, basta con que una tenga éxito para que el salto
+se realice. 
+
+\section{Rangos}
+Cuando se usan dos direcciones separadas por una coma, el rango que
+representan se extiende desde la primera línea que casa con el patrón
+hasta la siguiente línea que casa con el segundo patrón.
+El siguiente {\it script} muestra las tablas que aparecen en un fichero \LaTeX:
+\begin{verbatim}
+$ cat tables.sed
+#Imprime las tablas en un fichero tex
+/\\begin{tabular}/,/end{tabular}/p
+$ sed -n -f tables.sed *.tex
+\begin{tabular}{c|c}
+        [address]a$\backslash$ & [address]i$\backslash$\\
+        text                   & text\\
+\end{tabular}\\
+\begin{tabular}{c|c}
+        [address]a$\backslash$ & [address]i$\backslash$\\
+        text                   & text\\
+\end{tabular}\\        
+\end{verbatim}
+
+La siguiente selección para un rango comienza después de la
+última línea del rango previo; esto es, si el rango es /A/,/B/,
+el primer conjunto de líneas que casa va desde la primera
+aparicion de /A/ hasta la siguiente aparición de /B/. Asi,
+el número mínimo de líneas seleccionadas (si no es cero)
+es dos. Sólo en el caso en que la primera dirección es una
+expresión regular y la segunda un número de línea que viene
+antes de la línea que casa, es que sólo se selecciona una
+línea de emparejamiento.  No hay por tanto solapes entre dos
+casamientos en un misma rango de direcciones.  
+El siguiente ejemplo ilustra la forma en la que \verb|sed| interpreta
+los rangos de direcciones. Es una aproximación al problema de escribir
+los comentarios de un programa {\it C}.
+\begin{verbatim}
+$ cat scope.sed
+#execute: sed -n -f scope.sed scope.test
+/\/\*/,/\*\//p
+\end{verbatim}
+Este {\it script} puede funcionar con programas cuyos
+comentarios (no anidados) empiecen y terminen en líneas 
+diferentes, como el del ejemplo:
+\begin{verbatim}
+$ cat scope2.test
+#file scope2.test
+#include <stdio.h>
+ 
+fact(int n) { /* recursive function
+if(n == 0) return 1;
+else(return n*fact(n-1));*/
+}
+ 
+void toto(id) {
+}
+ 
+main() {
+  toto();
+  printf("Hello world! factorial of 4 = %d\n",fact(4)); /* the
+         comment takes two lines */
+}
+\end{verbatim}
+La ejecución del script selecciona los dos grupos de líneas
+que contienen comentarios:
+\begin{verbatim}
+$ sed -n -f scope.sed scope2.test
+fact(int n) { /* recursive function
+if(n == 0) return 1;
+else(return n*fact(n-1));*/
+  printf("Hello world! factorial of 4 = %d\n",fact(4)); /* the
+         comment takes two lines */  
+\end{verbatim}
+Sin embargo, el script fallará en este otro ejemplo:
+\begin{verbatim}
+$ cat scope.test
+#include <stdio.h>
+ 
+fact(int n) { /* recursive function */
+if(n == 0) return 1;
+else(return n*fact(n-1));
+}
+ 
+void toto(id) {
+}
+ 
+main() {
+  toto();
+  printf("Hello world! factorial of 4 = %d\n",fact(4)); /* the
+         comment takes two lines */
+}                     
+\end{verbatim}
+La ejecución del programa da como resultado:
+\begin{verbatim}
+$ sed -n -f scope.sed scope.test
+fact(int n) { /* recursive function */
+if(n == 0) return 1;
+else(return n*fact(n-1));
+}
+ 
+void toto(id) {
+}
+ 
+main() {
+  toto();
+  printf("Hello world! factorial of 4 = %d\n",fact(4)); /* the
+         comment takes two lines */      
+\end{verbatim}
+
+\begin{latexonly}
+\section{Uso de la negación}
+El ejemplo muestra como convertir los carácteres españoles en
+un fichero \LaTeX{} escrito usando un teclado español a sus secuencias \LaTeX.
+puesto que en modo matemático los acentos tienen un significado distinto,
+se aprovecha la disponibilidad de las teclas españolas para simplificar 
+la labor de tecleado. Obsérvese el uso de la exclamación {\tt !} para indicar
+la negación del rango de direcciones seleccionadas.
+
+\begin{verbatim}
+> cat sp2en.sed
+/begin{verbatim}/,/end{verbatim}/!{
+/begin{math}/,/end{math}/!{
+s/á/\\'a/g
+s/é/\\'e/g
+s/í/\\'{\\i}/g
+s/ó/\\'o/g
+s/ú/\\'u/g
+s/â/\\^a/g
+s/ç/\\c{c}/g
+s/ñ/\\~n/g
+s/Á/\\'A/g
+s/É/\\'E/g
+s/Í/\\'I/g
+s/Ó/\\'O/g
+s/Ú/\\'U/g
+s/Ñ/\\~N/g
+s/¿/>/g
+s/¡/</g
+}
+}
+/begin{math}/,/end{math}/{
+s/â/\\hat{a}/g
+s/á/\\acute{a}/g
+s/à/\\grave{a}/g
+s/ä/\\ddot{a}/g
+s/ê/\\hat{e}/g
+s/é/\\acute{e}/g
+s/è/\\grave{e}/g
+s/ë/\\ddot{e}/g
+s/ô/\\hat{o}/g
+s/ó/\\acute{o}/g
+s/ò/\\grave{o}/g
+s/ö/\\ddot{o}/g
+s/û/\\hat{u}/g
+s/ú/\\acute{u}/g
+s/ù/\\grave{u}/g
+s/ü/\\ddot{u}/g
+}                           
+\end{verbatim}
+Supongamos el siguiente fichero \LaTeX{} de entrada:
+\begin{verbatim}
+	> cat sp2en.tex
+	\documentclass[11pt,a4paper,oneside,onecolumn]{article}
+	\usepackage{isolatin1}
+	\title{Stream Editor. Convirtiendo a Ingles en LaTex}
+	\author{Casiano R. León \thanks{DEIOC Universidad de La Laguna}}
+	\begin{document}
+	\maketitle
+	Esto es un ejemplo de uso de sp2en.sed:
+	\begin{center}
+	áéíóú ÁÉÍÓÚ ñÑ ¿? ¡!\\
+	\begin{math}
+	â^{é^{2}} \neq â^{2é}
+	\end{math}
+	\end{center}
+	comienza el verbatim\\
+	\begin{listing}{1}
+	Lo que salga en verbatim depende de los packages
+	que hayan sido cargados: \'a \'e áéíóú ÁÉÍÓÚ ñÑ ¿? ¡!
+	\end {verbatim}
+	Termina el verbatim:\\
+	\begin{center}
+	áéíóú ÁÉÍÓÚ ñÑ ¿? ¡!
+	\end{center}
+	\end{document}                      
+\end{verbatim}
+Al ejecutar:
+\begin{verbatim}
+> sed -f sp2en.sed sp2en.tex
+\end{verbatim}
+Obtenemos la salida:
+\begin{verbatim}
+	\documentclass[11pt,a4paper,oneside,onecolumn]{article}
+	\usepackage{isolatin1}
+	\title{Stream Editor. Convirtiendo a Ingles en LaTex}
+	\author{Casiano R. Le\'on \thanks{DEIOC Universidad de La Laguna}}
+	\begin{document}
+	\maketitle
+	Esto es un ejemplo de uso de sp2en.sed:
+	\begin{center}
+	\'a\'e\'{\i}\'o\'u \'A\'E\'I\'O\'U \~n\~N >? <!\\
+	\begin{math}
+	\hat{a}^{\acute{e}^{2}} \neq \hat{a}^{2\acute{e}}
+	\end{math}
+	\end{center}
+	comienza el verbatim\\
+	\begin{listing}{1}
+	Lo que salga en verbatim depende de los packages
+	que hayan sido cargados: \'a \'e áéíóú ÁÉÍÓÚ ñÑ ¿? ¡!
+	\end{ verbatim}
+	Termina el verbatim:\\
+	\begin{center}
+	\'a\'e\'{\i}\'o\'u \'A\'E\'I\'O\'U \~n\~N >? <!
+	\end{center}                          
+	\end{document} 
+\end{verbatim}
+\end{latexonly}
+
+\section{Siguiente Línea: La orden {\it n}}
+Mediante la orden {\it n} podemos reemplazar el espacio de
+patrones actual por la siguiente línea. Si no se ha utilizado
+la opción \verb|-n| en la ejecución de \verb|sed|, el contenido del espacio
+de patrones se imprimirá antes de ser eliminada. El control
+pasa al comando siguiendo al comando {\it n} y no al primer
+comando del {\it script}. Se trata, por tanto, de una orden que
+altera la conducta habitual de \verb|sed|: Lo común es que, cuando se lee una nueva
+línea, se ejecute el primer comando del guión.
+
+El siguiente ejemplo extrae los comentarios de un programa {\it C}.
+Se asume que, aunque los comentarios se pueden extender sobre
+varias líneas, no existe mas de un comentario por línea.
+\begin{verbatim}
+$ cat n.sed
+# run it with: sed -n -f n.sed n.test
+# write commented lines in a C program
+#If current line matches /* ...
+/\/\*/{
+# Comienzo de comentario, aseguremonos que la línea no casa con un cierre
+# de comentario.
+:loop
+/\*\//!{
+p
+n
+b loop
+}
+p
+}                
+\end{verbatim}
+Supongamos el siguiente programa de prueba:
+\begin{verbatim}
+$ cat n.test
+#include <stdio.h>
+ 
+fact(int n) { /* recursive function */
+if(n == 0) return 1;
+else(return n*fact(n-1));
+}
+ 
+void toto(id) { /* This function */ /* is
+                   still empty */
+}
+ 
+main() {
+  toto();
+  printf("Hello world! factorial of 4 = %d\n",fact(4)); /* the
+         comment takes two lines */
+  toto();
+  /* and here is
+     a comment
+     extended on 3 lines
+  */
+}                         
+\end{verbatim}
+La salida al ejecutar el programa es la siguiente:
+\begin{verbatim}
+$ sed -n -f n.sed n.test
+fact(int n) { /* recursive function */
+void toto(id) { /* This function */ /* is
+  printf("Hello world! factorial of 4 = %d\n",fact(4)); /* the
+         comment takes two lines */
+  /* and here is
+     a comment
+     extended on 3 lines
+  */                   
+\end{verbatim}
+Observe la desaparición de la línea \mbox{`` still empty */''} 
+debido a la existencia de dos comentarios, uno de ellos inacabado 
+en la línea anterior. 
+
+\section{Manipulando tablas numéricas}
+El siguiente ejemplo intercambia la primera y ultima columnas
+de un fichero como el que sigue:
+\begin{verbatim}
+$ cat columns.test
+11111 22222 33333 44444 55555
+  111    22    33  4444  5555
+11111 22222 33333 44444 55555
+   11    22     3   444  5555
+\end{verbatim}
+La parte mas complicada es preservar el sangrado.
+El truco reside, en parte, en el patrón central $\backslash$2, que 
+memoriza los blancos después de la primera columna y un sólo blanco 
+antes de la última.
+\begin{verbatim}
+$ cat columns.sed
+s/^\( *[0-9][0-9]*\)\( .*[0-9] \)\( *[0-9][0-9]*\)$/\3\2\1/
+$ sed -f columns.sed columns.test
+55555 22222 33333 44444 11111
+ 5555    22    33  4444   111
+55555 22222 33333 44444 11111
+ 5555    22     3   444    11  
+\end{verbatim}
+El siguiente ejemplo utiliza
+una opción del operador de sustitución que permite decidir que aparición
+del patrón deseamos sustituir. Asi,
+
+\verb|s/A/B/3|
+
+sustituirá la 3 aparición de \verb|A| por \verb|B|, obviando las otras.
+
+El ejemplo selecciona la columna dos del fichero:
+\begin{verbatim}
+$ cat col2.sed
+#extracts the second column
+s/^  *//
+s/\<[0-9][0-9]*\>//1
+s/\<[0-9][0-9]*\>//2
+s/\<[0-9][0-9]*\>//2
+s/\<[0-9][0-9]*\>//2
+s/  *$//
+$ sed -f col2.sed columns.test
+ 22222
+    22
+ 22222
+    22                
+\end{verbatim}
+Mas general que el anterior, el siguiente ejemplo elimina 
+un número de columnas arbitrario \verb|$1| por la izquierda y otro 
+número \verb|$2| por la derecha.
+Para lograrlo, es necesario utilizar un un guión para la \verb|shell| 
+que llama al correspondiente guión \verb|sed|. Los parámetros 
+son introducidos en el guión \verb|sed| mediante el uso apropiado
+de las comillas dobles y simples:
+
+\begin{verbatim}
+> cat colbranch.sh
+#!/bin/bash
+sed -e '
+s/^\( *[0-9]\+\)\{'"$1"'\}//
+s/\( *[0-9]\+\)\{'"$2"'\}$//
+'
+\end{verbatim}
+Veamos un ejemplo de uso:
+\begin{verbatim}
+> cat columns.test
+11111 22222 33333 44444 55555
+  111    22    33  4444  5555
+11111 22222 33333 44444 55555
+   11    22     3   444  5555
+> colbranch.sh 2 1 < columns.test
+ 33333 44444
+    33  4444
+ 33333 44444
+     3   444
+\end{verbatim}
+
+
+\section{Traducción entre Tablas}
+El  comando {\it y} realiza una traducción entre dos tablas de caracteres.
+Observa el ejemplo:
+\begin{verbatim}
+$ cat toupper.sed
+y/aáéíóúäëïöübcdefghijklmnopqrstuvxyzñ/AÁÉÍÓÚÄËÏÖÜBCDEFGHIJKLMNOPQRSTUVXYZÑ/
+$ cat sp2en.test
+¡Coño! ¿Es plím el que hizo plúm?
+\end{verbatim}
+Obtenemos asi los contenidos del fichero en mayúsculas:
+\begin{verbatim}
+$ sed -f toupper.sed sp2en.test
+¡COÑO! ¿ES PLÍM EL QUE HIZO PLÚM?  
+\end{verbatim}
+
+\section{Del espacio de Patrones al de Mantenimiento}
+En \verb|sed| se dispone, como en muchos otros editores
+de una zona de memoria a la que se puede enviar texto ``cortado''
+o `copiado'' y desde la cual se puede recuperar el texto para 
+insertarlo en la zona de trabajo  ({\it pattern space}).
+en la jerga \verb|sed| dicho espacio se conoce como \emph{hold space}.
+El contenido del espacio de patrones ({\it pattern space}) puede moverse al espacio 
+de mantenimiento (\emph{hold space}) y recíprocamente:
+
+\vspace{1cm}
+\begin{tabular}{|l|c|l|}
+\hline
+\emph{Hold}     & h ó H & Copia o añade (append) los contenidos del {\it pattern space} al {\it hold space}. \\
+\hline
+\emph{Get}      & g ó G & Copia o añade los contenidos del {\it hold space} al {\it pattern space}.\\
+\hline
+\emph{Exchange} &   x   & Intercambia los contenidos del {\it hold space} y el {\it pattern space} \\
+\hline
+\end{tabular}
+\vspace{1cm}
+
+Los comandos en minúsculas sobrescriben mientras que los que van en mayúsculas añaden.
+Asi {\it h} copia los contenidos del {\it pattern space} en el {\it hold space}, borrando los
+contenidos previos que estuvieran en el {\it hold space}. Las orden {\it G} añade (paste)
+los contenidos del {\it hold space} al espacio de patrones actual (por el final).  
+Las dos cadenas se enlazan a través de un retorno de carro.
+
+\noindent {\bf Ejemplo}
+Este guión intenta mediante una heurística poner la definiciones de 
+funciones C al final del fichero, suponiendo que una definición de función
+comienza en la columna 1 y que se caracterizan mediante uno o dos identificadores 
+seguidos de un paréntesis:
+\begin{verbatim}
+$ cat G.sed
+/\<if\>/s/.*/&/
+t
+/\<else\>/s/.*/&/
+t
+#... lo mismo para las otras palabras clave
+/^[a-zA-Z][a-zA-Z]*([A-Z]*/H
+t
+/^[a-zA-Z][a-zA-Z]*  *[a-zA-Z][a-zA-Z]*(/H
+${
+G
+}                        
+\end{verbatim}
+Ejemplo de uso:
+\begin{verbatim}
+$ cat p.test
+#include <stdio.h>
+ 
+fact(int n) { /* recursive function */
+if(n == 0) return 1;
+else(return n*fact(n-1));
+}
+ 
+void toto(id) {
+}
+ 
+main() {
+  toto();
+  printf("Hello world! factorial of 4 = %d\n",fact(4)); /* the
+         comment takes two lines */
+}                              
+\end{verbatim}
+Al ejecutar nuestro {\it script} obtenemos la salida:
+\begin{verbatim}
+$ sed -f G.sed p.test
+#include <stdio.h>
+ 
+fact(int n) { /* recursive function */
+if(n == 0) return 1;
+else(return n*fact(n-1));
+}
+ 
+void toto(id) {
+}
+ 
+main() {
+  toto();
+  printf("Hello world! factorial of 4 = %d\n",fact(4)); /* the
+         comment takes two lines */
+}
+ 
+fact(int n) { /* recursive function */
+void toto(id) {
+main() {                        
+\end{verbatim}
+
+\noindent {\bf Ejemplo}
+El siguiente guión invierte los contenidos de un fichero:
+\begin{verbatim}
+> cat reverse.sed
+$!{
+:loop
+h
+n
+G
+$!b loop
+}
+${
+p
+}                                      
+\end{verbatim}
+He aqui el resultado de una ejecución:
+
+\begin{verbatim}
+> cat reverse.test
+one
+two
+three
+> sed -n -f reverse.sed reverse.test
+three
+two
+one                                  
+\end{verbatim}
+
+
+\noindent {\bf Ejemplo}
+
+Supuesto un fichero de entrada con formato:
+\label{section:alumnos}
+\ldots
+\begin{verbatim}
+NAME: xxx
+SURNAME: xxx
+TITLE: SISTEMAS
+OtherTitle: 
+BIRTHDAY: xxx
+BIRTHMONTH: xxx
+BIRTHYEAR: xxx
+ADDRESSFAMILY: xxx
+ADDRESSACTUAL: xxx
+POSTALCODE: xxx
+EMAIL: XXXXXXX@csi.ull.es
+TELEPHONE: xxx
+FAX: xxx
+LABGROUP: xxx
+COMMENTS: 
+\end{verbatim}
+\ldots
+
+Se pretenden extraer los apellidos y el nombre, concatenados con una coma. He aqui una posible solución:
+\begin{verbatim}
+#!/bin/sed -f
+/^NAME:/ {
+  s/^NAME://
+  h
+  n
+  s/^SURNAME://
+  G
+  s/\n/,/
+  y/áéíóúabcdefghijklmnñopqrstuvwxyz/ÁÉÍÓÚABCDEFGHIJKLMNÑOPQRSTUVWXYZ/
+  p
+}
+\end{verbatim}
+
+\section{La orden {\it N}}
+{\it N} añade la siguiente línea de entrada al espacio de
+patrones. Las dos líneas se separan mediante un retorno de
+carro. Después de su ejecución, el comando {\it N} pasa el control a los
+subsiguientes comandos en el {\it script}.\\
+El siguiente ejemplo propuesto en \cite{sedawk} muestra una
+búsqueda y sustitución multilínea. Se trata de sustituir la
+cadena ``Owner and Operator Guide'' por ``Installation Guide'', cualquiera que sea su posición en una línea o entre ellas.
+Los autores de \cite{sedawk} y \cite{power} proponen la siguiente
+solución:
+\begin{verbatim}
+$ cat multiline2.sed
+#Assume the pattern is in no more than two lines
+s/Owner and Operator Guide/Installation Guide/g
+/Owner/{
+  N
+  s/ *\n/ /g
+  s/Owner  *and  *Operator  *Guide/Installation Guide/g
+}                    
+\end{verbatim}
+Veamos primero los contenidos del fichero de prueba:
+\begin{verbatim}
+$ cat multiline.test
+Dear Owner: Consult
+Section 3.1 in the Owner and
+Operator Guide for a description of the tape drives available for the Owner
+of your system.
+ 
+Consult Section 3.1 in the Owner and Operator
+Guide for a description of the tape drives
+available on your system.
+ 
+Look in the Owner and Operator Guide, we mean the Owner
+and Operator Guide shipped with your system.
+ 
+Two manuals are provided including the Owner and
+Operator Guide and the User Guide.
+ 
+The Owner and Operator Guide is shipped with your system.
+ 
+Look in the Owner
+and Operator Guide shipped with your system.
+ 
+The Owner
+and
+Operator
+Guide is shipped with your system.   
+\end{verbatim}
+La ejecución del {\it script} da la siguiente salida:
+\begin{verbatim}
+$ sed -f multiline2.sed multiline.test
+Dear Owner: Consult Section 3.1 in the Owner and
+Operator Guide for a description of the tape drives available for the Owner
+of your system.
+ 
+Consult Section 3.1 in the Installation Guide for a description of the tape
+drives
+available on your system.
+ 
+Look in the Installation Guide, we mean the Installation Guide shipped with
+your system.
+ 
+Two manuals are provided including the Installation Guide and the User Guide.
+ 
+The Installation Guide is shipped with your system.
+ 
+Look in the Installation Guide shipped with your system.
+ 
+The Owner and
+Operator
+Guide is shipped with your system.  
+\end{verbatim}
+Uno de los problemas, que aparece en el primer párrafo del
+ejemplo de prueba, es que la segunda línea leída debe ser
+"reciclada"
+para su uso en la siguiente búsqueda. El segundo fallo, 
+que aparece en el último párrafo, es consecuencia de la
+limitación del {\it script} para trabajar con  patrones partidos
+en más de dos líneas.\\
+Consideremos esta otra solución:
+\begin{verbatim}
+$ cat multiline.sed
+s/Owner and Operator Guide/Installation Guide/g
+/Owner/{
+:label
+  N
+  s/\n/ /g
+  s/Owner  *and  *Operator  *Guide/Installation Guide/g
+  /Owner *$/b label
+  /Owner  *and *$/b label
+  /Owner  *and  *Operator *$/b label
+  }                       
+\end{verbatim}
+Este otro {\it script} hace que {\tt sed} permanezca en un bucle mientras
+la línea adjuntada en segundo lugar contenga un prefijo estricto 
+de la cadena buscada. 
+
+\begin{verbatim}
+$sed -f multiline.sed multiline.test
+Dear Owner: Consult Section 3.1 in the Installation Guide for \
+a description of the tape drives available for the Owner  of \
+your system.
+ 
+Consult Section 3.1 in the Installation Guide for a description of the tape drives
+available on your system.
+ 
+Look in the Installation Guide, we mean the Installation Guide \
+shipped with your system.
+ 
+Two manuals are provided including the Installation Guide and the User Guide.
+ 
+The Installation Guide is shipped with your system.
+ 
+Look in the Installation Guide shipped with your system.
+ 
+The Installation Guide is shipped with your system.
+\end{verbatim}
+Un problema que aparece con esta aproximación es la presencia
+de líneas muy largas. Las líneas permanecen en el espacio de trabajo
+mientras terminen en un prefijo de la cadena buscada. Para
+que la salida quepa en la hoja he
+tenido que partir las líneas del fichero de salida, lo que he indicado con los
+símbolos $\backslash$. Considere esta modificación:
+\begin{verbatim}
+#!/bin/sed -f
+s/Owner and Operator Guide/Installation Guide/g
+/Owner/{
+:label
+  N
+  s/Owner\([ \n]*\)and\([ \n]*\)Operator\([ \n]*\)Guide/Installation\1\2Guide\3/g
+  /Owner *$/b label
+  /Owner  *and *$/b label
+  /Owner  *and  *Operator *$/b label
+  }
+\end{verbatim}
+Es indudable la ventaja de disponer de esta
+capacidad de búsqueda multilínea no puede realizarse con 
+otras utilidades como {\it ex} o {\it vi}.
+
+\section{Suprimir: El Comando {\it D}}
+El comando {\it D} suprime la primera parte (hasta el retorno de
+carro empotrado) en un espacio de patrones multilínea y bifurca al
+primer comando en el {\it script}. El retorno de carro empotrado puede
+describirse mediante la secuencia de escape \verb%\n%. En el caso en que
+el espacio de patrones quede vacío como consecuencia de la supresión,
+se lee una nueva línea.
+
+El siguiente ejemplo compacta una secuencia de líneas vacías en una sóla línea vacía.
+\begin{verbatim}
+1 > cat N.sed
+2 /^$/{
+3 N
+4 /^\n$/D
+5 }                                
+\end{verbatim}
+Si la línea  es vacía se lee la línea siguiente. Si esta también es vacía el espacio de patrones contiene
+\verb%^\n$%. La orden \verb%D% deja en el espacio de trabajo una línea vacía y bifurca al comienzo del {\it script}
+(sin que se lea una nueva línea).
+Por tanto nada ha sido impreso, no se ejecuta el comnado final \verb|p| que actúa por defecto.
+Como el espacio de trabajo contiene \verb%^$%, ``casa''
+con el patrón especificado en línea 2
+y se lee la siguiente línea. Si esta nueva línea es no vacía, no se ejecutará la orden
+\verb%D% de la línea 4 y si que lo hará la orden por defecto final, imprimiéndose la línea
+vacía y la nueva línea no vacía.
+
+Al ejecutar este ``{\it script}'' sobre un fichero conteniendo una secuencia de líneas en blanco:
+
+\begin{verbatim}
+> cat N.test
+one empty
+ 
+two empty lines
+ 
+ 
+three empty lines
+ 
+ 
+ 
+end of file
+\end{verbatim}
+Se obtiene el resultado:
+\begin{verbatim}
+> sed -f N.sed N.test
+one empty
+ 
+two empty lines
+ 
+three empty lines
+ 
+end of file                      
+\end{verbatim}
+Un buen ejercicio es intentar predecir la conducta de esta otra solución alternativa,
+en la que la supresión \emph{D}  es sustituida por la \emph{d}:
+\begin{verbatim}
+/^$/{
+N
+/^\n$/d
+}                                
+\end{verbatim}
+¿Qué ocurrirá? ¿Es correcta esta segunda solución? 
+
+\section{Búsqueda entre líneas}
+Este otro caso, tambien esta tomado de \cite{sedawk} y \cite{power}.
+Se trata de extender la capacidad de búsqueda de \emph{grep}, de modo que el 
+patrón pueda ser encontrado incluso si se encuentra diseminado
+entre a lo mas dos líneas. El {\it script} presentado es una ligera variante
+del que aparece en \cite{sedawk} y escribe la(s) líneas que
+casan precedidas del número de la segunda línea.
+\begin{verbatim}
+$ cat phrase
+#! /bin/sh
+# phrase -- search for words across two lines.
+# Prints the line number
+# $1 = search string; remaining args = filenames
+search=$1
+shift
+for file
+do
+sed -n '
+  /'"$search"'/b final
+  N
+  h
+  s/.*\n//
+  /'"$search"'/b final
+  g
+  s/ *\n//
+  /'"$search"'/{
+    g
+    b final
+  }
+  g
+  D
+:final
+  =
+  p
+' $file
+done                     
+\end{verbatim}
+Así, con el ejemplo ``multiline.test'' usado anteriormente
+obtenemos la siguiente salida:
+\begin{verbatim}
+$ phrase "Owner and Operator Guide" multiline.test
+3
+Section 3.1 in the Owner and
+Operator Guide for a description of the tape drives available for the Owner
+7
+Consult Section 3.1 in the Owner and Operator
+Guide for a description of the tape drives
+10
+Look in the Owner and Operator Guide, we mean the Owner
+14
+Two manuals are provided including the Owner and
+Operator Guide and the User Guide.
+16
+The Owner and Operator Guide is shipped with your system.
+19
+Look in the Owner
+and Operator Guide shipped with your system.
+\end{verbatim}
+Primero se busca el patrón \verb1/'"$search"'/1 en la línea actual.
+Observe el habilidoso uso de las comillas simples y dobles para permitir
+la sustitución de la variable. La primera comilla simple cierra
+la comilla simple al final de la línea 10. Las comillas dobles
+hacen que la \emph{shell} sustituya \verb%$search% por su valor. La nueva comilla simple
+permite continuar el texto sin sustituciones.
+
+Si se encuentra el patrón de búsqueda, imprimimos el número de línea (comando {\tt =}) y la línea.
+Si no, leemos la siguiente línea, formando un patrón multilínea. 
+Salvamos las dos líneas en el {\it hold space}.
+Entonces intentamos buscar el patrón \verb1/'"$search"'/1 en
+la línea que acaba de incorporarse. Es por eso que eliminamos 
+del espacio de patrones la primera línea con la orden 
+\verb1s/ *\n//1. Si se encuentra, imprimimos y se repite el ciclo.
+Si no, recuperamos las dos líneas del {\it hold space} 
+sustituimos el retorno de carro por un blanco y realizamos 
+una nueva busqueda.
+Si tiene éxito, se obtienen las dos líneas y se imprimen.
+En caso contrario, esto es, si el patrón no se ha encontrado en ninguna
+de las dos líneas, es necesario preservar la última para el siguiente
+ciclo. Por eso, se obtienen una vez mas las líneas del {\it hold space}
+y se suprime con \emph{D} la primera de ellas. Dado que \emph{D} 
+devuelve el control al comienzo del {\it script}, la segunda línea no es eliminada. 
+De todos modos,  el {\it script} no es capaz de captar cuando un prefijo del patrón 
+aparece  al final de esta segunda línea, como muestra el
+ejemplo de prueba. En el primer párrafo el patrón se encuentra
+dos veces y sólo es encontrado una.
+
+\section{Seleccionando Items en un Registro Multilínea}
+El ejercicio resuelto aqui consiste en listar los alumnos que han seleccionado un determinado grupo de prácticas.
+Suponemos la organización del fichero de entrada descrita en la sección  \ref{section:alumnos}. 
+El \emph{script} recibe como primer argumento el nombre del fichero conteniendo la carpeta de correo (\verb%pine%) 
+asociada con la asignatura y como segundo argumento el grupo. Un primer \emph{script} que no es descrito
+aqui, denominado \verb|makefichas.sed| produce como salida el archivo con la estructura
+descrita en la sección \ref{section:alumnos}. El segundo guión, denominado \verb|grupo.sh| y que es
+el que nos ocupa, produce como salida los alumnos que pertenecen a ese grupo ed prácticas.
+
+Estos son los contenidos del \emph{script} \verb|grupo|:
+\begin{verbatim}
+~/bin/makefichas.sed -n ~/mail/$1 | grupo.sh $2 | sort -u
+\end{verbatim}
+Los contenidos del fichero \verb%grupo.sh% son:
+\begin{verbatim}
+ 1  #!/bin/bash
+ 2  search=$1
+ 3  sed -n '
+ 4  /^NAME:/ {
+ 5    s/^NAME://
+ 6    h
+ 7    n
+ 8    s/^SURNAME://
+ 9    G
+10    s/\n/,/
+11    y/ÁÉÍÓÚáéíóúabcdefghijklmnñopqrstuvxyz/AEIOUAEIOUABCDEFGHIJKLMNÑOPQRSTUVXYZ/
+12   h
+13 }
+14 /^LABGROUP:/ {
+15   y/ÁÉÍÓÚáéíóúabcdefghijklmnñopqrstuvxyz/AEIOUAEIOUABCDEFGHIJKLMNÑOPQRSTUVXYZ/
+16   s/'"$search"'/&/
+17   t print
+18   b 
+19 :print
+20   g
+21   p
+22 }
+23 ' 
+\end{verbatim}
+De nuevo hacemos uso de las comillas simples y dobles
+en este ejemplo.
+Obsérvese como se proteje el guión \verb|sed| entre las líneas 3 y 16. 
+En la línea 16 el cierre de la comilla simple y el uso de la doble comilla 
+permite la actuación de la interpretación de la \verb|shell|, sustituyendo 
+\verb|$search| que coincide con el
+parámetro pasado en la llamada como \verb|$2|. La siguiente comilla 
+simple en esa línea permite la protección del resto
+del guión.
+

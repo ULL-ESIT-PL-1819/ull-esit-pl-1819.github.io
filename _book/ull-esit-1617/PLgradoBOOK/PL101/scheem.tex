@@ -1,0 +1,363 @@
+\htmladdnormallink{http://nathansuniversity.com/scheem.html}{http://nathansuniversity.com/scheem.html}
+
+\section{Scheem Interpreter}
+
+\section{Variables}
+
+
+\section{Setting Values}
+
+
+\section{Putting Things Together}
+
+\subsection{Unit Testing: Mocha}
+\label{subsection:mocha}
+\input{chapter11/mocha.tex}
+
+\parrafo{Véase}
+
+
+\begin{itemize}
+\item
+\htmladdnormallink{https://github.com/crguezl/nathanuniversityexercisesPL/tree/master/scheem8}{https://github.com/crguezl/nathanuniversityexercisesPL/tree/master/scheem8}
+\end{itemize}
+
+
+\subsection{Grunt}
+
+\htmladdnormallink{http://gruntjs.com/getting-started}{http://gruntjs.com/getting-started}
+
+\begin{verbatim}
+npm install -g grunt-cli
+\end{verbatim}
+
+A typical setup will involve adding two files to your project: \verb|package.json| and the 
+\verb|Gruntfile|.
+
+\begin{itemize}
+\item
+\verb|package.json|: This file is used by \verb|npm| 
+to store metadata for projects published as \verb|npm| modules. 
+
+You will list grunt and the Grunt plugins your project needs as \cei{devDependencies} 
+in this file.
+
+\item
+\verb|Gruntfile|: This file is named \verb|Gruntfile.js| or \verb|Gruntfile.coffee| and is used to configure or define tasks and load Grunt plugins.
+\end{itemize}
+
+\subsubsection{package.json}
+
+\begin{itemize}
+\item
+The package.json file belongs in the root directory of your project,
+next to the Gruntfile, and should be committed with your project
+source. 
+
+\item
+Running npm install in the same folder as a package.json file
+will install the correct version of each dependency listed therein.
+
+\item
+There are a few ways to create a package.json file for your project:
+
+  \begin{itemize}
+  \item
+  Most grunt-init templates will automatically create a project-specific package.json file.
+  \item
+  The npm init command will create a basic package.json file.
+  \item
+  Start with the example below, and expand as needed, following this specification.
+  \begin{verbatim}
+  {
+    "name": "my-project-name",
+    "version": "0.1.0",
+    "devDependencies": {
+      "grunt": "~0.4.2",
+      "grunt-contrib-jshint": "~0.6.3",
+      "grunt-contrib-nodeunit": "~0.2.0",
+      "grunt-contrib-uglify": "~0.2.2"
+    }
+  }
+  \end{verbatim}
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{Gruntfile}
+
+The Gruntfile.js or Gruntfile.coffee file is a valid JavaScript or
+CoffeeScript file that belongs in the root directory of your project,
+next to the package.json file, and should be committed with your project
+source.
+
+A Gruntfile is comprised of the following parts:
+
+\begin{itemize}
+\item
+The "wrapper" function
+\item
+Project and task configuration
+\item
+Loading Grunt plugins and tasks
+\item
+Custom tasks
+\end{itemize}
+
+
+\parrafo{An example Gruntfile}
+
+In the following Gruntfile, project metadata is imported into the Grunt
+config from the project's \verb|package.json| file and the 
+
+grunt-contrib-uglify
+
+plugin's uglify task is configured to minify a source file and generate
+a banner comment dynamically using that metadata. 
+
+When grunt is run on
+the command line, the uglify task will be run by default.
+
+\begin{verbatim}
+module.exports = function(grunt) {
+
+  // Project configuration.
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    uglify: {
+      options: {
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+      },
+      build: {
+        src: 'src/<%= pkg.name %>.js',
+        dest: 'build/<%= pkg.name %>.min.js'
+      }
+    }
+  });
+
+  // Load the plugin that provides the "uglify" task.
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+
+  // Default task(s).
+  grunt.registerTask('default', ['uglify']);
+
+};
+\end{verbatim}
+Now that you've seen the whole Gruntfile, let's look at its component parts.
+
+\parrafo{The "wrapper" function}
+
+Every Gruntfile (and gruntplugin) uses this basic format, and all of your Grunt code must be specified inside this function:
+
+\begin{verbatim}
+module.exports = function(grunt) {
+  // Do grunt-related things in here
+};
+\end{verbatim}
+
+\parrafo{Project and task configuration}
+
+Most Grunt tasks rely on configuration data defined in an object passed to the \verb|grunt.initConfig| method.
+
+In this example, 
+\verb|grunt.file.readJSON('package.json')| 
+imports the JSON metadata stored in 
+\verb|package.json| into the grunt config. 
+Because \verb|<% %>| template strings may reference any config properties, configuration data like filepaths and file lists may be specified this way to reduce repetition.
+
+You may store any arbitrary data inside of the configuration object,
+and as long as it doesn't conflict with properties your tasks require,
+it will be otherwise ignored. Also, because this is JavaScript, you're
+not limited to JSON; you may use any valid JS here. You can even
+programmatically generate the configuration if necessary.
+
+Like most tasks, the 
+\verb|grunt-contrib-uglify| plugin's uglify task expects its configuration 
+to be specified in a property of the same name. 
+Here, the \verb|banner| option is specified, along with a single uglify target 
+named \verb|build| that minifies a single source file to a single destination file.
+
+\begin{verbatim}
+// Project configuration.
+grunt.initConfig({
+  pkg: grunt.file.readJSON('package.json'),
+  uglify: {
+    options: {
+      banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+    },
+    build: {
+      src: 'src/<%= pkg.name %>.js',
+      dest: 'build/<%= pkg.name %>.min.js'
+    }
+  }
+});
+\end{verbatim}
+
+\parrafo{A simple Grunt.js example}
+
+\htmladdnormallink{https://github.com/UWMadisonUcomm/grunt-simple-example}{https://github.com/UWMadisonUcomm/grunt-simple-example}
+
+\begin{verbatim}
+[~/srcPLgrado/grunt-simple-example(master)]$ pwd
+/Users/casiano/srcPLgrado/grunt-simple-example
+[~/srcPLgrado/grunt-simple-example(master)]$ git remote -v
+origin  git@github.com:UWMadisonUcomm/grunt-simple-example.git (fetch)
+origin  git@github.com:UWMadisonUcomm/grunt-simple-example.git (push)
+[~/srcPLgrado/grunt-simple-example(master)]$ ls
+Gruntfile.js Readme.md    assets       index.html   node_modules package.json src
+\end{verbatim}
+
+\begin{verbatim}
+[~/srcPLgrado/grunt-simple-example(master)]$ cat Gruntfile.js 
+module.exports = function(grunt){
+  grunt.initConfig({
+    uglify: {
+      main: {
+        files: {
+          'assets/app.min.js': [
+            'src/javascripts/jquery-1.10.2.min.js',
+            'src/javascripts/bootstrap.js',
+            'src/javascripts/application.js'
+          ]
+        }
+      }
+    },
+    less: {
+      application: {
+        options: {
+          yuicompress: true
+        },
+        files: {
+          "assets/app.min.css": "src/stylesheets/application.less"
+        }
+      }
+    },
+    watch: {
+      javascripts: {
+        files: ['src/javascripts/**/*'],
+        tasks: ['uglify']
+      },
+      stylesheets: {
+        files: ['src/stylesheets/**/*'],
+        tasks: ['less']
+      }
+    }
+  });
+
+  // Load plugins
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+
+  // Register tasks
+  grunt.registerTask('default', ['uglify', 'less']);
+}
+\end{verbatim}
+
+\begin{verbatim}
+[~/srcPLgrado/grunt-simple-example(master)]$ cat package.json 
+{
+  "name": "grunt-simple-example",
+  "version": "0.0.1",
+  "main": "index.js",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-cssmin": "~0.6.2",
+    "grunt-contrib-less": "~0.7.0",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-watch": "~0.5.3"
+  },
+  "author": "Bryan Shelton",
+  "license": "BSD-2-Clause"
+}
+
+\end{verbatim}
+
+\begin{verbatim}
+[~/srcPLgrado/grunt-simple-example(master)]$ npm install
+npm WARN package.json grunt-simple-example@0.0.1 No repository field.
+[~/srcPLgrado/grunt-simple-example(master)]$ 
+\end{verbatim}
+
+
+\begin{verbatim}
+[~/srcPLgrado/grunt-simple-example(master)]$ grunt watch
+Running "watch" task
+Waiting...OK
+>> File "src/javascripts/application.js" changed.
+
+Running "uglify:main" (uglify) task
+File "assets/app.min.js" created.
+
+Done, without errors.
+Completed in 3.897s at Mon Jan 20 2014 19:02:03 GMT+0000 (WET) - Waiting...
+\end{verbatim}
+
+\subsection{GitHub Project Pages}
+\label{subsection:githubprojectpages}
+
+Project Pages are kept in the same repository as the project they are for. 
+
+These pages are similar to User and Org Pages, with a few slight differences:
+
+\begin{itemize}
+\item
+The \verb|gh-pages| branch is used to build and publish from.
+\item
+A custom domain on user/org pages will apply the same domain redirect to all project pages hosted under that account, unless the project pages use their own custom domain.
+\item
+If no custom domain is used, the project pages are served under a subpath of the user pages: 
+\begin{verbatim}
+username.github.io/projectname
+\end{verbatim}
+Por ejemplo, mi usuario es \verb|crguezl|. Si el proyecto se llama \verb|nathanuniversityexercisesPL|, la dirección será:
+
+\begin{center}
+\htmladdnormallink{http://crguezl.github.io/nathanuniversityexercisesPL/}{http://crguezl.github.io/nathanuniversityexercisesPL/}
+\end{center}
+\item
+Custom 404s will only work if a custom domain is used, otherwise the User Pages 404 is used.
+\end{itemize}
+
+
+\begin{itemize}
+\item
+\htmladdnormallink{Creating Project Pages manually}{https://help.github.com/articles/creating-project-pages-manually}
+\end{itemize}
+
+\begin{enumerate}
+\item
+Setting up Pages on a project requires a new "orphan" branch in your repository. The safest way to do this is to start with a fresh clone.
+
+\begin{verbatim}
+git clone https://github.com/user/repository.git
+# Clone our repository
+# Cloning into 'repository'...
+remote: Counting objects: 2791, done.
+remote: Compressing objects: 100% (1225/1225), done.
+remote: Total 2791 (delta 1722), reused 2513 (delta 1493)
+Receiving objects: 100% (2791/2791), 3.77 MiB | 969 KiB/s, done.
+Resolving deltas: 100% (1722/1722), done.
+\end{verbatim}
+\item
+Now that we have a clean repository, we need to create the new branch and remove all content from the working directory and index.
+
+\begin{verbatim}
+cd repository
+
+git checkout --orphan gh-pages
+# Creates our branch, without any parents (it's an orphan!)
+# Switched to a new branch 'gh-pages'
+
+git rm -rf .
+# Remove all files from the old working tree
+# rm '.gitignore'
+\end{verbatim}
+\item
+Now we have an empty working directory. We can create some content in this branch and push it to GitHub. For example:
+\begin{verbatim}
+echo "My GitHub Page" > index.html
+git add index.html
+git commit -a -m "First pages commit"
+git push origin gh-pages
+\end{verbatim}
+\end{enumerate}

@@ -1,0 +1,122 @@
+<tex2html_file>#./chapter1/create_module.tex#
+\begin<<1744>>tex2html_deferred<<1744>>\par\end<<1745>>tex2html_deferred<<1745>>
+\subsection<<1657>>Introducción<<1657>>
+\begin<<1746>>tex2html_deferred<<1746>>\par\end<<1747>>tex2html_deferred<<1747>>
+Cuando Node carga nuestro fichero JavaScript
+crea un nuevo ámbito. Cuando estamos en nuestro módulo, no podemos
+ver el ámbito externo lo que evita las colisiones de nombres.
+\begin<<1748>>tex2html_deferred<<1748>>\par\end<<1749>>tex2html_deferred<<1749>>
+\subsection<<1722>>Un Fichero <<1658>>\begin<<1750>>tex2html_deferred<<1750>>\tt\end<<1751>>tex2html_deferred<<1751>>package.json<<1658>><<1722>>
+\begin<<1752>>tex2html_deferred<<1752>>\par\end<<1753>>tex2html_deferred<<1753>>
+Creamos un fichero en la raíz de nuestro proyecto con nombre 
+<tex2html_verb_mark>82<tex2html_verb_mark>. Este fichero describe nuestro proyecto.
+Es esencial si vamos a publicar nuestro proyecto con 
+\htmladdnormallink<<1723>><<1725>>\begin<<1754>>tex2html_deferred<<1754>>\tt\end<<1755>>tex2html_deferred<<1755>>npm<<1725>><<1723>>
+ <<1724>>https://npmjs.org/<<1724>><<1659>><<1659>>.
+\begin<<1756>>tex2html_deferred<<1756>>\par\end<<1757>>tex2html_deferred<<1757>>
+Podemos especificar en este fichero:
+\begin<<1758>>tex2html_deferred<<1758>>\par\end<<1759>>tex2html_deferred<<1759>>
+\begin<<1660>>enumerate<<1660>>
+\item
+Name, version, description, and keywords to describe your program.
+\item
+A homepage where users can learn more about it.
+\item
+Other packages that yours depends on.
+\end<<1661>>enumerate<<1661>>
+\begin<<1760>>tex2html_deferred<<1760>>\par\end<<1761>>tex2html_deferred<<1761>>
+Si hemos instalado \htmladdnormallink<<1726>><<1728>>\begin<<1762>>tex2html_deferred<<1762>>\tt\end<<1763>>tex2html_deferred<<1763>>npm<<1728>><<1726>>
+ <<1727>>https://npmjs.org/<<1727>><<1662>><<1662>> podemos usar el comando 
+<tex2html_verb_mark>83<tex2html_verb_mark> \htmladdnormallink<<1729>><<1731>>\begin<<1764>>tex2html_deferred<<1764>>\tt\end<<1765>>tex2html_deferred<<1765>>init<<1731>><<1729>>
+ <<1730>>https://npmjs.org/doc/init.html<<1730>> para empezar.
+Véase  <tex2html_verb_mark>84<tex2html_verb_mark>
+\htmladdnormallink<<1732>><<1734>>\begin<<1766>>tex2html_deferred<<1766>>\tt\end<<1767>>tex2html_deferred<<1767>>json<<1734>><<1732>>
+ <<1733>>https://npmjs.org/doc/json.html<<1733>> 
+para obtener información sobre este fichero:
+\begin<<1768>>tex2html_deferred<<1768>>\par\end<<1769>>tex2html_deferred<<1769>>
+La cosa mas importante a especificar 
+cuando estamos escribiendo un programa para su uso por otros,
+es el módulo <tex2html_verb_mark>85<tex2html_verb_mark>. Este consituirá el punto de entrada 
+a nuestro programa.
+\begin<<1770>>tex2html_deferred<<1770>>\par\end<<1771>>tex2html_deferred<<1771>>
+Es esencial documentar las dependencias.
+\begin<<1772>>tex2html_deferred<<1772>>\par\end<<1773>>tex2html_deferred<<1773>>
+El siguiente es un ejemplo de fichero <tex2html_verb_mark>86<tex2html_verb_mark> tomado
+del proyecto \htmladdnormallink<<1735>><<1737>>\begin<<1774>>tex2html_deferred<<1774>>\tt\end<<1775>>tex2html_deferred<<1775>>ebnf-parser<<1737>><<1735>>
+ <<1736>>https://github.com/zaach/ebnf-parser<<1736>><<1665>><<1665>>:
+\begin<<1666>>tex2html_preform<<1666>><tex2html_verbatim_mark>verbatim99#\end<<1667>>tex2html_preform<<1667>>
+\begin<<1776>>tex2html_deferred<<1776>>\par\end<<1777>>tex2html_deferred<<1777>>
+\subsection<<1668>>README y otros documentos<<1668>>
+\begin<<1778>>tex2html_deferred<<1778>>\par\end<<1779>>tex2html_deferred<<1779>>
+Pon la información basica acerca del módulo 
+en la raíz del proyecto.
+Como ejemplo veamos el <tex2html_verb_mark>87<tex2html_verb_mark> (observa que 
+está en formato \htmladdnormallink<<1738>><<1740>>\begin<<1780>>tex2html_deferred<<1780>>\tt\end<<1781>>tex2html_deferred<<1781>>markdown<<1740>><<1738>>
+ <<1739>>http://daringfireball.net/projects/markdown/syntax<<1739>><<1669>><<1669>>) 
+del proyecto \htmladdnormallink<<1741>><<1743>>\begin<<1782>>tex2html_deferred<<1782>>\tt\end<<1783>>tex2html_deferred<<1783>>ebnf-parser<<1743>><<1741>>
+ <<1742>>https://github.com/zaach/ebnf-parser<<1742>><<1670>><<1670>>:
+\begin<<1784>>tex2html_deferred<<1784>>\par\end<<1785>>tex2html_deferred<<1785>>
+\begin<<1671>>tex2html_preform<<1671>><tex2html_verbatim_mark>verbatim100#\end<<1672>>tex2html_preform<<1672>>
+\begin<<1786>>tex2html_deferred<<1786>>\par\end<<1787>>tex2html_deferred<<1787>>
+En general se anima  a que uses el formato markdown. Salva el fichero como
+<tex2html_verb_mark>88<tex2html_verb_mark>.
+\begin<<1788>>tex2html_deferred<<1788>>\par\end<<1789>>tex2html_deferred<<1789>>
+La documentación adicional se pone en un directorio <tex2html_verb_mark>89<tex2html_verb_mark>. 
+Los ficheros markdown teminan en <tex2html_verb_mark>90<tex2html_verb_mark> y los html en <tex2html_verb_mark>91<tex2html_verb_mark>.
+\begin<<1790>>tex2html_deferred<<1790>>\par\end<<1791>>tex2html_deferred<<1791>>
+\subsection<<1673>>Véase También<<1673>>
+\begin<<1674>>itemize<<1674>>
+\item
+\htmladdnormallink<<1675>>How To: Create Your Own Node.js Module<<1675>><<1676>>http://howtonode.org/how-to-module<<1676>> por Isaac Z. Schlueter autor de 
+\htmladdnormallink<<1677>>npm<<1677>><<1678>>http://npmjs.org/<<1678>>.
+Véase también este
+\htmladdnormallink<<1679>>gist en GitHub<<1679>><<1680>>https://gist.github.com/isaacs/4150d972e0aa2a4060c1<<1680>>
+\item
+\htmladdnormallink<<1681>>Creating Custom Modules<<1681>><<1682>>http://howtonode.org/creating-custom-modules<<1682>>
+\item
+\htmladdnormallink<<1683>>How to Build a Nodejs Npm Package From Scratch.<<1683>><<1684>>http://decodize.com/javascript/build-nodejs-npm-installation-package-scratch/<<1684>> May 2012 Decodize
+\begin<<1792>>tex2html_deferred<<1792>>\par\end<<1793>>tex2html_deferred<<1793>>
+\end<<1685>>itemize<<1685>>
+<tex2html_endfile>#./chapter1/create_module.tex#
+\begin<<1794>>tex2html_deferred<<1794>>\par\end<<1795>>tex2html_deferred<<1795>>
+\section<<1686>>Mas sobre Node<<1686>>
+\begin<<1687>>enumerate<<1687>>
+\item
+Véase el libro 'Learning Node' de S. Powers \cite<<1688>>learningnode<<1688>>.
+\item \htmladdnormallink<<1689>>Node.js<<1689>><<1690>>http://nodejs.org/<<1690>>
+\item \htmladdnormallink<<1691>>docs.nodejitsu.com<<1691>><<1692>>http://docs.nodejitsu.com<<1692>>: collection of node.js how-to articles. These articles range from basic to advanced. They provide relevant code samples and insights into the design and philosophy of node itself
+\begin<<1796>>tex2html_deferred<<1796>>\par\end<<1797>>tex2html_deferred<<1797>>
+\item \htmladdnormallink<<1693>>http://howtonode.org/<<1693>><<1694>>http://howtonode.org/<<1694>>
+contiene un número creciente de tutoriales
+\item El manual de node.js puede encontrarse en formato pdf en el proyecto 
+\htmladdnormallink<<1695>>https://github.com/zeMirco/nodejs-pdf-docs<<1695>><<1696>>https://github.com/zeMirco/nodejs-pdf-docsoen<<1696>>
+en GitHub. En concreto en este \htmladdnormallink<<1697>>enlace<<1697>><<1698>>https://github.com/zeMirco/nodejs-pdf-docs/blob/master/pdf/all.pdf?raw=true<<1698>>
+\item \htmladdnormallink<<1699>>Guías de node.js<<1699>><<1700>>http://nodeguide.com/<<1700>> de
+\htmladdnormallink<<1701>>Felix Geisendörfer<<1701>><<1702>>https://twitter.com/felixge<<1702>>
+\item \htmladdnormallink<<1703>>Introduction to Node.js<<1703>><<1704>>http://hectorcorrea.jit.su/blog/introduction-to-node-js<<1704>> por Hector Correa
+\item \htmladdnormallink<<1705>>El Libro para Principiantes en Node.js<<1705>><<1706>>http://www.nodebeginner.org/index-es.html<<1706>> por Manuel Kiessling  y Herman A. Junge
+\end<<1707>>enumerate<<1707>>
+Para aprender JavaScript podemos usar el libro
+\htmladdnormallink<<1708>>eloquent JavaScript<<1708>><<1709>>http://eloquentjavascript.net/<<1709>> de Marijn Haverbeke \cite<<1710>>eloquentjavascript<<1710>>.
+\begin<<1798>>tex2html_deferred<<1798>>\par\end<<1799>>tex2html_deferred<<1799>>
+\chapter<<1711>>JavaScript en los Navegadores<<1711>>
+\begin<<1800>>tex2html_deferred<<1800>>\par\end<<1801>>tex2html_deferred<<1801>>
+\chapter<<1712>>El Objeto Window<<1712>>
+\begin<<1802>>tex2html_deferred<<1802>>\par\end<<1803>>tex2html_deferred<<1803>>
+\chapter<<1713>>Manejo de Documentos en JavaScript<<1713>>
+\begin<<1804>>tex2html_deferred<<1804>>\par\end<<1805>>tex2html_deferred<<1805>>
+\chapter<<1714>>Manejo de CSS<<1714>>
+\begin<<1806>>tex2html_deferred<<1806>>\par\end<<1807>>tex2html_deferred<<1807>>
+\chapter<<1715>>Manejo de Eventos<<1715>>
+\begin<<1808>>tex2html_deferred<<1808>>\par\end<<1809>>tex2html_deferred<<1809>>
+\chapter<<1716>>HTTP<<1716>>
+\begin<<1810>>tex2html_deferred<<1810>>\par\end<<1811>>tex2html_deferred<<1811>>
+\chapter<<1717>>La Librería JQuery<<1717>>
+\begin<<1812>>tex2html_deferred<<1812>>\par\end<<1813>>tex2html_deferred<<1813>>
+\chapter<<1718>>Almacenamiento en el Cliente<<1718>>
+\begin<<1814>>tex2html_deferred<<1814>>\par\end<<1815>>tex2html_deferred<<1815>>
+\chapter<<1719>>Multimedia y Gráficos<<1719>>
+\begin<<1816>>tex2html_deferred<<1816>>\par\end<<1817>>tex2html_deferred<<1817>>
+\chapter<<1720>>HTML5<<1720>>
+\begin<<1818>>tex2html_deferred<<1818>>\par\end<<1819>>tex2html_deferred<<1819>>
+\chapter<<1721>>XML<<1721>>

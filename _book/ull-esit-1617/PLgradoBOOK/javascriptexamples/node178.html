@@ -1,0 +1,52 @@
+
+<H1><A NAME="SECTION05860000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:depuracion"><tex2html_anchor_mark></A><BR>
+Depuración en <TT>yapp</TT>
+</H1>
+Es posible añadir un parámetro en la llamada a <tex2html_verb_mark>2356<tex2html_verb_mark>
+con nombre <A NAME="18379"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">yydebug</SPAN> y valor el nivel de depuración requerido.
+Ello 
+nos permite observar la conducta del analizador. Los 
+posibles valores de depuración son:
+
+<P>
+<BR>
+<BR>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Bit</TD>
+<TD ALIGN="LEFT">Información de Depuración</TD>
+</TR>
+<TR><TD ALIGN="LEFT">0x01</TD>
+<TD ALIGN="LEFT">Lectura de los terminales</TD>
+</TR>
+<TR><TD ALIGN="LEFT">0x02</TD>
+<TD ALIGN="LEFT">Información sobre los estados</TD>
+</TR>
+<TR><TD ALIGN="LEFT">0x04</TD>
+<TD ALIGN="LEFT">Acciones (shifts, reduces, accept ...)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">0x08</TD>
+<TD ALIGN="LEFT">Volcado de la pila</TD>
+</TR>
+<TR><TD ALIGN="LEFT">0x10</TD>
+<TD ALIGN="LEFT">Recuperación de errores</TD>
+</TR>
+</TABLE>
+</DIV>
+<BR>
+<BR>
+
+<P>
+Veamos un ejemplo de salida para la gramática
+ que se describe en la página 
+ <A HREF=<tex2html_cr_mark>#apendice:asb#17658><tex2html_cross_ref_visible_mark></A>
+ cuando se llama con: 
+
+<P>
+<tex2html_verb_mark>2357<tex2html_verb_mark>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6134#</PRE>
+
+<P>

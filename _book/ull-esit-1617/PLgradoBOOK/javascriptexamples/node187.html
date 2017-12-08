@@ -1,0 +1,102 @@
+
+<H1><A NAME="SECTION058150000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:errores"><tex2html_anchor_mark></A><BR>
+Recuperación de Errores
+</H1>
+Las entradas de un traductor pueden contener errores. 
+El lenguaje <tex2html_verb_mark>2452<tex2html_verb_mark> proporciona un <SPAN  CLASS="textbf">token</SPAN> especial,
+<tex2html_verb_mark>2453<tex2html_verb_mark>, que puede ser utilizado en el programa fuente
+para extender el traductor con ``producciones de error'' 
+que lo doten de cierta capacidad para 
+recuperase de  una entrada errónea y poder continuar 
+analizando el resto de la entrada.
+
+<P>
+Consideremos lo que ocurre al ejecutar nuestra calculadora
+<tex2html_verb_mark>2454<tex2html_verb_mark> con una entrada errónea. Recordemos 
+la gramática:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6165#</PRE>
+
+<P>
+La regla <tex2html_verb_mark>2455<tex2html_verb_mark><tex2html_verbatim_mark>#math7176#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37524#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>2456<tex2html_verb_mark> es una producción de
+error. La idea general de uso es que, a traves de la misma, el programador 
+le indica a <tex2html_verb_mark>2457<tex2html_verb_mark> que, cuando se produce un error
+dentro de una expresión, descarte todos los <SPAN  CLASS="textbf">tokens</SPAN> hasta llegar al
+retorno del carro y prosiga con el análisis. 
+Además, mediante la llamada al método <tex2html_verb_mark>2458<tex2html_verb_mark> el programador
+anuncia que, si se alcanza este punto, la recuperación puede considerarse 
+``completa''  y que <tex2html_verb_mark>2459<tex2html_verb_mark> puede emitir a partir de ese momento 
+mensajes de error
+con la seguridad de que no son consecuencia de un comportamiento inestable
+provocado por el primer error.
+
+<P>
+El resto de la gramática de la calculadora era como sigue:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6166#</PRE>
+en la ejecución activamos el flag <tex2html_verb_mark>2460<tex2html_verb_mark> a <tex2html_verb_mark>2461<tex2html_verb_mark> para 
+obtener información sobre el tratamiento de errores:
+<PRE><tex2html_verbatim_mark>verbatim6167#</PRE>
+Pasemos a darle una primera entrada errónea:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6168#</PRE>
+
+<P>
+El esquema general del algoritmo de recuperación de errores usado 
+por la versión actual de <tex2html_verb_mark>2462<tex2html_verb_mark> es el siguiente:
+
+<P>
+
+<OL>
+<LI>Cuando se encuentra ante una acción de error, el analizador genera un 
+<SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2463<tex2html_verb_mark>.
+
+<P>
+</LI>
+<LI>A continuación pasa a retirar estados de la pila hasta que descubre un
+estado capaz de transitar ante el <SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2464<tex2html_verb_mark>. 
+En el ejemplo anterior el analizador estaba en el estado 12 y lo retira
+de la pila. Los contenidos del estado 12 son:
+<PRE><tex2html_verbatim_mark>verbatim6169#</PRE>
+Obviamente no esperabamos ver un <tex2html_verb_mark>2465<tex2html_verb_mark> aqui. El siguiente
+estado en la cima de la pila es el 3, el cual tampoco
+tiene ninguna transición ante el terminal <tex2html_verb_mark>2466<tex2html_verb_mark>:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6170#</PRE>
+El pop sobre el estado 3 deja expuesto en la superficie al estado
+1, el cuál ``sabe'' como manejar el error:
+<PRE><tex2html_verbatim_mark>verbatim6171#</PRE>
+
+<P>
+</LI>
+<LI>En este punto transita al estado correspondiente a desplazar el 
+<SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2467<tex2html_verb_mark>. 
+
+<P>
+En consecuencia, con lo dicho, en el ejemplo se va al estado 9:
+<PRE><tex2html_verbatim_mark>verbatim6172#</PRE>
+
+<P>
+</LI>
+<LI>Entonces el algoritmo de recuperación va
+leyendo <SPAN  CLASS="textbf">tokens</SPAN> y descartandolos hasta encontrar
+uno que sea aceptable. En este caso hemos especificado
+que el terminal que nos da cierta confianza de recuperación
+es el retorno de carro:
+<PRE><tex2html_verbatim_mark>verbatim6173#</PRE>
+
+<P>
+</LI>
+<LI>Sólo se envían nuevos mensajes de error una vez asimilados (desplazados)
+algunos símbolos terminales. De este modos se intenta evitar la aparición
+masiva de mensajes de error.
+</LI>
+</OL>
+
+<P>

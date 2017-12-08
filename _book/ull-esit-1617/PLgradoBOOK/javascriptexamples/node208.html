@@ -1,0 +1,129 @@
+
+<H1><A NAME="SECTION05950000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:recuperryacc"><tex2html_anchor_mark></A><BR>
+Recuperación de Errores
+</H1>
+Las entradas de un traductor pueden contener errores. 
+El lenguaje <tex2html_verb_mark>2994<tex2html_verb_mark> proporciona un <SPAN  CLASS="textbf">token</SPAN> especial,
+<tex2html_verb_mark>2995<tex2html_verb_mark>, que puede ser utilizado en el programa fuente
+para extender el traductor con producciones de error 
+que lo doten de cierta capacidad para 
+recuperase de  una entrada errónea y poder continuar 
+analizando el resto de la entrada.
+<P><DIV><#38093#><B>Ejecución  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#38093#> &nbsp; 
+<#38096#><I>Consideremos lo que ocurre al ejecutar el programa <tex2html_verb_mark>2996<tex2html_verb_mark>
+<A HREF=<tex2html_cr_mark>#prog:calc1#20396><tex2html_cr_mark></A> con una entrada errónea:
+</I><PRE><tex2html_verbatim_mark>verbatim6345#</PRE><I></I><#38096#></DIV><P></P>
+
+
+<P>
+Después de detectar el mensaje <tex2html_verb_mark>2997<tex2html_verb_mark> emite el mensaje 
+<tex2html_verb_mark>2998<tex2html_verb_mark> y comienza a sacar estados de la pìla hasta que esta se vacía.
+
+<P>
+<P><DIV><A NAME="prog:calc1err"><#38098#><B>Programa  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#38098#></A> &nbsp; 
+<#38101#><I>La conducta anterior puede modificarse si se introducen ``reglas de 
+recuperación de errores'' como en la siguiente modificación
+del programa <A HREF=<tex2html_cr_mark>#prog:calc1#20402><tex2html_cr_mark></A>:
+</I><PRE><tex2html_verbatim_mark>verbatim6346#</PRE><I></I><#38101#></DIV><P></P>
+
+La regla <tex2html_verb_mark>2999<tex2html_verb_mark><tex2html_verbatim_mark>#math7225#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38103#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>3000<tex2html_verb_mark> es una producción de
+error. La idea general de uso es que, a traves de la misma, el programador 
+le indica a <tex2html_verb_mark>3001<tex2html_verb_mark> que, cuando se produce un error
+dentro de una expresión, descarte todos los <SPAN  CLASS="textbf">tokens</SPAN> hasta llegar al
+retorno del carro y prosiga con el análisis. 
+Además, mediante la llamada a  la macro <tex2html_verb_mark>3002<tex2html_verb_mark> el programador
+anuncia que, si se alcanza este punto, la recuperación puede considerarse ``completa''  y que 
+<tex2html_verb_mark>3003<tex2html_verb_mark> puede emitir a partir de ese moemnto mensajes de error
+con la seguridad de que no son consecuencia de un comportamiento inestable
+provocado por el primer error.
+
+<P>
+<P><DIV><A NAME="alg:errorrecovery1"><#38105#><B>Algoritmo  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#38105#></A> &nbsp; 
+<#38108#><I>El esquema general del algoritmo de recuperación de errores usado 
+por la versión actual de <tex2html_verb_mark>3004<tex2html_verb_mark> es el siguiente:
+</I>
+<P>
+<I></I>
+<OL>
+<LI>Cuando se encuentra ante una acción de error, el analizador genera un 
+<SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>3005<tex2html_verb_mark>.
+
+<P>
+</LI>
+<LI>A continuación pasa a retirar estados de la pila hasta que descubre un estado capaz de transitar ante 
+el <SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>3006<tex2html_verb_mark>. 
+
+<P>
+</LI>
+<LI>En este punto transita al estado correspondiente a desplazar el 
+<SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>3007<tex2html_verb_mark>. 
+
+<P>
+</LI>
+<LI>Entonces lee <SPAN  CLASS="textbf">tokens</SPAN> y los descarta hasta encontrar
+uno que sea aceptable. 
+
+<P>
+</LI>
+<LI>Sólo se envían nuevos mensajes de error una vez asimilados (desplazados) tres símbolos terminales. De este modos se intenta evitar la aparición masiva de mensajes de error.
+</LI>
+</OL><I></I><#38108#></DIV><P></P>
+
+
+<P>
+<P><DIV><#38110#><B>Algoritmo  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#38110#> &nbsp; 
+<#38113#><I>El cuerpo principal del analizador LR permanece
+sin demasiados cambios:
+</I><PRE><tex2html_verbatim_mark>verbatim6347#</PRE><I></I><#38113#></DIV><P></P>
+
+<P><DIV><#38115#><B>Algoritmo  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#38115#> &nbsp; 
+<#38118#><I>El siguiente seudocódigo es una reescritura mas detallada del algoritmo <A HREF=<tex2html_cr_mark>#alg:errorrecovery1#20421><tex2html_cr_mark></A>. Asumimos que las funciones <tex2html_verb_mark>3008<tex2html_verb_mark> y <tex2html_verb_mark>3009<tex2html_verb_mark>
+comprueban que hay suficientes elementos en
+la pila para retirar. En caso contrario se emitirá un mensaje de error y 
+se terminará el análisis. 
+</I>
+<P>
+<I></I><PRE><tex2html_verbatim_mark>verbatim6348#</PRE><I></I><#38118#></DIV><P></P>
+
+Parecen existir diferencias en la forma en la que <SPAN  CLASS="textbf">bison</SPAN> y <SPAN  CLASS="textbf">yacc</SPAN> se recuperan de los errores.
+
+<P>
+<P><DIV><#38120#><B>Ejecución  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#38120#> &nbsp; 
+<#38123#><I>Ejecutemos el programa <A HREF=<tex2html_cr_mark>#prog:calc1err#20428><tex2html_cr_mark></A> con <tex2html_verb_mark>3010<tex2html_verb_mark>.
+</I><PRE><tex2html_verbatim_mark>verbatim6349#</PRE><I>
+Puesto que es el primer error, se cumple que 
+<tex2html_verb_mark>3011<tex2html_verb_mark>, emitiéndose el mensaje de error.
+Ahora comienzan a ejecutarse las líneas:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verb_mark>3012<tex2html_verb_mark>
+</I></DIV><I>
+</I>
+<P>
+<I>que descartan los estados, hasta encontrar el estado
+que contiene el item 
+</I>
+<P>
+<I><tex2html_verb_mark>3013<tex2html_verb_mark> <tex2html_verbatim_mark>#math7226#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38125#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>3014<tex2html_verb_mark> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38127#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>3015<tex2html_verb_mark>  
+</I><PRE><tex2html_verbatim_mark>verbatim6350#</PRE><I>
+Una vez en ese estado, transitamos con el token <tex2html_verb_mark>3016<tex2html_verb_mark>,
+</I><PRE><tex2html_verbatim_mark>verbatim6351#</PRE><I>
+Se ha procedido a descartar <SPAN  CLASS="textbf">tokens</SPAN> hasta encontrar el retorno
+de carro, ejecutando las líneas:
+</I>
+<DIV ALIGN="CENTER"><I><tex2html_verb_mark>3017<tex2html_verb_mark>
+</I></DIV><I>
+</I>
+<P>
+<I></I><PRE><tex2html_verbatim_mark>verbatim6352#</PRE><I>
+Al reducir por la regla de error, se ejecuta <tex2html_verb_mark>3018<tex2html_verb_mark>
+y <tex2html_verb_mark>3019<tex2html_verb_mark> reestablece el valor de <tex2html_verb_mark>3020<tex2html_verb_mark>.
+Si se producen nuevos errores serán señalados.</I><#38123#></DIV><P></P>
+
+
+<P>

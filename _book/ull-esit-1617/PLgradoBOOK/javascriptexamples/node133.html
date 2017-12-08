@@ -1,0 +1,2119 @@
+
+<H1><A NAME="SECTION054110000000000000000">
+Análisis Sintáctico con <TT>Regexp::Grammars</TT></A>
+</H1>
+
+<P>
+El módulo <A NAME="tex2html299"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+escrito por <A NAME="tex2html300"
+  HREF="http://en.wikipedia.org/wiki/Damian_Conway">Damian Conway</A>
+extiende
+las expresiones regulares Perl con 
+la capacidad de generar representaciones del árbol 
+de análisis sintáctico abstracto y obviando la necesidad 
+de explicitar los blancos. El módulo necesita para funcionar una versión de Perl superior
+o igual a la 5.10. 
+
+<P>
+
+<H2><A NAME="SECTION054111000000000000000">
+Introducción</A>
+</H2>
+
+<P>
+
+<H4><A NAME="SECTION054111010000000000000">
+El Problema</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+La documentación de <A NAME="tex2html301"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A><#7578#><#7578#> establece cual es el problema que aborda 
+el módulo:
+<I></I>
+<BLOCKQUOTE><I>...Perl5.10 makes possible to use regexes to recognize complex,
+hierarchical--and even recursive--textual structures. The problem is that
+Perl 5.10 doesn’t provide any support for extracting that
+hierarchical data into nested data structures. In other words,
+using Perl 5.10 you can match complex data, but not parse it into an internally useful form.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>An additional problem when using Perl 5.10 regexes to match
+complex data formats is that you have to make sure you remember
+to insert whitespace- matching constructs (such as <tex2html_verb_mark>1292<tex2html_verb_mark>) at every
+possible position where the data might contain ignorable whitespace. This
+reduces the readability of such patterns, and increases the chance of
+errors (typically caused by overlooking a location where whitespace
+might appear).
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+<H4><A NAME="SECTION054111020000000000000">
+Una solución: <TT>Regexp::Grammars</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+The <A NAME="tex2html302"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A><#7582#><#7582#> module solves both those problems.
+
+<P>
+If you import the module into a particular lexical scope, it preprocesses
+any regex in that scope, so as to implement a number of extensions to the
+standard Perl 5.10 regex syntax. These extensions simplify the task of
+defining and calling subrules within a grammar, and allow those subrule
+calls to capture and retain the components of they match in a proper
+hierarchical manner.
+
+<P>
+
+<P>
+
+<H4><A NAME="SECTION054111030000000000000">
+La sintaxis de una expresión regular <TT>Regexp::Grammars</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Las expresiones regulares <A NAME="tex2html305"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A><#7586#><#7586#> aumentan las regexp Perl 5.10. La sintáxis
+se expande y se modifica:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>A <A NAME="tex2html303"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A><#7589#><#7589#> specification consists of a pattern (which may include both standard Perl 5.10 regex syntax, as well as special
+<A NAME="tex2html304"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+directives), followed by one or more rule or token definitions.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+Sigue un ejemplo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1592#</PRE>
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Note that there is no need to explicitly place <tex2html_verb_mark>1293<tex2html_verb_mark> 
+subpatterns throughout the rules; that is taken care of automatically.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>...
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The initial pattern (<tex2html_verb_mark>1294<tex2html_verb_mark>) acts like the <SPAN  CLASS="textbf">top</SPAN> rule of the grammar, and must
+be matched completely for the grammar to match.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The rules and tokens are declarations only and they are not directly
+matched.  Instead, they act like subroutines, and are invoked by name
+from the initial pattern (or from within a rule or token).
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Each rule or token extends from the directive that introduces it up to
+either the next rule or token directive, or (in the case of the final
+rule or token) to the end of the grammar.  
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054111040000000000000">
+El hash <TT><tex2html_percent_mark>/</TT>: Una representación del AST</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+Al ejecutar el programa anterior con entrada <tex2html_verb_mark>1295<tex2html_verb_mark> produce:
+<PRE><tex2html_verbatim_mark>verbatim1593#</PRE>
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Each rule calls the
+subrules specified within it, and then return a hash containing whatever
+result each of those subrules returned, with each result indexed by the
+subrule’s name.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>In this way, each level of the hierarchical regex can generate hashes
+recording everything its own subrules matched, so when the entire pattern
+matches, it produces a tree of nested hashes that represent the structured
+data the pattern matched.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>...
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>In addition each result-hash has one extra key: the empty string. The
+value for this key is whatever string the entire subrule call matched.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054111050000000000000">
+Diferencias entre <TT>token</TT> y <TT>rule</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>The difference between a token and a rule is that a token treats any
+whitespace within it exactly as a normal Perl regular expression would.
+That is, a sequence of whitespace in a token is ignored if the <tex2html_verb_mark>1296<tex2html_verb_mark>
+modifier is in effect, or else matches the same literal sequence of
+whitespace characters (if <tex2html_verb_mark>1297<tex2html_verb_mark> is not in effect).
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+En el ejemplo anterior el comportamiento es el mismo si se reescribe la regla 
+para el token <tex2html_verb_mark>1298<tex2html_verb_mark> como:
+<PRE><tex2html_verbatim_mark>verbatim1594#</PRE>
+En este otro ejemplo mostramos que la diferencia entre token y rule
+es significativa:
+<PRE><tex2html_verbatim_mark>verbatim1595#</PRE>
+
+<P>
+Al ejecutar este programa vemos la diferencia en la interpretación de los blancos:
+<PRE><tex2html_verbatim_mark>verbatim1596#</PRE>
+Obsérvese como la entrada <tex2html_verb_mark>1299<tex2html_verb_mark> es rechazada mientras
+que la entrada <tex2html_verb_mark>1300<tex2html_verb_mark> es aceptada.
+
+<P>
+
+<H4><A NAME="SECTION054111060000000000000">
+Redefinición de los espacios en blanco</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>In a rule, any sequence of whitespace (except those at the very start
+and the very end of the rule) is treated as matching the implicit subrule
+<tex2html_verb_mark>1301<tex2html_verb_mark>, which is automatically predefined to match optional whitespace 
+(i.e. <tex2html_verb_mark>1302<tex2html_verb_mark>).
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>You can explicitly define a <tex2html_verb_mark>1303<tex2html_verb_mark> token to change that default
+behaviour. For example, you could alter the definition of whitespace
+to include Perlish comments, by adding an explicit <tex2html_verb_mark>1304<tex2html_verb_mark>:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1597#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>But be careful not to define <tex2html_verb_mark>1305<tex2html_verb_mark> as a rule, as this will lead
+to all kinds of infinitely recursive unpleasantness.
+</I></BLOCKQUOTE><I></I>
+El siguiente ejemplo ilustra como redefinir <tex2html_verb_mark>1306<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim1598#</PRE>
+Ahora podemos introducir comentarios en la entrada:
+<PRE><tex2html_verbatim_mark>verbatim1599#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054111070000000000000">
+Llamando a las subreglas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>To invoke a rule to match at any point, just enclose the rule’s name
+in angle brackets (like in <A NAME="tex2html306"
+  HREF="http://en.wikipedia.org/wiki/Perl_6">Perl 6</A>). There must be no space between the
+opening bracket and the rulename. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1600#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>If you need to match a literal pattern that would otherwise look like a subrule call, just backslash-escape the leading angle:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1601#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+El siguiente programa ilustra algunos puntos discutidos en la cita anterior:
+<PRE><tex2html_verbatim_mark>verbatim1602#</PRE>
+
+<P>
+Obsérvense los blancos en <tex2html_verb_mark>1307<tex2html_verb_mark> y en <tex2html_verb_mark>1308<tex2html_verb_mark>.
+Pese a ello el programa funciona:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1603#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054111080000000000000">
+Eliminación del anidamiento de ramas unarias en <TT><tex2html_percent_mark>/</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>...Note, however, that if the result-hash at any level contains only the
+empty-string key (i.e. the subrule did not call any sub-subrules or
+save any of their nested result-hashes), then the hash is <#7648#><I>unpacked</I><#7648#>
+and just the matched substring itself if returned.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>For example, if <tex2html_verb_mark>1309<tex2html_verb_mark> had been defined:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1604#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>then a successful call to the rule would only add:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1605#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>to the current result-hash.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>This is a useful feature because it prevents a series of nested subrule
+calls from producing very unwieldy data structures. For example, without
+this automatic unpacking, even the simple earlier example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1606#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>would produce something needlessly complex, such as:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1607#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+El siguiente ejemplo ilustra este punto:
+<PRE><tex2html_verbatim_mark>verbatim1608#</PRE>
+
+<P>
+Sigue una ejecución del programa anterior:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1609#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054111090000000000000">
+Ámbito de uso de <TT>Regexp::Grammars</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Cuando se usa <A NAME="tex2html307"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+como parte de 
+un programa que utiliza otras regexes hay que evitar 
+que <A NAME="tex2html308"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+procese las mismas. <A NAME="tex2html309"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+reescribe las expresiones regulares durante la fase de preproceso. Esta por ello 
+presenta las mismas limitaciones que cualquier otra forma de 
+'source filtering' (véase <A NAME="tex2html310"
+  HREF="http://search.cpan.org/perldoc/?perlfilter"><TT>perlfilter</TT></A>). Por ello es una buena idea declarar
+la gramática en un bloque <tex2html_verb_mark>1310<tex2html_verb_mark> restringiendo de esta forma el ámbito de 
+acción del módulo.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1610#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION054112000000000000000">
+Objetos</A>
+</H2>
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>When a grammar has parsed successfully, the <tex2html_verb_mark>1312<tex2html_verb_mark> variable will contain
+a series of nested hashes (and possibly arrays) representing the
+hierarchical structure of the parsed data.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Typically, the next step is to walk that tree, extracting or converting
+or otherwise processing that information. If the tree has nodes of many
+different types, it can be difficult to build a recursive subroutine
+that can navigate it easily.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>A much cleaner solution is possible if the nodes of the tree are proper
+objects. In that case, you just define a <tex2html_verb_mark>1313<tex2html_verb_mark> method
+for each of the classes, and have every node call that method on each
+of its children.  The chain of <tex2html_verb_mark>1314<tex2html_verb_mark> calls would cascade down the
+nodes of the tree, each one invoking the appropriate <tex2html_verb_mark>1315<tex2html_verb_mark> method
+according to the type of node encountered.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The only problem is that, by default, <A NAME="tex2html311"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+returns a tree
+of plain-old hashes, not <tex2html_verb_mark>1316<tex2html_verb_mark> objects. Fortunately, it's
+easy to request that the result hashes be automatically blessed into
+the appropriate classes, using the <tex2html_verb_mark>1317<tex2html_verb_mark> and <tex2html_verb_mark>1318<tex2html_verb_mark>
+directives.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>These directives are identical to the <tex2html_verb_mark>1319<tex2html_verb_mark> and <tex2html_verb_mark>1320<tex2html_verb_mark>
+directives (respectively), except that the rule or token they create will
+also bless the hash it normally returns, converting it to an object of
+a class whose name is the same as the rule or token itself.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1611#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The <tex2html_verb_mark>1321<tex2html_verb_mark> of the rule or token may also be fully qualified. In
+such cases, the rule or token is defined using only the final <SPAN  CLASS="textbf">short
+name</SPAN>, but the result object is blessed using the fully qualified <SPAN  CLASS="textbf">long
+name</SPAN>. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1612#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>This can be useful to ensure that returned objects don't collide with
+other namespaces in your program.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note that you can freely mix object-returning and plain-old-hash-returning
+rules and tokens within a single grammar, though you have to be careful
+not to subsequently try to call a method on any of the unblessed nodes.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H2><A NAME="SECTION054113000000000000000">
+Renombrando los resultados de una subregla</A>
+</H2>
+
+<P>
+
+<H4><A NAME="SECTION054113010000000000000">
+Nombre de la regla versus Nombre del Resultado</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+No siempre el nombre de la regla es el mas apropiado
+para ser el nombre del resultado:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>It is not always convenient to have subrule results stored under the same
+name as the rule itself. Rule names should be optimized for understanding
+the behaviour of the parser, whereas result names should be optimized
+for understanding the structure of the data. Often those two goals are
+identical, but not always; sometimes rule names need to describe what the
+data looks like, while result names need to describe what the data means.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054113020000000000000">
+Colisión de nombres de reglas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>For example, sometimes you need to call the same rule twice, to match two
+syntactically identical components whose positions give then semantically
+distinct meanings:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1613#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The problem here is that, if the second call to <tex2html_verb_mark>1322<tex2html_verb_mark> succeeds, its
+result-hash will be stored under the key <tex2html_verb_mark>1323<tex2html_verb_mark>, clobbering the data
+that was returned from the first call to <tex2html_verb_mark>1324<tex2html_verb_mark>.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054113030000000000000">
+Aliasing</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>To avoid such problems, <A NAME="tex2html312"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+allows you to alias any
+subrule call, so that it is still invoked by the original name, but its
+result-hash is stored under a different key. The syntax for that is:
+<tex2html_verb_mark>1325<tex2html_verb_mark>. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1614#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Here, <tex2html_verb_mark>1326<tex2html_verb_mark> is called twice, with the first result-hash
+being stored under the key <tex2html_verb_mark>1327<tex2html_verb_mark>, and the second result-hash being
+stored under the key <tex2html_verb_mark>1328<tex2html_verb_mark>.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note, however, that the alias before the <tex2html_verb_mark>1329<tex2html_verb_mark> must be a proper identifier
+(i.e. a letter or underscore, followed by letters, digits, and/or
+underscores). Aliases that start with an underscore and aliases named
+<tex2html_verb_mark>1330<tex2html_verb_mark> have special meaning.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054113040000000000000">
+Normalización de los resultados mediante aliasing</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Aliases can also be useful for normalizing data that may appear in
+different formats and sequences. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1615#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Here, regardless of which order the old and new files are specified,
+the result-hash always gets:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1616#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054113050000000000000">
+Ejemplo</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El siguiente programa ilustra los comentarios de la documentación:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1617#</PRE>
+Cuando lo ejecutamos obtenemos:
+<PRE><tex2html_verbatim_mark>verbatim1618#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION054114000000000000000">
+Listas</A>
+</H2>
+
+<P>
+
+<H4><A NAME="SECTION054114010000000000000">
+El operador de cierre positivo</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>If a subrule call is quantified with a repetition specifier:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1619#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>then each repeated match overwrites the corresponding entry in the
+surrounding rule’s result-hash, so only the result of the final
+repetition will be
+retained. That is, if the above example matched the string  <tex2html_verb_mark>1331<tex2html_verb_mark>, 
+then the result-hash would contain:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1620#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054114020000000000000">
+Operadores de listas y espacios en blanco</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Existe un caveat con el uso de los operadores de repetición
+y el manejo de los blancos. Véase el siguiente programa:
+<PRE><tex2html_verbatim_mark>verbatim1621#</PRE>
+Obsérvese el uso explícito 
+de espacios <tex2html_verb_mark>1332<tex2html_verb_mark> en la definición de <tex2html_verb_mark>1333<tex2html_verb_mark>.
+
+<P>
+Sigue un ejemplo de ejecución:
+<PRE><tex2html_verbatim_mark>verbatim1622#</PRE>
+
+<P>
+Si se eliminan los blancos de la definición de 
+<tex2html_verb_mark>1334<tex2html_verb_mark>: 
+<PRE><tex2html_verbatim_mark>verbatim1623#</PRE>
+se obtiene una conducta que puede sorprender:
+<PRE><tex2html_verbatim_mark>verbatim1624#</PRE>
+
+<P>
+La explicación está en la documentación: véase la sección <A NAME="tex2html313"
+  HREF="http://search.cpan.org/&#126;dconway/Regexp-Grammars/lib/Regexp/Grammars.pm#Grammar_syntax">Grammar Syntax</A>:
+<I></I>
+<BLOCKQUOTE><I><tex2html_verb_mark>1335<tex2html_verb_mark>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Define a rule whose name is specified by the supplied identifier.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Everything following the <tex2html_verb_mark>1336<tex2html_verb_mark> directive (up to the next <tex2html_verb_mark>1337<tex2html_verb_mark> or <tex2html_verb_mark>1338<tex2html_verb_mark> directive) 
+is treated as part of the rule being defined.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I><SPAN  CLASS="textbf">Any whitespace in the rule is replaced by a call to the</SPAN> <tex2html_verb_mark>1339<tex2html_verb_mark> subrule (which defaults to matching <tex2html_verb_mark>1340<tex2html_verb_mark>, but may be explicitly redefined).
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+También podríamos haber resuelto el problema introduciendo un
+blanco explícito dentro del cierre positivo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1625#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054114030000000000000">
+Una Solución al problema de recordar los resultados de una lista: El uso de brackets</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Usually, that’s not the desired outcome, so <A NAME="tex2html314"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+provides
+another mechanism by which to call a subrule; one that saves all
+repetitions of its results.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>A regular subrule call consists of the rule’s name surrounded by angle
+brackets. If, instead, you surround the rule’s name with  <tex2html_verb_mark>1341<tex2html_verb_mark>
+(angle and square brackets) like so:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1626#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>then the rule is invoked in exactly the same way, but the result of that
+submatch is pushed onto an array nested inside the appropriate result-hash
+entry. In other words, if the above example matched the same  
+<tex2html_verb_mark>1342<tex2html_verb_mark> string, the result-hash would contain:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1627#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+Teniendo en cuenta lo dicho anteriormente sobre los blancos
+dentro de los cuantificadores, es necesario introducir
+blancos dentro del operador de repetición:
+<PRE><tex2html_verbatim_mark>verbatim1628#</PRE>
+Al ejecutar este programa obtenemos:
+<PRE><tex2html_verbatim_mark>verbatim1629#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054114040000000000000">
+Otra forma de resolver las colisiones de nombres: salvarlos en una lista</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>This <SPAN  CLASS="textbf">listifying subrule call</SPAN> can also be useful for non-repeated
+subrule calls, if the same subrule is invoked in several places in a
+grammar. For example if a cmdline option could be given either one or
+two values, you might parse it:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1630#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The result-hash entry for <tex2html_verb_mark>1343<tex2html_verb_mark> would then always contain an array,
+with either one or two elements, depending on the input being parsed.
+</I></BLOCKQUOTE><I></I>
+Sigue un ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim1631#</PRE>
+Veamos su comportamiento con diferentes entradas:
+<PRE><tex2html_verbatim_mark>verbatim1632#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054114050000000000000">
+Aliasing de listas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Listifying subrules can also be given aliases, just like ordinary
+subrules. The alias is always specified inside the square brackets:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1633#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Here, the sizes are parsed using the <tex2html_verb_mark>1344<tex2html_verb_mark> rule, 
+but saved in the result-hash in an array under the key <tex2html_verb_mark>1345<tex2html_verb_mark>.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+Sigue un ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim1634#</PRE>
+Veamos el resultado de una ejecución:
+<PRE><tex2html_verbatim_mark>verbatim1635#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054114060000000000000">
+Caveat: Cierres y Warnings</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+En este ejemplo aparece <tex2html_verb_mark>1346<tex2html_verb_mark> sin 
+corchetes ni paréntesis:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1636#</PRE>
+Este programa produce un mensaje de advertencia:
+<PRE><tex2html_verbatim_mark>verbatim1637#</PRE>
+
+<P>
+Si se quiere evitar el mensaje y se está dispuesto a asumir la pérdida
+de los valores asociados con los elementos de la lista se deberán poner 
+el operando entre paréntesis (con o sin memoria).
+
+<P>
+Esto es lo que dice la documentación sobre este warning:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I><tex2html_verb_mark>1347<tex2html_verb_mark>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>You specified a subrule call with a repetition qualifier, such as:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1638#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>or:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1639#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Because each subrule call saves its result in a hash entry of the
+same name, each repeated match will overwrite the previous ones,
+so only the last match will ultimately be saved. If you want to
+save all the matches, you need to tell <A NAME="tex2html315"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+to save the
+sequence of results as a nested array within the hash entry, like so:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1640#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>or:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1641#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>If you really did intend to throw away every result but the final
+one, you can silence the warning by placing the subrule call inside
+any kind of parentheses. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1642#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>or:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1643#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H2><A NAME="SECTION054115000000000000000">
+Pseudo sub-reglas</A>
+</H2>
+
+<P>
+
+<H4><A NAME="SECTION054115010000000000000">
+Subpatrones</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Aliases can also be given to standard Perl subpatterns, as well as to
+code blocks within a regex. The syntax for subpatterns is:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1644#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>In other words, the syntax is exactly like an aliased subrule call, except
+that the rule name is replaced with a set of parentheses containing the
+subpattern. Any parentheses--capturing or non-capturing--will do.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The effect of aliasing a standard subpattern is to cause whatever that
+subpattern matches to be saved in the result-hash, using the alias as
+its key. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1645#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Here, the <tex2html_verb_mark>1348<tex2html_verb_mark> is treated exactly like a regular <tex2html_verb_mark>1349<tex2html_verb_mark>,
+but whatever substring it matches is saved in the result-hash under the
+key <tex2html_verb_mark>1350<tex2html_verb_mark>.
+</I></BLOCKQUOTE><I></I>
+Sigue un ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim1646#</PRE>
+y una ejecución:
+<PRE><tex2html_verbatim_mark>verbatim1647#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054115020000000000000">
+Bloques de código</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>The syntax for aliasing code blocks is:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1648#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note, however, that the code block must be specified in the standard
+Perl 5.10 regex notation: <tex2html_verb_mark>1351<tex2html_verb_mark>. A common mistake is to write:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1649#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>instead, which will attempt to interpolate <tex2html_verb_mark>1352<tex2html_verb_mark> before the
+regex is even compiled, as such variables are only <SPAN  CLASS="textbf">protected</SPAN> from
+interpolation inside a <tex2html_verb_mark>1353<tex2html_verb_mark>.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>When correctly specified, this construct executes the code in the block
+and saves the result of that execution in the result-hash, using the
+alias as its key. Aliased code blocks are useful for adding semantic
+information based on which branch of a rule is executed. For example,
+consider the <tex2html_verb_mark>1354<tex2html_verb_mark> alternatives shown earlier:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1650#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Using aliased code blocks, you could add an extra field to the result-
+hash to describe which form of the command was detected, like so:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1651#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Now, if the rule matched, the result-hash would contain something like:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1652#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+El siguiente ejemplo ilustra lo dicho en la documentación.
+En la línea 15 hemos introducido una regla para el control de 
+errores<A NAME="tex2html316"
+  HREF="footnode.html#foot8195"><SUP><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">8</SPAN></SUP></A>:
+<PRE><tex2html_verbatim_mark>verbatim1653#</PRE>
+
+<P>
+La ejecución muestra el comportamiento del programa con tres entradas válidas
+y una errónea:
+<PRE><tex2html_verbatim_mark>verbatim1654#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054115030000000000000">
+Pseudo subreglas y depuración</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Note that, in addition to the semantics described above, aliased
+subpatterns and code blocks also become visible to <A NAME="tex2html317"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+integrated debugger (see <A NAME="tex2html318"
+  HREF="http://search.cpan.org/&#126;dconway/Regexp-Grammars/lib/Regexp/Grammars.pm#Debugging">Debugging</A>).
+</I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H2><A NAME="SECTION054116000000000000000">
+Llamadas a subreglas desmemoriadas</A>
+</H2>
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>By default, every subrule call saves its result into the result-hash,
+either under its own name, or under an alias.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>However, sometimes you may want to refactor some literal part of a rule
+into one or more subrules, without having those submatches added to the
+result-hash. The syntax for calling a subrule, but ignoring its return
+value is:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1655#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>(which is stolen directly from Perl 6).
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>For example, you may prefer to rewrite a rule such as:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1656#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>without any literal matching, like so:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1657#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Moreover, as the individual components inside the parentheses probably
+aren't being captured for any useful purpose either, you could further
+optimize that to:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1658#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note that you can also use the dot modifier on an aliased subpattern:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1659#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>This seemingly contradictory behaviour (of giving a subpattern a name,
+then deliberately ignoring that name) actually does make sense in
+one situation. Providing the alias makes the subpattern visible to the
+debugger, while using the dot stops it from affecting the result-hash. See
+<SPAN  CLASS="textbf">Debugging non-grammars</SPAN> for an example of this usage.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054116010000000000000">
+Ejemplo: Números entre comas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Por ejemplo, queremos reconocer listas de números separados por comas.
+Supongamos también que queremos
+darle un nombre a la expresión regular de separación.
+Quizá, aunque no es el caso, porque la expresión
+regular de separación sea suficientemente compleja.
+Si no usamos la notación <SPAN  CLASS="textbf">punto</SPAN> la coma aparecerá en la estructura:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1660#</PRE>
+En efecto, aparece la clave <tex2html_verb_mark>1355<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim1661#</PRE>
+Si cambiamos la llamada a la regla <tex2html_verb_mark>1356<tex2html_verb_mark> por 
+<tex2html_verb_mark>1357<tex2html_verb_mark> 
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1662#</PRE>
+eliminamos la aparición de la innecesaria clave:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1663#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION054117000000000000000">
+Destilación del resultado</A>
+</H2>
+
+<P>
+
+<H4><A NAME="SECTION054117010000000000000">
+Destilación manual</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I><A NAME="tex2html319"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+also offers full manual control over the distillation
+process. If you use the reserved word <tex2html_verb_mark>1358<tex2html_verb_mark> as the alias for a subrule
+call:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1664#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>or a subpattern match:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1665#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>or a code block:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1666#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>then the current rule will treat the return value of that subrule,
+pattern, or code block as its complete result, and return that value
+instead of the usual result-hash it constructs. This is the case even
+if the result has other entries that would normally also be returned.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>For example, in a rule like:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1667#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The use of <tex2html_verb_mark>1359<tex2html_verb_mark> aliases causes the rule to return either whatever
+<tex2html_verb_mark>1360<tex2html_verb_mark> returns, or whatever <tex2html_verb_mark>1361<tex2html_verb_mark> returns (provided it's between
+left and right parentheses).
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note that, in this second case, even though <tex2html_verb_mark>1362<tex2html_verb_mark> and <tex2html_verb_mark>1363<tex2html_verb_mark>
+are captured to the result-hash, they are not returned, because the
+<tex2html_verb_mark>1364<tex2html_verb_mark> alias overrides the normal <SPAN  CLASS="textbf">return the result-hash</SPAN> semantics and
+returns only what its associated subrule (i.e. <tex2html_verb_mark>1365<tex2html_verb_mark>) produces.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+El siguiente ejemplo ilustra el uso del alias <tex2html_verb_mark>1366<tex2html_verb_mark>:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1668#</PRE>
+
+<P>
+Veamos una ejecución:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1669#</PRE>
+Obsérvese como el árbol construido para la expresión <tex2html_verb_mark>1367<tex2html_verb_mark> 
+se hunde a derechas dando lugar a una jerarquía errónea.
+Para arreglar el problema sería necesario eliminar la 
+recursividad por la izquierda en las reglas correspondientes.
+
+<P>
+
+<H4><A NAME="SECTION054117020000000000000">
+Destilación en el programa</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>It's also possible to control what a rule returns from within a code
+block. <A NAME="tex2html320"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+provides a set of reserved variables that give
+direct access to the result-hash.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The result-hash itself can be accessed as <tex2html_verb_mark>1369<tex2html_verb_mark> within any code block
+inside a rule. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1670#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Here, the rule matches a product (aliased <tex2html_verb_mark>1370<tex2html_verb_mark> in the result-hash), then a
+literal <tex2html_verb_mark>1371<tex2html_verb_mark>, then another product (aliased to <tex2html_verb_mark>1372<tex2html_verb_mark> in the result-hash). The
+rule then executes the code block, which accesses the two saved values
+(as <tex2html_verb_mark>1373<tex2html_verb_mark> and <tex2html_verb_mark>1374<tex2html_verb_mark>), adding them together. Because the block
+is itself aliased to <tex2html_verb_mark>1375<tex2html_verb_mark>, the sum produced by the block becomes the
+(only) result of the rule.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>It is also possible to set the rule result from within a code block
+(instead of aliasing it). The special <SPAN  CLASS="textbf">override</SPAN> return value is
+represented by the special variable <tex2html_verb_mark>1376<tex2html_verb_mark>. So the previous example
+could be rewritten:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1671#</PRE><BLOCKQUOTE><I>
+Both forms are identical in effect. Any assignment to <tex2html_verb_mark>1377<tex2html_verb_mark> overrides
+the normal <SPAN  CLASS="textbf">return all subrule results</SPAN> behaviour.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Assigning to <tex2html_verb_mark>1378<tex2html_verb_mark> directly is particularly handy if the result may
+not always be <SPAN  CLASS="textbf">distillable</SPAN>, for example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1672#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note that you can also partially override the subrule return
+behaviour. Normally, the subrule returns the complete text it matched
+under the <SPAN  CLASS="textbf">empty key</SPAN> of its result-hash. That is, of course, 
+<tex2html_verb_mark>1379<tex2html_verb_mark>,
+so you can override just that behaviour by directly assigning to that
+entry.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>For example, if you have a rule that matches key/value pairs from a
+configuration file, you might prefer that any trailing comments not
+be included in the <#7907#><I>matched text</I><#7907#> entry of the rule's result-hash. You
+could hide such comments like so:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1673#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Some more examples of the uses of <tex2html_verb_mark>1380<tex2html_verb_mark>:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1674#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I><tex2html_verb_mark>1381<tex2html_verb_mark> and <tex2html_verb_mark>1382<tex2html_verb_mark>
+    are both aliases for the built-in read-only <tex2html_verb_mark>1383<tex2html_verb_mark>variable, 
+which always contains the substring matched by 
+the nearest preceding <tex2html_verb_mark>1384<tex2html_verb_mark> capture. 
+<tex2html_verb_mark>1385<tex2html_verb_mark> still works perfectly well, but these are provided 
+to improve the readability of code blocks and error messages respectively.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+El siguiente código implementa una calculadora
+usando destilación en  el código:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1675#</PRE>
+
+<P>
+<P><DIV><#33444#><B>Ejercicio  <SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#33444#> &nbsp; 
+<#33447#><I>Cual es la salida del programa anterior para las entradas:
+</I>
+<UL>
+<LI><tex2html_verb_mark>1386<tex2html_verb_mark>
+</LI>
+<LI><tex2html_verb_mark>1387<tex2html_verb_mark>
+</LI>
+<LI><tex2html_verb_mark>1388<tex2html_verb_mark>
+</LI>
+</UL><I></I><#33447#></DIV><P></P>
+
+
+<P>
+
+<H2><A NAME="SECTION054118000000000000000">
+Llamadas privadas a subreglas y subreglas privadas</A>
+</H2>
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>If a rule name (or an alias) begins with an underscore:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1676#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>then matching proceeds as normal, and any result that is returned is
+stored in the current result-hash in the usual way.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>However, when any rule finishes (and just before it returns) it first
+filters its result-hash, removing any entries whose keys begin with an
+underscore. This means that any subrule with an underscored name (or with
+an underscored alias) remembers its result, but only until the end of
+the current rule. Its results are effectively private to the current rule.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>This is especially useful in conjunction with result distillation.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H2><A NAME="SECTION054119000000000000000">
+Mas sobre listas</A>
+</H2>
+
+<P>
+
+<H4><A NAME="SECTION054119010000000000000">
+Reconocimiento manual de listas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+
+<H4><A NAME="SECTION054119020000000000000">
+Analizando listas manualmente</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El siguiente ejemplo muestra como construir un reconocedor de 
+listas (posiblemente vacías) de números:
+<PRE><tex2html_verbatim_mark>verbatim1677#</PRE>
+Sigue una ejecución:
+<PRE><tex2html_verbatim_mark>verbatim1678#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054119030000000000000">
+Influencia del orden en el lenguaje reconocido</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Tenga en cuenta que el orden de las reglas
+influye en el lenguaje reconocido. Véase lo que ocurre si cambiamos 
+en el ejemplo anterior el orden de las reglas:
+<PRE><tex2html_verbatim_mark>verbatim1679#</PRE>
+Al ejecutar se obtiene:
+<PRE><tex2html_verbatim_mark>verbatim1680#</PRE>
+
+<P>
+Por supuesto basta poner anclas en el patrón a buscar para forzar a que se reconozca
+la lista completa:
+<PRE><tex2html_verbatim_mark>verbatim1681#</PRE>
+En efecto, la nueva versión reconoce la lista:
+<PRE><tex2html_verbatim_mark>verbatim1682#</PRE>
+
+<P>
+Si se quiere mantener la producción vacía en primer lugar 
+pero forzar el reconocimiento de la lista completa, se puede
+hacer uso de un lookahead negativo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1683#</PRE>
+Así, sólo se reducirá por la regla vacía si el siguiente token no es un
+número. Sigue un ejemplo de ejecución:
+<PRE><tex2html_verbatim_mark>verbatim1684#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054119040000000000000">
+Aplanamiento manual de listas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+¿Cómo podemos hacer que la estructura retornada por el reconocedor 
+sea una lista?. Podemos añadir acciones como sigue:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1685#</PRE>
+
+<P>
+Al ejecutarse este programa produce una salida como:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1686#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054119050000000000000">
+Los operadores de repetición</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Los operadores de repetición como <tex2html_verb_mark>1389<tex2html_verb_mark>, <tex2html_verb_mark>1390<tex2html_verb_mark>, etc. 
+permiten simplificar el análisis de lenguajes de listas:
+<PRE><tex2html_verbatim_mark>verbatim1687#</PRE>
+Los corchetes alrededor de <tex2html_verb_mark>1391<tex2html_verb_mark> hacen 
+que el valor asociado con el patrón sea la lista de números.
+Si no los ponemos el valor asociado sería el último valor de la lista.
+
+<P>
+
+<H4><A NAME="SECTION054119060000000000000">
+Listas separadas por Algo</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>One of the commonest tasks in text parsing is to match a list of
+unspecified length, in which items are separated by a fixed token. Things
+like:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1688#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The usual construct required to parse these kinds of structures is either:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1689#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Or, more efficiently, but less prettily:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1690#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Because this is such a common requirement, <A NAME="tex2html321"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+provides a
+cleaner way to specify the iterative version. The syntax is taken from
+Perl 6:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1691#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>This is a repetition specifier on the first subrule (hence the use of <tex2html_verb_mark>1392<tex2html_verb_mark>
+as the marker, to reflect the repetitive behaviour of <tex2html_verb_mark>1393<tex2html_verb_mark>). However, the
+number of repetitions is controlled by the second subrule: the first
+subrule will be repeatedly matched for as long as the second subrule
+matches immediately after it.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>So, for example, you can match a sequence of numbers separated by
+commas with:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1692#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note that it's important to use the <tex2html_verb_mark>1394<tex2html_verb_mark> form for the items being
+matched, so that all of them are saved in the result hash. You can also
+save all the separators (if that's important):
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1693#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The repeated item must be specified as a subrule call fo some kind,
+but the separators may be specified either as a subrule or a bracketed
+pattern. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1694#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The separator must always be specified in matched delimiters of some kind:
+either matching <tex2html_verb_mark>1395<tex2html_verb_mark> or matching <tex2html_verb_mark>1396<tex2html_verb_mark>. 
+A common error is to write:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1695#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>You can also use a pattern as the item matcher, but it must be aliased
+into a subrule:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1696#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054119070000000000000">
+Ejemplo: Listas de números separados por comas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Veamos un ejemplo sencillo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1697#</PRE>
+Sigue un ejemplo de ejecución:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1698#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054119080000000000000">
+Ejemplo: AST para las expresiones aritméticas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Las expresiones aritméticas
+puede definirse como una jerarquía de listas como
+sigue:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1699#</PRE>
+
+<P>
+Obsérvese el árbol generado para la expresión <tex2html_verb_mark>1397<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim1700#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION0541110000000000000000">
+La directiva <TT>require</TT></A>
+</H2>
+
+<P>
+La directiva <tex2html_verb_mark>1398<tex2html_verb_mark> es similar 
+en su funcionamiento al paréntesis 5.10 <tex2html_verb_mark>1399<tex2html_verb_mark>
+el cuál hace que el <tex2html_verb_mark>1400<tex2html_verb_mark> sea evaluado durante el tiempo de matching.
+El resultado de la evaluación se trata como una expresión regular con la que deberá
+casarse.
+(véase la sección <A HREF=<tex2html_cr_mark>#subsection:tiempodematching#7990><tex2html_cr_mark></A>
+para mas detalles).
+
+<P>
+La sintáxis de la directiva <tex2html_verb_mark>1401<tex2html_verb_mark> es
+
+<P>
+<I></I>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1701#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The code block is executed and if its final value is true, matching
+continues from the same position. If the block's final value is false,
+the match fails at that point and starts backtracking.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>The <tex2html_verb_mark>1402<tex2html_verb_mark> directive is useful for testing conditions that it's
+not easy (or even possible) to check within the syntax of the the regex
+itself. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1702#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>A require expects a regex codeblock as its argument and succeeds if
+the final value of that codeblock is true. If the final value is false,
+the directive fails and the rule starts backtracking.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note, in this example that the digits are matched with <tex2html_verb_mark>1403<tex2html_verb_mark> . <SPAN  CLASS="textbf">The
+trailing</SPAN> <tex2html_verb_mark>1404<tex2html_verb_mark> prevents the <tex2html_verb_mark>1405<tex2html_verb_mark> repetition from backtracking to a smaller
+number of digits if the <tex2html_verb_mark>1406<tex2html_verb_mark> fails.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+El programa <tex2html_verb_mark>1407<tex2html_verb_mark> ilustra el uso de la directiva:
+<PRE><tex2html_verbatim_mark>verbatim1703#</PRE>
+Las condiciones usadas en el <tex2html_verb_mark>1408<tex2html_verb_mark> obligan a que cada 
+quad<A NAME="tex2html322"
+  HREF="footnode.html#foot8197"><SUP><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">9</SPAN></SUP></A> sea menor que 256 y a que existan sólo cuatro quads.
+
+<P>
+Sigue un ejemplo de ejecución:
+<PRE><tex2html_verbatim_mark>verbatim1704#</PRE>
+Obsérvese como no se aceptan blancos entre los puntos en esta versión.
+¿Sabría explicar la causa?
+
+<P>
+
+<H2><A NAME="SECTION0541111000000000000000">
+Casando con las claves de un hash</A>
+</H2>
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>In some situations a grammar may need a rule that matches dozens,
+hundreds, or even thousands of one-word alternatives. For example, when
+matching command names, or valid userids, or English words. In such
+cases it is often impractical (and always inefficient) to list all the
+alternatives between <tex2html_verb_mark>1409<tex2html_verb_mark> alterators:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1705#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>To simplify such cases, <A NAME="tex2html323"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+provides a special construct
+that allows you to specify all the alternatives as the keys of a normal
+hash. The syntax for that construct is simply to put the hash name inside
+angle brackets (with no space between the angles and the hash name).
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Which means that the rules in the previous example could also be written:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1706#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>provided that the two hashes (<tex2html_verb_mark>1411<tex2html_verb_mark> and <tex2html_verb_mark>1412<tex2html_verb_mark>) 
+are visible in the scope where the grammar is created.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Internally, the construct is converted to something equivalent to:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1707#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The special <tex2html_verb_mark>1413<tex2html_verb_mark> rule is created automatically, and defaults to <tex2html_verb_mark>1414<tex2html_verb_mark>,
+but you can also define it explicitly to handle other kinds of keys. For
+example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1708#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Matching a hash key in this way is typically significantly faster than
+matching a full set of alternations. Specifically, it is O(length of
+longest potential key), instead of O(number of keys).
+</I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION0541111010000000000000">
+Ejemplo de uso de la directiva hash</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Sigue un ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim1709#</PRE>
+
+<P>
+Sigue un ejemplo de ejecución:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1710#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION0541112000000000000000">
+Depuración</A>
+</H2>
+
+<P>
+<I></I>
+<BLOCKQUOTE><I><A NAME="tex2html325"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+provides a number of features specifically designed to
+help debug both grammars and the data they parse.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>All debugging messages are written to a log file (which, by default, is
+    just <tex2html_verb_mark>1415<tex2html_verb_mark>). However, you can specify a disk file explicitly by placing
+    a <tex2html_verb_mark>1416<tex2html_verb_mark> directive <SPAN  CLASS="textbf">at the start of your grammar</SPAN><A NAME="tex2html324"
+  HREF="footnode.html#foot8035"><SUP><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">10</SPAN></SUP></A>:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1711#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>You can also explicitly specify that messages go to the terminal:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1712#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+<H4><A NAME="SECTION0541112010000000000000">
+Debugging grammar creation</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Whenever a log file has been directly specified, <A NAME="tex2html327"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+automatically does verbose static analysis of your grammar. That is,
+whenever it compiles a grammar containing an explicit <tex2html_verb_mark>1417<tex2html_verb_mark>
+directive it logs a series of messages explaining how it has interpreted
+the various components of that grammar. For example, the following
+grammar:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1713#</PRE>
+
+<P>
+would produce the following analysis in the terminal:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1714#</PRE>
+
+<P>
+This kind of static analysis is a useful starting point in debugging a
+<A NAME="8758"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">miscreant grammar</SPAN><A NAME="tex2html326"
+  HREF="footnode.html#foot8198"><SUP><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">11</SPAN></SUP></A>, because it enables you to see what you actually
+specified (as opposed to what you <SPAN  CLASS="textbf">thought</SPAN> you'd specified).
+
+<P>
+
+<H4><A NAME="SECTION0541112020000000000000">
+Debugging grammar execution</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<A NAME="tex2html328"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+also provides a simple interactive debugger, with which
+you can observe the process of parsing and the data being collected in
+any result-hash.
+
+<P>
+To initiate debugging, place a <tex2html_verb_mark>1418<tex2html_verb_mark> directive anywhere in your
+grammar. When parsing reaches that directive the debugger will be
+activated, and the command specified in the directive immediately
+executed. The available commands are:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1715#</PRE>
+
+<P>
+These directives can be placed anywhere within a grammar and take effect
+    when that point is reached in the parsing. Hence, adding a
+    <tex2html_verb_mark>1419<tex2html_verb_mark> directive is very much like setting a breakpoint at that
+    point in the grammar. Indeed, a common debugging strategy is to turn
+    debugging on and off only around a suspect part of the grammar:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1716#</PRE>
+
+<P>
+Once the debugger is active, it steps through the parse, reporting rules
+that are tried, matches and failures, backtracking and restarts, and the
+parser's location within both the grammar and the text being matched.
+That report looks like this:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1717#</PRE>
+
+<P>
+The first column indicates the point in the input at which the parser is
+trying to match, as well as any backtracking or forward searching it may
+need to do. The remainder of the columns track the parser's hierarchical
+traversal of the grammar, indicating which rules are tried, which
+succeed, and what they match.
+
+<P>
+Provided the logfile is a terminal (as it is by default), the debugger
+also pauses at various points in the parsing process--before trying a
+rule, after a rule succeeds, or at the end of the parse--according to
+the most recent command issued. When it pauses, you can issue a new
+command by entering a single letter:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1718#</PRE>
+
+<P>
+Note that these are the first letters of the corresponding <tex2html_verb_mark>1420<tex2html_verb_mark>
+commands, listed earlier. Just hitting ENTER while the debugger is
+paused repeats the previous command.
+
+<P>
+While the debugger is paused you can also type a <tex2html_verb_mark>1421<tex2html_verb_mark>, which will display
+the result-hash for the current rule. This can be useful for detecting
+which rule isn't returning the data you expected.
+
+<P>
+Veamos un ejemplo. El siguiente programa activa el depurador:
+<PRE><tex2html_verbatim_mark>verbatim1719#</PRE>
+Al ejecutar obtenemos
+<tex2html_verbatim_mark>rawhtml1720#
+
+<P>
+
+<H2><A NAME="SECTION0541113000000000000000">
+Mensajes de <TT>log</TT> del usuario</A>
+</H2>
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Both static and interactive debugging send a series of predefined log
+    messages to whatever log file you have specified. It is also possible to
+    send additional, user-defined messages to the log, using the <tex2html_verb_mark>1422<tex2html_verb_mark>
+    directive.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>This directive expects either a simple text or a codeblock as its single
+    argument. If the argument is a code block, that code is expected to
+    return the text of the message; if the argument is anything else, that
+    something else <SPAN  CLASS="textbf">is</SPAN> the literal message. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1721#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>User-defined log messages implemented using a codeblock can also specify
+    a severity level. If the codeblock of a <tex2html_verb_mark>1423<tex2html_verb_mark> directive returns
+    two or more values, the first is treated as a log message severity
+    indicator, and the remaining values as separate lines of text to be
+    logged. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1722#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>When they are encountered, user-defined log messages are interspersed
+    between any automatic log messages (i.e. from the debugger), at the
+    correct level of nesting for the current rule.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H2><A NAME="SECTION0541114000000000000000">
+Depuración de Regexps</A>
+</H2>
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>It is possible to use <A NAME="tex2html329"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>
+without creating <SPAN  CLASS="textbf">any</SPAN> subrule
+    definitions, simply to debug a recalcitrant regex. For example, if the
+    following regex wasn't working as expected:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1723#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>you could instrument it with aliased subpatterns and then debug it
+    step-by-step, using <A NAME="tex2html330"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A>:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1724#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note the use of amnesiac aliased subpatterns to avoid needlessly
+    building a result-hash. Alternatively, you could use listifying aliases
+    to preserve the matching structure as an additional debugging aid:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1725#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H2><A NAME="SECTION0541115000000000000000">
+Manejo y recuperación de errores</A>
+</H2>
+
+<P>
+En este punto debo decir que no he podido reproducir el comportamiento
+de las directivas <tex2html_verb_mark>1424<tex2html_verb_mark> y <tex2html_verb_mark>1425<tex2html_verb_mark> tal y como las describe 
+Conway en el manual de <A NAME="tex2html331"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A><#8088#><#8088#>. 
+
+<P>
+El siguiente ejemplo ilustra un conjunto de técnicas de gestión de errores
+que son independientes del soprote dado por <A NAME="tex2html332"
+  HREF="http://search.cpan.org/perldoc?Regexp::Grammars"><TT>Regexp::Grammars</TT></A><#8089#><#8089#>.
+
+<P>
+Se trata de la misma calculadora explicada en la sección
+<A HREF=<tex2html_cr_mark>#subsection:recicla#8090><tex2html_cr_mark></A>.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1726#</PRE>
+
+<P>
+Veamos algunas ejecuciones que incluyen entradas erróneas:
+<PRE><tex2html_verbatim_mark>verbatim1727#</PRE>
+Obsérvese los mensajes de error repetidos para la entrada 
+<tex2html_verb_mark>1426<tex2html_verb_mark>. Ellos son debidos a los reiterados intentos de
+casar <tex2html_verb_mark>1427<tex2html_verb_mark> en la regla de recuperación de errores:
+<PRE><tex2html_verbatim_mark>verbatim1728#</PRE>
+en este caso resulta imposible encontrar un factor.
+Se puede cambiar la conducta indicando un <tex2html_verb_mark>1428<tex2html_verb_mark> antes de la
+llamada a <tex2html_verb_mark>1429<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim1729#</PRE>
+
+<P>
+en este caso la conducta es abandonar en el caso de que no se pueda encontrar un <tex2html_verb_mark>1430<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim1730#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION0541116000000000000000">
+Mensajes de Warning</A>
+</H2>
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Sometimes, you want to detect problems, but not invalidate the entire
+   parse as a result. For those occasions, the module provides a <SPAN  CLASS="textbf">less
+   stringent</SPAN> form of error reporting: the <tex2html_verb_mark>1431<tex2html_verb_mark> directive.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>This directive is exactly the same as an <tex2html_verb_mark>1432<tex2html_verb_mark> in every respect
+   except that it does not induce a failure to match at the point it
+   appears.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The directive is, therefore, useful for reporting <SPAN  CLASS="textbf">non-fatal</SPAN> problems
+   in a parse. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1731#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note that, because they do not induce failure, two or more
+   <tex2html_verb_mark>1433<tex2html_verb_mark> directives can be ;SPMquot;stacked;SPMquot; in sequence, as in the
+   previous example.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H2><A NAME="SECTION0541117000000000000000">
+Simplificando el AST</A>
+</H2>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1732#</PRE>
+
+<P>
+Ejecuciones:
+<PRE><tex2html_verbatim_mark>verbatim1733#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION0541118000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="subsection:recicla"><tex2html_anchor_mark></A><BR>
+Reciclando una <TT>Regexp::Grammar</TT>
+</H2>
+
+<P>
+
+<H4><A NAME="SECTION0541118010000000000000">
+Ejecución</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El siguiente programa <tex2html_verb_mark>1434<tex2html_verb_mark>
+recibe como entrada una expresión en infijo.
+
+<P>
+La ejecución consta de dos bucles.
+En la primera parte se inyecta a la jerarquía de
+clases de los AST generados para las expresiones en infijo
+una semántica que permite 
+evaluar la expresión:
+<PRE><tex2html_verbatim_mark>verbatim1734#</PRE>
+En esta primera parte mostraremos además el AST
+construido para la expresión infija de entrada.
+<tex2html_verbatim_mark>rawhtml1735#
+Observamos que la asociatividad es la correcta.
+El <tex2html_verb_mark>1435<tex2html_verb_mark> final es el resultado de la evaluación de
+<tex2html_verb_mark>1436<tex2html_verb_mark>.
+
+<P>
+La estructura del árbol se corresponde con la de la gramática:
+<PRE><tex2html_verbatim_mark>verbatim1736#</PRE>
+
+<P>
+Ahora, en una segunda parte sobreescribimos los métodos
+<tex2html_verb_mark>1437<tex2html_verb_mark> que describen la semántica para producir una traducción
+de infijo a postfijo:
+<PRE><tex2html_verbatim_mark>verbatim1737#</PRE>
+Ahora al proporcionar la entrada <tex2html_verb_mark>1438<tex2html_verb_mark> obtenemos:
+<PRE><tex2html_verbatim_mark>verbatim1738#</PRE>
+Aquí <tex2html_verb_mark>1439<tex2html_verb_mark> es el operador de negación unaria y <tex2html_verb_mark>1440<tex2html_verb_mark> es el operador
+factorial.
+
+<P>
+
+<H4><A NAME="SECTION0541118020000000000000">
+Estructura de la aplicación</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Estos son los ficheros que integran la aplicación:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1739#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0541118030000000000000">
+Programa principal</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+En el programa principal definimos la gramática
+y escribimos una subrutina <tex2html_verb_mark>1441<tex2html_verb_mark>
+que realiza el parsing. 
+
+<P>
+<tex2html_verbatim_mark>rawhtml1740#
+
+<P>
+Los nodos del AST poseen un método <tex2html_verb_mark>1442<tex2html_verb_mark> que se encarga de 
+realizar la traducción del nodo.
+
+<P>
+
+<H4><A NAME="SECTION0541118040000000000000">
+Las Clases de nodos del AST</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1741#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0541118050000000000000">
+Definiendo <TT>sem</TT> para la evaluación de la expresión</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1742#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0541118060000000000000">
+Definiendo <TT>sem</TT> para la traducción a postfijo</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1743#</PRE>
+
+<P>
+<P><DIV><#33483#><B>Ejercicio  <SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">11</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#33483#> &nbsp; 
+<#33486#><I></I>
+<UL>
+<LI>Explique el significado de la primera línea del programa principal
+<PRE><tex2html_verbatim_mark>verbatim1744#</PRE>
+</LI>
+<LI>Explique el significado de <tex2html_verb_mark>1443<tex2html_verb_mark> en <tex2html_verb_mark>1444<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim1745#</PRE>
+
+<P>
+</LI>
+<LI>Aisle las funciones relacionadas con la creación de semántica
+como <tex2html_verb_mark>1445<tex2html_verb_mark>, <tex2html_verb_mark>1446<tex2html_verb_mark> y las llamadas a <tex2html_verb_mark>1447<tex2html_verb_mark>
+en un módulo <tex2html_verb_mark>1448<tex2html_verb_mark> aparte. 
+
+<P>
+</LI>
+<LI>Añada un traductor de infijo a prefijo al código presentado 
+en esta sección. Una expresión como
+<tex2html_verb_mark>1449<tex2html_verb_mark>  se traducirá como <tex2html_verb_mark>1450<tex2html_verb_mark>
+</LI>
+</UL><I></I><#33486#></DIV><P></P>
+
+
+<P>
+
+<H2><A NAME="SECTION0541119000000000000000">
+Práctica: Calculadora con <TT>Regexp::Grammars</TT></A>
+</H2>
+   <A NAME="8809"><tex2html_anchor_invisible_mark></A>
+  
+
+<P>
+
+<UL>
+<LI>Reforme la estructura del ejemplo para que tenga una jerarquía
+de desarrollo de acuerdo a los estándares de Perl. Use <A NAME="tex2html333"
+  HREF="http://search.cpan.org/perldoc/?h2xs"><TT>h2xs</TT></A>
+o bien <A NAME="tex2html334"
+  HREF="http://search.cpan.org/perldoc?Module::Starter"><TT>Module::Starter</TT></A>. Use el espacio de nombres <tex2html_verb_mark>1451<tex2html_verb_mark>.
+Mueva el módulo <tex2html_verb_mark>1452<tex2html_verb_mark> a <tex2html_verb_mark>1453<tex2html_verb_mark>.
+Lea el capítulo <A NAME="tex2html335"
+  HREF="http://nereida.deioc.ull.es/&#126;lhp/perlexamples/node170.html">Modulos</A>
+de los apuntes de LHP.
+
+<P>
+</LI>
+<LI>Defina el conjunto de pruebas que deberá pasar su traductor.
+Añádalas como pruebas <tex2html_verb_mark>1454<tex2html_verb_mark>. Cuando la funcionalidad 
+a comprobar esté operativa cambie su estatus.
+
+<P>
+</LI>
+<LI>Añada variables y la expresión de asignación:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1746#</PRE>
+que será traducida a postfijo como:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1747#</PRE>
+El operador de asignación es asociativo a derechas.
+El valor devuelto por una expresión de asignación es el valor asignado.
+
+<P>
+Use un hash para implantar la relación nombre-valor
+en el caso de la evaluación
+
+<P>
+</LI>
+<LI>Introduzca la expresión bloque:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1748#</PRE>
+
+<P>
+Los bloques son listas entre llaves de expresiones separadas por punto y coma.
+El valor retornado por una expresión bloque es el último evaluado 
+en el bloque.
+
+<P>
+El símbolo de arranque de la gramática (esto es, el patrón regular
+contra el que hay que casar) será la expresión bloque.
+
+<P>
+</LI>
+<LI>Introduzca las expresiones de comparación <tex2html_verb_mark>1455<tex2html_verb_mark>, <tex2html_verb_mark>1456<tex2html_verb_mark>, <tex2html_verb_mark>1457<tex2html_verb_mark>, <tex2html_verb_mark>1458<tex2html_verb_mark>, <tex2html_verb_mark>1459<tex2html_verb_mark> y <tex2html_verb_mark>1460<tex2html_verb_mark>
+con la prioridad adecuada. Tenga en cuenta que una expresión como:
+<PRE><tex2html_verbatim_mark>verbatim1749#</PRE>
+deberá entenderse como
+<PRE><tex2html_verbatim_mark>verbatim1750#</PRE>
+Esto es, se traducirá como:
+<PRE><tex2html_verbatim_mark>verbatim1751#</PRE>
+
+<P>
+</LI>
+<LI>Introduzca la expresión <tex2html_verb_mark>1461<tex2html_verb_mark>. La parte del <tex2html_verb_mark>1462<tex2html_verb_mark>
+será opcional:
+<PRE><tex2html_verbatim_mark>verbatim1752#</PRE>
+un <tex2html_verb_mark>1463<tex2html_verb_mark> casa con el <tex2html_verb_mark>1464<tex2html_verb_mark> mas cercano. 
+La sentencia:
+<PRE><tex2html_verbatim_mark>verbatim1753#</PRE>
+se interpreta como:
+<PRE><tex2html_verbatim_mark>verbatim1754#</PRE>
+y no como:
+<PRE><tex2html_verbatim_mark>verbatim1755#</PRE>
+Se traducirá como:
+<PRE><tex2html_verbatim_mark>verbatim1756#</PRE>
+</LI>
+<LI>Escriba un intérprete de la máquina orientada a pila definida en los apartados anteriores.
+El código generado debería poder ejecutarse correctamente en el intérprete.
+</LI>
+</UL>
+
+<P>

@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Rack::Static</TITLE>
+<META NAME="description" CONTENT="Rack::Static">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node180.html">
+<LINK REL="previous" HREF="node178.html">
+<LINK REL="up" HREF="node163.html">
+<LINK REL="next" HREF="node180.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html5029"
+  HREF="node180.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5023"
+  HREF="node163.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5017"
+  HREF="node178.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5025"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5027"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5030"
+  HREF="node180.html">Un Ejemplo Simple: Piedra,</A>
+<B>Sup:</B> <A NAME="tex2html5024"
+  HREF="node163.html">Rack, un Webserver Ruby</A>
+<B> Ant:</B> <A NAME="tex2html5018"
+  HREF="node178.html">rackup</A>
+<B> Con:</B> 
+<A NAME="tex2html5025"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html5027"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><UL>
+<LI><A NAME="tex2html5031"
+  HREF="node179.html#SECTION0121160010000000000000">Véase</A>
+<LI><A NAME="tex2html5032"
+  HREF="node179.html#SECTION0121160020000000000000">Ejemplo</A>
+<LI><A NAME="tex2html5033"
+  HREF="node179.html#SECTION0121160030000000000000"><TT>El comando rackup</TT></A>
+<LI><A NAME="tex2html5034"
+  HREF="node179.html#SECTION0121160040000000000000">Véase</A>
+</UL></UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION0121160000000000000000">
+Rack::Static</A>
+</H1>
+
+<P>
+
+<H4><A NAME="SECTION0121160010000000000000">
+Véase</A>
+</H4>
+  
+
+<P>
+
+<OL>
+<LI>Documentación de <A NAME="tex2html472"
+  HREF="http://rack.rubyforge.org/doc/Rack/Static.html">Rack::Static</A> 
+</LI>
+<LI>Este ejemplo: 
+<A NAME="tex2html473"
+  HREF="https://github.com/crguezl/rack-static-example">rack-static-example</A>
+en GitHub
+</LI>
+<LI><A NAME="tex2html474"
+  HREF="https://github.com/rack/rack/blob/master/lib/rack/static.rb">Código fuente</A>
+de <A NAME="tex2html475"
+  HREF="http://rack.rubyforge.org/doc/Rack/Static.html">Rack::Static</A> en GitHub
+</LI>
+</OL>
+
+<P>
+
+<H4><A NAME="SECTION0121160020000000000000">
+Ejemplo</A>
+</H4>
+  
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ tree
+.
+|--- README
+|--- README.md
+|--- Rakefile
+|--- config.ru
+|--- myapp.rb
+`---- public
+   `--- index.html
+</PRE>
+
+<P>
+<PRE>
+1 directory, 6 files
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ cat public/index.html 
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Hello&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello World!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</PRE>
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ cat config.ru 
+require './myapp'
+
+use Rack::Static, :urls =&gt; ["/public"]
+
+run MyApp.new
+</PRE>
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ cat Rakefile 
+task :default =&gt; :server
+
+desc "run server"
+task :server do
+  sh "rackup"
+end
+
+desc "run client via curl"
+task :client do
+  sh "curl -v localhost:9292"
+end
+
+desc "access to static file"
+task :index do
+  sh "curl -v localhost:9292/public/index.html"
+end
+</PRE>
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ cat myapp.rb 
+# my_app.rb
+#
+class MyApp
+  def call env
+    [200, {"Content-Type" =&gt; "text/html"}, ["Hello SYTW!"]] 
+  end
+end
+</PRE>
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ rake client
+curl -v localhost:9292
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+&gt; GET / HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+&gt; Host: localhost:9292
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 200 OK
+&lt; Content-Type: text/html
+&lt; Transfer-Encoding: chunked
+&lt; Connection: close
+&lt; Server: thin 1.5.1 codename Straight Razor
+&lt; 
+* Closing connection #0
+Hello SYTW!
+</PRE>
+
+<P>
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ rake index
+curl -v localhost:9292/public/index.html
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+&gt; GET /public/index.html HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+&gt; Host: localhost:9292
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 200 OK
+&lt; Last-Modified: Thu, 03 Oct 2013 08:24:43 GMT
+&lt; Content-Type: text/html
+&lt; Content-Length: 227
+&lt; Connection: keep-alive
+&lt; Server: thin 1.5.1 codename Straight Razor
+&lt; 
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Hello&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello World!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+* Connection #0 to host localhost left intact
+* Closing connection #0
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0121160030000000000000">
+<TT>El comando rackup</TT></A>
+</H4>
+  
+
+<P>
+<code>rackup</code> converts the supplied rack config file to an instance of <A NAME="tex2html476"
+  HREF="http://rack.rubyforge.org/doc/Rack/Builder.html">Rack::Builder</A>. 
+In short, rack config files are evaluated within the context of a <A NAME="tex2html477"
+  HREF="http://rack.rubyforge.org/doc/Rack/Builder.html">Rack::Builder</A>
+object.
+
+<P>
+Rackup also has a <A NAME="12459"></A><SPAN  CLASS="textbf">use</SPAN> method that accepts a <A NAME="12461"></A><SPAN  CLASS="textbf">middleware</SPAN>. Let us use one
+of Rack’s built-in middleware.
+
+<P>
+<PRE>
+[~/sinatra/rackup/middleware]$ cat config.ru 
+require './myapp'
+require './myrackmiddleware'
+use Rack::Reloader
+use MyRackMiddleware
+run MyApp.new
+</PRE>
+
+<P>
+<PRE>
+[~/sinatra/rackup/middleware]$ cat myapp.rb 
+# myapp.rb
+class MyApp
+  def call(env)
+    [200, {"Content-Type" =&gt; "text/html"}, ["Hello Rack Participants from across the globe"]] 
+  end
+end
+</PRE>
+
+<P>
+<PRE>
+[~/sinatra/rackup/middleware]$ cat myrackmiddleware.rb 
+class MyRackMiddleware
+  def initialize(appl)
+    @appl = appl
+  end
+  def call(env)
+    status, headers, body = @appl.call(env)
+    append_s = "... greetings from RubyLearning!!"
+    [status, headers, body &lt;&lt; append_s]
+  end  
+end
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0121160040000000000000">
+Véase</A>
+</H4>
+  
+
+<P>
+
+<UL>
+<LI><A NAME="tex2html478"
+  HREF="http://railscasts.com/episodes/151-rack-middleware">RailCast #151 Rack Middleware</A>
+</LI>
+<LI><A NAME="tex2html479"
+  HREF="http://www.confreaks.com/videos/961-mwrc2012-rack-middleware-as-a-general-purpose-abstraction">Rack Middleware as a General Purpose Abstraction por Mitchell Hashimoto</A>
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html5029"
+  HREF="node180.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5023"
+  HREF="node163.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5017"
+  HREF="node178.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5025"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5027"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5030"
+  HREF="node180.html">Un Ejemplo Simple: Piedra,</A>
+<B>Sup:</B> <A NAME="tex2html5024"
+  HREF="node163.html">Rack, un Webserver Ruby</A>
+<B> Ant:</B> <A NAME="tex2html5018"
+  HREF="node178.html">rackup</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

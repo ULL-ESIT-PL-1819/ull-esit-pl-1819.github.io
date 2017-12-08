@@ -1,0 +1,174 @@
+
+Why would you want to use a \cei{task runner}? 
+
+They’re small applications that automate often time consuming and boring tasks. 
+
+If you ever need to do any of the following then a task runner is for you:
+
+\begin{itemize}
+\item
+Minification and concatenation of JavaScript and CSS files
+\item
+CSS Preprocessing
+\item
+Testing 
+\end{itemize}
+By creating a task file you can instruct the task manager to take care of many development tasks and watch for changes in relevant files. All you’ll need to do is start up the task runner and get to work on the more interesting parts of your project.
+
+We are going to use \verb|gulp| as our task manager. To install it you can:
+
+\begin{itemize}
+\item
+Install gulp globally:
+
+\begin{verbatim}
+$ npm install --global gulp
+\end{verbatim}
+\item
+Or you can install gulp in your project \verb|devDependencies|:
+
+\begin{verbatim}
+$ npm install --save-dev gulp
+\end{verbatim}
+This will install \verb|gulp| in \verb|./node_modules| and 
+it will add a line to \verb|package.json| as the following:
+\begin{verbatim}
+  "devDependencies": {
+    "mocha": "latest",
+    "gulp": "~3.8.10"
+  },
+\end{verbatim}
+\end{itemize}
+
+Now we can write our \verb|gulpfile|:
+\begin{verbatim}
+[/tmp/pl-grado-temperature-converter(karma)]$ cat gulpfile.js 
+var gulp    = require('gulp'),
+    gutil   = require('gulp-util'),
+    uglify  = require('gulp-uglify'),
+    concat  = require('gulp-concat');
+var del     = require('del');
+var minifyHTML = require('gulp-minify-html');
+var minifyCSS  = require('gulp-minify-css');
+
+gulp.task('minify', function () {
+  gulp.src('temperature.js')
+  .pipe(uglify())
+  .pipe(gulp.dest('minified'));
+
+  gulp.src('./index.html')
+    .pipe(minifyHTML())
+    .pipe(gulp.dest('./minified/'))
+
+  gulp.src('./*.css')
+   .pipe(minifyCSS({keepBreaks:true}))
+   .pipe(gulp.dest('./minified/'))
+});
+
+gulp.task('clean', function(cb) {
+  del(['minified/*'], cb);
+});
+\end{verbatim}
+
+\begin{itemize}
+\item
+\htmladdnormallink{See gulp API docs}{https://github.com/gulpjs/gulp/blob/master/docs/API.md}
+\item
+\verb|gulp.task(name, fn)| – registers a function with a name
+\item
+\verb|gulp.src(glob)| – returns a readable stream
+\item
+The \verb|pipe()| method takes the source stream derived from the \verb|src()| 
+method and passes it to the specific plugin being referenced.
+\item
+\verb|gulp.dest(folder)| – returns a writable stream
+\item
+\verb|gulp.watch(glob, fn)| – runs a function when a file that matches the glob changes
+\end{itemize}
+
+Gulp on its own doesn’t do a lot. We need to install plugins and add tasks to the gulpfile to put Gulp into action. To concatenate files we’ll need the gulp-concat plugin; to install it run this from the command line:-
+
+\begin{verbatim}
+npm install gulp-concat --save-dev
+\end{verbatim}
+the four Gulp methods that we will be using:-
+Again, if you check your \verb|package.json| 
+file you should see a new line referencing the newly installed plugin:-
+
+\begin{verbatim}
+"gulp-concat": "~2.1.7"
+\end{verbatim}
+
+
+Después de instalar todas las dependencias:
+\begin{verbatim}
+$ npm i gulp-util --save-dev
+$ npm i gulp-...  --save-dev
+\end{verbatim}
+podemos ejecutar las tareas:
+\begin{verbatim}
+$ gulp minify
+[22:07:58] Using gulpfile ~/local/src/javascript/PLgrado/temperature/gulpfile.js
+[22:07:58] Starting 'minify'...
+\end{verbatim}
+Que produce el directorio \verb|minified|:
+\begin{verbatim}
+$ ls -l minified/
+total 32
+-rw-r--r--  1 casiano  staff   510  5 feb 21:56 global.css
+-rw-r--r--  1 casiano  staff   594  5 feb 21:56 index.html
+-rw-r--r--  1 casiano  staff  2021  5 feb 21:56 normalize.css
+-rw-r--r--  1 casiano  staff   334  5 feb 21:56 temperature.js
+\end{verbatim}
+que como vemos ha compactado los ficheros:
+\begin{verbatim}
+$ ls -l temperature.js normalize.css index.html global.css 
+-rw-r--r--  1 casiano  staff   934  4 feb 09:11 global.css
+-rw-r--r--  1 casiano  staff   749  3 feb 10:40 index.html
+-rw-r--r--  1 casiano  staff  7798 30 ene 22:00 normalize.css
+-rw-r--r--  1 casiano  staff   638  3 feb 15:21 temperature.js
+\end{verbatim}
+Podemos ver la lista de tareas mediante la opción \verb|-T|:
+\begin{verbatim}
+$ gulp -T
+[22:00:40] Using gulpfile ~/local/src/javascript/PLgrado/temperature/gulpfile.js
+[22:00:40] Tasks for ~/local/src/javascript/PLgrado/temperature/gulpfile.js
+[22:00:40] |-- minify
+[22:00:40] `-- clean
+\end{verbatim}
+Podemos borrar las ficheros generados con \verb|gulp clean|:
+\begin{verbatim}
+$ gulp clean
+[22:00:46] Using gulpfile ~/local/src/javascript/PLgrado/temperature/gulpfile.js
+[22:00:46] Starting 'clean'...
+[22:00:46] Finished 'clean' after 7.68 ms
+$ ls -l minified/
+$
+\end{verbatim}
+
+
+gulp has very few flags to know about. All other flags are for tasks to use if needed.
+
+\begin{itemize}
+\item \verb|-v| or \verb|--version| will display the global and local gulp versions
+\item \verb|--require <module path>| will require a module before running the gulpfile. This is useful for transpilers but also has other applications. You can use multiple \verb|--require| flags
+\item \verb|--gulpfile <gulpfile path>| will manually set path of gulpfile. Useful if you have multiple gulpfiles. This will set the CWD to the gulpfile directory as well
+\item \verb|--cwd <dir path>| will manually set the CWD. The search for the gulpfile, as well as the relativity of all requires will be from here
+\item \verb|-T| or \verb|--tasks| will display the task dependency tree for the loaded gulpfile
+\item \verb|--tasks-simple| will display a plaintext list of tasks for the loaded gulpfile
+\item \verb|--color| will force gulp and gulp plugins to display colors even when no color support is detected
+\item \verb|--no-color| will force gulp and gulp plugins to not display colors even when color support is detected
+\item \verb|--silent| will disable all gulp logging
+\end{itemize}
+
+
+Tasks can be executed by running \verb|gulp <task> <othertask>|. 
+
+Just running \verb|gulp| will execute the task you registered called \verb|default|. 
+
+If there is no \verb|default| task gulp will error.
+
+See 
+\htmladdnormallink{CLI.md}{https://github.com/gulpjs/gulp/blob/master/docs/CLI.md} at \verb|gulpjs/gulp|.
+
+

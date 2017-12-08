@@ -1,0 +1,190 @@
+
+<H1><A NAME="SECTION05870000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:prioridades"><tex2html_anchor_mark></A><BR>
+Precedencia y Asociatividad
+</H1>
+Recordemos que si al construir la tabla LALR,
+alguna de las entradas de la tabla resulta multievaluada, decimos
+que existe un conflicto.
+Si una de las acciones es de `reducción'' y la otra es de
+`desplazamiento'', se dice que hay un <A NAME="18381"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">conflicto shift-reduce</SPAN> o
+<A NAME="18383"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">conflicto de desplazamiento-reducción</SPAN>. Si las
+dos reglas indican una acción de reducción, decimos que tenemos un 
+<A NAME="18385"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">conflicto reduce-reduce</SPAN> o de <A NAME="18387"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">reducción-reducción</SPAN>.
+En caso de que no existan indicaciones específicas <SPAN  CLASS="textbf">yapp</SPAN> resuelve
+los conflictos que aparecen en la construcción de la tabla utilizando
+las siguientes reglas:
+
+<P>
+
+<OL>
+<LI>Un conflicto <SPAN  CLASS="textbf">reduce-reduce</SPAN> se resuelve eligiendo la producción
+que se listó primero en la especificación de la gramática.
+</LI>
+<LI>Un conflicto <SPAN  CLASS="textbf">shift-reduce</SPAN> se resuelve siempre en favor del <SPAN  CLASS="textbf">shift</SPAN>
+</LI>
+</OL>
+
+<P>
+Las declaraciones de precedencia y asociatividad mediante las
+palabras reservadas  <#18389#><TT><tex2html_percent_mark>left</TT><#18389#> ,  <#18390#><TT><tex2html_percent_mark>right</TT><#18390#> ,  <#18391#><TT><tex2html_percent_mark>nonassoc</TT><#18391#> 
+se utilizan para modificar estos criterios por defecto. 
+La declaración de  <#18392#><TT>token</TT><#18392#> s mediante la palabra
+reservada  <#18393#><TT><tex2html_percent_mark>token</TT><#18393#>  no modifica la precedencia. Si lo hacen las
+declaraciones realizadas usando las palabras  <#18394#><TT>left</TT><#18394#> ,  <#18395#><TT>right</TT><#18395#> 
+y  <#18396#><TT>nonassoc</TT><#18396#> . 
+
+<P>
+
+<OL>
+<LI>Los <SPAN  CLASS="textbf">tokens</SPAN> declarados  en la misma línea
+tienen igual precedencia e igual asociatividad. 
+La precedencia es mayor cuanto mas abajo 
+su posición en
+el texto. Así, en el ejemplo de la calculadora en la sección 
+<A HREF=<tex2html_cr_mark>#section:ejemplodeuso#17683><tex2html_cr_mark></A>, el <SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2358<tex2html_verb_mark> tiene 
+mayor precedencia que <tex2html_verb_mark>2359<tex2html_verb_mark> pero la misma que <tex2html_verb_mark>2360<tex2html_verb_mark>.
+</LI>
+<LI>La precedencia de una regla <tex2html_verbatim_mark>#math7118#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37300#</SPAN>
+<tex2html_verbatim_mark>mathend000# se
+define como la del terminal mas a la derecha que aparece en
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37302#</SPAN>
+<tex2html_verbatim_mark>mathend000#. En el ejemplo, la producción 
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>2361<tex2html_verb_mark> 
+
+</DIV>
+
+<P>
+tiene la precedencia del <SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2362<tex2html_verb_mark>.
+</LI>
+<LI>Para decidir en un conflicto <SPAN  CLASS="textbf">shift-reduce</SPAN> se comparan la precedencia 
+de la regla con la del terminal que va a ser desplazado. Si la de la
+regla es mayor se reduce
+si la del <SPAN  CLASS="textbf">token</SPAN> es mayor, se desplaza.
+</LI>
+<LI>Si en un conflicto <SPAN  CLASS="textbf">shift-reduce</SPAN> ambos la regla y el terminal que
+va a ser desplazado tiene la misma precedencia <SPAN  CLASS="textbf">yapp</SPAN> considera la
+asociatividad, si es asociativa a izquierdas, reduce y si es asociativa
+a derechas desplaza. Si no es asociativa, genera un mensaje de error.
+<BR>Obsérvese que, en esta situación, la asociatividad de la regla y la del
+<SPAN  CLASS="textbf">token</SPAN> han de ser por fuerza, las mismas.  Ello es así, porque en
+<SPAN  CLASS="textbf">yapp</SPAN> los <SPAN  CLASS="textbf">tokens</SPAN> con la misma precedencia se declaran en
+la misma línea y sólo se permite una declaración por línea.
+
+<P>
+</LI>
+<LI><SPAN  CLASS="textbf"> Por tanto es imposible declarar dos <SPAN  CLASS="textbf">tokens</SPAN> con diferente
+asociatividad y la misma precedencia</SPAN>.
+</LI>
+<LI>Es posible modificar la precedencia ``natural'' de una regla, calificándola
+con un <SPAN  CLASS="textbf">token</SPAN> específico.  para ello se escribe a la derecha de
+la regla <tex2html_verb_mark>2363<tex2html_verb_mark>, donde <tex2html_verb_mark>2364<tex2html_verb_mark> es un <SPAN  CLASS="textbf">token</SPAN> con
+la precedencia que deseamos. Vea el uso del <SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2365<tex2html_verb_mark>
+en el siguiente ejercicio.
+</LI>
+</OL>
+
+<P>
+Para ilustrar las reglas anteriores usaremos el siguiente 
+programa <tex2html_verb_mark>2366<tex2html_verb_mark>:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6135#</PRE>            
+
+<P>
+El código del programa cliente es el siguiente:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6136#</PRE>
+
+<P>
+Observe la llamada al analizador en la línea 34. Hemos 
+añadido el parámetro con nombre <A NAME="18397"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">yydebug</SPAN> 
+con argumento <tex2html_verb_mark>2367<tex2html_verb_mark> (véase la
+sección <A HREF=<tex2html_cr_mark>#section:depuracion#17705><tex2html_cr_mark></A> para ver los posibles
+valores de depuración).
+
+<P>
+Compilamos a continuación el módulo usando la opción <tex2html_verb_mark>2368<tex2html_verb_mark> para
+producir información sobre los conflictos y las tablas de salto y 
+de acciones:
+<PRE><tex2html_verbatim_mark>verbatim6137#</PRE>
+
+<P>
+La opción <tex2html_verb_mark>2369<tex2html_verb_mark> genera el fichero <tex2html_verb_mark>2370<tex2html_verb_mark>
+el cual contiene información detallada sobre el autómata:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6138#</PRE>
+¿Porqué se produce un conflicto en el estado 8 entre la regla
+6 (<tex2html_verb_mark>2371<tex2html_verb_mark>) y el terminal <tex2html_verb_mark>2372<tex2html_verb_mark>?. Editando el fichero
+<tex2html_verb_mark>2373<tex2html_verb_mark> podemos ver los contenidos
+del estado 8:
+<PRE><tex2html_verbatim_mark>verbatim6139#</PRE>
+El item de la línea 88 indica que debemos desplazar, el de 
+la línea 89 que debemos reducir por la regla 6. ¿Porqué <tex2html_verb_mark>2374<tex2html_verb_mark>
+resuelve el conflicto optando por reducir?
+¿Que prioridad tiene la regla 6?
+¿Que asociatividad tiene la regla 6?
+La declaración en la línea 13 modifica la precedencia y asociatividad
+de la regla:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6140#</PRE>
+
+<P>
+de manera que la regla pasa a tener la precedencia y asociatividad
+de <tex2html_verb_mark>2375<tex2html_verb_mark>. Recuerde que habíamos declarado <tex2html_verb_mark>2376<tex2html_verb_mark> como
+asociativo a derechas:
+<PRE><tex2html_verbatim_mark>verbatim6141#</PRE>
+¿Que ocurre? Que <tex2html_verb_mark>2377<tex2html_verb_mark> tiene mayor prioridad
+que <tex2html_verb_mark>2378<tex2html_verb_mark> y por tanto la regla tiene mayor prioridad
+que el terminal: por tanto se reduce.
+
+<P>
+¿Que ocurre cuando el terminal en conflicto es <tex2html_verb_mark>2379<tex2html_verb_mark>?
+En ese caso la regla y el terminal tienen la misma prioridad.
+Se hace uso de la asociatividad a derechas que indica que el conflicto
+debe resolverse desplazando.
+
+<P>
+<P><DIV><#37304#><B>Ejercicio  <SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#37304#> &nbsp; 
+<#37307#><I>Explique la forma en que <tex2html_verb_mark>2380<tex2html_verb_mark> resuelve 
+los conflictos que aparecen en el estado 9.
+Esta es la información sobre el estado 9:
+</I>
+<P>
+<I></I><PRE><tex2html_verbatim_mark>verbatim6142#</PRE><I></I><#37307#></DIV><P></P>
+
+
+<P>
+Veamos un ejemplo de ejecución:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6143#</PRE>
+Lo primero que ocurre es una reducción por la regla 
+en la que <tex2html_verb_mark>2381<tex2html_verb_mark> produce vacío. Si miramos el estado 0
+del autómata vemos que contiene:
+<PRE><tex2html_verbatim_mark>verbatim6144#</PRE>
+A continuación se transita desde 0 con <tex2html_verb_mark>2382<tex2html_verb_mark>
+y se consume el primer terminal:
+<PRE><tex2html_verbatim_mark>verbatim6145#</PRE>
+En el estado 5 se reduce por la regla <tex2html_verb_mark>2383<tex2html_verb_mark>.
+Esto hace que se retire el estado 5 de la pila y se
+transite desde el estado 1 viendo el símbolo <tex2html_verb_mark>2384<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim6146#</PRE>
+Obsérvese la resolución del conflicto en el estado 8
+
+<P>
+La presencia de conflictos, aunque no siempre, en muchos casos es debida
+a la introducción de ambiguedad en la gramática. Si el conflicto 
+es de desplazamiento-reducción se puede resolver explicitando 
+alguna regla que rompa la ambiguedad. Los conflictos de
+reducción-reducción suelen producirse por un diseño erróneo
+de la gramática. En tales casos, suele ser mas adecuado
+modificar la gramática.
+
+<P>

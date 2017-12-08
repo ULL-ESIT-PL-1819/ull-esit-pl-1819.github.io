@@ -1,0 +1,126 @@
+
+<H1><A NAME="SECTION057130000000000000000">
+Definición Dirigida por la Sintáxis</A>
+</H1>
+Una <A NAME="17008"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">definición dirigida por la sintáxis</SPAN> es un pariente cercano
+de los esquemas de traducción. En una definición dirigida por la
+sintáxis una gramática <tex2html_verbatim_mark>#math6995#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36720#</SPAN>
+<tex2html_verbatim_mark>mathend000# se aumenta 
+con nuevas características:
+
+<UL>
+<LI>A cada símbolo <tex2html_verbatim_mark>#math6996#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36722#</SPAN>
+<tex2html_verbatim_mark>mathend000# de la gramática se le asocian
+cero o mas atributos. Un atributo queda caracterizado por un identificador
+o nombre y un tipo o clase. A este nivel son <A NAME="17010"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">atributos formales</SPAN>,
+como los parámetros formales, en el sentido de que su realización 
+se produce cuando el nodo del árbol es creado.
+</LI>
+<LI>A cada regla de producción <tex2html_verbatim_mark>#math6997#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36724#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+se le asocian un conjunto de <A NAME="17012"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">reglas de evaluación de los atributos</SPAN>
+o <A NAME="17014"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">reglas semánticas</SPAN> que indican que el atributo en la parte
+izquierda de la regla semántica depende de los atributos que aparecen en la parte
+derecha de la regla. El atributo que aparece en la parte izquierda de la regla semántica
+puede estar asociado con un símbolo en la parte derecha de la regla de producción.
+</LI>
+<LI>Los atributos de cada símbolo de la gramática <tex2html_verbatim_mark>#math6998#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36726#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+se dividen en dos grupos disjuntos: <A NAME="17016"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">atributos sintetizados</SPAN>
+y <A NAME="17018"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">atributos heredados</SPAN>. Un atributo de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36728#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un <A NAME="17020"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">atributo heredado</SPAN> 
+si depende de atributos de su padre y hermános en el árbol.
+Un <A NAME="17022"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">atributo sintetizado</SPAN> es aquél tal que el valor del atributo depende
+de los valores de los atributos de los hijos, 
+es decir en tal caso <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36730#</SPAN>
+<tex2html_verbatim_mark>mathend000# ha de ser una variable sintáctica
+y los atributos en la parte derecha de la regla semántica deben
+ser atributos de símbolos en la parte derecha de la regla de producción 
+asociada.
+</LI>
+<LI>Los atributos predefinidos se denominán <A NAME="17024"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">atributos intrínsecos</SPAN>.
+Ejemplos de atributos intrínsecos son los atributos 
+sintetizados de los terminales, los cuáles se han
+computado durante la fase de análisis léxico. También
+son atributos intrínsecos los atributos heredados del símbolo
+de arranque, los cuales son pasados como parámetros 
+al comienzo de la computación.
+</LI>
+</UL>
+
+<P>
+La diferencia principal con un esquema de traducción está en que
+no se especifica el orden de ejecución de las reglas semánticas.
+Se asume que, bien de forma manual o automática, se resolverán
+las dependencias existentes entre los atributos determinadas
+por la aplicación de las reglas semánticas, de manera
+que serán evaluados primero aquellos atributos que no dependen
+de ningún otro, despues los que dependen de estos, etc. siguiendo
+un esquema de ejecución que viene guiado por las dependencias
+existentes entre los datos.
+
+<P>
+Aunque hay muchas formas de realizar un evaluador de una definición
+dirigida por la sintáxis, conceptualmente, tal evaluador debe:
+
+<P>
+
+<OL>
+<LI>Construir el árbol de análisis sintáctico para la gramática
+y la entrada dadas.
+</LI>
+<LI>Analizar las reglas semánticas para determinar los atributos,
+su clase y las dependencias entre los mismos.
+</LI>
+<LI>Construir el <A NAME="17026"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">grafo de dependencias</SPAN> de los atributos,
+el cual tiene
+un nodo para cada ocurrencia de un atributo en el árbol de análisis
+sintáctico etiquetado con dicho atributo. El grafo tiene una arista entre dos
+nodos si existe una dependencia entre los dos atributos a través de alguna
+regla semántica. 
+</LI>
+<LI>Supuesto que el grafo de dependencias determina un <A NAME="17028"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">orden parcial</SPAN>
+(esto es cumple las propiedades reflexiva, antisimétrica y transitiva) 
+construir un <A NAME="17030"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">orden topológico</SPAN> compatible con el orden parcial.
+</LI>
+<LI>Evaluar las reglas semánticas de acuerdo con el orden topológico.
+</LI>
+</OL>
+
+<P>
+Una definición dirigida por la sintáxis en la que las reglas semánticas
+no tienen efectos laterales se denomina una <A NAME="17032"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">gramática atribuída</SPAN>.
+
+<P>
+Si la definición dirigida por la sintáxis puede ser realizada 
+mediante un esquema de traducción se dice que es <A NAME="17034"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">L-atribuída</SPAN>.
+Para que una definición dirigida por la sintáxis sea L-atribuída
+deben cumplirse que cualquiera que sea la regla de producción
+<tex2html_verbatim_mark>#math6999#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36732#</SPAN>
+<tex2html_verbatim_mark>mathend000#, los atributos heredados de
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36734#</SPAN>
+<tex2html_verbatim_mark>mathend000# pueden depender únicamente de:
+
+<OL>
+<LI>Los atributos de los símbolos a la izquierda de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36736#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+<LI>Los atributos heredados de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36738#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+</OL>
+
+<P>
+Nótese que las restricciones se refieren a los atributos heredados.
+El cálculo de los atributos sintetizados no supone 
+problema para un esquema de traducción. Si la gramática
+es LL(1), resulta fácil realizar una definición 
+L-atribuída en un analizador descendente recursivo predictivo.
+
+<P>
+Si la definición dirigida por la sintáxis sólo utiliza 
+atributos sintetizados se denomina <A NAME="17036"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">S-atribuída</SPAN>. Una
+definición S-atribuída puede ser fácilmente trasladada a un programa
+<tex2html_verb_mark>2203<tex2html_verb_mark>.
+
+<P>

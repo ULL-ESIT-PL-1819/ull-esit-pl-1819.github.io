@@ -1,0 +1,613 @@
+
+<H1><A NAME="SECTION05680000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:recursionizquierda"><tex2html_anchor_mark></A><BR>
+Recursión por la Izquierda
+</H1>
+
+<P>
+<P><DIV><#34278#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#34278#> &nbsp; 
+<#34281#><I>Una <A NAME="12162"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">gramática es recursiva por la izquierda</SPAN> cuando existe una derivación
+<tex2html_verbatim_mark>#math6540#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34283#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+</I>
+<P>
+<I>En particular, es recursiva por la izquierda si contiene
+una regla de producción de la forma <tex2html_verbatim_mark>#math6541#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34285#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+En este caso se dice que la recursión por la izquierda es directa.</I><#34281#></DIV><P></P>
+
+
+<P>
+Cuando la gramática es <A NAME="12164"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">recursiva por la izquierda</SPAN>, 
+el método 
+de análisis recursivo descendente predictivo no funciona. 
+En ese caso, el procedimiento
+<tex2html_verb_mark>1814<tex2html_verb_mark> asociado con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34287#</SPAN>
+<tex2html_verbatim_mark>mathend000# ciclaría para siempre sin llegar a consumir ningún 
+terminal. 
+
+<P>
+
+<H2><A NAME="SECTION05681000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="subsection:eliminaleftrec"><tex2html_anchor_mark></A><BR>
+Eliminación de la Recursión por la Izquierda en la Gramática
+</H2>
+Es posible modificar la gramática para eliminar la recursión por 
+la izquierda. En este apartado nos limitaremos al caso de recursión 
+por la izquierda directa. 
+La generalización al caso de recursión por la izquierda no-directa
+se reduce a la iteración de la solución propuesta 
+para el caso directo.
+
+<P>
+Consideremos una variable <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34290#</SPAN>
+<tex2html_verbatim_mark>mathend000# con dos producciones:
+
+<P>
+<BR>
+<BR>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6542#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34292#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34294#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+donde <tex2html_verbatim_mark>#math6543#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34298#</SPAN>
+<tex2html_verbatim_mark>mathend000# no comienzan por <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34300#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+Estas dos producciones pueden ser sustituidas por:
+
+<P>
+<BR>
+<BR>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6544#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34302#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">;SPMnbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6545#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34304#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6546#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34306#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+
+eliminando así la recursión por la izquierda.
+
+<P>
+<P><DIV><#34312#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#34312#> &nbsp; 
+<#34315#><I>La producción <tex2html_verbatim_mark>#math6547#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34317#</SPAN>
+<tex2html_verbatim_mark>mathend000# se dice <A NAME="12166"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">recursiva por la derecha</SPAN>.</I><#34315#></DIV><P></P>
+
+
+<P>
+Las producciones recursivas por la derecha dan lugar a árboles
+que se hunden hacia la derecha. Es mas difícil traducir desde esta clase
+de árboles operadores como el menos, que son asociativos a izquierdas.
+
+<P>
+<P><DIV><#34319#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#34319#> &nbsp; 
+<#34322#><I>Elimine la recursión por la izquierda de la gramática 
+</I>
+<P>
+<I><BR>
+<BR>
+</I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+<tex2html_verbatim_mark>#math6548#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34324#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6549#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34326#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+</I></TD>
+</TR>
+</TABLE><I>
+<BR>
+<BR>
+</I>
+<P>
+<I></I><#34322#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34330#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#34330#> &nbsp; 
+<#34333#><I>¿Que hay de erróneo en este esquema de traducción?
+</I>
+<P>
+<I><BR>
+<BR>
+</I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+<tex2html_verbatim_mark>#math6550#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34335#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <tex2html_verb_mark>1815<tex2html_verb_mark> </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6551#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34337#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <tex2html_verb_mark>1816<tex2html_verb_mark>
+</I></TD>
+</TR>
+</TABLE><I>
+<BR>
+<BR></I><#34333#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34343#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">8</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#34343#> &nbsp; 
+<#34346#><I>Dado el esquema de traducción:
+</I>
+<P>
+<I><BR>
+<BR>
+</I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+<tex2html_verbatim_mark>#math6552#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34348#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <tex2html_verb_mark>1817<tex2html_verb_mark> </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6553#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34350#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <tex2html_verb_mark>1818<tex2html_verb_mark></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6554#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34352#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <tex2html_verb_mark>1819<tex2html_verb_mark>
+</I></TD>
+</TR>
+</TABLE><I>
+<BR>
+<BR>
+</I>
+<P>
+<I>¿Cuál es el lenguaje generado por la gramática? ¿Puede el lenguaje
+ser analizado por un APDR?
+¿Cual es la traducción de 4-5-6? ¿Es un esquema de traducción adecuado 
+para traducir de infijo a postfijo?
+¿Cuál es la traducción si cambiamos el anterior esquema por este otro?:
+</I>
+<P>
+<I><BR>
+<BR>
+</I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+<tex2html_verbatim_mark>#math6555#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34360#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <tex2html_verb_mark>1820<tex2html_verb_mark> </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6556#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34362#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <tex2html_verb_mark>1821<tex2html_verb_mark></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6557#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34364#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <tex2html_verb_mark>1822<tex2html_verb_mark>
+</I></TD>
+</TR>
+</TABLE><I>
+<BR>
+<BR></I><#34346#></DIV><P></P>
+
+
+<P>
+
+<H2><A NAME="SECTION05682000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="subsection:eliminarecesquem"><tex2html_anchor_mark></A><BR>
+Eliminación de la Recursión por la Izquierda en un Esquema de Traducción
+</H2>
+La eliminación de la recursión por la izquierda es sólo un paso: debe 
+ser extendida a esquemas de traducción, 
+de manera que no sólo se preserve el lenguaje
+sino la secuencia de acciones. Supongamos que tenemos un esquema de
+traducción de la forma:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6558#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34373#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>1823<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6559#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34375#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>1824<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6560#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34377#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>1825<tex2html_verb_mark></TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+
+<P>
+para una sentencia como <tex2html_verbatim_mark>#math6561#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34385#</SPAN>
+<tex2html_verbatim_mark>mathend000# la secuencia de
+acciones será: 
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>1826<tex2html_verb_mark>
+
+</DIV>
+
+<P>
+¿Cómo construir un esquema de traducción para la gramática resultante
+de eliminar la recursión por la izquierda que ejecute las acciones
+asociadas en el mismo orden?. Supongamos para simplificar,
+que las acciones no dependen
+de atributos ni computan atributos, sino que actúan sobre
+variables globales. En tal caso, la siguiente
+ubicación de las acciones da lugar a que se ejecuten en el mismo
+orden:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6562#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34387#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1827<tex2html_verb_mark> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34389#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6563#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34391#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1828<tex2html_verb_mark> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34393#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6564#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34395#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1829<tex2html_verb_mark> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34397#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6565#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34399#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+</TABLE>
+
+<P>
+Si hay atributos en juego, la estrategia para construir un
+esquema de traducción equivalente para la gramática resultante
+de eliminar la recursividad por la izquierda se complica.
+Consideremos de nuevo el esquema de traducción de infijo a
+postfijo de expresiones aritméticas de restas:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6566#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34405#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>1830<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6567#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34407#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>1831<tex2html_verb_mark></TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+
+<P>
+En este caso introducimos un atributo <tex2html_verb_mark>1832<tex2html_verb_mark> para los nodos de la clase
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34413#</SPAN>
+<tex2html_verbatim_mark>mathend000# el cuál 
+acumula la traducción a postfijo hasta el momento. Observe como
+este atributo se computa en un nodo <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34415#</SPAN>
+<tex2html_verbatim_mark>mathend000# a partir del
+correspondiente atributo del el padre y/o de los hermanos del nodo:
+
+<P>
+<BR>
+<BR>
+
+<tex2html_verbatim_mark>#math6568#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34417#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1833<tex2html_verb_mark>  <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34419#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1834<tex2html_verb_mark> 
+<BR><tex2html_verbatim_mark>#math6569#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34421#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1835<tex2html_verb_mark> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34423#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1836<tex2html_verb_mark>
+<BR><tex2html_verbatim_mark>#math6570#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34425#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1837<tex2html_verb_mark>
+<BR>
+<BR>
+
+<P>
+El atributo <tex2html_verb_mark>1838<tex2html_verb_mark> es un ejemplo de atributo heredado.
+
+<P>
+
+<H2><A NAME="SECTION05683000000000000000">
+Ejercicio</A>
+</H2>
+Calcule los valores de los atributos
+cuando se aplica el esquema de traducción anterior
+a la frase <tex2html_verb_mark>1839<tex2html_verb_mark>. 
+
+<P>
+
+<H2><A NAME="SECTION05684000000000000000">
+Convirtiendo el Esquema en un Analizador Predictivo</A>
+</H2>
+A partir del esquema propuesto, que se basa en una fase de
+descenso con un atributo heredado y una de ascenso con un atributo
+sintetizado:
+
+<P>
+<BR>
+<BR>
+
+<tex2html_verbatim_mark>#math6571#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34429#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1840<tex2html_verb_mark>  <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34431#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1841<tex2html_verb_mark> 
+<BR><tex2html_verbatim_mark>#math6572#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34433#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1842<tex2html_verb_mark> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34435#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1843<tex2html_verb_mark>
+<BR><tex2html_verbatim_mark>#math6573#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34437#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1844<tex2html_verb_mark>
+<BR>
+<BR>
+
+<P>
+es posible construir un APDR que ejecuta las acciones semánticas
+en los puntos indicados por el esquema de traducción. El atributo heredado
+se convierte en un parámetro de entrada a la subrutina asociada con la variable
+sintáctica:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5577#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05685000000000000000">
+Ejercicio</A>
+</H2>
+Generalize la estrategia anterior 
+para eliminar la recursividad por la izquierda al siguiente esquema de 
+traducción genérico recursivo por la izquierda y
+con un atributo sintetizado <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34440#</SPAN>
+<tex2html_verbatim_mark>mathend000#:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6574#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34442#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6575#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34444#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6576#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34446#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6577#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34448#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6578#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34450#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6579#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34452#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+
+<P>
+donde <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34460#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34462#</SPAN>
+<tex2html_verbatim_mark>mathend000# son funciones cualesquiera.
+
+<P>
+
+<H2><A NAME="SECTION05686000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12169"><tex2html_anchor_invisible_mark></A>
+  
+<A NAME="practica:recizq"><tex2html_anchor_mark></A><BR>
+Práctica: Eliminación de la Recursividad por la Izquierda
+</H2>
+En esta práctica  vamos a 
+extender las fases de análisis léxico y sintáctico del 
+compilador del lenguaje Tutu cuya gramática se definió
+en el ejercicio <A HREF=<tex2html_cr_mark>#ejercicio:tutugrammar#11202><tex2html_cr_mark></A> 
+con expresiones que incluyen diferencias 
+y divisiones. Además construiremos una representación
+del árbol sintáctico concreto.
+Para ello consideremos el siguiente esquema de traducción
+recursivo por la izquierda (en concreto las reglas recursivas
+por la izquierda son las 10, 11, 13 y 14):
+
+<P>
+<BR>
+<BR>
+<SMALL CLASS="SMALL"></SMALL><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL">
+0 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> p  <tex2html_verbatim_mark>#math6580#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34465#</SPAN>
+<tex2html_verbatim_mark>mathend000# ds  ss     </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1845<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+1 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> p  <tex2html_verbatim_mark>#math6581#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34467#</SPAN>
+<tex2html_verbatim_mark>mathend000# ss         </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1846<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+2 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> ds <tex2html_verbatim_mark>#math6582#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34469#</SPAN>
+<tex2html_verbatim_mark>mathend000# d  ';'  ds  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1847<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+3 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> ds <tex2html_verbatim_mark>#math6583#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34471#</SPAN>
+<tex2html_verbatim_mark>mathend000# d ';'      </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1848<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+4 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> d  <tex2html_verbatim_mark>#math6584#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34473#</SPAN>
+<tex2html_verbatim_mark>mathend000# INT  il     </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1849<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+5 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> d  <tex2html_verbatim_mark>#math6585#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34475#</SPAN>
+<tex2html_verbatim_mark>mathend000# STRING  il </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1850<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+6 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> ss <tex2html_verbatim_mark>#math6586#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34477#</SPAN>
+<tex2html_verbatim_mark>mathend000# s  ';'  ss  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1851<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+7 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> ss <tex2html_verbatim_mark>#math6587#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34479#</SPAN>
+<tex2html_verbatim_mark>mathend000# s          </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1852<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+8 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> s  <tex2html_verbatim_mark>#math6588#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34481#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID '=' e    </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1853<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+9 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> s  <tex2html_verbatim_mark>#math6589#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34483#</SPAN>
+<tex2html_verbatim_mark>mathend000# P  e       </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1854<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+10 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> e <tex2html_verbatim_mark>#math6590#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34485#</SPAN>
+<tex2html_verbatim_mark>mathend000# e1 '+' t    </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1855<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+11 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> e <tex2html_verbatim_mark>#math6591#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34487#</SPAN>
+<tex2html_verbatim_mark>mathend000# e1 '-' t    </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1856<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+12 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> e <tex2html_verbatim_mark>#math6592#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34489#</SPAN>
+<tex2html_verbatim_mark>mathend000# t           </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1857<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+13 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> t <tex2html_verbatim_mark>#math6593#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34491#</SPAN>
+<tex2html_verbatim_mark>mathend000# t1 '*' f    </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1858<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+14 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> t <tex2html_verbatim_mark>#math6594#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34493#</SPAN>
+<tex2html_verbatim_mark>mathend000# t '/' f     </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1859<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+15 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> t <tex2html_verbatim_mark>#math6595#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34495#</SPAN>
+<tex2html_verbatim_mark>mathend000# f           </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1860<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+16 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> f <tex2html_verbatim_mark>#math6596#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34497#</SPAN>
+<tex2html_verbatim_mark>mathend000# '(' e ')'   </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1861<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+17 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> f <tex2html_verbatim_mark>#math6597#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34499#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID         </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1862<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+18 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> f <tex2html_verbatim_mark>#math6598#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34501#</SPAN>
+<tex2html_verbatim_mark>mathend000# NUM        </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1863<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+19 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> f <tex2html_verbatim_mark>#math6599#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34503#</SPAN>
+<tex2html_verbatim_mark>mathend000# STR        </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1864<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+20 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> il <tex2html_verbatim_mark>#math6600#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34505#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID ',' il  </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1865<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL">  
+
+21 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> il <tex2html_verbatim_mark>#math6601#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34507#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID         </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> <tex2html_verb_mark>1866<tex2html_verb_mark></SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+22 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL"> s <tex2html_verbatim_mark>#math6602#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34509#</SPAN>
+<tex2html_verbatim_mark>mathend000# </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  <tex2html_verb_mark>1867<tex2html_verb_mark></SMALL></TD>
+</TR>
+</TABLE><SMALL CLASS="SMALL"></SMALL>
+<BR>
+<BR>
+
+<P>
+Por razones de espacio hemos abreviado los nombres de las variables.
+El atributo <tex2html_verb_mark>1868<tex2html_verb_mark> (por <SPAN  CLASS="textbf">tree</SPAN>) es una referencia a un hash.
+La entrada <tex2html_verb_mark>1869<tex2html_verb_mark> contiene el número de la regla en juego.
+Hay una entrada por símbolo en la parte derecha. El atributo <tex2html_verb_mark>1870<tex2html_verb_mark> de 
+<tex2html_verb_mark>1871<tex2html_verb_mark> es la cadena asociada con el identificador. 
+El atributo <tex2html_verb_mark>1872<tex2html_verb_mark> de <tex2html_verb_mark>1873<tex2html_verb_mark> es el valor numérico asociado con el terminal.
+Se trata de, siguiendo la metodología explicada en la sección anterior,
+construir un analizador descendente predictivo recursivo que sea equivalente
+al esquema anterior. Elimine la recursión por la izquierda. Traslade las acciones a los
+lugares convenientes en el nuevo esquema e introduzca los atributos heredados que sean necesarios.
+Genere pruebas siguiendo la metodología 
+explicada en la sección <A HREF=<tex2html_cr_mark>#subsection:tests#11211><tex2html_cr_mark></A>. ¡Note que el árbol que debe producir 
+es el de la gramática inicial, ¡No el de la gramática transformada!
+
+<P>

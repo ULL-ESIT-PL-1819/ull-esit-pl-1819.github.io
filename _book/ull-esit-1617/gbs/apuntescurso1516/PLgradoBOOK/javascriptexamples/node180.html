@@ -1,0 +1,890 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Un Ejemplo Simple: Piedra, Papel, tijeras</TITLE>
+<META NAME="description" CONTENT="Un Ejemplo Simple: Piedra, Papel, tijeras">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node181.html">
+<LINK REL="previous" HREF="node179.html">
+<LINK REL="up" HREF="node163.html">
+<LINK REL="next" HREF="node181.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html5047"
+  HREF="node181.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5041"
+  HREF="node163.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5035"
+  HREF="node179.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5043"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5045"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5048"
+  HREF="node181.html">Middleware y la Clase</A>
+<B>Sup:</B> <A NAME="tex2html5042"
+  HREF="node163.html">Rack, un Webserver Ruby</A>
+<B> Ant:</B> <A NAME="tex2html5036"
+  HREF="node179.html">Rack::Static</A>
+<B> Con:</B> 
+<A NAME="tex2html5043"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html5045"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><UL>
+<LI><A NAME="tex2html5049"
+  HREF="node180.html#SECTION0121170010000000000000">El Objeto <TT>req</TT></A>
+<LI><A NAME="tex2html5050"
+  HREF="node180.html#SECTION0121170020000000000000">Rakefile</A>
+<LI><A NAME="tex2html5051"
+  HREF="node180.html#SECTION0121170030000000000000">Ejecuciones</A>
+<LI><A NAME="tex2html5052"
+  HREF="node180.html#SECTION0121170040000000000000">Véase También</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html5053"
+  HREF="node180.html#SECTION0121171000000000000000">Práctica: Rock, Paper, Scissors: Debugging</A>
+<LI><A NAME="tex2html5054"
+  HREF="node180.html#SECTION0121172000000000000000">Práctica: Añadir Template Haml a Rock, Paper, Scissors</A>
+<LI><A NAME="tex2html5055"
+  HREF="node180.html#SECTION0121173000000000000000">Práctica: Añada Hojas de Estilo a Piedra Papel Tijeras</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION0121170000000000000000">
+Un Ejemplo Simple: Piedra, Papel, tijeras</A>
+</H1>
+
+<P>
+<PRE>
+[~/rack/rack-rock-paper-scissors(simple)]$ cat -n rps.rb
+ 1  require 'rack/request'
+ 2  require 'rack/response'
+ 3  
+ 4  module RockPaperScissors
+ 5    class App 
+ 6  
+ 7      def initialize(app = nil)
+ 8        @app = app
+ 9        @content_type = :html
+10        @defeat = {'rock' =&gt; 'scissors', 'paper' =&gt; 'rock', 'scissors' =&gt; 'paper'}
+11        @throws = @defeat.keys
+12        @choose = @throws.map { |x| 
+13           %Q{ &lt;li&gt;&lt;a href="/?choice=#{x}"&gt;#{x}&lt;/a&gt;&lt;/li&gt; }
+14        }.join("\n")
+15        @choose = "&lt;p&gt;\n&lt;ul&gt;\n#{@choose}\n&lt;/ul&gt;"
+16      end
+17  
+18      def call(env)
+19        req = Rack::Request.new(env)
+20  
+21        req.env.keys.sort.each { |x| puts "#{x} =&gt; #{req.env[x]}" }
+22  
+23        computer_throw = @throws.sample
+24        player_throw = req.GET["choice"]
+25        anwser = if !@throws.include?(player_throw)
+26            "Choose one of the following:"
+27          elsif player_throw == computer_throw
+28            "You tied with the computer"
+29          elsif computer_throw == @defeat[player_throw]
+30            "Nicely done; #{player_throw} beats #{computer_throw}"
+31          else
+32            "Ouch; #{computer_throw} beats #{player_throw}. Better luck next time!"
+33          end
+34  
+35        res = Rack::Response.new
+36        res.write &lt;&lt;-"EOS"
+37        &lt;html&gt;
+38          &lt;title&gt;rps&lt;/title&gt;
+39          &lt;body&gt;
+40            &lt;h1&gt;
+41               #{anwser}
+42               #{@choose}
+43            &lt;/h1&gt;
+44          &lt;/body&gt;
+45        &lt;/html&gt;
+46        EOS
+47        res.finish
+48      end # call
+49    end   # App
+50  end     # RockPaperScissors
+51  
+52  if $0 == __FILE__
+53    require 'rack'
+54    require 'rack/showexceptions'
+55    Rack::Server.start(
+56      :app =&gt; Rack::ShowExceptions.new(
+57                Rack::Lint.new(
+58                  RockPaperScissors::App.new)), 
+59      :Port =&gt; 9292,
+60      :server =&gt; 'thin'
+61    )
+62  end
+</PRE>
+<H4><A NAME="SECTION0121170010000000000000">
+El Objeto <TT>req</TT></A>
+</H4>
+  
+
+El objeto <code>req</code> pertenece a la clase <code>Rack::Request</code>. Tiene 
+un único atributo <code>env</code>:
+
+<P>
+<PRE>
+(rdb:1)  req
+#&lt;Rack::Request:0x007f8d735b1410 
+@env={
+"SERVER_SOFTWARE"=&gt;"thin 1.5.1 codename Straight Razor", 
+"SERVER_NAME"=&gt;"0.0.0.0", 
+"rack.input"=&gt;#&lt;Rack::Lint::InputWrapper:0x007f8d735776c0 
+                @input=#&lt;StringIO:0x007f8d735426a0&gt;&gt;, "rack.version"=&gt;[1, 0], 
+                "rack.errors"=&gt;#&lt;Rack::Lint::ErrorWrapper:0x007f8d73577620 @error=#&lt;IO:&lt;STDERR&gt;&gt;
+              &gt;, 
+"rack.multithread"=&gt;false, 
+"rack.multiprocess"=&gt;false, 
+"rack.run_once"=&gt;false, 
+"REQUEST_METHOD"=&gt;"GET", 
+"REQUEST_PATH"=&gt;"/", 
+"PATH_INFO"=&gt;"/", 
+"REQUEST_URI"=&gt;"/", 
+"HTTP_VERSION"=&gt;"HTTP/1.1", 
+"HTTP_HOST"=&gt;"0.0.0.0:9292", 
+"HTTP_CONNECTION"=&gt;"keep-alive", 
+"HTTP_ACCEPT"=&gt;"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", 
+"HTTP_USER_AGENT"=&gt;"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36", 
+"HTTP_ACCEPT_ENCODING"=&gt;"gzip,deflate,sdch", 
+"HTTP_ACCEPT_LANGUAGE"=&gt;"es-ES,es;q=0.8", 
+"GATEWAY_INTERFACE"=&gt;"CGI/1.2", 
+"SERVER_PORT"=&gt;"9292", 
+"QUERY_STRING"=&gt;"", 
+"SERVER_PROTOCOL"=&gt;"HTTP/1.1", 
+"rack.url_scheme"=&gt;"http", 
+"SCRIPT_NAME"=&gt;"", 
+"REMOTE_ADDR"=&gt;"127.0.0.1", 
+"async.callback"=&gt;#&lt;Method: Thin::Connection#post_process&gt;, 
+"async.close"=&gt;#&lt;EventMachine::DefaultDeferrable:0x007f8d735603f8&gt;}&gt;
+</PRE>
+Cuando llamamos a <code>GET</code> para obtener el valor del parámetro <code>choice</code>:
+<PRE>
+player_throw = req.GET["choice"]
+</PRE>
+Si visitamos la página <code>http://0.0.0.0:9292/</code> el entorno contiene algo como esto:
+<PRE>
+rdb:1) p @env
+{"SERVER_SOFTWARE"=&gt;"thin 1.5.1 codename Straight Razor",
+ ...
+ "QUERY_STRING"=&gt;"",
+ "REQUEST_URI"=&gt;"/"
+ ...
+}
+</PRE>
+el código de <code>GET</code> nos da los datos almacenados en <code>QUERY_STRING</code>:
+<PRE>
+   def GET 
+      if @env["rack.request.query_string"] == query_string
+        @env["rack.request.query_hash"]
+      else
+        @env["rack.request.query_string"] = query_string
+        @env["rack.request.query_hash"]   = parse_query(query_string)
+      end 
+    end 
+
+   def query_string;    @env["QUERY_STRING"].to_s                end
+</PRE>
+si es la primera vez, <code>@env["rack.request.query_string"]</code> está a 
+<code>nil</code> y se ejecuta el <code>else</code> inicializando <code>@env["rack.request.query_string"]</code>
+y <code>@env["rack.request.query_hash"]</code>
+
+<P>
+Si por ejemplo visitamos la URL:
+<code>http://localhost:9292?choice=rock</code>
+entonces <code>env</code> contendrá:
+<PRE>
+rdb:1) p env
+{ ... 
+  "QUERY_STRING"=&gt;"choice=rock", 
+  "REQUEST_URI"=&gt;"/?choice=rock", 
+  ...
+}
+</PRE>
+Familiaricemonos con algunos de los métodos de <code>Rack::Request</code>:
+<PRE>
+(rdb:1) req.GET
+{"choice"=&gt;"paper"}
+(rdb:1)  req.GET["choice"]
+"paper"
+(rdb:1) req.POST
+{}
+(rdb:1) req.params
+{"choice"=&gt;"paper"}
+(rdb:1) req["choice"]
+"paper"
+(rdb:1) req[:choice]
+"paper"
+(rdb:1) req.cookies()
+{}
+(rdb:1) req.get?
+true
+(rdb:1) req.post?
+false
+(rdb:1) req.fullpath
+"/?choice=paper"
+(rdb:1) req.host
+"0.0.0.0"
+(rdb:1) req.host_with_port
+"0.0.0.0:9292"
+(rdb:1) req.body
+#&lt;Rack::Lint::InputWrapper:0x007f8d7369b5d8 @input=#&lt;StringIO:0x007f8d73690318&gt;&gt;
+(rdb:1) req.cookies()
+{}
+(rdb:1) req.get?
+true
+(rdb:1) req.post?
+false
+(rdb:1) req.fullpath
+"/?choice=paper"
+(rdb:1) req.host
+"0.0.0.0"
+(rdb:1) req.host_with_port
+"0.0.0.0:9292"
+(rdb:1) req.ip
+"127.0.0.1"
+(rdb:1) req.params
+{"choice"=&gt;"paper"}
+(rdb:1) req.path
+"/"
+(rdb:1) req.path_info
+"/"
+(rdb:1) req.port
+9292
+(rdb:1) req.request_method
+"GET"
+(rdb:1) req.scheme
+"http"
+(rdb:1) req.url
+"http://0.0.0.0:9292/?choice=paper"
+(rdb:1) req.user_agent
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) 
+Chrome/29.0.1547.76 Safari/537.36"
+(rdb:1) req.values_at("choice")
+["paper"]
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0121170020000000000000">
+Rakefile</A>
+</H4>
+  
+
+<P>
+<PRE>
+[~/rack/rack-rock-paper-scissors(simple)]$ cat Rakefile 
+desc "run the server"
+task :default do
+  sh "ruby rps.rb"
+end
+
+desc "run the client with rock"
+task :rock do
+  sh %q{curl -v 'http://localhost:9292?choice=rock'}
+end
+
+desc "run the client with paper"
+task :paper do
+  sh %q{curl -v 'http://localhost:9292?choice=paper'}
+end
+
+desc "run the client with scissors"
+task :scissors do
+  sh %q{curl -v 'http://localhost:9292?choice=scissors'}
+end
+</PRE>
+
+<P>
+
+<OL>
+<LI><A NAME="tex2html480"
+  HREF="http://en.wikipedia.org/wiki/CURL">curl</A>
+</LI>
+</OL>
+
+<P>
+
+<H4><A NAME="SECTION0121170030000000000000">
+Ejecuciones</A>
+</H4>
+  
+
+<PRE>
+[~/rack/rack-rock-paper-scissors(simple)]$ rake
+ruby rps.rb
+&gt;&gt; Thin web server (v1.5.1 codename Straight Razor)
+&gt;&gt; Maximum connections set to 1024
+&gt;&gt; Listening on 0.0.0.0:9292, CTRL+C to stop
+</PRE>
+
+<P>
+<PRE>
+[~/rack/rack-rock-paper-scissors(simple)]$ rake rock
+curl -v 'http://localhost:9292?choice=rock'
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+&gt; GET /?choice=rock HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+&gt; Host: localhost:9292
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 200 OK
+&lt; Content-Length: 332
+&lt; Connection: keep-alive
+&lt; Server: thin 1.5.1 codename Straight Razor
+&lt; 
+      &lt;html&gt;
+        &lt;title&gt;rps&lt;/title&gt;
+        &lt;body&gt;
+          &lt;h1&gt;
+             Nicely done; rock beats scissors
+             &lt;p&gt;
+&lt;ul&gt;
+ &lt;li&gt;&lt;a href="/?choice=rock"&gt;rock&lt;/a&gt;&lt;/li&gt; 
+ &lt;li&gt;&lt;a href="/?choice=paper"&gt;paper&lt;/a&gt;&lt;/li&gt; 
+ &lt;li&gt;&lt;a href="/?choice=scissors"&gt;scissors&lt;/a&gt;&lt;/li&gt; 
+&lt;/ul&gt;
+          &lt;/h1&gt;
+        &lt;/body&gt;
+      &lt;/html&gt;
+* Connection #0 to host localhost left intact
+* Closing connection #0
+</PRE>
+
+<P>
+<PRE>
+[~/rack/rack-rock-paper-scissors(simple)]$ rake
+ruby rps.rb
+&gt;&gt; Thin web server (v1.5.1 codename Straight Razor)
+&gt;&gt; Maximum connections set to 1024
+&gt;&gt; Listening on 0.0.0.0:9292, CTRL+C to stop
+GATEWAY_INTERFACE =&gt; CGI/1.2
+HTTP_ACCEPT =&gt; */*
+HTTP_HOST =&gt; localhost:9292
+HTTP_USER_AGENT =&gt; curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+HTTP_VERSION =&gt; HTTP/1.1
+PATH_INFO =&gt; /
+QUERY_STRING =&gt; choice=rock
+REMOTE_ADDR =&gt; 127.0.0.1
+REQUEST_METHOD =&gt; GET
+REQUEST_PATH =&gt; /
+REQUEST_URI =&gt; /?choice=rock
+SCRIPT_NAME =&gt; 
+SERVER_NAME =&gt; localhost
+SERVER_PORT =&gt; 9292
+SERVER_PROTOCOL =&gt; HTTP/1.1
+SERVER_SOFTWARE =&gt; thin 1.5.1 codename Straight Razor
+async.callback =&gt; #&lt;Method: Thin::Connection#post_process&gt;
+async.close =&gt; #&lt;EventMachine::DefaultDeferrable:0x007ff4e2bf8e78&gt;
+rack.errors =&gt; #&lt;Rack::Lint::ErrorWrapper:0x007ff4e2c04b88&gt;
+rack.input =&gt; #&lt;Rack::Lint::InputWrapper:0x007ff4e2c04c00&gt;
+rack.multiprocess =&gt; false
+rack.multithread =&gt; false
+rack.run_once =&gt; false
+rack.url_scheme =&gt; http
+rack.version =&gt; [1, 0]
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0121170040000000000000">
+Véase También</A>
+</H4>
+  
+
+<P>
+Véase la documentación de las siguientes clases:
+
+<OL>
+<LI><A NAME="tex2html481"
+  HREF="http://rack.rubyforge.org/doc/Rack/Request.html">Rack::Request</A>
+</LI>
+<LI><A NAME="tex2html482"
+  HREF="http://rack.rubyforge.org/doc/Rack/Response.html">Rack::Response</A>
+</LI>
+<LI><A NAME="tex2html483"
+  HREF="http://rack.rubyforge.org/doc/Rack/Server.html">Rack::Server</A>
+</LI>
+<LI><A NAME="tex2html484"
+  HREF="http://rack.rubyforge.org/doc/Rack/ShowExceptions.html">Rack::ShowExceptions</A>
+</LI>
+<LI><A NAME="tex2html485"
+  HREF="http://rack.rubyforge.org/doc/Rack/Lint.html">Rack::Lint</A>
+</LI>
+</OL>
+
+<P>
+
+<H2><A NAME="SECTION0121171000000000000000"></A>
+   <A NAME="12497"></A>
+<BR>
+Práctica: Rock, Paper, Scissors: Debugging
+</H2>
+  
+Implemente el ejemplo anterior Rock, Paper, Scissors y ejecútelo con 
+un depurador.
+Lea la sección <I>Depurando una Ejecución con Ruby</I> <A HREF="node246.html#section:depuracionsinatra">52.1</A>.
+
+<P>
+Instale la gema <code>debugger</code>.
+Llame al método <code>debugger</code> en el punto en el que quiere detener la ejecución para inspeccionar el estado del programa.
+Arranque el servidor y en el navegador visite la página.
+
+<P>
+
+<H2><A NAME="SECTION0121172000000000000000"></A>
+   <A NAME="12499"></A>
+  
+<A NAME="practica:rackandhaml"></A>
+<BR>
+Práctica: Añadir Template Haml a Rock, Paper, Scissors
+</H2>
+
+<P>
+Use 
+<A NAME="tex2html486"
+  HREF="http://haml.info/">Haml</A>
+para crear un template <code>index.haml</code> en un directorio <code>views</code>.
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-rock-paper-scissors(template)]$ tree
+.
+|--- README
+|--- Rakefile
+|--- rps.rb
+`--- views
+    `--- index.haml
+</PRE>
+El template puede ser usado así:
+<PRE>
+require 'rack/request'
+require 'rack/response'
+require 'haml'
+
+module RockPaperScissors
+  class App 
+     ...
+
+    def call(env)
+      ...
+      engine = Haml::Engine.new File.open("views/index.haml").read
+      res = Rack::Response.new 
+      res.write engine.render({}, 
+        :answer =&gt; answer, 
+        :choose =&gt; @choose,
+        :throws =&gt; @throws)
+      res.finish
+    end # call
+  end   # App
+end     # RockPaperScissors
+</PRE>
+
+<P>
+Véase:
+
+<P>
+
+<OL>
+<LI><A NAME="tex2html487"
+  HREF="http://haml.info/docs/yardoc/Haml/Engine.html">Haml::Engine</A>
+</LI>
+</OL>
+
+<P>
+La sintáxis del método <code>render</code> es:
+<PRE>
+  (String) render(scope = Object.new, locals = {})
+</PRE>
+También se puede usar como <code>to_html</code>.
+Procesa el template y retorna el resultado como una cadena.
+
+<P>
+El parámetro <code>scope</code> es el contexto en el cual se evalúa el template.
+
+<P>
+Si es un objeto <A NAME="tex2html488"
+  HREF="http://ruby-doc.org/core-2.0.0/Binding.html"><TT>Binding</TT></A> <A NAME="tex2html489"
+  HREF="http://haml.info/docs.html"><TT>haml</TT> </A> lo usa como segundo 
+argumento de 
+<code>Kernel#eval</code> (Véase la sección <I>Bindings (encarpetados) y eval</I> en 
+<A HREF="#subsection:bindings"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>)
+en otro caso, <A NAME="tex2html490"
+  HREF="http://haml.info/docs.html"><TT>haml</TT> </A> utiliza 
+<code>#instance_eval</code>.
+
+<P>
+Nótese que Haml modifica el contexto de la evaluación (bien el objeto ámbito 
+o el objeto <code>self</code> del ámbito del binding).
+Se extiende <A NAME="tex2html491"
+  HREF="http://haml.info/docs/yardoc/Haml/Helpers.html"><TT>Haml::Helpers</TT> </A> y se establecen diversas variables de instancia
+(todas ellas prefijadas con <code>haml_</code>).
+
+<P>
+Por ejemplo:
+
+<P>
+<PRE>
+s = "foobar"
+Haml::Engine.new("%p= upcase").render(s)
+</PRE>
+produce:
+<PRE>
+"&lt;p&gt;FOOBAR&lt;/p&gt;"
+</PRE>
+
+<P>
+Ahora <code>s</code> extiende <A NAME="tex2html492"
+  HREF="http://haml.info/docs/yardoc/Haml/Helpers.html"><TT>Haml::Helpers</TT> </A>:
+<PRE>
+s.respond_to?(:html_attrs) #=&gt; true
+</PRE>
+
+<P>
+<A NAME="tex2html493"
+  HREF="http://haml.info/docs/yardoc/Haml/Helpers.html"><TT>Haml::Helpers</TT> </A> contiene un conjunto de métodos/utilidades
+para facilitar distintas tareas.
+La idea de que estén disponibles en el contexto es para ayudarnos
+dentro del template.
+Por ejemplo el método
+<PRE>
+- (String) escape_once(text)
+</PRE>
+Escapa las entidades HTML 
+en el texto.
+
+<P>
+<code>locals</code> es un hash de variables locales que se deja disponible dentro 
+del template. Por ejemplo:
+
+<P>
+<PRE>
+Haml::Engine.new("%p= foo").render(Object.new, :foo =&gt; "Hello, world!") 
+</PRE>
+producirá:
+<PRE>
+"&lt;p&gt;Hello, world!&lt;/p&gt;"
+</PRE>
+
+<P>
+Si se pasa un bloque a <code>render</code> el bloque será ejecutado
+en aquellos puntos en los que se llama a <code>yield</code> desde el
+template.
+
+<P>
+Debido a algunas peculiaridades de Ruby, si el ámbito es un
+<A NAME="tex2html494"
+  HREF="http://ruby-doc.org/core-2.0.0/Binding.html"><TT>Binding</TT></A> y se proporciona también un bloque, el contexto de la evaluación
+puede no ser el que el usuario espera.
+
+<P>
+Parametros:
+
+<OL>
+<LI><code>scope (Binding, Proc, Object)</code> (por defecto: <code>Object.new</code>).
+El contexto en el que se evalúa el template
+
+<P>
+</LI>
+<LI><code>locals ({Symbol =&gt; Object})</code> (por defecto: <code>{}</code>).
+Variables locales que se dejan disponibles en el  template
+</LI>
+<LI><code>block (#to_proc)</code> 
+Un bloque que será llamado desde el template.
+
+<P>
+</LI>
+<LI>Retorna una <A NAME="tex2html495"
+  HREF="http://ruby-doc.org/core-2.0.0/String.html"><TT>String</TT></A> con el template renderizado
+</LI>
+</OL>
+
+<P>
+
+<H2><A NAME="SECTION0121173000000000000000"></A>
+   <A NAME="12525"></A>
+  
+<A NAME="practica:rpscss"></A>
+<BR>
+Práctica: Añada Hojas de Estilo a Piedra Papel Tijeras
+</H2>
+
+<P>
+Añada hojas de estilo a la práctica anterior (sección <A HREF="#practica:rackandhaml">43.17.2</A>).
+
+<P>
+
+<OL>
+<LI>Mostramos una posible estructura de ficheros  en la que se incluyen
+hojas de estilo usando <A NAME="tex2html496"
+  HREF="http://getbootstrap.com/getting-started/"><TT>bootstrap</TT> </A>:
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-rock-paper-scissors(bootstrap)]$ tree
+.
+|--- Gemfile
+|--- Gemfile.lock
+|--- README
+|--- Rakefile
+|--- TODO
+|--- config.ru
+|--- lib
+|   `--- rps.rb
+|--- public
+|   |--- css
+|   |   |--- bootstrap-responsive.css
+|   |   |--- bootstrap-responsive.min.css
+|   |   |--- bootstrap.css
+|   |   `-- bootstrap.min.css
+|   |--- img
+|   |   |--- glyphicons-halflings-white.png
+|   |   |--- glyphicons-halflings.png
+|   |   `-- programming-languages.jpg
+|   `-- js
+|       |--- bootstrap.js
+|       `--- bootstrap.min.js
+|--- rps.rb
+`-- views
+    `--- index.haml
+
+6 directories, 18 files
+</PRE>
+</LI>
+<LI>El middleware <A NAME="tex2html497"
+  HREF="http://rack.rubyforge.org/doc/Rack/Static.html">Rack::Static</A> intercepta las peticiones por ficheros
+estáticos (javascript, imágenes, hojas de estilo, etc.) 
+basandose en los prefijos de las urls pasadas en las opciones y
+los sirve utilizando un objeto <A NAME="tex2html498"
+  HREF="http://rack.rubyforge.org/doc/Rack/File.html">Rack::File</A>.
+Ejemplos:
+
+<P>
+<PRE>
+    use Rack::Static, :urls =&gt; ["/public"]
+</PRE>
+Servirá todas las peticiones que 
+comiencen por <code>/public</code> desde la carpeta <code>public</code>
+localizada en el directorio actual (esto
+es <code>public/*</code>).
+
+<P>
+En nuestro jerarquía pondremos en el programa <code>rps.rb</code>:
+<PRE>
+builder = Rack::Builder.new do
+  use Rack::Static, :urls =&gt; ['/public']
+  use Rack::ShowExceptions
+  use Rack::Lint
+
+  run RockPaperScissors::App.new
+end
+
+Rack::Handler::Thin.run builder
+</PRE>
+
+<P>
+y dentro del template <A NAME="tex2html499"
+  HREF="http://haml.info/docs.html"><TT>haml</TT> </A> nos referiremos por ejemplo al fichero javascript como
+
+<P>
+<PRE>
+      %script{:src =&gt; "/public/js/bootstrap.js"}
+</PRE>
+Otro ejemplo:
+<PRE>
+    use Rack::Static, :urls =&gt; ["/css", "/images"], :root =&gt; "public"
+</PRE>
+servirá las peticiones comenzando con <code>/css</code> o <code>/images</code>
+desde la carpeta <code>public</code> en el directorio actual
+(esto es 
+<code>public/css/*</code> y <code>public/images/*</code>)
+
+<P>
+</LI>
+<LI><A NAME="tex2html500"
+  HREF="https://github.com/rack/rack/blob/master/lib/rack/static.rb">Véase el código en GitHub</A>
+de 
+<A NAME="tex2html501"
+  HREF="http://rack.rubyforge.org/doc/Rack/Static.html">Rack::Static</A> 
+</LI>
+<LI>En el template <code>views/index.haml</code> deberá enlazar a las hojas de estilo:
+<PRE>
+!!!
+%html{:lang =&gt; "en"}
+  %head
+    %meta{:charset =&gt; "utf-8"}/
+    %title RPS 
+    %link{:href =&gt; "/public/css/bootstrap.css", :rel =&gt; "stylesheet"}
+     %link{:href =&gt; "/public/css/bootstrap.css", :rel =&gt; "stylesheet"}
+</PRE>
+y las imágenes como:
+<PRE>
+%img(src="/public/img/programming-languages.jpg" width="40%")
+</PRE>
+</LI>
+<LI><A NAME="tex2html502"
+  HREF="http://rack.rubyforge.org/doc/Rack/File.html">Rack::File</A> es un middleware que sirve los ficheros debajo del directorio
+dado, de acuerdo con el <code>path info</code> de la petición <A NAME="tex2html503"
+  HREF="http://rack.rubyforge.org/doc/">Rack</A>.
+por ejemplo, cuando  se usa
+<code>Rack::File.new("/etc")</code>
+podremos acceder al fichero <code>passwd</code> como
+<code>localhost:9292/passwd</code>.
+</LI>
+<LI><A NAME="tex2html504"
+  HREF="https://github.com/rack/rack/blob/master/lib/rack/file.rb">Vease el código en github</A>
+de <A NAME="tex2html505"
+  HREF="http://rack.rubyforge.org/doc/Rack/File.html">Rack::File</A>
+</LI>
+<LI>Para saber mas de Bootstrap véase la sección
+<A HREF="#chapter:bootstrap"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html5047"
+  HREF="node181.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5041"
+  HREF="node163.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5035"
+  HREF="node179.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5043"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5045"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5048"
+  HREF="node181.html">Middleware y la Clase</A>
+<B>Sup:</B> <A NAME="tex2html5042"
+  HREF="node163.html">Rack, un Webserver Ruby</A>
+<B> Ant:</B> <A NAME="tex2html5036"
+  HREF="node179.html">Rack::Static</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

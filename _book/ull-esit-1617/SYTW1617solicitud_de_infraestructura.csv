@@ -1,0 +1,69 @@
+Nombre del (de los) responsable(s) del curso/evento/asignatura
+
+Casiano Rodríguez León 
+
+Modelo de pool: 
+
+Máquinas 
+
+
+Nombre del curso/evento/asignatura
+
+SISTEMAS Y TECNOLOGÍAS WEB
+
+
+Siglas del curso/evento/asignatura 
+
+SYTW
+
+En caso de que sea una asignatura oficial, código de asignatura (disponible en http://e-guia.ull.es)
+
+139264512
+
+Fecha de comienzo del curso/evento/asignatura 
+
+15/09/2016
+
+Fecha de finalización del curso/evento/asignatura 
+
+30/01/2017
+
+Sistema operativo de base (especificando si se quiere uno “de paquete” o personalizado).
+
+Ubuntu
+
+Cuánta memoria RAM se requiere (en caso de duda, especificar para qué cometido se quieren las máquinas).
+
+
+4 GB
+(servidores web, aplicaciones web, desarrollo)
+
+Cuántas CPUs se requieren (en caso de duda, especificar para qué cometido se quieren las máquinas).
+
+1
+
+Cuántas máquinas del pool puede disponer un alumno como máximo (normalmente, con 1 es suficiente, aunque depende de cada caso).
+
+1 máquina
+
+
+Listado de alumnos que van a hacer uso del pool. Es necesario especificar al menos el NIU (aluXXXXXXXXXX).
+
+Nombre  Apellido(s) Dirección de correo 
+
+"AITOR" "BERNAL FALCÓN",alu0100830064@ull.edu.es
+"PABLO SEBASTIÁN" CABALLERO,alu0100812428@ull.edu.es
+"NOE LEOPOLDO" "CAMPOS DELGADO",alu0100622492@ull.edu.es
+"ALEXANDER" "COLE MORA",alu0100767421@ull.edu.es
+"MERQUIS JESÚS" "CRUZ VELOZ",alu0100536690@ull.edu.es
+"RAFAEL" "HERRERO ÁLVAREZ",alu0100812275@ull.edu.es
+"CONSTANZA POLETTE" "LEON BARITUSSIO",alu0100673647@ull.edu.es
+"RAUL" "MARTIN MORALES",alu0100769579@ull.edu.es
+"JOSHUA" "PÉREZ GARCÍA",alu0100818819@ull.edu.es
+"DANIEL" "RAMOS ACOSTA",alu0100843095@ull.edu.es
+"SAMUEL" "RAMOS BARROSO",alu0100815146@ull.edu.es
+"PEDRO MANUEL" "RAMOS RODRIGUEZ",alu0100505078@ull.edu.es
+"ERIC RAFAEL" "RAMOS SUAREZ",alu0100786330@ull.edu.es
+"BERKAN" "REYES HERNÁNDEZ",alu0100815733@ull.edu.es
+"JACOBO" "RODICIO GONZALEZ",alu0100836059@ull.edu.es
+"JOSUE" "TOLEDO CASTRO",alu0100763492@ull.edu.es

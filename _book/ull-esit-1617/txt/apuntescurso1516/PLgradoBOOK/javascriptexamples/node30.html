@@ -1,0 +1,378 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Análisis Descendente mediante Parsing Expresion Grammars en JavaScript</TITLE>
+<META NAME="description" CONTENT="Análisis Descendente mediante Parsing Expresion Grammars en JavaScript">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node43.html">
+<LINK REL="previous" HREF="node27.html">
+<LINK REL="up" HREF="node6.html">
+<LINK REL="next" HREF="node31.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html1535"
+  HREF="node31.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1529"
+  HREF="node6.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1523"
+  HREF="node29.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1531"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1533"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html1536"
+  HREF="node31.html">Introducción a los PEGs</A>
+<B>Sup:</B> <A NAME="tex2html1530"
+  HREF="node6.html">PARTE: APUNTES DE PROCESADORES</A>
+<B> Ant:</B> <A NAME="tex2html1524"
+  HREF="node29.html">Análisis Top Down Usando</A>
+<B> Con:</B> 
+<A NAME="tex2html1531"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html1533"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04400000000000000000">
+Análisis Descendente mediante Parsing Expresion Grammars en JavaScript</A>
+</H1>
+  <BR> <HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html1537"
+  HREF="node31.html">Introducción a los PEGs</A>
+<UL>
+<LI><A NAME="tex2html1538"
+  HREF="node31.html#SECTION04411000000000000000">Syntax</A>
+<LI><A NAME="tex2html1539"
+  HREF="node31.html#SECTION04412000000000000000">Semantics</A>
+<LI><A NAME="tex2html1540"
+  HREF="node31.html#SECTION04413000000000000000">Implementing parsers from parsing expression grammars</A>
+<LI><A NAME="tex2html1541"
+  HREF="node31.html#SECTION04414000000000000000">Lexical Analysis</A>
+<LI><A NAME="tex2html1542"
+  HREF="node31.html#SECTION04415000000000000000">Left recursion</A>
+<LI><A NAME="tex2html1543"
+  HREF="node31.html#SECTION04416000000000000000">Referencias y Documentación</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1544"
+  HREF="node32.html">PEGJS</A>
+<UL>
+<LI><A NAME="tex2html1545"
+  HREF="node32.html#SECTION04420010000000000000">What is</A>
+<LI><A NAME="tex2html1546"
+  HREF="node32.html#SECTION04420020000000000000">Installation</A>
+<LI><A NAME="tex2html1547"
+  HREF="node32.html#SECTION04420030000000000000">El compilador de línea de comandos</A>
+<LI><A NAME="tex2html1548"
+  HREF="node32.html#SECTION04420040000000000000">Using it</A>
+<LI><A NAME="tex2html1549"
+  HREF="node32.html#SECTION04420050000000000000">Opciones: allowedStartRules</A>
+<LI><A NAME="tex2html1550"
+  HREF="node32.html#SECTION04420060000000000000">Opciones: output</A>
+<LI><A NAME="tex2html1551"
+  HREF="node32.html#SECTION04420070000000000000">Opciones: plugin</A>
+<LI><A NAME="tex2html1552"
+  HREF="node32.html#SECTION04420080000000000000">PEGjs  Coffee Plugin </A>
+<LI><A NAME="tex2html1553"
+  HREF="node32.html#SECTION04420090000000000000">Instalación de pegjs-coffee-plugin</A>
+<LI><A NAME="tex2html1554"
+  HREF="node32.html#SECTION044200100000000000000">Ejemplo con Acciones Semánticas en Coffee</A>
+<LI><A NAME="tex2html1555"
+  HREF="node32.html#SECTION044200110000000000000">Véase También</A>
+<LI><A NAME="tex2html1556"
+  HREF="node32.html#SECTION044200120000000000000">cache</A>
+<LI><A NAME="tex2html1557"
+  HREF="node32.html#SECTION044200130000000000000">optimize</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1558"
+  HREF="node33.html">Un Ejemplo Sencillo</A>
+<UL>
+<LI><A NAME="tex2html1559"
+  HREF="node33.html#SECTION04430010000000000000">Donde</A>
+<LI><A NAME="tex2html1560"
+  HREF="node33.html#SECTION04430020000000000000">arithmetics.pegjs</A>
+<LI><A NAME="tex2html1561"
+  HREF="node33.html#SECTION04430030000000000000">main.js</A>
+<LI><A NAME="tex2html1562"
+  HREF="node33.html#SECTION04430040000000000000">Rakefile</A>
+<LI><A NAME="tex2html1563"
+  HREF="node33.html#SECTION04430050000000000000">Compilación</A>
+<LI><A NAME="tex2html1564"
+  HREF="node33.html#SECTION04431000000000000000">Asociación Incorrecta para la Resta y la División</A>
+<LI><A NAME="tex2html1565"
+  HREF="node33.html#SECTION04432000000000000000">Práctica: Eliminar Recursividad por la Izquierda</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1566"
+  HREF="node34.html">Sintáxis y Semántica de PEG.js</A>
+<UL>
+<LI><A NAME="tex2html1567"
+  HREF="node34.html#SECTION04440010000000000000">PEG Syntax</A>
+<LI><A NAME="tex2html1568"
+  HREF="node34.html#SECTION04440020000000000000">Rules Syntax</A>
+<LI><A NAME="tex2html1569"
+  HREF="node34.html#SECTION04440030000000000000">Initializers</A>
+<LI><A NAME="tex2html1570"
+  HREF="node34.html#SECTION04440040000000000000">Match Results</A>
+<LI><A NAME="tex2html1571"
+  HREF="node34.html#SECTION04440050000000000000">Parser Actions</A>
+<LI><A NAME="tex2html1572"
+  HREF="node34.html#SECTION04440060000000000000">Parsing Expression Types</A>
+<LI><A NAME="tex2html1573"
+  HREF="node34.html#SECTION04441000000000000000">La Gramática de PEG.js</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1574"
+  HREF="node35.html">Acciones Intermedias</A>
+<UL>
+<LI><A NAME="tex2html1575"
+  HREF="node35.html#SECTION04451000000000000000">Usando Predicados Semánticos</A>
+<LI><A NAME="tex2html1576"
+  HREF="node35.html#SECTION04452000000000000000">Usando Variable Sintáctica Intermedia</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1577"
+  HREF="node36.html">PegJS en los Browser</A>
+<UL>
+<LI><A NAME="tex2html1578"
+  HREF="node36.html#SECTION04460010000000000000">Donde</A>
+<LI><A NAME="tex2html1579"
+  HREF="node36.html#SECTION04460020000000000000">Versiones para Browser</A>
+<LI><A NAME="tex2html1580"
+  HREF="node36.html#SECTION04460030000000000000">La opción -e de pegjs</A>
+<LI><A NAME="tex2html1581"
+  HREF="node36.html#SECTION04460040000000000000">Compilación</A>
+<LI><A NAME="tex2html1582"
+  HREF="node36.html#SECTION04460050000000000000">calc.js</A>
+<LI><A NAME="tex2html1583"
+  HREF="node36.html#SECTION04460060000000000000">arithmetic.pegjs</A>
+<LI><A NAME="tex2html1584"
+  HREF="node36.html#SECTION04460070000000000000">calculator.html</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1585"
+  HREF="node37.html">Eliminación de la Recursividad por la Izquierda en PEGs</A>
+<UL>
+<LI><A NAME="tex2html1586"
+  HREF="node37.html#SECTION04471000000000000000">Eliminación Usando Operadores de Repetición</A>
+<UL>
+<LI><A NAME="tex2html1587"
+  HREF="node37.html#SECTION04471010000000000000">Donde</A>
+<LI><A NAME="tex2html1588"
+  HREF="node37.html#SECTION04471020000000000000">Un Esquema de Traducción Recursivo por la Izquierda</A>
+<LI><A NAME="tex2html1589"
+  HREF="node37.html#SECTION04471030000000000000">Métodología</A>
+<LI><A NAME="tex2html1590"
+  HREF="node37.html#SECTION04471040000000000000">Solución</A>
+</UL>
+<LI><A NAME="tex2html1591"
+  HREF="node37.html#SECTION04472000000000000000">Eliminado la Recursividad por la Izquierda en la Calculadora Usando Operadores de Repetición</A>
+<LI><A NAME="tex2html1592"
+  HREF="node37.html#SECTION04473000000000000000">Eliminación Usando Predicados Semánticos: Sólo Sintáxis</A>
+<LI><A NAME="tex2html1593"
+  HREF="node37.html#SECTION04474000000000000000">Eliminación de la Recursión por la Izquierda Incluyendo la Semántica</A>
+<LI><A NAME="tex2html1594"
+  HREF="node37.html#SECTION04475000000000000000">Atributos Heredados y PEGJS</A>
+<LI><A NAME="tex2html1595"
+  HREF="node37.html#SECTION04476000000000000000">Eliminado la Recursividad por la Izquierda en la Calculadora Usando Predicados Semánticos</A>
+<UL>
+<LI><A NAME="tex2html1596"
+  HREF="node37.html#SECTION04476010000000000000">Encapsulando la Solución</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html1597"
+  HREF="node38.html">Reconocimiento de Lenguajes con PEGjs</A>
+<UL>
+<LI><A NAME="tex2html1598"
+  HREF="node38.html#SECTION04481000000000000000">PEGs versus Gramáticas</A>
+<LI><A NAME="tex2html1599"
+  HREF="node38.html#SECTION04482000000000000000"><FONT COLOR="#ff0000"> Dangling else</FONT>: Asociando un else con su if mas cercano</A>
+<UL>
+<LI><A NAME="tex2html1600"
+  HREF="node38.html#SECTION04482010000000000000">danglingelse.pegjs</A>
+<LI><A NAME="tex2html1601"
+  HREF="node38.html#SECTION04482020000000000000">use_danglingelse.js</A>
+<LI><A NAME="tex2html1602"
+  HREF="node38.html#SECTION04482030000000000000">Ejecución</A>
+<LI><A NAME="tex2html1603"
+  HREF="node38.html#SECTION04482040000000000000">Donde</A>
+<LI><A NAME="tex2html1604"
+  HREF="node38.html#SECTION04482050000000000000">Invirtiendo el orden de las Alternativas</A>
+</UL>
+<LI><A NAME="tex2html1605"
+  HREF="node38.html#SECTION04483000000000000000">Not Predicate: Comentarios Anidados</A>
+<UL>
+<LI><A NAME="tex2html1606"
+  HREF="node38.html#SECTION04483010000000000000">Pascal_comments.pegjs</A>
+<LI><A NAME="tex2html1607"
+  HREF="node38.html#SECTION04483020000000000000">use_pascal_comments.js</A>
+<LI><A NAME="tex2html1608"
+  HREF="node38.html#SECTION04483030000000000000">Ejecución</A>
+<LI><A NAME="tex2html1609"
+  HREF="node38.html#SECTION04483040000000000000">Donde</A>
+</UL>
+<LI><A NAME="tex2html1610"
+  HREF="node38.html#SECTION04484000000000000000">Un Lenguaje Dependiente del Contexto</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1611"
+  HREF="node39.html">Práctica: Analizador de PL0 Usando PEG.js</A>
+<LI><A NAME="tex2html1612"
+  HREF="node40.html">Práctica: Analizador de PL0 Ampliado Usando PEG.js</A>
+<UL>
+<LI><A NAME="tex2html1613"
+  HREF="node40.html#SECTION044100010000000000000">Donde</A>
+<LI><A NAME="tex2html1614"
+  HREF="node40.html#SECTION044100020000000000000">Tareas</A>
+<LI><A NAME="tex2html1615"
+  HREF="node40.html#SECTION044100030000000000000">Referencias para esta Práctica</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1616"
+  HREF="node41.html">Práctica: Ambiguedad en C++</A>
+<LI><A NAME="tex2html1617"
+  HREF="node42.html">Práctica: Inventando un Lenguaje: Tortoise</A>
+<UL>
+<LI><A NAME="tex2html1618"
+  HREF="node42.html#SECTION044120010000000000000">Recursos</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html1535"
+  HREF="node31.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1529"
+  HREF="node6.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1523"
+  HREF="node29.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1531"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1533"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html1536"
+  HREF="node31.html">Introducción a los PEGs</A>
+<B>Sup:</B> <A NAME="tex2html1530"
+  HREF="node6.html">PARTE: APUNTES DE PROCESADORES</A>
+<B> Ant:</B> <A NAME="tex2html1524"
+  HREF="node29.html">Análisis Top Down Usando</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-10-06</I>
+</ADDRESS>
+</BODY>
+</HTML>

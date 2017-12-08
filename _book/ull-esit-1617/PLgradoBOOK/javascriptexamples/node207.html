@@ -1,0 +1,162 @@
+
+<H1><A NAME="SECTION05940000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:mediareglayacc"><tex2html_anchor_mark></A><BR>
+Acciones en medio de una regla
+</H1>
+A veces necesitamos insertar una acción en medio de una regla.
+Una acción en medio de una regla puede hacer referencia a los atributos de
+los símbolos que la preceden (usando <tex2html_verb_mark>2956<tex2html_verb_mark>), pero no a los que le siguen.
+
+<P>
+Cuando se  inserta una acción <tex2html_verbatim_mark>#math7211#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38018#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+para su ejecución en medio de una regla <tex2html_verbatim_mark>#math7212#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38020#</SPAN>
+<tex2html_verbatim_mark>mathend000# :
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math7213#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38022#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+<tex2html_verb_mark>2957<tex2html_verb_mark> crea una variable sintáctica temporal <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38024#</SPAN>
+<tex2html_verbatim_mark>mathend000# e introduce una nueva regla:
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+<OL>
+<LI><tex2html_verbatim_mark>#math7214#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38026#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+</LI>
+<LI><tex2html_verbatim_mark>#math7215#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38028#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+</OL><DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+Las acciones en mitad de una regla cuentan como un símbolo mas en la parte 
+derecha de la regla. Asi pues, en una acción posterior en la regla,
+se deberán referenciar los  atributos de los símbolos, teniendo en cuenta este hecho.
+
+<P>
+Las acciones en mitad de la regla pueden tener un atributo. La acción en cuestión puede
+hacer referencia a ese atributo mediante <tex2html_verb_mark>2958<tex2html_verb_mark>, y las acciones posteriores
+en la regla se referirán a él como <tex2html_verb_mark>2959<tex2html_verb_mark>, siendo <tex2html_verb_mark>2960<tex2html_verb_mark> su número de orden
+en la parte derecha. Dado que no existe un símbolo explícito que identifique a 
+la acción, no hay manera de que el programador declare su tipo. Sin embargo, es
+posible utilizar la construcción <tex2html_verb_mark>2961<tex2html_verb_mark> para especificar 
+la forma en la que queremos manipular su atributo.
+
+<P>
+Na hay forma de darle, en una acción a media regla, un valor al atributo asociado con
+la variable en la izquierda de la regla de producción (ya que <tex2html_verb_mark>2962<tex2html_verb_mark> se refiere
+al atributo de la variable temporal utilizada para introducir la acción a media regla).
+
+<P>
+<P><DIV><#38030#><B>Programa  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#38030#> &nbsp; 
+<#38033#><I>El siguiente programa ilustra el uso de <tex2html_verb_mark>2964<tex2html_verb_mark> y de las
+acciones en medio de una regla.
+<A NAME="prog:media"><tex2html_anchor_mark></A></I><PRE><tex2html_verbatim_mark>verbatim6339#</PRE><I></I><#38033#></DIV><P></P>
+
+
+<P>
+<P><DIV><#38035#><B>Programa  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#38035#> &nbsp; 
+<#38038#><I>El analizador léxico utilizado es el siguiente:
+</I><PRE><tex2html_verbatim_mark>verbatim6340#</PRE><I></I><#38038#></DIV><P></P>
+
+
+<P>
+<P><DIV><#38040#><B>Ejemplo  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#38040#> &nbsp; 
+<#38043#><I>Considere el programa <tex2html_verb_mark>2965<tex2html_verb_mark> <A HREF=<tex2html_cr_mark>#prog:media#20355><tex2html_cr_mark></A>. ¿Cuál es la salida para la entrada 
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38045#</SPAN>
+<tex2html_verbatim_mark>mathend000#?
+</I>
+<P>
+<I>La gramática inicial se ve aumentada con dos nuevas variables sintácticas temporales
+y dos reglas <tex2html_verbatim_mark>#math7216#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38047#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verbatim_mark>#math7217#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38049#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Además las reglas
+correspondientes pasan a ser: <tex2html_verbatim_mark>#math7218#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38051#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verbatim_mark>#math7219#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38053#</SPAN>
+<tex2html_verbatim_mark>mathend000#. El análisis 
+de la entrada <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38055#</SPAN>
+<tex2html_verbatim_mark>mathend000# nos produce el siguiente árbol anotado:
+</I>
+<P>
+<I></I><#38043#></DIV><P></P>
+
+
+<P>
+<P><DIV><#38057#><B>Ejecución  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#38057#> &nbsp; 
+<#38060#><I>Observe la salida de la ejecución del programa <A HREF=<tex2html_cr_mark>#prog:media#20358><tex2html_cr_mark></A>.
+La variable ``temporal'' creada por <tex2html_verb_mark>2966<tex2html_verb_mark>  para la acción
+en medio de la regla
+</I>
+<DIV ALIGN="CENTER"><I><tex2html_verb_mark>2967<tex2html_verb_mark><tex2html_verbatim_mark>#math7220#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38062#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>2969<tex2html_verb_mark> 
+</I></DIV><I>
+se denota por <tex2html_verb_mark>2970<tex2html_verb_mark>. La asociada con la acción en medio de la regla
+</I>
+<DIV ALIGN="CENTER"><I><tex2html_verb_mark>2971<tex2html_verb_mark> <tex2html_verbatim_mark>#math7221#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38064#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>2972<tex2html_verb_mark> 
+</I></DIV><I>
+se denota <tex2html_verb_mark>2973<tex2html_verb_mark>.
+</I><PRE><tex2html_verbatim_mark>verbatim6341#</PRE><I></I><#38060#></DIV><P></P>
+
+
+<P>
+<P><DIV><A NAME="exa:conflicto"><#38066#><B>Ejemplo  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#38066#></A> &nbsp; 
+<#38069#><I>¿Que ocurre si en el programa <A HREF=<tex2html_cr_mark>#prog:media#20368><tex2html_cr_mark></A> adelantamos la acción intermedia  en la regla
+</I>
+<DIV ALIGN="CENTER"><I><tex2html_verb_mark>2974<tex2html_verb_mark> <tex2html_verbatim_mark>#math7222#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38071#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>2975<tex2html_verb_mark>
+</I></DIV><I>
+y la reescribimos 
+</I>
+<DIV ALIGN="CENTER"><I><tex2html_verb_mark>2976<tex2html_verb_mark> <tex2html_verbatim_mark>#math7223#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38073#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>2977<tex2html_verb_mark>?
+</I></DIV><I>
+</I>
+<P>
+<I></I><P><DIV><#38075#><B>Ejecución  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#38075#> &nbsp; 
+<#38078#><I>En tal caso obtendremos:
+</I><PRE><tex2html_verbatim_mark>verbatim6342#</PRE><I>
+¿Cuáles son esos 3 conflictos?</I><#38078#></DIV><P></P>
+<I>
+</I><P><DIV><#38080#><B>Listado  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#38080#> &nbsp; 
+<#38083#><I>El fichero <tex2html_verb_mark>2978<tex2html_verb_mark> comienza enumerando las reglas de 
+la gramática extendida:
+</I><PRE><tex2html_verbatim_mark>verbatim6343#</PRE><I>
+A continuación nos informa de un conflicto 
+en el estado 0. Ante el <SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2979<tex2html_verb_mark>
+no se sabe si se debe desplazar al estado 1
+o reducir por la regla 5: <tex2html_verb_mark>2980<tex2html_verb_mark>.
+</I><PRE><tex2html_verbatim_mark>verbatim6344#</PRE><I>
+Observe que, efectivamente, <tex2html_verb_mark>2981<tex2html_verb_mark> esta
+en la clausura del estado de arranque del NFA (<tex2html_verb_mark>2982<tex2html_verb_mark>)
+Esto es asi, ya que al estar el marcador junto a <tex2html_verb_mark>2983<tex2html_verb_mark>, estará el item
+ <tex2html_verb_mark>2984<tex2html_verb_mark> y de aqui que también este
+<tex2html_verb_mark>2985<tex2html_verb_mark>. 
+</I>
+<P>
+<I>Además el <SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2986<tex2html_verb_mark> está en 
+el conjunto <tex2html_verbatim_mark>#math7224#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38085#</SPAN>
+<tex2html_verbatim_mark>mathend000# (Basta con mirar la regla 6 para confirmarlo). 
+Por razones análogas también está en la clausura del estado de 
+arranque el item <tex2html_verb_mark>2988<tex2html_verb_mark> que es el que motiva el
+desplazamiento al estado 1.
+</I>
+<P>
+<I>La dificultad para <tex2html_verb_mark>2989<tex2html_verb_mark> se resolvería si
+dispusiera de información acerca de cual es el <SPAN  CLASS="textbf">token</SPAN>
+que viene después de la <tex2html_verb_mark>2990<tex2html_verb_mark> que causa el conflicto. </I><#38083#></DIV><P></P>
+<I></I><#38069#></DIV><P></P>
+
+
+<P>
+<P><DIV><#38087#><B>Ejercicio  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#38087#> &nbsp; 
+<#38090#><I>¿Que acción debe tomarse en el conflicto del ejemplo <A HREF=<tex2html_cr_mark>#exa:conflicto#20388><tex2html_cr_mark></A> 
+si el <SPAN  CLASS="textbf">token</SPAN> que viene después de <tex2html_verb_mark>2991<tex2html_verb_mark> es <tex2html_verb_mark>2992<tex2html_verb_mark>?
+¿Y si el <SPAN  CLASS="textbf">token</SPAN> es <tex2html_verb_mark>2993<tex2html_verb_mark>? ¿Se debe reducir o desplazar?</I><#38090#></DIV><P></P>
+
+
+<P>

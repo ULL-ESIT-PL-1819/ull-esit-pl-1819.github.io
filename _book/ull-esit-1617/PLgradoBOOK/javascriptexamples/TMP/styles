@@ -1,0 +1,19 @@
+book 11pt, a4paper, oneside, onecolumn,
+epsfig 
+latexsym 
+amsfonts 
+amssymb 
+amstext 
+amsthm 
+float 
+amsmath 
+dsfont 
+babel spanish
+ucs 
+inputenc utf8x
+alltt 
+html 
+makeidx 
+hyperref 
+xcolor usenames,dvipsnames
+listings 

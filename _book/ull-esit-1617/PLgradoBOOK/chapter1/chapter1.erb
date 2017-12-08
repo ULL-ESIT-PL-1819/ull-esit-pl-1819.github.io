@@ -1,0 +1,457 @@
+%% Never edit chapter1.tex!!. Edit chapter1.erb or changes may
+%% dissapear
+\chapter{Introducción}
+
+
+\chapter{Estructura Léxica}
+
+
+\chapter{Tipos, Valores y Variables}
+\input{chapter1/tipos_valores_y_variables.tex}
+
+\chapter{Expresiones y Operadores}
+
+\chapter{Sentencias}
+
+\chapter{Objetos}
+
+\section{Tutoriales de OOP en JavaScript en la Web}
+
+\begin{enumerate}
+\item
+\htmladdnormallink{The Basics of Object-Oriented JavaScript
+Leigh Kaszick on Nov 11th 2009}{http://net.tutsplus.com/tutorials/javascript-ajax/the-basics-of-object-oriented-javascript/} en NetTuts+
+\item 
+\htmladdnormallink{Understanding JavaScript OOP}{http://killdream.github.com/blog/2011/10/understanding-javascript-oop/} por Quildreen Motta.
+\item 
+\htmladdnormallink{Object.defineProperty(obj, prop, descriptor)}{https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/defineProperty}
+\item 
+\htmladdnormallink{What is the 'new' keyword in JavaScript?}{http://stackoverflow.com/questions/1646698/what-is-the-new-keyword-in-javascript}
+\item 
+\htmladdnormallink{Constructors considered mildly confusing}{http://joost.zeekat.nl/constructors-considered-mildly-confusing.html}
+\item
+\htmladdnormallink{Google I/O 2011: Learning to Love JavaScript}{http://youtu.be/seX7jYI96GE}
+por Alex Russell, Mayo 2011. ¡Excelente!
+\end{enumerate}
+
+\section{Ejercicios}
+
+\begin{enumerate}
+\item  ¿Cual es la salida?
+\begin{verbatim}
+> z
+{ x: 3, y: 1 }
+> Object.keys(z)
+?????
+> Object.keys(z).forEach(function(i) { console.log(i+" -> "+z[i]); })
+?????
+\end{verbatim}
+
+\item  ¿Que queda finalmente en \verb|z|?
+\begin{verbatim}
+> z
+{ x: 2, y: 1 }
+> Object.defineProperty(z, 'y', {writable : false})
+{ x: 2, y: 1 }
+> z.x = 3
+??????
+> z.y = 2
+??????
+> z
+
+\end{verbatim}
+
+\item  ¿Cuales son las salidas?
+\begin{verbatim}
+> obj = { x : 1, y : 2}
+{ x: 1, y: 2 }
+> bValue = 5
+5
+> Object.defineProperty(obj, "b", {get: function(){ return bValue; }, 
+                                   set: function(y){ bValue = y; }}) 
+{ x: 1, y: 2 }
+> obj.b = "hello"
+
+> bValue
+
+> obj.b
+
+> bValue = "world"
+
+> obj.b
+
+> 
+
+\end{verbatim}
+\item 
+¿Cuales son las salidas?
+\begin{verbatim}
+> var o = {};
+undefined
+> Object.defineProperty(o, "a", { value : 1, enumerable:true });
+{ a: 1 }
+> Object.defineProperty(o, "b", { value : 2, enumerable:false });
+{ a: 1 }
+> Object.defineProperty(o, "c", { value : 3 }); // enumerable defaults to false
+{ a: 1 }
+> o.d = 4; // enumerable defaults to true when creating a property by setting it
+4
+>  
+undefined
+> for (var i in o) {    
+...   console.log(i);  
+... }
+???????
+> Object.keys(o); 
+???????
+> o.propertyIsEnumerable('a'); 
+????
+> o.propertyIsEnumerable('b');
+????
+> o.propertyIsEnumerable('c');
+????
+> o.b
+????
+> o["b"]
+????
+\end{verbatim}
+\item 
+\begin{verbatim}
+> function foo(a, b){return a * b;}
+undefined
+> f = function foo(a, b){return a * b;}
+[Function: foo]
+> foo.length
+2
+> foo.constructor
+[Function: Function]
+> foo.prototype
+{}
+> typeof foo.prototype
+'object'
+> [1, 2].constructor
+[Function: Array]
+\end{verbatim}
+\item  ¿Cuales son las salidas? 
+\begin{verbatim}
+> Object.getPrototypeOf({ a: 1})
+
+> Object.getPrototypeOf([1,2,3])
+
+> Object.getPrototypeOf([1,2,3]) == Array.prototype
+
+> Object.getPrototypeOf({ a:1 }) === Object.prototype
+
+> Object.getPrototypeOf(Array.prototype)
+
+> Object.getPrototypeOf(Object.prototype)
+
+> Object.getPrototypeOf(function() {})
+
+> Object.getPrototypeOf(Object.getPrototypeOf(function() {}))
+
+> [1,2,3].__proto__
+
+> [1,2,3].__proto__ == Array.prototype
+
+
+\end{verbatim}
+\end{enumerate}
+
+\begin{figure}[htb]
+\begin{center}
+%% \includegraphics[scale=1.2]{chapter1/javascript_natives.png}
+\centerline{\epsfig{file=chapter1/javascript_natives.eps, width=12cm}}
+\end{center}
+\label{figure:javascriptnatives}
+\caption{Jerarquía de Prototipos Nativos}
+\end{figure}
+
+%% \begin{figure}[htb]
+%% \centerline{\epsfig{file=chapter1/javascript_natives.eps, height=14cm}}
+%% \caption{Jerarquía de Prototipos Nativos}
+%% \label{figure:javascriptnatives}
+%% \end{figure}
+
+\begin{verbatim}
+var b = new Foo(20);
+var c = new Foo(30);
+\end{verbatim}
+\begin{figure}[htb]
+\begin{center}
+%% \includegraphics[scale=1]{chapter1/proto_and_prototypes.png}
+\centerline{\epsfig{file=chapter1/proto_and_prototypes.eps, width=12cm}}
+\end{center}
+\label{figure:javascriptnatives}
+\caption{\_\_proto\_\_ and prototypes}
+\end{figure}
+
+\section{Comprobando Propiedades}
+
+\begin{verbatim}
+> o = { x: 1}
+{ x: 1 }
+> "x" in o
+true
+> "y" in o
+false
+> "toString" in o
+true
+> o.hasOwnProperty('x')
+true
+> o.hasOwnProperty('toString')
+false
+\end{verbatim}
+
+\section{Enumeración de Propiedades}
+
+\begin{verbatim}
+> o = { x: 1 }
+{ x: 1 }
+> b = Object.create(o)
+{}
+> b.y = 2
+2
+> b.propertyIsEnumerable('x')
+false
+> b.propertyIsEnumerable('y')
+true
+> Object.prototype.propertyIsEnumerable('toString')
+false
+> a = {x:1, y:2 }
+{ x: 1, y: 2 }
+> b = Object.create(a)
+{}
+> b.z = 3
+3
+> for(i in b) console.log(b[i])
+3
+1
+2
+undefined
+> for(i in b) console.log(i)
+z
+x
+y
+undefined
+> b.propertyIsEnumerable("toString")
+false
+\end{verbatim}
+
+\chapter{Arrays}
+
+\chapter{Funciones}
+\input{chapter_funciones/funciones.tex}
+
+\chapter{Clases y Módulos}
+Véase el libro {\it Learning JavaScript Design Pattern}
+\cite{osmani2012learning}
+
+\section{Herencia}
+
+\begin{verbatim}
+[~/Dropbox/src/javascript/inheritance]$ cat inh1.js 
+//Shape - superclass
+function Shape() {
+  this.x = 0;
+  this.y = 0;
+}
+ 
+Shape.prototype.toString = function() {
+  return "("+this.x+", "+this.y+")";
+}
+
+Shape.prototype.move = function(x, y) {
+    this.x += x;
+    this.y += y;
+    console.info("Shape moved to "+this);
+};
+ 
+// Rectangle - subclass
+function Rectangle() {
+  Shape.call(this); //call super constructor.
+}
+ 
+// Rectangle inherits from Shape
+Rectangle.prototype = Object.create(Shape.prototype);
+ 
+var rect = new Rectangle();
+ 
+console.log("x = "+rect);
+console.log("rect is an instance of Rectangle? "+(rect instanceof Rectangle)) //true.
+console.log("rect is an instance of Shape? "+(rect instanceof Shape))         //true.
+ 
+rect.move(1, 2); //Outputs, "Shape moved."
+\end{verbatim}
+
+\begin{verbatim}
+[~/Dropbox/src/javascript/inheritance]$ node inh1.js 
+x = (0, 0)
+rect is an instance of Rectangle? true
+rect is an instance of Shape? true
+Shape moved to (1, 2)
+
+\end{verbatim}
+
+\section{Ejercicios}
+\begin{enumerate}
+\item ¿Cual es la salida?
+\begin{verbatim}
+> String.prototype.repeat = function(times) {
+...   return new Array(times+1).join(this)
+... }
+[Function]
+>  
+undefined
+> "hello".repeat(3)
+
+> 
+\end{verbatim}
+
+\item  ¿Cuales son los resultados?
+\begin{verbatim}
+> z = Object.create({x:1, y:2})
+{}
+> z.x
+
+> z.y
+
+> z.__proto__
+
+> z.__proto__.__proto__
+
+> z.__proto__.__proto__.__proto__
+
+\end{verbatim}
+\item 
+Describa las salidas:
+\begin{verbatim}
+> obj = {x : 'something' }
+{ x: 'something' }
+> w = Object.create(obj)
+{}
+> w.x
+'something'
+> w.x = "another thing"
+'another thing'
+> w.__proto__
+
+> obj == w.__proto__
+
+\end{verbatim}
+\item 
+Explique la salida:
+\begin{verbatim}
+> obj = {x : { y : 1} }
+{ x: { y: 1 } }
+> w = Object.create(obj)
+{}
+> w.x == obj.x
+true
+> w.x.y = 2
+2
+> obj
+{ x: { y: 2 } }
+> 
+\end{verbatim}
+\item 
+Explique las salidas:
+\begin{verbatim}
+> inherit = Object.create
+[Function: create]
+> o = {}
+{}
+> o.x = 1
+1
+> p = inherit(o)
+{}
+> p.x
+1
+> p.y = 2
+2
+> p
+{ y: 2 }
+> o
+{ x: 1 }
+> o.y
+undefined
+> q = inherit(p)
+{}
+> q.z = 3
+3
+> q
+{ z: 3 }
+> s = q.toString()
+'[object Object]'
+> q.x+q.y+q.z
+6
+> o.x
+1
+> o.x = 4
+4
+> p.x
+4
+> q.x
+4
+> q.x = 5
+5
+> p.x
+4
+> o.x
+4
+\end{verbatim}
+\end{enumerate}
+
+
+\chapter{Subconjuntos y Extensiones de JavaScript}
+
+\chapter{JavaScript en el Lado del Servidor}
+\input{chapter_node/node.tex}
+
+\chapter{JavaScript en los Navegadores}
+
+\chapter{El Objeto Window}
+
+\chapter{Manejo de Documentos en JavaScript}
+
+
+\chapter{Manejo de Eventos}
+
+
+
+\chapter{La Librería JQuery}
+
+\chapter{Almacenamiento en el Cliente}
+
+\chapter{Multimedia y Gráficos}
+
+
+\chapter{Backbone}
+\begin{enumerate}
+\item 
+\htmladdnormallink{Developing Backbone.js Applications}{http://addyosmani.github.com/backbone-fundamentals/}
+\end{enumerate}
+
+\chapter{Closure Tools}
+\input{chapter_closure_tools/closure_tools.tex}
+
+\chapter{Semantic Templates}
+
+\section{Moustache}
+
+\begin{itemize}
+\item
+\htmladdnormallink{http://mustache.github.io/}{http://mustache.github.io/}
+\item
+\htmladdnormallink{Tutorial: HTML Templates with Mustache.js}{http://coenraets.org/blog/2011/12/tutorial-html-templates-with-mustache-js/}
+\end{itemize}
+
+\chapter{Pruebas}
+\input{chapter_pruebas/pruebas.tex}
+
+\chapter{Buenas Prácticas y Patrones}
+\input{chapter_buenas_practicas/buenas_practicas.tex}
+
+\chapter{Herramientas}
+\input{chapter11/herramientas.tex}
+

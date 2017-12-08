@@ -1,0 +1,16 @@
+
+<H1><A NAME="SECTION05290000000000000000">
+unput()</A>
+</H1>
+La funci&#243;n <SPAN  CLASS="textit">unput(c)</SPAN> coloca el car&#225;cter <SPAN  CLASS="textit">c</SPAN> en el flujo
+de entrada, de manera que ser&#225; el primer car&#225;cter le&#305;do en pr&#243;xima
+ocasi&#243;n.
+<PRE><tex2html_verbatim_mark>verbatim636#</PRE>
+Un problema importante con <SPAN  CLASS="textit">unput</SPAN> es que, cuando se utiliza la
+opci&#243;n <tex2html_verb_mark>284<tex2html_verb_mark>, las llamadas a <SPAN  CLASS="textit">unput</SPAN> destruyen los
+contenidos de <SPAN  CLASS="textit">yytext</SPAN>. Es por eso que, en el siguiente ejemplo se
+hace una copia de <SPAN  CLASS="textit">yytext</SPAN>. La otra alternativa es, por supuesto,
+usar la opci&#243;n <tex2html_verb_mark>286<tex2html_verb_mark>.
+<PRE><tex2html_verbatim_mark>verbatim637#</PRE>
+
+<P>

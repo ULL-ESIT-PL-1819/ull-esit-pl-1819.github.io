@@ -1,0 +1,1232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Pruebas</TITLE>
+<META NAME="description" CONTENT="Pruebas">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node98.html">
+<LINK REL="previous" HREF="node96.html">
+<LINK REL="up" HREF="node94.html">
+<LINK REL="next" HREF="node98.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html2917"
+  HREF="node98.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2911"
+  HREF="node94.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2905"
+  HREF="node96.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2913"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2915"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html2918"
+  HREF="node98.html">MongoDB</A>
+<B>Sup:</B> <A NAME="tex2html2912"
+  HREF="node94.html">CoffeeScript y Express</A>
+<B> Ant:</B> <A NAME="tex2html2906"
+  HREF="node96.html">Porting to Coffeescript</A>
+<B> Con:</B> 
+<A NAME="tex2html2913"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html2915"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><UL>
+<LI><A NAME="tex2html2919"
+  HREF="node97.html#SECTION06230010000000000000">Mocha, Chai y Expect: instalando las dependencias</A>
+<LI><A NAME="tex2html2920"
+  HREF="node97.html#SECTION06230020000000000000">Una Prueba Sencilla</A>
+<LI><A NAME="tex2html2921"
+  HREF="node97.html#SECTION06230030000000000000">¿Cómo lo vamos a hacer?</A>
+<LI><A NAME="tex2html2922"
+  HREF="node97.html#SECTION06230040000000000000">Should display index with posts: red</A>
+<LI><A NAME="tex2html2923"
+  HREF="node97.html#SECTION06230050000000000000">Should display index with posts: green</A>
+<LI><A NAME="tex2html2924"
+  HREF="node97.html#SECTION06230060000000000000">Expect vars posts equal empty array: red</A>
+<LI><A NAME="tex2html2925"
+  HREF="node97.html#SECTION06230070000000000000">Expect vars posts equal empty array: green</A>
+<LI><A NAME="tex2html2926"
+  HREF="node97.html#SECTION06230080000000000000">views/index.jade</A>
+<LI><A NAME="tex2html2927"
+  HREF="node97.html#SECTION06230090000000000000">views/layout.jade</A>
+<LI><A NAME="tex2html2928"
+  HREF="node97.html#SECTION062300100000000000000">Should display the add post page: red</A>
+<LI><A NAME="tex2html2929"
+  HREF="node97.html#SECTION062300110000000000000">Should display the add post page: (false) green</A>
+<LI><A NAME="tex2html2930"
+  HREF="node97.html#SECTION062300120000000000000">Mocha: done</A>
+<LI><A NAME="tex2html2931"
+  HREF="node97.html#SECTION062300130000000000000">Escribiendo newPost</A>
+<LI><A NAME="tex2html2932"
+  HREF="node97.html#SECTION062300140000000000000">views/add_post.jade</A>
+<LI><A NAME="tex2html2933"
+  HREF="node97.html#SECTION062300150000000000000">Should display the add post page: (true) green</A>
+<LI><A NAME="tex2html2934"
+  HREF="node97.html#SECTION062300160000000000000">Gulpfile</A>
+<LI><A NAME="tex2html2935"
+  HREF="node97.html#SECTION062300170000000000000">Guardando el Post</A>
+<LI><A NAME="tex2html2936"
+  HREF="node97.html#SECTION062300180000000000000">Viewing a Single Post</A>
+</UL></UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION06230000000000000000">
+Pruebas</A>
+</H1>
+
+<P>
+
+<H4><A NAME="SECTION06230010000000000000">
+Mocha, Chai y Expect: instalando las dependencias</A>
+</H4>
+  
+
+<PRE>
+[~/src/coffee/coffeepress(master)]$ npm install --save-dev mocha expect chai
+</PRE>
+
+<P>
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat package.json 
+{
+  "name": "coffeepress",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.10.2",
+    "cookie-parser": "~1.3.3",
+    "debug": "~2.1.1",
+    "express": "~4.11.1",
+    "jade": "~1.9.1",
+    "morgan": "~1.5.1",
+    "serve-favicon": "~2.2.0"
+  },
+  "devDependencies": {
+    "expect": "~1.6.0",
+    "chai": "~2.2.0",
+    "mocha": "~2.2.1"
+  }
+}
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION06230020000000000000">
+Una Prueba Sencilla</A>
+</H4>
+  
+
+Empecemos con una prueba sencilla.
+Creamos el directorio <code>test</code> para las pruebas:
+
+<P>
+<PRE>
+[~/src/coffee/coffeepress(master)]$ mkdir test
+</PRE>
+y creamos una primera prueba:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat test/example.coffee
+chai     = require 'chai'
+expect   = chai.expect
+
+describe "feature", -&gt;
+  it "should add two numbers", -&gt;
+    expect(2+2).to.equal(4)
+</PRE>
+para ejecutarla debemos hacer:
+<PRE>
+$ mocha --compilers coffee:coffee-script/register -R spec
+
+
+  feature
+    ok: should add two numbers 
+
+
+  1 passing (7ms)
+</PRE>
+
+<P>
+
+<UL>
+<LI><code>mocha</code> tiene una opción:
+<PRE>
+--compilers &lt;ext&gt;:&lt;module&gt;,...
+</PRE>
+Que indica que debemos usar el <code>module</code>(s) para compilar los ficheros
+con extensión <code>ext</code>.
+</LI>
+<LI><A NAME="tex2html419"
+  HREF="http://stackoverflow.com/questions/20049790/how-to-pass-compiler-options-to-mocha">How to pass compiler options to mocha?</A>:
+
+<P>
+
+<UL>
+<LI>Write a script which activates the compiler with your options, 
+then use mocha's <code>--require</code> option to activate your registration script.
+</LI>
+</UL>
+</LI>
+<LI>La opción <code>-R</code> o bien <code>--reporter</code> va seguida de un <code>&lt;name&gt;</code>
+y especifica el 
+<FONT COLOR="#ff0000"> reporter</FONT> a utilizar.
+</LI>
+<LI>This flag <code>-R</code> may also be used to utilize third-party reporters. For example if you 
+<code>npm install mocha-lcov-reporter</code> 
+you may then do <code>--reporter mocha-lcov-reporter</code>.
+</LI>
+<LI>La  opción <code>--reporters</code> nos da la lista de <code>reporters</code> que 
+podemos utilizar:
+<PRE>
+[~/javascript/expressjs/clase-express-coffee]$ mocha --reporters
+
+    dot - dot matrix
+    doc - html documentation
+    spec - hierarchical spec list
+    json - single json object
+    progress - progress bar
+    list - spec-style listing
+    tap - test-anything-protocol
+    landing - unicode landing strip
+    xunit - xunit reporter
+    html-cov - HTML test coverage
+    json-cov - JSON test coverage
+    min - minimal reporter (great with --watch)
+    json-stream - newline delimited json events
+    markdown - markdown documentation (github flavour)
+    nyan - nyan cat!
+</PRE>
+</LI>
+</UL>
+
+<P>
+Vamos ahora a hacer una prueba sobre nuestro código. 
+Nuestro objetivo es hacer que nuestra aplicación funcione como un pequeño blog.
+
+<P>
+
+<H4><A NAME="SECTION06230030000000000000">
+¿Cómo lo vamos a hacer?</A>
+</H4>
+  
+
+<P>
+Reescribiremos <code>routes/index.coffee</code> de manera que por cada ruta URL de la 
+aplicación el objeto <code>routes</code> exportado por <code>routes/index.coffee</code> disponga
+de un método que procesa esa ruta. Así:
+
+<UL>
+<LI>Así un <code>get</code> a la ruta <code>/</code> será procesada por el método <code>index</code>
+</LI>
+<LI>Un <code>get</code> a la ruta <code>/post/new</code> será procesada por un método <code>newPost</code>, 
+</LI>
+<LI>Un <code>post</code> a la ruta <code>/post/new</code> será procesada por un método <code>addPost</code>, 
+</LI>
+<LI>etc.
+</LI>
+</UL>
+Esta correspondencia entre métodos HHTP+rutas y métodos del objeto <code>routes</code> 
+se establece en 
+el cuerpo principal de la aplicación:
+<PRE>
+[~/javascript/expressjs/coffee-mongo(master)]$ sed -ne '3p' app.coffee 
+routes   = require "./routes"
+[~/javascript/expressjs/coffee-mongo(master)]$ sed -ne '24,27p' app.coffee 
+app.get "/", routes.index
+app.get "/post/new", routes.newPost
+app.post "/post/new", routes.addPost
+app.get "/post/:id", routes.viewPost
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION06230040000000000000">
+Should display index with posts: red</A>
+</H4>
+  
+
+Empezaremos describiendo como debe ser la ruta <code>index</code> del objeto
+<code>routes</code>.
+
+<P>
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat test/routes-test.coffee 
+chai     = require 'chai'
+expect   = chai.expect
+routes = require "../routes/index"
+
+describe "routes", -&gt;
+  req = {}
+  res = {}
+  describe "index", -&gt;
+    it "should display index with posts", -&gt;
+      res.render = (view, vars) -&gt;
+          expect(view).equal "index"
+          expect(vars.title).equal "My Coffeepress Blog"
+      routes.index(req, res)
+</PRE>
+
+<P>
+
+<UL>
+<LI>Here we fake our requests and response in order to capture what is
+passed into the response. 
+</LI>
+<LI>We fake the render method and verify that our
+rendered view is <code>index</code> and that the variable <code>title</code> 
+is equal to what we expect to be passed in. 
+</LI>
+<LI><A NAME="tex2html420"
+  HREF="http://expressjs.com/api.html#res">Response objects</A>
+have a method <code>res.render(view [, locals] [, callback])</code>
+which renders the file whose name is given by <code>view</code> and sends the rendered HTML string to the client. 
+
+<P>
+Optional parameters of <code>res.render</code>:
+  
+<UL>
+<LI><code>locals</code>, an object whose properties define local variables for the view.
+</LI>
+<LI><code>callback</code>, a callback function. 
+
+<P>
+If provided, the method returns both the possible error and rendered string, but does not perform an automated response. 
+
+<P>
+When an error occurs, the method invokes <code>next(err)</code> 
+  internally.
+<PRE>
+// if a callback is specified, the rendered HTML string has to be sent explicitly
+res.render('index', function(err, html) {
+  res.send(html);
+});
+</PRE>
+</LI>
+</UL>
+</LI>
+</UL>
+La ruta <code>index</code> que fué generada por Express contiene el siguiente código:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat routes/index.coffee 
+express = require('express')
+router = express.Router()
+
+### GET home page. ###
+
+router.get '/', (req, res, next) -&gt;
+  res.render 'index', title: 'Express'
+  return
+module.exports = router
+</PRE>
+como se ve, lo que estamos haciendo en la prueba es sobreescribir el método <code>render</code> 
+del objeto <code>res</code> por 
+un falso <code>render</code> que hace las dos pruebas:
+<PRE>
+routes = require "../routes/index"
+...
+      res.render = (view, vars) -&gt;
+          expect(view).equal "index"
+          expect(vars.title).equal "My Coffeepress Blog"
+      routes.index(req, res)
+</PRE>
+
+<P>
+Run the tests:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ mocha --compilers coffee:coffee-script/register -R spec
+
+
+  routes
+    index
+      1) should display index with posts
+
+
+  0 passing (7ms)
+  1 failing
+
+  1) routes index should display index with posts:
+     TypeError: Object function router(req, res, next) {
+    router.handle(req, res, next);
+  } has no method 'index'
+    at Context.&lt;anonymous&gt; (/Users/casiano/local/src/coffee/coffeepress/test/routes-test.coffee:13:14)
+    ...
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION06230050000000000000">
+Should display index with posts: green</A>
+</H4>
+  
+
+Se queja de que <code>routes = require "../routes/index"</code> no tiene un método <code>index</code>.
+Se lo añadimos:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat routes/index.coffee 
+express = require('express')
+
+module.exports = 
+  index: (req, res) -&gt;
+    res.render 'index', { title: 'My Coffeepress Blog' }
+</PRE>
+
+<P>
+Y ahora las pruebas pasan:
+
+<P>
+<PRE>
+[~/src/coffee/coffeepress(master)]$ mocha --compilers coffee:coffee-script/register -R spec
+
+  routes
+    index
+      ok: should display index with posts 
+
+  1 passing (6ms)
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION06230060000000000000">
+Expect vars posts equal empty array: red</A>
+</H4>
+  
+
+Now let’s add a post variable that will be an array of posts we’ll display on the front page. Add the following assertion 
+<PRE>
+          expect(vars.posts).eql []
+</PRE>
+
+<P>
+right after the title assertion:
+
+<P>
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat test/routes-test.coffee 
+chai     = require 'chai'
+expect   = chai.expect
+routes = require "../routes/index"
+
+describe "routes", -&gt;
+  req = {}
+  res = {}
+  describe "index", -&gt;
+    it "should display index with posts", -&gt;
+      res.render = (view, vars) -&gt;
+          expect(view).equal "index"
+          expect(vars.title).equal "My Coffeepress Blog"
+          expect(vars.posts).deep.equal []
+      routes.index(req, res)
+</PRE>
+Obsérvese  que hemos usado el método <code>deep</code>. También podríamos haber usado <code>eql</code> en vez
+de <code>.deep.equal</code>.
+
+<P>
+Now the tests fail:
+
+<P>
+<PRE>
+[~/src/coffee/coffeepress(master)]$ mocha --compilers coffee:coffee-script/register -R spec
+
+  routes
+    index
+      1) should display index with posts
+
+
+  0 passing (12ms)
+  1 failing
+
+  1) routes index should display index with posts:
+     AssertionError: expected undefined to deeply equal []
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION06230070000000000000">
+Expect vars posts equal empty array: green</A>
+</H4>
+  
+
+Let us change the route to have a <code>posts</code> 
+array variable available in the template.
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat routes/index.coffee 
+express = require('express')
+
+module.exports = 
+  index: (req, res) -&gt;
+    res.render 'index', 
+      title: 'My Coffeepress Blog' 
+      posts: []
+</PRE>
+and now the tests pass:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ mocha --compilers coffee:coffee-script/register -R spec
+
+  routes
+    index
+      ok: should display index with posts 
+
+  1 passing (12ms)
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION06230080000000000000">
+views/index.jade</A>
+</H4>
+  
+
+<P>
+Completemos la vista <code>index</code>:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat views/index.jade 
+extends layout
+block content
+  - each post in posts
+    .page-header
+      li
+        a(href="/post/#{post.id}")= post.title
+        .content!=post.body
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION06230090000000000000">
+views/layout.jade</A>
+</H4>
+  
+
+<P>
+Necesitamos un <code>layout</code>:
+<PRE>
+~/src/coffee/coffeepress(master)]$ cat views/layout.jade 
+doctype html
+html
+  head
+    title= title
+    //link(rel="stylesheet", href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+    //script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+    //script(src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
+    style(type="text/css")
+      #content { padding-top: 60px;}
+  body
+    .topbar-wrapper
+      .topbar
+        .topbar-inner
+          .container
+            h3: a(href="/") My Coffeepress Blog
+            ul.nav
+              li: a(href="/post/new") New Post
+              #content.container
+                block content
+</PRE>
+
+<UL>
+<LI>Jade supports template inheritance via the <code>block</code> and <code>extends</code> keywords. 
+<PRE>
+              ...
+              #content.container
+                block content
+</PRE>
+</LI>
+<LI>A <code>block</code> is simply a 
+<FONT COLOR="#0000ff"> block of Jade</FONT> 
+that may be replaced within a child
+template, this process is recursive.
+</LI>
+<LI><A NAME="tex2html421"
+  HREF="http://jade-lang.com/reference/inheritance/">Jade: Testing Inheritance</A>
+</LI>
+</UL>
+
+<P>
+
+<UL>
+<LI>The <code>extends</code> keyword allows a template to extend a layout or parent template. 
+
+<FONT COLOR="#ff0000"> It can then override certain pre-defined blocks of content</FONT>.
+</LI>
+<LI>Now to extend the <code>layout</code>, we simply create 
+the <code>index.jade</code>
+file and use the <code>extends</code> directive, giving the path 
+(with or without the <code>.jade</code> extension). 
+</LI>
+<LI>We then define  the block 
+<FONT COLOR="#ff0000"> content</FONT> using the 
+<code>block</code> declaration:
+<PRE>
+block content
+</PRE>
+</LI>
+<LI>In general, we can define
+one or more blocks that will
+override the parent block content
+</LI>
+<LI>Véase
+<A NAME="tex2html422"
+  HREF="http://jade-lang.com/reference/inheritance/">Jade: Testing Inheritance</A>
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION062300100000000000000">
+Should display the add post page: red</A>
+</H4>
+  
+
+Next let’s write tests for the 
+<FONT COLOR="#ff0000"> new post</FONT> route.
+
+<P>
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat -n test/routes-test.coffee 
+ 1  chai     = require 'chai'
+ 2  expect   = chai.expect
+ 3  routes = require "../routes/index"
+ 4  
+ 5  describe "routes", -&gt;
+ 6    req = {}
+ 7    res = {}
+ 8    describe "index", -&gt;
+ 9      it "should display index with posts", -&gt;
+..        ...
+15  
+16    describe "new post", -&gt;
+17      it "should display the add post page", -&gt;
+18        res.render = (view, vars) -&gt;
+19            expect(view).equal "add_post"
+20            expect(vars.title).equal "Write New Post"
+21      
+22        routes.newPost(req, res)
+</PRE>
+El test falla porque <code>routes</code> carece de un método <code>newPost</code>:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ mocha --compilers coffee:coffee-script/register -R spec test/routes-test.coffee 
+
+
+  routes
+    index
+      ok: should display index with posts 
+    new post
+      1) should display the add post page
+
+
+  1 passing (17ms)
+  1 failing
+
+  1) routes new post should display the add post page:
+     TypeError: Object #&lt;Object&gt; has no method 'newPost'
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION062300110000000000000">
+Should display the add post page: (false) green</A>
+</H4>
+  
+
+Añadamos un método <code>newPost</code> al código de la ruta:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat -n routes/index.coffee 
+     1  express = require('express')
+     2  
+     3  module.exports = 
+     4    index: (req, res) -&gt;
+     5      res.render 'index', 
+     6        title: 'My Coffeepress Blog' 
+     7        posts: []
+     8  
+     9    newPost: (req, res) -&gt;
+    10      # do nothing
+</PRE>
+¡Cuando ejecutamos las pruebas pasan!:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ mocha --compilers coffee:coffee-script/register -R spec test/routes-test.coffee 
+
+
+  routes
+    index
+      ok: should display index with posts 
+    new post
+      ok: should display the add post page 
+
+  2 passing (8ms)
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION062300120000000000000">
+Mocha: done</A>
+</H4>
+  
+
+<P>
+
+<FONT COLOR="#ff0000"> That’s not good</FONT>. 
+
+<P>
+Esto es así porque <code>res.render</code> nunca es llamado ya que 
+el cuerpo de <code>newPost</code> es vacío.
+
+<P>
+<PRE>
+18        res.render = (view, vars) -&gt;
+19            expect(view).equal "add_post"
+20            expect(vars.title).equal "Write New Post"
+21      
+22        routes.newPost(req, res)
+</PRE>
+
+<P>
+How can we make absolutely sure the test gets called during our test run? 
+
+<UL>
+<LI>Mocha has a feature that allows for easy testing in these situations. 
+</LI>
+<LI>In
+the method declaration of our test specify a parameter named <code>done</code>. 
+</LI>
+<LI>By adding <code>done</code> to the callback of <code>it()</code> 
+
+<FONT COLOR="#ff0000"> Mocha will know that it should wait for completion</FONT>.
+</LI>
+<LI>Mocha will wait until <code>done</code> is called or until some time limit is exceeded
+</LI>
+<LI><code>done</code>
+is a callback that we can call anywhere to indicate the test is
+done. 
+</LI>
+<LI>Basically the test will wait up to a default of 2000ms for it to
+be called. 
+</LI>
+</UL>
+With this in mind, let’s modify our tests with the following:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat test/routes-test.coffee 
+chai     = require 'chai'
+expect   = chai.expect
+routes = require "../routes/index"
+
+describe "routes", -&gt;
+  req = {}
+  res = {}
+  describe "index", -&gt;
+    it "should display index with posts", -&gt;
+      ...
+
+  describe "new post", -&gt;
+    it "should display the add post page", (done)-&gt;
+      res.render = (view, vars) -&gt;
+          expect(view).equal "add_post"
+          expect(vars.title).equal "Write New Post"
+          done()
+    
+      routes.newPost(req, res)
+</PRE>
+Now it fails since the <code>done()</code> callback is never called:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ mocha --compilers coffee:coffee-script/register -R spec test/routes-test.coffee 
+
+
+  routes
+    index
+      ok: should display index with posts 
+    new post
+      1) should display the add post page
+
+
+  1 passing (2s)
+  1 failing
+
+  1) routes new post should display the add post page:
+     Error: timeout of 2000ms exceeded
+    at [object Object].&lt;anonymous&gt; (/usr/loc
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION062300130000000000000">
+Escribiendo newPost</A>
+</H4>
+  
+
+<P>
+Let’s go ahead and implement the route and connect it into our router.
+<PRE>
+~/src/coffee/coffeepress(master)]$ cat routes/index.coffee 
+express = require('express')
+
+module.exports = 
+  index: (req, res) -&gt;
+    ...
+
+  newPost: (req, res) -&gt;
+    res.render 'add_post', title:"Write New Post"
+</PRE>
+And connecting it up in the <code>app.coffee</code>:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ sed -ne '20,21p' app.coffee 
+app.get '/', routes.index
+app.get '/post/new', routes.newPost
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION062300140000000000000">
+views/add_post.jade</A>
+</H4>
+  
+
+<P>
+Ademas tenemos que añadir la vista  <code>add_post</code>:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat views/add_post.jade 
+extends layout
+block content
+  form(method="post", action="/post/new")
+    fieldset
+      legend=title
+      .clearfix
+        label(for="title") Title
+        .input
+          input.xlarge#title(type="text", name="title")
+      .clearfix
+        label(for="post") Post
+        .input
+          textarea#post.xxlarge(name="body",rows="3")
+      .actions
+        input.btn.primary(type="submit", value="Publish!")
+        |   
+        a.btn(href="/") Cancel
+</PRE>
+
+<P>
+
+<UL>
+<LI>The <code>&lt;fieldset&gt;</code> tag is used to group related elements in a form.
+</LI>
+<LI>The 
+<A NAME="tex2html423"
+  HREF="http://www.w3schools.com/tags/tag_fieldset.asp">fieldset </A>
+tag draws a box around the related elements.
+</LI>
+<LI>The 
+<A NAME="tex2html424"
+  HREF="http://www.w3schools.com/tags/tag_legend.asp">legend</A>
+tag defines a caption for the 
+<A NAME="tex2html425"
+  HREF="http://www.w3schools.com/tags/tag_fieldset.asp">fieldset </A>
+element.
+</LI>
+</UL>
+
+<P>
+
+<UL>
+<LI>On the server side We can access to the data filled in the form 
+(both the input and textarea)
+<PRE>
+input.xlarge#title(type="text", name="title")
+...
+textarea#post.xxlarge(name="body",rows="3")
+</PRE>
+using <code>req.body</code>. It
+Contains key-value pairs (with keys <code>title</code>, <code>body</code>)
+of data submitted in the request body. 
+
+<P>
+By default, <code>req.body</code> is <code>undefined</code>, 
+and is populated when you use body-parsing middleware such as 
+<code>body-parser</code>.
+</LI>
+</UL>
+
+<P>
+
+<img src="formcoffeepress.png" width="50%" />
+
+
+<P>
+
+<H4><A NAME="SECTION062300150000000000000">
+Should display the add post page: (true) green</A>
+</H4>
+  
+
+Ahora podemos ejecutar las pruebas:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ mocha --compilers coffee:coffee-script/register -R spec test/routes-test.coffee 
+
+
+  routes
+    index
+      ok: should display index with posts 
+    new post
+      ok: should display the add post page 
+
+
+  2 passing (9ms)
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION062300160000000000000">
+Gulpfile</A>
+</H4>
+  
+
+<P>
+Vamos a crear un <code>gulpfile</code> para ejecutar las tareas mas comunes
+(véase  el post
+<A NAME="tex2html426"
+  HREF="http://pem-musing.blogspot.com.es/2014/02/a-gulp-of-coffee-your-gulpfile-in.html">A gulp of coffee: your gulpfile in coffeescript</A>):
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat gulpfile.coffee 
+gulp = require('gulp')
+shell = require('gulp-shell')
+
+# run coffee server via nodemon https://github.com/remy/nodemon
+gulp.task 'default', -&gt;
+  gulp.src('').pipe shell([ 'DEBUG=coffeepress:* nodemon bin/www.coffee' ])
+
+# run coffee server
+gulp.task 'cofserver', -&gt;
+  gulp.src('').pipe shell([ 'coffee app.coffee' ])
+
+gulp.task 'test', [ 'mocha' ]
+gulp.task 'mocha', -&gt;
+  gulp.src('').pipe shell(['mocha --compilers coffee:coffee-script/register -R spec'])
+
+# run mongod server
+gulp.task 'mongod', -&gt;
+  gulp.src('').pipe shell([ 'mongod' ])
+</PRE>
+
+<P>
+Este es el correspondiente código de la version javascript:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat gulpfile.js
+// Note the new way of requesting CoffeeScript since 1.7.x
+require('coffee-script/register');
+// This bootstraps your Gulp's main file
+require('./gulpfile.coffee');
+</PRE>
+Es necesario instalar <code>gulp-shell</code>:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ npm install --save-dev gulp-shell
+</PRE>
+ahora podemos ejecutar las pruebas con <code>gulp test</code>.
+
+<P>
+
+<H4><A NAME="SECTION062300170000000000000">
+Guardando el Post</A>
+</H4>
+  
+
+Now let’s add another route to handle the post. 
+For now, we’re just going to store each post in an array. 
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat routes/index.coffee 
+express = require('express')
+debug = require('debug')('coffeepress:server')
+
+posts = [ {id:0, title: "hi", body: "Hola todo el mundo"}, {id:1, title: "world", body: "I like &lt;b&gt;coffee&lt;/b&gt;"}] 
+
+module.exports = 
+  index: (req, res) -&gt;
+    debug "en index"
+    res.render 'index', 
+          title: 'My Coffee Blog' 
+          posts: posts
+
+  newPost: (req, res) -&gt;
+    debug "en newPost"
+    res.render 'add_post', title:"Write New Post"
+
+  addPost: (req, res) -&gt;
+    debug "en addPost"
+    debug req.body
+    post = req.body
+    # [post.title, post.body ] = [req.body.title, req.body.body]
+    post.id = posts.length
+    posts.push post
+    res.redirect "/"
+</PRE>
+
+<UL>
+<LI>The module
+<A NAME="tex2html427"
+  HREF="https://github.com/expressjs/body-parser">body-parser</A>
+is a piece of express middleware that·
+reads a form's input and stores it as a javascript
+object accessible through <code>req.body</code>·
+</LI>
+<LI>By default, <code>req.body</code> is <code>undefined</code>, 
+and is populated when you use body-parsing middleware such as 
+<code>body-parser</code>.
+</LI>
+<LI>On the server side We can access to the data filled in the form 
+(both the input and textarea)
+<PRE>
+input.xlarge#title(type="text", name="title")
+...
+textarea#post.xxlarge(name="body",rows="3")
+</PRE>
+using <code>req.body</code>. It
+Contains key-value pairs (with keys <code>title</code>, <code>body</code>)
+of data submitted in the request body. 
+<PRE>
+post = req.body
+</PRE>
+or
+<PRE>
+[post.title, post.body] = [req.body.title, req.body.body]
+</PRE>
+</LI>
+</UL>
+
+<P>
+We also add a new route to <code>app.coffee</code>
+<PRE>
+~/src/coffee/coffeepress(master)]$ sed -ne '20,22p' app.coffee 
+app.get  "/"        , routes.index
+app.get  "/post/new", routes.newPost
+app.post "/post/new", routes.addPost
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION062300180000000000000">
+Viewing a Single Post</A>
+</H4>
+  
+
+<P>
+Añadimos un método <code>newPost</code> y lo montamos en <code>/post/:id</code>:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ sed -ne '20,23p' app.coffee 
+app.get  "/"        , routes.index
+app.get  "/post/new", routes.newPost
+app.post "/post/new", routes.addPost
+app.get  "/post/:id", routes.viewPost
+</PRE>
+Este es el código del manejador de la ruta <code>/post/:id</code>:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat routes/index.coffee 
+express = require('express')
+debug = require('debug')('coffeepress:server')
+
+#posts = []
+
+module.exports = 
+  index: (req, res) -&gt;
+    ...
+
+  newPost: (req, res) -&gt;
+    res.render 'add_post', title:"Write New Post"
+
+  addPost: (req, res) -&gt;
+    ...
+
+   viewPost: (req, res) -&gt;
+     post = posts[req.params.id]
+     res.render 'post', post: post, title: post.title, id: req.params.id
+</PRE>
+
+<UL>
+<LI><code>req.params</code> is an object containing properties mapped to the 
+<A NAME="12694"></A><SPAN  CLASS="textbf">named route parameters</SPAN>. 
+</LI>
+<LI>For example, if you have the route <code>/user/:name</code>, then the <code>name</code> property is available as 
+<code>req.params.name</code> 
+</LI>
+<LI>The <code>req.params</code> object defaults to <code>{}</code>
+</LI>
+<LI>Example:
+<PRE>
+// GET /user/tj
+req.params.name
+// =&gt; "tj"
+</PRE>
+</LI>
+<LI>When you use a regular expression for the route definition, capture groups are provided in the array using 
+<code>req.params[n]</code>, where <code>n</code> is the nth capture group. 
+
+<P>
+For example, the following:
+<PRE>
+router.get(/^\/commits\/(\w+)(?:\.\.(\w+))?$/, function(req, res){
+  var from = req.params[0];
+  var to = req.params[1] || 'HEAD';
+  res.send('commit range ' + from + '..' + to);
+});
+</PRE>
+would match <code>GET /commits/71dbb9c</code> as well as <code>GET /commits/71dbb9c..4c084f9</code>
+</LI>
+<LI>This rule is applied to unnamed wild card
+matches with string routes such as <code>/file/*</code>:
+<PRE>
+// GET /file/javascripts/jquery.js
+req.params[0]
+// =&gt; "javascripts/jquery.js"
+</PRE>
+</LI>
+</UL>
+Y esta es la vista <code>views/post.jade</code>:
+<PRE>
+[~/src/coffee/coffeepress(master)]$ cat views/post.jade 
+extends layout
+block content
+  h1 Post #{ id }
+    .page-header
+      h1= post.title
+    .content!=post.body
+</PRE>
+Ahora cuando visitamos una ruta como <code>/post/2</code> nos mostrará el correspondiente post.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html2917"
+  HREF="node98.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2911"
+  HREF="node94.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2905"
+  HREF="node96.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2913"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2915"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html2918"
+  HREF="node98.html">MongoDB</A>
+<B>Sup:</B> <A NAME="tex2html2912"
+  HREF="node94.html">CoffeeScript y Express</A>
+<B> Ant:</B> <A NAME="tex2html2906"
+  HREF="node96.html">Porting to Coffeescript</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-10-06</I>
+</ADDRESS>
+</BODY>
+</HTML>

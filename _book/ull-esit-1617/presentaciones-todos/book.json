@@ -1,0 +1,24 @@
+{
+  "language": "es",
+  "author": "ULL-ESIT-SYTW-1617",
+  "license": "MIT",
+  "repo": "https://github.com/ULL-ESIT-SYTW-1617/presentaciones-todos",
+  "ghPages": "http://ULL-ESIT-SYTW-1617.github.io/presentaciones-todos",
+  "name": "presentaciones",
+  "title" : "presentaciones" ,
+  "description" : "Libro de las presentaciones de SYTW del curso 2016/17",
+  "plugins": [
+    "advanced-emoji",
+    "collapsible-menu",
+    "js-console",
+    "youtube",
+    "codetabs",
+    "es6tabs-stage-0"
+  ],
+  "pluginsConfig": {
+    "es6tabs": {
+      "presets": ["es2015", "stage-0"]
+    }
+  },
+  "root": "./txt"
+}

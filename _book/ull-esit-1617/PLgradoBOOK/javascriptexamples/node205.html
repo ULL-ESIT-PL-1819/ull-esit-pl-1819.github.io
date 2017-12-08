@@ -1,0 +1,142 @@
+
+<H1><A NAME="SECTION05920000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:precandascoyacc"><tex2html_anchor_mark></A><BR>
+Precedencia y Asociatividad
+</H1>
+En caso de que no existan indicaciones específicas <SPAN  CLASS="textbf">yacc</SPAN> resuelve
+los conflictos que aparecen en la construcción de la tabla utilizando las siguientes reglas:
+
+<OL>
+<LI>Un conflicto <SPAN  CLASS="textbf">reduce-reduce</SPAN> se resuelve eligiendo la producción que se listó primero en la especificación de la gramática.
+</LI>
+<LI>Un conflicto <SPAN  CLASS="textbf">shift-reduce</SPAN> se resuelve siempre en favor del <SPAN  CLASS="textbf">shift</SPAN>
+</LI>
+</OL>
+La precedencia se utiliza para modificar estos criterios. Para 
+ello se define:
+
+<P>
+
+<OL>
+<LI>La precedencia de los <SPAN  CLASS="textbf">tokens</SPAN> es determinada según el orden de 
+declaración. La declaración de <SPAN  CLASS="textbf">tokens</SPAN> mediante la palabra reservada <tex2html_verb_mark>2880<tex2html_verb_mark> no modifica la precedencia. Si lo hacen las declaraciones realizadas usando las palabras <tex2html_verb_mark>2881<tex2html_verb_mark>, <tex2html_verb_mark>2882<tex2html_verb_mark> y <tex2html_verb_mark>2883<tex2html_verb_mark>. Los <SPAN  CLASS="textbf">tokens</SPAN> declarados  en la misma línea
+tienen igual precedencia. La precedencia es mayor cuanto mas abajo en
+el texto. Así, en el ejemplo que sigue, el <SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2884<tex2html_verb_mark> tiene 
+mayor precedencia que <tex2html_verb_mark>2885<tex2html_verb_mark> pero la misma que <tex2html_verb_mark>2886<tex2html_verb_mark>.
+</LI>
+<LI>La precedencia de una regla <tex2html_verbatim_mark>#math7207#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37961#</SPAN>
+<tex2html_verbatim_mark>mathend000# se
+define como la del terminal mas a la derecha que aparece en
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37963#</SPAN>
+<tex2html_verbatim_mark>mathend000#. En el ejemplo, la producción 
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>2887<tex2html_verb_mark> 
+
+</DIV>
+
+<P>
+tiene la precedencia del <SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2888<tex2html_verb_mark>.
+</LI>
+<LI>Para decidir en un conflicto <SPAN  CLASS="textbf">shift-reduce</SPAN> se comparan la precedencia 
+de la regla con la del terminal que va a ser desplazado. Si la de la regla es mayor se reduce
+si la del <SPAN  CLASS="textbf">token</SPAN> es mayor, se desplaza.
+</LI>
+<LI>Si en un conflicto <SPAN  CLASS="textbf">shift-reduce</SPAN> ambos la regla y el terminal que va a ser desplazado
+tiene la misma precedencia <SPAN  CLASS="textbf">yacc</SPAN> considera la asociatividad, si es asociativa a izquierdas,
+reduce y si es asociativa a derechas desplaza. Si no es asociativa, genera un mensaje de error.
+<BR>Obsérvese que, en esta situación, la asociatividad de la regla y la del <SPAN  CLASS="textbf">token</SPAN> han de ser por fuerza, las mismas. 
+Ello es así, porque en <SPAN  CLASS="textbf">yacc</SPAN> los <SPAN  CLASS="textbf">tokens</SPAN> con la misma 
+precedencia se declaran en la misma línea. 
+
+<P>
+<SPAN  CLASS="textbf"> Por tanto es imposible declarar dos <SPAN  CLASS="textbf">tokens</SPAN> con diferente asociatividad y la misma precedencia</SPAN>.
+</LI>
+<LI>Es posible modificar la precedencia ``natural'' de una regla, calificándola con un <SPAN  CLASS="textbf">token</SPAN> específico.
+para ello se escribe a la derecha de la regla <tex2html_verb_mark>2889<tex2html_verb_mark>, donde <tex2html_verb_mark>2890<tex2html_verb_mark> es un <SPAN  CLASS="textbf">token</SPAN>
+con la precedencia que deseamos. Vea el uso del <SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2891<tex2html_verb_mark> en el siguiente ejercicio.
+</LI>
+</OL>
+
+<P>
+<P><DIV><#37965#><B>Programa  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#37965#> &nbsp; 
+<#37968#><I>Este programa muestra el manejo de las reglas de precedencia.
+<A NAME="prog:prec"><tex2html_anchor_mark></A></I><PRE><tex2html_verbatim_mark>verbatim6330#</PRE><I></I><#37968#></DIV><P></P>
+
+
+<P>
+<P><DIV><#37970#><B>Ejercicio  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#37970#> &nbsp; 
+<#37973#><I>Dado el programa <tex2html_verb_mark>2892<tex2html_verb_mark> <A HREF=<tex2html_cr_mark>#prog:prec#20290><tex2html_cr_mark></A>
+Responda a las siguientes cuestiones:
+</I>
+<OL>
+<LI>Construya las tablas SLR de acciones y <SPAN  CLASS="textbf">gotos</SPAN>.
+</LI>
+<LI>Determine el árbol construido para las frases:
+<tex2html_verb_mark>2893<tex2html_verb_mark>, <tex2html_verb_mark>2894<tex2html_verb_mark>, <tex2html_verb_mark>2895<tex2html_verb_mark>, <tex2html_verb_mark>2896<tex2html_verb_mark>.
+</LI>
+<LI>¿Cuál es la asociatividad final de la regla <tex2html_verb_mark>2897<tex2html_verb_mark>?
+</LI>
+</OL><I></I><#37973#></DIV><P></P>
+
+
+<P>
+<P><DIV><#37975#><B>Listado  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#37975#> &nbsp; 
+<#37978#><I>Fichero <SPAN  CLASS="textbf">y.output</SPAN>:
+<BR></I><PRE><tex2html_verbatim_mark>verbatim6331#</PRE><I>
+</I>
+<P>
+<I></I><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><I>
+</I><PRE><tex2html_verbatim_mark>verbatim6332#</PRE><I>
+</I></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=170><I>
+</I><PRE><tex2html_verbatim_mark>verbatim6333#</PRE><I></I></TD>
+</TR>
+</TABLE><I>
+</I>
+<P>
+<I></I><PRE><tex2html_verbatim_mark>verbatim6334#</PRE><I></I><#37978#></DIV><P></P>
+
+
+<P>
+<P><DIV><#37982#><B>Ejemplo  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#37982#> &nbsp; 
+<#37985#><I>Contrasta tu respuesta con la traza seguida por el programa anterior
+ante la entrada <tex2html_verb_mark>2898<tex2html_verb_mark>, al establecer la variable <tex2html_verb_mark>2899<tex2html_verb_mark>
+y definir la macro <tex2html_verb_mark>2900<tex2html_verb_mark>:
+</I><P><DIV><#37987#><B>Ejecución  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#37987#> &nbsp; 
+<#37990#><I></I><PRE><tex2html_verbatim_mark>verbatim6335#</PRE><I></I><#37990#></DIV><P></P>
+<I>
+¿Por  que se desplaza? ¿No va eso en contra de la declaración 
+<tex2html_verb_mark>2902<tex2html_verb_mark>?.  ¿O quizá es porque la precedencia de <tex2html_verb_mark>2903<tex2html_verb_mark>
+es menor que la de <tex2html_verb_mark>2904<tex2html_verb_mark>? La respuesta es que la precedencia
+asignada por la declaración 
+</I>
+<DIV ALIGN="CENTER"><I><tex2html_verb_mark>2906<tex2html_verb_mark>
+</I></DIV><I>
+cambio la asociatividad de la regla. Ahora la regla se
+``enfrenta'' a un <SPAN  CLASS="textbf">token</SPAN>, <tex2html_verb_mark>2907<tex2html_verb_mark> con su misma precedencia.
+Al pasar a ser asociativa a derechas (debido a que
+<tex2html_verb_mark>2908<tex2html_verb_mark> lo es), se debe desplazar y no reducir.</I><#37985#></DIV><P></P>
+
+
+<P>
+<P><DIV><#37992#><B>Ejemplo  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#37992#> &nbsp; 
+<#37995#><I>Otra ejecución, esta vez con entrada <tex2html_verb_mark>2909<tex2html_verb_mark>. Compara tus predicciones con los resultados. 
+</I>
+<P>
+<I></I><P><DIV><#37997#><B>Ejecución  <SPAN CLASS="arabic">36</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#37997#> &nbsp; 
+<#38000#><I></I><PRE><tex2html_verbatim_mark>verbatim6336#</PRE><I></I><#38000#></DIV><P></P>
+<I>
+En este caso se comparan la producción :
+</I>
+<DIV ALIGN="CENTER"><I><tex2html_verb_mark>2910<tex2html_verb_mark> <tex2html_verbatim_mark>#math7208#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline38002#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>2911<tex2html_verb_mark> 
+</I></DIV><I>
+con el <SPAN  CLASS="textbf">token</SPAN> <tex2html_verb_mark>2912<tex2html_verb_mark>. La regla tiene mayor  precedencia
+que el <SPAN  CLASS="textbf">token</SPAN>,dado que la precedencia de la regla es la de 
+<tex2html_verb_mark>2913<tex2html_verb_mark>. </I><#37995#></DIV><P></P>
+
+
+<P>

@@ -1,0 +1,1334 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Putting Things Together</TITLE>
+<META NAME="description" CONTENT="Putting Things Together">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="previous" HREF="node158.html">
+<LINK REL="up" HREF="node155.html">
+<LINK REL="next" HREF="node160.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html4440"
+  HREF="node160.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4434"
+  HREF="node155.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4430"
+  HREF="node158.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4436"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4438"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html4441"
+  HREF="node160.html">Functions and all that</A>
+<B>Sup:</B> <A NAME="tex2html4435"
+  HREF="node155.html">Scheem Interpreter</A>
+<B> Ant:</B> <A NAME="tex2html4431"
+  HREF="node158.html">Setting Values</A>
+<B> Con:</B> 
+<A NAME="tex2html4436"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html4438"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html4442"
+  HREF="node159.html#SECTION011441000000000000000">Unit Testing: Mocha</A>
+<UL>
+<LI><A NAME="tex2html4443"
+  HREF="node159.html#SECTION011441010000000000000">Introducción</A>
+<LI><A NAME="tex2html4444"
+  HREF="node159.html#SECTION011441020000000000000">mocha init</A>
+<LI><A NAME="tex2html4445"
+  HREF="node159.html#SECTION011441030000000000000">Browser support</A>
+<LI><A NAME="tex2html4446"
+  HREF="node159.html#SECTION011441040000000000000">TDD</A>
+<LI><A NAME="tex2html4447"
+  HREF="node159.html#SECTION011441050000000000000">Véase</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4448"
+  HREF="node159.html#SECTION011442000000000000000">Karma</A>
+<UL>
+<LI><A NAME="tex2html4449"
+  HREF="node159.html#SECTION011442010000000000000">Using Karma with Mocha</A>
+<LI><A NAME="tex2html4450"
+  HREF="node159.html#SECTION011442020000000000000">Load HTML files with Karma</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4451"
+  HREF="node159.html#SECTION011443000000000000000">Grunt</A>
+<UL>
+<LI><A NAME="tex2html4452"
+  HREF="node159.html#SECTION011443100000000000000">package.json</A>
+<LI><A NAME="tex2html4453"
+  HREF="node159.html#SECTION011443200000000000000">Gruntfile</A>
+<UL>
+<LI><A NAME="tex2html4454"
+  HREF="node159.html#SECTION011443210000000000000">An example Gruntfile</A>
+<LI><A NAME="tex2html4455"
+  HREF="node159.html#SECTION011443220000000000000">The "wrapper" function</A>
+<LI><A NAME="tex2html4456"
+  HREF="node159.html#SECTION011443230000000000000">Project and task configuration</A>
+<LI><A NAME="tex2html4457"
+  HREF="node159.html#SECTION011443240000000000000">A simple Grunt.js example</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html4458"
+  HREF="node159.html#SECTION011444000000000000000">GitHub Project Pages</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION011440000000000000000">
+Putting Things Together</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION011441000000000000000">
+Unit Testing: Mocha</A>
+</H2>
+
+<P>
+
+<H4><A NAME="SECTION011441010000000000000">
+Introducción</A>
+</H4>
+  
+
+<P>
+Mocha is a feature-rich JavaScript test framework running on node.js
+and the browser, making asynchronous testing simple and fun. Mocha tests
+run serially, allowing for flexible and accurate
+reporting, while mapping uncaught exceptions to the correct test cases.
+
+<P>
+
+<UL>
+<LI><A NAME="tex2html409"
+  HREF="http://visionmedia.github.io/mocha/">http://visionmedia.github.io/mocha/</A>
+</LI>
+<LI><A NAME="tex2html410"
+  HREF="https://github.com/visionmedia/mocha">https://github.com/visionmedia/mocha</A>
+</LI>
+<LI><UL>
+<LI>An example setup for unit testing JavaScript in the browser with the Mocha testing framework and Chai assertions:
+<A NAME="tex2html411"
+  HREF="https://github.com/ludovicofischer/mocha-chai-browser-demo">https://github.com/ludovicofischer/mocha-chai-browser-demo</A>
+</LI>
+<LI><A NAME="tex2html412"
+  HREF="http://karma-runner.github.io/0.10/index.html">Karma - a test runner</A>
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION011441020000000000000">
+mocha init</A>
+</H4>
+  
+
+<P>
+<PRE>
+[~/srcPLgrado/mocha-chai-browser-demo(master)]$ mocha --help
+
+  Usage: _mocha [debug] [options] [files]
+
+  Commands:
+
+    init &lt;path&gt;            initialize a client-side mocha setup at &lt;path&gt;
+
+  Options:
+
+    -h, --help                      output usage information
+    -V, --version                   output the version number
+    -r, --require &lt;name&gt;            require the given module
+    -R, --reporter &lt;name&gt;           specify the reporter to use
+    -u, --ui &lt;name&gt;                 specify user-interface (bdd|tdd|exports)
+    -g, --grep &lt;pattern&gt;            only run tests matching &lt;pattern&gt;
+    -i, --invert                    inverts --grep matches
+    -t, --timeout &lt;ms&gt;              set test-case timeout in milliseconds [2000]
+    -s, --slow &lt;ms&gt;                 "slow" test threshold in milliseconds [75]
+    -w, --watch                     watch files for changes
+    -c, --colors                    force enabling of colors
+    -C, --no-colors                 force disabling of colors
+    -G, --growl                     enable growl notification support
+    -d, --debug                     enable node's debugger, synonym for node --debug
+    -b, --bail                      bail after first test failure
+    -A, --async-only                force all tests to take a callback (async)
+    -S, --sort                      sort test files
+    --recursive                     include sub directories
+    --debug-brk                     enable node's debugger breaking on the first line
+    --globals &lt;names&gt;               allow the given comma-delimited global [names]
+    --check-leaks                   check for global variable leaks
+    --interfaces                    display available interfaces
+    --reporters                     display available reporters
+    --compilers &lt;ext&gt;:&lt;module&gt;,...  use the given module(s) to compile files
+    --inline-diffs                  display actual/expected differences inline within each string
+    --no-exit                       require a clean shutdown of the event loop: mocha will not call process.exit
+</PRE>
+
+<P>
+<PRE>
+[~/srcPLgrado]$ mocha init chuchu
+[~/srcPLgrado]$ ls -ltr
+total 16
+....
+drwxr-xr-x   6 casiano  staff  204 20 ene 11:16 chuchu
+[~/srcPLgrado]$ tree chuchu/
+chuchu/
+|-- index.html
+|-- mocha.css
+|-- mocha.js
+`-- tests.js
+</PRE>
+
+<P>
+<PRE>
+[~/srcPLgrado/mocha-tutorial]$ cat test/test.js 
+var assert = require("assert")
+describe('Array', function(){
+  describe('#indexOf()', function(){
+    it('should return -1 when the value is not present', function(){
+      assert.equal(-1, [1,2,3].indexOf(5));
+      assert.equal(-1, [1,2,3].indexOf(0));
+      assert.equal( 0, [1,2,3].indexOf(99));
+    })
+  })
+})
+</PRE>
+
+<P>
+<PRE>
+[~/srcPLgrado/mocha-tutorial]$ mocha
+  .
+  0 passing (5ms)
+  1 failing
+
+  1) Array #indexOf() should return -1 when the value is not present:
+     AssertionError: 0 == -1
+      at Context.&lt;anonymous&gt; (/Users/casiano/local/src/javascript/PLgrado/mocha-tutorial/test/test.js:7:14)
+</PRE>
+
+<P>
+Mocha allows you to use any assertion library you want, if it throws
+an error, it will work! This means you can utilize libraries such as
+should.js, node's regular assert module, or others. 
+
+<P>
+
+<H4><A NAME="SECTION011441030000000000000">
+Browser support</A>
+</H4>
+  
+
+<P>
+Mocha runs in the browser. 
+
+<P>
+
+<UL>
+<LI>Every release of Mocha will have new builds
+of <code>./mocha.js</code> and <code>./mocha.css</code> for use in the browser. 
+
+<P>
+</LI>
+<LI>To setup Mocha
+for browser use all you have to do is include the script, stylesheet,
+</LI>
+<LI>Tell Mocha which interface you wish to use, and then 
+</LI>
+<LI>Run the tests. 
+</LI>
+</UL>
+A
+typical setup might look something like the following, where we call
+<code>mocha.setup('bdd')</code> to use the BDD interface before loading the test
+scripts, running them onload with <code>mocha.run()</code>.
+
+<P>
+<PRE>
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Mocha Tests&lt;/title&gt;
+  &lt;link rel="stylesheet" href="mocha.css" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id="mocha"&gt;&lt;/div&gt;
+  &lt;script src="jquery.js"&gt;&lt;/script&gt;
+  &lt;script src="expect.js"&gt;&lt;/script&gt;
+  &lt;script src="mocha.js"&gt;&lt;/script&gt;
+
+  &lt;script&gt;mocha.setup('bdd')&lt;/script&gt;
+
+  &lt;script src="test.array.js"&gt;&lt;/script&gt;
+  &lt;script src="test.object.js"&gt;&lt;/script&gt;
+  &lt;script src="test.xhr.js"&gt;&lt;/script&gt;
+
+  &lt;script&gt;
+    mocha.checkLeaks();
+    mocha.globals(['jQuery']);
+    mocha.run();
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</PRE>
+
+<P>
+
+<UL>
+<LI>Mocha "interface" system allows developers to choose their style of
+DSL. Shipping with BDD, TDD, and exports flavoured interfaces.
+</LI>
+<LI><code>mocha.globals([names ...])</code>
+
+<P>
+A list of accepted global variable names. For example, suppose your app deliberately exposes a global named app and YUI
+
+<P>
+</LI>
+<LI><code>mocha.checkLeaks()</code>
+
+<P>
+By default Mocha will not check for global variables leaked while running tests
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION011441040000000000000">
+TDD</A>
+</H4>
+  
+
+<P>
+The <A NAME="10832"></A><SPAN  CLASS="textbf">Mocha TDD interface</SPAN> provides <code>suite()</code>, <code>test()</code>, <code>setup()</code>, and <code>teardown()</code>.
+
+<P>
+<PRE>
+suite('Array', function(){
+  setup(function(){
+    // ...
+  });
+
+  suite('#indexOf()', function(){
+    test('should return -1 when not present', function(){
+      assert.equal(-1, [1,2,3].indexOf(4));
+    });
+  });
+});
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION011441050000000000000">
+Véase</A>
+</H4>
+  
+
+<P>
+
+<UL>
+<LI><A NAME="tex2html413"
+  HREF="https://github.com/crguezl/nathanuniversityexercisesPL/tree/master/scheem8">https://github.com/crguezl/nathanuniversityexercisesPL/tree/master/scheem8</A>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION011442000000000000000"></A>
+<A NAME="subsection:karma"></A>
+<BR>
+Karma
+</H2>
+
+<P>
+
+<UL>
+<LI><A NAME="10838"></A><SPAN  CLASS="textbf">Karma</SPAN> (See 
+<A NAME="tex2html415"
+  HREF="http://karma-runner.github.io/0.10/intro/installation.html">Karma installation</A>)
+is essentially a tool which spawns a web server that executes source
+code against test code for each of the browsers connected. 
+
+<P>
+</LI>
+<LI>The results
+for each test against each browser are examined and displayed via the
+command line to the developer such that they can see which browsers and
+tests passed or failed.
+
+<P>
+</LI>
+<LI>A browser can be captured either
+  
+<UL>
+<LI>manually, by visiting the URL where the Karma server is listening (typically <code>http://localhost:9876/</code>)
+</LI>
+<LI>or automatically by letting Karma know which browsers to start when Karma is run 
+  
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<UL>
+<LI>Karma also watches all the files, specified within the configuration file,
+and whenever any file changes, it triggers the test run by sending a
+signal the testing server to inform all of the captured browsers to run
+the test code again. 
+</LI>
+<LI>Each browser then loads the source files inside an
+<code>IFrame</code><A NAME="tex2html414"
+  HREF="footnode.html#foot10815"><SUP><SPAN CLASS="arabic">40</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>, 
+executes the tests and reports the results back to the server.
+</LI>
+<LI>The server collects the results from all of the captured browsers and presents them to the developer.
+</LI>
+</UL>
+
+<P>
+
+<UL>
+<LI><A NAME="tex2html416"
+  HREF="http://youtu.be/5mHjJ4xf_K0">JS.everywhere(Europe) 2012: Testacular, the Spectacular JavaScript Test Runner - Vojta Jína</A>
+YouTube
+</LI>
+<LI><A NAME="tex2html417"
+  HREF="http://youtu.be/YG5DEzaQBIc">Google Test Automation Conference GTAC 2013: Karma - Test Runner for JavaScript</A>
+Vojta Jína. YouTube
+</LI>
+</UL>
+
+<P>
+<PRE>
+[~/srcPLgrado/mocha-chai-browser-demo(master)]$ karma --help
+Karma - Spectacular Test Runner for JavaScript.
+
+Usage:
+  /usr/local/bin/karma &lt;command&gt;
+
+Commands:
+  start [&lt;configFile&gt;] [&lt;options&gt;] Start the server / do single run.
+  init [&lt;configFile&gt;] Initialize a config file.
+  run [&lt;options&gt;] [ -- &lt;clientArgs&gt;] Trigger a test run.
+  completion Shell completion for karma.
+
+Run --help with particular command to see its description and available options.
+
+Options:
+  --help     Print usage and options.
+  --version  Print current version.
+</PRE>
+
+<P>
+In order to serve us well, Karma needs to know about our project in
+order to test it and this is done via a configuration file. 
+
+<P>
+The configuration file can be generated using <code>karma init</code>:
+<PRE>
+$ karma init my.conf.js
+
+Which testing framework do you want to use ?
+Press tab to list possible options. Enter to move to the next question.
+&gt; jasmine
+</PRE>
+
+<P>
+<PRE>
+Do you want to use Require.js ?
+This will add Require.js plugin.
+Press tab to list possible options. Enter to move to the next question.
+&gt; no
+</PRE>
+
+<P>
+<A NAME="tex2html418"
+  HREF="http://requirejs.org/">http://requirejs.org/</A>
+<P>
+<PRE>
+Do you want to capture a browser automatically ?
+Press tab to list possible options. Enter empty string to move to the next question.
+&gt; Chrome
+</PRE>
+
+<P>
+<PRE>
+What is the location of your source and test files ?
+You can use glob patterns, eg. "js/*.js" or "test/**/*Spec.js".
+Enter empty string to move to the next question.
+&gt; 
+
+Should any of the files included by the previous patterns be excluded ?
+You can use glob patterns, eg. "**/*.swp".
+Enter empty string to move to the next question.
+
+
+Do you want Karma to watch all the files and run the tests on change ?
+Press tab to list possible options.
+&gt; yes
+
+Config file generated at "/Users/casiano/local/src/javascript/PLgrado/mocha-tutorial/karma.conf.js".
+</PRE>
+
+<P>
+The configuration file can be written in CoffeeScript as well. In fact,
+if you execute karma init with a <code>.coffee</code> filename extension, it will
+generate a CoffeeScript file.
+
+<P>
+Of course, you can write the config file by hand or copy paste it from another project ;-)
+
+<P>
+<PRE>
+[~/srcPLgrado/mocha-tutorial]$ cat karma.conf.js 
+// Karma configuration
+// Generated on Mon Jan 20 2014 16:21:22 GMT+0000 (WET)
+
+module.exports = function(config) {
+  config.set({
+
+    // base path, that will be used to resolve files and exclude
+    basePath: '',
+
+
+    // frameworks to use
+    frameworks: ['jasmine'],
+
+
+    // list of files / patterns to load in the browser
+    files: [
+      
+    ],
+
+
+    // list of files to exclude
+    exclude: [
+      
+    ],
+
+
+    // test results reporter to use
+    // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
+    reporters: ['progress'],
+
+
+    // web server port
+    port: 9876,
+
+
+    // enable / disable colors in the output (reporters and logs)
+    colors: true,
+
+
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
+
+
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: true,
+
+
+    // Start these browsers, currently available:
+    // - Chrome
+    // - ChromeCanary
+    // - Firefox
+    // - Opera (has to be installed with `npm install karma-opera-launcher`)
+    // - Safari (only Mac; has to be installed with `npm install karma-safari-launcher`)
+    // - PhantomJS
+    // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
+    browsers: ['Chrome', 'Firefox'],
+
+
+    // If browser does not capture in given timeout [ms], kill it
+    captureTimeout: 60000,
+
+
+    // Continuous Integration mode
+    // if true, it capture browsers, run tests and exit
+    singleRun: false
+  });
+};
+</PRE>
+When starting Karma, the configuration file path can be passed in as the first argument.
+By default, Karma will look for <code>karma.conf.js</code> in the current directory.
+<PRE>
+# Start Karma using your configuration
+$ karma start my.conf.js
+</PRE>
+
+<P>
+Some configurations, which are already present within the configuration
+file, can be overridden by specifying the configuration as a command
+line argument for when Karma is executed.
+<PRE>
+karma start karma-conf.js --command-one --command-two
+</PRE>
+
+<P>
+<PRE>
+[~/srcPLgrado/mocha-tutorial]$ karma start --help
+Karma - Spectacular Test Runner for JavaScript.
+
+START - Start the server / do a single run.
+
+Usage:
+  /usr/local/bin/karma start [&lt;configFile&gt;] [&lt;options&gt;]
+
+Options:
+  --port                &lt;integer&gt; Port where the server is running.                            
+  --auto-watch          Auto watch source files and run on change.                             
+  --no-auto-watch       Do not watch source files.                                             
+  --log-level           &lt;disable | error | warn | info | debug&gt; Level of logging.              
+  --colors              Use colors when reporting and printing logs.                           
+  --no-colors           Do not use colors when reporting or printing logs.                     
+  --reporters           List of reporters (available: dots, progress, junit, growl, coverage). 
+  --browsers            List of browsers to start (eg. --browsers Chrome,ChromeCanary,Firefox).
+  --capture-timeout     &lt;integer&gt; Kill browser if does not capture in given time [ms].         
+  --single-run          Run the test when browsers captured and exit.                          
+  --no-single-run       Disable single-run.                                                    
+  --report-slower-than  &lt;integer&gt; Report tests that are slower than given time [ms].           
+  --help                Print usage and options.
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION011442010000000000000">
+Using Karma with Mocha</A>
+</H4>
+  
+
+To use Karma with Mocha
+we need the karma-mocha adapter.
+
+<P>
+If we want to pass configuration options directly to mocha you can do this in the following way
+<PRE>
+// karma.conf.js
+module.exports = function(config) {
+  config.set({
+    frameworks: ['mocha'],
+
+    files: [
+      '*.js'
+    ],
+
+    client: {
+      mocha: {
+        ui: 'tdd'
+      }
+    }
+  });
+};
+</PRE>
+(By default the <code>ui</code> is <code>bdd</code>).
+
+<P>
+Here is an example
+(<A NAME="tex2html419"
+  HREF="https://github.com/crguezl/nathanuniversityexercisesPL/blob/master/scheem8/karma.conf.js">https://github.com/crguezl/nathanuniversityexercisesPL/blob/master/scheem8/karma.conf.js</A>):
+
+<P>
+<PRE>
+[~/srcPLgrado/nathansuniversity/exercises/scheem8(master)]$ cat karma.conf.js 
+// Karma configuration
+// Generated on Tue Jan 21 2014 12:20:45 GMT+0000 (WET)
+
+module.exports = function(config) {
+
+  config.set({
+
+    // base path, that will be used to resolve files and exclude
+    basePath: '',
+
+
+    // frameworks to use
+    frameworks: ['mocha'],
+
+
+    // list of files / patterns to load in the browser
+    files: [
+      'js/chai.js',
+      'js/jquery-1.10.2.js',
+      'js/mocha.js',
+      'js/scheem8.js',
+      'js/simpletest.js'
+    ],
+
+
+    // list of files to exclude
+    exclude: [
+      
+    ],
+
+
+    // test results reporter to use
+    // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
+    reporters: ['progress'],
+
+
+    // web server port
+    port: 9876,
+
+
+    // enable / disable colors in the output (reporters and logs)
+    colors: true,
+
+
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
+
+
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: true,
+
+
+    // Start these browsers, currently available:
+    // - Chrome
+    // - ChromeCanary
+    // - Firefox
+    // - Opera (has to be installed with `npm install karma-opera-launcher`)
+    // - Safari (only Mac; has to be installed with `npm install karma-safari-launcher`)
+    // - PhantomJS
+    // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
+    browsers: ['Chrome', 'Firefox'],
+
+
+    // If browser does not capture in given timeout [ms], kill it
+    captureTimeout: 60000,
+
+
+    // Continuous Integration mode
+    // if true, it capture browsers, run tests and exit
+    singleRun: false,
+
+    client: {
+      mocha: {
+        ui: 'tdd'
+      }
+    }
+  });
+};
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION011442020000000000000">
+Load HTML files with Karma</A>
+</H4>
+  
+
+<P>
+If you have one html file:
+<PRE>
+[~/srcPLgrado/karma/html]$ cat template.html 
+&lt;div id="tpl"&gt;content of the template&lt;/div&gt;
+</PRE>
+which you want to load and then get all elements
+from that html page in your test script,
+you can use the <code>html2js</code> preprocessor, which basically converts
+HTML files into JavaScript strings and include these files.
+<PRE>
+[~/srcPLgrado/karma/html]$ cat karma.conf.js 
+module.exports = function(karma) {
+  karma.configure({
+    basePath: '',
+    frameworks: ['jasmine'],
+    files: [ '*.js', '*.html' ], 
+    preprocessors: { '*.html': 'html2js' },
+    ....
+</PRE>
+Then, you can access these strings in your test:
+<PRE>
+[~/srcPLgrado/karma/html]$ cat test.js 
+describe('template', function() {
+  it('should expose the templates to __html__', function() {
+    document.body.innerHTML = __html__['template.html'];
+    expect(document.getElementById('tpl')).toBeDefined();
+  })
+})
+</PRE>
+See 
+
+<UL>
+<LI><A NAME="tex2html420"
+  HREF="http://stackoverflow.com/questions/18317693/load-html-files-with-karma">Load HTML files with Karma</A>
+in StackOverflow.
+</LI>
+<LI><A NAME="tex2html421"
+  HREF="https://github.com/karma-runner/karma-html2js-preprocessor">karma-html2js-preprocessor</A>
+</LI>
+<LI><A NAME="tex2html422"
+  HREF="https://github.com/karma-runner/karma/tree/master/test/e2e/html2js">Example</A>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION011443000000000000000">
+Grunt</A>
+</H2>
+
+<P>
+<A NAME="tex2html423"
+  HREF="http://gruntjs.com/getting-started">http://gruntjs.com/getting-started</A>
+<P>
+<PRE>
+npm install -g grunt-cli
+</PRE>
+
+<P>
+A typical setup will involve adding two files to your project: <code>package.json</code> and the 
+<code>Gruntfile</code>.
+
+<P>
+
+<UL>
+<LI><code>package.json</code>: This file is used by <code>npm</code> 
+to store metadata for projects published as <code>npm</code> modules. 
+
+<P>
+You will list grunt and the Grunt plugins your project needs as <A NAME="10848"></A><SPAN  CLASS="textbf">devDependencies</SPAN> 
+in this file.
+
+<P>
+</LI>
+<LI><code>Gruntfile</code>: This file is named <code>Gruntfile.js</code> or <code>Gruntfile.coffee</code> and is used to configure or define tasks and load Grunt plugins.
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION011443100000000000000">
+package.json</A>
+</H3>
+
+<P>
+
+<UL>
+<LI>The package.json file belongs in the root directory of your project,
+next to the Gruntfile, and should be committed with your project
+source. 
+
+<P>
+</LI>
+<LI>Running npm install in the same folder as a package.json file
+will install the correct version of each dependency listed therein.
+
+<P>
+</LI>
+<LI>There are a few ways to create a package.json file for your project:
+
+<P>
+
+<UL>
+<LI>Most grunt-init templates will automatically create a project-specific package.json file.
+</LI>
+<LI>The npm init command will create a basic package.json file.
+</LI>
+<LI>Start with the example below, and expand as needed, following this specification.
+  <PRE>
+  {
+    "name": "my-project-name",
+    "version": "0.1.0",
+    "devDependencies": {
+      "grunt": "~0.4.2",
+      "grunt-contrib-jshint": "~0.6.3",
+      "grunt-contrib-nodeunit": "~0.2.0",
+      "grunt-contrib-uglify": "~0.2.2"
+    }
+  }
+</PRE>
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+
+<H3><A NAME="SECTION011443200000000000000">
+Gruntfile</A>
+</H3>
+
+<P>
+The Gruntfile.js or Gruntfile.coffee file is a valid JavaScript or
+CoffeeScript file that belongs in the root directory of your project,
+next to the package.json file, and should be committed with your project
+source.
+
+<P>
+A Gruntfile is comprised of the following parts:
+
+<P>
+
+<UL>
+<LI>The "wrapper" function
+</LI>
+<LI>Project and task configuration
+</LI>
+<LI>Loading Grunt plugins and tasks
+</LI>
+<LI>Custom tasks
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION011443210000000000000">
+An example Gruntfile</A>
+</H4>
+  
+
+<P>
+In the following Gruntfile, project metadata is imported into the Grunt
+config from the project's <code>package.json</code> file and the 
+
+<P>
+grunt-contrib-uglify
+
+<P>
+plugin's uglify task is configured to minify a source file and generate
+a banner comment dynamically using that metadata. 
+
+<P>
+When grunt is run on
+the command line, the uglify task will be run by default.
+
+<P>
+<PRE>
+module.exports = function(grunt) {
+
+  // Project configuration.
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    uglify: {
+      options: {
+        banner: '/*! &lt;%= pkg.name %&gt; &lt;%= grunt.template.today("yyyy-mm-dd") %&gt; */\n'
+      },
+      build: {
+        src: 'src/&lt;%= pkg.name %&gt;.js',
+        dest: 'build/&lt;%= pkg.name %&gt;.min.js'
+      }
+    }
+  });
+
+  // Load the plugin that provides the "uglify" task.
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+
+  // Default task(s).
+  grunt.registerTask('default', ['uglify']);
+
+};
+</PRE>
+Now that you've seen the whole Gruntfile, let's look at its component parts.
+
+<P>
+
+<H4><A NAME="SECTION011443220000000000000">
+The "wrapper" function</A>
+</H4>
+  
+
+<P>
+Every Gruntfile (and gruntplugin) uses this basic format, and all of your Grunt code must be specified inside this function:
+
+<P>
+<PRE>
+module.exports = function(grunt) {
+  // Do grunt-related things in here
+};
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION011443230000000000000">
+Project and task configuration</A>
+</H4>
+  
+
+<P>
+Most Grunt tasks rely on configuration data defined in an object passed to the <code>grunt.initConfig</code> method.
+
+<P>
+In this example, 
+<code>grunt.file.readJSON('package.json')</code> 
+imports the JSON metadata stored in 
+<code>package.json</code> into the grunt config. 
+Because <code>&lt;% %&gt;</code> template strings may reference any config properties, configuration data like filepaths and file lists may be specified this way to reduce repetition.
+
+<P>
+You may store any arbitrary data inside of the configuration object,
+and as long as it doesn't conflict with properties your tasks require,
+it will be otherwise ignored. Also, because this is JavaScript, you're
+not limited to JSON; you may use any valid JS here. You can even
+programmatically generate the configuration if necessary.
+
+<P>
+Like most tasks, the 
+<code>grunt-contrib-uglify</code> plugin's uglify task expects its configuration 
+to be specified in a property of the same name. 
+Here, the <code>banner</code> option is specified, along with a single uglify target 
+named <code>build</code> that minifies a single source file to a single destination file.
+
+<P>
+<PRE>
+// Project configuration.
+grunt.initConfig({
+  pkg: grunt.file.readJSON('package.json'),
+  uglify: {
+    options: {
+      banner: '/*! &lt;%= pkg.name %&gt; &lt;%= grunt.template.today("yyyy-mm-dd") %&gt; */\n'
+    },
+    build: {
+      src: 'src/&lt;%= pkg.name %&gt;.js',
+      dest: 'build/&lt;%= pkg.name %&gt;.min.js'
+    }
+  }
+});
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION011443240000000000000">
+A simple Grunt.js example</A>
+</H4>
+  
+
+<P>
+<A NAME="tex2html424"
+  HREF="https://github.com/UWMadisonUcomm/grunt-simple-example">https://github.com/UWMadisonUcomm/grunt-simple-example</A>
+<P>
+<PRE>
+[~/srcPLgrado/grunt-simple-example(master)]$ pwd
+/Users/casiano/srcPLgrado/grunt-simple-example
+[~/srcPLgrado/grunt-simple-example(master)]$ git remote -v
+origin  git@github.com:UWMadisonUcomm/grunt-simple-example.git (fetch)
+origin  git@github.com:UWMadisonUcomm/grunt-simple-example.git (push)
+[~/srcPLgrado/grunt-simple-example(master)]$ ls
+Gruntfile.js Readme.md    assets       index.html   node_modules package.json src
+</PRE>
+
+<P>
+<PRE>
+[~/srcPLgrado/grunt-simple-example(master)]$ cat Gruntfile.js 
+module.exports = function(grunt){
+  grunt.initConfig({
+    uglify: {
+      main: {
+        files: {
+          'assets/app.min.js': [
+            'src/javascripts/jquery-1.10.2.min.js',
+            'src/javascripts/bootstrap.js',
+            'src/javascripts/application.js'
+          ]
+        }
+      }
+    },
+    less: {
+      application: {
+        options: {
+          yuicompress: true
+        },
+        files: {
+          "assets/app.min.css": "src/stylesheets/application.less"
+        }
+      }
+    },
+    watch: {
+      javascripts: {
+        files: ['src/javascripts/**/*'],
+        tasks: ['uglify']
+      },
+      stylesheets: {
+        files: ['src/stylesheets/**/*'],
+        tasks: ['less']
+      }
+    }
+  });
+
+  // Load plugins
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+
+  // Register tasks
+  grunt.registerTask('default', ['uglify', 'less']);
+}
+</PRE>
+
+<P>
+<PRE>
+[~/srcPLgrado/grunt-simple-example(master)]$ cat package.json 
+{
+  "name": "grunt-simple-example",
+  "version": "0.0.1",
+  "main": "index.js",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-cssmin": "~0.6.2",
+    "grunt-contrib-less": "~0.7.0",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-watch": "~0.5.3"
+  },
+  "author": "Bryan Shelton",
+  "license": "BSD-2-Clause"
+}
+</PRE>
+
+<P>
+<PRE>
+[~/srcPLgrado/grunt-simple-example(master)]$ npm install
+npm WARN package.json grunt-simple-example@0.0.1 No repository field.
+[~/srcPLgrado/grunt-simple-example(master)]$
+</PRE>
+
+<P>
+<PRE>
+[~/srcPLgrado/grunt-simple-example(master)]$ grunt watch
+Running "watch" task
+Waiting...OK
+&gt;&gt; File "src/javascripts/application.js" changed.
+
+Running "uglify:main" (uglify) task
+File "assets/app.min.js" created.
+
+Done, without errors.
+Completed in 3.897s at Mon Jan 20 2014 19:02:03 GMT+0000 (WET) - Waiting...
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION011444000000000000000"></A>
+<A NAME="subsection:githubprojectpages"></A>
+<BR>
+GitHub Project Pages
+</H2>
+
+<P>
+Project Pages are kept in the same repository as the project they are for. 
+
+<P>
+These pages are similar to User and Org Pages, with a few slight differences:
+
+<P>
+
+<UL>
+<LI>The <code>gh-pages</code> branch is used to build and publish from.
+</LI>
+<LI>A custom domain on user/org pages will apply the same domain redirect to all project pages hosted under that account, unless the project pages use their own custom domain.
+</LI>
+<LI>If no custom domain is used, the project pages are served under a subpath of the user pages: 
+<PRE>
+username.github.io/projectname
+</PRE>
+Por ejemplo, mi usuario es <code>crguezl</code>. Si el proyecto se llama <code>nathanuniversityexercisesPL</code>, la dirección será:
+
+<P>
+<DIV ALIGN="CENTER">
+<A NAME="tex2html425"
+  HREF="http://crguezl.github.io/nathanuniversityexercisesPL/">http://crguezl.github.io/nathanuniversityexercisesPL/</A>
+
+</DIV>
+</LI>
+<LI>Custom 404s will only work if a custom domain is used, otherwise the User Pages 404 is used.
+</LI>
+</UL>
+
+<P>
+
+<UL>
+<LI><A NAME="tex2html426"
+  HREF="https://help.github.com/articles/creating-project-pages-manually">Creating Project Pages manually</A>
+</LI>
+</UL>
+
+<P>
+
+<OL>
+<LI>Setting up Pages on a project requires a new "orphan" branch in your repository. The safest way to do this is to start with a fresh clone.
+
+<P>
+<PRE>
+git clone https://github.com/user/repository.git
+# Clone our repository
+# Cloning into 'repository'...
+remote: Counting objects: 2791, done.
+remote: Compressing objects: 100% (1225/1225), done.
+remote: Total 2791 (delta 1722), reused 2513 (delta 1493)
+Receiving objects: 100% (2791/2791), 3.77 MiB | 969 KiB/s, done.
+Resolving deltas: 100% (1722/1722), done.
+</PRE>
+</LI>
+<LI>Now that we have a clean repository, we need to create the new branch and remove all content from the working directory and index.
+
+<P>
+<PRE>
+cd repository
+
+git checkout --orphan gh-pages
+# Creates our branch, without any parents (it's an orphan!)
+# Switched to a new branch 'gh-pages'
+
+git rm -rf .
+# Remove all files from the old working tree
+# rm '.gitignore'
+</PRE>
+</LI>
+<LI>Now we have an empty working directory. We can create some content in this branch and push it to GitHub. For example:
+<PRE>
+echo "My GitHub Page" &gt; index.html
+git add index.html
+git commit -a -m "First pages commit"
+git push origin gh-pages
+</PRE>
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html4440"
+  HREF="node160.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4434"
+  HREF="node155.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4430"
+  HREF="node158.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4436"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4438"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html4441"
+  HREF="node160.html">Functions and all that</A>
+<B>Sup:</B> <A NAME="tex2html4435"
+  HREF="node155.html">Scheem Interpreter</A>
+<B> Ant:</B> <A NAME="tex2html4431"
+  HREF="node158.html">Setting Values</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

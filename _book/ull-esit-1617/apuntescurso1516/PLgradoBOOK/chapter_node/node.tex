@@ -1,0 +1,252 @@
+Node es un intérprete JavScript escrito en C++ y con una API ligada a
+Unix para trabajar con procesos, fichero, sockets, etc.  Los programas
+Node por defecto nunca se bloquean. Node utiliza manejadores de eventos
+que a menudo se implementan haciendo uso de funciones anidadas  y
+clausuras.
+
+
+\section{Instalar Node.js}
+\begin{enumerate}
+\item \htmladdnormallink{http://nodejs.org/download/}{http://nodejs.org/download/}
+\item 
+\htmladdnormallink{Should I install node.js on Ubuntu using package manager or from source?}{http://stackoverflow.com/questions/13845321/should-i-install-node-js-on-ubuntu-using-package-manager-or-from-source}
+\item 
+\htmladdnormallink{The Node Beginner Book}{http://www.nodebeginner.org/}
+\end{enumerate}
+
+
+\section{Primeros Pasos. Un Ejemplo Simple}
+\begin{verbatim}
+[~/src/javascript/node.js/hector_correa_introduction_to_node(master)]$ cat -n hello_world.js 
+     1  console.log("Hello world!");
+     2  a = [ 'batman', 'robin'];
+     3  a.push("superman");
+     4  console.log(a);
+     5  h = { name: 'jane rodriguez-leon', department: 'IT' };
+     6  console.log(h);
+     7  console.log(h['name']);
+\end{verbatim}
+
+\begin{verbatim}
+[~/src/javascript/node.js/hector_correa_introduction_to_node(master)]$ node hello_world.js 
+Hello world!
+[ 'batman', 'robin', 'superman' ]
+{ name: 'jane rodriguez-leon', department: 'IT' }
+jane rodriguez-leon
+\end{verbatim}
+
+\begin{verbatim}
+[~/Dropbox/academica/ETSII/grado/LPP/LPPbook]$ node
+> .help
+.break  Sometimes you get stuck, this gets you out
+.clear  Alias for .break
+.exit Exit the repl
+.help Show repl options
+.load Load JS from a file into the REPL session
+.save Save all evaluated commands in this REPL session to a file
+
+> console.log("Hello world!")
+Hello world!
+undefined
+> a = [ 'batman', 'robin']
+[ 'batman', 'robin' ]
+> a.push("superman")
+3
+> a
+[ 'batman', 'robin', 'superman' ]
+> h = { name: 'jane rodriguez-leon', department: 'IT' }
+{ name: 'jane rodriguez-leon',
+  department: 'IT' }
+> h['name']
+'jane rodriguez-leon'
+> 4+2
+6
+> _    # ultimo valor evaluado
+6
+> _+1
+7
+> 
+> a = [1,2,3]
+[ 1, 2, 3 ]
+> a.forEach(function(e) { console.log(e); })
+1
+2
+3
+> a.forEach(function(v) {
+... console.log(v
+..... .break
+> a
+[ 1, 2, 3 ]
+> .exit # también CTRL-D en Unix
+[~/Dropbox/academica/ETSII/grado/LPP/LPPbook]$ 
+\end{verbatim}
+
+\section{Usando REPL desde un programa}
+
+Es posible crear un bucle REPL en cualquier punto de nuestro programa - quizá para depurarlo.
+Para ello usamos la función 
+\tei{repl.start}.
+Esta función retorna una instancia REPLServer. Acepta como argumento un objeto
+\verb"options" que toma los siguientes valores:
+
+\begin{enumerate}
+\item \verb|prompt| - the prompt and stream for all I/O. Defaults to > .
+\item \verb|input| - the readable stream to listen to. Defaults to process.stdin.
+\item \verb|output| - the writable stream to write readline data to. Defaults to process.stdout.
+\item \verb|terminal| - pass true if the stream should be treated
+like a TTY, and have ANSI/VT100 escape codes written to it. Defaults
+to checking isTTY on the output stream upon instantiation.
+\item \verb|eval| - function that will be used to eval each given
+line. Defaults to an async wrapper for eval(). 
+\item \verb|useColors| - a boolean which specifies whether or not
+the writer function should output colors. If a different writer
+function is set then this does nothing. Defaults to the repl's
+terminal value.
+\item \verb|useGlobal| - if set to true, then the repl will use the
+global object, instead of running scripts in a separate context.
+Defaults to false.
+\item \verb|ignoreUndefined| - if set to true, then the repl will
+not output the return value of command if it's undefined. Defaults
+to false.
+\item \verb|writer| - the function to invoke for each command that
+gets evaluated which returns the formatting (including coloring)
+to display. Defaults to util.inspect.
+\end{enumerate}
+
+\begin{verbatim}
+[~/Dropbox/src/javascript/node.js/repl(master)]$ cat repl.js 
+var repl = require("repl");
+
+connections = 0;
+
+repl.start({
+  prompt: "node via stdin> ",
+  input: process.stdin,
+  output: process.stdout
+});
+\end{verbatim}
+
+\begin{verbatim}
+[~/Dropbox/src/javascript/node.js/repl(master)]$ node repl.js 
+node via stdin> 2+3
+5
+node via stdin> .exit
+\end{verbatim}
+
+el bucle REPL proporciona acceso a las variables de ámbito global. Es posible
+hacer explícitamente visible una variable al REPL asignándosela al
+\verb|context| asociado con el
+REPLServer. Por ejemplo:
+
+\begin{verbatim}
+[~/Dropbox/src/javascript/node.js/repl(master)]$ cat repl2.js 
+var repl = require("repl");
+
+z = 4
+repl.start({
+  prompt: "node via stdin> ",
+  input: process.stdin,
+  output: process.stdout
+}).context.m = "message";
+\end{verbatim}
+Las variables en el objeto \verb|context| se ven como locales 
+al  REPL:
+
+\begin{verbatim}
+[~/Dropbox/src/javascript/node.js/repl(master)]$ node repl2.js 
+node via stdin> z
+4
+node via stdin> m
+'message'
+
+\end{verbatim}
+
+\section{Usando REPL via un socket TCP}
+\begin{verbatim}
+[~/Dropbox/src/javascript/node.js/repl(master)]$ cat repl_server.js 
+var net = require("net"),
+    repl = require("repl");
+
+connections = 0;
+
+net.createServer(function (socket) {
+  connections += 1;
+  repl.start({
+    prompt: "node via TCP socket> ",
+    input: socket,
+    output: socket
+  }).on('exit', function() {
+    socket.end();
+  });
+}).listen(5001);
+
+[~/Dropbox/src/javascript/node.js/repl(master)]$ node repl_server.js 
+
+\end{verbatim}
+
+Podemos ahora usar \cei{netcat} para comunicar con el servidor:
+\begin{verbatim}
+[~/Dropbox/src/javascript/node.js/hector_correa_introduction_to_node(master)]$ nc -v localhost 5001
+nc: connect to localhost port 5001 (tcp) failed: Connection refused
+Connection to localhost 5001 port [tcp/commplex-link] succeeded!
+node via TCP socket> a = 2+3
+5
+node via TCP socket> a
+5
+node via TCP socket> .exit
+[~/Dropbox/src/javascript/node.js/hector_correa_introduction_to_node(master)]$ 
+\end{verbatim}
+
+\section{Referencias sobre REPL}
+
+\begin{enumerate}
+\item 
+Véase \htmladdnormallink{Node.js v0.8.18 Manual \& Documentation}{http://nodejs.org/api/repl.html}
+\item 
+Véase \htmladdnormallink{How do I use node's REPL?}{http://docs.nodejitsu.com/articles/REPL/how-to-use-nodejs-repl} en \htmladdnormallink{http://docs.nodejitsu.com/}{http://docs.nodejitsu.com/}.
+\end{enumerate}
+
+\section{Entrada Salida en Node.js}
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{How To Read User Input With NodeJS}{http://st-on-it.blogspot.com.es/2011/05/how-to-read-user-input-with-nodejs.html} por Nikolay V. Nemshilov
+\end{enumerate}
+
+\section{Debugger}
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{Node.js debugger}{http://nodejs.org/api/debugger.html}
+\end{enumerate}
+
+\section{Modulos}
+%http://nodejs.org/api/modules.html#loading_from_node_modules_Folders
+\input{chapter1/modulos.tex}
+
+\section{Como Crear tu Propio Módulo en Node.js}
+% http://howtonode.org/how-to-module está desactualizado
+\input{chapter1/create_module.tex}
+
+
+\section{Mas sobre Node}
+\begin{enumerate}
+\item
+Véase el libro 'Learning Node' de S. Powers \cite{learningnode}.
+\item \htmladdnormallink{Node.js}{http://nodejs.org/}
+\item \htmladdnormallink{docs.nodejitsu.com}{http://docs.nodejitsu.com}: collection of node.js how-to articles. These articles range from basic to advanced. They provide relevant code samples and insights into the design and philosophy of node itself
+
+\item \htmladdnormallink{http://howtonode.org/}{http://howtonode.org/}
+contiene un número creciente de tutoriales
+\item El manual de node.js puede encontrarse en formato pdf en el proyecto 
+\htmladdnormallink{https://github.com/zeMirco/nodejs-pdf-docs}{https://github.com/zeMirco/nodejs-pdf-docsoen}
+en GitHub. En concreto en este \htmladdnormallink{enlace}{https://github.com/zeMirco/nodejs-pdf-docs/blob/master/pdf/all.pdf?raw=true}
+\item \htmladdnormallink{Guías de node.js}{http://nodeguide.com/} de
+\htmladdnormallink{Felix Geisendörfer}{https://twitter.com/felixge}
+\item \htmladdnormallink{Introduction to Node.js}{http://hectorcorrea.jit.su/blog/introduction-to-node-js} por Hector Correa
+\item \htmladdnormallink{El Libro para Principiantes en Node.js}{http://www.nodebeginner.org/index-es.html} por Manuel Kiessling  y Herman A. Junge
+\end{enumerate}
+Para aprender JavaScript podemos usar el libro
+\htmladdnormallink{eloquent JavaScript}{http://eloquentjavascript.net/} de Marijn Haverbeke \cite{eloquentjavascript}.
+
+

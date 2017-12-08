@@ -1,0 +1,25 @@
+<tex2html_file>#./chapter_closure_tools/closure_tools.tex#
+\begin<<1855>>tex2html_deferred<<1855>>\par\end<<1856>>tex2html_deferred<<1856>>
+\section<<1835>>Véase También<<1835>>
+\begin<<1836>>enumerate<<1836>>
+\item
+\htmladdnormallink<<1837>>Google I/O 2011: JavaScript Programming in the Large with Closure Tools<<1837>><<1838>>http://youtu.be/M3uWx-fhjUc<<1838>>  (YouTube)
+\item
+\htmladdnormallink<<1839>>The Closure Tools project is an effort by Google to open source the tools used in many of Google's sites and web applications<<1839>><<1840>>https://developers.google.com/closure/?hl=es<<1840>>
+\item Herramientas:
+\begin<<1841>>enumerate<<1841>>
+\item
+\htmladdnormallink<<1842>>Closure Compiler<<1842>><<1843>>https://code.google.com/p/closure-compiler/<<1843>> en Google-Code
+\item
+\htmladdnormallink<<1844>>Closure Library<<1844>><<1845>>https://code.google.com/p/closure-library/<<1845>> en Google-Code
+\item
+\htmladdnormallink<<1846>>Closure Template<<1846>><<1847>>https://code.google.com/p/closure-templates/<<1847>> en Google-Code
+\item
+\htmladdnormallink<<1848>>Closure Linter<<1848>><<1849>>https://code.google.com/p/closure-linter/<<1849>> en Google-Code
+\end<<1850>>enumerate<<1850>>
+\item
+\htmladdnormallink<<1851>>Getting Started with the Closure Library<<1851>><<1852>>https://developers.google.com/closure/library/docs/gettingstarted?hl=es<<1852>> (Hello World!)
+\end<<1853>>enumerate<<1853>>
+<tex2html_endfile>#./chapter_closure_tools/closure_tools.tex#
+\begin<<1857>>tex2html_deferred<<1857>>\par\end<<1858>>tex2html_deferred<<1858>>
+\chapter<<1854>>Pruebas<<1854>>

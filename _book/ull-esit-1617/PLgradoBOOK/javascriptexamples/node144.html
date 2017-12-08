@@ -1,0 +1,152 @@
+
+<H1><A NAME="SECTION05670000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:esquemas"><tex2html_anchor_mark></A><BR>
+Esquemas de Traducción
+</H1>
+<P><DIV><#34199#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#34199#> &nbsp; 
+<#34202#><I>Un <A NAME="12154"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">esquema de traducción</SPAN> es una gramática independiente del contexto
+en la cual se han insertado fragmentos de código en las partes derechas
+de sus reglas de producción. Los fragmentos de código asi insertados 
+se denominan <A NAME="12156"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">acciones semánticas</SPAN>. Dichos fragmentos actúan, calculan
+y modifican los atributos asociados con los nodos del árbol sintáctico. 
+El orden en que se evalúan los fragmentos
+es el de un recorrido primero-profundo del árbol de análisis sintáctico.</I><#34202#></DIV><P></P>
+
+Obsérvese que, en general, para poder aplicar un esquema de traducción hay 
+que construir el árbol sintáctico y después aplicar las acciones empotradas
+en las reglas en el orden de recorrido primero-profundo. Por supuesto, si 
+la gramática es ambigua una frase podría tener dos árboles y la ejecución de las
+acciones para ellos podría dar lugar a diferentes resultados. Si se quiere
+evitar la multiplicidad de resultados (interpretaciones semánticas)
+es necesario precisar de que árbol sintáctico concreto se esta hablando.
+
+<P>
+Por ejemplo, si en la regla <tex2html_verbatim_mark>#math6530#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34204#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+insertamos un fragmento de código:
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6531#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34206#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+La acción <tex2html_verbatim_mark>#math6532#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34208#</SPAN>
+<tex2html_verbatim_mark>mathend000# se ejecutará después de todas las acciones
+asociadas con el recorrido del subárbol de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34210#</SPAN>
+<tex2html_verbatim_mark>mathend000# y antes que todas
+las acciones asociadas con el recorrido del subárbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34212#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+El siguiente esquema de traducción recibe como entrada una expresión en infijo
+y produce como salida su traducción a postfijo para expresiones aritmeticas con sólo 
+restas de números:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6533#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34214#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>1802<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6534#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34216#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>1803<tex2html_verb_mark></TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+
+<P>
+Las apariciones de variables sintácticas en una regla de producción se indexan
+como se ve en el ejemplo, para distinguir de que nodo del árbol de análisis estamos
+hablando. Cuando hablemos del atributo de un nodo utilizaremos una indexación tipo
+<SPAN  CLASS="textbf">hash</SPAN>. Aquí <tex2html_verb_mark>1804<tex2html_verb_mark> es un atributo de los nodos de tipo <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34222#</SPAN>
+<tex2html_verbatim_mark>mathend000# denotando
+su valor numérico y para accederlo escribiremos <tex2html_verb_mark>1805<tex2html_verb_mark>.
+Análogamente <tex2html_verb_mark>1806<tex2html_verb_mark> denota el atributo ``traducción'' de
+los nodos de tipo <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34224#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+<P><DIV><#34226#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#34226#> &nbsp; 
+<#34229#><I>Muestre la secuencia de acciones a la
+que da lugar el esquema de traducción anterior 
+para la frase 7 -5 -4.</I><#34229#></DIV><P></P>
+
+
+<P>
+En este ejemplo, el cómputo del atributo <tex2html_verb_mark>1807<tex2html_verb_mark> depende de los atributos
+en los nodos hijos, o lo que es lo mismo, depende de los atributos de los símbolos
+en la parte derecha de la regla de producción. Esto ocurre a menudo y motiva la siguiente
+definición:
+
+<P>
+<P><DIV><#34231#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#34231#> &nbsp; 
+<#34234#><I>Un atributo tal que su valor en un nodo
+puede ser computado en términos de los atributos de los hijos del nodo se dice
+que es un <A NAME="12158"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">atributo sintetizado</SPAN>.</I><#34234#></DIV><P></P>
+
+
+<P>
+<P><DIV><A NAME="example:typesandts"><#34236#><B>Ejemplo  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#34236#></A> &nbsp; 
+<#34239#><I>Un ejemplo de atributo heredado es el tipo de las variables en las declaraciones:
+</I>
+<P>
+<I><BR>
+<BR>
+</I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+<tex2html_verbatim_mark>#math6535#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34241#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1808<tex2html_verb_mark> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34243#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6536#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34245#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1809<tex2html_verb_mark></I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6537#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34247#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1810<tex2html_verb_mark></I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6538#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34249#</SPAN>
+<tex2html_verbatim_mark>mathend000# , <tex2html_verb_mark>1811<tex2html_verb_mark> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34251#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6539#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34253#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1812<tex2html_verb_mark>
+</I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+</TABLE><I>
+<BR>
+<BR></I><#34239#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34265#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#34265#> &nbsp; 
+<#34268#><I>Un <A NAME="12160"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">atributo heredado</SPAN> es aquel cuyo valor se computa a partir de los
+valores de sus hermanos y de su padre.</I><#34268#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34270#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#34270#> &nbsp; 
+<#34273#><I>Escriba un esquema de traducción que convierta expresiones en infijo con los 
+operadores <tex2html_verb_mark>1813<tex2html_verb_mark> y números en expresiones en postfijo. Explique el significado
+de los atributos elegidos.</I><#34273#></DIV><P></P>
+
+
+<P>
+
+<DIV CLASS="alltt" ALIGN="LEFT">
+<#34274#><TT><#34275#><#34275#></TT><#34274#>
+</DIV>

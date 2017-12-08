@@ -1,0 +1,2078 @@
+
+<H1><A NAME="SECTION05410000000000000000">
+Introducción</A>
+</H1>
+Los rudimentos de las expresiones regulares pueden encontrarse
+en los trabajos pioneros de McCullogh y Pitts (1940) sobre redes neuronales.
+El lógico Stephen Kleene definió formalmente el algebra que denominó
+<SPAN  CLASS="textit">conjuntos regulares</SPAN> y desarrollo una notación para la descripción de dichos conjuntos, las <SPAN  CLASS="textit">expresiones regulares</SPAN>.
+
+<P>
+Durante las décadas de 1960 y 1970 hubo un desarrollo formal de las expresiones regulares.
+Una de las priemras publicaciones que utilizan las expresiones
+regulares en un marco informático es el artículo de 1968 de Ken
+Thompson <SPAN  CLASS="textit">Regular Expression Search Algorithm</SPAN> en el que describe
+un compilador de expresiones regulares que produce código objeto para
+un IBM 7094.
+Este compilador dió lugar al editor <SPAN  CLASS="textit">qed</SPAN>, en el cual se basó el
+editor de Unix
+<SPAN  CLASS="textit">ed</SPAN>. Aunque las expresiones regulares de este último no eran
+tan sofisticadas como las de <SPAN  CLASS="textit">qed</SPAN>, fueron las primeras en ser
+utilizadas en un contexto no académico.
+Se dice que el comando global <tex2html_verb_mark>495<tex2html_verb_mark> en su formato <tex2html_verb_mark>496<tex2html_verb_mark> que utilizaba 
+para imprimir (opción <tex2html_verb_mark>497<tex2html_verb_mark>) las líneas que casan con la expresión regular  <tex2html_verb_mark>498<tex2html_verb_mark>
+dió lugar a un programa separado al que se denomino <A NAME="tex2html135"
+  HREF="http://manpages.debian.net/cgi-bin/man.cgi?query=grep"><TT>grep</TT></A>.
+
+<P>
+Las expresiones regulares facilitadas por las primeras versiones de estas herramientas 
+eran limitadas. Por ejemplo, se disponía del cierre de Kleene <tex2html_verb_mark>499<tex2html_verb_mark> pero no del cierre
+positivo <tex2html_verb_mark>500<tex2html_verb_mark> o del operador opcional <tex2html_verb_mark>501<tex2html_verb_mark>. 
+Por eso, posteriormente, se han introducido los metacaracteres <tex2html_verb_mark>502<tex2html_verb_mark> y <tex2html_verb_mark>503<tex2html_verb_mark>.
+Existían numerosas limitaciones en dichas versiones, por ej. <tex2html_verb_mark>504<tex2html_verb_mark> sólo significa ``final
+de línea'' al final de la expresión regular. Eso  dificulta expresiones como 
+<PRE><tex2html_verbatim_mark>verbatim1141#</PRE>
+Sin embargo, la mayor parte de las versiones
+actuales resuelven correctamente estos problemas:
+<PRE><tex2html_verbatim_mark>verbatim1142#</PRE>
+De hecho AT<tex2html_ampersand_mark>T Bell  labs añadió numerosas funcionalidades,
+como por ejemplo, el uso de <tex2html_verb_mark>505<tex2html_verb_mark>, tomada de <SPAN  CLASS="textit">lex</SPAN>.
+Por esa época, Alfred Aho escribió <SPAN  CLASS="textit">egrep</SPAN> que, no sólo proporciona un conjunto
+mas rico de operadores sino que mejoró la implementación.
+Mientras que el <SPAN  CLASS="textit">grep</SPAN> de Ken Thompson usaba un autómata finito no determinista
+(NFA), la versión de <SPAN  CLASS="textit">egrep</SPAN>
+de Aho usa un autómata finito determinista (DFA).
+
+<P>
+En 1986 Henry Spencer desarrolló la librería <SPAN  CLASS="textit">regex</SPAN> para el lenguaje <tex2html_verb_mark>506<tex2html_verb_mark>, que 
+proporciona un conjunto consistente de funciones que permiten el manejo de expresiones
+regulares. Esta librería ha contribuido a ``homogeneizar'' la sintáxis y semántica 
+de las diferentes herramientas que utilizan expresiones regulares (como <SPAN  CLASS="textit">awk</SPAN>,
+<SPAN  CLASS="textit">lex</SPAN>, <SPAN  CLASS="textit">sed</SPAN>, ...).
+
+<P>
+
+<H4><A NAME="SECTION05410010000000000000">
+Véase También</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+
+<UL>
+<LI>La sección
+<#3575#><I>Expresiones Regulares en Otros Lenguajes</I><#3575#>
+<A HREF=<tex2html_cr_mark>#section:otroslenguajes#3576><tex2html_cr_mark></A>
+</LI>
+<LI><A NAME="tex2html136"
+  HREF="http://oreilly.com/catalog/9780596520687/preview.html">Regular Expressions Cookbook. Jan Goyvaerts, Steven Levithan</A>
+</LI>
+<LI><A NAME="tex2html137"
+  HREF="http://en.wikipedia.org/wiki/Perl_Compatible_Regular_Expressions">PCRE (Perl Compatible Regular Expressions) en la Wikipedia</A>
+</LI>
+<LI><A NAME="tex2html138"
+  HREF="http://www.pcre.org/pcre.txt">PCRE (Perl Compatible Regular Expressions)</A>
+</LI>
+<LI><A NAME="tex2html139"
+  HREF="http://java.sun.com/docs/books/tutorial/essential/regex/">Java Regular Expressions</A>
+</LI>
+<LI><A NAME="tex2html140"
+  HREF="http://oreilly.com/lpt/a/2299">C# Regular Expressions</A>
+</LI>
+<LI><A NAME="tex2html141"
+  HREF="http://msdn.microsoft.com/en-us/library/hs600312(VS.71).aspx">.NET Framework Regular Expressions</A>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION05411000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:ejemplo"><tex2html_anchor_mark></A><BR>
+Un ejemplo sencillo
+</H2>
+
+<P>
+
+<H4><A NAME="SECTION05411010000000000000">
+Matching en Contexto Escalar</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<tex2html_verbatim_mark>rawhtml1143#
+
+<P>
+Véase también:
+
+<P>
+
+<UL>
+<LI><tex2html_verb_mark>507<tex2html_verb_mark> <A NAME="tex2html142"
+  HREF="http://search.cpan.org/perldoc/?perlrequick"><TT>perlrequick</TT></A>
+</LI>
+<LI><tex2html_verb_mark>508<tex2html_verb_mark> <A NAME="tex2html143"
+  HREF="http://search.cpan.org/perldoc/?perlretut"><TT>perlretut</TT></A>
+</LI>
+<LI><tex2html_verb_mark>509<tex2html_verb_mark> <A NAME="tex2html144"
+  HREF="http://search.cpan.org/perldoc/?perlre"><TT>perlre</TT></A>
+</LI>
+<LI><tex2html_verb_mark>510<tex2html_verb_mark> <A NAME="tex2html145"
+  HREF="http://search.cpan.org/perldoc/?perlreref"><TT>perlreref</TT></A>
+</LI>
+</UL>
+
+<P>
+Ejecución con el depurador:
+
+<P>
+<tex2html_verbatim_mark>rawhtml1144#
+
+<P>
+<A NAME="section:dolar1"><tex2html_anchor_mark></A>Dentro de una expresión regular es necesario 
+referirse a los textos que casan con el primer, paréntesis,
+segundo, etc. como <tex2html_verb_mark>511<tex2html_verb_mark>, <tex2html_verb_mark>512<tex2html_verb_mark> etc. La notación 
+<tex2html_verb_mark>513<tex2html_verb_mark> se refieré a lo que casó con el primer paréntesis
+en el último <SPAN  CLASS="textit">matching</SPAN>, no en el actual. Veamos un ejemplo:
+
+<P>
+<tex2html_verbatim_mark>rawhtml1145#
+Observe como el <tex2html_verb_mark>514<tex2html_verb_mark> que aparece en la cadena de reemplazo (línea 8)
+se refiere a la cadena <tex2html_verb_mark>515<tex2html_verb_mark>
+mientras que el <tex2html_verb_mark>516<tex2html_verb_mark> en la primera parte contiene <tex2html_verb_mark>517<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim1146#</PRE>
+
+<P>
+<P><DIV><#33054#><B>Ejercicio  <SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#33054#> &nbsp; 
+<#33057#><I>Indique cuál es la salida del programa anterior si se sustituye la línea 8 por
+</I><PRE><tex2html_verbatim_mark>verbatim1147#</PRE><I></I><#33057#></DIV><P></P>
+
+
+<P>
+
+<H4><A NAME="SECTION05411020000000000000">
+Número de Paréntesis</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El número de paréntesis con memoria no está limitado:
+<PRE><tex2html_verbatim_mark>verbatim1148#</PRE>
+
+<P>
+Véase el siguiente párrafo de <A NAME="tex2html146"
+  HREF="http://search.cpan.org/perldoc/?perlre"><TT>perlre</TT></A>
+(sección Capture buffers):
+<I></I>
+<BLOCKQUOTE><I>There is no limit to the number of captured substrings that you may
+use. However Perl also uses <tex2html_verb_mark>518<tex2html_verb_mark>, <tex2html_verb_mark>519<tex2html_verb_mark>, etc. as aliases for <tex2html_verb_mark>520<tex2html_verb_mark>, <tex2html_verb_mark>521<tex2html_verb_mark>,
+etc. (Recall that <tex2html_verb_mark>522<tex2html_verb_mark> means octal, so <tex2html_verb_mark>523<tex2html_verb_mark> is the character at number <tex2html_verb_mark>524<tex2html_verb_mark> in
+your coded character set; which would be the 10th character, a horizontal
+tab under ASCII.) Perl resolves this ambiguity by interpreting <tex2html_verb_mark>525<tex2html_verb_mark> as
+a backreference only if at least <tex2html_verb_mark>526<tex2html_verb_mark> left parentheses have opened before
+it. Likewise <tex2html_verb_mark>527<tex2html_verb_mark> is a backreference only if at least <tex2html_verb_mark>528<tex2html_verb_mark> left parentheses
+have opened before it. And so on. <tex2html_verb_mark>529<tex2html_verb_mark> through <tex2html_verb_mark>530<tex2html_verb_mark> are always interpreted
+as backreferences.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION05411030000000000000">
+Contexto de Lista</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Si se utiliza en un contexto que requiere una lista,
+el ``pattern match'' retorna una lista consistente en
+las subexpresiones casadas mediante los paréntesis,
+esto es <tex2html_verb_mark>531<tex2html_verb_mark>, <tex2html_verb_mark>532<tex2html_verb_mark>, <tex2html_verb_mark>533<tex2html_verb_mark>, .... 
+Si no hubiera emparejamiento se retorna la lista vacía.
+Si lo hubiera pero no hubieran paréntesis se retorna la lista 
+<tex2html_verb_mark>534<tex2html_verb_mark>.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1149#</PRE>
+Observa el resultado de la ejecución:
+<PRE><tex2html_verbatim_mark>verbatim1150#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05411040000000000000">
+El modificador <TT>s</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+La opción <tex2html_verb_mark>535<tex2html_verb_mark> usada en una regexp 
+hace que el punto <tex2html_verb_mark>536<tex2html_verb_mark> case con el retorno
+de carro:
+
+<P>
+<tex2html_verbatim_mark>rawhtml1151#
+
+<P>
+La opción <tex2html_verb_mark>537<tex2html_verb_mark> hace que <tex2html_verb_mark>538<tex2html_verb_mark> se empareje con 
+un <tex2html_verb_mark>539<tex2html_verb_mark>.
+Esto es, casa con cualquier carácter.
+
+<P>
+Veamos otro ejemplo, que imprime los nombres de los ficheros que
+contienen cadenas que casan con un patrón dado, incluso si este
+aparece disperso en varias líneas:
+<tex2html_verbatim_mark>rawhtml1152#
+
+<P>
+Ejemplo de uso:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1153#</PRE>
+
+<P>
+Vea la sección <A HREF=<tex2html_cr_mark>#section:repetidas#3623><tex2html_cr_mark></A> para ver los contenidos 
+del fichero <tex2html_verb_mark>540<tex2html_verb_mark>. En dicho fichero,
+el patrón <tex2html_verb_mark>541<tex2html_verb_mark> aparece repartido entre
+varias líneas.
+
+<P>
+
+<H4><A NAME="SECTION05411050000000000000">
+El modificador <TT>m</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El modificador <tex2html_verb_mark>542<tex2html_verb_mark> se suele usar conjuntamente con el modificador 
+<tex2html_verb_mark>543<tex2html_verb_mark>. He aquí lo que dice
+la seccion <#3625#><I>Using character classes</I><#3625#> de la sección 'Using-character-classes' en <A NAME="tex2html147"
+  HREF="http://perldoc.perl.org/perlretut.html#Using-character-classes"><TT>perlretut</TT></A>
+al respecto:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I></I></BLOCKQUOTE>
+<UL>
+<LI><tex2html_verb_mark>544<tex2html_verb_mark> modifier (<tex2html_verb_mark>545<tex2html_verb_mark>): Treat string as a set of multiple lines. 
+      <tex2html_verb_mark>546<tex2html_verb_mark> matches any character except <tex2html_verb_mark>547<tex2html_verb_mark>. 
+      <tex2html_verb_mark>548<tex2html_verb_mark> and <tex2html_verb_mark>549<tex2html_verb_mark> are able to match at the start or end of any line within the string.
+</LI>
+<LI>both <tex2html_verb_mark>550<tex2html_verb_mark> and <tex2html_verb_mark>551<tex2html_verb_mark> modifiers (<tex2html_verb_mark>552<tex2html_verb_mark>): Treat string as a single long line, but detect multiple lines. 
+      <tex2html_verb_mark>553<tex2html_verb_mark> matches any character, even <tex2html_verb_mark>554<tex2html_verb_mark> . 
+      <tex2html_verb_mark>555<tex2html_verb_mark> and <tex2html_verb_mark>556<tex2html_verb_mark> , however, are able to match at the start or end of any line within the string.
+</LI>
+</UL><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Here are examples of //s and //m in action:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1154#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Most of the time, the default behavior is what is wanted, but <tex2html_verb_mark>557<tex2html_verb_mark> and
+<tex2html_verb_mark>558<tex2html_verb_mark> are occasionally very useful. If <tex2html_verb_mark>559<tex2html_verb_mark> is being used, the start of the
+string can still be matched with <tex2html_verb_mark>560<tex2html_verb_mark> and the end of the string can still
+be matched with the anchors <tex2html_verb_mark>561<tex2html_verb_mark> (matches both the end and the newline
+before, like <tex2html_verb_mark>562<tex2html_verb_mark>), and <tex2html_verb_mark>563<tex2html_verb_mark> (matches only the end):
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1155#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+Normalmente el carácter <tex2html_verb_mark>564<tex2html_verb_mark> casa solamente con el comienzo de la
+cadena y el carácter <tex2html_verb_mark>565<tex2html_verb_mark> con el final. Los <tex2html_verb_mark>566<tex2html_verb_mark> empotrados
+no casan
+con <tex2html_verb_mark>567<tex2html_verb_mark> ni <tex2html_verb_mark>568<tex2html_verb_mark>. El modificador <tex2html_verb_mark>569<tex2html_verb_mark> modifica esta
+conducta. De este modo <tex2html_verb_mark>570<tex2html_verb_mark> y  <tex2html_verb_mark>571<tex2html_verb_mark> casan con cualquier frontera
+de línea interna. Las anclas <tex2html_verb_mark>572<tex2html_verb_mark> y <tex2html_verb_mark>573<tex2html_verb_mark> se utilizan entonces
+para casar con
+el comienzo y final de la cadena.
+Véase un ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim1156#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05411060000000000000">
+El conversor de temperaturas reescrito usando contexto de lista</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Reescribamos el ejemplo anterior usando un contexto de lista:
+
+<P>
+<tex2html_verbatim_mark>rawhtml1157#
+
+<P>
+
+<H4><A NAME="SECTION05411070000000000000">
+La opción <TT>x</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<A NAME="section:x"><tex2html_anchor_mark></A>La opción <tex2html_verb_mark>574<tex2html_verb_mark> en una regexp permite utilizar comentarios y
+espacios dentro de la expresión
+regular. Los espacios dentro de la expresión regular dejan de ser significativos.
+Si quieres conseguir un espacio que sea significativo, usa <tex2html_verb_mark>575<tex2html_verb_mark> o
+bien escápalo.  Véase la sección 'Modifiers' en <A NAME="tex2html148"
+  HREF="http://perldoc.perl.org/perlre.html#Modifiers"><TT>perlre</TT></A>
+y 
+la sección 'Building-a-regexp' en <A NAME="tex2html149"
+  HREF="http://perldoc.perl.org/perlretut.html#Building-a-regexp"><TT>perlretut</TT></A>.
+
+<P>
+
+<H4><A NAME="SECTION05411080000000000000">
+Paréntesis sin memoria</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+La notación <tex2html_verb_mark>576<tex2html_verb_mark> se usa para introducir paréntesis de agrupamiento sin memoria.
+<tex2html_verb_mark>577<tex2html_verb_mark> 
+Permite agrupar las expresiones tal y como lo hacen los 
+paréntesis ordinarios. La diferencia es que no ``memorizan''
+esto es no guardan nada en <tex2html_verb_mark>578<tex2html_verb_mark>, <tex2html_verb_mark>579<tex2html_verb_mark>, etc.
+Se logra así una compilación mas eficiente. Veamos un ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim1158#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05411090000000000000">
+Interpolación en los patrones: La opción <TT>o</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El patrón regular puede contener variables, que serán interpoladas
+(en tal caso, el patrón será recompilado).
+Si quieres que dicho patrón se compile una sóla vez, usa la opción
+<tex2html_verb_mark>580<tex2html_verb_mark>.
+<PRE><tex2html_verbatim_mark>verbatim1159#</PRE>
+Sigue un ejemplo de ejecución:
+<PRE><tex2html_verbatim_mark>verbatim1160#</PRE>
+
+<P>
+El siguiente texto es de la sección 'Using-regular-expressions-in-Perl' en <A NAME="tex2html150"
+  HREF="http://perldoc.perl.org/perlretut.html#Using-regular-expressions-in-Perl"><TT>perlretut</TT></A>:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>If <tex2html_verb_mark>581<tex2html_verb_mark>  won't be changing over the lifetime of the script,
+we can add the //o modifier, which directs Perl to only perform variable
+substitutions once
+</I></BLOCKQUOTE><I></I>
+
+<P>
+Otra posibilidad es hacer una compilación previa usando el operador 
+<tex2html_verb_mark>582<tex2html_verb_mark> (véase la sección 'Regexp-Quote-Like-Operators' en <A NAME="tex2html151"
+  HREF="http://perldoc.perl.org/perlop.html#Regexp-Quote-Like-Operators"><TT>perlop</TT></A>).
+La siguiente variante del programa anterior también compila el patrón
+una sóla vez:
+<PRE><tex2html_verbatim_mark>verbatim1161#</PRE>
+
+<P>
+Véase 
+
+<UL>
+<LI>El nodo en perlmonks <A NAME="tex2html152"
+  HREF="http://www.perlmonks.org/?node_id=269035">/o is dead, long live qr//!</A>
+por <A NAME="tex2html153"
+  HREF="http://www.perlmonks.org/?node_id=194920">diotalevi</A>
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION054110100000000000000">
+Cuantificadores greedy</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El siguiente extracto de la sección <#3672#><I>Matching Repetitions</I><#3672#> en la sección 'Matching-repetitions' en <A NAME="tex2html154"
+  HREF="http://perldoc.perl.org/perlretut.html#Matching-repetitions"><TT>perlretut</TT></A>
+ilustra la semántica <#3675#><I>greedy</I><#3675#> de los operadores de repetición <tex2html_verb_mark>583<tex2html_verb_mark> etc.
+<I></I>
+<BLOCKQUOTE><I>For all of these quantifiers, Perl will try to match as much of the string
+as possible, while still allowing the regexp to succeed. Thus with <tex2html_verb_mark>584<tex2html_verb_mark>, 
+Perl will first try to match the regexp with the a present; if that
+fails, Perl will try to match the regexp without the a  present. For
+the quantifier <tex2html_verb_mark>585<tex2html_verb_mark> , we get the following:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1162#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Which is what we might expect, the match finds the only cat in the string and locks onto it. Consider, however, this regexp:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1163#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>One might initially guess that Perl would find the <tex2html_verb_mark>586<tex2html_verb_mark> in <tex2html_verb_mark>587<tex2html_verb_mark> and stop
+there, but that wouldn't give the longest possible string to the first
+quantifier <tex2html_verb_mark>588<tex2html_verb_mark>. Instead, the first quantifier <tex2html_verb_mark>589<tex2html_verb_mark> grabs as much of the
+string as possible while still having the regexp match. In this example,
+that means having the <tex2html_verb_mark>590<tex2html_verb_mark> sequence with the final <tex2html_verb_mark>591<tex2html_verb_mark> in the string. 
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The
+other important principle illustrated here is that when there are two
+or more elements in a regexp, the leftmost quantifier, if there is one,
+gets to grab as much the string as possible, leaving the rest of the
+regexp to fight over scraps. Thus in our example, the first quantifier
+<tex2html_verb_mark>592<tex2html_verb_mark> grabs most of the string, while the second quantifier <tex2html_verb_mark>593<tex2html_verb_mark> gets the
+empty string. Quantifiers that grab as much of the string as possible
+are called maximal match or greedy quantifiers.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>When a regexp can match a string in several different ways, we can use
+the principles above to predict which way the regexp will match:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE>
+<UL>
+<LI><P>
+<#3683#><B>Principle 0:</B><#3683#> Taken as a whole, any regexp will be matched at the earliest possible position in the string.
+</LI>
+<LI><P>
+<#3684#><B>Principle 1:</B><#3684#> In an alternation <tex2html_verb_mark>594<tex2html_verb_mark> , the leftmost alternative that allows a match for the whole regexp will be the one used.
+</LI>
+<LI><P>
+<#3685#><B>Principle 2:</B><#3685#> The maximal matching quantifiers <tex2html_verb_mark>595<tex2html_verb_mark>, <tex2html_verb_mark>596<tex2html_verb_mark>, <tex2html_verb_mark>597<tex2html_verb_mark> and <tex2html_verb_mark>598<tex2html_verb_mark> 
+                   will in general match as much of the string as possible while still allowing the whole regexp to match.
+</LI>
+<LI><#3686#><B>Principle 3:</B><#3686#> If there are two or more elements in a regexp, the leftmost greedy quantifier, 
+                   if any, will match as much of the string as possible while still allowing the whole regexp to match. 
+                   The next leftmost greedy quantifier, if any, will try to match as much of 
+                   the string remaining available to it as possible, while still allowing 
+                   the whole regexp to match. And so on, until all the regexp elements are satisfied.
+</LI>
+</UL><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054110110000000000000">
+Regexp y Bucles Infinitos</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El siguiente párrafo está tomado de la sección 'Repeated-Patterns-Matching-a-Zero-length-Substring' en <A NAME="tex2html155"
+  HREF="http://perldoc.perl.org/perlre.html#Repeated-Patterns-Matching-a-Zero-length-Substring"><TT>perlre</TT></A>:
+<I></I>
+<BLOCKQUOTE><I>Regular expressions provide a terse and powerful programming language. As
+with most other power tools, power comes together with the ability to
+wreak havoc.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>A common abuse of this power stems from the ability to make infinite
+loops using regular expressions, with something as innocuous as:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1164#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The <tex2html_verb_mark>599<tex2html_verb_mark> matches at the beginning of <tex2html_verb_mark>600<tex2html_verb_mark> , and since the position in
+the string is not moved by the match, <tex2html_verb_mark>601<tex2html_verb_mark> would match again and again
+because of the <tex2html_verb_mark>602<tex2html_verb_mark> quantifier.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Another common way to create a similar cycle is with the looping modifier <tex2html_verb_mark>603<tex2html_verb_mark> :
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1165#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>or
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1166#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>or the loop implied by <tex2html_verb_mark>604<tex2html_verb_mark>.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>... Perl allows such constructs, by forcefully breaking the infinite
+loop. The rules for this are different for lower-level loops given by
+the greedy quantifiers <tex2html_verb_mark>605<tex2html_verb_mark> , and for higher-level ones like the <tex2html_verb_mark>606<tex2html_verb_mark>
+modifier or <tex2html_verb_mark>607<tex2html_verb_mark> operator.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The lower-level loops are interrupted (that is, the loop is broken)
+when Perl detects that a repeated expression matched a zero-length
+substring. Thus
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1167#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>is made equivalent to
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1168#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The higher level-loops preserve an additional state between iterations:
+whether the last match was zero-length. To break the loop, the following
+match after a zero-length match is prohibited to have a length of
+zero. This prohibition interacts with backtracking (see Backtracking), and
+so the second best match is chosen if the best match is of zero length.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1169#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>results in <tex2html_verb_mark>608<tex2html_verb_mark> . At each position of the string the best
+match given by non-greedy <tex2html_verb_mark>609<tex2html_verb_mark> is the zero-length match, and the second
+best match is what is matched by <tex2html_verb_mark>610<tex2html_verb_mark> . Thus zero-length matches alternate
+with one-character-long matches.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Similarly, for repeated <tex2html_verb_mark>611<tex2html_verb_mark> the second-best match is the match at
+the position one notch further in the string.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The additional state of being matched with zero-length is associated with
+the matched string, and is reset by each assignment to <tex2html_verb_mark>612<tex2html_verb_mark>. Zero-length
+matches at the end of the previous match are ignored during <tex2html_verb_mark>613<tex2html_verb_mark>.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+<P><DIV><#33069#><B>Ejercicio  <SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#33069#> &nbsp; 
+<#33072#><I></I>
+<UL>
+<LI>Explique la conducta del siguiente matching:
+<tex2html_verbatim_mark>rawhtml1170#
+</LI>
+</UL><I></I><#33072#></DIV><P></P>
+
+
+<P>
+
+<H4><A NAME="SECTION054110120000000000000">
+Cuantificadores <I>lazy</I></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<A NAME="section:nogreedy"><tex2html_anchor_mark></A>Las expresiones <SPAN  CLASS="textit">lazy</SPAN> o <SPAN  CLASS="textit">no greedy</SPAN> hacen que el NFA se detenga en la cadena mas corta que 
+casa con la expresión. Se denotan como sus análogas <SPAN  CLASS="textit">greedy</SPAN> añadiéndole el
+postfijo <tex2html_verb_mark>614<tex2html_verb_mark>:
+
+<P>
+
+<UL>
+<LI><tex2html_verb_mark>615<tex2html_verb_mark>
+</LI>
+<LI><tex2html_verb_mark>616<tex2html_verb_mark>
+</LI>
+<LI><tex2html_verb_mark>617<tex2html_verb_mark>
+</LI>
+<LI><tex2html_verb_mark>618<tex2html_verb_mark>
+</LI>
+<LI><tex2html_verb_mark>619<tex2html_verb_mark>
+</LI>
+<LI><tex2html_verb_mark>620<tex2html_verb_mark>
+</LI>
+</UL>
+
+<P>
+Repasemos lo que dice la sección Matching Repetitions en la sección 'Matching-repetitions' en <A NAME="tex2html156"
+  HREF="http://perldoc.perl.org/perlretut.html#Matching-repetitions"><TT>perlretut</TT></A>:
+<I></I>
+<BLOCKQUOTE><I>Sometimes greed is not good. At times, we would like quantifiers to match
+a minimal piece of string, rather than a maximal piece. For this purpose,
+Larry Wall created the minimal match or non-greedy quantifiers <tex2html_verb_mark>621<tex2html_verb_mark> ,<tex2html_verb_mark>622<tex2html_verb_mark>, <tex2html_verb_mark>623<tex2html_verb_mark>, and <tex2html_verb_mark>624<tex2html_verb_mark>. 
+These are the usual quantifiers with a ? appended to
+them. They have the following meanings:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE>
+<UL>
+<LI><tex2html_verb_mark>625<tex2html_verb_mark> means: match 'a' 0 or 1 times. Try 0 first, then 1.
+</LI>
+<LI><P>
+<tex2html_verb_mark>626<tex2html_verb_mark> means: match 'a' 0 or more times, i.e., any number of times, but as few times as possible
+</LI>
+<LI><P>
+<tex2html_verb_mark>627<tex2html_verb_mark> means: match 'a' 1 or more times, i.e., at least once, but as few times as possible
+</LI>
+<LI><P>
+<tex2html_verb_mark>628<tex2html_verb_mark> means: match at least n times, not more than m times, as few times as possible
+</LI>
+<LI><P>
+<tex2html_verb_mark>629<tex2html_verb_mark> means: match at least n times, but as few times as possible
+</LI>
+<LI><P>
+<tex2html_verb_mark>630<tex2html_verb_mark> means: match exactly n times. Because we match exactly n times, a<#3725#>n<#3725#>? is equivalent to a<#3726#>n<#3726#> and is just there for notational consistency.
+</LI>
+</UL><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Let's look at the example above, but with minimal quantifiers:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1171#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The minimal string that will allow both the start of the string <tex2html_verb_mark>631<tex2html_verb_mark> and
+the alternation to match is <tex2html_verb_mark>632<tex2html_verb_mark> , with the alternation <tex2html_verb_mark>633<tex2html_verb_mark> matching <tex2html_verb_mark>634<tex2html_verb_mark>. 
+The second quantifier <tex2html_verb_mark>635<tex2html_verb_mark> is free to gobble up the rest of the string.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1172#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The first string position that this regexp can match is at the first
+<tex2html_verb_mark>636<tex2html_verb_mark> in programming . At this position, the minimal <tex2html_verb_mark>637<tex2html_verb_mark> matches just
+one <tex2html_verb_mark>638<tex2html_verb_mark> . Although the second quantifier <tex2html_verb_mark>639<tex2html_verb_mark> would prefer to match no
+characters, it is constrained by the end-of-string anchor <tex2html_verb_mark>640<tex2html_verb_mark> to match
+the rest of the string.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1173#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>In this regexp, you might expect the first minimal quantifier <tex2html_verb_mark>641<tex2html_verb_mark> to match
+the empty string, because it is not constrained by a <tex2html_verb_mark>642<tex2html_verb_mark> anchor to match
+the beginning of the word. Principle 0 applies here, however. Because it
+is possible for the whole regexp to match at the start of the string, it
+will match at the start of the string. Thus the first quantifier has to
+match everything up to the first m. The second minimal quantifier matches
+just one <tex2html_verb_mark>643<tex2html_verb_mark> and the third quantifier matches the rest of the string.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1174#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Just as in the previous regexp, the first quantifier <tex2html_verb_mark>644<tex2html_verb_mark> can match
+earliest at position <tex2html_verb_mark>645<tex2html_verb_mark> , so it does. The second quantifier is greedy,
+so it matches mm , and the third matches the rest of the string.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>We can modify principle 3 above to take into account non-greedy quantifiers:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE>
+<UL>
+<LI><P>
+<#3737#><B>Principle 3:</B><#3737#> If there are two or more elements in a regexp, the
+      leftmost greedy (non-greedy) quantifier, if any, will match as much
+      (little) of the string as possible while still allowing the whole
+      regexp to match. The next leftmost greedy (non-greedy) quantifier,
+      if any, will try to match as much (little) of the string remaining
+      available to it as possible, while still allowing the whole regexp
+      to match. And so on, until all the regexp elements are satisfied.
+</LI>
+</UL><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+<P><DIV><#33075#><B>Ejercicio  <SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#33075#> &nbsp; 
+<#33078#><I>Explique cuál será el resultado de el segundo comando de matching
+introducido en el depurador: 
+</I><PRE><tex2html_verbatim_mark>verbatim1175#</PRE><I></I><#33078#></DIV><P></P>
+
+
+<P>
+
+<H4><A NAME="SECTION054110130000000000000">
+Descripción detallada del proceso de matching</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+Veamos en detalle lo que ocurre durante un matching.
+Repasemos lo que dice la sección Matching Repetitions en la sección 'Matching-repetitions' en <A NAME="tex2html157"
+  HREF="http://perldoc.perl.org/perlretut.html#Matching-repetitions"><TT>perlretut</TT></A>:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Just like alternation, quantifiers are also susceptible to backtracking. Here is a step-by-step analysis of the example
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1176#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE>
+<OL>
+<LI><P>
+Start with the first letter in the string 't'.
+</LI>
+<LI><P>
+The first quantifier '.*' starts out by matching the whole string 'the cat in the hat'.
+</LI>
+<LI><P>
+'a' in the regexp element 'at' doesn't match the end of the string. Backtrack one character.
+</LI>
+<LI><P>
+'a' in the regexp element 'at' still doesn't match the last letter of the string 't', so backtrack one more character.
+</LI>
+<LI><P>
+Now we can match the 'a' and the 't'.
+</LI>
+<LI><P>
+Move on to the third element '.*'. Since we are at the end of the string and '.*' can match 0 times, assign it the empty string.
+</LI>
+<LI><P>
+We are done!
+</LI>
+</OL><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054110140000000000000">
+Rendimiento</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+La forma en la que se escribe una regexp puede dar lugar agrandes variaciones
+en el rendimiento.
+Repasemos lo que dice la sección Matching Repetitions en la sección 'Matching-repetitions' en <A NAME="tex2html159"
+  HREF="http://perldoc.perl.org/perlretut.html#Matching-repetitions"><TT>perlretut</TT></A>:
+<I></I>
+<BLOCKQUOTE><I>Most of the time, all this moving forward and backtracking happens
+quickly and searching is fast. There are some pathological regexps,
+however, whose execution time exponentially grows with the size of the
+string. A typical structure that blows up in your face is of the form
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1177#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The problem is the nested indeterminate quantifiers. 
+There are many
+different ways of partitioning a string of length n between the <tex2html_verb_mark>646<tex2html_verb_mark> 
+and <tex2html_verb_mark>647<tex2html_verb_mark>: one repetition with <tex2html_verb_mark>648<tex2html_verb_mark> of length <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33082#</SPAN>
+<tex2html_verbatim_mark>mathend000#, 
+two repetitions with the first <tex2html_verb_mark>649<tex2html_verb_mark>
+length <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33084#</SPAN>
+<tex2html_verbatim_mark>mathend000# and the second with length <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33086#</SPAN>
+<tex2html_verbatim_mark>mathend000#, <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33088#</SPAN>
+<tex2html_verbatim_mark>mathend000# repetitions whose bits add
+up to length <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33090#</SPAN>
+<tex2html_verbatim_mark>mathend000#, etc. 
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>In fact there are an exponential number of ways
+to partition a string as a function of its length. A regexp may get
+lucky and match early in the process, but if there is no match, Perl
+will try every possibility before giving up. So be careful with nested 
+<tex2html_verb_mark>650<tex2html_verb_mark>'s, <tex2html_verb_mark>651<tex2html_verb_mark>'s, and <tex2html_verb_mark>652<tex2html_verb_mark> 's. 
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The book 
+<A NAME="tex2html158"
+  HREF="http://books.google.es/books?id=NYEX-Q9evKoC<tex2html_ampersand_mark>dq=Mastering+Regular+Expressions<tex2html_ampersand_mark>printsec=frontcover<tex2html_ampersand_mark>source=bn<tex2html_ampersand_mark>hl=en#v=onepage<tex2html_ampersand_mark>q=<tex2html_ampersand_mark>f=false">Mastering Regular Expressions</A>
+by Jeffrey Friedl [#friedl#<tex2html_cite_mark>#1##<tex2html_cite_mark>#] gives a wonderful discussion of this and other efficiency issues.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054110150000000000000">
+Eliminación de Comentarios de un Programa C</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+<A NAME="parrfo:comments"><tex2html_anchor_mark></A>
+<P>
+El siguiente ejemplo elimina los comentarios de un programa <tex2html_verb_mark>653<tex2html_verb_mark>.
+<tex2html_verbatim_mark>rawhtml1178#
+Veamos un ejemplo de ejecución. Supongamos el fichero de entrada:
+<PRE><tex2html_verbatim_mark>verbatim1179#</PRE>
+
+<P>
+Entonces la ejecución con ese fichero de entrada produce
+la salida:
+<PRE><tex2html_verbatim_mark>verbatim1180#</PRE>
+Veamos la diferencia de comportamiento entre <tex2html_verb_mark>654<tex2html_verb_mark> y <tex2html_verb_mark>655<tex2html_verb_mark>
+en el ejemplo anterior:
+
+<P>
+<tex2html_verbatim_mark>rawhtml1181#
+
+<P>
+Véase también la documentación en la sección 'Matching-repetitions' en <A NAME="tex2html160"
+  HREF="http://perldoc.perl.org/perlretut.html#Matching-repetitions"><TT>perlretut</TT></A>
+y la sección 'Quantifiers' en <A NAME="tex2html161"
+  HREF="http://perldoc.perl.org/perlre.html#Quantifiers"><TT>perlre</TT></A>.
+
+<P>
+
+<H4><A NAME="SECTION054110160000000000000">
+Negaciones y operadores <I>lazy</I></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+A menudo las expresiones
+<tex2html_verb_mark>656<tex2html_verb_mark>
+y <tex2html_verb_mark>657<tex2html_verb_mark>, donde <tex2html_verb_mark>658<tex2html_verb_mark> es un carácter arbitrario se usan de forma casi equivalente.
+
+<P>
+
+<UL>
+<LI>La primera significa:
+
+<P>
+<I>Una cadena que no contiene <tex2html_verb_mark>659<tex2html_verb_mark> en su interior y que está delimitada por <tex2html_verb_mark>660<tex2html_verb_mark>s
+</I>
+</LI>
+<LI>La segunda significa:
+
+<P>
+<I>Una cadena que comienza en <tex2html_verb_mark>661<tex2html_verb_mark> y termina en la <tex2html_verb_mark>662<tex2html_verb_mark> mas próxima a la <tex2html_verb_mark>663<tex2html_verb_mark> de comienzo
+</I>
+</LI>
+</UL>
+
+<P>
+Esta equivalencia se rompe si no se cumplen las hipótesis establecidas.
+
+<P>
+En el siguiente ejemplo se intentan detectar 
+las cadenas entre comillas dobles que terminan en el signo de exclamación:
+<PRE><tex2html_verbatim_mark>verbatim1182#</PRE>
+
+<P>
+Al ejecutar el programa obtenemos:
+<PRE><tex2html_verbatim_mark>verbatim1183#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054110170000000000000">
+Copia y sustitución simultáneas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+<A NAME="section:copia"><tex2html_anchor_mark></A>El operador de <SPAN  CLASS="textit">binding</SPAN> <tex2html_verb_mark>664<tex2html_verb_mark> nos permite ``asociar'' la variable 
+con la operación de casamiento o sustitución. Si se trata de una sustitución
+y se quiere conservar la cadena, es necesario hacer una copia:
+<PRE><tex2html_verbatim_mark>verbatim1184#</PRE>
+en vez de eso, puedes abreviar un poco usando la siguiente ``perla'':
+<PRE><tex2html_verbatim_mark>verbatim1185#</PRE>
+Obsérvese la asociación por la izquierda del operador de asignación.
+
+<P>
+
+<H4><A NAME="SECTION054110180000000000000">
+Referencias a Paréntesis Previos</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Las referencias relativas permiten escribir expresiones
+regulares mas reciclables.
+Véase la documentación
+en 
+la sección 'Relative-backreferences' en <A NAME="tex2html162"
+  HREF="http://perldoc.perl.org/perlretut.html#Relative-backreferences"><TT>perlretut</TT></A>:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Counting the opening parentheses to get the correct number for a
+backreference is errorprone as soon as there is more than one capturing
+group. A more convenient technique became available with Perl 5.10:
+relative backreferences. To refer to the immediately preceding capture
+group one now may write <tex2html_verb_mark>665<tex2html_verb_mark> , the next but last is available 
+via <tex2html_verb_mark>666<tex2html_verb_mark>, and so on.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Another good reason in addition to readability and maintainability for
+using relative backreferences is illustrated by the following example,
+where a simple pattern for matching peculiar strings is used:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1186#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Now that we have this pattern stored as a handy string, we might feel
+tempted to use it as a part of some other pattern:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1187#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>But this doesn't match -- at least not the way one might expect. Only
+after inserting the interpolated <tex2html_verb_mark>667<tex2html_verb_mark> and looking at the resulting full
+text of the regexp is it obvious that the backreferences have backfired --
+the subexpression <tex2html_verb_mark>668<tex2html_verb_mark> has snatched number 1 and demoted the groups in
+<tex2html_verb_mark>669<tex2html_verb_mark> by one rank. This can be avoided by using relative backreferences:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1188#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+El siguiente programa ilustra lo dicho:
+<tex2html_verbatim_mark>rawhtml1189#
+Sigue la ejecución:
+<tex2html_verbatim_mark>rawhtml1190#
+
+<P>
+
+<H4><A NAME="SECTION054110190000000000000">
+Usando Referencias con Nombre (Perl 5.10)</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El siguiente texto esta tomado de 
+la sección 'Named-backreferences' en <A NAME="tex2html163"
+  HREF="http://perldoc.perl.org/perlretut.html#Named-backreferences"><TT>perlretut</TT></A>:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Perl 5.10 also introduced named capture buffers and named
+backreferences. To attach a name to a capturing group, you write either
+<tex2html_verb_mark>670<tex2html_verb_mark> or <tex2html_verb_mark>671<tex2html_verb_mark>. The backreference may then be written
+as <tex2html_verb_mark>672<tex2html_verb_mark> . 
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>It is permissible to attach the same name to more than
+one group, but then only the leftmost one of the eponymous set can be
+referenced. Outside of the pattern a named capture buffer is accessible
+through the <tex2html_verb_mark>674<tex2html_verb_mark> hash.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Assuming that we have to match calendar dates which may be given in one
+of the three formats <tex2html_verb_mark>675<tex2html_verb_mark>, <tex2html_verb_mark>676<tex2html_verb_mark> or <tex2html_verb_mark>677<tex2html_verb_mark>, 
+we can write
+three suitable patterns where we use <tex2html_verb_mark>678<tex2html_verb_mark>, <tex2html_verb_mark>679<tex2html_verb_mark> and <tex2html_verb_mark>680<tex2html_verb_mark> respectively as the
+names of the buffers capturing the pertaining components of a date. The
+matching operation combines the three patterns as alternatives:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1191#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>If any of the alternatives matches, the hash <tex2html_verb_mark>682<tex2html_verb_mark> 
+is bound to contain the three key-value pairs.
+</I></BLOCKQUOTE><I></I>
+En efecto, al ejecutar el programa:
+<PRE><tex2html_verbatim_mark>verbatim1192#</PRE>
+Obtenemos la salida:
+<PRE><tex2html_verbatim_mark>verbatim1193#</PRE>
+
+<P>
+Como se comentó:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>... It is permissible to attach the same name to more than
+one group, but then only the leftmost one of the eponymous set can be
+referenced. 
+</I></BLOCKQUOTE><I></I>
+
+<P>
+Veamos un ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim1194#</PRE>
+
+<P>
+Reescribamos el ejemplo de conversión de temperaturas usando
+paréntesis con nombre:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1195#</PRE>
+
+<P>
+La función <A NAME="tex2html164"
+  HREF="http://www.ayni.com/perldoc/functions/exists.html"><TT>exists</TT></A>
+retorna verdadero si existe la clave en el hash
+y falso en otro caso.  
+
+<P>
+
+<H4><A NAME="SECTION054110200000000000000">
+Grupos con Nombre y Factorización</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El uso de nombres hace mas robustas y mas factorizables
+las expresiones regulares.
+Consideremos la siguiente regexp que usa notación posicional:
+<PRE><tex2html_verbatim_mark>verbatim1196#</PRE>
+Supongamos que queremos reutilizar la regexp con repetición
+<PRE><tex2html_verbatim_mark>verbatim1197#</PRE>
+¿Que ha ocurrido? La introducción del nuevo paréntesis 
+nos obliga a renombrar las referencias a las posiciones:
+<PRE><tex2html_verbatim_mark>verbatim1198#</PRE>
+Esto no ocurre si utilizamos nombres. 
+El operador <tex2html_verb_mark>683<tex2html_verb_mark> sirve para hacer referencia
+al valor que ha casado con el paréntesis con nombre <tex2html_verb_mark>684<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim1199#</PRE>
+El uso de grupos con nombre y 
+<tex2html_verb_mark>685<tex2html_verb_mark><A NAME="tex2html165"
+  HREF="footnode.html#foot4629"><SUP><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>en lugar de referencias numéricas absolutas
+hace que la regexp sea mas reutilizable.
+
+<P>
+
+<H4><A NAME="SECTION054110210000000000000">
+LLamadas a expresiones regulares via paréntesis con memoria</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Es posible también llamar a la expresión regular
+asociada con un paréntesis.
+
+<P>
+Este parrafo tomado de
+la sección 'Extended-Patterns' en <A NAME="tex2html166"
+  HREF="http://perldoc.perl.org/perlre.html#Extended-Patterns"><TT>perlre</TT></A>
+explica el modo de uso:
+
+<P>
+<I><tex2html_verb_mark>686<tex2html_verb_mark>
+</I>
+<BLOCKQUOTE><I></I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I><tex2html_verb_mark>687<tex2html_verb_mark> is a sequence of digits (not starting with 0) whose value reflects
+the paren-number of the capture buffer to recurse to. 
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>....
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Capture buffers contained by the pattern will have the value as determined by the outermost recursion.
+....
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>If <tex2html_verb_mark>688<tex2html_verb_mark> <#3848#><B>is preceded by a plus or minus sign then it is assumed to
+be relative, with negative numbers indicating preceding capture buffers
+and positive ones following</B><#3848#>. Thus <tex2html_verb_mark>689<tex2html_verb_mark> refers to the most recently
+declared buffer, and <tex2html_verb_mark>690<tex2html_verb_mark> indicates the next buffer to be declared. 
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I><#3849#><B>Note
+that the counting for relative recursion differs from that of relative
+backreferences, in that with recursion unclosed buffers are included.</B><#3849#>
+</I></BLOCKQUOTE><I></I>
+
+<P>
+Veamos un ejemplo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1200#</PRE>
+
+<P>
+Véase también:
+
+<UL>
+<LI><A NAME="tex2html167"
+  HREF="http://perltraining.com.au/tips/2008-02-08.html">Perl Training Australia: Regular expressions in Perl 5.10</A>
+</LI>
+<LI><A NAME="tex2html168"
+  HREF="http://www.regex-engineer.org/slides/perl510_regex.html">Perl 5.10 Advanced Regular Expressions by Yves Orton</A>
+</LI>
+<LI><A NAME="tex2html169"
+  HREF="http://szabgab.com/blog/2007/12/1198488988.html">Gabor: Regular Expressions in Perl 5.10</A>
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION054110220000000000000">
+Reutilizando Expresiones Regulares</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+La siguiente reescritura de nuestro ejemplo básico
+utiliza el módulo <A NAME="tex2html170"
+  HREF="http://search.cpan.org/perldoc?Regexp::Common"><TT>Regexp::Common</TT></A>
+para factorizar
+la expresión regular:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1201#</PRE>
+
+<P>
+Véase:
+
+<UL>
+<LI>La documentación del módulo <A NAME="tex2html171"
+  HREF="http://search.cpan.org/perldoc?Regexp::Common"><TT>Regexp::Common</TT></A>
+por Abigail
+</LI>
+<LI>Smart Matching: <A NAME="tex2html172"
+  HREF="http://perltraining.com.au/tips/2008-04-18.html">Perl Training Australia: Smart Match</A>
+</LI>
+<LI>Rafael García Suárez:
+la sección 'Smart-matching-in-detail' en <A NAME="tex2html173"
+  HREF="http://perldoc.perl.org/perlsyn.html#Smart-matching-in-detail"><TT>perlsyn</TT></A>
+</LI>
+<LI><A NAME="tex2html174"
+  HREF="www.opensourceworldconference.com/papers/.../Nell_370.pdf">Enrique Nell (Barcelona Perl Mongers): Novedades en Perl 5.10</A>
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION054110230000000000000">
+El Módulo Regexp::Common</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El módulo <A NAME="tex2html175"
+  HREF="http://search.cpan.org/perldoc?Regexp::Common"><TT>Regexp::Common</TT></A>
+provee un extenso número 
+de expresiones regulares que son accesibles vía el hash <tex2html_verb_mark>692<tex2html_verb_mark>.
+sigue un ejemplo de uso:
+<PRE><tex2html_verbatim_mark>verbatim1202#</PRE>
+Sigue un ejemplo de ejecución:
+<PRE><tex2html_verbatim_mark>verbatim1203#</PRE>
+
+<P>
+El siguiente fragmento de la documentación 
+de <A NAME="tex2html176"
+  HREF="http://search.cpan.org/perldoc?Regexp::Common"><TT>Regexp::Common</TT></A>
+explica el modo simplificado de uso:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>To access a particular pattern, <tex2html_verb_mark>694<tex2html_verb_mark> is treated as a hierarchical hash of
+hashes (of hashes...), with each successive key being an identifier. For
+example, to access the pattern that matches real numbers, you specify:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1204#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>and to access the pattern that matches integers:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1205#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Deeper layers of the hash are used to specify flags: 
+arguments that modify
+the resulting pattern in some way. 
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE>
+<UL>
+<LI>The keys used to access these layers
+are prefixed with a minus sign and may have a value; 
+</LI>
+<LI>if a value is given,
+it's done by using a multidimensional key. 
+</LI>
+</UL><BLOCKQUOTE><I>
+For example, to access the
+pattern that matches base-2 real numbers with embedded commas separating
+groups of three digits (e.g. <tex2html_verb_mark>695<tex2html_verb_mark>):
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1206#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Through the magic of Perl, these flag layers may be specified in any
+order (and even interspersed through the identifier keys!) so you could
+get the same pattern with:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1207#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>or:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1208#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>or even:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1209#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>etc.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note, however, that the relative order of amongst the identifier keys is significant. That is:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1210#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>would not be the same as:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1211#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+Veamos un ejemplo con el depurador:
+<PRE><tex2html_verbatim_mark>verbatim1212#</PRE>
+
+<P>
+La expresión regular para un número real es 
+relativamente compleja:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1213#</PRE>
+
+<P>
+Si se usa la opción <tex2html_verb_mark>696<tex2html_verb_mark> el patrón proveído usa paréntesis con memoria:
+<PRE><tex2html_verbatim_mark>verbatim1214#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION054110240000000000000">
+Smart Matching</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Perl 5.10 introduce el operador de smart matching.
+El siguiente texto es tomado casi verbatim del site de la compañía 
+<A NAME="tex2html180"
+  HREF="http://perltraining.com.au/tips/2008-04-18.html">Perl Training Australia</A><A NAME="tex2html177"
+  HREF="footnode.html#foot3913"><SUP><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">2</SPAN></SUP></A>:
+<I></I>
+<BLOCKQUOTE><I>Perl 5.10 introduces a new-operator, called smart-match, written <tex2html_verb_mark>697<tex2html_verb_mark>. As
+the name suggests, smart-match tries to compare its arguments in an
+intelligent fashion. Using smart-match effectively allows many complex
+operations to be reduces to very simple statements.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Unlike many of the other features introduced in Perl 5.10, there's no
+need to use the feature pragma to enable smart-match, as long as you're
+using 5.10 it's available.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>The smart-match operator is always commutative. That means that 
+<tex2html_verb_mark>698<tex2html_verb_mark> works the same way as 
+<tex2html_verb_mark>699<tex2html_verb_mark>. You'll never have to remember which
+order to place to your operands with smart-match.
+Smart-match in action.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>As a simple introduction, we can use smart-match to do a simple string comparison between simple scalars. For example:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1215#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>If one of our arguments is a number, then a numeric comparison is performed:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1216#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>This will print our message if our user enters 100, 100.00, +100, 1e2, or
+any other string that looks like the number 100. 
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>We can also smart-match
+against a regexp:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1217#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Smart-matching with a regexp also works with saved regexps created with qr<#3922#><#3922#>.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>So we can use smart-match to act like eq, <tex2html_verb_mark>700<tex2html_verb_mark> and 
+<tex2html_verb_mark>701<tex2html_verb_mark>, so what? Well, it does much more than that. 
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>We can use smart-match to search a list:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1218#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>It's important to note that searching an array with smart-match is
+extremely fast. It's faster than using grep, it's faster than using
+<tex2html_verb_mark>702<tex2html_verb_mark> from <A NAME="tex2html179"
+  HREF="http://search.cpan.org/perldoc?Scalar::Util"><TT>Scalar::Util</TT></A>, and it's faster than walking through the loop
+with <tex2html_verb_mark>703<tex2html_verb_mark>, even if you do know all the clever optimisations.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Esta es la forma típica de buscar un elemento en un array en 
+versiones anteriores a la 5.10:
+</I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1219#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>We can also use smart-match to compare arrays:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1220#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>And even search inside an array using a string:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1221#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>or using a regexp:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1222#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Smart-match works with array references, too<A NAME="tex2html178"
+  HREF="footnode.html#foot3934"><SUP><SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">3</SPAN></SUP></A>:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1223#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>En el caso de un número y un array devuelve cierto si el escalar aparece 
+en un array anidado:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1224#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Of course, we can use smart-match with more than just arrays and scalars,
+it works with searching for the key in a hash, too!
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1225#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>You can even use it to see if the two hashes have identical keys:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1226#</PRE><BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+La conducta del operador de smart matching viene dada por la siguiente
+tabla tomada de la sección 'Smart-matching-in-detail' en <A NAME="tex2html181"
+  HREF="http://perldoc.perl.org/perlsyn.html#Smart-matching-in-detail"><TT>perlsyn</TT></A>:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>The behaviour of a smart match depends on what type of thing its arguments
+are. The behaviour is determined by the following table: 
+the first
+row that applies determines the match behaviour (which is thus mostly
+determined by the type of the right operand). 
+Note that the smart match
+implicitly dereferences any non-blessed hash or array ref, so the ;SPMquot;Hash;SPMquot;
+and ;SPMquot;Array;SPMquot; entries apply in those cases. (For blessed references, the
+;SPMquot;Object;SPMquot; entries apply.)
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Note that the ;SPMquot;Matching Code;SPMquot; column is not always an exact rendition. For
+example, the smart match operator short-circuits whenever possible,
+but grep does not.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE>
+<DIV ALIGN="CENTER"><BLOCKQUOTE><I></I></BLOCKQUOTE></DIV><PRE><tex2html_verbatim_mark>verbatim1227#</PRE><DIV ALIGN="CENTER"><BLOCKQUOTE><I></I></BLOCKQUOTE></DIV><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION054110250000000000000">
+Ejercicios</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<P><DIV><#33115#><B>Ejercicio  <SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">4</SPAN></B><#33115#> &nbsp; 
+<#33118#><I></I>
+<UL>
+<LI>Indique la salida del siguiente programa:
+<tex2html_verbatim_mark>rawhtml1228#
+</LI>
+</UL><I>
+</I>
+<P>
+<I></I><#33118#></DIV><P></P>
+
+
+<P>
+
+<H2><A NAME="SECTION05412000000000000000">
+Depuración de Expresiones Regulares</A>
+</H2>
+
+<P>
+Para obtener información sobre la forma en que es compilada una expresión regular
+y como se produce el proceso de matching podemos usar la opción
+<tex2html_verb_mark>704<tex2html_verb_mark> del módulo <tex2html_verb_mark>705<tex2html_verb_mark>. La versión de Perl 5.10 da una información 
+algo mas legible que la de las versiones anteriores:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1229#</PRE>
+
+<P>
+Si se usa la opción <tex2html_verb_mark>706<tex2html_verb_mark> de <tex2html_verb_mark>707<tex2html_verb_mark> con 
+objetos expresión regular, se obtendrá información durante el proceso de 
+matching:
+<PRE><tex2html_verbatim_mark>verbatim1230#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05413000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:abreviadas"><tex2html_anchor_mark></A><BR>
+Tablas de Escapes, Metacarácteres, Cuantificadores, Clases
+</H2>
+Sigue una sección de tablas con 
+notaciones tomada de <A NAME="tex2html182"
+  HREF="http://search.cpan.org/perldoc/?perlre"><TT>perlre</TT></A>:
+
+<P>
+
+<H4><A NAME="SECTION05413010000000000000">
+Metacharacters</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+The following metacharacters have their standard egrep-ish meanings:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1231#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05413020000000000000">
+Standard greedy quantifiers</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+The following standard greedy quantifiers are recognized:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1232#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05413030000000000000">
+Non greedy quantifiers</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+The following non greedy quantifiers are recognized:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1233#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05413040000000000000">
+Possesive quantifiers</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+The following possesive quantifiers are recognized:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1234#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05413050000000000000">
+Escape sequences</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1235#</PRE>
+
+<P>
+<P><DIV><#33127#><B>Ejercicio  <SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">5</SPAN></B><#33127#> &nbsp; 
+<#33130#><I>Explique la salida:
+</I><PRE><tex2html_verbatim_mark>verbatim1236#</PRE><I></I><#33130#></DIV><P></P>
+
+
+<P>
+
+<H4><A NAME="SECTION05413060000000000000">
+Character Classes and other Special Escapes</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1237#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05413070000000000000">
+Zero width assertions</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Perl defines the following zero-width assertions:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1238#</PRE>
+
+<P>
+
+<H3><A NAME="SECTION05413100000000000000">
+The POSIX character class syntax</A>
+</H3>
+
+<P>
+The POSIX character class syntax:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1239#</PRE>
+
+<P>
+is also available. Note that the <tex2html_verb_mark>708<tex2html_verb_mark> and <tex2html_verb_mark>709<tex2html_verb_mark> brackets are literal; 
+they must always be used within a character class expression.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1240#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05413110000000000000">
+Available classes</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+The available classes and their backslash equivalents (if available) are as follows:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1241#</PRE>
+
+<P>
+For example use <tex2html_verb_mark>710<tex2html_verb_mark> to match all the uppercase characters. 
+Note that the <tex2html_verb_mark>711<tex2html_verb_mark> are part of the <tex2html_verb_mark>712<tex2html_verb_mark>
+construct, not part of the whole character class. For example:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1242#</PRE>
+
+<P>
+matches zero, one, any alphabetic character, and the percent sign.
+
+<P>
+
+<H4><A NAME="SECTION05413120000000000000">
+Equivalences to Unicode</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+The following equivalences to Unicode 
+<tex2html_verb_mark>713<tex2html_verb_mark> constructs and equivalent backslash 
+character classes (if available), will hold:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1243#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05413130000000000000">
+Negated character classes</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+You can negate the <tex2html_verb_mark>714<tex2html_verb_mark> character classes by prefixing 
+the class name with a <tex2html_verb_mark>715<tex2html_verb_mark>. This is a Perl extension. For example:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1244#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05414000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:variablesmagicasereg"><tex2html_anchor_mark></A><BR>
+Variables especiales después de un emparejamiento
+</H2>
+Despues de un emparejamiento con éxito, las siguientes variables 
+especiales quedan definidas:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>716<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT">El texto que casó</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>717<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT">El texto que está a la izquierda de lo que casó</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>718<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT">El texto que está a la derecha de lo que casó</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>719<tex2html_verb_mark>, etc.</TD>
+<TD ALIGN="LEFT">Los textos capturados por los paréntesis</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>720<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT">Una copia del <tex2html_verb_mark>721<tex2html_verb_mark> ...con número mas alto</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>722<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT">Desplazamientos de las subcadenas que casan en <tex2html_verb_mark>723<tex2html_verb_mark> ...</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>724<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT">Desplazamientos de los finales de las subcadenas  en <tex2html_verb_mark>725<tex2html_verb_mark> ...</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>726<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT">El índice del último paréntesis que casó</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>727<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT">El índice del último paréntesis en la última expresión regular</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<H4><A NAME="SECTION05414010000000000000">
+Las Variables de match, pre-match y post-mach</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+<A NAME="parrafo:prematch"><tex2html_anchor_mark></A>
+<P>
+<BR>
+<BR>
+Ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim1245#</PRE>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1246#</PRE>
+
+<P>
+El uso de estas variables tenía un efecto negativo en el rendimiento de la
+regexp. Véase
+<A NAME="tex2html184"
+  HREF="http://search.cpan.org/perldoc/?perlfaq6"><TT>perlfaq6</TT></A>
+la sección 
+<tex2html_verb_mark>728<tex2html_verb_mark>.
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>Once Perl sees that you need one of these variables anywhere in the
+program, it provides them on each and every pattern match. That means
+that on every pattern match the entire string will be copied, part of
+it to <tex2html_verb_mark>729<tex2html_verb_mark>, part to <tex2html_verb_mark>730<tex2html_verb_mark>, and part to <tex2html_verb_mark>731<tex2html_verb_mark>. 
+Thus the penalty is most severe
+with long strings and patterns that match often. Avoid <tex2html_verb_mark>732<tex2html_verb_mark>, <tex2html_verb_mark>733<tex2html_verb_mark>, and <tex2html_verb_mark>734<tex2html_verb_mark>
+if you can, but if you can't, once you've used them at all, use them at
+will because you've already paid the price. Remember that some algorithms
+really appreciate them. As of the 5.005 release, the <tex2html_verb_mark>735<tex2html_verb_mark> variable is no
+longer ;SPMquot;expensive;SPMquot; the way the other two are.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Since Perl 5.6.1 the special variables <tex2html_verb_mark>736<tex2html_verb_mark> and <tex2html_verb_mark>737<tex2html_verb_mark> can functionally replace
+<tex2html_verb_mark>738<tex2html_verb_mark>, <tex2html_verb_mark>739<tex2html_verb_mark> and <tex2html_verb_mark>740<tex2html_verb_mark>. These arrays contain pointers to the beginning and end of
+each match (see <A NAME="tex2html183"
+  HREF="http://search.cpan.org/perldoc/?perlvar"><TT>perlvar</TT></A>
+for the full story), so they give you essentially
+the same information, but without the risk of excessive string copying.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>Perl 5.10 added three specials, <tex2html_verb_mark>741<tex2html_verb_mark>, <tex2html_verb_mark>742<tex2html_verb_mark>, and <tex2html_verb_mark>743<tex2html_verb_mark>
+to do the same job but without the global performance penalty. Perl
+5.10 only sets these variables if you compile or execute the regular
+expression with the <tex2html_verb_mark>744<tex2html_verb_mark> modifier.
+</I></BLOCKQUOTE><I></I>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1247#</PRE>
+
+<P>
+Véase 
+
+<UL>
+<LI><A NAME="tex2html185"
+  HREF="http://search.cpan.org/perldoc/?perlvar"><TT>perlvar</TT></A>
+(busque por <tex2html_verb_mark>745<tex2html_verb_mark>)
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION05414020000000000000">
+Texto Asociado con el Último Paréntesis</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+La variable <tex2html_verb_mark>746<tex2html_verb_mark> contiene el texto que casó
+con el último paréntesis en el patrón. Esto es útil
+en situaciones en las cuáles una de un conjunto de alternativas 
+casa, pero no sabemos cuál:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1248#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05414030000000000000">
+Los Offsets de los Inicios de los Casamientos: <TT>@-</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+<A NAME="parrafo:iniciocas"><tex2html_anchor_mark></A>
+<P>
+El vector <tex2html_verb_mark>747<tex2html_verb_mark> contiene los <SPAN  CLASS="textit">offsets</SPAN> o desplazamientos
+de los casamientos en la última expresión regular.
+La entrada <tex2html_verb_mark>748<tex2html_verb_mark> es el desplazamiento del último casamiento con éxito
+y <tex2html_verb_mark>749<tex2html_verb_mark> es el desplazamiento de la subcadena que casa
+con el <tex2html_verb_mark>750<tex2html_verb_mark>-ésimo paréntesis (o <tex2html_verb_mark>751<tex2html_verb_mark> si el párentesis
+no casó). Por ejemplo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1249#</PRE>
+El resultado se interpreta como sigue:
+
+<UL>
+<LI>3 = desplazamiento de comienzo de <tex2html_verb_mark>752<tex2html_verb_mark> 
+</LI>
+<LI>4 = desplazamiento de comienzo de <tex2html_verb_mark>753<tex2html_verb_mark>
+</LI>
+<LI>6 = desplazamiento de comienzo de <tex2html_verb_mark>754<tex2html_verb_mark>
+</LI>
+<LI>7 = desplazamiento de comienzo de <tex2html_verb_mark>755<tex2html_verb_mark>
+</LI>
+</UL>
+
+<P>
+Esto es lo que dice <A NAME="tex2html186"
+  HREF="http://search.cpan.org/perldoc/?perlvar"><TT>perlvar</TT></A>
+sobre <tex2html_verb_mark>756<tex2html_verb_mark>:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>This array holds the offsets of the beginnings of the last successful
+submatches in the currently active dynamic scope. <tex2html_verb_mark>757<tex2html_verb_mark> is the offset
+into the string of the beginning of the entire match. The nth element of
+this array holds the offset of the nth submatch, so <tex2html_verb_mark>758<tex2html_verb_mark> is the offset
+where <tex2html_verb_mark>759<tex2html_verb_mark> begins, <tex2html_verb_mark>760<tex2html_verb_mark> the offset where <tex2html_verb_mark>761<tex2html_verb_mark> begins, and so on.
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I>After a match against some variable <tex2html_verb_mark>762<tex2html_verb_mark>:
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><PRE><tex2html_verbatim_mark>verbatim1250#</PRE><BLOCKQUOTE><I>
+</I></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><I></I></BLOCKQUOTE><I></I>
+
+<P>
+
+<H4><A NAME="SECTION05414040000000000000">
+Desplazamientos de los Finales de los Emparejamientos: <TT>@+</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+<A NAME="parrafo:fincas"><tex2html_anchor_mark></A>
+<P>
+El array <tex2html_verb_mark>763<tex2html_verb_mark> contiene los desplazamientos de 
+los finales de los emparejamientos.
+La entrada <tex2html_verb_mark>764<tex2html_verb_mark> contiene el desplazamiento del final de la cadena
+del emparejamiento completo.
+Siguiendo con el ejemplo anterior:
+<PRE><tex2html_verbatim_mark>verbatim1251#</PRE>
+El resultado se interpreta como sigue:
+
+<UL>
+<LI>9 = desplazamiento final de <tex2html_verb_mark>765<tex2html_verb_mark> 
+</LI>
+<LI>6 = desplazamiento final de <tex2html_verb_mark>766<tex2html_verb_mark>
+</LI>
+<LI>7 = desplazamiento final de <tex2html_verb_mark>767<tex2html_verb_mark>
+</LI>
+<LI>9 = desplazamiento final de <tex2html_verb_mark>768<tex2html_verb_mark>
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION05414050000000000000">
+Número de paréntesis en la última regexp con éxito</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Se puede usar <tex2html_verb_mark>769<tex2html_verb_mark> para determinar cuantos parentesis
+había en el último emparejamiento que tuvo éxito.
+<PRE><tex2html_verbatim_mark>verbatim1252#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05414060000000000000">
+Indice del Ultimo Paréntesis</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+<A NAME="parrafo:lastpar"><tex2html_anchor_mark></A>
+<P>
+La variable <tex2html_verb_mark>770<tex2html_verb_mark> contiene el índice del último paréntesis
+que casó. Observe la siguiente ejecución con el depurador:
+<PRE><tex2html_verbatim_mark>verbatim1253#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05414070000000000000">
+<TT>@-</TT> y <TT>@+</TT> no tienen que tener el mismo tamaño</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+En general no puede asumirse que <tex2html_verb_mark>771<tex2html_verb_mark> y <tex2html_verb_mark>772<tex2html_verb_mark> sean 
+del mismo tamaño.
+<PRE><tex2html_verbatim_mark>verbatim1254#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05414080000000000000">
+Véase También</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Para saber más sobre las variables especiales disponibles
+consulte 
+
+<P>
+
+<UL>
+<LI><tex2html_verb_mark>773<tex2html_verb_mark> <A NAME="tex2html187"
+  HREF="http://search.cpan.org/perldoc/?perlretut"><TT>perlretut</TT></A>
+</LI>
+<LI><tex2html_verb_mark>774<tex2html_verb_mark> <A NAME="tex2html188"
+  HREF="http://search.cpan.org/perldoc/?perlvar"><TT>perlvar</TT></A>.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION05415000000000000000">
+Ambito Automático</A>
+</H2>
+
+<P>
+Como sabemos, ciertas variables (como <tex2html_verb_mark>775<tex2html_verb_mark>, <tex2html_verb_mark>776<tex2html_verb_mark> ...)
+reciben autom&#225;ticamente un valor con cada operaci&#243;n
+de ``matching''.  
+
+<P>
+Considere el siguiente c&#243;digo:
+<PRE><tex2html_verbatim_mark>verbatim1255#</PRE>
+Puesto que <tex2html_verb_mark>777<tex2html_verb_mark> es autom&#225;ticamente declarada <tex2html_verb_mark>778<tex2html_verb_mark>
+a la entrada de cada bloque, no importa lo que se haya
+hecho en la funci&#243;n <tex2html_verb_mark>779<tex2html_verb_mark>, el valor de 
+<tex2html_verb_mark>780<tex2html_verb_mark> en la sentencia <tex2html_verb_mark>781<tex2html_verb_mark> es el correspondiente
+al ``matching'' realizado en el <tex2html_verb_mark>782<tex2html_verb_mark>.
+
+<P>
+
+<H2><A NAME="SECTION05416000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:opciones"><tex2html_anchor_mark></A><BR>
+Opciones
+</H2>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Modificador</TD>
+<TD ALIGN="LEFT">Significado</TD>
+</TR>
+<TR><TD ALIGN="LEFT">e</TD>
+<TD ALIGN="LEFT">evaluar: evaluar el lado derecho de una sustitución como una expresión</TD>
+</TR>
+<TR><TD ALIGN="LEFT">g</TD>
+<TD ALIGN="LEFT">global: Encontrar todas las ocurrencias</TD>
+</TR>
+<TR><TD ALIGN="LEFT">i</TD>
+<TD ALIGN="LEFT">ignorar: no distinguir entre mayúsculas y minúsculas</TD>
+</TR>
+<TR><TD ALIGN="LEFT">m</TD>
+<TD ALIGN="LEFT">multilínea (<tex2html_verb_mark>783<tex2html_verb_mark> y <tex2html_verb_mark>784<tex2html_verb_mark> casan con <tex2html_verb_mark>785<tex2html_verb_mark> internos)</TD>
+</TR>
+<TR><TD ALIGN="LEFT">o</TD>
+<TD ALIGN="LEFT">optimizar: compilar una sola vez</TD>
+</TR>
+<TR><TD ALIGN="LEFT">s</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>786<tex2html_verb_mark> y <tex2html_verb_mark>787<tex2html_verb_mark> ignoran <tex2html_verb_mark>788<tex2html_verb_mark> pero el punto <tex2html_verb_mark>789<tex2html_verb_mark> ``casa'' con <tex2html_verb_mark>790<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT">x</TD>
+<TD ALIGN="LEFT">extendida: permitir comentarios</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<H4><A NAME="SECTION05416010000000000000">
+El Modificador <TT>/g</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+<A NAME="section:g"><tex2html_anchor_mark></A>La conducta de este modificador depende del contexto. En un contexto de
+listas devuelve una lista con todas las subcadenas casadas
+por todos los paréntesis en la expresión regular. Si no hubieran 
+paréntesis devuelve una lista con todas las cadenas casadas
+(como si hubiera paréntesis alrededor del patrón global).
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1256#</PRE>
+
+<P>
+Observe la salida:
+<PRE><tex2html_verbatim_mark>verbatim1257#</PRE>
+
+<P>
+En un contexto escalar <tex2html_verb_mark>791<tex2html_verb_mark> itera sobre la cadena, devolviendo
+cierto cada vez que casa, y falso cuando deja de casar. En otras 
+palabras, recuerda donde se quedo la última vez y se recomienza la búsqueda
+desde ese punto. Se puede averiguar la posicion del emparejamiento
+utilizando la función <A NAME="4978"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textit"><#4981#><TT>pos</TT><#4981#></SPAN>. 
+Si por alguna razón modificas la cadena en cuestión, 
+la posición de emparejamiento se reestablece al comienzo de la cadena.
+<PRE><tex2html_verbatim_mark>verbatim1258#</PRE>
+
+<P>
+Observe el uso de la variable especial <tex2html_verb_mark>792<tex2html_verb_mark>. 
+Esta variable contiene el separador de registros en el fichero de 
+entrada. Si se iguala a la cadena vacía usará las líneas 
+en blanco como separadores. Se le puede dar el valor de una cadena multicarácter
+para usarla como delimitador. Nótese que establecerla a <tex2html_verb_mark>793<tex2html_verb_mark>
+es diferente de asignarla a <tex2html_verb_mark>794<tex2html_verb_mark>. Si se deja <tex2html_verb_mark>795<tex2html_verb_mark>, 
+la siguiente lectura leerá todo el fichero.
+
+<P>
+Sigue un ejemplo de ejecución. El programa se llama <tex2html_verb_mark>796<tex2html_verb_mark>.
+Introducimos el texto desde <tex2html_verb_mark>797<tex2html_verb_mark>. El programa escribe el
+número de párrafos:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1259#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05416020000000000000">
+La opción <TT>e</TT>: Evaluación del remplazo</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+<A NAME="section:regeval"><tex2html_anchor_mark></A>La opción <tex2html_verb_mark>798<tex2html_verb_mark> permite la evaluación como expresión perl de la
+cadena de reemplazo (En vez de considerarla como una cadena delimitada 
+por doble comilla).
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1260#</PRE>
+El resultado de la ejecución es:
+<PRE><tex2html_verbatim_mark>verbatim1261#</PRE>
+
+<P>
+Véase un ejemplo con anidamiento de <#4100#><TT>/e</TT><#4100#>:
+<PRE><tex2html_verbatim_mark>verbatim1262#</PRE>
+El resultado de la ejecución es:
+<PRE><tex2html_verbatim_mark>verbatim1263#</PRE>
+
+<P>
+He aqui una solución que hace uso de <tex2html_verb_mark>799<tex2html_verb_mark> al siguiente ejercicio 
+(véase 'Regex to add space after punctuation sign' en <A NAME="tex2html189"
+  HREF="http://www.perlmonks.org/?node_id=319742">PerlMonks</A>)
+Se quiere poner un espacio en blanco después de la aparición de cada coma:
+<PRE><tex2html_verbatim_mark>verbatim1264#</PRE>
+pero se quiere que la sustitución no tenga lugar si la coma esta incrustada entre
+dos dígitos. Además se pide que si hay ya un espacio después de la coma,
+no se duplique
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1265#</PRE>
+
+<P>
+Se hace uso de un lookahead negativo <tex2html_verb_mark>800<tex2html_verb_mark>.
+Véase la sección <A HREF=<tex2html_cr_mark>#subsection:lookaheadlookbehind#4110><tex2html_cr_mark></A> para entender como funciona
+un lookahead negativo.
+
+<P>

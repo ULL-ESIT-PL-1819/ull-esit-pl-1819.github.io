@@ -1,0 +1,99 @@
+
+<H1><A NAME="SECTION05460000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:tr"><tex2html_anchor_mark></A><BR>
+tr y split
+</H1>
+El operador de traducción permite la conversión de unos caracteres por otros. 
+Tiene la sintáxis:
+
+<P>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>1209<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>1210<tex2html_verb_mark></TD>
+</TR>
+</TABLE>
+
+<P>
+El operador permite el reemplazo carácter a carácter, por ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim1547#</PRE>
+El operador devuelve el número de carácteres reeemplazados
+o suprimidos. 
+<PRE><tex2html_verbatim_mark>verbatim1548#</PRE>
+
+<P>
+Si se especifica el modificador <tex2html_verb_mark>1211<tex2html_verb_mark>, cualquier carácter en  <tex2html_verb_mark>1212<tex2html_verb_mark>
+que no figure en <tex2html_verb_mark>1213<tex2html_verb_mark> es eliminado.
+<PRE><tex2html_verbatim_mark>verbatim1549#</PRE>
+
+<P>
+Si se especifica el modificador <tex2html_verb_mark>1214<tex2html_verb_mark>, las secuencias de carácteres
+consecutivos que serían traducidas al mismo carácter son comprimidas a una sola:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1550#</PRE>
+
+<P>
+Observa que si la cadena <tex2html_verb_mark>1215<tex2html_verb_mark> es vacía,
+no se introduce ninguna modificación.
+
+<P>
+Si se especifica el modificador <tex2html_verb_mark>1216<tex2html_verb_mark>, se complementa <tex2html_verb_mark>1217<tex2html_verb_mark>;
+esto es, se buscan los caracteres que no están en <tex2html_verb_mark>1218<tex2html_verb_mark>.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1551#</PRE>
+
+<P>
+Cuando se dan múltiples traducciones para un mismo carácter, solo la primera es utilizada:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1552#</PRE>
+
+<P>
+traducirá <tex2html_verb_mark>1219<tex2html_verb_mark> por <tex2html_verb_mark>1220<tex2html_verb_mark>.
+
+<P>
+El siguiente <SPAN  CLASS="textbf">script</SPAN> busca una expresión regular en el fichero de <tex2html_verb_mark>1221<tex2html_verb_mark>
+e imprime los <SPAN  CLASS="textbf">login</SPAN> de los usuarios que casan con dicha cadena.
+Para evitar posibles confusiones con las vocales acentuadas
+se usa el operador <tex2html_verb_mark>1222<tex2html_verb_mark>.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1553#</PRE>
+
+<P>
+Ejecución (suponemos que el nombre del fichero anterior es <tex2html_verb_mark>1223<tex2html_verb_mark>):
+<PRE><tex2html_verbatim_mark>verbatim1554#</PRE>
+
+<P>
+Para familiarizarte con este operador, codifica y prueba el siguiente
+código:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1555#</PRE>
+
+<P>
+Perl construye la tabla de traducción en ``tiempo de compilación''. Por ello
+ni <tex2html_verb_mark>1224<tex2html_verb_mark> ni <tex2html_verb_mark>1225<tex2html_verb_mark> son susceptibles de 
+ser interpolados. Esto significa que si queremos usar variables tenemos
+que recurrir a la función <tex2html_verb_mark>1226<tex2html_verb_mark>.
+
+<P>
+La expresión pasada como parámetro a <tex2html_verb_mark>1227<tex2html_verb_mark> en la línea 8 es analizada y ejecutada como si 
+se tratara de un pequeño programa Perl. Cualquier asignación a variables permanece
+después del <tex2html_verb_mark>1228<tex2html_verb_mark>, asi como cualquier definición de subrutina. 
+El código dentro de <tex2html_verb_mark>1229<tex2html_verb_mark> se trata como si fuera un bloque, de manera
+que cualesquiera variables locales (declaradas con <tex2html_verb_mark>1230<tex2html_verb_mark>) desaparecen
+al final del bloque.
+
+<P>
+La variable <tex2html_verb_mark>1231<tex2html_verb_mark> contiene el mensaje de error asociado con la
+última ejecución del comando <tex2html_verb_mark>1232<tex2html_verb_mark>. Si es nula es que el último comando
+se ejecuto correctamente.
+Aqui tienes un ejemplo de llamada:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1556#</PRE>
+
+<P>

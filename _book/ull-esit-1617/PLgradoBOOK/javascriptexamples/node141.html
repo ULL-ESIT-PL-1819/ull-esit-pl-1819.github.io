@@ -1,0 +1,617 @@
+
+<H1><A NAME="SECTION05640000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:lexicomodular"><tex2html_anchor_mark></A><BR>
+Pruebas para el Analizador Léxico
+</H1>
+Queremos separar/aislar las diferentes fases
+del compilador en diferentes módulos. 
+
+<P>
+
+<H4><A NAME="SECTION05640010000000000000">
+Módulo <TT>PL::Error</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Para ello comenzamos creando un módulo 
+conteniendo las rutinas de tratamiento de errores:
+<PRE><tex2html_verbatim_mark>verbatim5522#</PRE>
+Observa como accedemos a la variable <tex2html_verb_mark>1627<tex2html_verb_mark> del paquete 
+<tex2html_verb_mark>1628<tex2html_verb_mark>.
+Para usar este módulo desde <tex2html_verb_mark>1629<tex2html_verb_mark>, tenemos que declarar su uso:
+<PRE><tex2html_verbatim_mark>verbatim5523#</PRE>
+En la línea 8 hacemos <tex2html_verb_mark>1630<tex2html_verb_mark> y no <tex2html_verb_mark>1631<tex2html_verb_mark> ya que el módulo
+lo hemos puesto en el directorio <tex2html_verb_mark>1632<tex2html_verb_mark>.
+No olvides hacer <tex2html_verb_mark>1633<tex2html_verb_mark> para actualizar el fichero <tex2html_verb_mark>1634<tex2html_verb_mark>.
+
+<P>
+
+<H4><A NAME="SECTION05640020000000000000">
+Módulo <TT>PL::Lexical::Analysis</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Supongamos que además de modularizar el grupo de rutinas de tratamiento de errores
+queremos hacer lo mismo con la parte del análisis léxico. Parece lógico que el 
+fichero lo pongamos en un subdirectorio de <tex2html_verb_mark>1635<tex2html_verb_mark> por lo que cambiamos 
+el nombre del módulo a <tex2html_verb_mark>1636<tex2html_verb_mark> quedando la jerarquía de ficheros
+asi:
+<PRE><tex2html_verbatim_mark>verbatim5524#</PRE>
+
+<P>
+Por supuesto debemos modificar las correspondientes líneas en <tex2html_verb_mark>1637<tex2html_verb_mark>:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5525#</PRE>
+Observe que ahora <tex2html_verb_mark>1638<tex2html_verb_mark> devuelve 
+ahora la
+lista con los terminales y que <tex2html_verb_mark>1639<tex2html_verb_mark> se ha ocultado en 
+<tex2html_verb_mark>1640<tex2html_verb_mark> como una variable léxica (línea 17).
+En la línea 26 mostramos el contenido de la lista de terminales.
+
+<P>
+Sigue el listado del módulo conteniendo el analizador léxico.
+Obsérve las líneas 6, 16 y 44.
+<PRE><tex2html_verbatim_mark>verbatim5526#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05640030000000000000">
+El Programa Cliente</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Puesto que en el paquete <tex2html_verb_mark>1641<tex2html_verb_mark>
+exportamos <tex2html_verb_mark>1642<tex2html_verb_mark> no es necesario llamar la rutina por el nombre 
+completo desde <tex2html_verb_mark>1643<tex2html_verb_mark>. Podemos simplificar la línea en la
+que se llama a <tex2html_verb_mark>1644<tex2html_verb_mark> que queda así:
+<PRE><tex2html_verbatim_mark>verbatim5527#</PRE>
+De la misma forma, dado que <tex2html_verb_mark>1645<tex2html_verb_mark> exporta la función <tex2html_verb_mark>1646<tex2html_verb_mark>,
+no es necesario llamarla por su nombre completo desde el guión <tex2html_verb_mark>1647<tex2html_verb_mark>. Reescribimos
+la línea de llamada:
+<PRE><tex2html_verbatim_mark>verbatim5528#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05640040000000000000">
+Actualización del MANIFEST</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Como siempre que se añaden o suprimen archivos es necesario actualizar 
+<tex2html_verb_mark>1648<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5529#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05641000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="subsection:tests"><tex2html_anchor_mark></A><BR>
+Comprobando el Analizador Léxico
+</H2>
+Queremos comprobar si nuestro código funciona. ¿Cómo hacerlo?.
+Lo adecuado es llevar una aproximación sistemática que permita validar
+el código. 
+
+<P>
+
+<H4><A NAME="SECTION05641010000000000000">
+Principios Básicos del Desarrollo de Pruebas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+En general, la filosofía aconsejable para realizar un banco
+de pruebas de nuestro módulo es la que se articula en la metodología denominada
+<A NAME="12082"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">Extreme Programming</SPAN>, descrita en múltiples textos, en concreto en el 
+libro de Scott [#scott#<tex2html_cite_mark>#1##<tex2html_cite_mark>#]:
+
+<UL>
+<LI>Todas las pruebas deben automatizarse
+</LI>
+<LI>Todos los fallos que se detecten deberían quedar traducidos en pruebas
+</LI>
+<LI>La aplicación debería pasar todas las pruebas después de cualquier modificación
+importante y también al final del día
+</LI>
+<LI>El desarrollo de las pruebas debe preceder el desarrollo 
+del código
+</LI>
+<LI>Todos los requerimientos deben ser expresados en forma de pruebas
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION05641020000000000000">
+La Jerarquía de Una Aplicación</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Pueden haber algunas diferencias entre el esquema que se describe aqui y su versión de Perl.
+Lea detenidamente el capítulo 
+<A NAME="tex2html351"
+  HREF="http://nereida.deioc.ull.es/&#126;pl/cgi-bin/test_now_test_forever.pdf">Test Now, test Forever</A>
+del libro de Scott [#scott#<tex2html_cite_mark>#1##<tex2html_cite_mark>#] y el libro [#perltesting#<tex2html_cite_mark>#1##<tex2html_cite_mark>#] de Ian Langworth y chromatic.
+
+<P>
+Si usas una versión de Perl posterior  la 5.8.0, entonces tu versión del programa
+<tex2html_verb_mark>1649<tex2html_verb_mark> 
+creará un subdirectorio <tex2html_verb_mark>1650<tex2html_verb_mark> en el que guardar los ficheros de prueba
+Estos ficheros deberán 
+ser programas Perl de prueba con el tipo <tex2html_verb_mark>1651<tex2html_verb_mark>. La utilidad
+<tex2html_verb_mark>1652<tex2html_verb_mark> incluso deja un programa de prueba <tex2html_verb_mark>1653<tex2html_verb_mark> en ese directorio.
+La jerarquía de ficheros con la que trabajamos actualmente es:
+<PRE><tex2html_verbatim_mark>verbatim5530#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05641030000000000000">
+Un Ejemplo de Programa de Prueba</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Estos son los contenidos de nuestro primer test:
+<PRE><tex2html_verbatim_mark>verbatim5531#</PRE>
+
+<P>
+El nombre del fichero de prueba debe cumplir que:
+
+<UL>
+<LI>Sea significativo del tipo de prueba
+</LI>
+<LI>Que los prefijos de los nombres <tex2html_verb_mark>1654<tex2html_verb_mark>, <tex2html_verb_mark>1655<tex2html_verb_mark>, ...nos garanticen
+el orden de ejecución
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION05641040000000000000">
+Ejecución de Las Pruebas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Ahora ejecutamos las pruebas:
+<PRE><tex2html_verbatim_mark>verbatim5532#</PRE>
+O bien usamos <tex2html_verb_mark>1656<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5533#</PRE>
+También podemos añadir la opción <tex2html_verb_mark>1657<tex2html_verb_mark> a <tex2html_verb_mark>1658<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5534#</PRE>
+
+<P>
+Repáse 
+<A HREF=<tex2html_ext_cr_mark>#subsection:laspruebas#12096><tex2html_ext_cr_mark></A> [#CasianoIntroAPerl#<tex2html_cite_mark>#1##<tex2html_cite_mark>#] para un mejor conocimiento
+de la metodología de pruebas en Perl.
+
+<P>
+
+<H3><A NAME="SECTION05641100000000000000">
+Versiones anteriores a la 5.8</A>
+</H3>
+En esta sección he usado la versión 5.6.1 de Perl.  
+Creeemos un subdirectorio <tex2html_verb_mark>1659<tex2html_verb_mark> y en él un programa de prueba
+<tex2html_verb_mark>1660<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5535#</PRE>
+Observa como la opción <tex2html_verb_mark>1661<tex2html_verb_mark> hace que se busque por las librerías en el directorio
+padre del actual.
+Cuando ejecutamos <tex2html_verb_mark>1662<tex2html_verb_mark> obtenemos la lista de terminales:
+<PRE><tex2html_verbatim_mark>verbatim5536#</PRE>
+La última línea ha sido partida por razones de legibilidad, pero consituye 
+una sóla línea.
+Editemos el fichero <tex2html_verb_mark>1663<tex2html_verb_mark> en el directorio del módulo.
+Sus contenidos son como sigue:
+<PRE><tex2html_verbatim_mark>verbatim5537#</PRE>
+En la línea 9 se establece el número de pruebas a realizar. 
+La primera prueba aparece en la línea 11. Puede parecer que no es una prueba,
+¡pero lo es!. Si se ha alcanzado la línea 11 es que se pudo cargar
+el módulo <tex2html_verb_mark>1664<tex2html_verb_mark> y eso ¡tiene algún mérito!.
+
+<P>
+Seguiremos el consejo de la línea 15 y escribiremos nuestra segunda
+prueba al final del fichero <tex2html_verb_mark>1665<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5538#</PRE>
+La línea 22 ha sido partida por razones de legibilidad, pero constituye 
+una sóla línea.
+Ahora podemos ejecutar <tex2html_verb_mark>1666<tex2html_verb_mark> y comprobar que las dos
+pruebas funcionan:
+<PRE><tex2html_verbatim_mark>verbatim5539#</PRE>
+¿Recordaste cambiar la línea 9 de <tex2html_verb_mark>1667<tex2html_verb_mark>?
+¿Añadiste los nuevos ficheros a la lista en <tex2html_verb_mark>1668<tex2html_verb_mark>?
+
+<P>
+
+<H2><A NAME="SECTION05642000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12099"><tex2html_anchor_invisible_mark></A>
+  
+<A NAME="practica:pruebaslexico"><tex2html_anchor_mark></A><BR>
+Práctica: Pruebas en el Análisis Léxico
+</H2>
+Extienda su compilador para modularizar el analizador léxico
+tal y como se explicó en la sección
+<A HREF=<tex2html_cr_mark>#section:lexicomodular#10741><tex2html_cr_mark></A>.
+
+<OL>
+<LI>Lea  los siguientes documentos
+
+<UL>
+<LI><#12100#><TT>Test::Tutorial</TT><#12100#>  
+(<A NAME="tex2html352"
+  HREF="http://search.cpan.org/&#126;nwclark/perl-5.8.8/lib/Test/Tutorial.pod">Test::Tutorial - A tutorial about writing really basic tests</A>)
+por Michael Schwern. 
+
+<P>
+</LI>
+<LI><A NAME="tex2html353"
+  HREF="http://nereida.deioc.ull.es/&#126;pl/cgi-bin/test_now_test_forever.pdf">Test Now, test Forever</A>
+'' del libro de Scott [#scott#<tex2html_cite_mark>#1##<tex2html_cite_mark>#].
+
+<P>
+</LI>
+<LI><A NAME="tex2html354"
+  HREF="perl_test_refcard.pdf">Perl Testing Reference Card</A>
+por Ian Langworth. 
+
+<P>
+</LI>
+<LI><A NAME="tex2html355"
+  HREF="http://www.oreilly.com/catalog/perltestingadn/chapter/ch04.pdf">Chapter 4: Distributing Your Tests (and Code)</A>
+del libro 
+<A NAME="tex2html356"
+  HREF="http://www.oreilly.com/catalog/perltestingadn/index.html">Perl Testing: A Developer's Notebook</A>
+<P>
+</LI>
+</UL>
+
+<P>
+</LI>
+<LI>Incluya la estrategia de pruebas de no regresión explicada en las secciones previas.
+Dado que ahora la estructura del terminal es una estructura de datos mas compleja
+<tex2html_verb_mark>1669<tex2html_verb_mark> no podrá usar <tex2html_verb_mark>1670<tex2html_verb_mark>, ya que este último sólo 
+comprueba la igualdad entre escalares.
+Use <tex2html_verb_mark>1671<tex2html_verb_mark> para comprobar que la estructura de datos devuelta por el
+analizador léxico es igual a la esperada. Sigue un ejemplo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5540#</PRE>
+
+<P>
+</LI>
+<LI>Extienda los tests con una prueba en la que la entrada contenga un carácter ilegal.
+Obsérve que, tal y como esta escrito la rutina <tex2html_verb_mark>1672<tex2html_verb_mark>,
+si la entrada tiene un carácter ilegal se ejecutarán las líneas 
+<PRE><tex2html_verbatim_mark>verbatim5541#</PRE>
+lo que causa la parada del programa 
+de prueba,
+al ejecutarse <tex2html_verb_mark>1673<tex2html_verb_mark> el cuál llama a <tex2html_verb_mark>1674<tex2html_verb_mark>.
+<PRE><tex2html_verbatim_mark>verbatim5542#</PRE>
+El objetivo es lograr que el programa de pruebas continúe ejecutando las subsiguientes 
+pruebas.
+
+<P>
+Para ello puede usar <tex2html_verb_mark>1675<tex2html_verb_mark> 
+o bien <tex2html_verb_mark>1676<tex2html_verb_mark> y la variable especial <tex2html_verb_mark>1677<tex2html_verb_mark> para controlar que el
+programa <tex2html_verb_mark>1678<tex2html_verb_mark> no termine prematuramente.
+Repase la sección <A HREF=<tex2html_ext_cr_mark>#subsection:controldeerrores#12101><tex2html_ext_cr_mark></A> [#CasianoIntroAPerl#<tex2html_cite_mark>#1##<tex2html_cite_mark>#],
+el capítulo 
+<A HREF=<tex2html_ext_cr_mark>#section:knappruebas#10764><tex2html_ext_cr_mark></A> y mas específicamente la sección
+<A HREF=<tex2html_ext_cr_mark>#subsection:laspruebas#10765><tex2html_ext_cr_mark></A> del capítulo sobre construcción de módulos.
+</LI>
+<LI>Pruebe a dar como entrada un fichero vacío
+</LI>
+<LI>Pruebe a dar como entrada un fichero que no existe
+</LI>
+<LI>Pruebe a dar como entrada un fichero binario
+</LI>
+<LI>Si tiene sentido en su caso, llame a las subrutinas con mas argumentos (y también con menos) de los que esperan.
+</LI>
+<LI>Si tiene sentido en su caso, llame a las subrutinas con argumentos cuyo tipo no es el que se espera.
+
+<P>
+No use prototipos para lograrlo. No es una buena idea. Los prototipos en Perl
+a menudo producen un preprocesado del parámetro. Escriba código que controle que 
+la naturaleza del parámetro es la que se espera. Por ejemplo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5543#</PRE>
+</LI>
+<LI>Cambie los argumentos de orden (si es que se aplica a su código)
+</LI>
+<LI>Comentarios: pruebe con <tex2html_verb_mark>1679<tex2html_verb_mark>. Tambien con
+comentarios anidados (debería producirse un error)
+</LI>
+<LI>Flotantes: compruebe su expresión regular con 0.0 0e0 .0 0 1.e-5 1.0e2 -2.0  . (un punto sólo)
+</LI>
+<LI>Cadenas. Pruebe con las cadenas
+<PRE><tex2html_verbatim_mark>verbatim5544#</PRE>
+Pruebe también con una cadena con varias líneas y
+otra que contenga un carácter de control en su interior.
+</LI>
+<LI>Convierta los fallos (bugs) que encontró durante el desarrollo en pruebas
+</LI>
+<LI>Compruebe la documentación usando el módulo
+<A NAME="tex2html357"
+  HREF="http://search.cpan.org/&#126;petdance/Test-Pod-1.26/Pod.pm">Test::Pod</A>
+de Andy Lester. Instálelo si es necesario.
+
+<P>
+</LI>
+<LI>Utilice el módulo 
+<A NAME="tex2html358"
+  HREF="http://search.cpan.org/&#126;bigj/Test-Warn-0.08/Warn.pm">Test::Warn</A>
+para comprobar que los mensajes de warning (uso de <tex2html_verb_mark>1680<tex2html_verb_mark> and <tex2html_verb_mark>1681<tex2html_verb_mark>)
+se muestran correctamente.
+
+<P>
+</LI>
+<LI>Una prueba  <#12103#><TT>SKIP</TT><#12103#>  declara un bloque de pruebas
+que - bajo ciertas circustancias - puede saltarse.
+Puede ser que sepamos que ciertas pruebas 
+sólo funcionan en ciertos sistemas operativos 
+o que la prueba requiera que ciertos paquetes están instalados 
+o que la máquina
+disponga de ciertos recursos (por ejemplo, acceso a internet).
+En tal caso queremos que los tests se consideren si se dan las circustancias
+favorables pero que en otro caso se descarten sin protestas.
+Consulte la documentación de los módulos <tex2html_verb_mark>1682<tex2html_verb_mark> y <tex2html_verb_mark>1683<tex2html_verb_mark>
+sobre pruebas tipo <#10775#><TT>SKIP</TT><#10775#>. El ejemplo que sigue
+declara un bloque de pruebas que pueden saltarse.
+La llamada a <tex2html_verb_mark>1684<tex2html_verb_mark> indica cuantos tests hay,
+bajo que condición saltarselos.
+<PRE><tex2html_verbatim_mark>verbatim5545#</PRE>
+Si el usuario no dispone del módulo <tex2html_verb_mark>1685<tex2html_verb_mark> 
+el bloque no será ejecutado.
+El módulo <tex2html_verb_mark>1686<tex2html_verb_mark> producirá <tex2html_verb_mark>1687<tex2html_verb_mark>s que serán
+interpretados por  <tex2html_verb_mark>1688<tex2html_verb_mark> como tests <SPAN  CLASS="textbf">skipped</SPAN>
+pero <tex2html_verb_mark>1689<tex2html_verb_mark>.
+
+<P>
+Otra razón para usar una prueba <tex2html_verb_mark>1690<tex2html_verb_mark> es disponer de la posibilidad
+de saltarse ciertos grupos de pruebas. Por ejemplo, aquellas que llevan
+demasiado tiempo de ejecución y no son tan significativas que no se 
+pueda prescindir de ellas cuando se introducen pequeños cambios en el código.
+El siguiente código muestra como usando una variable de entorno <tex2html_verb_mark>1691<tex2html_verb_mark>
+podemos controlar que pruebas se ejecutan. 
+<PRE><tex2html_verbatim_mark>verbatim5546#</PRE>
+Introduzca una prueba <tex2html_verb_mark>1692<tex2html_verb_mark> similar a la anterior y otra que 
+si el módulo
+<tex2html_verb_mark>1693<tex2html_verb_mark> esta instalado comprueba
+que la documentación esta bien escrita.
+Estudie la documentación del módulo <tex2html_verb_mark>1694<tex2html_verb_mark>.
+
+<P>
+</LI>
+<LI>Introduzca pruebas 
+<tex2html_verb_mark>1695<tex2html_verb_mark> (que, por tanto, deben fallar) para las funciones que están por escribir
+(<tex2html_verb_mark>1696<tex2html_verb_mark>, <tex2html_verb_mark>1697<tex2html_verb_mark>, <tex2html_verb_mark>1698<tex2html_verb_mark>, <tex2html_verb_mark>1699<tex2html_verb_mark>).
+Repáse <A HREF=<tex2html_ext_cr_mark>#subsection:laspruebas#12104><tex2html_ext_cr_mark></A> [#CasianoIntroAPerl#<tex2html_cite_mark>#1##<tex2html_cite_mark>#]. Sigue un ejemplo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5547#</PRE>
+
+<P>
+</LI>
+<LI>Cuando compruebe el funcionamiento de su módulo 
+<SPAN  CLASS="textbf">nunca descarte que el error pueda estar en
+el código de la prueba</SPAN>. En palabras de Schwern
+
+<P>
+<BLOCKQUOTE>
+<BLOCKQUOTE>
+Code has bugs. Tests are code. Ergo, tests have bugs.
+<BR></BLOCKQUOTE></BLOCKQUOTE>
+<P>
+<BLOCKQUOTE><BLOCKQUOTE><DIV ALIGN="RIGHT"><#10787#>Michael Schwern<#10787#>
+
+</BLOCKQUOTE>
+</BLOCKQUOTE>
+
+<P>
+</LI>
+<LI>Instale el módulo 
+<A NAME="tex2html359"
+  HREF="http://search.cpan.org/&#126;pjcj/Devel-Cover-0.59/lib/Devel/Cover.pm">Devel::Cover</A>.
+El módulo   <#12106#><TT>Devel::Cover</TT><#12106#>  ha sido
+escrito por
+<A NAME="tex2html360"
+  HREF="http://search.cpan.org/&#126;pjcj/">Paul Johnson</A>
+y proporciona 
+estadísticas del cubrimiento alcanzado por una ejecución.
+Para usarlo siga estos pasos:
+<PRE><tex2html_verbatim_mark>verbatim5548#</PRE>
+La ejecución toma ahora mucho mas tiempo: ¡181 segundos frente a los 5 que toma la ejecución sin  <#12107#><TT>cover</TT><#12107#> !.
+Al ejecutar <tex2html_verb_mark>1700<tex2html_verb_mark> de nuevo obtenemos una tabla con las estadísticas
+de cubrimiento:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5549#</PRE>
+El 
+<A NAME="tex2html361"
+  HREF="cover_db/coverage.html">HTML generado</A>
+nos permite tener una visión mas detallada de los niveles
+de cubrimiento.
+
+<P>
+Para mejorar el cubrimiento de tu código comienza por el informe de
+cubrimiento de subrutinas. Cualquier subrutina marcada como
+no probada es un candidato a contener errores o incluso a ser <#10802#><I>código
+muerto</I><#10802#>.
+
+<P>
+Para poder hacer el cubrimiento del código usando Devel::Cover, si se usa una <tex2html_verb_mark>1701<tex2html_verb_mark> 
+o <tex2html_verb_mark>1702<tex2html_verb_mark> se debe escribir:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5550#</PRE>
+Aún mas robusto - más independiente de la shell que usemos - es pasar las opciones en
+<tex2html_verb_mark>1703<tex2html_verb_mark> como parámetro a <tex2html_verb_mark>1704<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5551#</PRE>
+
+<P>
+Añade el informe de cubrimiento al <tex2html_verb_mark>1705<tex2html_verb_mark> para que se incluya en la distribución 
+que subas. Si lo consideras conveniente añade un directorio informes en los que vayan los informes asociados
+a esta práctica. Incluye en el <tex2html_verb_mark>1706<tex2html_verb_mark> o en la documentación una breve descripción
+de donde están los informes.
+
+<P>
+</LI>
+<LI>Se conoce con el nombre de <A NAME="12108"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">perfilado</SPAN> o <A NAME="12110"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">profiling</SPAN> de
+un programa al estudio de su rendimiento mediante un programa
+(conocido como <A NAME="12112"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">profiler</SPAN>) que monitoriza la ejecución del mismo
+mediante una técnica que interrumpe cada cierto tiempo el programa
+para comprobar en que punto de la ejecución se encuentra.
+Las estadísticas acumuladas se vuelcan al final de la ejecución 
+en un fichero que puede ser visualizado mediante la aplicación apropiada.
+
+<P>
+En Perl hay dos módulos que permiten realizar profiling. El mas antiguo es
+ <#12114#><TT>Devel::DProf</TT><#12114#> . La aplicación para visualizar los resultados
+se llama  <#12115#><TT>dprofpp</TT><#12115#> .
+Sigue un ejemplo de uso:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5552#</PRE>         
+
+<P>
+Tambien es posible usar el módulo  <#12116#><TT>-MDevel::Profiler</TT><#12116#> :
+<PRE><tex2html_verbatim_mark>verbatim5553#</PRE>
+
+<P>
+Presente un informe del perfil de su compilador. 
+Añade el informe del perfil al <tex2html_verb_mark>1707<tex2html_verb_mark> para que se incluya en la distribución 
+que subas.
+
+<P>
+</LI>
+<LI>El módulo  <#12117#><TT>Devel::Size</TT><#12117#>  proporciona la posibilidad de
+conocer cuanto ocupa una estructura de datos. Considere el siguiente
+ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim5554#</PRE>
+Al ejecutarlo se obtiene esta salida:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5555#</PRE>
+Elabore un informe con el consumo de memoria de las variables mas importantes
+de su programa.
+Añadelo el informe al <tex2html_verb_mark>1708<tex2html_verb_mark> para que se incluya en la distribución 
+que subas. Explica en el <tex2html_verb_mark>1709<tex2html_verb_mark> o en la documentación el significado 
+de los ficheros de informe.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<H2><A NAME="SECTION05643000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12119"><tex2html_anchor_invisible_mark></A><BR>
+Repaso: Pruebas en el Análisis Léxico
+</H2>
+  
+
+<OL>
+<LI>¿Cuál es la diferencia entre los operadores <tex2html_verb_mark>1710<tex2html_verb_mark> y <tex2html_verb_mark>1711<tex2html_verb_mark>?
+</LI>
+<LI>¿Cuáles son los parámetros de la función <tex2html_verb_mark>1712<tex2html_verb_mark>?
+</LI>
+<LI>¿Cuáles son los parámetros de la función <tex2html_verb_mark>1713<tex2html_verb_mark>?
+</LI>
+<LI>¿Porqué es conveniente nombrar las pruebas con un nombre que empiece por
+un número?
+</LI>
+<LI>¿Como puedo ejecutar los tests en modo <SPAN  CLASS="textbf">verbose</SPAN>?
+</LI>
+<LI>¿Como puedo probar un código que produce la detención del programa?
+</LI>
+<LI>¿Que contiene la variable <tex2html_verb_mark>1714<tex2html_verb_mark>?
+</LI>
+<LI>¿Que hace la función <tex2html_verb_mark>1715<tex2html_verb_mark>?
+</LI>
+<LI>¿Que contiene la variable <tex2html_verb_mark>1716<tex2html_verb_mark>? ¿Y <tex2html_verb_mark>1717<tex2html_verb_mark>?
+(Consulte <A HREF=<tex2html_cr_mark>#section:variablesmagicasereg#10826><tex2html_cr_mark></A>)
+</LI>
+<LI>¿Porqué la función <tex2html_verb_mark>1718<tex2html_verb_mark> es llamada dentro de un <tex2html_verb_mark>1719<tex2html_verb_mark>?
+</LI>
+<LI>¿Que es una prueba <tex2html_verb_mark>1720<tex2html_verb_mark>?
+</LI>
+<LI>¿Que es una prueba <tex2html_verb_mark>1721<tex2html_verb_mark>?
+</LI>
+<LI>¿Que hace la función <tex2html_verb_mark>1722<tex2html_verb_mark>?
+¿A que módulo pertenece?
+</LI>
+<LI>¿Que hace el operador <tex2html_verb_mark>1723<tex2html_verb_mark>?
+</LI>
+<LI>¿Qué devuelve el operador <tex2html_verb_mark>1724<tex2html_verb_mark>?
+</LI>
+<LI>¿Que hace la opción <tex2html_verb_mark>1725<tex2html_verb_mark> de <tex2html_verb_mark>1726<tex2html_verb_mark>?
+(consulte <A HREF=<tex2html_cr_mark>#section:tr#10827><tex2html_cr_mark></A>)
+</LI>
+<LI>Explique la conducta de la siguiente sesión con el depurador:
+<PRE><tex2html_verbatim_mark>verbatim5556#</PRE>
+</LI>
+<LI>Supuesto que tuvieramos el operador menos en nuestro lenguaje y
+dada la entrada <tex2html_verb_mark>1727<tex2html_verb_mark>, ¿Que devolverá su analizador léxico? 
+¿Devuelve <tex2html_verb_mark>1728<tex2html_verb_mark> o bien <tex2html_verb_mark>1729<tex2html_verb_mark>?
+(hemos simplificado el flujo eliminando los atributos).
+</LI>
+<LI>¿Que hace la llamada
+<tex2html_verb_mark>1730<tex2html_verb_mark>?
+</LI>
+<LI>¿Que hace la función <tex2html_verb_mark>1731<tex2html_verb_mark>? ¿Qué argumentos tiene?
+</LI>
+<LI>Explique las causas de la siguiente conducta del depurador:
+<PRE><tex2html_verbatim_mark>verbatim5557#</PRE>
+</LI>
+<LI>¿Que diferencia hay entre <tex2html_verb_mark>1732<tex2html_verb_mark> e <tex2html_verb_mark>1733<tex2html_verb_mark>?
+
+<P>
+</LI>
+<LI>¿Que argumentos recibe la función <tex2html_verb_mark>1734<tex2html_verb_mark>?
+¿En que módulo se encuentra?
+
+<P>
+</LI>
+<LI>¿Que hace el comando
+<tex2html_verb_mark>1735<tex2html_verb_mark>?
+
+<P>
+</LI>
+<LI>¿Cómo se interpreta el cubrimiento de las sentencias? ¿y de las subrutinas?
+¿y de las ramas? ¿y las condiciones lógicas?
+¿En cual de estos factores es realista y deseable lograr un cubrimiento
+del <tex2html_percent_mark>100 con nuestras pruebas?
+
+<P>
+</LI>
+<LI>¿Que pasa si después de haber desarrollado un número de pruebas
+cambio la interfaz de mi API?
+
+<P>
+</LI>
+<LI>¿Que hace el comando <tex2html_verb_mark>1736<tex2html_verb_mark>? ¿Para que sirve?
+</LI>
+</OL>
+
+<P>

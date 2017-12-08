@@ -1,0 +1,44 @@
+
+<H1><A NAME="SECTION058290000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="18499"><tex2html_anchor_invisible_mark></A>
+  
+<A NAME="practica:esquemadetradsimple"><tex2html_anchor_mark></A><BR>
+Práctica: Construcción del AST para el Lenguaje Simple C
+</H1>
+Utilice 
+<A NAME="tex2html410"
+  HREF="Parse-Eyapp.tar.gz">Parse-Eyapp</A>.
+para construir un árbol de análisis sintáctico abstracto 
+para la gramática descrita en la sección
+<A HREF=<tex2html_cr_mark>#section:simplec#18191><tex2html_cr_mark></A>.
+Su analizador deberá seguir los consejos explícitados en la 
+sección <A HREF=<tex2html_cr_mark>#section:consejoseyapp#18192><tex2html_cr_mark></A>.
+
+<P>
+
+<H4><A NAME="SECTION058290010000000000000">
+Analizador Léxico</A>
+</H4>
+
+<P>
+Además del tipo de terminal y su valor el analizador
+léxico deberá devolver el número de línea.
+El analizador léxico deberá aceptar comentarios C.
+En la gramática, el terminal <tex2html_verb_mark>2828<tex2html_verb_mark> se refiere a 
+caracteres entre comillas simples (por ejemplo <tex2html_verb_mark>2829<tex2html_verb_mark>).
+El terminal <tex2html_verb_mark>2830<tex2html_verb_mark> se refiere a 
+caracteres entre comillas dobles (por ejemplo <tex2html_verb_mark>2831<tex2html_verb_mark>).
+
+<P>
+Se aconseja que las palabras reservadas del lenguaje
+no se traten con expresiones regulares específicas sino que se
+capturen en el patrón de identificador <tex2html_verb_mark>2832<tex2html_verb_mark>. 
+Se mantiene para ello un hash con las palabras reservadas 
+que es inicializado al comienzo del programa. Cuando 
+el analizador léxico encuentra un identificador
+mira en primer lugar en dicho hash 
+para ver si es una palabra reservada y,
+si lo es, devuelve el terminal correspondiente.
+En caso contrario se trata de un identificador.
+
+<P>

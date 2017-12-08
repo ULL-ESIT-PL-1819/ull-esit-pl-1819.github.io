@@ -1,0 +1,43 @@
+
+<H1><A NAME="SECTION053110000000000000000">
+Búsqueda entre líneas</A>
+</H1>
+Este otro caso, tambien esta tomado de [#sedawk#<tex2html_cite_mark>#1##<tex2html_cite_mark>#] y [#power#<tex2html_cite_mark>#1##<tex2html_cite_mark>#].
+Se trata de extender la capacidad de búsqueda de <SPAN  CLASS="textit">grep</SPAN>, de modo que el 
+patrón pueda ser encontrado incluso si se encuentra diseminado
+entre a lo mas dos líneas. El <#3294#><I>script</I><#3294#> presentado es una ligera variante
+del que aparece en [#sedawk#<tex2html_cite_mark>#1##<tex2html_cite_mark>#] y escribe la(s) líneas que
+casan precedidas del número de la segunda línea.
+<PRE><tex2html_verbatim_mark>verbatim744#</PRE>
+Así, con el ejemplo ``multiline.test'' usado anteriormente
+obtenemos la siguiente salida:
+<PRE><tex2html_verbatim_mark>verbatim745#</PRE>
+Primero se busca el patrón <tex2html_verb_mark>482<tex2html_verb_mark> en la línea actual.
+Observe el habilidoso uso de las comillas simples y dobles para permitir
+la sustitución de la variable. La primera comilla simple cierra
+la comilla simple al final de la línea 10. Las comillas dobles
+hacen que la <SPAN  CLASS="textit">shell</SPAN> sustituya permite continuar el texto sin sustituciones.
+
+<P>
+Si se encuentra el patrón de búsqueda, imprimimos el número de línea (comando <#3301#><TT>=</TT><#3301#>) y la línea.
+Si no, leemos la siguiente línea, formando un patrón multilínea. 
+Salvamos las dos líneas en el <#3302#><I>hold space</I><#3302#>.
+Entonces intentamos buscar el patrón <tex2html_verb_mark>484<tex2html_verb_mark> en
+la línea que acaba de incorporarse. Es por eso que eliminamos 
+del espacio de patrones la primera línea con la orden 
+<tex2html_verb_mark>485<tex2html_verb_mark>. Si se encuentra, imprimimos y se repite el ciclo.
+Si no, recuperamos las dos líneas del <#3303#><I>hold space</I><#3303#> 
+sustituimos el retorno de carro por un blanco y realizamos 
+una nueva busqueda.
+Si tiene éxito, se obtienen las dos líneas y se imprimen.
+En caso contrario, esto es, si el patrón no se ha encontrado en ninguna
+de las dos líneas, es necesario preservar la última para el siguiente
+ciclo. Por eso, se obtienen una vez mas las líneas del <#3304#><I>hold space</I><#3304#>
+y se suprime con <SPAN  CLASS="textit">D</SPAN> la primera de ellas. Dado que <SPAN  CLASS="textit">D</SPAN> 
+devuelve el control al comienzo del <#3307#><I>script</I><#3307#>, la segunda línea no es eliminada. 
+De todos modos,  el <#3308#><I>script</I><#3308#> no es capaz de captar cuando un prefijo del patrón 
+aparece  al final de esta segunda línea, como muestra el
+ejemplo de prueba. En el primer párrafo el patrón se encuentra
+dos veces y sólo es encontrado una.
+
+<P>

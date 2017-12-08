@@ -1,0 +1,29 @@
+
+<H1><A NAME="SECTION05300000000000000000">
+Expresiones Regulares en sed</A>
+</H1>·
+El editor <tex2html_verb_mark>455<tex2html_verb_mark> es un editor no interactivo que actúa
+ejecutando los comandos (similares a los de <tex2html_verb_mark>456<tex2html_verb_mark>) que
+figuran en el guión <tex2html_verb_mark>457<tex2html_verb_mark> (<A NAME="3323"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textit">script sed</SPAN>) 
+sobre los ficheros de entrada y escribiendo el resultado en la salida estandar.
+Normalmente se llama en una de estas dos formas:
+<PRE><tex2html_verbatim_mark>verbatim700#</PRE>
+Si no se especifican ficheros de entrada, <tex2html_verb_mark>458<tex2html_verb_mark> lee su entrada 
+desde la entrada estandar.
+
+<P>
+Todos los comandos en el guión son ejecutados sobre todas las líneas de la
+entrada, salvo que las condiciones en el ámbito del comando indiquen lo contrario.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim701#</PRE>
+como se ve en el ejemplo, si un comando cambia la entrada, los siguientes 
+comandos se aplican a la línea modificada (denominada <A NAME="3325"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textit">pattern space</SPAN>).
+
+<P>
+Los comandos <tex2html_verb_mark>459<tex2html_verb_mark> tienen el formato:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim702#</PRE>
+
+<P>

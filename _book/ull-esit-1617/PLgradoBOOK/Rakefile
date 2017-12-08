@@ -1,0 +1,233 @@
+# mac OS latex
+#MacBook-Air-de-casiano:LPPbook casiano$ tree ~/Library/texmf/
+#/Users/casiano/Library/texmf/
+#├── bibtex
+#├── makeindex
+#└── tex
+#    └── latex
+#        └── html.sty
+#
+#REMOTE = "rsync -aue ssh" # "scp -r"  #rsync -aue ssh
+REMOTE = "scp -r"  #rsync -aue ssh
+SUBJECT   = "plgrado"
+USUBJECT  = SUBJECT.upcase
+MAINNAME  = 'javascriptexamples'
+#PDFLATEX = "/usr/texbin/pdflatex"
+DVIPDF    = 'dvipdf'
+PDFLATEX  = "pdflatex"
+LATEX     = "latex"
+ZIPFILE   = "#{USUBJECT}book"
+CVSCOMMIT = 'git commit -a '
+CVSPUSH   = 'git push origin --all'
+
+  #Dir.glob('*.tex')+Dir.glob('**/*.tex') 
+TEXFILES = [
+"chapter1/chapter1.tex",        
+"chapter1/create_module.tex",
+"chapter1/modulos.tex",
+"chapter_funciones/funciones.tex",
+"chapter2/csv.png",
+"chapter2/flex.tex",
+"chapter2/perlregexp.tex",
+"chapter2/regexp.tex",
+"chapter2/repeated_words.png",
+"chapter2/sed.tex",
+"chapter_descendente/calculadora.tex",
+"chapter_descendente/topdownprecedence.tex",
+"chapter_descendente/estructuras_de_control.tex",
+"chapter_descendente/pegjs.tex",
+"chapter_descendente/predictive_parser.tex",
+"chapter11/herramientas.tex",         
+"chapter_bottomup/jison.tex",
+"chapter_bottomup/analisis_bottomup_en_ruby.tex",
+"chapter_bottomup/aSb.tex", 
+"chapter7/clases_y_modulos.tex",
+"chapter_node/node.tex",
+"chapter_closure_tools/closure_tools.tex",
+"chapter8/metaprogramacion.tex",
+"chapter99/bitacora1314.tex",
+"chapter_ambito/ambito_perl_simplec.tex",
+"chapter_pruebas/pruebas.tex",
+"chapter_buenas_practicas/buenas_practicas.tex",
+"chapter99/repasos/070313/preguntas.tex", 
+"chapter99/160513.tex", 
+"coffeescript/coffeescript.tex",
+"PL101/pl101.tex",
+"PL101/funcs.tex",
+"PL101/jsreview.tex",
+"PL101/music.tex",
+"PL101/pegs.tex",
+"PL101/scheem.tex",
+"PL101/turtle.tex"
+] + ['perlbib/perl.bib']
+
+LATEX2HTMLOPTIONS = '-html_version 4.0,latin1,unicode -contents_in_navigation -style mystyle.css -white -local_icons'
+MACHINE = %x{uname -a}
+
+# latex2html working really bad in macbook air
+TARGETS = (MACHINE =~ /Air/)? 
+            [
+              :images, :png, :publicpdf, :publicreadme, :dist, :push, 
+              #:pushhtml
+            ] 
+            :
+            [ :images, :png, :pdf, :publicreadme, :publichtml, :dist, :push, 
+              #:pushhtml
+            ] 
+
+#puts TARGETS
+
+task :default => TARGETS 
+#task :default => "#{MAINNAME}.pdf"
+
+desc "Build #{MAINNAME}.pdf with index and biblio"
+file "#{MAINNAME}.pdf" =>  "#{MAINNAME}.dvi" do
+	sh "#{DVIPDF} #{MAINNAME}.dvi #{MAINNAME}.pdf"
+end
+
+desc "Build #{MAINNAME}.pdf with index and biblio"
+task :pdf => "#{MAINNAME}.pdf" 
+
+task :pdfpush => [:pdf, :push]
+
+desc "Build #{MAINNAME}.dvi with index and biblio"
+file "#{MAINNAME}.dvi" =>  ([ "#{MAINNAME}.tt2", "#{MAINNAME}.tex"] + TEXFILES) do
+	sh "#{LATEX} #{MAINNAME}.tex"
+	sh "bibtex #{MAINNAME}"
+	sh "makeindex -c #{MAINNAME}.idx"
+	sh "#{LATEX} #{MAINNAME}.tex"
+end
+
+desc "Build #{MAINNAME}.dvi with index and biblio"
+task :dvi => "#{MAINNAME}.dvi" 
+
+desc "Builds #{MAINNAME}.tex from .tt2 (Using Perl Template) to LaTeX"
+file "#{MAINNAME}.tex" => [ "#{MAINNAME}.tt2"] do
+	sh %{perl booktt/commontex/tt2.pl #{MAINNAME}}
+end
+
+#rule '.tex' => ['.erb'] do |t| 
+#    destino = t.source.sub(/\.erb$/, '.tex')
+#    sh "RUBYLIB='.' erb -r listings  #{t.source} > #{destino}"
+#end
+
+#desc "Builds chapter8/metaprogramacion.tex from .erb to LaTeX"
+#file "chapter8/metaprogramacion.tex" => [ "chapter8/metaprogramacion.erb"] do
+#	sh %{erb -r listings  chapter8/metaprogramacion.erb  > chapter8/metaprogramacion.tex}
+#end
+
+desc "Install highlight and listings gems needed by erb"
+task :install do
+    sh "gem install highlight"
+    sh "gem install listings"
+end
+
+#require 'rake/clean'
+CLEANLIST = [ "#{MAINNAME}.pdf", '*.toc', '*.log', '*.dvi', '*.aux', '*.bbl', '*.blg', 'tmp', '*.idx', '*.ilg', '*.ind', '*.lof', "#{MAINNAME}/", '*.lot', '*.out']
+#CLEAN.include(CLEANLIST)
+desc "Clean auxiliary files"
+task :clean do
+  CLEANLIST.each do |f|
+    sh "rm -fR #{f}"
+  end
+end
+
+desc "Build the HTML from the latex sources"
+file "#{MAINNAME}/index.html" => "#{MAINNAME}.dvi"  do
+	sh %Q{
+      latex2html #{LATEX2HTMLOPTIONS} #{MAINNAME}
+      cp booktt/css/mystyle.css #{MAINNAME}/
+      cp  "#{MAINNAME}.pdf" #{MAINNAME}/
+    }
+end
+
+desc "Publish the HTML files into the remote server"
+task :publichtml => [ :html, 
+                      #"#{ENV['HOME']}/public_html/#{MAINNAME}/index.html", 
+                      :ghpages ] 
+
+desc "builds #{ENV['HOME']}/public_html/#{MAINNAME}/index.html"
+file "#{ENV['HOME']}/public_html/#{MAINNAME}/index.html" => "#{MAINNAME}/index.html" do
+  sh %Q{test -d ~/Dropbox/Public/#{USUBJECT}/#{USUBJECT}book || mkdir -p ~/Dropbox/Public/#{USUBJECT}/#{USUBJECT}book}
+  sh %Q{cp -fR #{MAINNAME}/* ~/Dropbox/Public/#{USUBJECT}/#{USUBJECT}book}
+end
+
+desc "copy to plgrado"
+task :plgrado do
+  sh %Q{#{REMOTE}  #{MAINNAME}/* #{SUBJECT}:public_html/#{MAINNAME}/}
+end
+
+desc "publish in gh-pages"
+task :ghpages do
+  sh "cd javascriptexamples/ && git add *.png *.html && git ci -am m && git push origin gh-pages"
+end
+
+desc "makes pdf public"
+task :publicpdf => "#{MAINNAME}.pdf" do
+  sh %Q{cp -f #{MAINNAME}.pdf #{MAINNAME}/}
+  #sh %Q{cp -f #{MAINNAME}.pdf ~/Dropbox/Public/#{USUBJECT}/#{USUBJECT}book/}
+end
+
+
+desc "makes README public"
+task :publicreadme => "README" do
+  sh %Q{cp -f README #{MAINNAME}/}
+  #sh %Q{cp -f README ~/Dropbox/Public/#{USUBJECT}/#{USUBJECT}book/}
+end
+
+desc "commit '#{CVSCOMMIT}'"
+task :ci, [ :commit_message ] do |t, h|
+  message = h[:commit_message] || 'no message'
+  sh "#{CVSCOMMIT} -m '#{message}'"
+end
+
+desc "push to rep"
+task :push => :ci do
+  sh CVSPUSH
+end
+
+desc "Build the HTML from the latex sources"
+task :html => "#{MAINNAME}/index.html"
+
+desc "Builds a zip file"
+task :dist do
+	sh "zip -r #{ZIPFILE}.zip #{MAINNAME}"
+end
+
+desc "Copy images into #{MAINNAME}/"
+task :images do
+	sh %Q{
+      test -d #{MAINNAME} || mkdir -p #{MAINNAME}/
+      cp images/* #{MAINNAME}/
+    }
+end
+
+desc "Start guard for automatic compilation"
+task :guard do
+  sh "guard"
+end
+
+desc "syntax coloring. autumn is a good option"
+task :pygmentize, :style do |t, args|
+  style = args[:style] || autumn
+  sh "pygmentize -f html -S #{style} > #{MAINNAME}/my_pygments.css"
+end
+
+task :png do
+  sh "cp chapter*/*.png javascriptexamples/"
+end
+
+desc "Developer: checking erb listing.rb"
+task :compileerb do
+  sh "RUBYLIB='.' erb -r listings.rb chapter2/regexp.erb"
+end
+
+desc "push *.html *.pdf files in their github rep"
+task :pushhtml do
+  sh %Q{
+    #cd ~/Dropbox/Public/#{USUBJECT}/#{USUBJECT}book &&
+    #git add *.html *.png &&
+    #git commit -mm -a &&
+    #git push origin --all
+  }
+end

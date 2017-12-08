@@ -1,0 +1,552 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Como Crear tu Propio Módulo en Node.js</TITLE>
+<META NAME="description" CONTENT="Como Crear tu Propio Módulo en Node.js">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node111.html">
+<LINK REL="previous" HREF="node109.html">
+<LINK REL="up" HREF="node101.html">
+<LINK REL="next" HREF="node111.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html3714"
+  HREF="node111.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3708"
+  HREF="node101.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3702"
+  HREF="node109.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3710"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3712"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html3715"
+  HREF="node111.html">Mas sobre Node</A>
+<B>Sup:</B> <A NAME="tex2html3709"
+  HREF="node101.html">JavaScript en el Lado</A>
+<B> Ant:</B> <A NAME="tex2html3703"
+  HREF="node109.html">Modulos</A>
+<B> Con:</B> 
+<A NAME="tex2html3710"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html3712"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html3716"
+  HREF="node110.html#SECTION051191000000000000000">Introducción</A>
+<LI><A NAME="tex2html3717"
+  HREF="node110.html#SECTION051192000000000000000">Un Fichero <TT>package.json</TT></A>
+<LI><A NAME="tex2html3718"
+  HREF="node110.html#SECTION051193000000000000000">README y otros documentos</A>
+<LI><A NAME="tex2html3719"
+  HREF="node110.html#SECTION051194000000000000000">Véase También</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION051190000000000000000">
+Como Crear tu Propio Módulo en Node.js</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION051191000000000000000">
+Introducción</A>
+</H2>
+
+<P>
+Cuando Node carga nuestro fichero JavaScript
+crea un nuevo ámbito. Cuando estamos en nuestro módulo, no podemos
+ver el ámbito externo lo que evita las colisiones de nombres.
+
+<P>
+
+<H2><A NAME="SECTION051192000000000000000">
+Un Fichero <TT>package.json</TT></A>
+</H2>
+
+<P>
+Creamos un fichero en la raíz de nuestro proyecto con nombre 
+<code>package.json</code>. Este fichero describe nuestro proyecto.
+Es esencial si vamos a publicar nuestro proyecto con 
+<A NAME="tex2html320"
+  HREF="https://npmjs.org/"><TT>npm</TT></A>.
+
+<P>
+Podemos especificar en este fichero:
+
+<P>
+
+<OL>
+<LI>Name, version, description, and keywords to describe your program.
+</LI>
+<LI>A homepage where users can learn more about it.
+</LI>
+<LI>Other packages that yours depends on.
+</LI>
+</OL>
+
+<P>
+Si hemos instalado <A NAME="tex2html321"
+  HREF="https://npmjs.org/"><TT>npm</TT></A> podemos usar el comando 
+<code>npm</code> <A NAME="tex2html322"
+  HREF="https://npmjs.org/doc/init.html"><TT>init</TT></A>
+para empezar.
+Véase  <code>npm help</code>
+<A NAME="tex2html323"
+  HREF="https://npmjs.org/doc/json.html"><TT>json</TT></A>
+para obtener información sobre este fichero:
+
+<P>
+La cosa mas importante a especificar 
+cuando estamos escribiendo un programa para su uso por otros,
+es el módulo <code>main</code>. Este consituirá el punto de entrada 
+a nuestro programa.
+
+<P>
+Es esencial documentar las dependencias.
+
+<P>
+El siguiente es un ejemplo de fichero <code>package.json</code> tomado
+del proyecto <A NAME="tex2html324"
+  HREF="https://github.com/zaach/ebnf-parser"><TT>ebnf-parser</TT></A>:
+<PRE>
+[~/javascript/PLgrado/ebnf-parser(master)]$ cat -n package.json 
+   1  {
+   2    "name": "ebnf-parser",
+   3    "version": "0.1.1",
+   4    "description": "A parser for BNF and EBNF grammars used by jison",
+   5    "main": "ebnf-parser.js",
+   6    "scripts": {
+   7      "test": "make test"
+   8    },
+   9    "repository": "",
+  10    "keywords": [
+  11      "bnf",
+  12      "ebnf",
+  13      "grammar",
+  14      "parser",
+  15      "jison"
+  16    ],
+  17    "author": "Zach Carter",
+  18    "license": "MIT",
+  19    "devDependencies": {
+  20      "jison": "0.4.x",
+  21      "lex-parser": "0.1.0",
+  22      "test": "*"
+  23    }
+  24  }
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION051193000000000000000">
+README y otros documentos</A>
+</H2>
+
+<P>
+Pon la información basica acerca del módulo 
+en la raíz del proyecto.
+Como ejemplo veamos el <code>README.md</code> (observa que 
+está en formato <A NAME="tex2html325"
+  HREF="http://daringfireball.net/projects/markdown/syntax"><TT>markdown</TT></A>) 
+del proyecto <A NAME="tex2html326"
+  HREF="https://github.com/zaach/ebnf-parser"><TT>ebnf-parser</TT></A>:
+
+<P>
+<PRE>
+$ cat README.md 
+
+# ebnf-parser
+
+A parser for BNF and EBNF grammars used by jison.
+
+## install
+
+    npm install ebnf-parser
+
+
+## build
+
+To build the parser yourself, clone the git repo then run:
+
+    make
+
+This will generate `parser.js`, which is required by `ebnf-parser.js`.
+
+## usage
+
+The parser translates a string grammar or JSON grammar into a JSON grammar that jison can use (ENBF is transformed into BNF).
+
+    var ebnfParser = require('ebnf-parser');
+
+    // parse a bnf or ebnf string grammar
+    ebnfParser.parse("%start ... %");
+
+    // transform an ebnf JSON gramamr
+    ebnfParser.transform({"ebnf": ...});
+
+
+## example grammar
+
+The parser can parse its own BNF grammar, shown below:
+
+    %start spec
+
+    /* grammar for parsing jison grammar files */
+
+    %{
+    var transform = require('./ebnf-transform').transform;
+    var ebnf = false;
+    %}
+
+    %%
+
+    spec
+        : declaration_list '%%' grammar optional_end_block EOF
+            {$$ = $1; return extend($$, $3);}
+        | declaration_list '%%' grammar '%%' CODE EOF
+            {$$ = $1; yy.addDeclaration($$,{include:$5}); return extend($$, $3);}
+        ;
+
+    optional_end_block
+        :
+        | '%%'
+        ;
+
+    declaration_list
+        : declaration_list declaration
+            {$$ = $1; yy.addDeclaration($$, $2);}
+        |
+            {$$ = {};}
+        ;
+
+    declaration
+        : START id
+            {$$ = {start: $2};}
+        | LEX_BLOCK
+            {$$ = {lex: $1};}
+        | operator
+            {$$ = {operator: $1};}
+        | ACTION
+            {$$ = {include: $1};}
+        ;
+
+    operator
+        : associativity token_list
+            {$$ = [$1]; $$.push.apply($$, $2);}
+        ;
+
+    associativity
+        : LEFT
+            {$$ = 'left';}
+        | RIGHT
+            {$$ = 'right';}
+        | NONASSOC
+            {$$ = 'nonassoc';}
+        ;
+
+    token_list
+        : token_list symbol
+            {$$ = $1; $$.push($2);}
+        | symbol
+            {$$ = [$1];}
+        ;
+
+    grammar
+        : production_list
+            {$$ = $1;}
+        ;
+
+    production_list
+        : production_list production
+            {$$ = $1;
+              if($2[0] in $$) $$[$2[0]] = $$[$2[0]].concat($2[1]);
+              else  $$[$2[0]] = $2[1];}
+        | production
+            {$$ = {}; $$[$1[0]] = $1[1];}
+        ;
+
+    production
+        : id ':' handle_list ';'
+            {$$ = [$1, $3];}
+        ;
+
+    handle_list
+        : handle_list '|' handle_action
+            {$$ = $1; $$.push($3);}
+        | handle_action
+            {$$ = [$1];}
+        ;
+
+    handle_action
+        : handle prec action
+            {$$ = [($1.length ? $1.join(' ') : '')];
+                if($3) $$.push($3);
+                if($2) $$.push($2);
+                if ($$.length === 1) $$ = $$[0];
+            }
+        ;
+
+    handle
+        : handle expression_suffix
+            {$$ = $1; $$.push($2)}
+        |
+            {$$ = [];}
+        ;
+
+    handle_sublist
+        : handle_sublist '|' handle
+            {$$ = $1; $$.push($3.join(' '));}
+        | handle
+            {$$ = [$1.join(' ')];}
+        ;
+
+    expression_suffix
+        : expression suffix
+            {$$ = $expression + $suffix; }
+        ;
+
+    expression
+        : ID
+            {$$ = $1; }
+        | STRING
+            {$$ = ebnf ? "'"+$1+"'" : $1; }
+        | '(' handle_sublist ')'
+            {$$ = '(' + $handle_sublist.join(' | ') + ')'; }
+        ;
+
+    suffix
+        : {$$ = ''}
+        | '*'
+        | '?'
+        | '+'
+        ;
+
+    prec
+        : PREC symbol
+            {$$ = {prec: $2};}
+        |
+            {$$ = null;}
+        ;
+
+    symbol
+        : id
+            {$$ = $1;}
+        | STRING
+            {$$ = yytext;}
+        ;
+
+    id
+        : ID
+            {$$ = yytext;}
+        ;
+
+    action
+        : '{' action_body '}'
+            {$$ = $2;}
+        | ACTION
+            {$$ = $1;}
+        | ARROW_ACTION
+            {$$ = '$$ ='+$1+';';}
+        |
+            {$$ = '';}
+        ;
+
+    action_body
+        :
+            {$$ = '';}
+        | ACTION_BODY
+            {$$ = yytext;}
+        | action_body '{' action_body '}' ACTION_BODY
+            {$$ = $1+$2+$3+$4+$5;}
+        | action_body '{' action_body '}'
+            {$$ = $1+$2+$3+$4;}
+        ;
+
+    %%
+
+    // transform ebnf to bnf if necessary
+    function extend (json, grammar) {
+        json.bnf = ebnf ? transform(grammar) : grammar;
+        return json;
+    }
+
+## license
+
+MIT
+</PRE>
+
+<P>
+En general se anima  a que uses el formato markdown. Salva el fichero como
+<code>README.md</code>.
+
+<P>
+La documentación adicional se pone en un directorio <code>./docs</code>. 
+Los ficheros markdown teminan en <code>.md</code> y los html en <code>.html</code>.
+
+<P>
+
+<H2><A NAME="SECTION051194000000000000000">
+Véase También</A>
+</H2>
+
+<UL>
+<LI><A NAME="tex2html327"
+  HREF="http://howtonode.org/how-to-module">How To: Create Your Own Node.js Module</A>
+por Isaac Z. Schlueter autor de 
+<A NAME="tex2html328"
+  HREF="http://npmjs.org/">npm</A>.
+Véase también este
+<A NAME="tex2html329"
+  HREF="https://gist.github.com/isaacs/4150d972e0aa2a4060c1">gist en GitHub</A>
+</LI>
+<LI><A NAME="tex2html330"
+  HREF="http://howtonode.org/creating-custom-modules">Creating Custom Modules</A>
+</LI>
+<LI><A NAME="tex2html331"
+  HREF="http://decodize.com/javascript/build-nodejs-npm-installation-package-scratch/">How to Build a Nodejs Npm Package From Scratch.</A>
+May 2012 Decodize
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html3714"
+  HREF="node111.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html3708"
+  HREF="node101.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html3702"
+  HREF="node109.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html3710"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html3712"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html3715"
+  HREF="node111.html">Mas sobre Node</A>
+<B>Sup:</B> <A NAME="tex2html3709"
+  HREF="node101.html">JavaScript en el Lado</A>
+<B> Ant:</B> <A NAME="tex2html3703"
+  HREF="node109.html">Modulos</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

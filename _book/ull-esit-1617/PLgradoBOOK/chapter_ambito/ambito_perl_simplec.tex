@@ -1,0 +1,5128 @@
+\label{chapter:simplec}
+
+\section{Análisis de Ámbito: Conceptos}
+
+\parrafo{El Problema del Análisis de Ámbito}
+
+En los lenguajes de programación \cei{name binding} (binding = encuadernado, encarpetado,
+ligadura, unificación) es la asociación de valores con identificadores. 
+Decimos de un identificador ligado a un valor que es una \emph{referencia} a dicho valor.
+El concepto de binding es un concepto proveído por los lenguajes de programación:
+a nivel de máquina no existe el concepto de binding, de relación (nombre, valor).
+El concepto de Binding esta intimamente relacionado con el concepto de ámbito
+\cei{scope}), ya que el \cei{análisis de ámbito} es la determinación de las relaciones
+de binding.
+
+
+El problema del análisis de ámbito sería sencillo sino fuera porque 
+los lenguajes de programación suelen permitir el uso del mismo
+\cei{nombre}\footnote{Usamos el término nombre y no identificador ya que este
+último tiene una connotación mas precisa} 
+para denotar distintos elementos de un
+programa. Es por ello que es necesario determinar que definición o declaración
+se aplica a una determinada ocurrencia de un elemento.
+
+\begin{definition}
+En un lenguaje de programación, una \cei{declaración} es un constructo sintáctico que define y provee información 
+sobre un nombre.
+La declaración provee información sobre las propiedades asociadas con el uso del nombre: 'este nombre es una función que recibe enteros y
+retorna enteros', 'este nombre puede ser usado para referirse a listas de enteros y es visible sólo en el ámbito actual', etc.
+\end{definition}
+
+\begin{definition}
+Las \cei{reglas de ámbito} de un lenguaje determinan que declaración
+del nombre es la que se \emph{aplica} cuando el nombre es usado.
+\end{definition}
+
+\parrafo{Binding Estático y Binding Dinámico}
+
+En la definición anterior no se especifica en que momento se resuelve
+la correspondencia (nombre, definición).
+
+Se habla de \cei{static binding} 
+cuando las reglas y la resolución de la  correspondencia (nombre, definición)
+puede ser  resuelta en tiempo de compilación, a partir del análisis 
+del texto del programa fuente (también se habla de \cei{early binding}).
+
+Por el contrario cuando se habla de \cei{dynamic binding} 
+cuando la determinación de que definición se aplica a un nombre es 
+establecida en tiempo de ejecución (también se denomina \cei{late binding} o \cei{virtual binding}).
+
+Un ejemplo de static binding es una llamada a a una función en C:
+la función referenciada por un identificador no puede cambiarse en tiempo 
+de ejecución. Un ejemplo de binding dinámico puede ocurrir cuando se trabaja 
+con métodos polimorfos en un lenguaje de programación orientada a objetos, 
+ya que la definición completa del tipo del objeto no
+se conoce hasta el momento de la ejecución. 
+
+El siguiente ejemplo de \wikipedia{Dynamic\_binding},tomado de la wikipedia,  
+ilustra el binding dinámico. 
+
+Supongamos que todas las formas de vida son mortales.
+En OOP podemos decir que la clase \verb|Persona| y la clase \verb|Planta| 
+deben implementar los métodos de \verb|Mortal|, el cual contiene
+el método \verb|muere|.
+
+Las personas y las plantas mueren de forma diferente, por ejemplo las plantas 
+no tienen un corazón que se detenga. Dynamic binding
+es la práctica de determinar que definición/declaración se aplica 
+a un método en tiempo de ejecución:
+
+\begin{verbatim}
+void mata(Mortal m) {
+  m.muere();
+}
+\end{verbatim}
+
+No esta claro cual es la clase actual de \verb|m|, una persona o una planta. 
+Ambos \verb|Planta.muere| y \verb|Persona.muere| pueden ser invocados.
+Cuando se usa dynamic binding, el objeto \verb|m| es examinado en tiempo de 
+ejecución para determinar que método es invocado. Esto supone una 'renuncia' por
+parte del lenguaje y su compilador a obtener una definición completa del objeto.
+
+\begin{definition}
+Cuando se usa \emph{static binding},
+la parte del texto del programa al cual se aplica la declaración de un 
+nombre se denomina \cei{ámbito de la declaración}
+\end{definition}
+
+\begin{exercise}
+En el siguiente código existen dos definiciones para 
+el nombre \verb|one|, una en la línea 11 y otra en la
+línea 20.
+
+\begin{verbatim}
+pl@europa:~/src/perl/perltesting$ cat -n ds.pl
+     1  package Father;
+     2  use warnings;
+     3  use strict;
+     4
+     5  sub new {
+     6    my $class = shift;
+     7
+     8    bless { @_ }, $class;
+     9  }
+    10
+    11  sub one {
+    12    "Executing Father::one\n";
+    13  }
+    14
+    15  package Child;
+    16  use warnings;
+    17  use strict;
+    18  our @ISA = 'Father';
+    19
+    20  sub one {
+    21    "Executing Child::one\n";
+    22  }
+    23
+    24  package main;
+    25
+    26  for (1..10) {
+    27    my $class = int(rand(2)) ? 'Child' : 'Father';
+    28    my $c = $class->new;
+    29    print $c->one;
+    30  }
+\end{verbatim}
+¿Que definiciones se aplican a los 10 usos del nombre \verb|one|
+en la línea 28? 
+¿Estos usos constituyen un ejemplo de binding estático
+o dinámico?
+¿Cuál es el ámbito de las declaraciones de \verb|one|?
+\end{exercise}
+
+Incluso en los casos en los que la resolución del binding se deja para el momento de la ejecución
+el compilador debe tener información suficiente para poder generar código. En el caso
+anterior, el compilador de Perl infiere de la presencia de la flecha en \verb|$c->one| 
+que \verb|one| es el nombre de una subrutina. 
+
+\begin{exercise}
+En el siguiente ejemplo se usa una referencia simbólica para
+acceder a una función:
+\begin{verbatim}
+pl@europa:~/src/perl/testing$ cat -n symbolic.pl
+ 1  use warnings;
+ 2  use strict;
+ 3
+ 4  sub one {
+ 5    "1\n";
+ 6  }
+ 7
+ 8  sub two {
+ 9    "2\n";
+10  }
+11
+12  my $x = <>;
+13  chomp($x);
+14
+15  no strict 'refs';
+16  print &$x();
+\end{verbatim}
+Al ejecutarlo con entrada \verb|one| obtenenmos:
+\begin{verbatim}
+pl@europa:~/src/perl/testing$ perl symbolic.pl
+one
+1
+
+\end{verbatim}
+¿El uso de la línea 16 es un ejemplo de binding estático o dinámico?
+¿Cuál es el binding de las declaraciones de \verb|x|?
+\end{exercise}
+
+\begin{exercise}
+En el siguiente ejemplo la clase \verb|Two| hereda de \verb|One|.
+\begin{verbatim}
+pl@europa:~/src/perl/testing$ cat -n latebinding.pl
+     1  package One;
+     2  use warnings;
+     3  use strict;
+     4
+     5  our $x = 1;
+     6  sub tutu {
+     7    "Inside tutu: x = $x\n";
+     8  }
+     9
+    10  package Two;
+    11  use warnings;
+    12  use strict;
+    13  our @ISA = 'One';
+    14
+    15  our $x = 2;
+    16
+    17  print Two->tutu();
+\end{verbatim}
+¿Qué definición de \verb|$x| se aplica al uso en la línea 7?
+¿Cuál será la salida del programa?
+%pl@europa:~/src/perl/testing$ perl latebinding.pl
+%Inside tutu: x = 1
+%
+\end{exercise}
+\begin{definition}
+La tarea de asignar las ocurrencias de las declaraciones de nombres a las 
+ocurrencias de uso  de los nombres de acuerdo a las reglas de ámbito
+del lenguaje se denomina \cei{identificación de los nombres}
+\end{definition}
+
+\begin{definition}
+Una ocurrencia de un nombre se dice \cei{local} si está en el ámbito 
+de una declaración que no se aplica desde el comienzo de la declaración 
+hasta el final del texto del programa. Tal declaración
+es una \cei{declaración local}.
+\end{definition}
+
+\begin{definition}
+Si, por el contrario, una ocurrencia de un nombre está en el ámbito
+de una declaración que se aplica desde el comienzo de la declaración 
+hasta el final del texto del programa se dice que la declaración
+es una \cei{declaración global}.
+\end{definition}
+
+\begin{definition}
+Aunque la definición anterior establece el \cei{atributo ámbito}
+como un atributo de la declaración es usual y conveniente
+hablar del 
+\begin{quote}
+"\emph{ámbito del nombre {\tt x}}" 
+\end{quote}
+como una abreviación
+de 
+\begin{quote}
+"\emph{el ámbito de la declaración del nombre {\tt x}
+que se aplica a esta ocurrencia de {\tt x}}"
+\end{quote}
+\end{definition}
+
+\parrafo{Intervención del Programador en Tiempo de Compilación}
+
+En algunos lenguajes - especialmente en los lenguajes dinámicos- la diferenciación 
+entre tiempo de compilación y tiempo de ejecución puede ser difusa.
+En el siguiente fragmento de código Perl se usa el módulo
+\tei{Contextual::Return}
+para crear una variable cuya definición cambia 
+con la forma de uso.
+
+\begin{verbatim}
+lhp@nereida:~/Lperl/src/testing$ cat -n context1.pl
+ 1  #!/usr/local/bin/perl -w
+ 2  use strict;
+ 3  use Contextual::Return;
+ 4
+ 5  my $x = BOOL { 0 } NUM { 3.14 } STR { "pi" };
+ 6
+ 7  unless ($x) { warn "¡El famoso número $x (".(0+$x).") pasa a ser falso!\n" } # executed!
+
+lhp@nereida:~/Lperl/src/testing$ context1.pl
+¡El famoso número pi (3.14) pasa a ser falso!
+\end{verbatim}
+
+Obsérvese que el binding de \verb|$x| es estático y que a los 
+tres usos de \verb|$x| en la línea 7 se les asigna la definición 
+en la línea 5.
+La declaración de \verb|$x| ocurre en lo que Perl denomina
+'tiempo de compilación', 
+sin embargo, el hecho de que un módulo cargado en tiempo de compilación
+puede ejecutar sentencias permite a \tei{Contextual::Return}
+expandir el lenguaje de las declaraciones Perl.
+
+\begin{exercise}
+Considere el siguiente código Perl:
+\begin{verbatim}
+pl@europa:~/src/perl/testing$ cat -n contextual.pl
+     1  #!/usr/bin/perl -w
+     2  use strict;
+     3  use Contextual::Return;
+     4
+     5  sub sensible {
+     6    return STR { "one" }
+     7           NUM { 1 }
+     8           LIST   { 1,2,3 }
+     9           HASHREF   { {name => 'foo', value => 99} }
+    10    ;
+    11  }
+    12
+    13  print "Result = ".sensible()."\n";
+    14  print "Result = ".(0+sensible())."\n";
+    15  print "Result = ",sensible(),"\n";
+    16  print "Result = (name = ",sensible()->{name},", value = ", sensible()->{value},")\n";
+\end{verbatim}
+Cuando se ejecuta, este programa produce la siguiente salida:
+\begin{verbatim}
+pl@europa:~/src/perl/testing$ ./contextual.pl
+Result = one
+Result = 1
+Result = 123
+Result = (name = foo, value = 99)
+\end{verbatim}
+
+Las relaciones de definición-uso de la función \verb|sensible| ¿Son un caso de
+binding estático o de binding dinámico?
+¿Cuál es el ámbito de la declaración de \verb|sensible| en las líneas 5-11?
+\end{exercise}
+
+
+\parrafo{Visibilidad}
+
+Como ya sabemos, es falso que en el ámbito de una declaración que define a \verb|x| 
+dicha declaración se aplique a todas las ocurrencias de \verb|x| en su ámbito.
+En un ámbito estático, una declaración local a la anterior puede \cei{ocultar la visibilidad} de 
+la declaración anterior de \verb|x|.
+
+\begin{definition}
+Las \cei{reglas de visibilidad} de un lenguaje especifican como se relacionan los nombres
+con las declaraciones que se les aplican.
+\end{definition}
+
+El concepto de nombre depende del lenguaje. 
+Algunos lenguajes permiten que en un cierto ámbito haya mas de una definición asociada 
+con un identificador.  Un mecanismo que puede ser usado para determinar univocamente que definición
+se aplica a un determinado uso de un nombre es que el uso del nombre vaya acompañado
+de un sigil.
+(podría reinterpretarse que en realidad el nombre de una variable en Perl incluye el sigil).
+
+Así, en Perl tenemos que es 
+legal tener diferentes variables con nombre \verb|x|: \verb|$x|, \verb|@x|, \verb|%x|, \verb|&x|, \verb|*x|,
+etc. ya que van prefijadas por diferentes \emph{sigils} 
+\verb|$|, \verb|@|, etc. El sigil que prefija \verb|x| determina que definición se aplica al uso de \verb|x|
+(La palabra sigil hace referencia a 'sellos mágicos' - combinaciones de símbolos 
+y figuras geométricas - que son usados en algunas invocaciones con el propósito de producir un
+sortilegio).
+
+En algunos casos existen mecanismos para la
+extensión de los nombres.
+En Perl es posible acceder a una variable de paquete
+ocultada por una léxica usando su nombre completo.
+
+La asignación de una declaración a ciertos usos de un identificador puede requerir
+de otras fases de análisis semántico, como el análisis de tipos.
+El uso de los nombres de campo de un registro en  Pascal y en C 
+constituye un ejemplo:
+
+\begin{verbatim}
+ 1	type 
+ 2	  a = ^b;
+ 3	  b = record
+ 4	        a: Integer;
+ 5	        b: Char;
+ 6	        c: a
+ 7	      end;
+ 8	var
+ 9	  pointertob: a;
+10	  c         : Integer;
+11	
+12	...
+13	new(pointertob);
+14	
+15	pointertob^.c := nil;
+16	c             := 4;
+17	...
+\end{verbatim}
+
+El uso de \verb|c| en la ĺinea 15 es posible porque el tipo de la expresión \verb|pointertob^|
+es un registro. La definición que se aplica al uso de \verb|c| en la línea 16 es la de la línea 10.
+
+También es posible hacer visible un nombre escondido - sin necesidad de extender el identificador - 
+mediante alguna directiva que lo haga visible: 
+Un ejemplo es la declaración \verb|with| the Pascal:
+
+\begin{verbatim}
+new(pointertob);
+ 
+with pointertob^ do
+begin
+  a := 10;
+  b := 'A';
+  c := nil
+end;
+...
+
+\end{verbatim}
+
+\parrafo{Declaraciones y Definiciones}
+
+En algunos lenguajes se distingue entre declaraciones que sólo proporcionan información sobre el elemento
+y lo hacen \emph{visible} - pero no asignan memoria o producen código para la implementación del mismo - y otras
+que si producen dicho código. A las primeras se las suele llamar declaraciones
+y a las segundas definiciones.
+En tales lenguajes se considera un error que dos declaraciones de un mismo elemento difieran.
+
+
+Por ejemplo, en C una variable o función sólo es definida una vez,
+pero puede ser declarada varias veces.
+El calificativo \verb|extern| es usado en C para indicar que una declaración provee
+visibilidad pero no conlleva definición (creación):
+
+\begin{verbatim}
+extern char stack[10];
+extern int stkptr;
+\end{verbatim}
+
+Estas declaraciones le dicen al compilador C que las definiciones de los nombres
+\verb|stack| y \verb|stackptr| se encuentran en otro fichero. 
+Si la palabra \verb|extern| fuera omitida el compilador asignaría memoria para
+las mismas.
+
+Otro ejemplo en el que una directiva hace visible una definición escondida
+es el uso de la declaración \tei{our} de Perl cuando un paquete está repartido
+entre varios ficheros que usan repetitivamente \verb|strict|:
+
+\begin{exercise}
+Considere el siguiente programa:
+\begin{verbatim}
+pl@europa:~/src/perl/perltesting$ cat -n useA.pl
+     1  #!/usr/bin/perl
+     2  package A;
+     3  use warnings;
+     4  use strict;
+     5
+     6  use A;
+     7
+     8  #our $x;
+     9  print "$x\n";
+\end{verbatim}
+La variable \verb|$x| esta declarada en el fichero \verb|A.pm|:
+\begin{verbatim}
+pl@europa:~/src/perl/perltesting$ cat -n A.pm
+     1  package A;
+     2  use warnings;
+     3  use strict;
+     4
+     5  our $x = 1;
+     6
+     7  1;
+\end{verbatim}
+
+Sin embargo la compilación de \verb|useA.pl| produce errores,
+pues \verb|$x| no es visible:
+\begin{verbatim}
+pl@europa:~/src/perl/perltesting$ perl -c useA.pl
+Variable "$x" is not imported at useA.pl line 9.
+Global symbol "$x" requires explicit package name at useA.pl line 9.
+useA.pl had compilation errors.
+\end{verbatim}
+El mensaje se arregla descomentando la declaración de \verb|$x|
+en la línea 8 de \verb|useA.pl|:
+\begin{verbatim}
+pl@europa:~/src/perl/perltesting$ perl -ce `sed -e 's/#our/our/' useA.pl`
+-e syntax OK
+\end{verbatim}
+La declaración de la línea 8 hace visible la variable \verb|$x| en el
+fichero \verb|useA.pl|. 
+
+¿Cual es entonces el ámbito de la declaración de \verb|$x| en la línea 5 de 
+\verb|A.pm|? ¿Es todo el paquete? ¿O sólo el segmento del paquete que está en
+el fichero \verb|A.pm|? (se supone que trabajamos con \verb|strict| activado).
+\end{exercise}
+
+\parrafo{Inferencia, Declaraciones Implícitas y Ámbito}
+
+\begin{exercise}
+Tanto en los lenguajes estáticos como en los dinámicos
+se suele requerir que exista una declaración del objeto usado que determine las propiedades del mismo.
+
+Aunque en los lenguajes dinámicos la creación/definición del elemento asociado
+con un nombre puede postergarse hasta el tiempo de ejecución, la generación de
+código para la sentencia de uso suele requerir un conocimiento (aunque sea
+mínimo) del objeto que esta siendo usado. En algunos casos, es necesario
+inferir la declaración a partir del uso, de manera que la declaración asociada
+con un uso es construida a partir del propio uso.
+
+Los lenguajes típicamente estáticos fuertemente tipeados suelen requerir que
+para todo uso exista una declaración explícita y completa del nombre y de las
+operaciones que son válidas sobre el mismo al finalizar la fase de compilación.
+Sin embargo, el código para la creación/definición de algunos objetos puede ser
+postergado a la fase de enlace. De hecho, la resolución de ciertos enlaces
+pueden ocurrir durante la fase de ejecución (énlace dinámico). 
+
+El siguiente ejemplo hace uso de un typeglob selectivo en la línea 8 para 
+definir la función \verb|ONE|:
+\begin{verbatim}
+pl@europa:~/src/perl/testing$ cat -n glob.pl
+     1  use warnings;
+     2  use strict;
+     3
+     4  sub one {
+     5    "1\n"
+     6  }
+     7
+     8  *ONE = \&one;
+     9  print ONE();
+\end{verbatim}
+Al ejecutar este programa se produce la salida;
+\begin{verbatim}
+pl@europa:~/src/perl/testing$ perl glob.pl
+1
+\end{verbatim}
+ ¿El uso de \verb|ONE| en la línea 9 es un ejemplo de binding estático o dinámico?
+¿Cuál es el ámbito de la declaración de \verb|ONE|?
+
+Responda estas mismas preguntas para esta otra variante del ejemplo anterior:
+
+\begin{verbatim}
+pl@nereida:~/src/perl/perltesting$ cat -n coderef.pl
+     1  use warnings;
+     2  use strict;
+     3
+     4  *ONE = sub { "1\n" };
+     5  print ONE();
+\end{verbatim}
+\end{exercise}
+
+En los ejemplos anteriores el propio uso del nombre \verb|ONE| 
+actúa como una declaración: Perl deduce 
+de la presencia de paréntesis después de \verb|ONE| que \verb|ONE| es el nombre de una función.
+Esta información es suficiente para generar el código necesario. Podría decirse
+que la forma del uso declara al ente \verb|ONE| y que la línea de uso conlleva una declaración
+implícita. Sin embargo, la creación/definición completa de \verb|ONE| es postergada hasta la fase de 
+ejecución.
+
+\begin{exercise}
+La conducta del compilador de Perl cambia si se sustituye el programa anterior por este otro:
+\begin{verbatim}
+pl@europa:~/src/perl/testing$ cat -n globwarn.pl
+     1  use warnings;
+     2  use strict;
+     3
+     4  sub one {
+     5    "1\n"
+     6  }
+     7
+     8  *ONE = \&one;
+     9  my $x = ONE;
+    10  print $x;
+\end{verbatim}
+Al compilar se obtiene un error:
+\begin{verbatim}
+pl@europa:~/src/perl/testing$ perl -c globwarn.pl
+Bareword "ONE" not allowed while "strict subs" in use at globwarn.pl line 9.
+globwarn.pl had compilation errors.
+\end{verbatim}
+¿Sabría explicar la causa de este cambio de conducta?
+\end{exercise}
+
+\begin{exercise}
+El error que se observa en el ejercicio anterior desaparece 
+cuando se modifica el código como sigue:
+\begin{verbatim}
+lusasoft@LusaSoft:~/src/perl/perltesting$ cat -n globheader.pl
+     1  #!/usr/bin/perl
+     2  use warnings;
+     3  use strict;
+     4
+     5  sub ONE;
+     6
+     7  sub one {
+     8    "1\n"
+     9  }
+    10
+    11  *ONE = \&one;
+    12  my $x = ONE;
+    13  print $x;
+\end{verbatim}
+¿Cual es el significado de la línea 5?
+\end{exercise}
+
+En el caso del lenguaje Simple C introducido en la práctica 
+\ref{practica:esquemadetradsimple}
+hay una única declaración que se aplica a cada 
+ocurrencia correcta de un nombre en el ámbito de dicha declaración.
+
+Esto no tiene porque ser siempre así: en ciertos lenguajes 
+una redeclaración de un cierto nombre \verb|x| puede que sólo oculte 
+a otra declaración previa de \verb|x| si las dos declaraciones
+asignan el mismo tipo a \verb|x|. Esta idea suele conocerse
+como \cei{sobrecarga de identificadores}. De todos modos, sigue 
+siendo cierto que para que el programa
+sea considerado correcto es necesario que sea posible {\it inferir}
+para cada ocurrencia de un identificador que única definición se
+aplica. Así una llamada  a una cierta función
+\verb|min(x,y)| llamaría a diferentes 
+funciones \verb|min| según fueran los tipos de \verb|x| e \verb|y|.
+Para resolver este caso es necesario combinar las fases
+de análisis de ámbito y de análisis de tipos.
+
+Algunos lenguajes - especialmente los lenguajes funcionales - logran eliminar la mayoría 
+de las declaraciones. Disponen de un mecanismo de inferencia que les permite - en
+tiempo de compilación - deducir
+del uso la definición y propiedades del nombre. 
+
+Véase como ejemplo de inferencia la siguiente sesión en \wikipedia{OCaml}:
+\begin{verbatim}
+pl@nereida:~/src/perl/attributegrammar/Language-AttributeGrammar-0.08/examples$ ocaml
+        Objective Caml version 3.09.2
+
+# let minimo = fun i j -> if i<j then i else j;;
+val minimo : 'a -> 'a -> 'a = <fun>
+# minimo 2 3;;
+- : int = 2
+# minimo 4.9 5.3;;
+- : float = 4.9
+# minimo "hola" "mundo";;
+- : string = "hola"
+\end{verbatim}
+
+El compilador \verb|OCaml| infiere el tipo de las expresiones. 
+Así el tipo asociado con la función \verb|minimo| es
+
+\begin{verbatim}
+                    'a -> 'a -> 'a
+\end{verbatim}
+
+que es una \cei{expresión de tipo} que contiene
+\cei{variables de tipo}. El operador \verb|->| es asociativo a derechas
+y asi la expresión debe ser leída como \verb|'a -> ('a -> 'a)|. 
+Básicamente dice: 
+
+El tipo de la expresión es una función que toma un argumento de tipo \verb|'a|
+(donde \verb|'a| es una variable tipo que será instanciada en el momento del
+uso de la función) y devuelve una función que toma elementos de tipo \verb|'a|
+y retorna elementos de tipo \verb|'a|. 
+
+\parrafo{Ámbito Dinámico}
+
+%En la literatura encontrará que el concepto de \cei{Dynamic Binding} 
+%es diferente del concepto de ámbito dinámico \cei{Dynamic Scope}.
+En el \cei{ámbito dinámico}, cada nombre para el que se usa ámbito dinámico
+tiene asociada una pila de bindings. Cuando se crea un nuevo ámbito
+dinámico se empuja en la pila el viejo valor (que podría no estar definido).
+Cuando se sale del ámbito se saca de la pila el antiguo valor.
+La evaluación de \verb|x| retorna siempre el valor en el top de la pila.
+
+
+La sentencia \tei{local} de Perl provee de ámbito dinámico
+a las variables de paquete.
+Una aproximaci\'{o}n a lo que ocurre cuando se ejecuta 
+\verb|local| es:
+
+\vspace{0.5cm}
+\begin{center}
+\begin{tabular}{|p{7cm}|p{7cm}|}
+\hline
+DECLARACI\'ON  DE \verb|local| & SIGNIFICADO\\
+\hline
+\begin{verbatim}
+{
+  local($SomeVar);
+  $SomeVar = 'My Value';
+       ...
+}
+\end{verbatim}
+&
+\begin{verbatim}
+{
+  my $TempCopy = $SomeVar;
+  $SomeVar = undef;
+  $SomeVar = 'My Value';
+       ...
+  $SomeVar = $TempCopy;
+}
+\end{verbatim}
+\\
+\hline
+\end{tabular}
+\end{center}
+\vspace{0.5cm}
+
+La diferencia entre ámbito dinámico y estático debería quedar mas clara observando
+la conducta del siguiente código
+
+\begin{verbatim}
+lhp@nereida:~/Lperl/src$ cat -n local.pl
+ 1  #!/usr/bin/perl -w
+ 2  use strict;
+ 3
+ 4  our $x;
+ 5
+ 6  sub pr { print "$x\n"; }
+ 7  sub titi { my $x = "titi"; pr(); }
+ 8  sub toto { local $x = "toto"; &pr(); &titi(); }
+ 9
+10  $x = "global";
+11  &pr();
+12  &toto();
+13  &titi();
+\end{verbatim}
+
+Cuando se ejecuta, se obtiene la siguiente salida:
+
+\begin{verbatim}
+> local.pl
+global
+toto
+toto
+global
+\end{verbatim}
+
+\begin{exercise}
+¿Es \verb|local| una declaración o una sentencia?
+¿Que declaraciones se aplican a los diferentes 
+usos de \verb|$x| en las líneas 6, 7, 8 y 10?.
+\end{exercise}
+
+
+%TODO
+\section{Descripción Eyapp del Lenguaje  SimpleC}
+\label{section:simplec}
+El proceso de identificar los nombres conlleva establecer enlaces
+entre las ocurrencias y sus declaraciones o bien - en caso de error -
+determinar que dicho enlace no existe. El resultado de este proceso
+de identificación (o análisis de ámbito y visibilidad)
+será utilizado durante las fases posteriores.
+
+En este capítulo usaremos \tei{Parse::Eyapp} para desarrollar
+las primeras fases - análisis léxico, análisis sintáctico y análisis de ámbito -
+de un compilador para un subconjunto de C al que denominaremos \tei{Simple C}:
+
+\parrafo{El Cuerpo}
+\label{parrafo:elcuerpo}
+
+\begin{verbatim}
+%%
+program:
+    definition<%name PROGRAM +>.program
+      { $program }
+;
+
+definition:
+    $funcDef 
+      { $funcDef }
+  | %name FUNCTION
+    $basictype $funcDef
+      { $funcDef }
+  | declaration 
+      {}
+;
+
+basictype:
+    %name INT 
+    INT
+  | %name CHAR 
+    CHAR
+;
+
+funcDef:
+    $ID '('  $params  ')' $block
+      {
+         flat_statements($block);
+         $block->{parameters} = [];
+         $block->{function_name} = $ID;
+         $block->type("FUNCTION");
+         return $block;
+      }
+;
+
+params: 
+    ( basictype ID arraySpec)<%name PARAMS * ','>
+      { $_[1] }
+;
+
+block:
+    '{'.bracket 
+     declaration<%name DECLARATIONS *>.decs statement<%name STATEMENTS *>.sts '}'
+       {
+         flat_statements($sts);
+         $sts->type("BLOCK") if $decs->children;
+         return $sts; 
+       }
+;
+
+declaration:
+    %name DECLARATION
+    $basictype $declList ';' 
+;
+
+declList:
+    (ID arraySpec) <%name VARLIST + ','> { $_[1] } 
+;
+
+arraySpec:
+    ( '[' INUM ']')* { $_[1]->type("ARRAYSPEC"); $_[1] }
+;
+
+statement:
+    expression ';' { $_[1] }
+  | ';'
+  | %name BREAK
+    $BREAK ';'
+  | %name CONTINUE
+     $CONTINUE ';'
+  | %name EMPTYRETURN
+    RETURN ';'
+  | %name RETURN
+     RETURN expression ';'
+  | block { $_[1] }
+  | %name IF
+    ifPrefix statement %prec '+'
+  | %name IFELSE
+    ifPrefix statement 'ELSE' statement
+  | %name WHILE
+    $loopPrefix statement
+;
+
+ifPrefix:
+    IF '(' expression ')' { $_[3] }
+;
+
+loopPrefix:
+    $WHILE '(' expression ')' { $_[3] }
+;
+
+expression:
+    binary <+ ','> 
+      { 
+        return $_[1]->child(0) if ($_[1]->children() == 1); 
+        return $_[1];
+      }
+;
+
+Variable:
+    %name VAR
+    ID 
+  | %name  VARARRAY
+    $ID ('[' binary ']') <%name INDEXSPEC +> 
+;
+
+Primary:
+    %name INUM
+    INUM 
+  | %name CHARCONSTANT
+    CHARCONSTANT
+  | $Variable 
+      { 
+        return $Variable 
+      }
+  | '(' expression ')' { $_[2] }
+  | $function_call 
+      { 
+        return $function_call  # bypass
+      }
+;
+    
+function_call:  
+  %name 
+    FUNCTIONCALL
+    ID  '(' binary <%name ARGLIST * ','> ')'
+;
+
+Unary:
+    '++' Variable
+  | '--' Variable
+  | Primary { $_[1] }
+;
+
+binary:
+    Unary { $_[1] }
+  | %name PLUS
+    binary '+' binary
+  | %name MINUS
+    binary '-' binary
+  | %name TIMES
+    binary '*' binary
+  | %name DIV
+    binary '/' binary
+  | %name MOD
+    binary '%' binary
+  | %name LT
+    binary '<' binary
+  | %name GT
+    binary '>' binary
+  | %name GE
+    binary '>=' binary
+  | %name LE
+    binary '<=' binary
+  | %name EQ
+    binary '==' binary
+  | %name NE
+    binary '!=' binary
+  | %name AND
+    binary '&' binary
+  | %name EXP
+    binary '**' binary
+  | %name OR
+    binary '|' binary
+  | %name ASSIGN
+    $Variable '=' binary
+  | %name PLUSASSIGN
+    $Variable '+=' binary
+  | %name MINUSASSIGN
+    $Variable '-=' binary
+  | %name TIMESASSIGN
+    $Variable '*=' binary
+  | %name DIVASSIGN
+    $Variable '/=' binary
+  | %name MODASSIGN
+    $Variable '%=' binary
+;
+\end{verbatim}
+
+\parrafo{La Cabeza}
+
+\begin{verbatim}
+/* 
+File: Simple/Syntax.eyp
+Full Type checking
+To build it, Do make or:
+  eyapp -m Simple::Syntax Syntax.eyp; 
+*/
+%{
+use strict;
+use Carp;
+use warnings;
+use Data::Dumper;
+use List::MoreUtils qw(firstval);
+our $VERSION = "0.4";
+
+my $debug = 1;
+my %reserved = (
+  int => "INT",
+  char => "CHAR",
+  if => "IF",
+  else => "ELSE",
+  break => "BREAK",
+  continue => "CONTINUE",
+  return => "RETURN",
+  while => "WHILE"
+);
+
+my %lexeme = (
+  '='  => "ASSIGN",
+  '+'  => "PLUS",
+  '-'  => "MINUS",
+  '*'  => "TIMES",
+  '/'  => "DIV",
+  '%'  => "MOD",
+  '|'  => "OR",
+  '&'  => "AND",
+  '{'  => "LEFTKEY",
+  '}'  => "RIGHTKEY",
+  ','  => "COMMA",
+  ';'  => "SEMICOLON",
+  '('  => "LEFTPARENTHESIS",
+  ')'  => "RIGHTPARENTHESIS",
+  '['  => "LEFTBRACKET",
+  ']'  => "RIGHTBRACKET",
+  '==' => "EQ",
+  '+=' => "PLUSASSIGN",
+  '-=' => "MINUSASSIGN",
+  '*=' => "TIMESASSIGN",
+  '/=' => "DIVASSIGN",
+  '%=' => "MODASSIGN",
+  '!=' => "NE",
+  '<'  => "LT",
+  '>'  => "GT",
+  '<=' => "LE",
+  '>=' => "GE",
+  '++' => "INC",
+  '--' => "DEC",
+  '**' => "EXP"
+);
+
+my ($tokenbegin, $tokenend) = (1, 1);
+
+sub flat_statements {
+  my $block = shift;
+
+  my $i = 0;
+  for ($block->children) {
+    if ($_->type eq "STATEMENTS") {
+      splice @{$block->{children}}, $i, 1, $_->children;
+    }
+    $i++;
+  }
+}
+%}
+
+%syntactic token RETURN BREAK CONTINUE
+
+%right '=' '+=' '-=' '*=' '/=' '%='
+%left '|'
+%left '&'
+%left '==' '!='
+%left '<' '>' '>=' '<='
+%left '+' '-'
+%left '*' '/' '%'
+%right '**'
+%right '++' '--'
+%right 'ELSE'
+
+%tree
+\end{verbatim}
+
+\parrafo{La Cola}
+
+\begin{verbatim}
+%%
+
+sub _Error {
+  my($token)=$_[0]->YYCurval;
+  my($what)= $token ? "input: '$token->[0]' in line $token->[1]" : "end of input";
+  my @expected = $_[0]->YYExpect();
+  my $expected = @expected? "Expected one of these tokens: '@expected'":"";
+
+  croak "Syntax error near $what. $expected\n";
+}
+
+sub _Lexer {
+  my($parser)=shift;
+
+  my $token;
+  for ($parser->YYData->{INPUT}) {
+      return('',undef) if !defined($_) or $_ eq '';
+
+      #Skip blanks
+      s{\A
+         ((?:
+              \s+       # any white space char
+          |   /\*.*?\*/ # C like comments
+          )+
+         )
+       }
+       {}xs
+      and do {
+            my($blanks)=$1;
+
+            #Maybe At EOF
+            return('', undef) if $_ eq '';
+            $tokenend += $blanks =~ tr/\n//;
+        };
+
+     $tokenbegin = $tokenend;
+
+      s/^('.')//
+              and return('CHARCONSTANT', [$1, $tokenbegin]);
+
+      s/^([0-9]+(?:\.[0-9]+)?)//
+              and return('INUM',[$1, $tokenbegin]);
+
+      s/^([A-Za-z][A-Za-z0-9_]*)//
+        and do {
+          my $word = $1;
+          my $r;
+          return ($r, [$r, $tokenbegin]) if defined($r = $reserved{$word});
+          return('ID',[$word, $tokenbegin]);
+      };
+
+      m/^(\S\S)/ and  defined($token = $1) and exists($lexeme{$token})
+        and do {
+          s/..//;
+          return ($token, [$token, $tokenbegin]);
+        }; # do
+
+      m/^(\S)/ and defined($token = $1) and  exists($lexeme{$token})
+        and do {
+          s/.//;
+          return ($token, [$token, $tokenbegin]);
+        }; # do
+      
+      die "Unexpected character at $tokenbegin\n";
+  } # for
+}
+
+sub compile {
+ my($self)=shift;
+
+ my ($t);
+   
+ $self->YYData->{INPUT} = $_[0];
+
+ $t = $self->YYParse( yylex => \&_Lexer, yyerror => \&_Error, 
+                      #yydebug => 0x1F 
+     );
+
+ return $t;
+}
+
+sub TERMINAL::value {
+  return $_[0]->{attr}[0];
+}
+
+########## line Support 
+
+sub TERMINAL::line {
+  return $_[0]->{attr}[1];
+}
+
+sub VAR::line {
+  my $self = shift;
+
+  return $self->child(0)->{attr}[1];
+}
+
+sub PLUS::line {
+  $_[0]->{lines}[0]
+}
+
+{ 
+no warnings;
+*TIMES::line = *DIV::line = *MINUS::line = *ASSIGN::line 
+=*GT::line
+=*IF::line
+=*RETURN::line
+= \&PLUS::line;
+
+*VARARRAY::line = *FUNCTIONCALL::line 
+=\&VAR::line;
+}
+
+############## Debugging and Display
+sub show_trees {
+ my ($t) = shift;
+ my $debug = shift;
+
+ $Data::Dumper::Indent = 1;
+ print Dumper $t if $debug > 3;
+ local $Parse::Eyapp::Node::INDENT = $debug;
+ print $t->str."\n";
+}
+
+sub TERMINAL::info { 
+  my $a = join ':', @{$_[0]->{attr}}; 
+  return $a
+}
+
+sub TERMINAL::save_attributes {
+  # $_[0] is a syntactic terminal
+  # $_[1] is the father.
+  push @{$_[1]->{lines}}, $_[0]->[1]; # save the line!
+}
+
+sub WHILE::line {
+  return $_[0]->{line}
+}
+\end{verbatim}
+
+\parrafo{Ejemplo de Árbol Construido}
+\label{parrafo:ejemplodearbolconstruido}
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Syntax/script$ usesyntax.pl bugmatch01.c 2
+test (int n)
+{
+  while (1) {
+    if (1>0) {
+      a = 2;
+      break;
+    }
+    else if (2> 0){
+      b = 3;
+      continue;
+    }
+  }
+}
+
+PROGRAM(
+  FUNCTION(
+    WHILE(
+      INUM(
+        TERMINAL[1:3]
+      ),
+      STATEMENTS(
+        IFELSE(
+          GT(
+            INUM(
+              TERMINAL[1:4]
+            ),
+            INUM(
+              TERMINAL[0:4]
+            )
+          ) # GT,
+          STATEMENTS(
+            ASSIGN(
+              VAR(
+                TERMINAL[a:5]
+              ),
+              INUM(
+                TERMINAL[2:5]
+              )
+            ) # ASSIGN,
+            BREAK
+          ) # STATEMENTS,
+          IF(
+            GT(
+              INUM(
+                TERMINAL[2:8]
+              ),
+              INUM(
+                TERMINAL[0:8]
+              )
+            ) # GT,
+            STATEMENTS(
+              ASSIGN(
+                VAR(
+                  TERMINAL[b:9]
+                ),
+                INUM(
+                  TERMINAL[3:9]
+                )
+              ) # ASSIGN,
+              CONTINUE
+            ) # STATEMENTS
+          ) # IF
+        ) # IFELSE
+      ) # STATEMENTS
+    ) # WHILE
+  ) # FUNCTION
+) # PROGRAM
+\end{verbatim}
+
+\parrafo{Ejemplo de Árbol con Aplanamiento de {\tt STATEMENTS}}
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Syntax/script$ usesyntax.pl prueba26.c 2
+int a[20],b,e[10];
+
+g() {}
+
+int f(char c) {
+char d;
+ c = 'X';
+ e[d][b] = 'A'+c;
+ {
+   int d;
+   d = c * 2;
+ }
+ {
+   d = a + b;
+   {
+     c = a + 1;
+   }
+ }
+ c = d * 2;
+ return c;
+}
+
+
+PROGRAM(
+  FUNCTION,
+  FUNCTION(
+    ASSIGN(
+      VAR(
+        TERMINAL[c:7]
+      ),
+      CHARCONSTANT(
+        TERMINAL['X':7]
+      )
+    ) # ASSIGN,
+    ASSIGN(
+      VARARRAY(
+        TERMINAL[e:8],
+        INDEXSPEC(
+          VAR(
+            TERMINAL[d:8]
+          ),
+          VAR(
+            TERMINAL[b:8]
+          )
+        ) # INDEXSPEC
+      ) # VARARRAY,
+      PLUS(
+        CHARCONSTANT(
+          TERMINAL['A':8]
+        ),
+        VAR(
+          TERMINAL[c:8]
+        )
+      ) # PLUS
+    ) # ASSIGN,
+    BLOCK(
+      ASSIGN(
+        VAR(
+          TERMINAL[d:11]
+        ),
+        TIMES(
+          VAR(
+            TERMINAL[c:11]
+          ),
+          INUM(
+            TERMINAL[2:11]
+          )
+        ) # TIMES
+      ) # ASSIGN
+    ) # BLOCK,
+    ASSIGN(
+      VAR(
+        TERMINAL[d:14]
+      ),
+      PLUS(
+        VAR(
+          TERMINAL[a:14]
+        ),
+        VAR(
+          TERMINAL[b:14]
+        )
+      ) # PLUS
+    ) # ASSIGN,
+    ASSIGN(
+      VAR(
+        TERMINAL[c:16]
+      ),
+      PLUS(
+        VAR(
+          TERMINAL[a:16]
+        ),
+        INUM(
+          TERMINAL[1:16]
+        )
+      ) # PLUS
+    ) # ASSIGN,
+    ASSIGN(
+      VAR(
+        TERMINAL[c:19]
+      ),
+      TIMES(
+        VAR(
+          TERMINAL[d:19]
+        ),
+        INUM(
+          TERMINAL[2:19]
+        )
+      ) # TIMES
+    ) # ASSIGN,
+    RETURN(
+      VAR(
+        TERMINAL[c:20]
+      )
+    ) # RETURN
+  ) # FUNCTION
+) # PROGRAM
+\end{verbatim}
+
+\sectionpractica{Construcción del AST para el Lenguaje Simple C}
+\label{practica:esquemadetradsimple}
+Reproduzca el analizador sintáctico para el lenguaje SimpleC introducido en la
+sección 
+\ref{section:simplec}.
+
+
+\sectionpractica{Análisis de Ámbito del Lenguaje Simple C}
+\label{practica:ambitoytipossamplec}
+Haga una primera parte del análisis de ámbito del lenguaje Simple C 
+presentado
+en la práctica
+\ref{practica:esquemadetradsimple}.
+
+En esta primera parte
+se construyen las declaraciones y las tablas de símbolos de cada bloque. 
+Sin embargo no queda establecida la asignación desde una instancia de un
+objeto a su declaración.
+
+
+\paragraph{La tabla de Símbolos}
+Comenzaremos describiendo las estructuras de datos que van a conformar la tabla de símbolos
+de nuestro compilador:
+
+\begin{enumerate}
+\item
+Dote de los siguientes atributos a los nodos de tipo "bloque", 
+esto es a aquellos nodos que definen ámbito. Por ejemplo, los nodos asociados
+con la variable sintáctica \verb|block| son de tipo "bloque":
+\begin{verbatim}
+block:
+    %name BLOCK
+    '{' declaration %name DECLARATIONS * statement %name STATEMENTS * '}'
+\end{verbatim}
+
+  \begin{enumerate}
+  \item
+  Atributo \verb|symboltable|: referencia a la tabla de símbolos asociada con el bloque
+  La tabla de símbolos asociada al bloque es un simple hash.
+  \item
+  Atributo \verb|fatherblock|: referencia al nodo \verb|BLOCK| que inmediatamente anida a este.
+  Los nodos de tipo bloque quedan enlazados según el árbol de anidamiento de bloques
+  \item
+  Los bloques con declaraciones vacías pueden ser simplificados en el árbol de bloques
+  \end{enumerate}
+
+\item
+Los nodos \verb|FUNCTION| asociados con las
+funciones son nodos de tipo bloque y
+serán tratados de manera similar a los nodos  \verb|BLOCK|, esto es, 
+tendrán su tabla de símbolos asociada en la cual se guardarán los parámetros 
+de la función. Este bloque es el bloque padre del bloque formado por
+el cuerpo de la función. Posteriormente se pueden fusionar estos dos bloques
+siempre que se conserve la información necesaria sobre los parámetros.
+
+\begin{verbatim}
+funcDef:
+    %name FUNCTION
+    ID '('  param <%name PARAMS * ','> ')' 
+      block
+\end{verbatim}
+
+\item
+Los identificadores de funciones van en la tabla de símbolos global, asociada con el nodo
+\verb|PROGRAM|:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/lib/Simple$ sed -ne '/^program:/,/^;/p' SymbolTables.eyp | cat -n
+ 1  program:
+ 2        { reset_file_scope_vars(); }
+ 3      definition<%name PROGRAM +>.program
+ 4        {
+ 5          $program->{symboltable} = { %st };  # creates a copy of the s.t.
+ 6          for (keys %type) {
+ 7            $type{$_} = Parse::Eyapp::Node->hnew($_);
+ 8          }
+ 9          $program->{depth} = 0;
+10          $program->{line}  = 1;
+11          $program->{types} = { %type };
+12          $program->{lines} = $tokenend;
+13
+14          reset_file_scope_vars();
+15          $program;
+16        }
+17  ;
+\end{verbatim}
+
+Observe que en C una función puede ser usada antes de que aparezca su definición.
+
+\item
+  Las instancias de los objetos y en particular los nodos \verb|VAR| deben tener atributos
+  que determinen que declaración se les aplica y en que ámbito viven. Sin embargo estos
+  atributos no serán trabajados en esta práctica:
+  \begin{enumerate}
+  \item
+  Atributo \verb|entry|: Su entrada en la tabla de símbolos a la que pertenece
+  \item
+  Atributo \verb|scope|: Una referencia al nodo \verb|BLOCK| en el que fué declarada la variable
+  \end{enumerate}
+
+\item
+La tabla de símbolos es un árbol de tablas. Cada tabla esta relacionada con un bloque.
+Cada tabla tiene una entrada para cada identificador que fué declarado
+en su bloque.  En dicha entrada figuran los atributos del identificador: entre estos 
+últimos la línea en la que fue declarado y su tipo.
+
+\end{enumerate}
+
+\paragraph{¿Que es una declaración?}
+
+Para facilitar el análisis de ámbito y la comprobación de tipos
+debemos modificar la fase de construcción del AST para
+producir declaraciones que permitan comprobar con facilidad
+la \cei{equivalencia de tipos}
+
+La equivalencia de tipos se realiza habitualmente mediante 
+\cei{expresiones de tipo}. En nuestro caso vamos a
+elegir una representación dual mediante cadenas y árboles 
+de las expresiones de tipo. Las cadenas serán términos
+árbol. Como primera aproximación, entenderemos
+que dos tipos son equivalentes si las cadenas que representan
+sus expresiones de tipo son iguales. 
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/lib/Simple$ sed -ne '1,/%}/p' SymbolTables.eyp | cat -n
+  1  /*
+  2  File: SymbolTables.eyp
+  3  Scope Analysis: Only symbol table construction
+  4  */
+  5  %{
+  6  use strict;
+  7  use Data::Dumper;
+  8  use List::MoreUtils qw(firstval lastval);
+  9  use Simple::Trans;
+ 10
+ 11  my %reserved = (
+ ..    ..... => "....."
+ 20  );
+ 21
+ 22  my %lexeme = (
+ ..    '..' => ".."
+ 53  );
+ 54
+ 55  our ($blocks);
+ 56
+ 57  sub is_duplicated {
+ ..    .........
+ 65  }
+ 66
+ 67  sub build_type {
+ ..    .............
+ 82  }
+ 83
+ 84  my ($tokenbegin, $tokenend);
+ 85  my %type;
+ 86  my $depth;
+ 87
+ 88  my %st; # Global symbol table
+ 89
+ 90  sub build_function_scope {
+...    ................
+114  }
+115
+116  sub reset_file_scope_vars {
+117    %st = (); # reset symbol table
+118    ($tokenbegin, $tokenend) = (1, 1);
+119    %type = ( INT  => 1,
+120              CHAR => 1,
+121              VOID => 1,
+122            );
+123    $depth = 0;
+124  }
+125
+126  %}
+\end{verbatim}
+
+\paragraph{El código asociado con {\tt declaration}}
+Veamos como modificamos la construcción del AST durante las declaraciones:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/lib/Simple$ sed -ne '/^declaration:/,/^;/p' SymbolTables.eyp | cat -n
+ 1  declaration:
+ 2      %name DECLARATION
+ 3      $basictype $declList ';'
+ 4        {
+ 5           my %st; # Symbol table local to this declaration
+ 6           my $bt = $basictype->type;
+ 7           my @decs = $declList->children();
+ 8           while (my ($id, $arrspec) = splice(@decs, 0, 2)) {
+ 9             my $name = $id->{attr}[0];
+10             my $type = build_type($bt, $arrspec);
+11             $type{$type} = 1; # has too much $type for me!
+12
+13             # control duplicated declarations
+14             die "Duplicated declaration of $name at line $id->{attr}[1]\n" if exists($st{$name});
+15             $st{$name}->{type} = $type;
+16             $st{$name}->{line} = $id->{attr}[1];
+17           }
+18           return \%st;
+19        }
+20  ;
+\end{verbatim}
+El código de la función \verb|build_type| es como sigue:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/lib/Simple$ sed -ne '/^sub build_type/,82p' SymbolTables.eyp | cat -n
+ 1  sub build_type {
+ 2    my $bt = shift;
+ 3    my @arrayspec = shift()->children();
+ 4
+ 5    my $type = '';
+ 6    for my $s (@arrayspec) {
+ 7      $type .= "A_$s->{attr}[0](";
+ 8    }
+ 9    if ($type) {
+10      $type = "$type$bt".(")"x@arrayspec);
+11    }
+12    else {
+13      $type = $bt;
+14    }
+15    return $type;
+16  }
+\end{verbatim}
+
+\paragraph{Tratamiento de los Bloques}
+La variable sintáctica \verb|bloque|
+genera el lenguaje de las definiciones seguidas de sentencias:
+
+\begin{center}
+\begin{tabular}{c}
+      '\{' \{ datadefinition \} \{ statement \} '\}'
+\end{tabular}
+\end{center}
+
+El lenguaje de los bloques es modificado en consonancia:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/lib/Simple$ sed -ne '/^block:/,/^;/p' SymbolTables.eyp | cat -n
+  1  block:
+  2      '{'.bracket declaration<%name DECLARATIONS *>.decs statement<%name STATEMENTS *>.sts '}'
+  3         {
+  4           my %st;
+  5
+  6           for my $lst ($decs->children) {
+  7
+  8               # control duplicated declarations
+  9             my $message;
+ 10             die $message if $message = is_duplicated(\%st, $lst);
+ 11
+ 12             %st = (%st, %$lst);
+ 13           }
+ 14           $sts->{symboltable} = \%st;
+ 15           $sts->{line} = $bracket->[1];
+ 16           $sts->type("BLOCK") if %st;
+ 17           return $sts;
+ 18         }
+ 19
+ 20  ;
+\end{verbatim}
+
+El código de la función \verb|is_duplicated| es como sigue:
+\label{code:isduplicated}
+
+\begin{verbatim}
+sub is_duplicated {
+  my ($st1, $st2) = @_;
+
+  my $id;
+
+    defined($id=firstval{exists $st1->{$_}} keys %$st2)
+  and return "Error. Variable $id at line $st2->{$id}->{line} declared twice.\n";
+  return 0;
+}
+\end{verbatim}
+
+\paragraph{Tratamiento de las Funciones}
+
+El código para las funciones es similar.
+Unimos la tabla de símbolos
+de los parámetros a la del bloque para posteriormente reconvertir el
+bloque en un nodo \verb|FUNCTION|:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/lib/Simple$ sed -ne '/^funcDef:/,/^;/p' SymbolTables.eyp | cat -n
+  1  funcDef:
+  2      $ID '('  $params  ')'
+  3        $block
+  4      {
+  5         my $st = $block->{symboltable};
+  6         my @decs = $params->children();
+  7         $block->{parameters} = [];
+  8         while (my ($bt, $id, $arrspec) = splice(@decs, 0, 3)) {
+  9             my $bt = ref($bt); # The string 'INT', 'CHAR', etc.
+ 10             my $name = $id->{attr}[0];
+ 11             my $type = build_type($bt, $arrspec);
+ 12             $type{$type} = 1; # has too much $type for me!
+ 13
+ 14             # control duplicated declarations
+ 15             #die "Duplicated declaration of $name at line $id->{attr}[1]\n" if exists($st->{$name});
+ 16             die "Duplicated declaration of $name at line $st->{$name}{line}\n" if exists($st->{$name});
+ 17             $st->{$name}->{type} = $type;
+ 18             $st->{$name}->{param} = 1;
+ 19             $st->{$name}->{line} = $id->{attr}[1];
+ 20             push @{$block->{parameters}}, $name;
+ 21         }
+ 22         $block->{function_name} = $ID;
+ 23         $block->type("FUNCTION");
+ 24         return $block;
+ 25      }
+ 26  ;
+\end{verbatim}
+
+En la línea 8  se procesan las declaraciones de parámetros. 
+La lista de parámetros estaba definida por:
+\begin{verbatim}
+params: 
+    ( basictype ID arraySpec)<%name PARAMS * ','>
+      { $_[1] }
+\end{verbatim}
+
+
+En una segunda fase, a la altura de \verb|definition| 
+se construye la entrada para la función en la tabla de símbolos global:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/lib/Simple$ sed -ne '/^definition:/,/^;/p' SymbolTables.eyp | cat -n
+ 1  definition:
+ 2      $funcDef
+ 3        {
+ 4          build_function_scope($funcDef, 'INT');
+ 5        }
+ 6    | %name FUNCTION
+ 7      $basictype $funcDef
+ 8        {
+ 9          build_function_scope($funcDef, $basictype->type);
+10        }
+11    | declaration
+12       {
+13         #control duplicated declarations
+14         my $message;
+15         die $message if $message = is_duplicated(\%st, $_[1]);
+16         %st = (%st,  %{$_[1]}); # improve this code
+17         return undef; # will not be inserted in the AST
+18       }
+19  ;
+\end{verbatim}
+El código de la función \verb|build_function_scope| es como sigue:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/lib/Simple$ sed -ne '/sub build_func/,114p' SymbolTables.eyp | cat -n
+ 1  sub build_function_scope {
+ 2    my ($funcDef, $returntype) = @_;
+ 3
+ 4    my $function_name = $funcDef->{function_name}[0];
+ 5    my @parameters = @{$funcDef->{parameters}};
+ 6    my $lst = $funcDef->{symboltable};
+ 7    my $numargs = scalar(@parameters);
+ 8
+ 9    #compute type
+10    my $partype = "";
+11    my @types = map { $lst->{$_}{type} } @parameters;
+12    $partype .= join ",", @types if @types;
+13    my $type = "F(X_$numargs($partype),$returntype)";
+14
+15    #insert it in the hash of types
+16    $type{$type} = 1;
+17
+18    #insert it in the global symbol table
+19    die "Duplicated declaration of $function_name at line $funcDef-->{attr}[1]\n"
+20      if exists($st{$function_name});
+21    $st{$function_name}->{type} = $type;
+22    $st{$function_name}->{line} = $funcDef->{function_name}[1]; # redundant
+23
+24    return $funcDef;
+25  }
+\end{verbatim}
+
+\paragraph{El Tratamiento del Programa Principal}
+Sigue el código (incompleto) asociado con la variable sintáctica de
+arranque:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/lib/Simple$ sed -ne '/^program:/,/^;/p' SymbolTables.eyp | cat -n
+ 1  program:
+ 2        { reset_file_scope_vars(); }
+ 3      definition<%name PROGRAM +>.program
+ 4        {
+ 5          $program->{symboltable} = { %st };  # creates a copy of the s.t.
+ 6          for (keys %type) {
+ 7            $type{$_} = Parse::Eyapp::Node->hnew($_);
+ 8          }
+ 9          $program->{depth} = 0;
+10          $program->{line}  = 1;
+11          $program->{types} = { %type };
+12          $program->{lines} = $tokenend;
+13
+14          reset_file_scope_vars();
+15          $program;
+16        }
+17  ;
+\end{verbatim}
+Las árboles asociados con las expresiones de tipo son calculados 
+en las líneas 6-8.
+
+\parrafo{Ejemplo de Salida:  Control de declaraciones duplicadas}
+
+A estas alturas del análisis de ámbito podemos controlar
+la aparición de declaraciones duplicadas:
+para el programa de entrada:
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/script$ usesymboltables.pl declaredtwice.c 2
+int a, b[1][2];
+char d, e[1][2];
+char f(int a, char b[10]) {
+  int c[1][2];
+  char b[10], e[9]; /* b is declared twice */
+
+  return b[0];
+}
+
+Duplicated declaration of b at line 5
+\end{verbatim}
+Sin embargo no podemos conocer los objetos no declarados (variables, funciones)
+hasta que hayamos finalizado el análisis de ámbito.
+
+\parrafo{Un ejemplo de Volcado de un AST}
+
+Sigue un ejemplo de salida para un programa sin errores de ámbito:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/script$ usesymboltables.pl prueba10.c 2
+int a,b;
+f(int a, int b) {
+  b = a+1;
+}
+
+int main() {
+  a = 4;
+  {
+    int d;
+    d = f(a);
+  }
+}
+
+PROGRAM^{0}(
+  FUNCTION[f]^{1}(
+    ASSIGN(
+      VAR[No declarado!](
+        TERMINAL[b:3]
+      ),
+      PLUS(
+        VAR[No declarado!](
+          TERMINAL[a:3]
+        ),
+        INUM(
+          TERMINAL[1:3]
+        )
+      ) # PLUS
+    ) # ASSIGN
+  ) # FUNCTION,
+  FUNCTION[main]^{2}(
+    ASSIGN(
+      VAR[No declarado!](
+        TERMINAL[a:7]
+      ),
+      INUM(
+        TERMINAL[4:7]
+      )
+    ) # ASSIGN,
+    BLOCK[8]^{3}(
+      ASSIGN(
+        VAR[No declarado!](
+          TERMINAL[d:10]
+        ),
+        FUNCTIONCALL[No declarado!](
+          TERMINAL[f:10],
+          ARGLIST(
+            VAR[No declarado!](
+              TERMINAL[a:10]
+            )
+          ) # ARGLIST
+        ) # FUNCTIONCALL
+      ) # ASSIGN
+    ) # BLOCK
+  ) # FUNCTION
+) # PROGRAM
+---------------------------
+0)
+Types:
+$VAR1 = {
+  'CHAR' => bless( {
+    'children' => []
+  }, 'CHAR' ),
+  'VOID' => bless( {
+    'children' => []
+  }, 'VOID' ),
+  'INT' => bless( {
+    'children' => []
+  }, 'INT' ),
+  'F(X_0(),INT)' => bless( {
+    'children' => [
+      bless( {
+        'children' => []
+      }, 'X_0' ),
+      $VAR1->{'INT'}
+    ]
+  }, 'F' ),
+  'F(X_2(INT,INT),INT)' => bless( {
+    'children' => [
+      bless( {
+        'children' => [
+          $VAR1->{'INT'},
+          $VAR1->{'INT'}
+        ]
+      }, 'X_2' ),
+      $VAR1->{'INT'}
+    ]
+  }, 'F' )
+};
+Symbol Table of the Main Program:
+$VAR1 = {
+  'a' => {
+    'type' => 'INT',
+    'line' => 1
+  },
+  'b' => {
+    'type' => 'INT',
+    'line' => 1
+  },
+  'f' => {
+    'type' => 'F(X_2(INT,INT),INT)',
+    'line' => 2
+  },
+  'main' => {
+    'type' => 'F(X_0(),INT)',
+    'line' => 6
+  }
+};
+
+---------------------------
+1)
+Symbol Table of f
+$VAR1 = {
+  'a' => {
+    'type' => 'INT',
+    'param' => 1,
+    'line' => 2
+  },
+  'b' => {
+    'type' => 'INT',
+    'param' => 1,
+    'line' => 2
+  }
+};
+
+---------------------------
+2)
+Symbol Table of main
+$VAR1 = {};
+
+---------------------------
+3)
+Symbol Table of block at line 8
+$VAR1 = {
+  'd' => {
+    'type' => 'INT',
+    'line' => 9
+  }
+};
+
+pl@nereida:~/Lbook/code/Simple-SymbolTables/script$                     
+\end{verbatim}
+
+\parrafo{Métodos de soporte para el Volcado del Arbol}
+
+Se han utilizado las siguientes funciones de soporte para producir el volcado:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-SymbolTables/lib/Simple$ sed -ne '683,$p' SymbolTables.eyp
+############## Debugging and Display
+sub show_trees {
+ my ($t) = @_;
+
+ print Dumper $t if $debug > 1;
+ $Parse::Eyapp::Node::INDENT = 2;
+ $Data::Dumper::Indent = 1;
+ print $t->str."\n";
+}
+
+$Parse::Eyapp::Node::INDENT = 1;
+sub TERMINAL::info {
+  my @a = join ':', @{$_[0]->{attr}};
+  return "@a"
+}
+
+sub PROGRAM::footnote {
+  return "Types:\n"
+         .Dumper($_[0]->{types}).
+         "Symbol Table of the Main Program:\n"
+         .Dumper($_[0]->{symboltable})
+}
+
+sub FUNCTION::info {
+  return $_[0]->{function_name}[0]
+}
+
+sub FUNCTION::footnote {
+  my $text = '';
+  $text .= "Symbol Table of $_[0]->{function_name}[0]\n" if $_[0]->type eq 'FUNCTION';
+  $text .= "Symbol Table of block at line $_[0]->{line}\n" if $_[0]->type eq 'BLOCK';
+  $text .= Dumper($_[0]->{symboltable});
+  return $text;
+}
+
+sub BLOCK::info {
+  my $info = "$_[0]->{line}";
+  return $info;
+}
+
+*BLOCK::footnote = \&FUNCTION::footnote;
+
+sub VAR::info {
+  return $_[0]->{type} if defined $_[0]->{type};
+  return "No declarado!";
+}
+
+*FUNCTIONCALL::info = *VARARRAY::info = \&VAR::info;
+pl@nereida:~/Lbook/code/Simple-SymbolTables/lib/Simple$        
+\end{verbatim}
+%\section{Eliminación de Bloques Vacíos}
+%¿En que forma se puede implantar la optimización consistente
+%en eliminar (del árbol hilvanado conteniendo 
+%la jerarquía de anidamiento de bloques)
+%aquellos bloques cuya sección de declaraciones
+%es vacía?
+%
+%La respuesta es \cei{TIMTOWTDI}: 
+%
+%\htmladdnormallink{There is More Than One Way To Do It}{http://en.wikipedia.org/wiki/There_is_more_than_one_way_to_do_it}
+%
+%Veamos dos soluciones:
+%
+%\paragraph{Solución: Un bloque sin declaraciones es un {\tt STATEMENTS}}
+%
+%La estrategia en este caso es simple: no permitir que los bloques
+%cuya sección sea vacía se conviertan en nodos \verb|BLOCK|:
+%
+%\begin{verbatim}
+% block:
+%     '{'.bracket declaration<%name DECLARATIONS *>.decs statement<%name STATEMENTS *>.sts '}'
+%        {
+%          my %st;
+%
+%          for my $lst ($decs->children) {
+%
+%            # control duplicated declarations
+%            my $message;
+%            die $message if $message = is_duplicated(\%st, $lst);
+%
+%            %st = (%st, %$lst);
+%          }
+%          $sts->{symboltable} = \%st;
+%          $sts->{line} = $bracket->[1];  
+%          # Sólo si hay tabla de símbolos el nodo es un bloque
+%          $sts->type("BLOCK") if (%st);
+%          return $sts;
+%        }
+%\end{verbatim}
+%
+%\paragraph{Solución: Usando Transformaciones Árbol}
+%He aqui una posible solución: usar una nueva transformación árbol
+%que los reconvierta al tipo \verb|STATEMENTS|. El objetivo de esta solución
+%es ampliar nuestras habilidades en el uso de transformaciones árbol.
+%La solución anterior es preferible. Aumentamos el código del programa
+%árbol \verb|SimpleTrans.trg|:
+%
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code> cat -n SimpleTrans.trg
+%1  deleteemptyblocks: BLOCK and { %{$BLOCK->{symboltable}}+$BLOCK->children == 0 }
+%2    => { $deleteemptyblocks->delete() }
+%3  moveemptyblocks2sts: BLOCK and { %{$BLOCK->{symboltable}} == 0 }
+%4    => { $_[0]->type('STATEMENTS'); }
+%5  blocks:  /BLOCK|FUNCTION|PROGRAM/
+%\end{verbatim}
+%
+%Y modificamos el método \verb|Run|:
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code> sed -ne '589,614p' Simple5.eyp
+%sub Run {
+% my($self)=shift;
+%
+% my ($forest, $t);
+% for  (@tests) {
+%   $self->YYData->{INPUT} = $_;
+%   eval {
+%     $t = $self->YYParse( yylex => \&_Lexer, yyerror => \&_Error, #yydebug => 0x1F
+%     );
+%   };
+%   if ($@) {
+%     print "Error in test program\n$@";
+%   }
+%   else {
+%     $SimpleTrans::moveemptyblocks2sts->s($t); # <--- Modificamos el tipo antes de crear
+%     my @blocks = $SimpleTrans::blocks->m($t); #      la jerarquía
+%     $_->node->{fatherblock} = $_->father->{node} for (@blocks[1..$#blocks]);
+%     ... etc, etc.
+%   }
+% }
+%\end{verbatim}
+%Despues de compilar y ejecutar:
+%
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code> eyapp Simple5 ; treereg -nonumbers SimpleTrans.trg ; usesimple5.pl
+%\end{verbatim}
+%
+%El árbol queda como se muestra en la tabla 
+%\ref{table:moveemptyblocks}.
+%
+%\begin{table}[hbt]
+%\begin{center}
+%\caption{Árbol y Árbol de bloques después de {\tt moveemptyblocks2sts}}
+%\label{table:moveemptyblocks}
+%\begin{tabular}{|p{5cm}|p{7cm}|}
+%\hline
+%Programa & AST y Jerarquía de Bloques\\
+%\hline
+%\begin{verbatim}
+%char d0;
+%char f() {
+%  {
+%    {}
+%  }
+%  {
+%    { }
+%  }
+%  {
+%    {{}}
+%  }
+%}
+%g() {
+% {}
+% {
+%   {}
+% }
+% {}
+%}
+%\end{verbatim}
+%&
+%\begin{verbatim}
+%PROGRAM(
+%  FUNCTION[f](
+%    STATEMENTS(
+%      STATEMENTS
+%    ),
+%    STATEMENTS(
+%      STATEMENTS
+%    ),
+%    STATEMENTS(
+%      STATEMENTS(
+%        STATEMENTS
+%      )
+%    )
+%  ),
+%  FUNCTION[g](
+%    STATEMENTS,
+%    STATEMENTS(
+%      STATEMENTS
+%    ),
+%    STATEMENTS
+%  )
+%)
+%Match[PROGRAM:0:blocks](
+%  Match[FUNCTION:1:blocks:[f]],
+%  Match[FUNCTION:1:blocks:[g]]
+%)
+%\end{verbatim}\\
+%\hline
+%\end{tabular}
+%\end{center}
+%\end{table}
+%
+%\begin{exercise}
+%¿Cómo afecta la transformación {\tt moveemptyblocks2sts} a los nodos {\tt FUNCTION}?
+%¿Cómo afecta la transformación {\tt moveemptyblocks2sts} al nodo {\tt PROGRAM}?
+%\end{exercise}
+%
+%\begin{exercise}
+%¿Que hace la transformación \verb|deleteemptyblocks|
+%que aparece en el código anterior de \verb|SimpleTrans.trg|?
+%¿Sería adecuado aplicarla?
+%\end{exercise}
+
+\section{La Dificultad de Elaboración de las Pruebas}
+
+A la hora de hacer las pruebas necesitamos comprobar que dos árboles
+son iguales. El problema que aparece en el diseño de un compilador 
+es un caso particular de la regla
+\emph{defina su API antes de realizar las pruebas} y de la ausencia de herramientas
+adecuadas.
+
+Como el diseño de un compilador se hace por fases 
+y las fases a veces se superponen resulta que el resultado
+de una llamada a la misma subrutina cambia en las diversas etapas del desarrollo.
+Terminada la fase de análisis sintáctico el producto es un AST.
+cuando posteriormente añadimos la fase de análisis de ámbito
+obtenemos un árbol decorado. Si hicimos pruebas para la primera fase y hemos
+usado \verb|is_deeply| las pruebas no funcionaran con la versión ampliada
+a menos que se cambie el árbol esperado. Ello es debido 
+a que \verb|is_deeply| requiere la igualdad estructural total 
+de los dos árboles.
+
+\parrafo{Limitaciones de {\tt Data::Dumper}}
+\label{section:limitacionesdedumper}
+
+La descripción dada con \verb|Data::Dumper| de una estructura 
+de datos anidada como es el árbol es difícil de seguir,
+especialmente como en este ejemplo
+en el que hay enlaces que autoreferencian la estructura.
+
+\begin{verbatim}
+$VAR1 = bless( {
+  'types' => {
+    'CHAR' => bless( { 'children' => [] }, 'CHAR' ),
+    'INT' => bless( { 'children' => [] }, 'INT' ),
+    'F(X_0(),CHAR)' => bless( { 'children' => [
+        bless( { 'children' => [] }, 'X_0' ), bless( { 'children' => [] }, 'CHAR' )
+      ]
+    }, 'F' ),
+    'F(X_0(),INT)' => bless( { 'children' => [
+        bless( { 'children' => [] }, 'X_0' ), bless( { 'children' => [] }, 'INT' )
+      ]
+    }, 'F' )
+  },
+  'symboltable' => {
+    'd0' => { 'type' => 'CHAR', 'line' => 1 },
+    'f'  => { 'type' => 'F(X_0(),CHAR)', 'line' => 2 },
+    'g'  => { 'type' => 'F(X_0(),INT)', 'line' => 13 },
+  },
+  'lines' => 19,
+  'children' => [
+    bless( { # FUNCTION f  <---------------------------------------------------x
+      'parameters' => [], 'symboltable' => {}, 'fatherblock' => $VAR1,         |
+      'function_name' => [ 'f', 2 ],                                           |
+      'children' => [                                                          |
+        bless( {    <----------------------------------------------------------|------x
+          'line' => 3                                                          |      |
+          'symboltable' => {}, 'fatherblock' => $VAR1->{'children'}[0], -------x      |
+          'children' => [                                                      |      |
+            bless( {                                                           |      |
+              'symboltable' => {}, 'fatherblock' => $VAR1->{'children'}[0]{'children'}[0],
+              'children' => [], 'line' => 4                                    |
+            }, 'BLOCK' )                                                       |
+          ],                                                                   |
+        }, 'BLOCK' ),                                                          |
+        bless( {                                                               |
+          'symboltable' => {}, 'fatherblock' => $VAR1->{'children'}[0], -------x 
+          'children' => [
+            bless( {
+              'symboltable' => {}, 'fatherblock' => $VAR1->{'children'}[0]{'children'}[1],
+              'children' => [], 'line' => 7
+            }, 'BLOCK' )
+          ],
+          'line' => 6
+        }, 'BLOCK' ),
+        bless( {
+          'symboltable' => {}, 'fatherblock' => $VAR1->{'children'}[0],
+          'children' => [
+            bless( {
+              'symboltable' => {}, 'fatherblock' => $VAR1->{'children'}[0]{'children'}[2],
+              'children' => [
+                bless( {
+                  'symboltable' => {}, 'fatherblock' => $VAR1->{'children'}[0]{'children'}[2]{'children'}[0],
+                  'children' => [], 'line' => 10
+                }, 'BLOCK' )
+              ],
+              'line' => 10
+            }, 'BLOCK' )
+          ],
+          'line' => 9
+        }, 'BLOCK' )
+      ],
+      'line' => 2
+    }, 'FUNCTION' ),
+    bless( { # FUNCTION g
+      'parameters' => [], 'symboltable' => {}, 'fatherblock' => $VAR1,
+      'function_name' => [ 'g', 13 ],
+      'children' => [
+        bless( {
+          'symboltable' => {}, 'fatherblock' => $VAR1->{'children'}[1],
+          'children' => [], 'line' => 14
+        }, 'BLOCK' ),
+        bless( {
+          'symboltable' => {}, 'fatherblock' => $VAR1->{'children'}[1],
+          'children' => [
+            bless( {
+              'symboltable' => {}, 'fatherblock' => $VAR1->{'children'}[1]{'children'}[1],
+              'children' => [], 'line' => 16
+            }, 'BLOCK' )
+          ],
+          'line' => 15
+        }, 'BLOCK' ),
+        bless( {
+          'symboltable' => {}, 'fatherblock' => $VAR1->{'children'}[1],
+          'children' => [], 'line' => 18
+        }, 'BLOCK' )
+      ],
+      'line' => 13
+    }, 'FUNCTION' )
+  ],
+  'line' => 1
+}, 'PROGRAM' );
+\end{verbatim}
+La estructura es en realidad el árbol de análisis abstracto decorado
+para un programa SimpleC
+(véase el capítulo \ref{chapter:simplec}).
+Para ver el fuente que se describe y la estructura del AST
+consulte la tabla \ref{table:programandhierarchy}. Al decorar 
+el árbol con la jerarquía de bloques (calculada en la sección
+\ref{section:methodm}, página
+\pageref{paragraph:jerarquiadebloquesconm})
+se producen númerosas 
+referencias cruzadas que hacen difícil de leer la salida de 
+\verb|Data::Dumper|.
+
+\parrafo{La opción {\tt Data::Dumper::Purity}}
+
+El problema no es sólo que es dificil seguir una estructura que se autoreferencia como 
+la anterior.
+Una estructura recursiva como esta no puede ser evaluada como código Perl, ya que 
+\emph{Perl
+prohibe que una variable pueda ser usada antes
+de que finalice su definición}.
+Por ejemplo, la declaración-inicialización:
+\begin{verbatim}
+my $x = $x -1;
+\end{verbatim}
+es considerada incorrecta. 
+Eso significa que \emph{el texto producido por {\tt Data::Dumper} de esta forma
+no puede ser insertado  en un test de regresión}.
+
+El módulo \tei{Data::Dumper} dispone de la variable
+\tei{Data::Dumper::Purity} la cual ayuda a subsanar esta
+limitación. Veamos la salida que se produce para el programa
+anterior cuando \verb|Data::Dumper::Purity| esta activa:
+\begin{verbatim}
+$VAR1 = bless( {
+  'types' => { ... },
+  'symboltable' => { ... },
+  'lines' => 19,
+  'children' => [
+    bless( {
+      'function_name' => [ 'f', 2 ], 'line' => 2, 
+      'parameters' => [], 'symboltable' => {}, 'fatherblock' => {}, 
+      'children' => [
+        bless( {
+          'symboltable' => {}, 'fatherblock' => {}, 'line' => 3
+          'children' => [
+            bless( { 'symboltable' => {}, 'fatherblock' => {}, 'children' => [], 'line' => 4 }, 'BLOCK' )
+          ],
+        }, 'BLOCK' ),
+        bless( {
+          'symboltable' => {}, 'fatherblock' => {}, 'line' => 6
+          'children' => [
+            bless( {
+              'symboltable' => {},
+              'fatherblock' => {},
+              'children' => [],
+              'line' => 7
+            }, 'BLOCK' )
+          ],
+        }, 'BLOCK' ),
+        bless( {
+          'line' => 9, 'symboltable' => {}, 'fatherblock' => {},
+          'children' => [
+            bless( {
+              'line' => 10, 'symboltable' => {}, 'fatherblock' => {},
+              'children' => [
+                bless( {
+                  'line' => 10, 'symboltable' => {}, 'fatherblock' => {},
+                  'children' => [],
+                }, 'BLOCK' )
+              ],
+            }, 'BLOCK' )
+          ],
+        }, 'BLOCK' )
+      ],
+    }, 'FUNCTION' ),
+    bless( {
+      'function_name' => [ 'g', 13 ],
+       .............................
+    }, 'FUNCTION' )
+  ],
+  'line' => 1
+}, 'PROGRAM' );
+$VAR1->{'children'}[0]{'fatherblock'} = $VAR1;
+$VAR1->{'children'}[0]{'children'}[0]{'fatherblock'} = $VAR1->{'children'}[0];
+$VAR1->{'children'}[0]{'children'}[0]{'children'}[0]{'fatherblock'} 
+  = $VAR1->{'children'}[0]{'children'}[0];
+$VAR1->{'children'}[0]{'children'}[1]{'fatherblock'} 
+  = $VAR1->{'children'}[0];
+$VAR1->{'children'}[0]{'children'}[1]{'children'}[0]{'fatherblock'} 
+  = $VAR1->{'children'}[0]{'children'}[1];
+$VAR1->{'children'}[0]{'children'}[2]{'fatherblock'} 
+  = $VAR1->{'children'}[0];
+$VAR1->{'children'}[0]{'children'}[2]{'children'}[0]{'fatherblock'} 
+  = $VAR1->{'children'}[0]{'children'}[2];
+$VAR1->{'children'}[0]{'children'}[2]{'children'}[0]{'children'}[0]{'fatherblock'} 
+  = $VAR1->{'children'}[0]{'children'}[2]{'children'}[0];
+$VAR1->{'children'}[1]{'fatherblock'} = $VAR1;
+$VAR1->{'children'}[1]{'children'}[0]{'fatherblock'} = $VAR1->{'children'}[1];
+$VAR1->{'children'}[1]{'children'}[1]{'fatherblock'} = $VAR1->{'children'}[1];
+$VAR1->{'children'}[1]{'children'}[1]{'children'}[0]{'fatherblock'} 
+  = $VAR1->{'children'}[1]{'children'}[1];
+$VAR1->{'children'}[1]{'children'}[2]{'fatherblock'} 
+  = $VAR1->{'children'}[1];
+\end{verbatim}
+Observe que este segundo código elimina las definiciones recursivas,
+retrasa las asignaciones y es código correcto.
+Es por tanto apto para reproducir la estructura
+de datos en un programa de prueba con, por ejemplo, \verb|is_deeply|.
+
+\parrafo{Por que no Usar {\tt str} en la Elaboración de las Pruebas} 
+
+Puede que parezca una buena idea volcar los dos árboles esperado y obtenido mediante \verb|str|
+y proceder a comparar las cadenas. Esta estrategia es inadecuado ya que depende 
+de la versión de \verb|Parse::Eyapp| con la que se esta trabajando. Si un usuario de
+nuestro módulo ejecuta la prueba con una versión distinta de \verb|Parse::Eyapp|
+de la que hemos usado para la construcción de la prueba, puede obtener un ''falso fallo''
+debido a que su version de \verb|str| trabaja de forma ligeramente distinta.
+
+\parrafo{El Método {\tt equal} de los Nodos}
+
+El método \verb|equal| (version 1.094 de Parse::Eyapp o posterior) permite
+hacer comparaciones ''difusas'' de los nodos.
+El formato de llamada es:
+
+\begin{verbatim}
+  $tree1->equal($tree2, attr1 => \&handler1, attr2 => \&handler2, ...)
+\end{verbatim}
+
+Dos nodos se consideran iguales si:
+
+\begin{enumerate}
+\item
+Sus raices \verb|$tree1| y \verb|$tree2| pertenecen a la misma clase
+\item
+Tienen el mismo número de hijos
+\item
+Para cada una de las claves especificadas \verb|attr1|, \verb|attr2|, etc. la existencia
+y definición es la misma en ambas raíces
+\item
+Supuesto que en ambos nodos el atributo \verb|attr| existe y está definido
+el manejador \verb|handler($tree1, $tree2)| retorna cierto cuando es llamado
+\item
+Los hijos respectivos de ambos nodos son iguales (en sentido recursivo o inductivo) 
+\end{enumerate}
+
+Sigue un ejemplo:
+
+\begin{verbatim}
+pl@nereida:~/LEyapp/examples$ cat -n equal.pl
+ 1  #!/usr/bin/perl -w
+ 2  use strict;
+ 3  use Parse::Eyapp::Node;
+ 4
+ 5  my $string1 = shift || 'ASSIGN(VAR(TERMINAL))';
+ 6  my $string2 = shift || 'ASSIGN(VAR(TERMINAL))';
+ 7  my $t1 = Parse::Eyapp::Node->new($string1, sub { my $i = 0; $_->{n} = $i++ for @_ });
+ 8  my $t2 = Parse::Eyapp::Node->new($string2);
+ 9
+10  # Without attributes
+11  if ($t1->equal($t2)) {
+12    print "\nNot considering attributes: Equal\n";
+13  }
+14  else {
+15    print "\nNot considering attributes: Not Equal\n";
+16  }
+17
+18  # Equality with attributes
+19  if ($t1->equal($t2, n => sub { return $_[0] == $_[1] })) {
+20    print "\nConsidering attributes: Equal\n";
+21  }
+22  else {
+23    print "\nConsidering attributes: Not Equal\n";
+24  }
+\end{verbatim}
+
+\parrafo{Usando {\tt equal} en las Pruebas}
+
+Cuando desarrolle pruebas y desee obtener una comparación parcial  del AST esperado 
+con el AST obtenido puede usar la siguiente metodología:
+\begin{enumerate}
+\item
+Vuelque el árbol desde su programa de desarrollo con \verb|Data::Dumper|
+\item
+Compruebe que el árbol es correcto
+\item
+Decida que atributos quiere comparar
+\item
+Escriba la comparación de las estructuras y de los atributos 
+pegando la salida de \verb|Data::Dumper| y usando \verb|equal|
+(versión 1.096 de \verb|Parse::Eyapp|) como en el siguiente ejemplo:
+\begin{verbatim}
+pl@nereida:~/LEyapp/examples$ cat -n testequal.pl
+ 1  #!/usr/bin/perl -w
+ 2  use strict;
+ 3  use Parse::Eyapp::Node;
+ 4  use Data::Dumper;
+ 5  use Data::Compare;
+ 6
+ 7  my $debugging = 0;
+ 8
+ 9  my $handler = sub {
+10    print Dumper($_[0], $_[1]) if $debugging;
+11    Compare($_[0], $_[1])
+12  };
+\end{verbatim}
+El manejador \verb|$handler| es usado para comparar atributos 
+(véanse las líneas 104-109).
+Copie el resultado de \verb|Data::Dumper| en la variable \verb|$t1|:
+\begin{verbatim}
+14  my $t1 = bless( {
+15                   'types' => {
+16                                'CHAR' => bless( { 'children' => [] }, 'CHAR' ),
+17                                'VOID' => bless( { 'children' => [] }, 'VOID' ),
+18                                'INT' => bless( { 'children' => [] }, 'INT' ),
+19                                'F(X_0(),INT)' => bless( {
+20                                   'children' => [
+21                                      bless( { 'children' => [] }, 'X_0' ),
+22                                      bless( { 'children' => [] }, 'INT' ) ]
+23                                 }, 'F' )
+24                              },
+25                   'symboltable' => { 'f' => { 'type' => 'F(X_0(),INT)', 'line' => 1 } },
+26                   'lines' => 2,
+27                   'children' => [
+28                                   bless( {
+29                                            'symboltable' => {},
+30                                            'fatherblock' => {},
+31                                            'children' => [],
+32                                            'depth' => 1,
+33                                            'parameters' => [],
+34                                            'function_name' => [ 'f', 1 ],
+35                                            'symboltableLabel' => {},
+36                                            'line' => 1
+37                                          }, 'FUNCTION' )
+38                                 ],
+39                   'depth' => 0,
+40                   'line' => 1
+41                 }, 'PROGRAM' );
+42  $t1->{'children'}[0]{'fatherblock'} = $t1;
+\end{verbatim}
+Para ilustrar la técnica creamos dos árboles \verb|$t2| y \verb|$t3| similares al anterior
+que compararemos con \verb|$t1|.
+De hecho se han obtenido del texto de \verb|$t1| suprimiendo algunos atributos.
+El árbol de \verb|$t2| comparte con \verb|$t1| los atributos ''comprobados'' mientras 
+que no es así con \verb|$t3|:
+\begin{verbatim}
+44  # Tree similar to $t1 but without some attttributes (line, depth, etc.)
+45  my $t2 = bless( {
+46                   'types' => {
+47                                'CHAR' => bless( { 'children' => [] }, 'CHAR' ),
+48                                'VOID' => bless( { 'children' => [] }, 'VOID' ),
+49                                'INT' => bless( { 'children' => [] }, 'INT' ),
+50                                'F(X_0(),INT)' => bless( {
+51                                   'children' => [
+52                                      bless( { 'children' => [] }, 'X_0' ),
+53                                      bless( { 'children' => [] }, 'INT' ) ]
+54                                 }, 'F' )
+55                              },
+56                   'symboltable' => { 'f' => { 'type' => 'F(X_0(),INT)', 'line' => 1 } },
+57                   'children' => [
+58                                   bless( {
+59                                            'symboltable' => {},
+60                                            'fatherblock' => {},
+61                                            'children' => [],
+62                                            'parameters' => [],
+63                                            'function_name' => [ 'f', 1 ],
+64                                          }, 'FUNCTION' )
+65                                 ],
+66                 }, 'PROGRAM' );
+67  $t2->{'children'}[0]{'fatherblock'} = $t2;
+68
+69  # Tree similar to $t1 but without some attttributes (line, depth, etc.)
+70  # and without the symboltable attribute
+71  my $t3 = bless( {
+72                   'types' => {
+73                                'CHAR' => bless( { 'children' => [] }, 'CHAR' ),
+74                                'VOID' => bless( { 'children' => [] }, 'VOID' ),
+75                                'INT' => bless( { 'children' => [] }, 'INT' ),
+76                                'F(X_0(),INT)' => bless( {
+77                                   'children' => [
+78                                      bless( { 'children' => [] }, 'X_0' ),
+79                                      bless( { 'children' => [] }, 'INT' ) ]
+80                                 }, 'F' )
+81                              },
+82                   'children' => [
+83                                   bless( {
+84                                            'symboltable' => {},
+85                                            'fatherblock' => {},
+86                                            'children' => [],
+87                                            'parameters' => [],
+88                                            'function_name' => [ 'f', 1 ],
+89                                          }, 'FUNCTION' )
+90                                 ],
+91                 }, 'PROGRAM' );
+92
+93  $t3->{'children'}[0]{'fatherblock'} = $t2;
+\end{verbatim}
+Ahora realizamos las comprobaciones de igualdad mediante \verb|equal|:
+\begin{verbatim}
+95  # Without attributes
+96  if (Parse::Eyapp::Node::equal($t1, $t2)) {
+97    print "\nNot considering attributes: Equal\n";
+98  }
+99  else {
+100    print "\nNot considering attributes: Not Equal\n";
+101  }
+102
+103  # Equality with attributes
+104  if (Parse::Eyapp::Node::equal(
+105        $t1, $t2,
+106        symboltable => $handler,
+107        types => $handler,
+108      )
+109     ) {
+110        print "\nConsidering attributes: Equal\n";
+111  }
+112  else {
+113    print "\nConsidering attributes: Not Equal\n";
+114  }
+115
+116  # Equality with attributes
+117  if (Parse::Eyapp::Node::equal(
+118        $t1, $t3,
+119        symboltable => $handler,
+120        types => $handler,
+121      )
+122     ) {
+123        print "\nConsidering attributes: Equal\n";
+124  }
+125  else {
+126    print "\nConsidering attributes: Not Equal\n";
+127  }
+\end{verbatim}
+Dado que los atibutos usados son \verb|symboltable| y \verb|types|, los árboles \verb|$t1| y \verb|$t2|
+son considerados equivalentes. No asi \verb|$t1| y \verb|$t3|.
+Observe el modo de llamada \verb|Parse::Eyapp::Node::equal| como subrutina, no como método. 
+Se hace así porque \verb|$t1|, \verb|$t2| y  \verb|$t3| no son objetos 
+\verb|Parse::Eyapp::Node|. La salida de \verb|Data::Dumper| reconstruye la forma estructural
+de un objeto pero no reconstruye la información sobre la jerarquía de clases.
+
+\begin{verbatim}
+pl@nereida:~/LEyapp/examples$ testequal.pl
+
+Not considering attributes: Equal
+
+Considering attributes: Equal
+
+Considering attributes: Not Equal
+\end{verbatim}
+\end{enumerate}
+
+\section{Análisis de Ámbito con {\tt Parse::Eyapp::Scope}}
+
+Para calcular la relación entre una instancia de un identificador
+y su declaración usaremos el módulo \tei{Parse::Eyapp::Scope}:
+\begin{verbatim}
+l@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '1,/^ *$/p' Scope.eyp | cat -n
+ 1  /*
+ 2  File: lib/Simple/Scope.eyp
+ 3  Full Scope Analysis
+ 4  Test it with:
+ 5    lib/Simple/
+ 6    eyapp -m Simple::Scope Scope.eyp
+ 7    treereg -nonumbers -m Simple::Scope Trans
+ 8    script/
+ 9    usescope.pl prueba12.c
+10  */
+11  %{
+12  use strict;
+13  use Data::Dumper;
+14  use List::MoreUtils qw(firstval lastval);
+15  use Simple::Trans;
+16  use Parse::Eyapp::Scope qw(:all);
+\end{verbatim}
+
+Véamos el 
+manejo de las reglas de \verb|program|:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/^program:/,/^;$/p' Scope.eyp | cat -n
+ 1  program:
+ 2        {
+ 3          reset_file_scope_vars();
+ 4        }
+ 5      definition<%name PROGRAM +>.program
+ 6        {
+ 7          $program->{symboltable} = { %st };  # creates a copy of the s.t.
+ 8          for (keys %type) {
+ 9            $type{$_} = Parse::Eyapp::Node->hnew($_);
+10          }
+11          $program->{depth} = 0;
+12          $program->{line}  = 1;
+13          $program->{types} = { %type };
+14          $program->{lines} = $tokenend;
+15
+16          my ($nondec, $declared) = $ids->end_scope($program->{symboltable}, $program, 'type');
+17
+18          if (@$nondec) {
+19            warn "Identifier ".$_->key." not declared at line ".$_->line."\n" for @$nondec;
+20            die "\n";
+21          }
+22
+23          # Type checking: add a direct pointer to the data-structure
+24          # describing the type
+25          $_->{t} = $type{$_->{type}} for @$declared;
+26
+27          my $out_of_loops = $loops->end_scope($program);
+28          if (@$out_of_loops) {
+29            warn "Error: ".ref($_)." outside of loop at line $_->{line}\n" for @$out_of_loops;
+30            die "\n";
+31          }
+32
+33          # Check that are not dangling breaks
+34          reset_file_scope_vars();
+35
+36          $program;
+37        }
+38  ;
+\end{verbatim}
+
+Antes de comenzar la construcción del AST se inicializan las variables visibles
+en todo el fichero:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/^sub reset_file_scope_vars/,/^}$/p' Scope.eyp | cat -n
+ 1  sub reset_file_scope_vars {
+ 2    %st = (); # reset symbol table
+ 3    ($tokenbegin, $tokenend) = (1, 1);
+ 4    %type = ( INT  => 1,
+ 5              CHAR => 1,
+ 6              VOID => 1,
+ 7            );
+ 8    $depth = 0;
+ 9    $ids = Parse::Eyapp::Scope->new(
+10             SCOPE_NAME => 'block',
+11             ENTRY_NAME => 'info',
+12             SCOPE_DEPTH => 'depth',
+13    );
+14    $loops = Parse::Eyapp::Scope->new(
+15             SCOPE_NAME => 'exits',
+16    );
+17    $ids->begin_scope();
+18    $loops->begin_scope(); # just for checking
+19  }
+\end{verbatim}
+
+\parrafo{El Método {\tt Parse::Eyapp::Scope->new}}
+
+El método  \tei{Parse::Eyapp::Scope->new}
+crea un objeto del tipo manejador de ámbito. 
+
+Un \cei{manejador de ámbito} es un objeto que ayuda en el cómputo de la función que asigna 
+a cada \emph{nodo instancia} de un nombre (variable, función, etiqueta, constante, identificador de tipo,
+etc.)
+su \emph{declaración}, esto es su entrada en su tabla de símbolos.
+
+En la línea 9 creamos el manejador de ámbito
+de los objetos identificadores \verb|$ids| (ámbito de variables, funciones, etc.). 
+En la línea 14 creamos un manejador de ámbito para los bucles (sentencias \verb|CONTINUE|, \verb|break|, etc.).
+El manejo de ámbito de los bucles consiste en asignar cada ocurrencia de una 
+sentencia \verb|BREAK| o \verb|CONTINUE| con el bucle en el que ocurre. Por ejemplo:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/script$ usescope.pl outbreak.c 2
+  1 test (int n, int m)
+  2 {
+  3   break;
+  4   while (n > 0) {
+  5     if (n>m) {
+  6       break;
+  7     }
+  8     else if (m>n){
+  9       continue;
+ 10     }
+ 11     n = n-1;
+ 12   }
+ 13 }
+Error: BREAK outside of loop at line 3
+\end{verbatim}
+En esta sección mostraremos como usar \tei{Parse::Eyapp::Scope}
+cuando trabajemos en el análisis de condiciones
+dependientes del contexto.
+
+
+La filosofía de \cpan{Parse::Eyapp::Scope} es que existen tres tipos de nodos en el AST:
+\begin{enumerate}
+\item Nodos que definen un ámbito y que tienen asociado un atributo 'tabla de símbolos', 
+por ejemplo: Nodos programa, nodos función, nodos bloque conteniendo
+declaraciones, etc. Además del atributo tabla de símbolos es común que dichos nodos
+dispongan de un atributo 'profundidad de ámbito' que indique su nivel de anidamiento cuando el
+lenguaje siendo analizado usa ámbitos anidados.
+
+\item Nodos que conllevan un uso de un nombre (\cei{nodos de uso}): 
+por ejemplo, nodos de uso de una variable en una
+expresión. El propósito del análisis de ámbito es dotar a cada uno de estos nodos de uso con
+un atributo 'scope' que referencia al \cei{nodo ámbito} en el que se ha guardado
+la información que define las propiedades del objeto. Es posible que además
+queramos tener en dicho nodo un atributo 'entry' que sea una referencia
+directa a la entrada en la tabla de símbolos asociada con el nombre.
+
+\item Otros tipos de nodo. Estos últimos pueden ser ignorados desde el 
+punto de vista del análisis de ámbito
+\end{enumerate}
+
+La asignación de ámbito se implanta 
+a través de atributos que se añaden a las nodos de uso y a los nodos ámbito.
+
+Algunos de los nombres de dichos atributos pueden ser especificados mediante los parámetros 
+de \verb|new|. En concreto:
+
+\begin{itemize}
+\item
+\tei{SCOPE\_NAME} es el nombre del atributo de la instancia 
+que contendrá la referencia al nodo
+'bloque' en el que ocurre esta instancia. Si no se especifica toma el valor \verb|scope|.
+
+En el ejemplo:
+
+\begin{verbatim}
+ 9    $ids = Parse::Eyapp::Scope->new(
+10             SCOPE_NAME => 'block',
+11             ENTRY_NAME => 'info',
+12             SCOPE_DEPTH => 'depth',
+13    );
+\end{verbatim}
+
+cada nodo asociado con una instancia de uso tendrá un atributo con clave \verb|block|
+que será una referencia al nodo \verb|BLOCK| en el que fué declarado el identificador.
+
+\item
+\tei{ENTRY\_NAME} es el nombre del atributo de la instancia
+que contendrá la referencia a 
+la entrada de símbolos que corresponde a esta instancia. Si no se
+especifica tomará el valor \verb|entry|.
+
+En el ejemplo que estamos trabajando cada nodo \verb|BLOCK| tendrá un atributo
+\verb|symboltable| que será una referencia a la tabla de símbolos asociada con el bloque.
+Dado que el atributo \verb|block| de un nodo \verb|$n| asociado 
+con una instancia de un identificador \verb|$id| apunta
+al nodo \verb|BLOCK| en el que se define, siempre sería posible
+acceder a la entrada de la tabla de símbolos mediante el código: 
+\begin{verbatim}
+                                   $n->{block}{symboltable}{$id}
+\end{verbatim}
+El atributo \verb|entry| crea una referencia directa en el nodo:
+\begin{verbatim}
+                            $n->{entry} = $n->{block}{symboltable}{$id}
+\end{verbatim}
+de esta forma es mas directo acceder a la entrada de símbolos de una instancia
+de uso de un identificador.
+
+Obviamente el atributo \verb|entry| no tiene sentido
+en aquellos casos en que el análisis de ámbito no requiere
+de la presencia de tablas de símbolos, como es el caso del
+análisis de ámbito de las sentencias de cambio de flujo en
+bucles: 
+\begin{verbatim}
+14    $loops = Parse::Eyapp::Scope->new(
+15             SCOPE_NAME => 'exits',
+16    );
+\end{verbatim}
+\item
+\tei{SCOPE\_DEPTH} es el nombre del atributo del nodo ámbito (nodo bloque)
+y contiene la profundidad de anidamiento del ámbito. Es opcional. Si no
+se especifica no será guardado.
+\end{itemize}
+
+
+\parrafo{El Método \tei{begin\_scope} }
+
+Este método debe ser llamado cada vez que se entra en una nueva región de ámbito.
+\cpan{Parse::Eyapp::Scope} asume un esquema de ámbitos léxicos anidados como ocurre en la mayoría
+de los lenguajes de programación: se supone que 
+todos los nodos declarados mediante llamadas al método \verb|scope_instance|
+entre dos llamadas consecutivas a \verb|begin_scope| y \verb|end_scope|
+definen la región del ámbito.
+Por ejemplo, en el analisis de ámbito de SimpleC llamamos a
+\verb|begin_scope| cada vez que se entra en una definición de función:
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/^funcDef:/,/^;$/p' Scope.eyp | cat -n
+  1  funcDef:
+  2      $ID
+  3         {
+  4           $ids->begin_scope();
+  5         }
+  6      '('  $params  ')'
+  7      $block
+  8        {
+ ..           ........................................
+ 35        }
+ 36  ;
+\end{verbatim}
+y cada vez que se entra en un bloque:
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/^block:/,/^;$/p' Scope.eyp | cat -n
+  1  block:
+  2      '{'.bracket
+  3         { $ids->begin_scope(); }
+  4       declaration<%name DECLARATIONS *>.decs statement<%name STATEMENTS *>.sts '}'
+  5         {
+ 25           ................
+ 26         }
+ 27
+ 28  ;
+\end{verbatim}
+
+En el caso del análisis de
+ámbito de bucles la entrada en un bucle crea una nueva región de ámbito:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/^loopPrefix:/,/^;$/p' Scope.eyp | cat -n
+  1  loopPrefix:
+  2      $WHILE '(' expression ')'
+  3        {
+  4          $loops->begin_scope;
+  5          $_[3]->{line} = $WHILE->[1];
+  6          $_[3]
+  7        }
+  8  ;
+\end{verbatim}
+
+\parrafo{ El Método \tei{end\_scope } }
+
+En el código que sigue
+el método \verb|end_scope| es llamado con tres argumentos:
+\begin{verbatim}
+           my ($nodec, $dec) = $ids->end_scope($st, $block, 'type');
+\end{verbatim}
+El significado de estos argumentos es el siguiente:
+\begin{enumerate}
+\item
+Una referencia a un hash \verb|$st|.
+Este hash es la tabla de símbolos asociada con el bloque actual.
+Se asume que la clave de entrada de un nodo \verb|$n| del árbol
+se obtiene mediante una llamada al método del nodo \verb|key| definido 
+por el programador: \verb|$st->{$n->key}|. Se asume también que los 
+valores del hash son una referencia a un hash conteniendo los atributos
+asociados con la clave \verb|$n->key|.
+\item
+Una referencia
+al nodo bloque \verb|$block| o nodo de ámbito asociado con el hash. 
+En nuestro ejemplo del análisis de ámbito de los identificadores
+las instancias de identificadores declarados en el presente bloque
+seran decorados con un atributo \verb|block| que apunta a dicho nodo.
+El nombre es  \verb|block| porque así se específico en la llamada a \verb|new|:
+\begin{verbatim}
+ 9    $ids = Parse::Eyapp::Scope->new(
+10             SCOPE_NAME => 'block',
+11             ENTRY_NAME => 'info',
+12             SCOPE_DEPTH => 'depth',
+13    );
+\end{verbatim}
+
+\item
+Los argumentos adicionales como \verb|'type'|
+que sean pasados a \verb|end_scope| son interpretados como claves del hash 
+apuntado por su entrada en la tabla de símbolos \verb|$n->key|.
+Para cada uno de esos argumentos se crean referencias directas en el nodo \verb|$n| a los mismos:
+\begin{verbatim}
+$n->{type} = $st->{$n->key}{type}
+\end{verbatim}
+\end{enumerate}
+La llamada \verb|$ids->end_scope($st, $block, 'type')| ocurre después del
+análisis de todo el bloque de la función:
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/^funcDef:/,/^;$/p' Scope.eyp | cat -n
+ 1  funcDef:
+ 2      $ID
+ 3         {
+ 4           $ids->begin_scope();
+ 5         }
+ 6      '('  $params  ')'
+ 7      $block
+ 8        {
+ 9           my $st = $block->{symboltable};
+10           my @decs = $params->children();
+11           $block->{parameters} = [];
+12           while (my ($bt, $id, $arrspec) = splice(@decs, 0, 3)) {
+..             ..................................................
+24           }
+25           $block->{function_name} = $ID;
+26           $block->type("FUNCTION");
+27
+28           my ($nodec, $dec) = $ids->end_scope($st, $block, 'type');
+29
+30           # Type checking: add a direct pointer to the data-structure
+31           # describing the type
+32           $_->{t} = $type{$_->{type}} for @$dec;
+33
+34           return $block;
+35        }
+36  ;
+\end{verbatim}
+Todos los nodos \verb|$n| del árbol que fueron
+declarados como instancias mediante llamadas al método
+\verb|scope_instance|
+desde la última llamada a  \verb|begin_scope|
+son buscados en el hash referenciado por \verb|$st|.
+Si la clave \verb|$n->key| asociada con el nodo \verb|$n|
+se encuentra entre las claves del hash (esto es,
+\verb|exists $st->{$n->key}|) el nodo se
+anota como \emph{declarado}. Los nodos-instancia para los cuales
+no existe una entrada en la tabla de símbolos se consideran
+\emph{no declarados}.
+
+Cuando un nodo se determina como declarado 
+se establecen los atributos de 
+declaración: 
+\begin{itemize}
+\item
+Una referencia a su entrada en la tabla de símbolos
+(cuyo nombre fue establecido mediante el parámetro \verb|ENTRY_NAME|
+de \verb|new|) 
+\begin{verbatim}
+$n->{$ids->{ENTRY_NAME}} = $st->{$n->key}
+\end{verbatim}
+Si por ejemplo el nodo siendo usado se corresponde con el uso de una variable de nombre \verb|a|,
+entonces \verb|$n->key| deberá retornar \verb|a| y la asignación anterior, asumiendo la declaración
+previa del manejador de ámbito \verb|$ids|, sería:
+\begin{verbatim}
+$n->{info} = $st->{a}
+\end{verbatim}
+
+\item
+Una referencia al bloque
+en el que fué declarado (el nombre del atributo será el establecido
+en \verb|SCOPE_NAME|). 
+\begin{verbatim}
+$n->{$ids->{SCOPE_NAME}} = $block
+\end{verbatim}
+Si por ejemplo el nodo siendo usado se corresponde con el uso de una variable de nombre \verb|a|,
+la asignación anterior, asumiendo la declaración
+previa del manejador de ámbito \verb|$ids|, sería:
+\begin{verbatim}
+$n->{block} = $block
+\end{verbatim}
+donde \verb|$block| es el nodo asociado con el bloque en el que fue declarado
+\verb|$a|.
+\item
+Cualesquiera argumentos
+adicionales - como \verb|'type'| en el ejemplo - 
+que sean pasados a \verb|end_scope| son interpretados
+como claves del hash apuntado por su entrada en la tabla de 
+símbolos \verb|$st->{$n->key}|. Para cada uno de esos argumentos
+se crean referencias directas en el nodo \verb|$n| a los mismos.
+\begin{verbatim}
+$n->{type} = $st->{$n->key}{type}
+\end{verbatim}
+esto es:
+\begin{verbatim}
+$n->{type} = $st->{a}{type}
+\end{verbatim}
+\end{itemize}
+
+Se supone que antes de la llamada
+a {\tt end\_scope} las declaraciones de los diferentes objetos
+han sido procesadas
+y la tabla hash ha sido rellenada con las mismas.
+
+Los nodos \verb|$n| que no aparezcan entre los
+declarados en este ámbito  son apilados en la esperanza de que 
+hayan sido declarados en un ámbito superior.
+
+Para un ejemplo de uso véase la línea 28 en el código anterior. 
+El tercer argumento \verb|type| indica que para cada instancia
+de variable global que ocurre en el ámbito de \verb|program|
+queremos que se cree una referencia desde el nodo a su entrada
+\verb|type| en la tabla de símbolos. De este modo se puede
+conseguir un acceso mas rápido al tipo de la instancia si bien a costa
+de aumentar el consumo de memoria.
+
+En un contexto de lista \verb|end_scope| devuelve un par de referencias.
+La primera es una referencia a la lista de instancias/nodos
+del ámbito actual que no aparecen como claves
+del hash. La segunda a los que aparecen. 
+
+En un contexto escalar devuelve la lista de instancias/nodos 
+no declarados.
+
+\parrafo{El Método \tei{key} para Nodos con Ámbito}
+
+El programador deberá proveer a cada clase de nodo (subclases de \verb|Parse::Eyapp::Node|)
+que pueda ser instanciado/usado en un ámbito o bloque de un método \tei{key}. 
+En nuestro caso los nodos 
+del tipo \verb|VAR|, \verb|VARARRAY| y \verb|FUNCTIONCALL| son los que 
+pueden
+ser usados dentro de expresiones y sentencias.
+
+El método \tei{key} 
+se usa para computar el valor de la clave de 
+entrada en el hash para esa clase de nodo.
+
+Para la tabla de símbolos de los identificadores
+en SimpleC necesitamos definir el método \verb|key| para los nodos \verb|VAR|,
+\verb|VARARRAY| y \verb|FUNCTIONCALL|:
+
+\begin{verbatim}
+827 sub VAR::key {
+828   my $self = shift;
+829
+830   return $self->child(0)->{attr}[0];
+831 }
+832
+833 *VARARRAY::key = *FUNCTIONCALL::key = \&VAR::key;
+\end{verbatim}
+
+Si tiene dudas repase la definición de \verb|Variable|
+en la descripción de la gramática en la página \pageref{parrafo:elcuerpo}:
+
+\begin{verbatim}
+Variable:
+    %name VAR
+    ID 
+  | %name  VARARRAY
+    $ID ('[' binary ']') <%name INDEXSPEC +> 
+;
+\end{verbatim}
+y el subárbol para la asignación de \verb|a = 2| en la página \pageref{parrafo:ejemplodearbolconstruido}.
+\begin{verbatim}
+ASSIGN(
+  VAR(
+    TERMINAL[a:5]
+  ),
+  INUM(
+    TERMINAL[2:5]
+  )
+) # ASSIGN,
+\end{verbatim}
+
+\parrafo{El Modo de Llamada Simplificado a {\tt end\_scope}}
+
+En el caso de un análisis de ámbito simple como es el análisis de ámbito
+de los bucles no se requiere de la presencia de una tabla de símbolos.
+El único argumento de \verb|end_scope| es la referencia al nodo que define 
+el ámbito. 
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/^statement:/,/^;$/p' Scope.eyp | cat -n
+  1  statement:
+  2      expression ';' { $_[1] }
+  3    | ';'
+  4    | %name BREAK
+  5      $BREAK ';'
+  6        {
+  7          my $self = shift;
+  8          my $node = $self->YYBuildAST(@_);
+  9          $node->{line} = $BREAK->[1];
+ 10          $loops->scope_instance($node);
+ 11          return $node;
+ 12        }
+ 13    | %name CONTINUE
+ 14       $CONTINUE ';'
+ 15        {
+ 19          ...............................
+ 21        }
+ ..    .....................................
+ 34    | %name WHILE
+ 35      $loopPrefix statement
+ 36        {
+ 37          my $self = shift;
+ 38          my $wnode = $self->YYBuildAST(@_);
+ 39          $wnode->{line} = $loopPrefix->{line};
+ 40          my $breaks = $loops->end_scope($wnode);
+ 41          return $wnode;
+ 42        }
+ 43  ;
+\end{verbatim}
+
+
+\parrafo{El Método \tei{scope\_instance} }
+
+Este método del objeto \cpan{Parse::Eyapp::Scope} empuja el nodo 
+que se le pasa como argumento en la cola de instancias del 
+manejador de ámbito.
+El nodo se considerará una ocurrencia de un objeto dentro 
+del ámbito actual (el que comienza en la última ejecución 
+de \verb|begin_scope|).  En el compilador de \verb|SimpleC| debemos hacer:
+
+\label{code:primary}
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/^Primary:/,/^;$/p' Scope.eyp | cat -n
+  1  Primary:
+  2      %name INUM
+  3      INUM
+  4    | %name CHARCONSTANT
+  5      CHARCONSTANT
+  6    | $Variable
+  7        {
+  8          $ids->scope_instance($Variable);
+  9          return $Variable
+ 10        }
+ 11    | '(' expression ')' { $_[2] }
+ 12    | $function_call
+ 13        {
+ 14          $ids->scope_instance($function_call);
+ 15          return $function_call  # bypass
+ 16        }
+ 17  ;
+\end{verbatim}
+
+Otros lugares en los que ocurren instancias de identificadores son las 
+asignaciones:
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/^binary:/,/^;$/p' Scope.eyp | cat -n
+  1  binary:
+  2      Unary { $_[1] }
+  3    | %name PLUS
+  4      binary '+' binary
+ ..    ...................
+ 23    | %name ASSIGN
+ 24      $Variable '=' binary
+ 25        {
+ 26          goto &declare_instance_and_build_node;
+ 27        }
+ 28    | %name PLUSASSIGN
+ 29      $Variable '+=' binary
+ 30        {
+ 31          goto &declare_instance_and_build_node;
+ 32        }
+ 33    | %name MINUSASSIGN
+ 34      $Variable '-=' binary
+ 35        {
+ 36          goto &declare_instance_and_build_node;
+ 37        }
+ 38    | %name TIMESASSIGN
+ 39      $Variable '*=' binary
+ 40        {
+ 41          goto &declare_instance_and_build_node;
+ 42        }
+ 43    | %name DIVASSIGN
+ 44      $Variable '/=' binary
+ 45        {
+ 46          goto &declare_instance_and_build_node;
+ 47        }
+ 48    | %name MODASSIGN
+ 49      $Variable '%=' binary
+ 50        {
+ 51          goto &declare_instance_and_build_node;
+ 52        }
+ 53  ;
+\end{verbatim}
+Como indica su nombre, la función \verb|declare_instance_and_build_node|
+declara la instancia y crea el nodo del AST:
+\begin{verbatim}
+116 sub declare_instance_and_build_node {
+117   my ($parser, $Variable) = @_[0,1];
+118
+119   $ids->scope_instance($Variable);
+120   goto &Parse::Eyapp::Driver::YYBuildAST;
+121 }
+\end{verbatim}
+
+En el caso del análisis de ámbito en bucles las instancias ocurren en las
+sentencias de \verb|break| y \verb|continue|:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/^statement:/,/^;$/p' Scope.eyp | cat -n
+ 1  statement:
+ 2      expression ';' { $_[1] }
+ 3    | ';'
+ 4    | %name BREAK
+ 5      $BREAK ';'
+ 6        {
+ 7          my $self = shift;
+ 8          my $node = $self->YYBuildAST(@_);
+ 9          $node->{line} = $BREAK->[1];
+10          $loops->scope_instance($node);
+11          return $node;
+12        }
+13    | %name CONTINUE
+14       $CONTINUE ';'
+15        {
+16          my $self = shift;
+17          my $node = $self->YYBuildAST(@_);
+18          $node->{line} = $CONTINUE->[1];
+19          $loops->scope_instance($node);
+20          return $node;
+21        }
+..    .....................................
+34    | %name WHILE
+35      $loopPrefix statement
+36        {
+37          my $self = shift;
+38          my $wnode = $self->YYBuildAST(@_);
+39          $wnode->{line} = $loopPrefix->{line};
+40          my $breaks = $loops->end_scope($wnode);
+41          return $wnode;
+42        }
+43  ;
+\end{verbatim}
+
+\paragraph{Cálculo del Ámbito en Bloques}
+
+El modo de uso se ilustra en el manejo de los bloques
+\begin{verbatim}
+                      block: '{' declaration * statement * '}'
+\end{verbatim}
+
+La computación del ámbito requiere las siguientes etapas:
+\begin{enumerate}
+\item
+Es necesario introducir una acción intermedia (línea 3) para indicar
+que una "llave abrir" determina el comienzo de un bloque. 
+\item
+
+Durante las sucesivas visitas a \verb|declaration| construímos
+tablas de símbolos que son mezcladas en las líneas 8-15.
+\item
+
+Todas
+las instancias de nodos-nombre que ocurren cuando se 
+visitan los hijos de \verb|statements| son declaradas como
+instanciaciones con \verb|scope_instance| (véanse los acciones
+semánticas para \verb|Primary| en la página \pageref{code:primary}).
+\item
+
+La llamada a \verb|end_scope| de la línea 19
+produce la computación parcial de la función de asignación de ámbito
+para los nodos/nombre que fueron instanciados en este bloque.
+\end{enumerate}
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/^block:/,/^;$/p' Scope.eyp | cat -n
+ 1  block:
+ 2      '{'.bracket
+ 3         { $ids->begin_scope(); }
+ 4       declaration<%name DECLARATIONS *>.decs statement<%name STATEMENTS *>.sts '}'
+ 5         {
+ 6           my %st;
+ 7
+ 8           for my $lst ($decs->children) {
+ 9
+10               # control duplicated declarations
+11             my $message;
+12             die $message if $message = is_duplicated(\%st, $lst);
+13
+14             %st = (%st, %$lst);
+15           }
+16           $sts->{symboltable} = \%st;
+17           $sts->{line} = $bracket->[1];
+18           $sts->type("BLOCK") if (%st);
+19           my ($nondec, $dec) = $ids->end_scope(\%st, $sts, 'type');
+20
+21           # Type checking: add a direct pointer to the data-structure
+22           # describing the type
+23           $_->{t} = $type{$_->{type}} for @$dec;
+24
+25           return $sts;
+26         }
+27
+28  ;
+\end{verbatim}
+
+Actualmente las acciones intermedias tal y como la que se ven en el código anterior
+se usan habitualmente para producir efectos laterales en la construcción
+del árbol. No dan lugar a la inserción de un nodo. Esto es, la variable 
+auxiliar/temporal generada para dar lugar a la acción intermedia
+no es introducida en el árbol generado.
+
+\parrafo{La Jerarquía de Bloques}
+
+Para completar el análisis de ámbito queremos decorar cada nodo \verb|BLOCK|
+con un atributo \verb|fatherblock| que referencia al nodo bloque 
+que lo contiene. Para esta fase usaremos el lenguaje \tei{Treeregexp}. 
+Las frases de este lenguaje permiten definir conjuntos de árboles. Cuando van en un fichero aparte los programas 
+\verb|Treeregexp| suelen tener la extensión \verb|trg|. Por ejemplo,
+el siguiente programa 
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ cat -n Trans.trg
+     1  /* Scope Analysis */
+     2  blocks:  /BLOCK|FUNCTION|PROGRAM/
+     3
+     4  retscope: /FUNCTION|RETURN/
+     5
+     6  loop_control: /BREAK|CONTINUE|WHILE/
+\end{verbatim}
+define tres expresiones árbol a las que nos podremos referir en el
+cliente mediante las variables \verb|$blocks|, \verb|$retscope| y 
+\verb|loops_control|. La primera expresión árbol tiene por nombre \verb|blocks|
+y casará con cualesquiera árboles de las clases \verb|BLOCK|, \verb|FUNCTION| o \verb|PROGRAM|.
+Es necesario compilar el programa \verb|Treeregexp|:
+\begin{verbatim}
+l@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ treereg -m Simple::Scope Trans
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ ls -ltr | tail -2
+-rw-r--r-- 1 pl users   122 2007-12-10 11:49 Trans.trg
+-rw-r--r-- 1 pl users  1544 2007-12-10 11:49 Trans.pm
+\end{verbatim}
+El módulo generado \verb|Trans.pm| contendrá una subrutina por cada expresión
+regular árbol en el programa \verb|Treeregexp|. 
+La subrutina devuelve cierto si el nodo que se le pasa como primer argumento 
+casa con la expresión árbol. La subrutina espera como primer argumento el nodo, como
+segundo argumento el padre del nodo y como tercero el objeto \verb|Parse::Eyapp::YATW| que encapsula 
+la transformación:
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '19,31p' Trans.pm
+  sub blocks {
+    my $blocks = $_[3]; # reference to the YATW pattern object
+    my $W;
+
+    {
+      my $child_index = 0;
+
+      return 0 unless ref($W = $_[$child_index]) =~ m{\bBLOCK\b|\bFUNCTION\b|\bPROGRAM\b}x;
+
+    } # end block of child_index
+    1;
+
+  } # end of blocks
+\end{verbatim}
+No solo se construye una subrutina \verb|blocks| sino que en el espacio de nombres
+correspondiente se crean objetos  \verb|Parse::Eyapp::YATW| por cada una de las
+transformaciones especificadas en el programa \verb|trg|, como muestra el siguiente
+fragmento del módulo conteniendo el código generado por \verb|treeregexp|:
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '16p' Trans.pm
+our @all = ( our $blocks, our $retscope, our $loop_control, ) = 
+  Parse::Eyapp::YATW->buildpatterns(
+    blocks => \&blocks, 
+    retscope => \&retscope, 
+    loop_control => \&loop_control, 
+  );
+\end{verbatim}
+
+Estos objetos \verb|Parse::Eyapp::YATW| estan disponibles 
+en el programa eyapp ya que hemos importado el módulo: 
+\begin{verbatim}
+l@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '1,/^ *$/p' Scope.eyp | cat -n
+ 1  /*
+ 2  File: lib/Simple/Scope.eyp
+ 3  Full Scope Analysis
+ 4  Test it with:
+ 5    lib/Simple/
+ 6    eyapp -m Simple::Scope Scope.eyp
+ 7    treereg -nonumbers -m Simple::Scope Trans
+ 8    script/
+ 9    usescope.pl prueba12.c
+10  */
+11  %{
+12  use strict;
+13  use Data::Dumper;
+14  use List::MoreUtils qw(firstval lastval);
+15  use Simple::Trans;
+16  use Parse::Eyapp::Scope qw(:all);
+\end{verbatim}
+
+Es por eso que, una vez realizadas las fases de análisis léxico, 
+sintáctico y de ámbito podemos usar el objeto  \verb|$blocks| 
+y el método \verb|m| (por \verb|matching|) de dicho objeto
+(véase la línea 14 en el código de \verb|compile|):
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '/sub comp/,/^}/p' Scope.eyp | cat -n
+ 1  sub compile {
+ 2   my($self)=shift;
+ 3
+ 4   my ($t);
+ 5
+ 6   $self->YYData->{INPUT} = shift;
+ 7
+ 8   $t = $self->YYParse( yylex => \&_Lexer, yyerror => \&_Error,
+ 9                        #yydebug => 0x1F
+10       );
+11
+12   # Scope Analysis: Block Hierarchy
+13   our $blocks;
+14   my @blocks = $blocks->m($t);
+15   $_->node->{fatherblock} = $_->father->{node} for (@blocks[1..$#blocks]);
+16
+..   .................................
+28
+29   return $t;
+30  }
+\end{verbatim}
+
+El método \verb|m| para árboles y expresiones regulares árbol
+\verb|YATW| funciona de manera parecida 
+al método \verb|m| para cadenas y expresiones regulares convencionales.
+El resultado de un matching en árboles es un árbol. Si se trabaja en un contexto
+de lista es una lista de árboles.
+
+La llamada \verb|$blocks->m($t)| permite la búsqueda 
+de los nodos de \verb|$t| que casan con la expresión regular árbol para \verb|blocks|.
+En un contexto de lista \verb|m| devuelve una 
+lista con nodos del
+tipo \tei{Parse::Eyapp::Node::Match} que referencian
+a los nodos que han casado. 
+Los nodos \verb|Parse::Eyapp::Node::Match|
+son a su vez nodos (heredan de) 
+\verb|Parse::Eyapp::Node|.
+Los nodos 
+aparecen en la lista retornada en orden primero profundo de 
+recorrido del árbol \verb|$t|.
+
+Los nodos en la lista
+se estructuran según un árbol (atributos \verb|children| y \verb|father|)
+de manera que el padre
+de un nodo \verb|$n| del tipo \verb|Parse::Eyapp::Node::Match| es el 
+nodo \verb|$f| que referencia al inmediato antecesor 
+en el árbol que ha casado. 
+
+Un nodo \verb|$r| de la clase 
+\verb|Parse::Eyapp::Node::Match| dispone de varios atributos
+y métodos:
+\begin{itemize}
+\item
+El método \verb|$r->node| retorna el nódo del árbol \verb|$t| que ha casado
+\item
+El método \verb|$r->father| retorna el nodo padre en el árbol the matching.
+Se cumple que \verb|$r->father->node| es 
+una referencia al antepasado mas cercano en \verb|$t|
+de  \verb|$r->node| que casa con el patrón árbol.
+\item
+El método \verb|$r->coord| retorna las coordenadas del nódo del árbol que ha casado
+usando una notación con puntos. Por ejemplo la coordenada
+\verb|".1.3.2"| 
+denota al nodo \verb|$t->child(1)->child(3)->child(2)|, siendo \verb|$t|
+la raíz del árbol de búsqueda.
+\item
+El método \verb|$r->depth| retorna la profundidad del nódo del árbol que ha casado
+\end{itemize}
+
+En un contexto escalar \verb|m| devuelve el primer
+elemento de la lista de nodos \verb|Parse::Eyapp::Node::Match|.
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/script$ perl -wd usescope.pl blocks.c 2
+
+Loading DB routines from perl5db.pl version 1.28
+Editor support available.
+
+Enter h or `h h' for help, or `man perldebug' for more help.
+
+main::(usescope.pl:6):  my $filename = shift || die "Usage:\n$0 file.c\n";
+  DB<1> c Simple::Scope::compile
+
+   1 test (int n)
+   2 {
+   3   int a;
+   4
+   5   while (1) {
+   6     if (1>0) {
+   7       int a;
+   8       break;
+   9     }
+  10     else if (2>0){
+  11       char b;
+  12       continue;
+  13     }
+  14   }
+  15 }
+Simple::Scope::compile(Scope.eyp:784):
+784:     my($self)=shift;
+ DB<2> l 783,797
+783     sub compile {
+784==>   my($self)=shift;
+785
+786:     my ($t);
+787
+788:     $self->YYData->{INPUT} = shift;
+789
+790:     $t = $self->YYParse( yylex => \&_Lexer, yyerror => \&_Error,
+791                           #yydebug => 0x1F
+792          );
+793
+794      # Scope Analysis: Block Hierarchy
+795:     our $blocks;
+796:     my @blocks = $blocks->m($t);
+797:     $_->node->{fatherblock} = $_->father->{node} for (@blocks[1..$#blocks]);
+  DB<3> c 797
+Simple::Scope::compile(Scope.eyp:797):
+797:     $_->node->{fatherblock} = $_->father->{node} for (@blocks[1..$#blocks]);
+  DB<4> x Parse::Eyapp::Node->str(@blocks)
+0  '
+Match[[PROGRAM:0:blocks]](
+  Match[[FUNCTION:1:blocks:test]](
+    Match[[BLOCK:6:blocks:10:4]],
+    Match[[BLOCK:5:blocks:6:4]]
+  )
+)'
+1  '
+Match[[FUNCTION:1:blocks:test]](
+  Match[[BLOCK:6:blocks:10:4]],
+  Match[[BLOCK:5:blocks:6:4]]
+)'
+2  '
+Match[[BLOCK:5:blocks:6:4]]'
+3  '
+Match[[BLOCK:6:blocks:10:4]]'
+\end{verbatim}
+La información que aparece en los nodos \verb|Match| es como sigue:
+\begin{itemize}
+\item
+La clase del nodo al que referencia \verb|PROGRAM|, \verb|FUNCTION|, etc.
+\item
+La profundidad del nodo que ha casado en \verb|$t|
+\item
+Los nombres de las transformaciones con las que casó el nodo
+\item
+Si el nodo tiene un método \verb|info| la información asociada.
+En este caso la línea y la profundidad en los bloques.
+\end{itemize}
+
+\begin{verbatim}
+ DB<5> p $t->str
+
+PROGRAM^{0}(
+  FUNCTION[test]^{1}(                                 #  test (int n) {
+    WHILE(                                            #    while (1) {
+      INUM(TERMINAL[1:5]),
+      STATEMENTS(
+        IFELSE(                                       #      if (1>0) {
+          GT(INUM( TERMINAL[1:6]), INUM(TERMINAL[0:6])),
+          BLOCK[6:4]^{2}(
+            BREAK                                     #         break;
+          ),                                          #      }
+          IF(                                         #      else if (2>0){
+            GT(INUM(TERMINAL[2:10]), INUM(TERMINAL[0:10])),
+            BLOCK[10:4]^{3}(
+              CONTINUE                                #         continue
+            )                                         #      }
+          )
+        )
+      )
+    )
+  )
+)
+....
+  DB<6> x map {$_->coord} @blocks
+0  ''
+1  '.0'
+2  '.0.0.1.0.1'
+3  '.0.0.1.0.2.1'
+  DB<7>  p $t->descendant('.0.0.1.0.2.1')->str
+
+BLOCK[10:4]^{0}(
+  CONTINUE
+)
+---------------------------
+0)
+Symbol Table of block at line 10
+$VAR1 = {
+          'b' => {
+                   'type' => 'CHAR',
+                   'line' => 11
+                 }
+        };
+ DB<8> x map {$_->depth} @blocks
+0  0
+1  1
+2  5
+3  6
+  DB<9> x  map {ref($_->node) } @blocks
+0  'PROGRAM'
+1  'FUNCTION'
+2  'BLOCK'
+3  'BLOCK'
+  DB<10> x  map {ref($_->father) } @blocks
+0  ''
+1  'Parse::Eyapp::Node::Match'
+2  'Parse::Eyapp::Node::Match'
+3  'Parse::Eyapp::Node::Match'
+  DB<11> x  map {ref($_->father->node) } @blocks[1..3]
+0  'PROGRAM'
+1  'FUNCTION'
+2  'FUNCTION'
+  DB<12> x  $blocks[2]->father->node->{function_name}
+0  ARRAY(0x86ed84c)
+   0  'test'
+   1  1
+\end{verbatim}
+
+\parrafo{El Método {\tt names}}
+
+La clase \verb|Parse::Eyapp::Node::Match| 
+dispone además de otros métodos
+para el caso en que se usan varios patrones en la misma búsqueda.
+Por ejemplo, el método \verb|$r->names| retorna una referencia a los nombres de los patrones
+que han casado con el nodo.
+En el ejemplo que sigue aparecen tres transformaciones
+\verb|fold|, \verb|zxw| y \verb|wxz|. La llamada a 
+\verb|m| de la línea 19 toma una forma diferente. ahora
+\verb|m| es usado como método del árbol \verb|$t| y recibe como argumentos
+la lista con los objetos expresiones regulares árbol (\verb|Parse::Eyapp::YATW|).
+\begin{verbatim}
+pl@nereida:~/LEyapp/examples$ cat -n m2.pl
+ 1  #!/usr/bin/perl -w
+ 2  use strict;
+ 3  use Rule6;
+ 4  use Parse::Eyapp::Treeregexp;
+ 5
+ 6  Parse::Eyapp::Treeregexp->new( STRING => q{
+ 7    fold: /TIMES|PLUS|DIV|MINUS/(NUM, NUM)
+ 8    zxw: TIMES(NUM($x), .) and { $x->{attr} == 0 }
+ 9    wxz: TIMES(., NUM($x)) and { $x->{attr} == 0 }
+10  })->generate();
+11
+12  # Syntax analysis
+13  my $parser = new Rule6();
+14  my $input = "0*0*0";
+15  my $t = $parser->Run(\$input);
+16  print "Tree:",$t->str,"\n";
+17
+18  # Search
+19  my $m = $t->m(our ($fold, $zxw, $wxz));
+20  print "Match Node:\n",$m->str,"\n";
+\end{verbatim}
+La primera expresión regular árbol \verb|fold| casa con cualquier árbol tal
+que la clase del nodo raíz case con la expresión regular (clásica) 
+\verb#/TIMES|PLUS|DIV|MINUS/# y tenga dos hijos de clase \verb|NUM|.
+
+La segunda expresión regular \verb|zxw| (por \emph{zero
+times whatever}) casa con cualquier árbol tal que la clase del 
+nodo raíz es \verb|TIMES| y cuyo primer hijo pertenece a la clase
+\verb|NUM|. Se debe cumplir además que el hijo del nodo \verb|NUM| 
+(el nodo \verb|TERMINAL| proveído por el analizador léxico)
+debe tener su atributo \verb|attr| a cero. La notación
+\verb|NUM($x)| hace que en \verb|$x| se almacene una referencia al nodo
+hijo de \verb|NUM|.
+La expresión regular árbol \verb|wxz| es la simétrica de \verb|zxw|.
+
+Cuando se ejecuta, el programa produce la salida:
+\begin{verbatim}
+pl@nereida:~/LEyapp/examples$ m2.pl
+Tree:TIMES(TIMES(NUM(TERMINAL),NUM(TERMINAL)),NUM(TERMINAL))
+Match Node:
+Match[[TIMES:0:wxz]](Match[[TIMES:1:fold,zxw,wxz]])
+\end{verbatim}
+
+\section{Resultado del Análisis de Ámbito}
+\label{section:resultadosambito}
+Como se ha comentado en la sección 
+\ref{section:limitacionesdedumper} el volcado de 
+los AST con \verb|Data::Dumper| es insuficiente.
+Para la visualización utilizaremos el método
+\tei{str} presentado en la sección
+\ref{section:str}.
+
+\parrafo{Código de Apoyo a la Visualización}
+
+Sigue el código de apoyo a la visualización:
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/lib/Simple$ sed -ne '845,$p' Scope.eyp | cat -n
+ 1  ############## Debugging and Display
+ 2  sub show_trees {
+ 3   my ($t) = @_;
+ 4
+ 5   print Dumper $t if $debug > 1;
+ 6   $Parse::Eyapp::Node::INDENT = 2;
+ 7   $Data::Dumper::Indent = 1;
+ 8   print $t->str."\n";
+ 9  }
+10
+11  $Parse::Eyapp::Node::INDENT = 1;
+12  sub TERMINAL::info {
+13    my @a = join ':', @{$_[0]->{attr}};
+14    return "@a"
+15  }
+16
+17  sub PROGRAM::footnote {
+18    return "Types:\n"
+19           .Dumper($_[0]->{types}).
+20           "Symbol Table of the Main Program:\n"
+21           .Dumper($_[0]->{symboltable})
+22  }
+23
+24  sub FUNCTION::info {
+25    return $_[0]->{function_name}[0]
+26  }
+27
+28  sub FUNCTION::footnote {
+29    my $text = '';
+30    $text .= "Symbol Table of $_[0]->{function_name}[0]\n" if $_[0]->type eq 'FUNCTION';
+31    $text .= "Symbol Table of block at line $_[0]->{line}\n" if $_[0]->type eq 'BLOCK';
+32    $text .= Dumper($_[0]->{symboltable});
+33    return $text;
+34  }
+35
+36  sub BLOCK::info {
+37    my $info = "$_[0]->{line}:$_[0]->{depth}";
+38    my $fatherblock = $_[0]->{fatherblock};
+39      $info .= ":".$fatherblock->info
+40    if defined($fatherblock) and UNIVERSAL::can($fatherblock, 'info');
+41    return $info;
+42  }
+43
+44  *BLOCK::footnote = \&FUNCTION::footnote;
+45
+46  sub VAR::info {
+47    return $_[0]->{type} if defined $_[0]->{type};
+48    return "No declarado!";
+49  }
+50
+51  *FUNCTIONCALL::info = *VARARRAY::info = \&VAR::info;
+\end{verbatim}
+
+\parrafo{Un Ejemplo con Errores de Ámbito}
+
+Utilizando este código 
+obtenemos una descripción completa y concisa 
+del árbol anotado. Si hay errores de ámbito se mostrarán.
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/script$ usescope.pl prueba27.c 2
+
+   1 int a,b;
+   2
+   3 int f(char c) {
+   4  a[2] = 4;
+   5  {
+   6    int d;
+   7    d = a + b;
+   8  }
+   9  c = d * 2;
+  10  return g(c);
+  11 }
+Identifier d not declared at line 9
+Identifier g not declared at line 10
+\end{verbatim}
+
+\parrafo{Mostrando el Resultado del Análisis de Ámbito}
+
+Si no hay errores se obtiene un listado enumerado del programa fuente,
+el árbol, la tabla de tipos y las tablas de símbolos:
+
+\begin{verbatim}
+pl@nereida:~/Lbook/code/Simple-Scope/script$  usescope.pl prueba25.c 2
+
+   1 int a[20],b,e[10];
+   2
+   3 g() {}
+   4
+   5 int f(char c) {
+   6 char d;
+   7  c = 'X';
+   8  e[b] = 'A'+c;
+   9  {
+  10    int d;
+  11    d = d + b;
+  12  }
+  13  c = d * 2;
+  14  return c;
+  15 }
+  16
+  17
+PROGRAM^{0}(
+  FUNCTION[g]^{1},
+  FUNCTION[f]^{2}(
+    ASSIGN(
+      VAR[CHAR](
+        TERMINAL[c:7]
+      ),
+      CHARCONSTANT(
+        TERMINAL['X':7]
+      )
+    ) # ASSIGN,
+    ASSIGN(
+      VARARRAY[A_10(INT)](
+        TERMINAL[e:8],
+        INDEXSPEC(
+          VAR[INT](
+            TERMINAL[b:8]
+          )
+        ) # INDEXSPEC
+      ) # VARARRAY,
+      PLUS(
+        CHARCONSTANT(
+          TERMINAL['A':8]
+        ),
+        VAR[CHAR](
+          TERMINAL[c:8]
+        )
+      ) # PLUS
+    ) # ASSIGN,
+    BLOCK[9:3:f]^{3}(
+      ASSIGN(
+        VAR[INT](
+          TERMINAL[d:11]
+        ),
+        PLUS(
+          VAR[INT](
+            TERMINAL[d:11]
+          ),
+          VAR[INT](
+            TERMINAL[b:11]
+          )
+        ) # PLUS
+      ) # ASSIGN
+    ) # BLOCK,
+    ASSIGN(
+      VAR[CHAR](
+        TERMINAL[c:13]
+      ),
+      TIMES(
+        VAR[CHAR](
+          TERMINAL[d:13]
+        ),
+        INUM(
+          TERMINAL[2:13]
+        )
+      ) # TIMES
+    ) # ASSIGN,
+    RETURN(
+      VAR[CHAR](
+        TERMINAL[c:14]
+      )
+    ) # RETURN
+  ) # FUNCTION
+) # PROGRAM
+---------------------------
+0)
+Types:
+$VAR1 = {
+  'A_10(INT)' => bless( {
+    'children' => [
+      bless( {
+        'children' => []
+      }, 'INT' )
+    ]
+  }, 'A_10' ),
+  'F(X_1(CHAR),INT)' => bless( {
+    'children' => [
+      bless( {
+        'children' => [
+          bless( {
+            'children' => []
+          }, 'CHAR' )
+        ]
+      }, 'X_1' ),
+      $VAR1->{'A_10(INT)'}{'children'}[0]
+    ]
+  }, 'F' ),
+  'CHAR' => $VAR1->{'F(X_1(CHAR),INT)'}{'children'}[0]{'children'}[0],
+  'VOID' => bless( {
+    'children' => []
+  }, 'VOID' ),
+  'INT' => $VAR1->{'A_10(INT)'}{'children'}[0],
+  'A_20(INT)' => bless( {
+    'children' => [
+      $VAR1->{'A_10(INT)'}{'children'}[0]
+    ]
+  }, 'A_20' ),
+  'F(X_0(),INT)' => bless( {
+    'children' => [
+      bless( {
+        'children' => []
+      }, 'X_0' ),
+      $VAR1->{'A_10(INT)'}{'children'}[0]
+    ]
+  }, 'F' )
+};
+Symbol Table of the Main Program:
+$VAR1 = {
+  'e' => {
+    'type' => 'A_10(INT)',
+    'line' => 1
+  },
+  'a' => {
+    'type' => 'A_20(INT)',
+    'line' => 1
+  },
+  'b' => {
+    'type' => 'INT',
+    'line' => 1
+  },
+  'g' => {
+    'type' => 'F(X_0(),INT)',
+    'line' => 3
+  },
+  'f' => {
+    'type' => 'F(X_1(CHAR),INT)',
+    'line' => 5
+  }
+};
+
+---------------------------
+1)
+Symbol Table of g
+$VAR1 = {};
+
+---------------------------
+2)
+Symbol Table of f
+$VAR1 = {
+  'c' => {
+    'type' => 'CHAR',
+    'param' => 1,
+    'line' => 5
+  },
+  'd' => {
+    'type' => 'CHAR',
+    'line' => 6
+  }
+};
+
+---------------------------
+3)
+Symbol Table of block at line 9
+$VAR1 = {
+  'd' => {
+    'type' => 'INT',
+    'line' => 10
+  }
+};
+
+pl@nereida:~/Lbook/code/Simple-Scope/script$ 
+\end{verbatim}
+
+Observe como se anotan las referencias a pie de árbol usando la notación
+\verb|^{#}|. La salida se completa con las \cei{notas a pie de árbol}.
+
+\section{Usando el Método {\tt str} para Analizar el Árbol}
+\label{section:str}
+\parrafo{El Método {\tt str} de los Nodos}
+
+Para dar soporte al análisis de los árboles y su representación, \verb|Parse::Eyapp|
+provee el método \tei{str}. El siguiente ejemplo con el depurador muestra el uso del método
+\tei{str}.
+El método \tei{Parse::Eyapp::Node::str} retorna
+una cadena que describe como término el árbol enraizado en el nodo
+que se ha pasado como argumento.
+
+\parrafo{El Método {\tt info}}
+
+El método \tei{str} cuando visita un nodo comprueba la existencia de 
+un método \tei{info} para la clase del nodo. Si es así el método
+será llamado. Obsérvese como en las líneas 5 y 6 proveemos de métodos
+\verb|info| a los nodos \verb|TERMINAL| y \verb|FUNCTION|.
+La consecuencia es que en la llamada de la línea 7 el término
+que describe al árbol es decorado con los nombres de funciones
+y los atributos y números de línea de los terminales.
+
+Los nodos de la clase \tei{Parse::Eyapp::Node:Match} vienen con un
+método \tei{info} asociado el cual muestra el tipo del
+nodo apuntado, su profundidad y el nómbre del patrón que casó (línea 9
+de la sesión).
+
+Veamos un ejemplo que ilustra también algunos "trucos" de depuración.
+Se han introducido comentarios en el texto de salida:
+\begin{verbatim}
+nereida:~/doc/casiano/PLBOOK/PLBOOK/code> perl -wd usesimple4.pl 
+\end{verbatim}
+la opción \verb|-w| por warning y \verb|-d| para activar el debugger
+\begin{verbatim}
+Loading DB routines from perl5db.pl version 1.28
+Editor support available.  
+\end{verbatim}
+El mensaje \verb|Editor support available| nos señala 
+la presencia de los servicios de edición de la entrada.
+Si no sale el mensaje instale \tei{Term::ReadLine::Gnu} en su máquina!
+\begin{verbatim}
+main::(usesimple4.pl:6):  $Data::Dumper::Indent = 1; 
+\end{verbatim}
+La información entre paréntesis indica 
+el fichero en que estamos y la línea (\verb|usesimple4.pl|)
+\begin{verbatim}
+DB<1> f Simple4.eyp  # <-- Quiero poner un break en Simple4.eyp, 
+\end{verbatim}
+El comando \verb|f| es esencial cuando se usa \verb|eyapp|. 
+Le indicamos al debugger que queremos usar como fichero
+por defecto el de nuestra gramática. Los siguientes
+comandos se referirán a \verb|Simple4.eyp|:
+\begin{verbatim}
+DB<2> b 654     # <--- break en la línea 654 de Simple4.eyp
+DB<3> l 654,656 # <-- Se trata de las líneas en las que se establece 
+                #     la jerarquía de bloques
+654:b        my @blocks = $SimpleTrans::blocks->m($t);
+655:            $_->node->{fatherblock} = $_->father->{node} \
+             for (@blocks[1..$#blocks]);
+656:         $Data::Dumper::Deepcopy = 1;
+DB<4> c    # c indica que se continúa la ejecución del programa 
+           # hasta encontrar un "break"
+\end{verbatim}
+La ejecución del programa continúa produciendo la salida 
+del fuente hasta encontrar el punto de break:
+\begin{verbatim}
+****************
+char d,e[1][2];
+char f() {
+  int c[2];
+  char d;
+
+  return d;
+}
+Simple4::Run(Simple4.eyp:654):       my @blocks = $SimpleTrans::blocks->m($t);
+DB<4> n   # <--- next ejecuta la siguiente instrucción. Si es una sub no se entra.
+Simple4::Run(Simple4.eyp:655):       $_->node->{fatherblock} = $_->father->{node} \
+                                   for (@blocks[1..$#blocks]);
+DB<4>     # La simple pulsación de un retorno de carro 
+          # hace que se repita la última instrucción s o n
+Simple4::Run(Simple4.eyp:655):       $_->node->{fatherblock} = $_->father->{node} \
+                                   for (@blocks[1..$#blocks]);
+DB<4>
+Simple4::Run(Simple4.eyp:656):       $Data::Dumper::Deepcopy = 1;
+DB<4>
+Simple4::Run(Simple4.eyp:657):       print Dumper $t;
+DB<4> x $t->str # El método str para los objetos Parse::Eyapp::Node devuelve 
+                # una descripción del árbol
+0  'PROGRAM(FUNCTION(RETURN(TERMINAL,VAR(TERMINAL))))'
+DB<5> sub TERMINAL::info { @a = join ':', @{$_[0]->{attr}}; "[@a]"}
+DB<6> sub FUNCTION::info { "[".$_[0]->{function_name}[0]."]" }
+DB<7> x $t->str
+0  'PROGRAM(FUNCTION[f](RETURN(VAR(TERMINAL[d:6]))))'
+      # La variable @Parse::Eyapp::Node::PREFIXES Controla que 
+      # prefijos se deben eliminar en la presentación
+DB<8> p @Parse::Eyapp::Node::PREFIXES 
+Parse::Eyapp::Node::
+DB<9> x $blocks[0]->str
+0  'Match[PROGRAM:0:blocks](Match[FUNCTION:1:blocks:[f]])' 
+   # La información de un nodo Match es la 
+   # terna [type:depth:nombre de la treeregexp]
+\end{verbatim}
+
+
+\parrafo{Modo de uso de {\tt str}}
+
+
+El método \verb|str| ha sido concebido como una herramienta de
+ayuda a la depuración y verificación de los programas árbol.
+La metodología consiste en incorporar las pequeñas funciones
+\verb|info| al programa en el que trabajamos. Así en \verb|Simple4.eyp|
+añadimos el siguiente código:
+
+\begin{verbatim}
+640  sub Run {
+641   my($self)=shift;
+...   ................
+663  }
+664
+665  sub TERMINAL::info {
+666    my @a = join ':', @{$_[0]->{attr}};
+667    return "[@a]"
+668  }
+669
+670  sub FUNCTION::info {
+671    return "[".$_[0]->{function_name}[0]."]"
+672  }
+673
+674  sub BLOCK::info {
+675    return "[".$_[0]->{line}."]"
+676  }
+\end{verbatim}
+
+\parrafo{Un ejemplo de Salida con Bloques Anidados}
+
+En el código mostrado no se ha realizado la optimización
+consistente en no incluir en el árbol de bloques
+a aquellos bloques cuya sección de declaraciones es vacía.
+Asi podemos estudiar la estructura de datos resultante
+para un pequeño programa como el que sigue a continuación.
+
+
+\begin{table}[hbt]
+\begin{center}
+\caption{Representación de AST con {\tt str}}
+\label{table:programandhierarchy}
+\begin{tabular}{|p{3cm}|p{4cm}|p{7cm}|}
+\hline
+Programa & \verb|     $t->str| & \verb|   $blocks[0]->str|\\
+\hline
+\begin{verbatim}
+ 1 char d0; 
+ 2 char f() {
+ 3   {
+ 4     {}
+ 5   }
+ 6   {
+ 7     { }
+ 8   }
+ 9   {
+10     {{}}
+11   }
+12 }
+
+13 g() {
+14  {}
+15  {
+16    {}
+17  }
+18  {}
+19 }
+\end{verbatim}
+&
+\begin{verbatim}
+PROGRAM(
+    FUNCTION[f](
+      BLOCK[3](
+        BLOCK[4]
+      ),
+      BLOCK[6](
+        BLOCK[7]),
+        BLOCK[9](
+          BLOCK[10](
+            BLOCK[10]
+          )
+       )
+    ),
+    FUNCTION[g](
+      BLOCK[14],
+      BLOCK[15](
+        BLOCK[16]
+      ),
+      BLOCK[18]
+    )
+)
+\end{verbatim}
+&
+\begin{verbatim}
+Match[PROGRAM:0:blocks](
+  Match[FUNCTION:1:blocks:[f]](
+    Match[BLOCK:2:blocks:[3]](
+      Match[BLOCK:3:blocks:[4]]
+      ),
+    Match[BLOCK:2:blocks:[6]](
+      Match[BLOCK:3:blocks:[7]]
+      ),
+    Match[BLOCK:2:blocks:[9]](
+      Match[BLOCK:3:blocks:[10]](
+        Match[BLOCK:4:blocks:[10]]
+      )
+    )
+  ),
+  Match[FUNCTION:1:blocks:[g]](
+    Match[BLOCK:2:blocks:[14]],
+    Match[BLOCK:2:blocks:[15]](
+      Match[BLOCK:3:blocks:[16]]
+    ),
+    Match[BLOCK:2:blocks:[18]]
+  )
+)
+\end{verbatim}\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+La tabla 
+\ref{table:programandhierarchy}
+muestra el fuente y el resultado de \verb|$blocks[0]->str|
+después de la llamada
+
+\verb|my @blocks = $SimpleTrans::blocks->m($t);|
+
+Obsérvese que los nodos \verb|Match| son referencias 
+a los nodos actuales del árbol.
+
+\parrafo{Usando el Depurador y {\tt str} Para Ver los AST}
+
+Veamos un ejemplo mas de sesión con el depurador cuando la entrada
+proveída es el programa en la tabla \ref{table:programandhierarchy}:
+\begin{verbatim}
+nereida:~/doc/casiano/PLBOOK/PLBOOK/code> eyapp Simple4 ; perl -wd usesimple4.pl
+main::(usesimple4.pl:6):        $Data::Dumper::Indent = 1;
+DB<1> f Simple4.eyp        #<-- establecemos el fichero de trabajo
+DB<2> l 643                #<-- nos paramos antes de la lectura 
+643:       $self->YYData->{INPUT} = $_;
+DB<3> b 643 $_=~ m{char d0} # <-- nos detendremos sólo si se trata de este programa
+DB<4> c                     # <-- a correr!
+..................          # salida correspondiente a los fuentes anteriores
+Simple4::Run(Simple4.eyp:643):     $self->YYData->{INPUT} = $_;
+DB<5> b Parse::Eyapp::Node::str # <-- Especificación completa de la subrutina en la que parar
+DB<6> c
+........................
+Parse::Eyapp::Node::str(/home/pl/src/perl/YappWithDefaultAction/lib//Parse/Eyapp/Node.pm:543):
+543:      my $self = CORE::shift; # root of the subtree
+DB<7> L    # <-- Listar todos los breakpoints
+/home/pl/src/perl/YappWithDefaultAction/lib//Parse/Eyapp/Node.pm:
+ 543:     my $self = CORE::shift; # root of the subtree
+   break if (1)
+Simple4.eyp:
+ 643:      $self->YYData->{INPUT} = $_;
+   break if ($_=~ m{char d0})
+DB<8> B *    # <-- Eliminar todos los breakpoints
+Deleting all breakpoints...
+DB<9> b 654  # <-- detengámonos después del matching árbol
+DB<10> c
+Simple4::Run(Simple4.eyp:654):       $_->node->{fatherblock} = $_->father->{node} for (@blocks[1..$#blocks]);
+DB<4> x $Parse::Eyapp::Node::INDENT # <-- La variable INDENT controla el estilo en str
+0  1
+DB<11> x $t->str                   # <--- Salida con sangrado
+0  '
+PROGRAM(
+  FUNCTION[f](
+    BLOCK[3](
+      BLOCK[4]
+    ),
+    BLOCK[6](
+      BLOCK[7]
+    ),
+    BLOCK[9](
+      BLOCK[10](
+        BLOCK[10]
+      )
+    )
+  ),
+  FUNCTION[g](
+    BLOCK[14],
+    BLOCK[15](
+      BLOCK[16]
+    ),
+    BLOCK[18]
+  )
+)'
+DB<12> $Parse::Eyapp::Node::INDENT = 0 # <-- Estilo compacto. Por defecto
+DB<13> x $t->str                       # <-- Todo en una línea
+0  'PROGRAM(FUNCTION[f](BLOCK[3](BLOCK[4]),BLOCK[6](BLOCK[7]),BLOCK[9](BLOCK[10](BLOCK[10]))),
+FUNCTION[g](BLOCK[14],BLOCK[15](BLOCK[16]),BLOCK[18]))'
+DB<14> .                              # Donde estoy? Que línea se va a ejecutar?
+Simple4::Run(Simple4.eyp:654): $_->node->{fatherblock} = $_->father->{node} for (@blocks[1..$#blocks]);
+DB<15> c 655      # <-- Ejecutemos hasta la siguiente
+Simple4::Run(Simple4.eyp:655):       $Data::Dumper::Deepcopy = 1;
+DB<16> x $blocks[0]->str   # <-- Veamos la forma del nodo de matching
+0  'Match[PROGRAM:0:blocks](Match[FUNCTION:1:blocks:[f]](Match[BLOCK:2:
+blocks:[3]](Match[BLOCK:3:blocks:[4]]),Match[BLOCK:2:blocks:[6]](Match[
+BLOCK:3:blocks:[7]]),Match[BLOCK:2:blocks:[9]](Match[BLOCK:3:blocks:[1
+0]](Match[BLOCK:4:blocks:[10]]))),Match[FUNCTION:1:blocks:[g]](Match[B
+LOCK:2:blocks:[14]],Match[BLOCK:2:blocks:[15]](Match[BLOCK:3:blocks:[1
+6]]),Match[BLOCK:2:blocks:[18]]))' # <-- Todo está en una línea
+DB<17> $Parse::Eyapp::Node::INDENT = 1
+DB<18> x $blocks[0]->str
+0  '
+Match[PROGRAM:0:blocks](
+  Match[FUNCTION:1:blocks:[f]](
+    Match[BLOCK:2:blocks:[3]](
+      Match[BLOCK:3:blocks:[4]]
+    ),
+    Match[BLOCK:2:blocks:[6]](
+      Match[BLOCK:3:blocks:[7]]
+    ),
+    Match[BLOCK:2:blocks:[9]](
+      Match[BLOCK:3:blocks:[10]](
+        Match[BLOCK:4:blocks:[10]]
+      )
+    )
+  ),
+  Match[FUNCTION:1:blocks:[g]](
+    Match[BLOCK:2:blocks:[14]],
+    Match[BLOCK:2:blocks:[15]](
+      Match[BLOCK:3:blocks:[16]]
+    ),
+    Match[BLOCK:2:blocks:[18]]
+  )
+)'
+\end{verbatim}
+
+\parrafo{Variables que Gobiernan la Conducta de {\tt str}}
+
+Las variables de paquete que gobiernan la conducta
+de \verb|str| y sus valores por defecto aparecen en la siguiente lista:
+
+\begin{itemize}
+\item \verb|our @PREFIXES = qw(Parse::Eyapp::Node::)|
+
+La variable de paquete \tei{\@Parse::Eyapp::Node::PREFIXES} contiene
+la lista de prefijos de los nombres de tipo que serán eliminados
+cuando \verb|str| muestra el término. Por defecto contiene 
+la cadena \verb|'Parse::Eyapp::Node::'|. Es por esta razón
+que los nodos de matching que pertenecen a la clase \verb|'Parse::Eyapp::Node::Match|
+son abreviados a la cadena \verb|Match| (línea 9).
+
+\item \verb|our $INDENT = 0|
+La variable \tei{\$Parse::Eyapp::Node::INDENT} controla el formato de presentación
+usado por \tei{Parse::Eyapp::Node::str}:
+\begin{enumerate}
+\item
+Si es \verb|0| la representación es compacta.
+\item
+Si es 1 se usará un sangrado razonable. 
+\item
+Si es 2 cada paréntesis cerrar que este a una distancia 
+mayor de \tei{\$Parse::Eyapp::Node::LINESEP} líneas será comentado con el tipo del nodo. 
+Por defecto la variable \verb|$Parse::Eyapp::Node::LINESEP| está a 4.
+Véase la página 
+\pageref{code:indent2}
+para un ejemplo con \verb|$INDENT| a 2 y 
+\verb|$Parse::Eyapp::Node::LINESEP| a 4.
+\end{enumerate}
+
+\item \verb|our $STRSEP = ','|
+
+Separador de nodos en un término. Por defecto es la coma.
+
+\item \verb|our $DELIMITER = '['|
+
+Delimitador de presentación de la información proveída por el método
+\verb|info|. Por defecto los delimitadores son corchetes. Puede elegirse 
+uno cualquiera de  la lista:
+\begin{verbatim}
+                    '[', '{', '(', '<'
+\end{verbatim}
+si se define como la cadena vacía o \verb|undef| no se usarán delimitadores.
+
+\item \verb|our $FOOTNOTE_HEADER = "\n---------------------------\n"|
+
+Delimitador para las notas a pie de página.
+
+\item \verb|our $FOOTNOTE_SEP = ")\n"|
+Separador de la etiqueta/número de la nota al pie
+
+\item \verb|our $FOOTNOTE_LEFT = '^{'|, \verb|our $FOOTNOTE_RIGHT = '}'|
+
+Definen el texto que rodea al número de referencia en el nodo.
+
+
+\end{itemize}
+
+\parrafo{Footnotes}
+
+El siguiente ejemplo ilustra el manejo de \emph{notas a pié de árbol}
+usando \tei{str}. Se han definido los siguientes métodos:
+\begin{verbatim}
+nereida:~/doc/casiano/PLBOOK/PLBOOK/code> sed -ne '677,$p' Simple6.eyp
+$Parse::Eyapp::Node::INDENT = 1;
+sub TERMINAL::info {
+  my @a = join ':', @{$_[0]->{attr}};
+  return "@a"
+}
+
+sub PROGRAM::footnote {
+  return "Types:\n"
+         .Dumper($_[0]->{types}).
+         "Symbol Table:\n"
+         .Dumper($_[0]->{symboltable})
+}
+
+sub FUNCTION::info {
+  return $_[0]->{function_name}[0]
+}
+
+sub FUNCTION::footnote {
+  return Dumper($_[0]->{symboltable})
+}
+
+sub BLOCK::info {
+  return $_[0]->{line}
+}
+
+sub VAR::info {
+  return $_[0]->{definition}{type} if defined $_[0]->{definition}{type};
+  return "No declarado!";
+}
+
+*FUNCTIONCALL::info = *VARARRAY::info = \&VAR::info;
+\end{verbatim}
+El resultado para el programa de entrada:
+\begin{verbatim}
+nereida:~/doc/casiano/PLBOOK/PLBOOK/code> cat salida
+int a,b;
+
+int f(char c) {
+ a[2] = 4;
+ b[1][3] = a + b;
+ c = c[5] * 2;
+ return g(c);
+}
+\end{verbatim}
+produce una salida por \verb|stderr|:
+\begin{verbatim}
+Identifier g not declared
+\end{verbatim}
+y la siguiente descripción de la estructura de datos:
+\begin{verbatim}
+PROGRAM^{0}(
+  FUNCTION{f}^{1}(
+    ASSIGN(
+      VARARRAY{INT}(
+        TERMINAL{a:4},
+        INDEXSPEC(
+          INUM(
+            TERMINAL{2:4}
+          )
+        )
+      ),
+      INUM(
+        TERMINAL{4:4}
+      )
+    ),
+    ASSIGN(
+      VARARRAY{INT}(
+        TERMINAL{b:5},
+        INDEXSPEC(
+          INUM(
+            TERMINAL{1:5}
+          ),
+          INUM(
+            TERMINAL{3:5}
+          )
+        )
+      ),
+      PLUS(
+        VAR{INT}(
+          TERMINAL{a:5}
+        ),
+        VAR{INT}(
+          TERMINAL{b:5}
+        )
+      )
+    ),
+    ASSIGN(
+      VAR{CHAR}(
+        TERMINAL{c:6}
+      ),
+      TIMES(
+        VARARRAY{CHAR}(
+          TERMINAL{c:6},
+          INDEXSPEC(
+            INUM(
+              TERMINAL{5:6}
+            )
+          )
+        ),
+        INUM(
+          TERMINAL{2:6}
+        )
+      )
+    ),
+    RETURN(
+      FUNCTIONCALL{No declarado!}(
+        TERMINAL{g:7},
+        ARGLIST(
+          VAR{CHAR}(
+            TERMINAL{c:7}
+          )
+        )
+      )
+    )
+  )
+)
+---------------------------
+0)
+Types:
+$VAR1 = {
+  'F(X_1(CHAR),INT)' => bless( {
+    'children' => [
+      bless( {
+        'children' => [
+          bless( {
+            'children' => []
+          }, 'CHAR' )
+        ]
+      }, 'X_1' ),
+      bless( {
+        'children' => []
+      }, 'INT' )
+    ]
+  }, 'F' ),
+  'CHAR' => bless( {
+    'children' => []
+  }, 'CHAR' ),
+  'INT' => bless( {
+    'children' => []
+  }, 'INT' )
+};
+Symbol Table:
+$VAR1 = {
+  'a' => {
+    'type' => 'INT',
+    'line' => 1
+  },
+  'b' => {
+    'type' => 'INT',
+    'line' => 1
+  },
+  'f' => {
+    'type' => 'F(X_1(CHAR),INT)',
+    'line' => 3
+  }
+};
+
+---------------------------
+1)
+$VAR1 = {
+  'c' => {
+    'type' => 'CHAR',
+    'param' => 1,
+    'line' => 3
+  }
+};
+\end{verbatim}
+
+\parrafo{Usando {\tt str} sobre una Lista de Áboles}
+
+Use \verb|str| como método de clase 
+
+\begin{center}
+\begin{tabular}{p{6cm}}
+\verb|Parse::Eyapp::Node->str(@forest)|
+\end{tabular}
+\end{center}
+
+cuando quiera 
+convertir a su representación término mas de un árbol.
+El código:
+
+\label{code:indent2}
+\begin{verbatim}
+nereida:~/doc/casiano/PLBOOK/PLBOOK/code> sed -ne '652,658p' Simple4.eyp \
+                                          | cat -n
+     1       local $Parse::Eyapp::Node::INDENT = 2;
+     2       local $Parse::Eyapp::Node::DELIMITER = "";
+     3       print $t->str."\n";
+     4       {
+     5         local $" = "\n";
+     6         print Parse::Eyapp::Node->str(@blocks)."\n";
+     7       }
+\end{verbatim}
+
+produce la salida:
+
+\begin{verbatim}
+nereida:~/doc/casiano/PLBOOK/PLBOOK/code> eyapp Simple4 ;\
+                                          treereg SimpleTrans.trg ;\
+                                          usesimple4.pl
+****************
+f() {
+  int a,b[1][2],c[1][2][3];
+  char d[10];
+  b[0][1] = a;
+}
+
+PROGRAM(
+  FUNCTION[f](
+    ASSIGN(
+      VARARRAY(
+        TERMINAL[b:4],
+        INDEXSPEC(
+          INUM(
+            TERMINAL[0:4]
+          ),
+          INUM(
+            TERMINAL[1:4]
+          )
+        ) # INDEXSPEC
+      ) # VARARRAY,
+      VAR(
+        TERMINAL[a:4]
+      )
+    ) # ASSIGN
+  ) # FUNCTION
+) # PROGRAM
+
+Match[PROGRAM:0:blocks](
+  Match[FUNCTION:1:blocks:[f]]
+)
+\end{verbatim}
+
+Obsérvense los comentarios \verb|# TIPODENODO| que acompañan a los paréntesis
+cerrar cuando estos están lejos (esto es, a una distancia de mas de
+\tei{\$Parse::Eyapp::Node::LINESEP} líneas) del correspondiente paréntesis abrir.
+Tales comentarios son consecuencia de haber establecido el valor de 
+\tei{\$Parse::Eyapp::Node::INDENT} a 2.
+
+\sectionpractica{Establecimiento de la relación uso-declaración}
+\label{practica:identificaciondelosnombres}
+\label{practica:otrosambitos}
+En la segunda parte del análisis de ámbito se resuelve el problema de la identificación de los
+nombres estableciendo la relación entre el uso de un nombre y la declaración
+que se le aplica (dada por los atributos \verb|scope| y \verb|type|):
+
+Añada las siguientes comprobaciones dependientes del contexto al compilador
+de Simple C:
+\begin{itemize}
+\item
+Resuelva el problema del ámbito de los identificadores: asocie cada uso de un identificador
+con la declaración que se le aplica.
+\item
+Asocie cada nodo \verb|RETURN| con el nodo de la subrutina que lo engloba.
+Añádale un atributo al nodo \verb|RETURN| que indique el tipo que la rutina debe retornar.
+\item
+Asocie cada nodo \verb|CONTINUE| y cada nodo \verb|BREAK| con el nodo
+del bucle que lo engloba. Indique el error si la sentencia (\verb|CONTINUE|
+o \verb|BREAK|) no esta dentro de un bucle. Añada  a dichos nodos
+un atributo 
+que referencia al nodo del bucle que lo engloba.
+\item
+Añada etiquetas de salto y la sentencia \verb|goto| al lenguaje Simple C.
+Toda etiqueta va asociada con una sentencia.
+      La sintáxis de statement debe ser extendida para incluir sentencias etiquetadas:
+
+
+\begin{verbatim}
+      statement:
+          expression ';' { $_[1] }
+        | ';'
+        | %name BREAK
+          $BREAK ';'
+            { ...  }
+        | %name CONTINUE
+           $CONTINUE ';'
+            { ... }
+        | 'goto' ID ';'
+        | ID ':' statement
+            { ... }
+      ;
+\end{verbatim}
+
+ Las siguientes indicaciones tienen por objeto ayudarle en el análisis de ámbito de etiquetas:
+\begin{itemize}
+          \item Sólo se permiten saltos dentro de la misma subrutina.
+          \item Será necesario crear un manejador de ámbito de etiquetas mediante \verb|Parse::Eyapp::Scope->new|
+          \item Al comienzo de cada función comienza un ámbito de etiquetas.
+          \item Cada vez que se encuentra una sentencia etiquetada la etiqueta 
+                ID es guardada en una tabla de símbolos de etiquetas.
+          \item El valor asociado con la entrada para la etiqueta es una referencia a un hash. La clave mas importante en ese hash es la referencia a la sentencia que etiqueta.
+          \item Cada aparición de un goto es una instancia de ámbito.
+          \item La llamada a \verb|end_scope| (al terminar el análisis de la función) deberá decorar automáticamente el nodo GOTO con la referencia a la sentencia asociada con la etiqueta
+          \item La tabla de etiquetas es un atributo del nodo asociado con la función.
+\end{itemize}
+
+\end{itemize}
+
+
+\sectionpractica{Establecimiento de la Relación Uso-Declaración Usando Expresiones Regulares Árbol}
+\label{practica:identificaciondelosnombrestreereg}
+En la práctica anterior resolvió los problemas de ámbito usando \cpan{Parse::Eyapp::Scope}.
+En esta se pide resolverlos usando expresions regulares árbol:
+\begin{itemize}
+\item
+Asocie cada nodo \verb|RETURN| con el nodo de la subrutina que lo engloba.
+Añádale un atributo al nodo \verb|RETURN| que indique el tipo que la rutina debe retornar.
+\item
+Asocie cada nodo \verb|CONTINUE| y cada nodo \verb|BREAK| con el nodo
+del bucle que lo engloba. Indique el error si la sentencia (\verb|CONTINUE|
+o \verb|BREAK|) no esta dentro de un bucle. Añada  a dichos nodos
+un atributo 
+que referencia al nodo del bucle que lo engloba.
+\item
+Añada etiquetas de salto y la sentencia \verb|goto| al lenguaje Simple C.
+Toda etiqueta va asociada con una sentencia.
+
+\end{itemize}
+
+\sectionpractica{Estructuras y Análisis de Ámbito}
+\label{practica:structsscope}
+Los registros o estructuras introducen espacios de nombres.
+Los selectores de campo viven en los espacios de
+nombres asociados con los registros.
+Modifique de manera apropiada la gramática de 
+\verb|SimpleC| para introducir el tipo de datos \verb|struct|.
+Complete el análisis sintáctico.
+
+\begin{itemize}
+\item
+Es necesario introducir nuevas variables sintácticas:
+
+\begin{verbatim}
+type_specifier:
+     basictype
+   | struct
+;
+
+struct: 
+    'struct' ID '{' struct_decl_list '}'
+  | 'struct' ID 
+;
+
+struct_decl_list: (type_specifier declList ';') +
+;
+\end{verbatim}
+Recuerde que:
+\begin{verbatim}
+declList: (ID arraySpec) <%+ ','> 
+;
+\end{verbatim}
+
+\item
+Es necesario tambien modificar algunas categorías gramáticales existentes, como
+\verb|declaration|:
+\begin{verbatim}
+declaration:
+    %name DECLARATION
+    $type_specifier $declList ';' 
+;
+\end{verbatim}
+También es necesario modificar \verb|Variable|:
+\begin{verbatim}
+Variable:
+    ID 
+  | Variable ('[' binary ']') 
+  | Variable '.' ID
+;
+\end{verbatim}
+
+Sigue un ejemplo de derivación generando una variable de la forma
+\verb|a[i].x[4].b|:
+
+\begin{verbatim}
+Variable => Variable.ID => Variable[binary].ID 
+  => Variable.ID[binary].ID => Variable[binary].ID[binary].ID 
+  => ID[binary].ID[binary].ID
+\end{verbatim}
+
+Veamos otro ejemplo de derivación generando una variable de la forma
+\verb|a[i].x[4]|:
+
+\begin{verbatim}
+Variable => Variable[binary] => Variable.ID[binary] => Variable[binary].ID[binary]
+   => ID[binary].ID[binary]
+\end{verbatim}
+
+\item
+Es necesario  extender las expresiones de tipo para incluir las \verb|struct|.
+Un registro es similar al producto cartesiano (usado en las expresiones de tipo de las funciones),
+sólo que los campos tienen nombres. Asi:
+
+\begin{verbatim}
+struct row {
+  int address;
+  char lexeme[10];
+} table[100];
+\end{verbatim}
+
+la expresión de tipo para \verb|struct row| podría ser:
+
+\begin{verbatim}
+                    STRUCT_row(address, INT, lexeme, A_10(CHAR))
+\end{verbatim}
+o bien:
+\begin{verbatim}
+                    STRUCT_row(X_2(address, INT), X_2(lexeme, A_10(CHAR)))
+\end{verbatim}
+
+Como se ve en el ejemplo el identificador de campo (\verb|address|, \verb|lexeme|)
+forma parte de la descripción del tipo.
+
+\item
+La introducción de las \verb|struct| produce una cierta sobrecarga de identificadores.
+El siguiente programa es correcto:
+\begin{verbatim}
+  1 struct x {
+  2   int z;
+  3   int b;
+  4 } x;
+  5
+  6 main() {
+  7   x;
+  8 }
+\end{verbatim}
+Aqui \verb|x| es usado como nombre de un tipo y como nombre de variable. Plantee soluciones
+al problema del almacenamiento en la tabla de símbolos. Una posibilidad es que la entrada
+en la tabla de símbolos para el tipo sea \verb|struct x| mientras que para la variable es \verb|x|. 
+
+\item
+El cálculo de que declaración se aplica a una \verb|struct| 
+puede hacerse de manera similar a como ha sido ilustrado en las prácticas anteriores.
+Otra cosa son los identificadores de campo.
+Por ejemplo en
+\begin{verbatim}
+                                  a[i+j].x = 4;
+\end{verbatim}
+Es necesario calcular que \verb|a[i+j]| tiene tipo  \verb|struct|
+y comprobar en ese momento que dicha  \verb|struct|
+tiene un campo \verb|x| que es de tipo \verb|int|. 
+Hasta que no hemos calculado el tipo asociado con la 
+expresión  \verb|a[i+j]| no sabemos si el uso de
+\verb|x| es legal o no. Realmente el ámbito del identificador \verb|x| no 
+se hace en tiempo de análisis de ámbito sino en tiempo de comprobación de tipos.
+El cálculo del ámbito para estos identificadores de campo 
+se mezcla con el cálculo de tipos. En cierto modo el uso de \verb|x| 
+en \verb|a[i+j].x = 4| forma parte de la descripción del tipo:
+\begin{verbatim}
+                    STRUCT_point(X_2(x, INT), X_2(y, INT))
+\end{verbatim}
+Por tanto en las reglas de \verb|Variable|:
+\begin{verbatim}
+Variable:
+    ID 
+  | Variable ('[' binary ']') 
+  | Variable '.' ID
+;
+\end{verbatim}
+A estas alturas solo estamos en condiciones de asociarle su definición al 
+identificador principal, esto es, al de la regla $Variable \rightarrow ID$.
+Los demás deberán esperar a la fase de análisis de tipos.
+
+\item
+Hasta ahora casi lo único que guardabamos en las tablas de símbolos era el tipo y el número 
+de línea ( otros valores posibles son \verb|param| para determinar si es un parámetro,
+o una referencia a la tabla de símbolos de la funcion en el caso de las funciones). Esto era suficiente
+porque sólo teniámos dos tipos de identificadores: los de variable y los de función. Ahora que tenemos
+tres tipos: funciones, variables y tipos es conveniente añadir un atributo \verb|kind| que guarde 
+la clase de objeto que es.
+
+\item
+C requiere que los nombres de tipo sean declarados antes de ser usados (con la
+excepción de las referencias a tipos \verb|struct| no declarados). Por ejemplo,
+el siguiente programa:
+
+\begin{verbatim}
+  1 struct x {
+  2   struct y z;
+  3   int b;
+  4 } w;
+  5
+  6 struct y {
+  7   int a;
+  8 };
+\end{verbatim}
+
+produce un mensaje de error:
+
+\begin{verbatim}
+prueba1.c:2: error: field ‘z’ has incomplete type
+\end{verbatim}
+Esto impide definiciones recursivas como:
+
+\begin{verbatim}
+  1 struct x {
+  2   struct y z;
+  3   int b;
+  4 } w;
+  5
+  6 struct y {
+  7   struct x a;
+  8 };
+\end{verbatim}
+
+A estas alturas del análisis estamos en condiciones de 
+comprobar que no existan usos de declaraciones
+no definidas. 
+\item
+Para simplificar el análisis de tipos posterior, 
+las funciones en Simple C devuelven un tipo básico. 
+En C las funciones pueden devolver un \verb|struct| aunque no pueden
+devolver un array ni una función. Si que pueden sin embargo devolver
+un punero a un array o a una función.
+ 
+La restricción que imponemos de que el tipo retornado sea un tipo 
+básico  no significa 
+que necesariamente la regla sintáctica deba especificar tal condición.
+
+\item
+Para simplificar la práctica consideraremos que todos los identificadores de
+tipos struct son globales. Por tanto es un error tener dos declaraciones
+de tipo struct con el mismo nombre.
+Claro está, si desea implantar ámbitos en los identificadores de tipos
+puede hacerlo.
+
+\item
+Consulte las siguientes fuentes:
+\begin{itemize}
+\item
+Para ver una gramática de C consulte la página
+\htmladdnormallink{Cgrammar.html}{Cgrammar.html}.
+\item
+Una gramática de ANSI C se encuentra en
+\htmladdnormallink{http://www.lysator.liu.se/c/ANSI-C-grammar-y.html}
+{http://www.lysator.liu.se/c/ANSI-C-grammar-y.html}.
+%\item
+%Puede serle útil el manual de referencia original de C 
+%\htmladdnormallink{http://www.cs.bell-labs.com/who/dmr/cman.pdf}
+%{http://www.cs.bell-labs.com/who/dmr/cman.pdf}.
+\end{itemize}
+\end{itemize}
+
+%Asegúrese de usar subversión \cite{svn} en la realización de esta práctica.
+%(Véanse \htmladdnormallink{http://svnbook.red-bean.com/}{http://svnbook.red-bean.com/}
+%y \htmladdnormallink{http://nereida.deioc.ull.es/html/subversion/svn-book.pdf}
+%{http://nereida.deioc.ull.es/html/subversion/svn-book.pdf}).
+
+%\section{Análisis de Ámbitos Simples con {\tt Parse::Eyapp::Scope}}
+%En ocasiones el análisis de ámbito no requiere la presencia de
+%una tabla de símbolos. Por ejemplo es necesario comprobar
+%que las sentencias 
+%\verb|BREAK| y \verb|CONTINUE| ocurren siempre dentro de un bucle:
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code/Simple-Types/script> cat -n outbreak.c
+% 1  test (int n, int m)
+% 2  {
+% 3    break;
+% 4    while (n > 0) {
+% 5      if (n>m) {
+% 6        break;
+% 7      }
+% 8      else if (m>n){
+% 9        continue;
+%10      }
+%11      n = n-1;
+%12    }
+%13  }
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code/Simple-Types/script> usetypes.pl outbreak.c
+%Error: BREAK outside of a loop at line 3
+%\end{verbatim}
+%En esta sección mostraremos como usar \tei{Parse::Eyapp::Scope}
+%cuando trabajemos en el análisis de condiciones
+%dependientes del contexto.
+%
+%\paragraph{Los Bucles como Definidores de Ámbito}
+%Para abordar este tipo de problemas de ámbito podemos considerar que 
+%el comienzo de la sentencia controlada por un bucle 
+%señala el comienzo de un ámbito y su finalización 
+%la terminación del mismo:
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code/Simple-Types/lib/Simple> \
+%                             sed -ne '364,385p' Types.eyp | cat -n
+% 1    | %name WHILE         
+% 2      $loopPrefix statement
+% 3        {
+% 4          my $self = shift;
+% 5          my $wnode = $self->YYBuildAST(@_);
+% 6          $wnode->{line} = $loopPrefix->{line};
+% 7          my $breaks = $loops->end_scope($wnode);
+% 8          return $wnode;
+% 9        }
+%..  .............................................
+%16  loopPrefix:
+%17      $WHILE '(' expression ')'
+%18        {
+%19          $loops->begin_scope;
+%20          $_[3]->{line} = $WHILE->[1];
+%21          $_[3]
+%22        }
+%\end{verbatim}
+%
+%\paragraph{Instancias}
+%Las instancias viene dadas por las apariciones de sentencias \tei{BREAK}
+%y \tei{CONTINUE}:
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code/Simple-Types/lib/Simple> \
+%                             sed -ne '337,354p' Types.eyp | cat -n
+% 1    | %name BREAK
+% 2      $BREAK ';'
+% 3        {
+% 4          my $self = shift;
+% 5          my $node = $self->YYBuildAST(@_);
+% 6          $node->{line} = $BREAK->[1];
+% 7          $loops->scope_instance($node);
+% 8          return $node;
+% 9        }
+%10    | %name CONTINUE
+%11       $CONTINUE ';'
+%12        {
+%13          my $self = shift;
+%14          my $node = $self->YYBuildAST(@_);
+%15          $node->{line} = $CONTINUE->[1];
+%16          $loops->scope_instance($node);
+%17          return $node;
+%18        }
+%\end{verbatim}
+%
+%\paragraph{El Modo de Llamada Simplificado a {\tt end\_scope}}
+%La principal novedad de esta forma de uso de \cpan{Parse::Eyapp::Scope} esta en la
+%llamada a \tei{end\_scope}. Obsérvese que en la llamada de la línea 7
+%se omite la tabla de
+%símbolos que es innecesaria. El único argumento es la referencia al nodo que define 
+%el ámbito. Esta es la segunda forma de llamada que admite
+%\verb|end_scope|.
+%
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code/Simple-Types/lib/Simple> \
+%                             sed -ne '364,385p' Types.eyp | cat -n
+% 1    | %name WHILE         
+% 2      $loopPrefix statement
+% 3        {
+% 4          my $self = shift;
+% 5          my $wnode = $self->YYBuildAST(@_);
+% 6          $wnode->{line} = $loopPrefix->{line};
+%!7          my $breaks = $loops->end_scope($wnode);
+% 8          return $wnode;
+% 9        }
+%\end{verbatim}
+%
+%\paragraph{Detección de Errores}
+%Para detectar la presencia de \verb|BREAK|s fuera de contexto abrimos y cerramos
+%un ámbito del manejador \verb|$loops| al comienzo y al final del programa:
+%
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code/Simple-Types/lib/Simple> \
+%                             sed -ne '169,202p' Types.eyp | cat -n
+%  1  program:
+%  2        {
+%  3          reset_file_scope_vars();
+%  4        }
+%  5      definition<%name PROGRAM +>.program
+%  6        {
+% ..          ..............................................
+%!24          my $out_of_loops = $loops->end_scope($program);
+%!25          if (@$out_of_loops) {
+%!26            warn "Error: ".ref($_)." outside of loop at line $_->{line}\n" for @$out_of_loops;
+%!27            die "\n";
+%!28          }
+% 29
+% 30          # Check that are not dangling breaks
+% 31          reset_file_scope_vars();
+% 32
+% 33          $program;
+% 34        }
+%\end{verbatim}
+%La inicialización del manejador de ámbitos 
+%para los bucles se hace en \verb|reset_file_scope_vars|:
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code/Simple-Types/lib/Simple> \
+%                             sed -ne '130,148p' Types.eyp | cat -n
+%  1  sub reset_file_scope_vars {
+%  2    %st = (); # reset symbol table
+%  3    ($tokenbegin, $tokenend) = (1, 1);
+% ..    ..................................
+% 14    $loops = Parse::Eyapp::Scope->new(
+% 15             SCOPE_NAME => 'exits',
+% 16    );
+% 17    $ids->begin_scope();
+%!18    $loops->begin_scope(); # just for checking
+% 19  }
+%\end{verbatim}
+%
+%\paragraph{AST Resultante}
+%Cuando se da el programa de entrada:
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code/Simple-Types/script> usetypes.pl breaks.c 2
+%test (int n, int m)
+%{
+%  while (n > 0) {
+%    if (n>m) {
+%      break;
+%    }
+%    else if (m>n){
+%      continue;
+%    }
+%    n = n-1;
+%  }
+%}
+%\end{verbatim}
+%Obtenemos el siguiente AST en el que se han decorado los nodos \verb|WHILE|,
+%\verb|BREAK| y \verb|CONTINUE| con información relativa al contexto en estudio:
+%
+%\begin{verbatim}
+%PROGRAM^{0}(
+%  FUNCTION[test]^{1}(
+%    WHILE[BREAK:CONTINUE:](
+%      GT(VAR(TERMINAL[n:3]), INUM(TERMINAL[0:3])) 
+%      STATEMENTS(
+%        IFELSE(
+%          GT(
+%            VAR(TERMINAL[n:4]),
+%            VAR(TERMINAL[m:4])
+%          ) # GT,
+%          STATEMENTS(
+%            BREAK[WHILE:3] # loop, line of the loop
+%          ),
+%          IF(
+%            GT(
+%              VAR(TERMINAL[m:7]),
+%              VAR(TERMINAL[n:7])
+%            ) # GT,
+%            STATEMENTS(
+%              CONTINUE[WHILE:3] # loop, line of the loop
+%            )
+%          ) # IF
+%        ) # IFELSE,
+%        ASSIGNINT(
+%          VAR(TERMINAL[n:10]),
+%          MINUS(
+%            VAR(TERMINAL[n:10]),
+%            INUM(TERMINAL[1:10])
+%          ) # MINUS
+%        ) # ASSIGNINT
+%      ) # STATEMENTS
+%    ) # WHILE
+%  ) # FUNCTION
+%) # PROGRAM
+%\end{verbatim}
+%
+%\section{Análisis de Ámbito Simple con Transformaciones Árbol}
+%El análisis de ámbito es aún mas simple con transformaciones
+%árbol. Consideremos el caso de asociar cada nodo \verb|RETURN|
+%con la subrutina que lo engloba.
+%Basta con considerar una expresión regular árbol como:
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code/Simple-Types/lib/Simple> \
+%                                 sed -ne '11p' Trans.trg | cat -n
+%     1  retscope: /FUNCTION|RETURN/
+%\end{verbatim}
+%El resultado de la correspondiente búsqueda mediante \verb|m|
+%(línea 3) en la subrutina de compilación nos da un bosque
+%en el que tenemos toda la información requerida:
+%\begin{verbatim}
+%nereida:~/doc/casiano/PLBOOK/PLBOOK/code/Simple-Types/lib/Simple> \
+%                             sed -ne '584,594p' Types.eyp | cat -n
+% 1   # Scope Analysis: Return-Function
+% 2   our $retscope;
+% 3   my @returns = $retscope->m($t);
+% 4   for (@returns) {
+% 5     my $node = $_->node;
+% 6     if (ref($node) eq 'RETURN') {
+% 7       my $function = $_->father->node;
+% 8       $node->{function}  = $function;
+% 9       $node->{t} = $function->{t};
+%10     }
+%11   }
+%\end{verbatim}

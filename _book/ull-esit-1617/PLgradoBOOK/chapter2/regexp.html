@@ -1,0 +1,836 @@
+<h1 id="expresiones-regulares-y-análisis-léxico-en-javascript">Expresiones Regulares y Análisis Léxico en JavaScript</h1>
+<h2 id="mozilla-developer-network-documentación">Mozilla Developer Network: Documentación</h2>
+<ol style="list-style-type: decimal">
+<li><ol start="2" style="list-style-type: decimal">
+<li><ol start="3" style="list-style-type: decimal">
+<li><ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol>
+<!-- -->
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+      &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+      &lt;title&gt;JavaScript Temperature Converter&lt;/title&gt;
+      &lt;link href=&quot;global.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+
+     &lt;script type=&quot;text/javascript&quot; src=&quot;temperature.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Temperature Converter&lt;/h1&gt;
+    &lt;table&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Enter  Temperature (examples: 32F, 45C, -2.5f):&lt;/th&gt;
+        &lt;td&gt;&lt;input id=&quot;original&quot; onchange=&quot;calculate();&quot;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Converted Temperature:&lt;/th&gt;
+        &lt;td&gt;&lt;span class=&quot;output&quot; id=&quot;converted&quot;&gt;&lt;/span&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+th, td      { vertical-align: top; text-align: right; font-size:large; }     
+#converted  { color: red; font-weight: bold; font-size:large;          }    
+input       { text-align: right;  border: none; font-size:large;       }   
+body
+{
+ background-color:#b0c4de;  /* blue */
+ font-size:large;
+}
+
+&quot;use strict&quot;; // Use ECMAScript 5 strict mode in browsers that support it
+function calculate() {
+  var result;
+  var original       = document.getElementById(&quot;........&quot;);
+  var temp = original.value;
+  var regexp = /.............................../;
+  
+  var m = temp.match(......);
+  
+  if (m) {
+    var num = ....;
+    var type = ....;
+    num = parseFloat(num);
+    if (type == &#39;c&#39; || type == &#39;C&#39;) {
+      result = (num * 9/5)+32;
+      result = ..............................
+    }
+    else {
+      result = (num - 32)*5/9;
+      result = ............................
+    }
+    converted.innerHTML = result;
+  }
+  else {
+    converted.innerHTML = &quot;ERROR! Try something like &#39;-4.2C&#39; instead&quot;;
+  }
+}</code></pre>
+<p>Véase en la Wikipedia:</p>
+<p><span><em>A comma-separated values (CSV) file stores tabular data (numbers and text) in plain-text form. A CSV file consists of any number of records, separated by line breaks of some kind; each record consists of fields, separated by a comma. All records have an identical sequence of fields.</em></span></p>
+<div class="figure">
+<img src="chapter2/csv.png" alt="Ejemplo de pantalla de La aplicación para el Análisis de Datos en Formato CSV" /><p class="caption">Ejemplo de pantalla de La aplicación para el Análisis de Datos en Formato CSV</p>
+</div>
+<p>[figure:csv]</p>
+<p>Una primera aproximación sería hacer <code>split</code> por las comas:</p>
+<pre><code>&gt; x = &#39;&quot;earth&quot;,1,&quot;moon&quot;,9.374&#39;
+&#39;&quot;earth&quot;,1,&quot;moon&quot;,9.374&#39;
+&gt; y = x.split(/,/)
+[ &#39;&quot;earth&quot;&#39;, &#39;1&#39;, &#39;&quot;moon&quot;&#39;, &#39;9.374&#39; ]</code></pre>
+<p>Esta solución deja las comillas dobles en los campos entrecomillados. Peor aún, los campos entrecomillados pueden contener comas, en cuyo caso la división proporcionada por <code>split</code> sería errónea:</p>
+<pre><code>&gt; x = &#39;&quot;earth, mars&quot;,1,&quot;moon, fobos&quot;,9.374&#39;
+&#39;&quot;earth, mars&quot;,1,&quot;moon, fobos&quot;,9.374&#39;
+&gt; y = x.split(/,/)
+[ &#39;&quot;earth&#39;, &#39; mars&quot;&#39;, &#39;1&#39;, &#39;&quot;moon&#39;, &#39; fobos&quot;&#39;, &#39;9.374&#39; ]</code></pre>
+<p>La siguiente expresión regular reconoce cadenas de comillas dobles con secuencias de escape seguidas opcionalmente de una coma:</p>
+<pre><code>&gt; x = &#39;&quot;earth, mars&quot;,1,&quot;moon, fobos&quot;,9.374&#39;
+&#39;&quot;earth, mars&quot;,1,&quot;moon, fobos&quot;,9.374&#39;
+&gt; r = /&quot;((?:[^&quot;\\]|\\.)*)&quot;\s*,?/g
+/&quot;((?:[^&quot;\\]|\\.)*)&quot;\s*,?/g
+&gt; w = x.match(r)
+[ &#39;&quot;earth, mars&quot;,&#39;, &#39;&quot;moon, fobos&quot;,&#39; ]</code></pre>
+<p>Esta otra expresión regular <code>/([^,]+),?|\s*,/</code> actúa de forma parecida al <code>split</code>. Reconoce secuencias no vacías de caracteres que no contienen comas seguidas opcionalmente de una coma o bien una sóla coma (precedida opcionalmente de blancos):</p>
+<pre><code>&gt; x = &#39;&quot;earth, mars&quot;,1,&quot;moon, fobos&quot;,9.374&#39;
+&#39;&quot;earth, mars&quot;,1,&quot;moon, fobos&quot;,9.374&#39;
+&gt; r = /([^,]+),?|\s*,/g
+/([^,]+),?|\s*,/g
+&gt; w = x.match(r)
+[ &#39;&quot;earth,&#39;, &#39; mars&quot;,&#39;, &#39;1,&#39;, &#39;&quot;moon,&#39;, &#39; fobos&quot;,&#39;, &#39;9.374&#39; ]
+
+&lt;html&gt;
+  &lt;head&gt;
+     &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+     &lt;title&gt;CSV Analyzer&lt;/title&gt;
+     &lt;link href=&quot;global.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+
+     &lt;script type=&quot;text/javascript&quot; src=&quot;../../underscore/underscore.js&quot;&gt;&lt;/script&gt;
+     &lt;script type=&quot;text/javascript&quot; src=&quot;../../jquery/starterkit/jquery.js&quot;&gt;&lt;/script&gt;
+     &lt;script type=&quot;text/javascript&quot; src=&quot;csv.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Comma Separated Value Analyzer&lt;/h1&gt;
+    &lt;div&gt;
+      &lt;i&gt;Write a CSV string. Click the table button. The program outputs a table with the specified data.&lt;/i&gt;
+    &lt;/div&gt;
+    &lt;table&gt;
+      &lt;tr&gt;
+        &lt;th&gt;CSV string:&lt;/th&gt; &lt;!-- autofocus attribute is HTML5 --&gt;
+        &lt;td&gt;&lt;textarea autofocus cols = &quot;80&quot; rows = &quot;5&quot; id=&quot;original&quot;&gt;&lt;/textarea&gt;&lt;/td&gt; 
+      &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;button type=&quot;button&quot;&gt;table:&lt;/button&gt;&lt;br&gt;
+    &lt;span class=&quot;output&quot; id=&quot;finaltable&quot;&gt;&lt;/span&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>()</p></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>. Véase también <span class="citation">@pilgrimhtml5</span></li>
+</ol></li>
+<li><ol start="5" style="list-style-type: decimal">
+<li></li>
+</ol></li>
+</ol>
+<!-- -->
+<pre><code>html *
+{
+   font-size: large; 
+   /* The !important ensures that nothing can override what you&#39;ve set in this style (unless it is also important). */
+   font-family: Arial;
+}
+
+h1            { text-align: center; font-size: x-large; }
+th, td        { vertical-align: top; text-align: right; }   
+/* #finaltable  * { color: white; background-color: black; }   */
+
+/* #finaltable table { border-collapse:collapse; } */
+/* #finaltable table, td { border:1px solid white; } */
+#finaltable:hover td { background-color: blue; } 
+tr:nth-child(odd)    { background-color:#eee; }
+tr:nth-child(even)    { background-color:#00FF66; }
+input        { text-align: right;  border: none;       }     /* Align input to the right  */
+textarea     { border: outset; border-color: white;       }                        
+table        { border: inset; border-color: white; }
+table.center { margin-left:auto; margin-right:auto; }
+#result      { border-color: red; }
+tr.error       { background-color: red; }
+body
+{
+ background-color:#b0c4de;  /* blue */
+}</code></pre>
+<ol style="list-style-type: decimal">
+<li><ol start="2" style="list-style-type: decimal">
+<li><ol start="3" style="list-style-type: decimal">
+<li><ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li><ol start="6" style="list-style-type: decimal">
+<li></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol>
+<!-- -->
+<pre><code>// See http://en.wikipedia.org/wiki/Comma-separated_values
+&quot;use strict&quot;; // Use ECMAScript 5 strict mode in browsers that support it
+
+$(document).ready(function() {
+   $(&quot;button&quot;).click(function() {
+     calculate();
+   });
+ });
+
+function calculate() {
+  var result;
+  var original       = document.getElementById(&quot;original&quot;);
+  var temp = original.value;
+  var regexp = /_____________________________________________/g;
+  var lines = temp.split(/\n+\s*/);
+  var commonLength = NaN;
+  var r = [];
+  // Template using underscore
+  var row = &quot;&lt;% _.each(items, function(name) { %&gt;&quot;     +
+            &quot;                    &lt;td&gt;&lt;%= name %&gt;&lt;/td&gt;&quot; +
+            &quot;              &lt;% }); %&gt;&quot;;
+
+  if (window.localStorage) localStorage.original  = temp;
+  
+  for(var t in lines) {
+    var temp = lines[t];
+    var m = temp.match(regexp);
+    var result = [];
+    var error = false;
+    
+    if (m) {
+      if (commonLength &amp;&amp; (commonLength != m.length)) {
+        //alert(&#39;ERROR! row &lt;&#39;+temp+&#39;&gt; has &#39;+m.length+&#39; items!&#39;);
+        error = true;
+      }
+      else {
+        commonLength = m.length;
+        error = false;
+      }
+      for(var i in m) {
+        var removecomma = m[i].replace(/,\s*$/,&#39;&#39;);
+        var remove1stquote = removecomma.replace(/^\s*&quot;/,&#39;&#39;);
+        var removelastquote = remove1stquote.replace(/&quot;\s*$/,&#39;&#39;);
+        var removeescapedquotes = removelastquote.replace(/\\&quot;/,&#39;&quot;&#39;);
+        result.push(removeescapedquotes);
+      }
+      var tr = error? &#39;&lt;tr class=&quot;error&quot;&gt;&#39; : &#39;&lt;tr&gt;&#39;;
+      r.push(tr+_.template(row, {items : result})+&quot;&lt;/tr&gt;&quot;);
+    }
+    else {
+      alert(&#39;ERROR! row &#39;+temp+&#39; does not look as legal CSV&#39;);
+      error = true;
+    }
+  }
+  r.unshift(&#39;&lt;p&gt;\n&lt;table class=&quot;center&quot; id=&quot;result&quot;&gt;&#39;);
+  r.push(&#39;&lt;/table&gt;&#39;);
+  //alert(r.join(&#39;\n&#39;)); // debug
+  finaltable.innerHTML = r.join(&#39;\n&#39;);
+}
+
+window.onload = function() {
+  // If the browser supports localStorage and we have some stored data
+  if (window.localStorage &amp;&amp; localStorage.original) {
+    document.getElementById(&quot;original&quot;).value = localStorage.original;
+  }
+};</code></pre>
+<ol style="list-style-type: decimal">
+<li><ol start="2" style="list-style-type: decimal">
+<li><ol start="3" style="list-style-type: decimal">
+<li><ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol>
+<h2 id="ejercicios">Ejercicios</h2>
+<ol style="list-style-type: decimal">
+<li><p>Paréntesis:</p>
+<pre><code>&gt; str = &quot;John Smith&quot;
+&#39;John Smith&#39;
+&gt; newstr = str.replace(re, &quot;$2, $1&quot;)
+&#39;Smith, John&#39;</code></pre></li>
+<li><p>El método <code>exec</code>.</p>
+<p>If your regular expression uses the <code>g</code> flag, you can use the <code>exec</code> method multiple times to find successive matches in the same string. When you do so, the search starts at the substring of str specified by the regular expression’s <code>lastIndex</code> property.</p>
+<pre><code>&gt; re = /d(b+)(d)/ig
+/d(b+)(d)/gi
+&gt; z = &quot;dBdxdbbdzdbd&quot;
+&#39;dBdxdbbdzdbd&#39;
+&gt; result = re.exec(z)
+[ &#39;dBd&#39;, &#39;B&#39;, &#39;d&#39;, index: 0, input: &#39;dBdxdbbdzdbd&#39; ]
+&gt; re.lastIndex
+3
+&gt; result = re.exec(z)
+[ &#39;dbbd&#39;, &#39;bb&#39;, &#39;d&#39;, index: 4, input: &#39;dBdxdbbdzdbd&#39; ]
+&gt; re.lastIndex
+8
+&gt; result = re.exec(z)
+[ &#39;dbd&#39;, &#39;b&#39;, &#39;d&#39;, index: 9, input: &#39;dBdxdbbdzdbd&#39; ]
+&gt; re.lastIndex
+12
+&gt; z.length
+12
+&gt; result = re.exec(z)
+null</code></pre></li>
+<li><p>JavaScript tiene lookaheads:</p>
+<pre><code>&gt; x = &quot;hello&quot;
+&#39;hello&#39;
+&gt; r = /l(?=o)/
+/l(?=o)/
+&gt; z = r.exec(x)
+[ &#39;l&#39;, index: 3, input: &#39;hello&#39; ]</code></pre></li>
+<li><p>JavaScript no tiene lookbehinds:</p>
+<pre><code>&gt; x = &quot;hello&quot;
+&#39;hello&#39;
+&gt; r = /(?&lt;=l)l/
+SyntaxError: Invalid regular expression: /(?&lt;=l)l/: Invalid group
+&gt; .exit
+
+[~/Dropbox/src/javascript/PLgrado/csv(master)]$ irb
+ruby-1.9.2-head :001 &gt; x = &quot;hello&quot;
+ =&gt; &quot;hello&quot; 
+ruby-1.9.2-head :002 &gt; r = /(?&lt;=l)l/
+ =&gt; ll 
+ruby-1.9.2-head :008 &gt; x =~ r
+ =&gt; 3 
+ruby-1.9.2-head :009 &gt; $&amp;
+ =&gt; &quot;l&quot; </code></pre></li>
+<li><p>El siguiente ejemplo comprueba la validez de números de teléfono:</p>
+<pre><code>$ cat phone.html 
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;  
+  &lt;head&gt;  
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=ISO-8859-1&quot;&gt;  
+    &lt;meta http-equiv=&quot;Content-Script-Type&quot; content=&quot;text/javascript&quot;&gt;  
+    &lt;script type=&quot;text/javascript&quot;&gt;  
+      var re = /\(?\d{3}\)?([-\/\.])\d{3}\1\d{4}/;  
+      function testInfo(phoneInput){  
+        var OK = re.exec(phoneInput.value);  
+        if (!OK)  
+          window.alert(RegExp.input + &quot; isn&#39;t a phone number with area code!&quot;);  
+        else
+          window.alert(&quot;Thanks, your phone number is &quot; + OK[0]);  
+      }  
+    &lt;/script&gt;  
+  &lt;/head&gt;  
+  &lt;body&gt;  
+    &lt;p&gt;Enter your phone number (with area code) and then click &quot;Check&quot;.
+        &lt;br&gt;The expected format is like ###-###-####.&lt;/p&gt;
+    &lt;form action=&quot;#&quot;&gt;  
+      &lt;input id=&quot;phone&quot;&gt;&lt;button onclick=&quot;testInfo(document.getElementById(&#39;phone&#39;));&quot;&gt;Check&lt;/button&gt;
+    &lt;/form&gt;  
+  &lt;/body&gt;  
+&lt;/html&gt;</code></pre></li>
+<li><p>¿Con que cadenas casa la expresión regular <code>/^(11+)\1+$/</code>?</p>
+<pre><code>&gt; &#39;1111&#39;.match(/^(11+)\1+$/) # 4 unos
+[ &#39;1111&#39;,
+  &#39;11&#39;,
+  index: 0,
+  input: &#39;1111&#39; ]
+&gt; &#39;111&#39;.match(/^(11+)\1+$/) # 3 unos
+null
+&gt; &#39;11111&#39;.match(/^(11+)\1+$/) # 5 unos
+null
+&gt; &#39;111111&#39;.match(/^(11+)\1+$/) # 6 unos
+[ &#39;111111&#39;,
+  &#39;111&#39;,
+  index: 0,
+  input: &#39;111111&#39; ]
+&gt; &#39;11111111&#39;.match(/^(11+)\1+$/) # 8 unos
+[ &#39;11111111&#39;,
+  &#39;1111&#39;,
+  index: 0,
+  input: &#39;11111111&#39; ]
+&gt; &#39;1111111&#39;.match(/^(11+)\1+$/)
+null
+&gt; </code></pre></li>
+<li><p>Busque una solución al siguiente ejercicio (véase ’Regex to add space after punctuation sign’ en ) Se quiere poner un espacio en blanco después de la aparición de cada coma:</p>
+<pre><code>&gt; x = &quot;a,b,c,1,2,d, e,f&quot;
+&#39;a,b,c,1,2,d, e,f&#39;
+&gt; x.replace(/,/g,&quot;, &quot;)
+&#39;a, b, c, 1, 2, d,  e, f&#39;</code></pre>
+<p>pero se quiere que la sustitución no tenga lugar si la coma esta incrustada entre dos dígitos. Además se pide que si hay ya un espacio después de la coma, no se duplique.</p>
+<ol style="list-style-type: decimal">
+<li><p>La siguiente solución logra el segundo objetivo, pero estropea los números:</p>
+<pre><code>&gt; x = &quot;a,b,c,1,2,d, e,f&quot;
+&#39;a,b,c,1,2,d, e,f&#39;
+&gt; x.replace(/,(\S)/g,&quot;, $1&quot;)
+&#39;a, b, c, 1, 2, d, e, f&#39;</code></pre></li>
+<li><p>Esta otra funciona bien con los números pero no con los espacios ya existentes:</p>
+<pre><code>&gt; x = &quot;a,b,c,1,2,d, e,f&quot;
+&#39;a,b,c,1,2,d, e,f&#39;
+&gt; x.replace(/,(\D)/g,&quot;, $1&quot;)
+&#39;a, b, c,1,2, d,  e, f&#39;</code></pre></li>
+<li><p>Explique cuando casa esta expresión regular:</p>
+<pre><code>&gt; r = /(\d[,.]\d)|(,(?=\S))/g
+/(\d[,.]\d)|(,(?=\S))/g</code></pre>
+<p>Aproveche que el método <code>replace</code> puede recibir como segundo argumento una función (vea ):</p>
+<pre><code>&gt; z = &quot;a,b,1,2,d, 3,4,e&quot;
+&#39;a,b,1,2,d, 3,4,e&#39;
+&gt; f = function(match, p1, p2, offset, string) { return (p1 || p2 + &quot; &quot;); }
+[Function]
+&gt; z.replace(r, f)
+&#39;a, b, 1,2, d, 3,4, e&#39;</code></pre></li>
+</ol></li>
+</ol>
+<p>Se trata de producir una salida en las que las palabras repetidas consecutivas sean reducidas a una sola aparición. Rellena las partes que faltan.</p>
+<div class="figure">
+<img src="chapter2/repeated_words.png" alt="Ejemplo de pantalla de La aplicación para el Análisis de Datos en Formato CSV" /><p class="caption">Ejemplo de pantalla de La aplicación para el Análisis de Datos en Formato CSV</p>
+</div>
+<p>[figure:csv]</p>
+<pre><code>&lt;pre&gt;
+[~/Dropbox/src/javascript/PLgrado/repeatedwords(master)]$  tree --charset utf-8 
+.
+├── README
+├── global.css
+├── index.html
+├── input.txt
+├── input2.txt
+├── inputhtml1.txt
+└── repeated_words.js
+
+0 directories, 7 files
+&lt;/pre&gt;
+
+[~/Dropbox/src/javascript/PLgrado/repeatedwords(master)]$ cat index.html 
+&lt;html&gt;
+  &lt;head&gt;
+     &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+     &lt;title&gt;File Input&lt;/title&gt;
+     &lt;link href=&quot;global.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+
+     &lt;script type=&quot;text/javascript&quot; src=&quot;../../underscore/underscore.js&quot;&gt;&lt;/script&gt;
+     &lt;script type=&quot;text/javascript&quot; src=&quot;../../jquery/starterkit/jquery.js&quot;&gt;&lt;/script&gt;
+     &lt;script type=&quot;text/javascript&quot; src=&quot;repeated_words.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;File Input&lt;/h1&gt;
+    &lt;input type=&quot;file&quot; id=&quot;fileinput&quot; /&gt;
+    &lt;div id=&quot;out&quot; class=&quot;hidden&quot;&gt;
+    &lt;table&gt;
+      &lt;tr&gt;&lt;th&gt;Original&lt;/th&gt;&lt;th&gt;Transformed&lt;/th&gt;&lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;
+          &lt;pre class=&quot;input&quot; id=&quot;initialinput&quot;&gt;&lt;/pre&gt;
+        &lt;/td&gt;
+        &lt;td&gt;
+          &lt;pre class=&quot;output&quot; id=&quot;finaloutput&quot;&gt;&lt;/pre&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
+<p>Rellena los estilos para <code>hidden</code> y <code>unhidden</code>:</p>
+<pre><code>[~/Dropbox/src/javascript/PLgrado/repeatedwords(master)]$ cat global.css 
+html *
+{
+   font-size: large; 
+   /* The !important ensures that nothing can override what you&#39;ve set in this style (unless it is also important). */
+   font-family: Arial;
+}
+
+.thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+
+h1            { text-align: center; font-size: x-large; }
+th, td        { vertical-align: top; text-align: right; }   
+/* #finaltable  * { color: white; background-color: black; }   */
+
+/* #finaltable table { border-collapse:collapse; } */
+/* #finaltable table, td { border:1px solid white; } */
+#finaltable:hover td { background-color: blue; } 
+tr:nth-child(odd)    { background-color:#eee; }
+tr:nth-child(even)    { background-color:#00FF66; }
+input        { text-align: right;  border: none;       }     /* Align input to the right  */
+textarea     { border: outset; border-color: white;       }                        
+table        { border: inset; border-color: white; }
+.hidden      { display: ____; }
+.unhidden    { display: _____; }
+table.center { margin-left:auto; margin-right:auto; }
+#result      { border-color: red; }
+tr.error       { background-color: red; }
+pre.output   { background-color: white; }
+span.repeated { background-color: red }
+
+body
+{
+ background-color:#b0c4de;  /* blue */</code></pre>
+<ol style="list-style-type: decimal">
+<li><ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol></li>
+</ol>
+<p>Rellena las expresiones regulares que faltan:</p>
+<pre><code>[~/srcPLgrado/repeatedwords(master)]$ cat repeated_words.js 
+&quot;use strict&quot;; // Use ECMAScript 5 strict mode in browsers that support it
+
+$(document).ready(function() {
+   $(&quot;#fileinput&quot;).change(calculate);
+});
+
+function generateOutput(contents) {
+  return contents.replace(/____________________/__,&#39;__________________________________&#39;);
+}
+
+function calculate(evt) {
+  var f = evt.target.files[0]; 
+  var contents = &#39;&#39;;
+
+  if (f) {
+    var r = new FileReader();
+    r.onload = function(e) { 
+      contents = e.target.result;
+      var escaped  = escapeHtml(contents);
+      var outdiv = document.getElementById(&quot;out&quot;);
+      outdiv.className = &#39;unhidden&#39;;
+      finaloutput.innerHTML = generateOutput(escaped);
+      initialinput.innerHTML = escaped;
+
+    }
+    r.readAsText(f);
+  } else { 
+    alert(&quot;Failed to load file&quot;);
+  }
+}
+
+var entityMap = {
+    &quot;&amp;&quot;: &quot;&amp;amp;&quot;,
+    &quot;&lt;&quot;: &quot;&amp;lt;&quot;,
+    &quot;&gt;&quot;: &quot;&amp;gt;&quot;,
+    &#39;&quot;&#39;: &#39;&amp;quot;&#39;,
+    &quot;&#39;&quot;: &#39;&amp;#39;&#39;,
+    &quot;/&quot;: &#39;&amp;#x2F;&#39;
+  };
+
+function escapeHtml(string) {
+  return String(string).replace(/_________/g, function (s) {
+    return ____________;
+  });</code></pre>
+<ol style="list-style-type: decimal">
+<li><ol start="2" style="list-style-type: decimal">
+<li><ol start="3" style="list-style-type: decimal">
+<li><ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li><ol start="6" style="list-style-type: decimal">
+<li><ol start="7" style="list-style-type: decimal">
+<li><ol start="8" style="list-style-type: decimal">
+<li></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol>
+<!-- -->
+<pre><code>[~/Dropbox/src/javascript/PLgrado/repeatedwords(master)]$ cat input2.txt 
+habia una vez 
+vez un viejo viejo
+hidalgo que vivia 
+vivia
+[~/Dropbox/src/javascript/PLgrado/repeatedwords(master)]$ cat input.txt 
+one one
+nothing rep
+is two three
+three four
+[~/Dropbox/src/javascript/PLgrado/repeatedwords(master)]$ cat inputhtml1.txt 
+habia =&gt; una vez 
+vez &amp; un viejo viejo &lt;puchum&gt;
+hidalgo  &amp; &lt;pacham&gt; que vivia 
+vivia &lt;/que se yo&gt;</code></pre>
+<h2 id="ejercicios-1">Ejercicios</h2>
+<p>El formato es un formato estandar para la escritura de ficheros de configuración. Su estrucutra básica se compone de “secciones” y “propiedades”. Véase la entrada de la wikipedia .</p>
+<pre><code>; last modified 1 April 2001 by John Doe
+[owner]
+name=John Doe
+organization=Acme Widgets Inc.
+ 
+[database]
+; use IP address in case network name resolution is not working
+server=192.0.2.62     
+port=143
+file = &quot;payroll.dat&quot;</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>Escriba un programa javascript que obtenga las cabeceras de sección de un fichero INI</p></li>
+<li><p>Escriba un programa javascript que case con los bloques de un fichero INI (cabecera mas lista de pares <code>parámetro=valor</code>)</p></li>
+<li><p>Se quieren obtener todos los pares nombre-valor, usando paréntesis con memoria para capturar cada parte.</p></li>
+<li><p>¿Que casa con cada paréntesis en esta regexp para los pares nombre-valor?</p>
+<pre><code>&gt; x = &quot;h     = 4&quot;
+&gt; r = /([^=]*)(\s*)=(\s*)(.*)/
+&gt; r.exec(x)
+&gt;</code></pre></li>
+</ol>
+<h2 id="ejercicios-2">Ejercicios</h2>
+<ol style="list-style-type: decimal">
+<li><p>Escriba una expresión regular que reconozca las cadenas de doble comillas. Debe permitir la presencia de comillas y caracteres escapados.</p></li>
+<li><p>¿Cual es la salida?</p>
+<pre><code>&gt; &quot;bb&quot;.match(/b|bb/)
+
+&gt; &quot;bb&quot;.match(/bb|b/)</code></pre></li>
+</ol>
+<!-- -->
+<pre><code>&lt;html&gt;
+  &lt;head&gt;
+     &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+     &lt;title&gt;INI files&lt;/title&gt;
+     &lt;link href=&quot;global.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+
+     &lt;script type=&quot;text/javascript&quot; src=&quot;../../underscore/underscore.js&quot;&gt;&lt;/script&gt;
+     &lt;script type=&quot;text/javascript&quot; src=&quot;../../jquery/starterkit/jquery.js&quot;&gt;&lt;/script&gt;
+     &lt;script type=&quot;text/javascript&quot; src=&quot;______&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;INI files&lt;/h1&gt;
+    &lt;input type=&quot;file&quot; id=&quot;_________&quot; /&gt;
+    &lt;div id=&quot;out&quot; class=&quot;hidden&quot;&gt;
+    &lt;table&gt;
+      &lt;tr&gt;&lt;th&gt;Original&lt;/th&gt;&lt;th&gt;Tokens&lt;/th&gt;&lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;
+          &lt;pre class=&quot;input&quot; id=&quot;____________&quot;&gt;&lt;/pre&gt;
+        &lt;/td&gt;
+        &lt;td&gt;
+          &lt;pre class=&quot;output&quot; id=&quot;___________&quot;&gt;&lt;/pre&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+
+[~/Dropbox/src/javascript/PLgrado/ini(master)]$ cat global.css
+html *
+{
+   font-size: large; 
+   /* The !important ensures that nothing can override what you&#39;ve set in this style (unless it is also important). */
+   font-family: Arial;
+}
+
+.thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+
+h1            { text-align: center; font-size: x-large; }
+th, td        { vertical-align: top; text-align: left; }   
+/* #finaltable  * { color: white; background-color: black; }   */
+
+/* #finaltable table { border-collapse:collapse; } */
+/* #finaltable table, td { border:1px solid white; } */
+#finaltable:hover td { background-color: blue; } 
+tr:nth-child(odd)    { background-color:#eee; }
+tr:nth-child(even)    { background-color:#00FF66; }
+input        { text-align: right;  border: none;       }     /* Align input to the right  */
+textarea     { border: outset; border-color: white;       }                        
+table        { border: inset; border-color: white; }
+.hidden      { display: ____; }
+.unhidden    { display: _____; }
+table.center { margin-left:auto; margin-right:auto; }
+#result      { border-color: red; }
+tr.error       { background-color: red; }
+pre.output   { background-color: white; }
+span.repeated { background-color: red }
+span.header { ________________: ____ }
+span.comments { ________________: ______ }
+span.blanks { ________________: _____ }
+span.nameEqualValue { ________________: ____ }
+span.error { ________________: ___ }
+
+body
+{
+ background-color:#b0c4de;  /* blue */
+}
+
+~/Dropbox/src/javascript/PLgrado/ini(master)]$ cat input.ini 
+; last modified 1 April 2001 by John Doe
+[owner]
+name=John Doe
+organization=Acme Widgets Inc.
+
+[database]
+; use IP address in case network name resolution is not working
+server=192.0.2.62     
+port=143
+file = &quot;payroll.dat&quot;
+
+$ cat input2.ini 
+[special_fields] 
+required = &quot;EmailAddr,FirstName,LastName,Mesg&quot; 
+csvfile = &quot;contacts.csv&quot; 
+csvcolumns = &quot;EmailAddr,FirstName,LastName,Mesg,Date,Time&quot; 
+
+[email_addresses] 
+sales = &quot;jack@yahoo.com,mary@my-sales-force.com,president@my-company.com&quot;
+
+$ cat inputerror.ini
+[owner]
+name=John Doe
+organization$Acme Widgets Inc.
+ 
+[database
+; use IP address in case network name resolution is not working
+server=192.0.2.62     
+port=143
+file = &quot;payroll.dat&quot;
+
+[~/Dropbox/src/javascript/PLgrado/ini(master)]$ cat ini.js 
+&quot;use ______&quot;; // Use ECMAScript 5 strict mode in browsers that support it
+
+$(document)._____(function() {
+   $(&quot;#fileinput&quot;).______(calculate);
+});
+
+function calculate(evt) {
+  var f = evt.target.files[0]; 
+
+  if (f) {
+    var r = new __________();
+    r.onload = function(e) { 
+      var contents = e.target.______;
+      
+      var tokens = lexer(contents);
+      var pretty = tokensToString(tokens);
+      
+      out.className = &#39;unhidden&#39;;
+      initialinput._________ = contents;
+      finaloutput._________ = pretty;
+    }
+    r.__________(f); // Leer como texto
+  } else { 
+    alert(&quot;Failed to load file&quot;);
+  }
+}
+
+var temp = &#39;&lt;li&gt; &lt;span class = &quot;&lt;%= ______ %&gt;&quot;&gt; &lt;%= _ %&gt; &lt;/span&gt;\n&#39;;
+
+function tokensToString(tokens) {
+   var r = &#39;&#39;;
+   for(var i in tokens) {
+     var t = tokens[i];
+     var s = JSON.stringify(t, undefined, 2);
+     s = _.template(temp, {t: t, s: s});
+     r += s;
+   }
+   return &#39;&lt;ol&gt;\n&#39;+r+&#39;&lt;/ol&gt;&#39;;
+}
+
+function lexer(input) {
+  var blanks         = /^___/;
+  var iniheader      = /^________________/;
+  var comments       = /^________/;
+  var nameEqualValue = /^________________________/;
+  var any            = /^_______/;
+
+  var out = [];
+  var m = null;
+
+  while (input != &#39;&#39;) {
+    if (m = blanks.____(input)) {
+      input = input.substr(m.index+___________);
+      out.push({ type : ________, match: _ });
+    }
+    else if (m = iniheader.exec(input)) {
+      input = input.substr(___________________);
+      _______________________________________ // avanzemos en input
+    }
+    else if (m = comments.exec(input)) {
+      input = input.substr(___________________);
+      _________________________________________
+    }
+    else if (m = nameEqualValue.exec(input)) {
+      input = input.substr(___________________);
+      _______________________________________________
+    }
+    else if (m = any.exec(input)) {
+      _______________________________________
+      input = &#39;&#39;;
+    }
+    else {
+      alert(&quot;Fatal Error!&quot;+substr(input,0,20));
+      input = &#39;&#39;;
+    }
+  }
+  return out;
+}</code></pre>
+<ol style="list-style-type: decimal">
+<li><ol start="2" style="list-style-type: decimal">
+<li><ol start="3" style="list-style-type: decimal">
+<li><ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol>
+<!-- -->
+<ol style="list-style-type: decimal">
+<li>Clone el proyecto en github. Rellene las partes que faltan en cada fichero.</li>
+</ol>
+<h2 id="definición-y-diseño-de-lenguajes">Definición y Diseño de Lenguajes</h2>
+<h2 id="expresiones-regulares-posix-en-c">Expresiones Regulares Posix en C</h2>
+<p>Las Expresiones Regulares ’a la Perl’ no forman parte de ANSI C. La forma mas sencilla de usar regexps en C es utilizando la versión POSIX de la librería que viene con la mayoría de los Unix. Sigue un ejemplo que usa regex POSIX en C:</p>
+<pre><code>[~/src/C/regexp]$ cat use_posix.c 
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;regex.h&gt;        
+
+int main() {
+       regex_t regex;
+       int reti;
+       char msgbuf[100];
+
+/* Compile regular expression */
+        reti = regcomp(&amp;regex, &quot;^a[[:alnum:]]&quot;, 0);
+        if( reti ){ fprintf(stderr, &quot;Could not compile regex\n&quot;); exit(1); }
+
+/* Execute regular expression */
+        reti = regexec(&amp;regex, &quot;abc&quot;, 0, NULL, 0);
+        if( !reti ){
+                puts(&quot;Match&quot;);
+        }
+        else if( reti == REG_NOMATCH ){
+                puts(&quot;No match&quot;);
+        }
+        else{
+                regerror(reti, &amp;regex, msgbuf, sizeof(msgbuf));
+                fprintf(stderr, &quot;Regex match failed: %s\n&quot;, msgbuf);
+                exit(1);
+        }
+
+/* Free compiled regular expression if you want to use the regex_t again */
+    regfree(&amp;regex);
+}</code></pre>
+<p>Compilación y ejecución:</p>
+<pre><code>[~/src/C/regexp]$ cc use_posix.c  -o use_posix
+[~/src/C/regexp]$ ./use_posix 
+Match</code></pre>
+<ol style="list-style-type: decimal">
+<li><ol start="2" style="list-style-type: decimal">
+<li><ol start="3" style="list-style-type: decimal">
+<li><ol start="4" style="list-style-type: decimal">
+<li></li>
+</ol></li>
+</ol></li>
+</ol></li>
+</ol>

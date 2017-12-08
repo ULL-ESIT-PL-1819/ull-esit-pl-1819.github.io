@@ -1,0 +1,402 @@
+\sectionpractica{Servicio para Abreviar URLs}
+\label{sectionpractica:abreviarurl}
+Escriba un acortador de URLs usando ActiveRecords y \htmladdnormallink{sinatra-activerecord}{https://github.com/janko-m/sinatra-activerecord}
+Asegúrese de tener instalados:
+\begin{enumerate}
+\item gem install activerecord
+\item gem install sinatra-activerecord
+\item gem install sqlite3
+\end{enumerate}
+Este es un ejemplo de estructura de la aplicación en su forma final:
+\begin{verbatim}
+[~/srcSTW/url_shortener_with_active_records(master)]$ tree -A
+.
+|-- Gemfile
+|-- Gemfile.lock
+|-- README
+|-- Rakefile
+|-- app.rb
+|-- db
+|   |-- config.yml
+|   `-- migrate
+|       `-- 20121017115717_shortened_urls.rb
+|-- shortened_urls.db
+|-- shortened_urls_bak.db
+`-- views
+    |-- index.haml
+    |-- layout.haml
+    `-- success.haml
+
+3 directories, 12 files
+
+\end{verbatim}
+Una vez instaladas las gemas implicadas:
+\begin{verbatim}
+[~/srcSTW/url_shortener_with_active_records(master)]$ cat Gemfile
+source 'https://rubygems.org'
+
+#gem 'alphadecimal'
+gem 'sinatra-activerecord'
+gem 'sqlite3'
+\end{verbatim}
+con \verb|bundle install|,
+procedemos a añadir objetivos al \verb|Rakefile|:
+\begin{verbatim}
+[~/srcSTW/url_shortener_with_active_records(master)]$ cat Rakefile 
+$: << '.' # add current path to the search path
+require 'sinatra/activerecord/rake'
+require 'app'
+
+desc "Reset the data base to initial state"
+task :clean do
+  sh "mv shortened_urls.db tmp/"
+  sh "mv db/migrate /tmp/"
+end
+
+desc "Create the specific ActiveRecord migration for this app"
+task :create_migration do
+  sh "rake db:create_migration NAME=create_shortened_urls"
+end
+
+desc "shows the code you have to have in your db/migrate/#number_shortened_urls.rb file"
+task :edit_migration do
+  source = <<EOS
+class ShortenedUrls < ActiveRecord::Migration
+  def up
+    create_table :shortened_urls do |t|
+      t.string :url
+    end
+    add_index :shortened_urls, :url
+  end
+
+  def down
+    drop_table :shortened_urls
+  end
+end
+EOS
+  puts "Edit the migration and insert this code:"
+  puts source
+end
+
+desc "run the url shortener app"
+task :run do
+  sh "ruby app.rb"
+end
+
+\end{verbatim}
+Este \verb|Rakefile| tiene los siguientes objetivos:
+\begin{verbatim}
+[~/srcSTW/url_shortener_with_active_records(master)]$ rake -T
+rake clean                # Reset the data base to initial state
+rake create_migration     # Create the specific ActiveRecord migration for this app
+rake db:create_migration  # create an ActiveRecord migration in ./db/migrate
+rake db:migrate           # migrate the database (use version with VERSION=n)
+rake db:rollback          # roll back the migration (use steps with STEP=n)
+rake edit_migration       # shows the code you have to have in your db/migrate/#number_shortened_urls.rb file
+rake run                  # run the url shortener app
+[~/srcSTW/url_shortener_with_active_records(master)]$ 
+
+\end{verbatim}
+De ellos los tres que nos importan ahora son \verb|db:create_migration|, \verb|db:migrate| y \verb|db:rollback| 
+que son creados por la línea \verb|require 'sinatra/activerecord/rake'|.
+
+Las \htmladdnormallink{migraciones}{http://api.rubyonrails.org/classes/ActiveRecord/Migration.html} 
+nos permiten gestionar la evolución de un esquema utilizado por varias bases de datos.
+Es una solución al problema habitual de añadir un campo para proveer una nueva funcionalidad en nuestra 
+base de datos, pero no tener claro como comunicar dicho cambio al resto de los desarrolladores
+y al servidor de producción.
+Con las migraciones podemos describir las transformaciones mediante clases autocintenidas que pueden
+ser añadadidas a nuestro repositorio \verb|git| y ejecutadas contra una base de datos que puede estar una, dos 
+o cinco versiones atrás.
+
+
+Comenzemos configurando el modelo para nuestra aplicación. En el directorio \verb|db| 
+creamos el fichero \verb|config.yml|:
+\begin{verbatim}
+[~/srcSTW/url_shortener_with_active_records(master)]$ cat db/config.yml 
+development:
+  adapter: sqlite3
+  encoding: utf8
+  database: shortened_urls_dev.sqlite
+
+test:
+  adapter: sqlite3
+  encoding: utf8
+  database: shortened_urls_test.sqlite
+
+production:
+  adapter: sqlite3
+  encoding: utf8
+  database: shortened_urls_live.sqlite
+\end{verbatim}
+
+Comenzaremos creando nuestro modelo.
+Para ello ejecutamos \verb|rake db:create_migration|.
+Como vemos debemos pasar una opción \verb|NAME| para nuestra migración. En nuestro caso pasamos 
+\verb|NAME=create_shortened_urls|.
+Esto crea la carpeta \verb|db/migrate| que contienen nuestra migración.
+
+\begin{verbatim}
+[~/srcSTW/url_shortener_with_active_records(master)]$ tree db
+db
+|-- config.yml
+`-- migrate
+    `-- 20121017115717_shortened_urls.rb
+\end{verbatim}
+ahora rellenamos los métodos \verb|up| y el \verb|down|:
+\begin{verbatim}
+1 directory, 2 files
+[~/srcSTW/url_shortener_with_active_records(master)]$ cat db/migrate/20121017115717_shortened_urls.rb 
+class ShortenedUrls < ActiveRecord::Migration
+  def up
+    create_table :shortened_urls do |t|
+      t.string :url
+    end
+    add_index :shortened_urls, :url
+  end
+
+  def down
+    drop_table :shortened_urls
+  end
+end
+\end{verbatim}
+cuando ejecutamos \verb|rake db:migrate| se ejecuta la migración y crea la base de datos
+con la tabla \verb|shortened_urls|.
+
+
+En nuestro fichero \verb|app.rb| creamos nuestro modelo \verb|ShortenedUrl|.
+Para ello escribimos:
+\begin{verbatim}
+class ShortenedUrl < ActiveRecord::Base
+end
+\end{verbatim}
+Después incluímos algunas \htmladdnormallink{validaciones}{http://guides.rubyonrails.org/active_record_validations_callbacks.html}:
+\begin{verbatim}
+class ShortenedUrl < ActiveRecord::Base
+  # Validates whether the value of the specified attributes are unique across the system.
+  validates_uniqueness_of :url
+  # Validates that the specified attributes are not blank
+  validates_presence_of :url
+  #validates_format_of :url, :with => /.*/
+  validates_format_of :url, 
+       :with => %r{^(https?|ftp)://.+}i, 
+       :allow_blank => true, 
+       :message => "The URL must start with http://, https://, or ftp:// ."
+end
+\end{verbatim}
+A continuación escribimos las rutas:
+\begin{verbatim}
+get '/' do
+  
+end
+
+post '/' do
+end
+\end{verbatim}
+Creamos también una ruta \verb|get| para redireccionar la URL
+acortada a su destino final:
+\begin{verbatim}
+get '/:shortened' do
+end
+\end{verbatim}
+Supongamos  que  usamos el \verb|id| de la URL en la base de datos 
+para acortar la URL.
+Entonces lo que tenemos que hacer es 
+encontrar mediante el método \htmladdnormallink{find}{http://guides.rubyonrails.org/active_record_querying.html} 
+la URL:
+
+\begin{verbatim}
+get '/:shortened' do
+  short_url = ShortenedUrl.find(params[:shortened].to_i(36))
+  redirect short_url.url
+end
+\end{verbatim}
+Mediante una llamada de la forma \verb|Model.find(primary_key)|
+obtenemos el objeto correspondiente a la clave primaria específicada.
+que casa con las opciones suministradas.
+
+El SQL equivalente es:
+
+\begin{verbatim}
+SELECT * FROM shortened_urls WHERE (url.id = params[:shortened].to_i(36)) LIMIT 1
+\end{verbatim}
+\verb|Model.find(primary_key)|
+genera una excepción  \verb|ActiveRecord::RecordNotFound|
+si no se encuentra ningún registro.
+
+Veamos una sesión on \verb|sqlite3|:
+\begin{verbatim}
+[~/srcSTW/url_shortener_with_active_records(master)]$ sqlite3 shortened_urls.db 
+SQLite version 3.7.7 2011-06-25 16:35:41
+Enter ".help" for instructions
+Enter SQL statements terminated with a ";"
+sqlite> .schema
+CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL);
+CREATE TABLE "shortened_urls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "url" varchar(255));
+CREATE INDEX "index_shortened_urls_on_url" ON "shortened_urls" ("url");
+CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version");
+sqlite> select * from  shortened_urls;
+1|https://mail.google.com/mail/u/0/
+2|https://plus.google.com/u/0/
+3|http://campusvirtual.ull.es/1213m2/mod/forum/discuss.php?d=5629
+4|http://www.sinatrarb.com/intro#Accessing%20Variables%20in%20Templates
+sqlite> select * from shortened_urls where (id = 3) limit 1;
+3|http://campusvirtual.ull.es/1213m2/mod/forum/discuss.php?d=5629
+sqlite>  .quit
+\end{verbatim}
+
+Este es el código completo de \verb|app.rb|:
+\begin{verbatim}
+$ cat app.rb 
+require 'sinatra'
+require 'sinatra/activerecord'
+require 'haml'
+
+set :database, 'sqlite3:///shortened_urls.db'
+#set :address, 'localhost:4567'
+set :address, 'exthost.etsii.ull.es:4567'
+
+class ShortenedUrl < ActiveRecord::Base
+  # Validates whether the value of the specified attributes are unique across the system.
+  validates_uniqueness_of :url
+  # Validates that the specified attributes are not blank
+  validates_presence_of :url
+  #validates_format_of :url, :with => /.*/
+  validates_format_of :url, 
+       :with => %r{^(https?|ftp)://.+}i, 
+       :allow_blank => true, 
+       :message => "The URL must start with http://, https://, or ftp:// ."
+end
+
+
+get '/' do
+  haml :index
+end
+
+post '/' do
+  @short_url = ShortenedUrl.find_or_create_by_url(params[:url])
+  if @short_url.valid?
+    haml :success, :locals => { :address => settings.address }
+  else
+    haml :index
+  end
+end
+
+get '/:shortened' do
+  short_url = ShortenedUrl.find(params[:shortened].to_i(36))
+  redirect short_url.url
+end
+
+\end{verbatim}
+
+Las Vistas. Primero 
+el fichero \verb|views/layout.haml|:
+\begin{verbatim}
+$ cat views/layout.haml 
+!!!
+%html
+    %body
+        =yield
+        %form(action="/" method="POST")
+            %label(for="url")
+            %input(type="text" name="url" id="url" accesskey="s")
+            %input(type="submit" value="Shorten")
+\end{verbatim}
+Creamos un formulario que envía con \verb|method="POST"| a la raíz \verb|action="/"|.
+tiene un elemento \verb|input| para obtener la URL.
+
+El formulario es procesado por la ruta \verb|post '/'|:
+\begin{verbatim}
+post '/' do
+  @short_url = ShortenedUrl.find_or_create_by_url(params[:url])
+  if @short_url.valid?
+    haml :success, :locals => { :address => settings.address }
+  else
+    haml :index
+  end
+end
+\end{verbatim}
+El método \htmladdnormallink{find\_or\_create}{http://guides.rubyonrails.org/active_record_querying.html}
+encontrará la URL o creará una nueva.
+
+
+El fichero \verb|views/index.haml|:
+\begin{verbatim}
+[~/srcSTW/url_shortener_with_active_records(master)]$ cat views/index.haml 
+- if @short_url.present? && !@short_url.valid?
+  %p Invalid URL: #{@short_url.url}
+\end{verbatim}
+
+El fichero \verb|views/success.haml|:
+\begin{verbatim}
+[~/srcSTW/url_shortener_with_active_records(master)]$ cat views/success.haml 
+%p #{params}
+%p http://#{address}/#{@short_url.id.to_s(36)}
+
+\end{verbatim}
+
+Puede ir añadiendo extensiones a la práctica:
+\begin{enumerate}
+\item Añada una opción para mostrar la lista de URLs abreviadas
+El método \verb|find| puede serle útil:
+\begin{verbatim}
+get '/show' do
+  urls = ShortenedUrl.find(:all)
+  ...
+  haml :show
+end
+\end{verbatim}
+\item Añada una opción para buscar por una abreviación y mostrar la URL
+\item Añada una opción para buscar por una URL y mostrar la abreviación
+\item Añada una opción que permita una abreviación personalizada, siempre que esté libre. 
+Por ejemplo, abreviar
+\verb|http://www.sinatrarb.com/documentation| a \verb|http://localhost:4567/sindoc|
+
+Esto obliga a 
+poner una opción para ello en el formulario:
+\begin{verbatim}
+  %form(action="/" method="POST")
+          %label(for="url") URL
+          %input(type="text" name="url" id="url" accesskey="s")
+          %br
+          %label(for="custom") Custom Shortened URL(optional)
+          %input(type="text" name="custom" id="custom" accesskey="t")
+          %br
+          %input(type="submit" value="Shorten" class="btn btn-primary")
+\end{verbatim}
+y a comprobar de alguna manera si la opción \verb|custom| contiene algo.
+\end{enumerate}
+
+\parrafo{Véase}
+\begin{enumerate}
+\item 
+\htmladdnormallink{URL Shortner App using Ruby, Sinatra and MongoDb (originally Redis)}{https://github.com/jrcryer/songbird-sinatra}
+en Github
+\end{enumerate}
+
+\sectionpractica{Servicio para Abreviar URLs Teniendo en Cuenta el País de Visita}
+
+Añádale a la práctica 
+\ref{sectionpractica:abreviarurl}
+la funcionalidad de mostrar el número de visitas y el número de visitas por país.
+
+Puede usar para ello la API de \htmladdnormallink{http://www.hostip.info/}{http://www.hostip.info/}:
+
+\begin{verbatim}
+  after :create, :set_country
+  
+  def set_country
+    xml = RestClient.get "http://api.hostip.info/get_xml.php?ip=#{ip}"  
+    self.country = XmlSimple.xml_in(xml.to_s, { 'ForceArray' => false })['featureMember']['Hostip']['countryAbbrev']
+    self.save
+  end
+\end{verbatim}
+
+\begin{itemize}
+\item XMLSimple le puede ayudar a parsear el XML:
+\htmladdnormallink{http://xml-simple.rubyforge.org/}{http://xml-simple.rubyforge.org/}
+\item
+\htmladdnormallink{https://github.com/sausheong/tinyclone}{https://github.com/sausheong/tinyclone}
+\item Véase la API de 
+\htmladdnormallink{http://www.hostip.info/}{http://www.hostip.info/}
+\end{itemize}

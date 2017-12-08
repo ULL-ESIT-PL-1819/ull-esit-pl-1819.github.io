@@ -1,0 +1,44 @@
+\subsection{JSDoc}\label{jsdoc}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  ¿Cual es la sintáxis de los comentarios de documentación en JSDoc?
+  ¿Como empiezan?
+\item
+  ¿Donde debo ubicar un comentario de documentación JSDoc para
+  documentar un cierto código?
+\item
+  Special \emph{JSDoc tags} can be used to give more information. For
+  example,
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    If the function is a constructor for a class, you can indicate this
+    by adding a \_\_\_\_\_\_\_\_\_\_\_\_ tag (fill the gap)
+  \item
+    ¿Cómo se documenta un parámetro de una función?
+  \item
+    ¿Que hace esta documentación JSDoc?
+
+\begin{verbatim}
+/**
+ * See {@tutorial gettingstarted} 
+ */
+function myFunction() {}
+\end{verbatim}
+  \item
+    ¿Que hace esta documentación JSDoc?
+
+\begin{verbatim}
+/**
+ * See {@link MyClass} and [MyClass's foo property]{@link MyClass#foo}.
+ * Also, check out {@link http://www.google.com|Google} and
+ * {@link https://github.com GitHub}.
+ */
+function myFunction() {}
+\end{verbatim}
+  \end{enumerate}
+\end{enumerate}

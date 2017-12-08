@@ -1,0 +1,585 @@
+\section{Introducción}
+\begin{enumerate}
+\item
+\htmladdnormallink{Darío Javier Cravero says 'The best way to get started is to have a look at the guides'}{https://github.com/padrino/padrino-docs/blob/master/guides/getting-started.md}
+\item 
+\htmladdnormallink{Padrino Blog Tutorial}{http://www.padrinorb.com/guides/blog-tutorial}
+\item Gist Template para seguir el tutorial del blog en Padrino:
+\htmladdnormallink{achiu / blog\_template.rb}{https://gist.github.com/achiu/357045}
+\end{enumerate}
+
+\begin{verbatim}
+[~/srcpadrino/padrino-book(master)]$ padrino --version
+Padrino v. 0.11.4
+\end{verbatim}
+
+\begin{verbatim}
+[~/srcpadrino/padrino-book(master)]$ padrino --help
+Tasks:
+  padrino console   # Boots up the Padrino application irb console (alternatively use 'c').
+  padrino generate  # Executes the Padrino generator with given options (alternatively use 'gen' or 'g').
+  padrino help      # Describe available tasks or one specific task
+  padrino rake      # Execute rake tasks.
+  padrino runner    # Run a piece of code in the Padrino application environment (alternatively use 'run' or 'r').
+  padrino start     # Starts the Padrino application (alternatively use 's').
+  padrino stop      # Stops the Padrino application (alternatively use 'st').
+  padrino version   # Show current Padrino version.
+
+Options:
+  -c, [--chdir=CHDIR]            # Change to dir before starting.
+  -e, --environment=ENVIRONMENT  # Padrino Environment.
+                                 # Default: development
+      [--help]                   # Show help usage
+\end{verbatim}
+
+\begin{verbatim}
+[~/srcpadrino/padrino-book(master)]$ padrino help generate
+Usage:
+  padrino generate
+
+Options:
+  -c, [--chdir=CHDIR]            # Change to dir before starting.
+  -e, --environment=ENVIRONMENT  # Padrino Environment.
+                                 # Default: development
+      [--help]                   # Show help usage
+
+Executes the Padrino generator with given options (alternatively use 'gen' or 'g').
+\end{verbatim}
+
+\begin{verbatim}
+ gem uninstall activesupport -v 4.0.0
+\end{verbatim}
+
+To create a Padrino application, the best place to start is using
+the convenient Padrino generator. Similar to Rails, Padrino has a
+project generator which will create a skeleton application with all
+the files you need to being development of your new idea. Padrino
+is an agnostic framework and supports using a variety of different
+template, testing, JavaScript and database components. You can learn
+more by reading the generators guide.
+
+For this sample application, we will use the ActiveRecord ORM, the
+Haml templating language, the Shoulda testing framework and the
+jQuery JavaScript library. With that in mind, let us generate our
+new project:
+
+\begin{verbatim}
+[~/srcpadrino]$ padrino g project sample_blog -t shoulda -e haml -c sass -s jquery -d activerecord -b
+      create  
+      create  .gitignore
+      create  config.ru
+      create  config/apps.rb
+      create  config/boot.rb
+      create  public/favicon.ico
+      create  public/images
+      create  public/javascripts
+      create  public/stylesheets
+      create  tmp
+      create  .components
+      create  app
+      create  app/app.rb
+      create  app/controllers
+      create  app/helpers
+      create  app/views
+      create  app/views/layouts
+      create  Gemfile
+      create  Rakefile
+    applying  activerecord (orm)...
+       apply  orms/activerecord
+      insert  Gemfile
+      insert  Gemfile
+      insert  app/app.rb
+      create  config/database.rb
+    applying  shoulda (test)...
+       apply  tests/shoulda
+      insert  Gemfile
+      insert  Gemfile
+      create  test/test_config.rb
+      create  test/test.rake
+    skipping  mock component...
+    applying  jquery (script)...
+       apply  scripts/jquery
+      create  public/javascripts/jquery.js
+      create  public/javascripts/jquery-ujs.js
+      create  public/javascripts/application.js
+    applying  haml (renderer)...
+       apply  renderers/haml
+      insert  Gemfile
+    applying  sass (stylesheet)...
+       apply  stylesheets/sass
+      insert  Gemfile
+      insert  app/app.rb
+      create  lib/sass_initializer.rb
+      create  app/stylesheets
+   identical  .components
+       force  .components
+       force  .components
+Bundling application dependencies using bundler...
+         run  bundle install from "."
+Fetching gem metadata from https://rubygems.org/...........
+Fetching gem metadata from https://rubygems.org/..
+Resolving dependencies...
+Using rake (10.1.1) 
+Using i18n (0.6.9) 
+Using multi_json (1.8.2) 
+Using activesupport (3.2.16) 
+Using builder (3.0.4) 
+Installing activemodel (3.2.16) 
+Installing arel (3.0.3) 
+Using tzinfo (0.3.38) 
+Installing activerecord (3.2.16) 
+Using bundler (1.3.5) 
+Using tilt (1.4.1) 
+Using haml (4.0.4) 
+Using rack (1.5.2) 
+Using url_mount (0.2.1) 
+Using http_router (0.11.0) 
+Using mime-types (1.25.1) 
+Using polyglot (0.3.3) 
+Using treetop (1.4.15) 
+Using mail (2.5.4) 
+Using rack-protection (1.5.1) 
+Using sinatra (1.4.4) 
+Using thor (0.17.0) 
+Using padrino-core (0.11.4) 
+Using padrino-helpers (0.11.4) 
+Using padrino-admin (0.11.4) 
+Using padrino-cache (0.11.4) 
+Using padrino-gen (0.11.4) 
+Using padrino-mailer (0.11.4) 
+Using padrino (0.11.4) 
+Using rack-test (0.6.2) 
+Using sass (3.2.13) 
+Installing shoulda-context (1.1.6) 
+Installing shoulda-matchers (2.4.0) 
+Installing shoulda (3.5.0) 
+Using sqlite3 (1.3.8) 
+Your bundle is complete!
+Use `bundle show [gemname]` to see where a bundled gem is installed.
+
+=================================================================
+sample_blog is ready for development!
+=================================================================
+$ cd ./sample_blog
+=================================================================
+
+\end{verbatim}
+
+This command will generate our basic Padrino project and the print
+out a nice report of the files generated. 
+
+Notice the \verb|-b|
+flag in the previous command which automatically instructs bundler
+to install all dependencies. All we need to do now is \verb|cd| into our
+brand new application:
+
+\begin{verbatim}
+[~/srcpadrino]$ cd sample_blog/
+[~/srcpadrino/sample_blog]$ tree
+.
+|--- Gemfile
+|--- Gemfile.lock
+|--- Rakefile
+|--- app
+|   |--- app.rb
+|   |--- controllers
+|   |--- helpers
+|   |--- stylesheets
+|   `--- views
+|       `--- layouts
+|--- config
+|   |--- apps.rb
+|   |--- boot.rb
+|   `--- database.rb
+|--- config.ru
+|--- lib
+|   `--- sass_initializer.rb
+|--- public
+|   |--- favicon.ico
+|   |--- images
+|   |--- javascripts
+|   |   |--- application.js
+|   |   |--- jquery-ujs.js
+|   |   `--- jquery.js
+|   `--- stylesheets
+|--- test
+|   |--- test.rake
+|   `--- test_config.rb
+`--- tmp
+
+14 directories, 15 files
+
+\end{verbatim}
+
+Padrino generators do not lock you into using any particular database,
+ORM, testing framework, templating engine or javascript library.
+In fact, when generating an application you can actually tell Padrino
+which components you would like to use!
+
+\begin{verbatim}
+[~/srcpadrino/myproject]$ bundle install
+Fetching gem metadata from https://rubygems.org/.........
+Fetching gem metadata from https://rubygems.org/..
+Resolving dependencies...
+Installing rake (10.1.1) 
+Installing i18n (0.6.9) 
+Using multi_json (1.8.2) 
+Installing activesupport (3.2.16) 
+Using addressable (2.3.5) 
+Using bcrypt-ruby (3.1.2) 
+Using bundler (1.3.5) 
+Using data_objects (0.10.13) 
+Using dm-core (1.2.1) 
+Using dm-aggregates (1.2.0) 
+Using dm-constraints (1.2.0) 
+Using dm-do-adapter (1.2.0) 
+Using dm-migrations (1.2.0) 
+Using do_sqlite3 (0.10.13) 
+Using dm-sqlite-adapter (1.2.0) 
+Using dm-timestamps (1.2.0) 
+Using fastercsv (1.5.5) 
+Using json (1.8.1) 
+Using stringex (1.5.1) 
+Using uuidtools (2.1.4) 
+Using dm-types (1.2.2) 
+Using dm-validations (1.2.0) 
+Using tilt (1.4.1) 
+Using haml (4.0.4) 
+Using rack (1.5.2) 
+Using url_mount (0.2.1) 
+Using http_router (0.11.0) 
+Installing mime-types (1.25.1) 
+Using polyglot (0.3.3) 
+Using treetop (1.4.15) 
+Using mail (2.5.4) 
+Installing metaclass (0.0.1) 
+Installing mocha (0.14.0) 
+Using rack-protection (1.5.1) 
+Using sinatra (1.4.4) 
+Using thor (0.17.0) 
+Using padrino-core (0.11.4) 
+Using padrino-helpers (0.11.4) 
+Using padrino-admin (0.11.4) 
+Using padrino-cache (0.11.4) 
+Using padrino-gen (0.11.4) 
+Using padrino-mailer (0.11.4) 
+Using padrino (0.11.4) 
+Using rack-test (0.6.2) 
+Installing rr (1.1.2) 
+Installing riot (0.12.7) 
+Your bundle is complete!
+Use `bundle show [gemname]` to see where a bundled gem is installed.
+[~/srcpadrino/myproject]$ 
+\end{verbatim}
+
+Now, the terminal should be inside the root of our newly generated
+application with all necessary gem dependencies installed. Let us
+take a closer look at the particularly important generated files
+before we continue on with development.
+
+\begin{enumerate}
+\item \verb|Gemfile| – Be sure to include any necessary gem dependencies for your app in this file!
+\item \verb|app/app.rb| – This is the primary configuration file for your core application.
+\item \verb|config/apps.rb| – This defines which applications are mounted in your project.
+\item \verb|config/database.rb| – This defines the connection details for your chosen database adapter.
+\end{enumerate}
+
+The following important directories are also generated:
+
+\begin{enumerate}
+\item \verb|app/controllers| – This is where the Padrino route definitions should be defined.
+\item \verb|app/helpers| – This is where helper methods should be defined for your application.
+\item \verb|app/views| – This should contain your template views to be rendered in a controller.
+\item \verb|lib| – This should contain any extensions, libraries or other code to be used in your project.
+\item \verb|public| – This is where images, style sheets and JavaScript files should be stored.
+\item \verb|test| – This is where your model and controller tests should be stored.
+\end{enumerate}
+Now, let us examine the \verb|config/database.rb| file to make sure
+the database connection settings are correct. For now, the defaults
+are OK for this tutorial. A sqlite3 database will be used that is
+stored inside \verb|db/sample_blog_development.db|.
+
+Let us also setup a few simple routes in our application to demonstrate
+the Padrino routing system. Let’s go into the \verb|app/app.rb|
+file and enter the following routes:
+
+\begin{verbatim}
+<= Padrino leaves the gun, takes the cannoli
+[~/srcpadrino/sample_blog]$ cat Gemfile
+source 'https://rubygems.org'
+
+# Distribute your app as a gem
+# gemspec
+
+# Server requirements
+# gem 'thin' # or mongrel
+# gem 'trinidad', :platform => 'jruby'
+
+# Optional JSON codec (faster performance)
+# gem 'oj'
+
+# Project requirements
+gem 'rake'
+
+# Component requirements
+gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'sass'
+gem 'haml'
+gem 'activerecord', '>= 3.1', :require => 'active_record'
+gem 'sqlite3'
+
+# Test requirements
+gem 'shoulda', :group => 'test'
+gem 'rack-test', :require => 'rack/test', :group => 'test'
+
+# Padrino Stable Gem
+gem 'padrino', '0.11.4'
+
+# Or Padrino Edge
+# gem 'padrino', :github => 'padrino/padrino-framework'
+
+# Or Individual Gems
+# %w(core gen helpers cache mailer admin).each do |g|
+#   gem 'padrino-' + g, '0.11.4'
+# end
+\end{verbatim}
+
+\begin{verbatim}
+[~/srcpadrino]$ padrino help start
+Usage:
+  padrino start
+
+Options:
+  -a, [--server=SERVER]          # Rack Handler (default: autodetect)
+  -h, --host=HOST                # Bind to HOST address.
+                                 # Default: 127.0.0.1
+  -p, --port=N                   # Use PORT.
+                                 # Default: 3000
+  -d, [--daemonize]              # Run daemonized in the background.
+  -i, [--pid=PID]                # File to store pid.
+      [--debug]                  # Set debugging flags.
+  -c, [--chdir=CHDIR]            # Change to dir before starting.
+  -e, --environment=ENVIRONMENT  # Padrino Environment.
+                                 # Default: development
+      [--help]                   # Show help usage
+
+Starts the Padrino application (alternatively use 's').
+
+\end{verbatim}
+\begin{verbatim}
+[~/srcpadrino/sample_blog]$ bundle exec  padrino rake -T
+=> Executing Rake -T ...
+rake ar:abort_if_pending_migrations  # Raises an error if there are pending migrations
+rake ar:charset                      # Retrieves the charset for the current environment's database
+rake ar:collation                    # Retrieves the collation for the current environment's database
+rake ar:create                       # Create the database defined in config/database.yml for the current Padrino.env
+rake ar:create:all                   # Create all the local databases defined in config/database.yml
+rake ar:drop                         # Drops the database for the current Padrino.env
+rake ar:drop:all                     # Drops all the local databases defined in config/database.yml
+rake ar:forward                      # Pushes the schema to the next version
+rake ar:migrate                      # Migrate the database through scripts in db/migrate and update db/schema.rb by invoking...
+rake ar:migrate:down                 # Runs the "down" for a given migration VERSION
+rake ar:migrate:redo                 # Rollbacks the database one migration and re migrate up
+rake ar:migrate:reset                # Resets your database using your migrations for the current environment
+rake ar:migrate:up                   # Runs the "up" for a given migration VERSION
+rake ar:reset                        # Drops and recreates the database from db/schema.rb for the current environment and loa...
+rake ar:rollback                     # Rolls the schema back to the previous version
+rake ar:schema:dump                  # Create a db/schema.rb file that can be portably used against any DB supported by AR
+rake ar:schema:load                  # Load a schema.rb file into the database
+rake ar:setup                        # Create the database, load the schema, and initialize with the seed data
+rake ar:structure:dump               # Dump the database structure to a SQL file
+rake ar:translate                    # Generates .yml files for I18n translations
+rake ar:version                      # Retrieves the current schema version number
+rake db:seed                         # Load the seed data from db/seeds.rb
+rake routes[query]                   # Displays a listing of the named routes within a project, optionally only those matched...
+rake routes:app[app]                 # Displays a listing of the named routes a given app [app]
+rake secret                          # Generate a secret key
+rake test                            # Run application test suite
+rake test:models                     # Run tests for test:models
+
+\end{verbatim}
+
+\section{Generadores}
+
+The usage for the project generator is quite simple:
+
+\begin{verbatim}
+$ padrino g project <the_app_name> </path/to/create/app> --<component-name> <value>
+\end{verbatim}
+The simplest possible command to generate a base application would be:
+
+\begin{verbatim}
+$ padrino g project demo_project
+\end{verbatim}
+
+Esto crea un \verb|config.ru| como este:
+\begin{verbatim}
+  1 #!/usr/bin/env rackup
+  2 
+  3 require File.expand_path("../config/boot.rb", __FILE__)
+  4 
+  5 run Padrino.application
+\end{verbatim}
+El fichero \verb|boot.rb| contiene:
+\begin{verbatim}
+  1 PADRINO_ENV  = ENV['PADRINO_ENV'] ||= ENV['RACK_ENV'] ||= 'development'  unless defined?(PADRINO_ENV)
+  2 PADRINO_ROOT = File.expand_path('../..', __FILE__) unless defined?(PADRINO_ROOT)
+  3 
+  4 require 'rubygems' unless defined?(Gem)
+  5 require 'bundler/setup'
+  6 Bundler.require(:default, PADRINO_ENV)
+  7 
+  8 Padrino.before_load do
+  9 end
+ 10 
+ 11 Padrino.after_load do
+ 12 end
+ 13 
+ 14 Padrino.load!
+\end{verbatim}
+La que parece ser la aplicación contiene este código:
+\begin{verbatim}
+[~/srcpadrino/demo_project]$ cat app/app.rb 
+module DemoProject
+  class App < Padrino::Application
+    register Padrino::Rendering
+    register Padrino::Mailer
+    register Padrino::Helpers
+
+    enable :sessions
+
+  end
+end
+\end{verbatim}
+You can also define specific components to be used:
+
+\begin{verbatim}
+$ padrino g project demo_project -t rspec -e haml -m rr -s jquery -d datamapper -c sass
+\end{verbatim}
+You can also instruct the generator to skip a certain component to avoid using one at all (or to use your own):
+
+\begin{verbatim}
+$ padrino g project demo_project --test none --renderer none
+\end{verbatim}
+You can also specify an alternate name for your core application using the \verb|--app| option:
+
+\begin{verbatim}
+$ padrino g project demo_project --app alternate_app_name # alias -n
+\end{verbatim}
+The generator uses the \verb|bundler| gem to resolve any application
+dependencies when the application is newly created. The necessary
+\verb|bundler| command can be executed automatically through the generator
+with:
+
+\begin{verbatim}
+$ padrino g project demo_project --run_bundler # alias -b
+\end{verbatim}
+or this can be done manually through executing command 
+\verb|bundle install|
+in the terminal at the root of the generated application.
+
+For more examples of using the project generator in common cases, check out the 
+\htmladdnormallink{Basic Projects}{http://www.padrinorb.com/guides/basic-projects}
+guide.
+
+The generator framework within Padrino is extensible and additional
+components and tools can be added easily.
+
+This would be achieved through forking our project and reading
+through the code in \verb|lib/generators/project.rb| and the setup
+instructions inside the relevant files within \verb|lib/generators/components/|.
+
+
+\parrafo{configuration options}
+
+The project generator has several available configuration options:
+
+\begin{tabular}{|p{2cm}|l|l|l|}
+\hline
+\verb|Options| & Default & Aliases & Description\\ \hline
+\verb|bundle|  & false   & -b      & execute bundlerer dependencies installation\\ \hline
+\verb|root|    & .       & -r      & the root destination path forward the project\\ \hline
+\verb|dev|     & false   & none    & use edge version from local git checkout\\ \hline
+\verb|app|     & nil     & -n      & specify app name different from the project name\\ \hline
+\verb|tiny|    & false   & -i      & generate tiny project skeleton\\ \hline
+\verb|adapter| & sqlite  & -a      & specify orrm db adapter (mysql, sqlite, postgres)\\ \hline
+\end{tabular}
+
+The available components and their default options are listed below:
+
+\begin{tabular}{|p{2cm}|l|l|p{12cm}|}
+\hline
+Component    &  Default   &   Aliases & Options \\ \hline
+orm          &  none      &       -d  & mongoid, activerecord,below minirecord, datamapper, couchrest, mongomatic, mongomapper, ohm, ripple, sequel \\ \hline
+test         &  none      &       -t  & bacon, shoulda, cucumber, testspec, riot, rspec, minitest \\ \hline
+script       &  none      &       -s  & prototype, rightjs,            jquery, mootools, extcore, dojo \\ \hline
+renderer     &  slim      &       -e  & erb, erubis, haml,       slim, liquid \\ \hline
+stylesheet   &  none      &       -c  & sass, less, scss, compass \\ \hline
+mock         &  none      &       -m  & rr, mocha \\ \hline
+\end{tabular}
+Note: Be careful with your naming when using generators and do not
+have your project name, or any models or controllers overlap. Avoid
+naming your app \verb|Posts| and then your controller or subapp
+with the same name. 
+
+
+\parrafo{Some examples}
+
+Generate a project with a different application name from the project path
+
+\begin{verbatim}
+padrino g my_project -n blog
+\end{verbatim}
+this will generate the project at path \verb|my_project/| but the applications name will be \verb|Blog|.
+\begin{verbatim}
+  1 module MyProject
+  2   class Blog < Padrino::Application
+  3     register Padrino::Rendering
+  4     register Padrino::Mailer
+  5     register Padrino::Helpers
+  6 
+  7     enable :sessions
+  8 
+  9   end
+ 10 end
+\end{verbatim}
+
+Generate a project with mongoid and run bundler after
+
+\begin{verbatim}
+padrino g project your_project -d mongoid -b
+\end{verbatim}
+Generate a project with riot test and rr mocking
+
+\begin{verbatim}
+padrino g project your_project -t riot -m rr
+\end{verbatim}
+Generate a project with sequel with mysql
+
+\begin{verbatim}
+padrino g project your_project -d sequel -a mysql
+\end{verbatim}
+Generate a tiny project skeleton
+
+\begin{verbatim}
+padrino g project your_project --tiny
+\end{verbatim}
+Choose a root for your project
+
+\begin{verbatim}
+padrino g project your_project -r /usr/local/padrino
+\end{verbatim}
+This will create a new padrino project in \verb|/usr/local/padrino/your_project/|
+
+Use Padrino from a git cloned repository
+
+\begin{verbatim}
+padrino g project your_project [--dev] # Use padrino from a git checkout
+\end{verbatim}
+
+\section{Enlaces}
+
+\begin{itemize}
+\item
+\htmladdnormallink{A Simple Admin for Padrino.  Dan Schaefer.  Published February 28, 2014}{http://www.sitepoint.com/simple-admin-padrino/}
+\end{itemize}

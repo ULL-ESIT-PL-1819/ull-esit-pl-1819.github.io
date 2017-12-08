@@ -1,0 +1,617 @@
+\select@language {spanish}
+\contentsline {part}{I\hspace {1em}PRIMERA PARTE: APUNTES DE JAVASCRIPT}{13}{part.1}
+\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{14}{chapter.1}
+\contentsline {chapter}{\numberline {2}Estructura L\IeC {\'e}xica}{15}{chapter.2}
+\contentsline {chapter}{\numberline {3}Tipos, Valores y Variables}{16}{chapter.3}
+\contentsline {chapter}{\numberline {4}Expresiones y Operadores}{17}{chapter.4}
+\contentsline {chapter}{\numberline {5}Sentencias}{18}{chapter.5}
+\contentsline {chapter}{\numberline {6}Objetos}{19}{chapter.6}
+\contentsline {section}{\numberline {6.1}Tutoriales de OOP en JavaScript en la Web}{19}{section.6.1}
+\contentsline {section}{\numberline {6.2}Ejercicios}{19}{section.6.2}
+\contentsline {section}{\numberline {6.3}Comprobando Propiedades}{21}{section.6.3}
+\contentsline {section}{\numberline {6.4}Enumeraci\IeC {\'o}n de Propiedades}{22}{section.6.4}
+\contentsline {chapter}{\numberline {7}Arrays}{24}{chapter.7}
+\contentsline {chapter}{\numberline {8}Funciones}{25}{chapter.8}
+\contentsline {section}{\numberline {8.1}Definiendo Funciones}{25}{section.8.1}
+\contentsline {section}{\numberline {8.2}Invocando Funciones}{25}{section.8.2}
+\contentsline {section}{\numberline {8.3}Argumentos y Par\IeC {\'a}metros}{25}{section.8.3}
+\contentsline {section}{\numberline {8.4}Funciones como Valores}{25}{section.8.4}
+\contentsline {section}{\numberline {8.5}Funciones como Espacios de Nombres}{25}{section.8.5}
+\contentsline {section}{\numberline {8.6}Clausuras}{25}{section.8.6}
+\contentsline {section}{\numberline {8.7}Propiedades, M\IeC {\'e}todos y Constructor}{25}{section.8.7}
+\contentsline {subsection}{\numberline {8.7.1}La propiedad {\tt length}}{25}{subsection.8.7.1}
+\contentsline {subsection}{\numberline {8.7.2}La Propiedad {\tt property}}{25}{subsection.8.7.2}
+\contentsline {subsection}{\numberline {8.7.3}Los M\IeC {\'e}todos {\tt call} y {\tt apply}}{25}{subsection.8.7.3}
+\contentsline {section}{\numberline {8.8}Programaci\IeC {\'o}n Funcional}{26}{section.8.8}
+\contentsline {chapter}{\numberline {9}Clases y M\IeC {\'o}dulos}{27}{chapter.9}
+\contentsline {section}{\numberline {9.1}Herencia}{27}{section.9.1}
+\contentsline {section}{\numberline {9.2}Ejercicios}{28}{section.9.2}
+\contentsline {chapter}{\numberline {10}Subconjuntos y Extensiones de JavaScript}{30}{chapter.10}
+\contentsline {chapter}{\numberline {11}JavaScript en el Lado del Servidor}{31}{chapter.11}
+\contentsline {section}{\numberline {11.1}Instalar Node.js}{31}{section.11.1}
+\contentsline {section}{\numberline {11.2}Primeros Pasos. Un Ejemplo Simple}{31}{section.11.2}
+\contentsline {section}{\numberline {11.3}Usando REPL desde un programa}{32}{section.11.3}
+\contentsline {section}{\numberline {11.4}Usando REPL via un socket TCP}{33}{section.11.4}
+\contentsline {section}{\numberline {11.5}Referencias sobre REPL}{34}{section.11.5}
+\contentsline {section}{\numberline {11.6}Entrada Salida en Node.js}{34}{section.11.6}
+\contentsline {section}{\numberline {11.7}Debugger}{34}{section.11.7}
+\contentsline {section}{\numberline {11.8}Modulos}{34}{section.11.8}
+\contentsline {subsection}{\numberline {11.8.1}Introducci\IeC {\'o}n}{34}{subsection.11.8.1}
+\contentsline {subsection}{\numberline {11.8.2}Ciclos}{35}{subsection.11.8.2}
+\contentsline {subsection}{\numberline {11.8.3}Especificaci\IeC {\'o}n de Ficheros Conteniendo M\IeC {\'o}dulos}{36}{subsection.11.8.3}
+\contentsline {subsection}{\numberline {11.8.4}Carga desde Carpetas {\tt node\_modules}}{36}{subsection.11.8.4}
+\contentsline {subsection}{\numberline {11.8.5}Las Carpetas Usadas Como M\IeC {\'o}dulos}{37}{subsection.11.8.5}
+\contentsline {subsection}{\numberline {11.8.6}Caching}{37}{subsection.11.8.6}
+\contentsline {subsection}{\numberline {11.8.7}El Objeto {\tt module} y {\tt module.exports}}{37}{subsection.11.8.7}
+\contentsline {subsection}{\numberline {11.8.8}Algoritmo de B\IeC {\'u}squeda Ejecutado por {\tt require}}{38}{subsection.11.8.8}
+\contentsline {paragraph}{require(X) from module at path Y}{38}{section*.6}
+\contentsline {paragraph}{LOAD\_AS\_FILE(X)}{38}{section*.7}
+\contentsline {paragraph}{LOAD\_AS\_DIRECTORY(X)}{38}{section*.8}
+\contentsline {paragraph}{LOAD\_NODE\_MODULES(X, START)}{39}{section*.9}
+\contentsline {paragraph}{NODE\_MODULES\_PATHS(START)}{39}{section*.10}
+\contentsline {section}{\numberline {11.9}Como Crear tu Propio M\IeC {\'o}dulo en Node.js}{39}{section.11.9}
+\contentsline {subsection}{\numberline {11.9.1}Introducci\IeC {\'o}n}{39}{subsection.11.9.1}
+\contentsline {subsection}{\numberline {11.9.2}Un Fichero {\tt package.json}}{39}{subsection.11.9.2}
+\contentsline {subsection}{\numberline {11.9.3}README y otros documentos}{40}{subsection.11.9.3}
+\contentsline {subsection}{\numberline {11.9.4}V\IeC {\'e}ase Tambi\IeC {\'e}n}{44}{subsection.11.9.4}
+\contentsline {section}{\numberline {11.10}Mas sobre Node}{44}{section.11.10}
+\contentsline {chapter}{\numberline {12}JavaScript en los Navegadores}{46}{chapter.12}
+\contentsline {chapter}{\numberline {13}El Objeto Window}{47}{chapter.13}
+\contentsline {chapter}{\numberline {14}Manejo de Documentos en JavaScript}{48}{chapter.14}
+\contentsline {chapter}{\numberline {15}Manejo de CSS}{49}{chapter.15}
+\contentsline {chapter}{\numberline {16}Manejo de Eventos}{50}{chapter.16}
+\contentsline {chapter}{\numberline {17}HTTP}{51}{chapter.17}
+\contentsline {chapter}{\numberline {18}La Librer\IeC {\'\i }a JQuery}{52}{chapter.18}
+\contentsline {chapter}{\numberline {19}Almacenamiento en el Cliente}{53}{chapter.19}
+\contentsline {chapter}{\numberline {20}Multimedia y Gr\IeC {\'a}ficos}{54}{chapter.20}
+\contentsline {chapter}{\numberline {21}HTML5}{55}{chapter.21}
+\contentsline {chapter}{\numberline {22}XML}{56}{chapter.22}
+\contentsline {chapter}{\numberline {23}Backbone}{57}{chapter.23}
+\contentsline {chapter}{\numberline {24}Closure Tools}{58}{chapter.24}
+\contentsline {section}{\numberline {24.1}V\IeC {\'e}ase Tambi\IeC {\'e}n}{58}{section.24.1}
+\contentsline {chapter}{\numberline {25}Pruebas}{59}{chapter.25}
+\contentsline {section}{\numberline {25.1}Testing en JavaScript: F\IeC {\'a}cil y R\IeC {\'a}pido}{59}{section.25.1}
+\contentsline {section}{\numberline {25.2}Unit Testing, TDD y BDD con Jasmine}{59}{section.25.2}
+\contentsline {chapter}{\numberline {26}Buenas Pr\IeC {\'a}cticas y Patrones}{60}{chapter.26}
+\contentsline {section}{\numberline {26.1}V\IeC {\'e}ase Tambi\IeC {\'e}n}{60}{section.26.1}
+\contentsline {chapter}{\numberline {27}Herramientas}{61}{chapter.27}
+\contentsline {section}{\numberline {27.1}npm}{61}{section.27.1}
+\contentsline {section}{\numberline {27.2}n}{61}{section.27.2}
+\contentsline {section}{\numberline {27.3}Google Chrome y Javascript}{62}{section.27.3}
+\contentsline {paragraph}{Enlaces Relacionados}{62}{section*.11}
+\contentsline {section}{\numberline {27.4}Plugins, Editores, IDEs}{62}{section.27.4}
+\contentsline {section}{\numberline {27.5}Grunt}{62}{section.27.5}
+\contentsline {section}{\numberline {27.6}Beautifiers, Pretty-Printers}{62}{section.27.6}
+\contentsline {section}{\numberline {27.7}Modulos}{62}{section.27.7}
+\contentsline {part}{II\hspace {1em}SEGUNDA PARTE: APUNTES DE PROCESADORES DE LENGUAJES}{63}{part.2}
+\contentsline {chapter}{\numberline {28}Expresiones Regulares y An\IeC {\'a}lisis L\IeC {\'e}xico en JavaScript}{64}{chapter.28}
+\contentsline {section}{\numberline {28.1}Mozilla Developer Network: Documentaci\IeC {\'o}n}{64}{section.28.1}
+\contentsline {section}{\numberline {28.2}Pr\IeC {\'a}ctica: Conversor de Temperaturas}{64}{section.28.2}
+\contentsline {paragraph}{index.html}{64}{section*.12}
+\contentsline {paragraph}{global.css}{65}{section*.13}
+\contentsline {paragraph}{temperature.js}{65}{section*.14}
+\contentsline {section}{\numberline {28.3}Pr\IeC {\'a}ctica: Comma Separated Values}{65}{section.28.3}
+\contentsline {paragraph}{Introducci\IeC {\'o}n al formato CSV}{65}{section*.15}
+\contentsline {paragraph}{Ejemplo de ejecuci\IeC {\'o}n}{66}{section*.16}
+\contentsline {paragraph}{Aproximaci\IeC {\'o}n al an\IeC {\'a}lisis mediante expresiones regulares de CSV}{66}{section*.17}
+\contentsline {paragraph}{index.html}{67}{section*.18}
+\contentsline {paragraph}{global.css}{67}{section*.19}
+\contentsline {paragraph}{csv.js}{68}{section*.20}
+\contentsline {section}{\numberline {28.4}Ejercicios}{70}{section.28.4}
+\contentsline {section}{\numberline {28.5}Pr\IeC {\'a}ctica: Palabras Repetidas}{72}{section.28.5}
+\contentsline {paragraph}{Ejemplo de ejecuci\IeC {\'o}n}{73}{section*.21}
+\contentsline {paragraph}{Estructura}{73}{section*.22}
+\contentsline {paragraph}{index.html}{73}{section*.23}
+\contentsline {paragraph}{global.css}{73}{section*.24}
+\contentsline {paragraph}{repeated\_words.js}{74}{section*.25}
+\contentsline {paragraph}{Ficheros de Entrada}{75}{section*.26}
+\contentsline {section}{\numberline {28.6}Ejercicios}{76}{section.28.6}
+\contentsline {section}{\numberline {28.7}Ejercicios}{76}{section.28.7}
+\contentsline {section}{\numberline {28.8}Pr\IeC {\'a}ctica: Ficheros INI}{76}{section.28.8}
+\contentsline {paragraph}{index.html}{76}{section*.27}
+\contentsline {paragraph}{global.css}{77}{section*.28}
+\contentsline {paragraph}{Ficheros de Prueba}{78}{section*.29}
+\contentsline {paragraph}{ini.js}{79}{section*.30}
+\contentsline {section}{\numberline {28.9}Pr\IeC {\'a}ctica: Analizador L\IeC {\'e}xico para Un Subconjunto de JavaScript}{80}{section.28.9}
+\contentsline {chapter}{\numberline {29}Expresiones Regulares en C}{81}{chapter.29}
+\contentsline {section}{\numberline {29.1}Expresiones Regulares Posix en C}{81}{section.29.1}
+\contentsline {paragraph}{Enlaces Relacionados}{82}{section*.31}
+\contentsline {section}{\numberline {29.2}Expresiones Regulares en Flex}{82}{section.29.2}
+\contentsline {subsection}{\numberline {29.2.1}Estructura de un programa LEX}{82}{subsection.29.2.1}
+\contentsline {paragraph}{Estructura de un programa}{82}{section*.32}
+\contentsline {paragraph}{Compilaci\IeC {\'o}n}{83}{section*.33}
+\contentsline {paragraph}{Ejecuci\IeC {\'o}n}{83}{section*.34}
+\contentsline {paragraph}{Secci\'on de definiciones}{84}{section*.35}
+\contentsline {paragraph}{El Lenguaje de las Expresiones Regulares Flex}{84}{section*.36}
+\contentsline {paragraph}{Las Acciones Sem\IeC {\'a}nticas}{85}{section*.37}
+\contentsline {subsection}{\numberline {29.2.2}Versi\'on Utilizada}{85}{subsection.29.2.2}
+\contentsline {subsection}{\numberline {29.2.3}Espacios en blanco dentro de la expresi\IeC {\'o}n regular}{86}{subsection.29.2.3}
+\contentsline {subsection}{\numberline {29.2.4}Ejemplo Simple}{86}{subsection.29.2.4}
+\contentsline {subsection}{\numberline {29.2.5}Suprimir}{87}{subsection.29.2.5}
+\contentsline {subsection}{\numberline {29.2.6}Declaraci\'on de yytext}{87}{subsection.29.2.6}
+\contentsline {subsection}{\numberline {29.2.7}Declaraci\'on de yylex()}{88}{subsection.29.2.7}
+\contentsline {subsection}{\numberline {29.2.8}yywrap()}{89}{subsection.29.2.8}
+\contentsline {subsection}{\numberline {29.2.9}unput()}{90}{subsection.29.2.9}
+\contentsline {subsection}{\numberline {29.2.10}input()}{91}{subsection.29.2.10}
+\contentsline {subsection}{\numberline {29.2.11}REJECT}{92}{subsection.29.2.11}
+\contentsline {subsection}{\numberline {29.2.12}yymore()}{92}{subsection.29.2.12}
+\contentsline {subsection}{\numberline {29.2.13}yyless()}{92}{subsection.29.2.13}
+\contentsline {subsection}{\numberline {29.2.14}Estados}{93}{subsection.29.2.14}
+\contentsline {subsection}{\numberline {29.2.15}La pila de estados}{95}{subsection.29.2.15}
+\contentsline {subsubsection}{Ejemplo}{96}{section*.38}
+\contentsline {subsection}{\numberline {29.2.16}Final de Fichero}{96}{subsection.29.2.16}
+\contentsline {subsection}{\numberline {29.2.17}Uso de Dos Analizadores}{97}{subsection.29.2.17}
+\contentsline {subsection}{\numberline {29.2.18}La Opci\IeC {\'o}n {\tt outfile}}{99}{subsection.29.2.18}
+\contentsline {subsection}{\numberline {29.2.19}Leer desde una Cadena: YY\_INPUT}{99}{subsection.29.2.19}
+\contentsline {subsection}{\numberline {29.2.20}El operador de ``trailing context'' o ``lookahead'' positivo}{100}{subsection.29.2.20}
+\contentsline {subsection}{\numberline {29.2.21}Manejo de directivas {\tt include}}{101}{subsection.29.2.21}
+\contentsline {subsection}{\numberline {29.2.22}An\'alisis L\IeC {\'e}xico desde una Cadena: {\tt yy\_scan\_string}}{104}{subsection.29.2.22}
+\contentsline {subsection}{\numberline {29.2.23}An\'alisis de la L\'{\i }nea de Comandos y 2 Analizadores}{105}{subsection.29.2.23}
+\contentsline {subsection}{\numberline {29.2.24}Declaraciones pointer y array}{109}{subsection.29.2.24}
+\contentsline {subsection}{\numberline {29.2.25}Las Macros {\tt YY\_USER\_ACTION}, {\tt yy\_act} e {\tt YY\_NUM\_RULES}}{109}{subsection.29.2.25}
+\contentsline {subsection}{\numberline {29.2.26}Las opciones {\tt interactive}}{110}{subsection.29.2.26}
+\contentsline {subsection}{\numberline {29.2.27}La macro {\tt YY\_BREAK}}{111}{subsection.29.2.27}
+\contentsline {chapter}{\numberline {30}Expresiones Regulares en sed}{113}{chapter.30}
+\contentsline {section}{\numberline {30.1}Transferencia de Control}{113}{section.30.1}
+\contentsline {section}{\numberline {30.2}Inserci\IeC {\'o}n de Texto}{114}{section.30.2}
+\contentsline {section}{\numberline {30.3}Trasferencia de Control Condicional}{115}{section.30.3}
+\contentsline {section}{\numberline {30.4}Rangos}{116}{section.30.4}
+\contentsline {section}{\numberline {30.5}Uso de la negaci\IeC {\'o}n}{118}{section.30.5}
+\contentsline {section}{\numberline {30.6}Siguiente L\IeC {\'\i }nea: La orden {\it n}}{119}{section.30.6}
+\contentsline {section}{\numberline {30.7}Manipulando tablas num\IeC {\'e}ricas}{121}{section.30.7}
+\contentsline {section}{\numberline {30.8}Traducci\IeC {\'o}n entre Tablas}{122}{section.30.8}
+\contentsline {section}{\numberline {30.9}Del espacio de Patrones al de Mantenimiento}{122}{section.30.9}
+\contentsline {section}{\numberline {30.10}La orden {\it N}}{125}{section.30.10}
+\contentsline {section}{\numberline {30.11}Suprimir: El Comando {\it D}}{127}{section.30.11}
+\contentsline {section}{\numberline {30.12}B\IeC {\'u}squeda entre l\IeC {\'\i }neas}{128}{section.30.12}
+\contentsline {section}{\numberline {30.13}Seleccionando Items en un Registro Multil\IeC {\'\i }nea}{129}{section.30.13}
+\contentsline {chapter}{\numberline {31}Expresiones Regulares en Perl}{131}{chapter.31}
+\contentsline {section}{\numberline {31.1}Introducci\IeC {\'o}n}{131}{section.31.1}
+\contentsline {paragraph}{V\IeC {\'e}ase Tambi\IeC {\'e}n}{131}{section*.39}
+\contentsline {subsection}{\numberline {31.1.1}Un ejemplo sencillo}{132}{subsection.31.1.1}
+\contentsline {paragraph}{Matching en Contexto Escalar}{132}{section*.40}
+\contentsline {paragraph}{N\IeC {\'u}mero de Par\IeC {\'e}ntesis}{134}{section*.41}
+\contentsline {paragraph}{Contexto de Lista}{135}{section*.42}
+\contentsline {paragraph}{El modificador {\tt s}}{135}{section*.43}
+\contentsline {paragraph}{El modificador {\tt m}}{136}{section*.44}
+\contentsline {paragraph}{El conversor de temperaturas reescrito usando contexto de lista}{137}{section*.45}
+\contentsline {paragraph}{La opci\IeC {\'o}n {\tt x}}{137}{section*.46}
+\contentsline {paragraph}{Par\IeC {\'e}ntesis sin memoria}{138}{section*.47}
+\contentsline {paragraph}{Interpolaci\IeC {\'o}n en los patrones: La opci\IeC {\'o}n {\tt o}}{138}{section*.48}
+\contentsline {paragraph}{Cuantificadores greedy}{139}{section*.49}
+\contentsline {paragraph}{Regexp y Bucles Infinitos}{139}{section*.50}
+\contentsline {paragraph}{Cuantificadores {\it lazy}}{141}{section*.51}
+\contentsline {paragraph}{Descripci\IeC {\'o}n detallada del proceso de matching}{143}{section*.52}
+\contentsline {paragraph}{Rendimiento}{143}{section*.53}
+\contentsline {paragraph}{Eliminaci\IeC {\'o}n de Comentarios de un Programa C}{143}{section*.54}
+\contentsline {paragraph}{Negaciones y operadores {\it lazy}}{145}{section*.55}
+\contentsline {paragraph}{Copia y sustituci\IeC {\'o}n simult\IeC {\'a}neas}{146}{section*.56}
+\contentsline {paragraph}{Referencias a Par\IeC {\'e}ntesis Previos}{146}{section*.57}
+\contentsline {paragraph}{Usando Referencias con Nombre (Perl 5.10)}{147}{section*.58}
+\contentsline {paragraph}{Grupos con Nombre y Factorizaci\IeC {\'o}n}{149}{section*.59}
+\contentsline {paragraph}{LLamadas a expresiones regulares via par\IeC {\'e}ntesis con memoria}{150}{section*.60}
+\contentsline {paragraph}{Reutilizando Expresiones Regulares}{151}{section*.61}
+\contentsline {paragraph}{El M\IeC {\'o}dulo Regexp::Common}{151}{section*.62}
+\contentsline {paragraph}{Smart Matching}{153}{section*.63}
+\contentsline {paragraph}{Ejercicios}{157}{section*.64}
+\contentsline {subsection}{\numberline {31.1.2}Depuraci\IeC {\'o}n de Expresiones Regulares}{157}{subsection.31.1.2}
+\contentsline {subsection}{\numberline {31.1.3}Tablas de Escapes, Metacar\IeC {\'a}cteres, Cuantificadores, Clases}{158}{subsection.31.1.3}
+\contentsline {paragraph}{Metacharacters}{158}{section*.65}
+\contentsline {paragraph}{Standard greedy quantifiers}{159}{section*.66}
+\contentsline {paragraph}{Non greedy quantifiers}{159}{section*.67}
+\contentsline {paragraph}{Possesive quantifiers}{159}{section*.68}
+\contentsline {paragraph}{Escape sequences}{159}{section*.69}
+\contentsline {paragraph}{Character Classes and other Special Escapes}{160}{section*.70}
+\contentsline {paragraph}{Zero width assertions}{160}{section*.71}
+\contentsline {subsubsection}{The POSIX character class syntax}{160}{section*.72}
+\contentsline {paragraph}{Available classes}{161}{section*.73}
+\contentsline {paragraph}{Equivalences to Unicode}{161}{section*.74}
+\contentsline {paragraph}{Negated character classes}{162}{section*.75}
+\contentsline {subsection}{\numberline {31.1.4}Variables especiales despu\IeC {\'e}s de un emparejamiento}{162}{subsection.31.1.4}
+\contentsline {paragraph}{Las Variables de match, pre-match y post-mach}{162}{section*.76}
+\contentsline {paragraph}{Texto Asociado con el \IeC {\'U}ltimo Par\IeC {\'e}ntesis}{163}{section*.77}
+\contentsline {paragraph}{Los Offsets de los Inicios de los Casamientos: {\tt @-}}{164}{section*.78}
+\contentsline {paragraph}{Desplazamientos de los Finales de los Emparejamientos: {\tt @+}}{164}{section*.79}
+\contentsline {paragraph}{N\IeC {\'u}mero de par\IeC {\'e}ntesis en la \IeC {\'u}ltima regexp con \IeC {\'e}xito}{165}{section*.80}
+\contentsline {paragraph}{Indice del Ultimo Par\IeC {\'e}ntesis}{165}{section*.81}
+\contentsline {paragraph}{{\tt @-} y {\tt @+} no tienen que tener el mismo tama\IeC {\~n}o}{165}{section*.82}
+\contentsline {paragraph}{V\IeC {\'e}ase Tambi\IeC {\'e}n}{165}{section*.83}
+\contentsline {subsection}{\numberline {31.1.5}Ambito Autom\IeC {\'a}tico}{165}{subsection.31.1.5}
+\contentsline {subsection}{\numberline {31.1.6}Opciones}{166}{subsection.31.1.6}
+\contentsline {paragraph}{El Modificador {\tt /g}}{166}{section*.84}
+\contentsline {paragraph}{La opci\IeC {\'o}n {\tt e}: Evaluaci\IeC {\'o}n del remplazo}{167}{section*.85}
+\contentsline {section}{\numberline {31.2}Algunas Extensiones}{168}{section.31.2}
+\contentsline {subsection}{\numberline {31.2.1}Comentarios}{168}{subsection.31.2.1}
+\contentsline {subsection}{\numberline {31.2.2}Modificadores locales}{168}{subsection.31.2.2}
+\contentsline {subsection}{\numberline {31.2.3}Mirando hacia adetr\IeC {\'a}s y hacia adelante}{169}{subsection.31.2.3}
+\contentsline {paragraph}{Las zero-width assertions como caso particular de mirar atr\IeC {\'a}s-adelante}{169}{section*.86}
+\contentsline {paragraph}{Lookahead assertion}{169}{section*.87}
+\contentsline {paragraph}{A hard RegEx problem}{170}{section*.88}
+\contentsline {paragraph}{Los par\IeC {\'e}ntesis looakehaed and lookbehind no capturan}{171}{section*.89}
+\contentsline {paragraph}{Limitaciones del lookbehind}{171}{section*.90}
+\contentsline {paragraph}{Negaci\IeC {\'o}n de los operadores de lookahead y lookbehind}{171}{section*.91}
+\contentsline {paragraph}{Ejemplo: split con lookahead y lookbehind}{171}{section*.92}
+\contentsline {paragraph}{Look Around en perlre}{171}{section*.93}
+\contentsline {paragraph}{Operador de predicci\IeC {\'o}n negativo: \IeC {\'U}ltima ocurrencia}{173}{section*.94}
+\contentsline {paragraph}{Diferencias entre mirar adelante negativo y mirar adelante con clase negada}{174}{section*.95}
+\contentsline {paragraph}{AND y AND NOT}{174}{section*.96}
+\contentsline {paragraph}{Lookahead negativo versus lookbehind}{175}{section*.97}
+\contentsline {paragraph}{Ejercicios}{176}{section*.98}
+\contentsline {subsection}{\numberline {31.2.4}Definici\IeC {\'o}n de Nombres de Patrones}{177}{subsection.31.2.4}
+\contentsline {paragraph}{Lo que dice {\tt perlretut} sobre la definici\IeC {\'o}n de nombres de patrones}{177}{section*.99}
+\contentsline {paragraph}{Lo que dice {\tt perlre} sobre la definici\IeC {\'o}n de patrones}{178}{section*.100}
+\contentsline {paragraph}{Lo que dice {\tt perlvar} sobre patrones con nombre}{179}{section*.101}
+\contentsline {subsection}{\numberline {31.2.5}Patrones Recursivos}{179}{subsection.31.2.5}
+\contentsline {paragraph}{Pal\IeC {\'\i }ndromos}{180}{section*.102}
+\contentsline {paragraph}{Lo que dice {\tt perlre} sobre recursividad}{181}{section*.103}
+\contentsline {paragraph}{Par\IeC {\'e}ntesis Equilibrados}{181}{section*.104}
+\contentsline {paragraph}{Capturando los bloques de un programa}{182}{section*.105}
+\contentsline {paragraph}{Reconocimiento de Lenguajes Recursivos: Un subconjunto de \textlatin {\LaTeX }{}}{183}{section*.106}
+\contentsline {paragraph}{Reconocimiento de Expresiones Aritm\IeC {\'e}ticas}{186}{section*.107}
+\contentsline {subsection}{\numberline {31.2.6}Cuantificadores Posesivos}{189}{subsection.31.2.6}
+\contentsline {paragraph}{Cadenas Delimitadas por Comillas Dobles}{189}{section*.108}
+\contentsline {paragraph}{Par\IeC {\'e}ntesis Posesivos}{190}{section*.109}
+\contentsline {paragraph}{Par\IeC {\'e}ntesis Balanceados}{190}{section*.110}
+\contentsline {paragraph}{Encontrando los bloques de un programa}{191}{section*.111}
+\contentsline {paragraph}{V\IeC {\'e}ase tambi\IeC {\'e}n}{191}{section*.112}
+\contentsline {subsection}{\numberline {31.2.7}Perl 5.10: Numeraci\IeC {\'o}n de los Grupos en Alternativas}{191}{subsection.31.2.7}
+\contentsline {subsection}{\numberline {31.2.8}Ejecuci\IeC {\'o}n de C\IeC {\'o}digo dentro de una Expresi\IeC {\'o}n Regular}{192}{subsection.31.2.8}
+\contentsline {paragraph}{Resultado de la \IeC {\'u}ltima ejecuci\IeC {\'o}n}{192}{section*.113}
+\contentsline {paragraph}{El C\IeC {\'o}digo empotrado no es interpolado}{193}{section*.114}
+\contentsline {paragraph}{Contenido del \IeC {\'u}ltimo par\IeC {\'e}ntesis y la variable por defecto en acciones empotradas}{193}{section*.115}
+\contentsline {paragraph}{Los cuantificadores y el c\IeC {\'o}digo empotrado}{193}{section*.116}
+\contentsline {paragraph}{\IeC {\'A}mbito}{193}{section*.117}
+\contentsline {paragraph}{Caveats}{194}{section*.118}
+\contentsline {paragraph}{Depurando con c\IeC {\'o}digo empotrado Colisiones en los Nombres de las Subexpresiones Regulares}{195}{section*.119}
+\contentsline {subsection}{\numberline {31.2.9}Expresiones Regulares en tiempo de matching}{197}{subsection.31.2.9}
+\contentsline {paragraph}{Par\IeC {\'e}ntesis con memoria dentro de una {\it pattern code expression}}{197}{section*.120}
+\contentsline {paragraph}{Ejemplo: Secuencias de d\IeC {\'\i }gitos de longitud especificada por el primer d\IeC {\'\i }gito}{197}{section*.121}
+\contentsline {paragraph}{Ejemplo: Secuencias de d\IeC {\'\i }gitos no repetidos}{198}{section*.122}
+\contentsline {paragraph}{Pal\IeC {\'\i }ndromos con independencia del acento}{198}{section*.123}
+\contentsline {paragraph}{Postponiendo para conseguir recursividad}{199}{section*.124}
+\contentsline {paragraph}{Caveats}{201}{section*.125}
+\contentsline {subsection}{\numberline {31.2.10}Expresiones Condicionales}{201}{subsection.31.2.10}
+\contentsline {paragraph}{Condiciones: n\IeC {\'u}mero de par\IeC {\'e}ntesis}{202}{section*.126}
+\contentsline {paragraph}{Ejemplo: cadenas de la forma {\it una}-otra-otra-{\it una}}{202}{section*.127}
+\contentsline {paragraph}{Condiciones: C\IeC {\'o}digo}{202}{section*.128}
+\contentsline {paragraph}{Ejemplo: Cadenas con posible par\IeC {\'e}ntesis inicial (no anidados)}{202}{section*.129}
+\contentsline {paragraph}{Expresiones Condicionales con {\tt (R)}}{203}{section*.130}
+\contentsline {paragraph}{Ejemplo: Pal\IeC {\'\i }ndromos con Equivalencia de Acentos Espa\IeC {\~n}oles}{203}{section*.131}
+\contentsline {subsection}{\numberline {31.2.11}Verbos que controlan el retroceso}{205}{subsection.31.2.11}
+\contentsline {paragraph}{El verbo de control {\tt (*FAIL)}}{205}{section*.132}
+\contentsline {paragraph}{El verbo de control {\tt (*ACCEPT)}}{206}{section*.133}
+\contentsline {paragraph}{El verbo {\tt SKIP}}{206}{section*.134}
+\contentsline {paragraph}{Marcas}{207}{section*.135}
+\contentsline {paragraph}{Poniendo un espacio despu\IeC {\'e}s de cada signo de puntuaci\IeC {\'o}n}{208}{section*.136}
+\contentsline {section}{\numberline {31.3}Expresiones Regulares en Otros Lenguajes}{209}{section.31.3}
+\contentsline {paragraph}{Vim}{209}{section*.137}
+\contentsline {paragraph}{Java}{209}{section*.138}
+\contentsline {paragraph}{bash}{210}{section*.139}
+\contentsline {paragraph}{C}{210}{section*.140}
+\contentsline {paragraph}{Python}{212}{section*.141}
+\contentsline {paragraph}{Ruby}{212}{section*.142}
+\contentsline {paragraph}{Javascript}{212}{section*.143}
+\contentsline {section}{\numberline {31.4}Casos de Estudio}{213}{section.31.4}
+\contentsline {subsection}{\numberline {31.4.1}Secuencias de n\IeC {\'u}meros de tama\IeC {\~n}o fijo}{213}{subsection.31.4.1}
+\contentsline {paragraph}{Soluci\IeC {\'o}n usando el ancla {\tt $\delimiter "026E30F $ G}}{215}{section*.144}
+\contentsline {paragraph}{Sustituci\IeC {\'o}n}{215}{section*.145}
+\contentsline {subsection}{\numberline {31.4.2}Palabras Repetidas}{215}{subsection.31.4.2}
+\contentsline {subsection}{\numberline {31.4.3}An\IeC {\'a}lisis de cadenas con datos separados por comas}{216}{subsection.31.4.3}
+\contentsline {subsection}{\numberline {31.4.4}Las Expresiones Regulares como Exploradores de un \IeC {\'A}rbol de Soluciones}{218}{subsection.31.4.4}
+\contentsline {paragraph}{N\IeC {\'u}meros Primos}{218}{section*.146}
+\contentsline {paragraph}{Ecuaciones Diof\IeC {\'a}nticas: Una soluci\IeC {\'o}n}{218}{section*.147}
+\contentsline {paragraph}{Ecuaciones Diof\IeC {\'a}nticas: Todas las soluciones}{219}{section*.148}
+\contentsline {paragraph}{Ecuaciones Diof\IeC {\'a}nticas: Resolutor general}{219}{section*.149}
+\contentsline {paragraph}{Las Tres Hijas}{221}{section*.150}
+\contentsline {paragraph}{Mochila 0-1}{222}{section*.151}
+\contentsline {paragraph}{V\IeC {\'e}ase tambi\IeC {\'e}n}{222}{section*.152}
+\contentsline {subsection}{\numberline {31.4.5}N\IeC {\'u}mero de substituciones realizadas}{222}{subsection.31.4.5}
+\contentsline {subsection}{\numberline {31.4.6}Expandiendo y comprimiendo tabs}{223}{subsection.31.4.6}
+\contentsline {subsection}{\numberline {31.4.7}Modificaci\IeC {\'o}n de M\IeC {\'u}ltiples Ficheros: one liner}{224}{subsection.31.4.7}
+\contentsline {section}{\numberline {31.5}tr y split}{224}{section.31.5}
+\contentsline {section}{\numberline {31.6}{\tt Pack} y {\tt Unpack}}{226}{section.31.6}
+\contentsline {section}{\numberline {31.7}Pr\IeC {\'a}ctica: Un lenguaje para Componer Invitaciones}{227}{section.31.7}
+\contentsline {section}{\numberline {31.8}Analisis Sint\IeC {\'a}ctico con Expresiones Regulares Perl}{228}{section.31.8}
+\contentsline {subsection}{\numberline {31.8.1}Introducci\IeC {\'o}n al Ana\IeC {\'l}isis Sint\IeC {\'a}ctico con Expresiones Regulares}{228}{subsection.31.8.1}
+\contentsline {paragraph}{Ejemplo: Traducci\IeC {\'o}n de expresiones aritm\IeC {\'e}ticas en infijo a postfijo}{229}{section*.153}
+\contentsline {paragraph}{Accediendo a los atributos de par\IeC {\'e}ntesis anteriores mediante acciones intermedias}{230}{section*.154}
+\contentsline {paragraph}{Accediendo a los atributos de par\IeC {\'e}ntesis anteriores mediante {\tt @-}}{232}{section*.155}
+\contentsline {paragraph}{Accediendo a los atributos de par\IeC {\'e}ntesis anteriores mediante par\IeC {\'e}ntesis con nombre}{234}{section*.156}
+\contentsline {paragraph}{V\IeC {\'e}ase Tambi\IeC {\'e}n}{236}{section*.157}
+\contentsline {subsection}{\numberline {31.8.2}Construyendo el AST con Expresiones Regulares 5.10}{236}{subsection.31.8.2}
+\contentsline {paragraph}{Programa Principal: usando la pila de atributos}{238}{section*.158}
+\contentsline {paragraph}{Las Clases representando a los AST}{240}{section*.159}
+\contentsline {paragraph}{Accediendo a los par\IeC {\'e}ntesis lejanos: El m\IeC {\'o}dulo {\tt Regexp::Paren}}{241}{section*.160}
+\contentsline {section}{\numberline {31.9}Pr\IeC {\'a}ctica: Traducci\IeC {\'o}n de {\tt invitation} a {\tt HTML}}{244}{section.31.9}
+\contentsline {section}{\numberline {31.10}An\IeC {\'a}lisis Sint\IeC {\'a}ctico con {\tt Regexp::Grammars}}{246}{section.31.10}
+\contentsline {subsection}{\numberline {31.10.1}Introducci\IeC {\'o}n}{246}{subsection.31.10.1}
+\contentsline {paragraph}{El Problema}{246}{section*.161}
+\contentsline {paragraph}{Una soluci\IeC {\'o}n: {\tt Regexp::Grammars}}{247}{section*.162}
+\contentsline {paragraph}{La sintaxis de una expresi\IeC {\'o}n regular {\tt Regexp::Grammars}}{247}{section*.163}
+\contentsline {paragraph}{El hash {\tt \unskip $\mathsurround \z@ \tmspace +\thinmuskip {.1667em}$\percentsign {}/}: Una representaci\IeC {\'o}n del AST}{248}{section*.164}
+\contentsline {paragraph}{Diferencias entre {\tt token} y {\tt rule}}{248}{section*.165}
+\contentsline {paragraph}{Redefinici\IeC {\'o}n de los espacios en blanco}{249}{section*.166}
+\contentsline {paragraph}{Llamando a las subreglas}{251}{section*.167}
+\contentsline {paragraph}{Eliminaci\IeC {\'o}n del anidamiento de ramas unarias en {\tt \unskip $\mathsurround \z@ \tmspace +\thinmuskip {.1667em}$\percentsign {}/}}{252}{section*.168}
+\contentsline {paragraph}{\IeC {\'A}mbito de uso de {\tt Regexp::Grammars}}{254}{section*.169}
+\contentsline {subsection}{\numberline {31.10.2}Objetos}{254}{subsection.31.10.2}
+\contentsline {subsection}{\numberline {31.10.3}Renombrando los resultados de una subregla}{255}{subsection.31.10.3}
+\contentsline {paragraph}{Nombre de la regla versus Nombre del Resultado}{255}{section*.170}
+\contentsline {paragraph}{Colisi\IeC {\'o}n de nombres de reglas}{255}{section*.171}
+\contentsline {paragraph}{Aliasing}{255}{section*.172}
+\contentsline {paragraph}{Normalizaci\IeC {\'o}n de los resultados mediante aliasing}{256}{section*.173}
+\contentsline {paragraph}{Ejemplo}{256}{section*.174}
+\contentsline {subsection}{\numberline {31.10.4}Listas}{257}{subsection.31.10.4}
+\contentsline {paragraph}{El operador de cierre positivo}{257}{section*.175}
+\contentsline {paragraph}{Operadores de listas y espacios en blanco}{258}{section*.176}
+\contentsline {paragraph}{Una Soluci\IeC {\'o}n al problema de recordar los resultados de una lista: El uso de brackets}{259}{section*.177}
+\contentsline {paragraph}{Otra forma de resolver las colisiones de nombres: salvarlos en una lista}{261}{section*.178}
+\contentsline {paragraph}{Aliasing de listas}{262}{section*.179}
+\contentsline {paragraph}{Caveat: Cierres y Warnings}{263}{section*.180}
+\contentsline {subsection}{\numberline {31.10.5}Pseudo sub-reglas}{265}{subsection.31.10.5}
+\contentsline {paragraph}{Subpatrones}{265}{section*.181}
+\contentsline {paragraph}{Bloques de c\IeC {\'o}digo}{266}{section*.182}
+\contentsline {paragraph}{Pseudo subreglas y depuraci\IeC {\'o}n}{268}{section*.183}
+\contentsline {subsection}{\numberline {31.10.6}Llamadas a subreglas desmemoriadas}{268}{subsection.31.10.6}
+\contentsline {paragraph}{Ejemplo: N\IeC {\'u}meros entre comas}{269}{section*.184}
+\contentsline {subsection}{\numberline {31.10.7}Destilaci\IeC {\'o}n del resultado}{271}{subsection.31.10.7}
+\contentsline {paragraph}{Destilaci\IeC {\'o}n manual}{271}{section*.185}
+\contentsline {paragraph}{Destilaci\IeC {\'o}n en el programa}{273}{section*.186}
+\contentsline {subsection}{\numberline {31.10.8}Llamadas privadas a subreglas y subreglas privadas}{275}{subsection.31.10.8}
+\contentsline {subsection}{\numberline {31.10.9}Mas sobre listas}{275}{subsection.31.10.9}
+\contentsline {paragraph}{Reconocimiento manual de listas}{275}{section*.187}
+\contentsline {paragraph}{Analizando listas manualmente}{275}{section*.188}
+\contentsline {paragraph}{Influencia del orden en el lenguaje reconocido}{276}{section*.189}
+\contentsline {paragraph}{Aplanamiento manual de listas}{279}{section*.190}
+\contentsline {paragraph}{Los operadores de repetici\IeC {\'o}n}{279}{section*.191}
+\contentsline {paragraph}{Listas separadas por Algo}{280}{section*.192}
+\contentsline {paragraph}{Ejemplo: Listas de n\IeC {\'u}meros separados por comas}{281}{section*.193}
+\contentsline {paragraph}{Ejemplo: AST para las expresiones aritm\IeC {\'e}ticas}{282}{section*.194}
+\contentsline {subsection}{\numberline {31.10.10}La directiva {\tt require}}{285}{subsection.31.10.10}
+\contentsline {subsection}{\numberline {31.10.11}Casando con las claves de un hash}{287}{subsection.31.10.11}
+\contentsline {paragraph}{Ejemplo de uso de la directiva hash}{288}{section*.195}
+\contentsline {subsection}{\numberline {31.10.12}Depuraci\IeC {\'o}n}{289}{subsection.31.10.12}
+\contentsline {paragraph}{Debugging grammar creation}{289}{section*.196}
+\contentsline {paragraph}{Debugging grammar execution}{291}{section*.197}
+\contentsline {subsection}{\numberline {31.10.13}Mensajes de {\tt log} del usuario}{294}{subsection.31.10.13}
+\contentsline {subsection}{\numberline {31.10.14}Depuraci\IeC {\'o}n de Regexps}{295}{subsection.31.10.14}
+\contentsline {subsection}{\numberline {31.10.15}Manejo y recuperaci\IeC {\'o}n de errores}{296}{subsection.31.10.15}
+\contentsline {subsection}{\numberline {31.10.16}Mensajes de Warning}{299}{subsection.31.10.16}
+\contentsline {subsection}{\numberline {31.10.17}Simplificando el AST}{299}{subsection.31.10.17}
+\contentsline {subsection}{\numberline {31.10.18}Reciclando una {\tt Regexp::Grammar}}{303}{subsection.31.10.18}
+\contentsline {paragraph}{Ejecuci\IeC {\'o}n}{303}{section*.198}
+\contentsline {paragraph}{Estructura de la aplicaci\IeC {\'o}n}{305}{section*.199}
+\contentsline {paragraph}{Programa principal}{306}{section*.200}
+\contentsline {paragraph}{Las Clases de nodos del AST}{307}{section*.201}
+\contentsline {paragraph}{Definiendo {\tt sem} para la evaluaci\IeC {\'o}n de la expresi\IeC {\'o}n}{310}{section*.202}
+\contentsline {paragraph}{Definiendo {\tt sem} para la traducci\IeC {\'o}n a postfijo}{311}{section*.203}
+\contentsline {subsection}{\numberline {31.10.19}Pr\IeC {\'a}ctica: Calculadora con {\tt Regexp::Grammars}}{312}{subsection.31.10.19}
+\contentsline {chapter}{\numberline {32}An\IeC {\'a}lisis Sint\IeC {\'a}ctico Descendente en JavaScript}{314}{chapter.32}
+\contentsline {section}{\numberline {32.1}Ejemplo Simple de Int\IeC {\'e}rprete: Una Calculadora}{314}{section.32.1}
+\contentsline {section}{\numberline {32.2}An\IeC {\'a}lisis Top Down Usando Precedencia de Operadores}{314}{section.32.2}
+\contentsline {subsection}{\numberline {32.2.1}Gram\IeC {\'a}tica de JavaScript}{314}{subsection.32.2.1}
+\contentsline {chapter}{\numberline {33}An\IeC {\'a}lisis Sint\IeC {\'a}ctico Descendente en Perl}{315}{chapter.33}
+\contentsline {section}{\numberline {33.1}Las Bases}{315}{section.33.1}
+\contentsline {paragraph}{Version}{315}{section*.204}
+\contentsline {paragraph}{h2xs}{316}{section*.205}
+\contentsline {paragraph}{Generaci\IeC {\'o}n del Makefile}{316}{section*.206}
+\contentsline {paragraph}{Documentaci\IeC {\'o}n}{317}{section*.207}
+\contentsline {subsection}{\numberline {33.1.1}Repaso: Las Bases}{319}{subsection.33.1.1}
+\contentsline {subsection}{\numberline {33.1.2}Pr\IeC {\'a}ctica: Crear y documentar el M\IeC {\'o}dulo {\tt PL::Tutu}}{320}{subsection.33.1.2}
+\contentsline {section}{\numberline {33.2}Las Fases de un Compilador}{320}{section.33.2}
+\contentsline {paragraph}{Esquema del Compilador}{320}{section*.208}
+\contentsline {paragraph}{A\IeC {\~n}adiendo Ejecutables}{322}{section*.209}
+\contentsline {paragraph}{B\IeC {\'u}squeda de Librer\IeC {\'\i }as en Tiempo de Desarrollo}{322}{section*.210}
+\contentsline {paragraph}{A\IeC {\~n}adiendo Los Ejecutables al {\tt MANIFEST}}{322}{section*.211}
+\contentsline {paragraph}{Indicando al Sistema de Distribuci\IeC {\'o}n que los Ficheros son Ejecutables}{323}{section*.212}
+\contentsline {paragraph}{Reconstrucci\'on de la aplicaci\IeC {\'o}n}{323}{section*.213}
+\contentsline {paragraph}{Ejecuci\IeC {\'o}n}{324}{section*.214}
+\contentsline {paragraph}{Construcci\IeC {\'o}n de una Distribuci\IeC {\'o}n}{324}{section*.215}
+\contentsline {subsection}{\numberline {33.2.1}Repaso: Fases de un Compilador}{325}{subsection.33.2.1}
+\contentsline {subsection}{\numberline {33.2.2}Pr\IeC {\'a}ctica: Fases de un Compilador}{327}{subsection.33.2.2}
+\contentsline {section}{\numberline {33.3}An\IeC {\'a}lisis L\IeC {\'e}xico}{329}{section.33.3}
+\contentsline {paragraph}{El Operador de Binding}{330}{section*.216}
+\contentsline {paragraph}{Casando a partir del \IeC {\"U}ltimo Emparejamiento}{330}{section*.217}
+\contentsline {paragraph}{La opci\IeC {\'o}n {\tt g}}{330}{section*.218}
+\contentsline {paragraph}{La opci\IeC {\'o}n {\tt c}}{330}{section*.219}
+\contentsline {paragraph}{La opci\IeC {\'o}n {\tt i}}{330}{section*.220}
+\contentsline {paragraph}{C\IeC {\'o}digo del Analizador L\IeC {\'e}xico}{330}{section*.221}
+\contentsline {paragraph}{Relaci\IeC {\'o}n de corutina con el Analizador Sint\IeC {\'a}ctico}{331}{section*.222}
+\contentsline {paragraph}{Manejo de Errores}{331}{section*.223}
+\contentsline {subsection}{\numberline {33.3.1}Ejercicio: La opci\IeC {\'o}n {\tt g}}{332}{subsection.33.3.1}
+\contentsline {subsection}{\numberline {33.3.2}Ejercicio: Opciones {\tt g} y {\tt c} en Expresiones Regulares}{332}{subsection.33.3.2}
+\contentsline {subsection}{\numberline {33.3.3}Ejercicio: El orden de las expresiones regulares}{333}{subsection.33.3.3}
+\contentsline {subsection}{\numberline {33.3.4}Ejercicio: Regexp para cadenas}{333}{subsection.33.3.4}
+\contentsline {subsection}{\numberline {33.3.5}Ejercicio: El {\tt or} es vago}{333}{subsection.33.3.5}
+\contentsline {subsection}{\numberline {33.3.6}Pr\IeC {\'a}ctica: N\IeC {\'u}meros de L\IeC {\'\i }nea, Errores, Cadenas y Comentarios}{333}{subsection.33.3.6}
+\contentsline {section}{\numberline {33.4}Pruebas para el Analizador L\IeC {\'e}xico}{337}{section.33.4}
+\contentsline {paragraph}{M\IeC {\'o}dulo {\tt PL::Error}}{338}{section*.224}
+\contentsline {paragraph}{M\IeC {\'o}dulo {\tt PL::Lexical::Analysis}}{338}{section*.225}
+\contentsline {paragraph}{El Programa Cliente}{340}{section*.226}
+\contentsline {paragraph}{Actualizaci\IeC {\'o}n del MANIFEST}{340}{section*.227}
+\contentsline {subsection}{\numberline {33.4.1}Comprobando el Analizador L\IeC {\'e}xico}{341}{subsection.33.4.1}
+\contentsline {paragraph}{Principios B\IeC {\'a}sicos del Desarrollo de Pruebas}{341}{section*.228}
+\contentsline {paragraph}{La Jerarqu\IeC {\'\i }a de Una Aplicaci\IeC {\'o}n}{341}{section*.229}
+\contentsline {paragraph}{Un Ejemplo de Programa de Prueba}{342}{section*.230}
+\contentsline {paragraph}{Ejecuci\IeC {\'o}n de Las Pruebas}{343}{section*.231}
+\contentsline {subsubsection}{Versiones anteriores a la 5.8}{344}{section*.232}
+\contentsline {subsection}{\numberline {33.4.2}Pr\IeC {\'a}ctica: Pruebas en el An\IeC {\'a}lisis L\IeC {\'e}xico}{345}{subsection.33.4.2}
+\contentsline {subsection}{\numberline {33.4.3}Repaso: Pruebas en el An\IeC {\'a}lisis L\IeC {\'e}xico}{353}{subsection.33.4.3}
+\contentsline {section}{\numberline {33.5}Conceptos B\IeC {\'a}sicos para el An\IeC {\'a}lisis Sint\IeC {\'a}ctico}{354}{section.33.5}
+\contentsline {subsection}{\numberline {33.5.1}Ejercicio}{355}{subsection.33.5.1}
+\contentsline {section}{\numberline {33.6}An\IeC {\'a}lisis Sint\IeC {\'a}ctico Predictivo Recursivo}{355}{section.33.6}
+\contentsline {subsection}{\numberline {33.6.1}Introducci\IeC {\'o}n}{356}{subsection.33.6.1}
+\contentsline {subsection}{\numberline {33.6.2}Ejercicio: Recorrido del \IeC {\'a}rbol en un ADPR}{358}{subsection.33.6.2}
+\contentsline {subsection}{\numberline {33.6.3}Ejercicio: Factores Comunes}{358}{subsection.33.6.3}
+\contentsline {subsection}{\numberline {33.6.4}Derivaciones a vac\IeC {\'\i }o}{358}{subsection.33.6.4}
+\contentsline {subsection}{\numberline {33.6.5}Construcci\IeC {\'o}n de los conjuntos de Primeros y Siguientes}{359}{subsection.33.6.5}
+\contentsline {subsection}{\numberline {33.6.6}Ejercicio: Construir los $FIRST$}{360}{subsection.33.6.6}
+\contentsline {subsection}{\numberline {33.6.7}Ejercicio: Calcular los $FOLLOW$}{360}{subsection.33.6.7}
+\contentsline {subsection}{\numberline {33.6.8}Pr\IeC {\'a}ctica: Construcci\IeC {\'o}n de los FIRST y los FOLLOW}{360}{subsection.33.6.8}
+\contentsline {subsection}{\numberline {33.6.9}Gram\IeC {\'a}ticas LL(1)}{362}{subsection.33.6.9}
+\contentsline {subsection}{\numberline {33.6.10}Ejercicio: Caracterizaci\IeC {\'o}n de una gram\IeC {\'a}tica LL(1) }{362}{subsection.33.6.10}
+\contentsline {subsection}{\numberline {33.6.11}Ejercicio: Ambiguedad y LL(1)}{362}{subsection.33.6.11}
+\contentsline {subsection}{\numberline {33.6.12}Pr\IeC {\'a}ctica: Un analizador APDR}{362}{subsection.33.6.12}
+\contentsline {subsection}{\numberline {33.6.13}Pr\IeC {\'a}ctica: Generaci\IeC {\'o}n Autom\IeC {\'a}tica de Analizadores Predictivos}{363}{subsection.33.6.13}
+\contentsline {paragraph}{Objetivo}{363}{section*.233}
+\contentsline {paragraph}{El M\IeC {\'o}dulo {\tt Grammar}}{363}{section*.234}
+\contentsline {paragraph}{Descripci\IeC {\'o}n del objetivo: La funci\IeC {\'o}n {\tt gap}}{364}{section*.235}
+\contentsline {paragraph}{Descripci\IeC {\'o}n del objetivo: La funci\IeC {\'o}n {\tt parser}}{364}{section*.236}
+\contentsline {paragraph}{C\IeC {\'a}lculo de los First y los Follow con {\tt PL::FirstFollow}}{365}{section*.237}
+\contentsline {paragraph}{Uso de Templates}{365}{section*.238}
+\contentsline {paragraph}{Concatenaci\IeC {\'o}n y Documentos {\tt HERE}}{367}{section*.239}
+\contentsline {paragraph}{Descarga de los M\IeC {\'o}dulos Necesarios}{368}{section*.240}
+\contentsline {section}{\numberline {33.7}Esquemas de Traducci\IeC {\'o}n}{368}{section.33.7}
+\contentsline {section}{\numberline {33.8}Recursi\IeC {\'o}n por la Izquierda}{369}{section.33.8}
+\contentsline {subsection}{\numberline {33.8.1}Eliminaci\IeC {\'o}n de la Recursi\IeC {\'o}n por la Izquierda en la Gram\IeC {\'a}tica}{369}{subsection.33.8.1}
+\contentsline {subsection}{\numberline {33.8.2}Eliminaci\IeC {\'o}n de la Recursi\IeC {\'o}n por la Izquierda en un Esquema de Traducci\IeC {\'o}n}{370}{subsection.33.8.2}
+\contentsline {subsection}{\numberline {33.8.3}Ejercicio}{371}{subsection.33.8.3}
+\contentsline {subsection}{\numberline {33.8.4}Convirtiendo el Esquema en un Analizador Predictivo}{371}{subsection.33.8.4}
+\contentsline {subsection}{\numberline {33.8.5}Ejercicio}{372}{subsection.33.8.5}
+\contentsline {subsection}{\numberline {33.8.6}Pr\IeC {\'a}ctica: Eliminaci\IeC {\'o}n de la Recursividad por la Izquierda}{372}{subsection.33.8.6}
+\contentsline {section}{\numberline {33.9}\IeC {\'A}rbol de An\IeC {\'a}lisis Abstracto}{373}{section.33.9}
+\contentsline {subsection}{\numberline {33.9.1}Lenguajes \IeC {\'A}rbol y Gram\IeC {\'a}ticas \IeC {\'A}rbol}{373}{subsection.33.9.1}
+\contentsline {subsection}{\numberline {33.9.2}Realizaci\IeC {\'o}n del AAA para Tutu en Perl}{375}{subsection.33.9.2}
+\contentsline {subsection}{\numberline {33.9.3}AAA: Otros tipos de nodos}{381}{subsection.33.9.3}
+\contentsline {subsection}{\numberline {33.9.4}Declaraciones}{382}{subsection.33.9.4}
+\contentsline {subsection}{\numberline {33.9.5}Pr\IeC {\'a}ctica: Arbol de An\IeC {\'a}lisis Abstracto}{383}{subsection.33.9.5}
+\contentsline {section}{\numberline {33.10}An\IeC {\'a}lisis Sem\IeC {\'a}ntico}{383}{section.33.10}
+\contentsline {subsection}{\numberline {33.10.1}Pr\IeC {\'a}ctica: Declaraciones Autom\IeC {\'a}ticas}{386}{subsection.33.10.1}
+\contentsline {subsection}{\numberline {33.10.2}Pr\IeC {\'a}ctica: An\IeC {\'a}lisis Sem\IeC {\'a}ntico}{386}{subsection.33.10.2}
+\contentsline {section}{\numberline {33.11}Optimizaci\IeC {\'o}n Independiente de la M\IeC {\'a}quina}{387}{section.33.11}
+\contentsline {subsection}{\numberline {33.11.1}Pr\IeC {\'a}ctica: Plegado de las Constantes}{389}{subsection.33.11.1}
+\contentsline {section}{\numberline {33.12}Patrones \IeC {\'A}rbol y Transformaciones \IeC {\'A}rbol}{390}{section.33.12}
+\contentsline {subsection}{\numberline {33.12.1}Pr\IeC {\'a}ctica: Casando y Transformando \IeC {\'A}rboles}{394}{subsection.33.12.1}
+\contentsline {section}{\numberline {33.13}Asignaci\IeC {\'o}n de Direcciones}{395}{section.33.13}
+\contentsline {subsection}{\numberline {33.13.1}Pr\IeC {\'a}ctica: C\IeC {\'a}lculo de las Direcciones}{397}{subsection.33.13.1}
+\contentsline {section}{\numberline {33.14}Generaci\IeC {\'o}n de C\IeC {\'o}digo: M\IeC {\'a}quina Pila}{398}{section.33.14}
+\contentsline {section}{\numberline {33.15}Generaci\IeC {\'o}n de C\IeC {\'o}digo: M\IeC {\'a}quina Basada en Registros}{401}{section.33.15}
+\contentsline {subsection}{\numberline {33.15.1}Pr\IeC {\'a}ctica: Generaci\IeC {\'o}n de C\IeC {\'o}digo}{406}{subsection.33.15.1}
+\contentsline {section}{\numberline {33.16}Optimizaci\IeC {\'o}n de C\IeC {\'o}digo}{408}{section.33.16}
+\contentsline {subsection}{\numberline {33.16.1}Pr\IeC {\'a}ctica: Optimizaci\IeC {\'o}n Peephole}{408}{subsection.33.16.1}
+\contentsline {chapter}{\numberline {34}An\IeC {\'a}lisis Sint\IeC {\'a}ctico Ascendente en JavaScript}{410}{chapter.34}
+\contentsline {section}{\numberline {34.1}Conceptos B\IeC {\'a}sicos para el An\IeC {\'a}lisis Sint\IeC {\'a}ctico}{410}{section.34.1}
+\contentsline {subsection}{\numberline {34.1.1}Ejercicio}{411}{subsection.34.1.1}
+\contentsline {section}{\numberline {34.2}Ejemplo Simple en Jison}{411}{section.34.2}
+\contentsline {paragraph}{Gram\IeC {\'a}tica}{411}{section*.241}
+\contentsline {paragraph}{basic2\_lex.jison}{411}{section*.242}
+\contentsline {paragraph}{index.html}{412}{section*.243}
+\contentsline {paragraph}{Rakefile}{412}{section*.244}
+\contentsline {paragraph}{V\IeC {\'e}ase Tambi\IeC {\'e}n}{413}{section*.245}
+\contentsline {paragraph}{global.css}{413}{section*.246}
+\contentsline {subsection}{\numberline {34.2.1}V\IeC {\'e}ase Tambi\IeC {\'e}n}{414}{subsection.34.2.1}
+\contentsline {subsection}{\numberline {34.2.2}Pr\IeC {\'a}ctica: Secuencia de Asignaciones Simples}{414}{subsection.34.2.2}
+\contentsline {section}{\numberline {34.3}Ejemplo en Jison: Calculadora Simple}{414}{section.34.3}
+\contentsline {paragraph}{calculator.jison}{415}{section*.247}
+\contentsline {paragraph}{main.js}{416}{section*.248}
+\contentsline {paragraph}{calculator.html}{416}{section*.249}
+\contentsline {paragraph}{Rakefile}{417}{section*.250}
+\contentsline {paragraph}{global.css}{417}{section*.251}
+\contentsline {paragraph}{test/assert.html}{418}{section*.252}
+\contentsline {paragraph}{test/test.css}{418}{section*.253}
+\contentsline {paragraph}{test/test.html}{418}{section*.254}
+\contentsline {subsection}{\numberline {34.3.1}Pr\IeC {\'a}ctica: Calculadora con Listas de Expresiones y Variables}{419}{subsection.34.3.1}
+\contentsline {section}{\numberline {34.4}Conceptos B\IeC {\'a}sicos del An\IeC {\'a}lisis LR}{419}{section.34.4}
+\contentsline {section}{\numberline {34.5}Construcci\IeC {\'o}n de las Tablas para el An\IeC {\'a}lisis SLR}{422}{section.34.5}
+\contentsline {subsection}{\numberline {34.5.1}Los conjuntos de Primeros y Siguientes}{422}{subsection.34.5.1}
+\contentsline {subsection}{\numberline {34.5.2}Construcci\IeC {\'o}n de las Tablas}{423}{subsection.34.5.2}
+\contentsline {section}{\numberline {34.6}Pr\IeC {\'a}ctica: Calculadora con Funciones}{429}{section.34.6}
+\contentsline {section}{\numberline {34.7}Algoritmo de An\IeC {\'a}lisis LR}{430}{section.34.7}
+\contentsline {section}{\numberline {34.8}Pr\IeC {\'a}ctica: Traducci\IeC {\'o}n de Infijo a Postfijo}{431}{section.34.8}
+\contentsline {section}{\numberline {34.9}El m\IeC {\'o}dulo Generado por {\tt jison}}{433}{section.34.9}
+\contentsline {subsection}{\numberline {34.9.1}Version}{433}{subsection.34.9.1}
+\contentsline {subsection}{\numberline {34.9.2}Gram\IeC {\'a}tica Inicial}{433}{subsection.34.9.2}
+\contentsline {subsection}{\numberline {34.9.3}Tablas}{433}{subsection.34.9.3}
+\contentsline {subsection}{\numberline {34.9.4}Acciones Sem\IeC {\'a}nticas}{435}{subsection.34.9.4}
+\contentsline {subsection}{\numberline {34.9.5}Tabla de Acciones y GOTOs}{436}{subsection.34.9.5}
+\contentsline {subsection}{\numberline {34.9.6}defaultActions}{436}{subsection.34.9.6}
+\contentsline {subsection}{\numberline {34.9.7}Reducciones}{437}{subsection.34.9.7}
+\contentsline {subsection}{\numberline {34.9.8}Desplazamientos/Shifts}{438}{subsection.34.9.8}
+\contentsline {subsection}{\numberline {34.9.9}Manejo de Errores}{439}{subsection.34.9.9}
+\contentsline {subsection}{\numberline {34.9.10}Analizador L\IeC {\'e}xico}{440}{subsection.34.9.10}
+\contentsline {subsection}{\numberline {34.9.11}Exportaci\IeC {\'o}n}{442}{subsection.34.9.11}
+\contentsline {section}{\numberline {34.10}Precedencia y Asociatividad}{444}{section.34.10}
+\contentsline {section}{\numberline {34.11}Depuraci\IeC {\'o}n en {\tt jison}}{449}{section.34.11}
+\contentsline {section}{\numberline {34.12}Construcci\IeC {\'o}n del \IeC {\'A}rbol Sint\IeC {\'a}ctico}{449}{section.34.12}
+\contentsline {section}{\numberline {34.13}Esquemas de Traducci\IeC {\'o}n}{449}{section.34.13}
+\contentsline {section}{\numberline {34.14}Definici\IeC {\'o}n Dirigida por la Sint\IeC {\'a}xis}{449}{section.34.14}
+\contentsline {section}{\numberline {34.15}Manejo en {\tt jison} de Atributos Heredados}{450}{section.34.15}
+\contentsline {section}{\numberline {34.16}Acciones en Medio de una Regla y Atributos Heredados}{450}{section.34.16}
+\contentsline {section}{\numberline {34.17}Recuperaci\IeC {\'o}n de Errores}{450}{section.34.17}
+\contentsline {section}{\numberline {34.18}Consejos a seguir al escribir un programa {\tt jison}}{451}{section.34.18}
+\contentsline {chapter}{\numberline {35}An\IeC {\'a}lisis Sint\IeC {\'a}ctico Ascendente en Perl}{453}{chapter.35}
+\contentsline {section}{\numberline {35.1}{\tt Parse::Yapp}: Ejemplo de Uso}{453}{section.35.1}
+\contentsline {section}{\numberline {35.2}Conceptos B\IeC {\'a}sicos}{459}{section.35.2}
+\contentsline {section}{\numberline {35.3}Construcci\IeC {\'o}n de las Tablas para el An\IeC {\'a}lisis SLR}{461}{section.35.3}
+\contentsline {subsection}{\numberline {35.3.1}Los conjuntos de Primeros y Siguientes}{461}{subsection.35.3.1}
+\contentsline {subsection}{\numberline {35.3.2}Construcci\IeC {\'o}n de las Tablas}{462}{subsection.35.3.2}
+\contentsline {section}{\numberline {35.4}El m\IeC {\'o}dulo Generado por {\tt yapp}}{465}{section.35.4}
+\contentsline {section}{\numberline {35.5}Algoritmo de An\IeC {\'a}lisis LR}{468}{section.35.5}
+\contentsline {section}{\numberline {35.6}Depuraci\IeC {\'o}n en {\tt yapp}}{469}{section.35.6}
+\contentsline {section}{\numberline {35.7}Precedencia y Asociatividad}{470}{section.35.7}
+\contentsline {section}{\numberline {35.8}Generaci\IeC {\'o}n interactiva de analizadores {\tt Yapp}}{475}{section.35.8}
+\contentsline {section}{\numberline {35.9}Construcci\IeC {\'o}n del \IeC {\'A}rbol Sint\IeC {\'a}ctico}{476}{section.35.9}
+\contentsline {section}{\numberline {35.10}Acciones en Medio de una Regla}{478}{section.35.10}
+\contentsline {section}{\numberline {35.11}Esquemas de Traducci\IeC {\'o}n}{478}{section.35.11}
+\contentsline {section}{\numberline {35.12}Definici\IeC {\'o}n Dirigida por la Sint\IeC {\'a}xis}{479}{section.35.12}
+\contentsline {section}{\numberline {35.13}Manejo en {\tt yapp} de Atributos Heredados}{480}{section.35.13}
+\contentsline {section}{\numberline {35.14}Acciones en Medio de una Regla y Atributos Heredados}{485}{section.35.14}
+\contentsline {section}{\numberline {35.15}Recuperaci\IeC {\'o}n de Errores}{486}{section.35.15}
+\contentsline {section}{\numberline {35.16}Recuperaci\IeC {\'o}n de Errores en Listas}{489}{section.35.16}
+\contentsline {section}{\numberline {35.17}Consejos a seguir al escribir un programa {\tt yapp}}{490}{section.35.17}
+\contentsline {section}{\numberline {35.18}Pr\IeC {\'a}ctica: Un C simplificado}{494}{section.35.18}
+\contentsline {section}{\numberline {35.19}La Gram\IeC {\'a}tica de {\tt yapp} / {\tt yacc}}{497}{section.35.19}
+\contentsline {subsection}{\numberline {35.19.1}La Cabecera}{498}{subsection.35.19.1}
+\contentsline {subsection}{\numberline {35.19.2}La Cabecera: Diferencias entre {\tt yacc} y {\tt yapp}}{498}{subsection.35.19.2}
+\contentsline {subsection}{\numberline {35.19.3}El Cuerpo}{500}{subsection.35.19.3}
+\contentsline {subsection}{\numberline {35.19.4}La Cola: Diferencias entre {\tt yacc} y {\tt yapp}}{501}{subsection.35.19.4}
+\contentsline {subsection}{\numberline {35.19.5}El An\IeC {\'a}lisis L\IeC {\'e}xico en {\tt yacc}: {\tt flex}}{502}{subsection.35.19.5}
+\contentsline {subsection}{\numberline {35.19.6}Pr\IeC {\'a}ctica: Uso de {\tt Yacc} y {\tt Lex}}{503}{subsection.35.19.6}
+\contentsline {section}{\numberline {35.20}El Analizador Ascendente {\tt Parse::Yapp}}{503}{section.35.20}
+\contentsline {section}{\numberline {35.21}La Estructura de Datos Generada por {\tt YappParse.yp}}{506}{section.35.21}
+\contentsline {section}{\numberline {35.22}Pr\IeC {\'a}ctica: El An\IeC {\'a}lisis de las Acciones}{508}{section.35.22}
+\contentsline {section}{\numberline {35.23}Pr\IeC {\'a}ctica: Autoacciones}{509}{section.35.23}
+\contentsline {section}{\numberline {35.24}Pr\IeC {\'a}ctica: Nuevos M\IeC {\'e}todos}{510}{section.35.24}
+\contentsline {section}{\numberline {35.25}Pr\IeC {\'a}ctica: Generaci\IeC {\'o}n Autom\IeC {\'a}tica de \IeC {\'A}rboles}{511}{section.35.25}
+\contentsline {section}{\numberline {35.26}Recuperacion de Errores: Visi\IeC {\'o}n Detallada}{511}{section.35.26}
+\contentsline {section}{\numberline {35.27}Descripci\IeC {\'o}n Eyapp del Lenguaje SimpleC}{513}{section.35.27}
+\contentsline {section}{\numberline {35.28}Dise\IeC {\~n}o de Analizadores con {\tt Parse::Eyapp}}{515}{section.35.28}
+\contentsline {section}{\numberline {35.29}Pr\IeC {\'a}ctica: Construcci\IeC {\'o}n del AST para el Lenguaje Simple C}{518}{section.35.29}
+\contentsline {paragraph}{Analizador L\IeC {\'e}xico}{518}{section*.255}
+\contentsline {section}{\numberline {35.30}El Generador de Analizadores {\tt byacc}}{518}{section.35.30}
+\contentsline {chapter}{\numberline {36}An\IeC {\'a}lisis Sint\IeC {\'a}ctico Ascendente en C con {\tt yacc} y {\tt bison}}{523}{chapter.36}
+\contentsline {section}{\numberline {36.1}Introducci\IeC {\'o}n a {\tt yacc}}{523}{section.36.1}
+\contentsline {paragraph}{Ejemplo: La Calculadora en {\tt yacc}}{523}{section*.256}
+\contentsline {paragraph}{El Analizador L\IeC {\'e}xico}{524}{section*.257}
+\contentsline {paragraph}{Compilaci\IeC {\'o}n}{524}{section*.258}
+\contentsline {paragraph}{Makefile}{525}{section*.259}
+\contentsline {paragraph}{Ejecuci\IeC {\'o}n}{525}{section*.260}
+\contentsline {section}{\numberline {36.2}Precedencia y Asociatividad}{526}{section.36.2}
+\contentsline {section}{\numberline {36.3}Uso de union y type}{530}{section.36.3}
+\contentsline {section}{\numberline {36.4}Acciones en medio de una regla}{530}{section.36.4}
+\contentsline {section}{\numberline {36.5}Recuperaci\IeC {\'o}n de Errores}{534}{section.36.5}
+\contentsline {section}{\numberline {36.6}Recuperaci\IeC {\'o}n de Errores en Listas}{537}{section.36.6}
+\contentsline {chapter}{\numberline {37}An\IeC {\'a}lisis Sint\IeC {\'a}ctico Ascendente en Ruby}{542}{chapter.37}
+\contentsline {section}{\numberline {37.1}La Calculadora}{542}{section.37.1}
+\contentsline {subsection}{\numberline {37.1.1}Uso desde L\IeC {\'\i }nea de Comandos}{542}{subsection.37.1.1}
+\contentsline {subsection}{\numberline {37.1.2}An\IeC {\'a}lisis L\IeC {\'e}xico con {\tt rexical}}{543}{subsection.37.1.2}
+\contentsline {subsection}{\numberline {37.1.3}An\IeC {\'a}lisis Sint\IeC {\'a}ctico}{543}{subsection.37.1.3}
+\contentsline {paragraph}{Precedencias}{544}{section*.261}
+\contentsline {paragraph}{Atributos}{544}{section*.262}
+\contentsline {paragraph}{Declaring Tokens}{544}{section*.263}
+\contentsline {paragraph}{Opciones}{544}{section*.264}
+\contentsline {paragraph}{User Code Block}{545}{section*.265}
+\contentsline {section}{\numberline {37.2}V\IeC {\'e}ase Tambi\IeC {\'e}n}{545}{section.37.2}
+\contentsline {chapter}{\numberline {38}An\IeC {\'a}lisis Sem\IeC {\'a}ntico}{546}{chapter.38}
+\contentsline {chapter}{\numberline {39}Generaci\IeC {\'o}n de C\IeC {\'o}digo}{547}{chapter.39}
+\contentsline {chapter}{\numberline {40}Optimizaci\IeC {\'o}n de C\IeC {\'o}digo}{548}{chapter.40}
+\contentsline {chapter}{\numberline {41}Definici\IeC {\'o}n y Dise\IeC {\~n}o de Lenguajes}{549}{chapter.41}
+\contentsline {part}{III\hspace {1em}TERCERA PARTE: BIT\IeC {\'A}CORA DEL CURSO}{550}{part.3}
+\contentsline {chapter}{\numberline {42}2013}{551}{chapter.42}
+\contentsline {section}{\numberline {42.1}01}{551}{section.42.1}
+\contentsline {subsection}{\numberline {42.1.1}31/01/13}{551}{subsection.42.1.1}
+\contentsline {section}{\numberline {42.2}03}{551}{section.42.2}
+\contentsline {subsection}{\numberline {42.2.1}Repaso 07/03/13}{551}{subsection.42.2.1}
+\contentsline {section}{\numberline {42.3}04}{558}{section.42.3}
+\contentsline {subsection}{\numberline {42.3.1}Repaso 18/04/13}{558}{subsection.42.3.1}
+\contentsline {subsection}{\numberline {42.3.2}Proyecto: Dise\IeC {\~n}a e Implementa un Lenguaje de Dominio Espec\IeC {\'\i }fico}{558}{subsection.42.3.2}

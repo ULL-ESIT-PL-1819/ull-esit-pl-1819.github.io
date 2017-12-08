@@ -1,0 +1,68 @@
+
+<H1><A NAME="SECTION041130000000000000000">
+Usando REPL desde un programa</A>
+</H1>
+
+<P>
+Es posible crear un bucle REPL en cualquier punto de nuestro programa - quizá para depurarlo.
+Para ello usamos la función 
+ <#1389#><TT>repl.start</TT><#1389#> .
+Esta función retorna una instancia REPLServer. Acepta como argumento un objeto
+<tex2html_verb_mark>2<tex2html_verb_mark> que toma los siguientes valores:
+
+<P>
+
+<OL>
+<LI><tex2html_verb_mark>3<tex2html_verb_mark> - the prompt and stream for all I/O. Defaults to ;SPMgt; .
+</LI>
+<LI><tex2html_verb_mark>4<tex2html_verb_mark> - the readable stream to listen to. Defaults to process.stdin.
+</LI>
+<LI><tex2html_verb_mark>5<tex2html_verb_mark> - the writable stream to write readline data to. Defaults to process.stdout.
+</LI>
+<LI><tex2html_verb_mark>6<tex2html_verb_mark> - pass true if the stream should be treated
+like a TTY, and have ANSI/VT100 escape codes written to it. Defaults
+to checking isTTY on the output stream upon instantiation.
+</LI>
+<LI><tex2html_verb_mark>7<tex2html_verb_mark> - function that will be used to eval each given
+line. Defaults to an async wrapper for eval(). 
+</LI>
+<LI><tex2html_verb_mark>8<tex2html_verb_mark> - a boolean which specifies whether or not
+the writer function should output colors. If a different writer
+function is set then this does nothing. Defaults to the repl's
+terminal value.
+</LI>
+<LI><tex2html_verb_mark>9<tex2html_verb_mark> - if set to true, then the repl will use the
+global object, instead of running scripts in a separate context.
+Defaults to false.
+</LI>
+<LI><tex2html_verb_mark>10<tex2html_verb_mark> - if set to true, then the repl will
+not output the return value of command if it's undefined. Defaults
+to false.
+</LI>
+<LI><tex2html_verb_mark>11<tex2html_verb_mark> - the function to invoke for each command that
+gets evaluated which returns the formatting (including coloring)
+to display. Defaults to util.inspect.
+</LI>
+</OL>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim65#</PRE>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim66#</PRE>
+
+<P>
+el bucle REPL proporciona acceso a las variables de ámbito global. Es posible
+hacer explícitamente visible una variable al REPL asignándosela al
+<tex2html_verb_mark>12<tex2html_verb_mark> asociado con el
+REPLServer. Por ejemplo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim67#</PRE>
+Las variables en el objeto <tex2html_verb_mark>13<tex2html_verb_mark> se ven como locales 
+al  REPL:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim68#</PRE>
+
+<P>

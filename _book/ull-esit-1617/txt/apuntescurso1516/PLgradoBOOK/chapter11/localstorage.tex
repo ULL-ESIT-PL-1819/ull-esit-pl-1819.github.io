@@ -1,0 +1,74 @@
+\parrafo{Local Storage (HTML5 Web Storage)}
+
+\cei{Web storage} and \cei{DOM storage} 
+(document object model) are web application
+software methods and protocols used for storing data in a web browser. 
+
+\begin{itemize}
+\item
+Web storage supports persistent data storage, similar to cookies but with
+a greatly enhanced capacity and no information stored in the HTTP
+request header.
+
+\item
+Local Storage nos permite almacenar hasta 5MB del lado del cliente
+por dominio, esto nos permite ahora hacer aplicaciones mas robustas y
+con mas posibilidades. Las Cookies ofrecen algo
+parecido, pero con el limite de 100kb.
+
+\item
+There are two main web storage types: \cei{local storage}
+and \cei{session storage}, behaving similarly to persistent cookies and session
+cookies respectively.
+\item
+Unlike cookies, which can be accessed by both the server and client side, web storage falls exclusively under the purview of client-side scripting
+\item
+The HTML5 localStorage object is isolated per domain (the same segregation rules as the \wikip{same origin policy}{Same\_origin\_policy}).
+Under this policy, \blue{a web browser permits scripts contained in a first web page to access data in a second web page, but only if both web pages have the same origin}. 
+
+The same-origin policy \red{permits scripts running on pages originating from the same
+site} – \blue{a combination of scheme, hostname, and port number} – \red{to access
+each other's DOM with no specific restrictions}, {\bf but prevents access to
+DOM on different sites}.
+\end{itemize}
+
+Véase:
+\begin{itemize}
+\item
+Ejemplo en  GitHub:
+\htmladdnormallink{https://github.com/crguezl/web-storage-example}{https://github.com/crguezl/web-storage-example}
+\begin{verbatim}
+[~/javascript/local_storage(master)]$ pwd -P
+/Users/casiano/local/src/javascript/local_storage
+\end{verbatim}
+\item 
+\htmladdnormallink{Como usar localstorage}{http://html5facil.com/tutoriales/como-usar-local-storage-de-javascript}
+
+\item 
+\htmladdnormallink{HTML5 Web Storage}{http://www.w3schools.com/html/html5_webstorage.asp}
+\item
+\htmladdnormallink{W3C Web Storage}{http://www.w3.org/TR/webstorage/}
+\item
+\htmladdnormallink{Using HTML5 localStorage To Store JSON}{http://getfishtank.ca/blog/using-html5-localstorage-to-store-json}
+Options for persistent storage of complex JavaScript objects in HTML5
+by Dan Cruickshank
+\item
+\htmladdnormallink{HTML5 Cookbook.  Christopher Schmitt, Kyle Simpson "O'Reilly Media, Inc.", Nov 7, 2011}{http://books.google.es/books/about/HTML5_Cookbook.html?id=cXcaY7XVZbcC&redir_esc=y}
+Chapter 10. Section 2: LocalStorage
+\end{itemize}
+
+While Chrome does not provide a UI for clearing localStorage, there is an API that will either clear a specific key or the entire localStorage object on a website.
+
+\begin{verbatim}
+//Clears the value of MyKey
+window.localStorage.clear("MyKey");
+
+//Clears all the local storage data
+window.localStorage.clear();
+\end{verbatim}
+Once done, localStorage will be cleared. Note that this affects
+all web pages on a single domain, so if you clear localStorage for
+\verb|jsfiddle.net/index.html| (assuming that's the page you're on), then it
+clears it for all other pages on that site. 
+
+

@@ -1,0 +1,30 @@
+
+<H1><A NAME="SECTION05200000000000000000">
+Expresiones Regulares en Flex</A>
+</H1> 
+Puede encontrar los ejemplos de este capítulo en
+<A NAME="tex2html134"
+  HREF="https://github.com/crguezl/flex-examples">https://github.com/crguezl/flex-examples</A>.
+
+<P>
+Un lenguaje regular es aquel que puede ser descrito mediante expresiones
+regulares como las que se utilizan en <tex2html_verb_mark>105<tex2html_verb_mark>, <tex2html_verb_mark>106<tex2html_verb_mark>, <tex2html_verb_mark>107<tex2html_verb_mark>,
+<tex2html_verb_mark>108<tex2html_verb_mark> y en tantas otras utilidades UNIX. Dado un lenguaje regular,
+un analizador l&#233;xico es un programa capaz de reconocer las entradas
+que pertenecen a dicho lenguaje y realizar las acciones sem&#225;nticas
+que se hayan asociado con los estados de aceptaci&#243;n.
+Un generador de analizadores l&#233;xicos es una herramienta que facilita
+la construcci&#243;n de un analizador l&#233;xico. Un generador de analizadores
+l&#233;xicos parte, por tanto, de un lenguaje adecuado para la descripci&#243;n
+de lenguajes regulares (y de su sem&#225;ntica) y produce como salida
+una funci&#243;n (en C, por ejemplo) que materializa el correspondiente
+analizador l&#233;xico.
+La mayor parte de los generadores producen a partir del conjunto de
+expresiones regulares los correspondientes tablas de los autómatas
+finitos deterministas. Utilizando dichas tablas y un algoritmo de
+simulación genérico del autómata finito determinista se obtiene el
+analizador léxico. Una vez obtenido el estado de aceptación a partir de
+la entrada es posible, mediante una sentencia <tex2html_verb_mark>109<tex2html_verb_mark> ejecutar la
+acción semántica asociada con la correspondiente expresión regular.
+
+<P>

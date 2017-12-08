@@ -1,0 +1,41 @@
+\subsection{Preguntas de Repaso de
+localStorage}\label{preguntas-de-repaso-de-localstorage}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  ¿Que diferencias y que similitudes hay entre los cookies y
+  localStorage?
+\item
+  ¿Que diferencias hay entre localStorage y sessionStorage?
+\item
+  ¿En que consiste las reglas de segregación conocidas como {\emph{same
+  origin policy}}? ¿Como se relacionan con localStorage?
+\item
+  ¿Como guardo en localStorage el contenido de una variable
+  \texttt{chuchu}? ¿Como leo el contenido almacenado en localStorage con
+  clave \texttt{chuchu}?
+\item
+  ¿Como borro una clave almacenada en localStorage?
+\item
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    ¿Que es LocalStorage? ¿Que hace la siguiente línea?
+
+\begin{verbatim}
+  if (window.localStorage) localStorage.original  = temp;
+\end{verbatim}
+  \item
+    ¿Cuando se ejecutará esta callback? ¿Que hace?
+  \end{enumerate}
+\end{enumerate}
+
+\begin{verbatim}
+            window.onload = function() {
+              // If the browser supports localStorage and we have some stored data
+              if (window.localStorage && localStorage.original) {
+                document.getElementById("original").value = localStorage.original;
+              }
+            };
+\end{verbatim}

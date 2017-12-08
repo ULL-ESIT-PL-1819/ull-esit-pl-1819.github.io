@@ -1,0 +1,4622 @@
+\section{Introducción}
+
+\parrafo{Que es Rack}
+\rack{} provides an minimal interface between webservers supporting Ruby and Ruby frameworks.
+
+Ruby on Rails, Ramaze, Sinatra and other Ruby frameworks use it by 
+default to talk to web servers, including Mongrel, Thin or Apache via Passenger.
+
+Lo que hace Rack es que unifica la API de los diferentes web servers
+envolviendo las peticiones y respuestas HTTP en la forma mas simple posible.
+
+\begin{enumerate}
+\item 
+Rack includes \cei{handlers} that connect Rack to all these web application
+servers (WEBrick, Mongrel etc.).
+
+\item 
+Rack includes \cei{adapters} that connect Rack to various web frameworks (Sinatra, Rails etc.).
+
+\item 
+Between the server and the framework, Rack can be customized to your
+applications needs using \cei{middleware}. 
+\end{enumerate}
+
+The fundamental idea behind 
+\cei{Rack middleware} is – come between the calling client and the
+server, process the HTTP request before sending it to the server, and
+processing the HTTP response before returning it to the client.
+
+
+\begin{rawhtml}
+<img src="rack.jpeg">
+\end{rawhtml}
+
+\parrafo{Que es una Aplicación Rack}
+Una aplicación Rack es un objeto que 
+
+\begin{enumerate}
+\item 
+Debe responder al método \verb|call|.
+\item 
+El método \verb|call| será llamado por el servidor y se le pasa como
+argumento \verb|env| que es un hash que contiene información sobre el entorno CGI.
+\item 
+El método \verb|call| debe retornar un array con tres elementos:
+  \begin{enumerate}
+  \item  \verb|status|: un entero
+  \item  \verb|headers|: un hash
+  \item \verb|body|: un objeto que responde al método \verb|each| y que para cada llamada de
+  \verb|each| retorna una \String{}.
+  \end{enumerate}
+\end{enumerate}
+
+\parrafo{Un Ejemplo Sencillo}
+
+\cei{Rack} uses a 
+configuration file with extension 
+\verb|.ru|, that instructs 
+\rackdoc{Rack::Builder}{Rack/Builder} 
+what middleware should it use and in which order. Let’s create one:
+
+\begin{verbatim}
+[~/sinatra/rackup/simple(master)]$ cat myapp.rb 
+# my_app.rb
+#
+class MyApp
+  def call env
+    [200, {"Content-Type" => "text/html"}, ["Hello Rack Participants"]] 
+  end
+end
+\end{verbatim}
+
+Esta es la aplicación Rack mas simple posible.
+
+\begin{verbatim}
+[~/sinatra/rackup/simple(master)]$ cat config.ru
+require './myapp'
+run MyApp.new
+\end{verbatim}
+To start your newly created app, you need to use \verb|rackup| command:
+
+\begin{verbatim}
+$ rackup config.ru 
+\end{verbatim}
+The application will be available by default on port 9292, 
+so you have to visit \verb|http://localhost:9292| to see it. 
+
+\parrafo{Un Ejemplo con la Consola Interactiva de Ruby}
+
+Arranquemos la consola interactiva de Ruby. Cargamos \verb|rack|:
+
+\begin{verbatim}
+1] pry(main)> require 'rack'
+=> true
+\end{verbatim}
+Comprobemos que handlers tenemos instalados:
+\begin{verbatim}
+[2] pry(main)> Rack::Handler::constants
+=> [:CGI,
+ :FastCGI,
+ :Mongrel,
+ :EventedMongrel,
+ :SwiftipliedMongrel,
+ :WEBrick,
+ :LSWS,
+ :SCGI,
+ :Thin]
+\end{verbatim}
+
+Todos los handlers Rack tienen un método \verb|run| por lo que podemos 
+llamar el método \verb|run| en cualquiera de esos handlers instalados.
+
+Un objeto que tiene un método \verb|call| es cualquier objeto \Proc{} y por 
+tanto podemos usar una lambda que se atenga al protocolo de rack para nuestro ejemplo:
+\begin{verbatim}
+[3] pry(main)> Rack::Handler::WEBrick.run lambda 
+                  { |env| [200, 
+                           {"Content-Type" => "text/plain"}, 
+                          ["Hello. The time is #{Time.now}"]] }
+[2013-09-11 17:59:07] INFO  WEBrick 1.3.1
+[2013-09-11 17:59:07] INFO  ruby 1.9.3 (2013-02-22) [x86_64-darwin11.4.2]
+[2013-09-11 17:59:07] INFO  WEBrick::HTTPServer#start: pid=25123 port=8080
+localhost - - [11/Sep/2013:17:59:26 WEST] "GET / HTTP/1.1" 200 44
+- -> /
+localhost - - [11/Sep/2013:17:59:26 WEST] "GET /favicon.ico HTTP/1.1" 200 44
+- -> /favicon.ico
+\end{verbatim}
+El primer argumento de \verb|run| es nuestra aplicación Rack 
+\begin{verbatim}
+lambda { |env| [200, {"Content-Type" => "text/plain"}, ["Hello. The time is #{Time.now}"]] }
+\end{verbatim}
+y el segundo es el conjunto de opciones para nuestro programa.
+
+ahora podemos visitar la aplicación con nuestro navegador
+en \verb|http://localhost:8080|
+
+\section{Analizando {\tt env} con {\tt pry-debugger}}
+
+\subsection{Introducción}
+
+Tenemos esta sencilla aplicación:
+
+\begin{verbatim}
+~/local/src/ruby/sinatra/rack/rack-debugging]$ cat hello.rb 
+require 'rack'
+require 'pry-debugger'
+
+class HelloWorld
+  def call env
+    binding.pry
+    [200, {"Content-Type" => "text/plain"}, ["Hello world"]]
+  end
+end
+
+\end{verbatim}
+
+Arrancamos un servidor:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ pry
+[1] pry(main)> require './hello'
+=> true
+[6] pry(main)> Rack::Handler::WEBrick.run HelloWorld.new
+[2013-09-23 12:36:21] INFO  WEBrick 1.3.1
+[2013-09-23 12:36:21] INFO  ruby 1.9.3 (2013-02-22) [x86_64-darwin11.4.2]
+[2013-09-23 12:36:21] INFO  WEBrick::HTTPServer#start: pid=9458 port=8080
+\end{verbatim}
+
+En otra ventana arrancamos un cliente:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ curl -v localhost:8080
+* About to connect() to localhost port 8080 (#0)
+*   Trying ::1... connected
+* Connected to localhost (::1) port 8080 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:8080
+> Accept: */*
+> 
+\end{verbatim}
+
+En la ventana del servidor ahora aparece:
+\begin{verbatim}
+From: /Users/casiano/local/src/ruby/sinatra/rack/rack-debugging/hello.rb @ line 6 HelloWorld#call:
+
+    5: def call env
+ => 6:   binding.pry
+    7:   [200, {"Content-Type" => "text/plain"}, ["Hello world"]]
+    8: end
+\end{verbatim}
+Ahora podemos inspeccionar las variables:
+\begin{verbatim}
+[1] pry(#<HelloWorld>)> env
+=> {"GATEWAY_INTERFACE"=>"CGI/1.1",
+ "PATH_INFO"=>"/",
+ "QUERY_STRING"=>"",
+ "REMOTE_ADDR"=>"::1",
+ "REMOTE_HOST"=>"localhost",
+ "REQUEST_METHOD"=>"GET",
+ "REQUEST_URI"=>"http://localhost:8080/",
+ "SCRIPT_NAME"=>"",
+ "SERVER_NAME"=>"localhost",
+ "SERVER_PORT"=>"8080",
+ "SERVER_PROTOCOL"=>"HTTP/1.1",
+ "SERVER_SOFTWARE"=>"WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)",
+ "HTTP_USER_AGENT"=>
+  "curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5",
+ "HTTP_HOST"=>"localhost:8080",
+ "HTTP_ACCEPT"=>"*/*",
+ "rack.version"=>[1, 2],
+ "rack.input"=>#<StringIO:0x007fbba40263b0>,
+ "rack.errors"=>#<IO:<STDERR>>,
+ "rack.multithread"=>true,
+ "rack.multiprocess"=>false,
+ "rack.run_once"=>false,
+ "rack.url_scheme"=>"http",
+ "HTTP_VERSION"=>"HTTP/1.1",
+ "REQUEST_PATH"=>"/"}
+[2] pry(#<HelloWorld>)>
+\end{verbatim}
+Hay tres categorías de variables en \cei{env}:
+
+\begin{enumerate}
+\item 
+Variables CGI
+\item 
+Variables específicas de Rack (empiezan por \verb|rack.|)
+\item 
+Un tercer tipo de variables son las de la aplicación y/o el servidor.
+En este ejemplo no aparecen
+\end{enumerate}
+Véase \rackdoc{la especificación Rack}{SPEC}.
+
+% In computer science, session hijacking, sometimes also known as
+% cookie hijacking is the exploitation of a valid computer session—sometimes
+% also called a session key—to gain unauthorized access to information
+% or services in a computer system. In particular, it is used to refer
+% to the theft of a magic cookie used to authenticate a user to a
+% remote server. It has particular relevance to web developers, as
+% the HTTP cookies used to maintain a session on many web sites can
+% be easily stolen by an attacker using an intermediary computer or
+% with access to the saved cookies on the victim's computer (see HTTP
+% cookie theft).
+
+Le indicamos al servidor que continue:
+\begin{verbatim}
+[2] pry(#<HelloWorld>)> co<TABULADOR>
+cohen-poem  continue    
+[2] pry(#<HelloWorld>)> continue
+localhost - - [23/Sep/2013:12:36:48 WEST] "GET / HTTP/1.1" 200 11
+- -> /
+\end{verbatim}
+después de entregar la respuesta el servidor cierra la conexión HTTP. Esto es así porque
+HTTP es un protocolo sin estado, esto es, no se mantiene información de la conexión entre 
+transacciones.
+En la ventana del cliente obtenemos la siguiente salida:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ curl -v localhost:8080
+* About to connect() to localhost port 8080 (#0)
+*   Trying ::1... connected
+* Connected to localhost (::1) port 8080 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:8080
+> Accept: */*
+> 
+< HTTP/1.1 200 OK 
+< Content-Type: text/plain
+< Server: WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)
+< Date: Mon, 23 Sep 2013 11:45:00 GMT
+< Content-Length: 11
+< Connection: Keep-Alive
+< 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+Hello world
+\end{verbatim}
+
+\subsection{REQUEST\_METHOD, QUERY\_STRING y PATH\_INFO}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-env]$ cat app.rb 
+require 'rack'
+require 'thin'
+
+cgi_inspector = lambda do |env|
+  [200, #status
+    { 'Content-Type' => 'text/html' }, #headers
+    ["<h1>
+        Your request:<br>
+       <ul>
+         <li>http method is: #{env['REQUEST_METHOD']}
+         <li>path is: #{env['PATH_INFO']}
+         <li>Query string is: #{env['QUERY_STRING']}
+       </ul>
+      </h1>
+     "
+    ]
+  ]
+end
+
+Rack::Handler::Thin.run cgi_inspector, :Port => 3000
+\end{verbatim}
+
+Visite la página \verb|localhost:3000/camino?var=4|.
+ 
+Esta es la salida:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-env]$ curl -v localhost:3000/camino?var=4
+* About to connect() to localhost port 3000 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 3000 (#0)
+> GET /camino?var=4 HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:3000
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html
+< Connection: close
+< Server: thin 1.5.1 codename Straight Razor
+< 
+<h1>
+        Your request:<br>
+       <ul>
+         <li>http method is: GET
+         <li>path is: /camino
+         <li>Query string is: var=4
+       </ul>
+      </h1>
+* Closing connection #0
+\end{verbatim}
+
+\section{Detectando el Proceso que está Usando un Puerto}
+
+Si intentamos ejecutar una segunda instancia del servidor mientras otra instancia esta ejecutandose 
+obtenemos un error que indica que el puerto está en uso:
+\begin{verbatim}
+[~/sinatra/sinatra-simple(master)]$ rackup
+Thin web server (v1.6.1 codename Death Proof)
+Maximum connections set to 1024
+Listening on 0.0.0.0:9292, CTRL+C to stop
+/Users/casiano/.rvm/gems/ruby-2.0.0-p247/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:
+  in `start_tcp_server': no acceptor 
+  (port is in use or requires root privileges) (RuntimeError)
+  from /Users/casiano/.rvm/gems/ruby-2.0.0-p247/gems/eventmachine-1.0.3/lib/eventmachine.rb:526:
+    in `start_server'
+...
+\end{verbatim}
+Si sabemos en que puerto esta corriendo - como es el caso - podemos hacer algo así
+para saber el PID del proceso que lo ocupa:
+\begin{verbatim}
+[~/sinatra/sinatra-simple(master)]$ lsof -i :9292
+COMMAND   PID    USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+ruby    52870 casiano    9u  IPv4 0x9f3ffc595152af29      0t0  TCP *:armtechdaemon (LISTEN)
+\end{verbatim}
+Si no lo sabemos podemos hacer:
+\begin{verbatim}
+[~/sinatra/sinatra-simple(master)]$ ps -fA | egrep ruby
+  501 52870   565   0 11:16AM ttys003    0:00.61 ruby /Users/casiano/.rvm/gems/ruby-2.0.0-p247/bin/rackup
+  501 53230 52950   0 11:35AM ttys006    0:00.00 egrep ruby
+\end{verbatim}
+Si tenemos privilegios suficientes podemos ahora eliminar el proceso:
+\begin{verbatim}
+[~/sinatra/sinatra-simple(master)]$ kill -9 52870
+\end{verbatim}
+
+\begin{verbatim}
+[~/sinatra/sinatra-simple(master)]$ rackup
+Thin web server (v1.6.1 codename Death Proof)
+Maximum connections set to 1024
+Listening on 0.0.0.0:9292, CTRL+C to stop
+Killed: 9
+\end{verbatim}
+
+El comando 
+\begin{verbatim}
+$ lsof -i | egrep -i 'tcp.*(\d+.)+'
+\end{verbatim}
+Nos da una lista bastante completa de como están nuestras conexiones.
+\begin{enumerate}
+\item 
+     \verb|-i [i]|   selects  the  listing  of  files  any of whose Internet address matches the address
+                specified in i.  If no address is specified, this option selects the listing of all
+                Internet and x.25 (HP-UX) network files.
+\end{enumerate}
+
+
+\section{Usando {\tt PATH\_INFO} y {\tt erubis} para construir una aplicación (Noah Gibbs)}
+
+\parrafo{config.ru}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/hangout-framework(master)]$ cat config.ru 
+require "erubis"
+
+use Rack::ContentType
+
+def output(text, options = {})
+  [ options[:status] || 200,
+    {}, [ text ].flatten ]
+end
+
+def from_erb(file, vars = {})
+  eruby = Erubis::Eruby.new File.read(file)
+  output eruby.result vars
+end
+
+run proc { |env|
+  path = env['PATH_INFO']
+  if path =~ %r{^/foo}
+    from_erb "template.html.erb"
+  else
+    output "Not found!", :status => 400
+  end
+}
+\end{verbatim}
+
+\parrafo{Template erb}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/hangout-framework(master)]$ cat template.html.erb 
+<p> A template! </p>
+<% 10.times do -%> <p> Pretty cool! </p> <% end -%>
+\end{verbatim}
+
+\parrafo{Arrancando el Servidor}
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/hangout-framework(master)]$ rackup
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop}
+\end{verbatim}
+
+\parrafo{Ejecutando un cliente}
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/hangout-framework(master)]$ curl -v http://localhost:9292/foochazam
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /foochazam HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html
+< Transfer-Encoding: chunked
+< Connection: close
+< Server: thin 1.5.1 codename Straight Razor
+< 
+<p> A template! </p>
+ <p> Pretty cool! </p>  <p> Pretty cool! </p>  <p> Pretty cool! </p>  
+ <p> Pretty cool! </p>  <p> Pretty cool! </p>  <p> Pretty cool! </p>  
+ <p> Pretty cool! </p>  <p> Pretty cool! </p>  <p> Pretty cool! </p>  
+ <p> Pretty cool! </p> 
+* Closing connection #0
+\end{verbatim}
+
+\parrafo{Logs del servidor}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/hangout-framework(master)]$ rackup
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+ 127.0.0.1 - - [20/Oct/2013 12:22:37] "GET /foochazam HTTP/1.1" 200 - 0.0014
+\end{verbatim}
+
+\parrafo{Véase}
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{erubis}{http://www.kuwata-lab.com/erubis/}
+\item 
+Noah Gibbs \htmladdnormallink{Demo Rack framework for March 6th, 2013 Ruby Hangout.}{https://github.com/noahgibbs/hangout-framework}
+\item 
+\htmladdnormallink{Ruby Hangout 3-13 Noah Gibbs}{http://youtu.be/evDJMLb1d28}
+\end{enumerate}
+
+\section{HTTP}
+\label{section:http}
+\input{sinatra/http.tex}
+
+
+
+\section{Rack::Request y Depuración con {\tt pry-debugger}}
+
+\subsection{Conexión sin Parámetros}
+
+Partimos del mismo código fuente que en la sección  anterior:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ cat hello.rb 
+require 'rack'
+require 'pry-debugger'
+
+class HelloWorld
+  def call env
+    binding.pry
+    [200, {"Content-Type" => "text/plain"}, ["Hello world"]]
+  end
+end
+\end{verbatim}
+
+
+Arranquemos un servidor dentro de \verb|pry|:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ pry
+[1] pry(main)> require './hello'
+=> true
+[2] pry(main)> Rack::Handler::WEBrick::run HelloWorld.new
+[2013-09-23 13:10:42] INFO  WEBrick 1.3.1
+[2013-09-23 13:10:42] INFO  ruby 1.9.3 (2013-02-22) [x86_64-darwin11.4.2]
+[2013-09-23 13:10:42] INFO  WEBrick::HTTPServer#start: pid=10395 port=8080
+\end{verbatim}
+
+Si visitamos la página:
+\begin{verbatim}
+$ curl -v localhost:8080/jkdfkdjg
+\end{verbatim}
+
+Esto hace que se alcance el break:
+\begin{verbatim}
+From: /Users/casiano/local/src/ruby/sinatra/rack/rack-debugging/hello.rb @ line 6 HelloWorld#call:
+
+    5: def call env
+ => 6:   binding.pry
+    7:   [200, {"Content-Type" => "text/plain"}, ["Hello world"]]
+    8: end
+\end{verbatim}
+Ahora creamos un objeto
+\rackrequest{}:
+
+\begin{verbatim}
+[3] pry(#<HelloWorld>)> req = Rack::Request.new(env)
+=> #<Rack::Request:0x007fbba4ff3298
+ @env=
+  {"GATEWAY_INTERFACE"=>"CGI/1.1",
+   "PATH_INFO"=>"/jkdfkdjg",
+   "QUERY_STRING"=>"",
+   "REMOTE_ADDR"=>"::1",
+   "REMOTE_HOST"=>"localhost",
+   "REQUEST_METHOD"=>"GET",
+   "REQUEST_URI"=>"http://localhost:8080/jkdfkdjg",
+   "SCRIPT_NAME"=>"",
+   "SERVER_NAME"=>"localhost",
+   "SERVER_PORT"=>"8080",
+   "SERVER_PROTOCOL"=>"HTTP/1.1",
+   "SERVER_SOFTWARE"=>"WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)",
+   "HTTP_USER_AGENT"=>
+    "curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5",
+   "HTTP_HOST"=>"localhost:8080",
+   "HTTP_ACCEPT"=>"*/*",
+   "rack.version"=>[1, 2],
+   "rack.input"=>#<StringIO:0x007fbba4e74980>,
+   "rack.errors"=>#<IO:<STDERR>>,
+   "rack.multithread"=>true,
+   "rack.multiprocess"=>false,
+   "rack.run_once"=>false,
+   "rack.url_scheme"=>"http",
+   "HTTP_VERSION"=>"HTTP/1.1",
+   "REQUEST_PATH"=>"/jkdfkdjg"}>
+\end{verbatim}
+Este objeto \rackrequest{} tiene métodos para informarnos del 
+\rackrequest{}:
+\begin{verbatim}
+[4] pry(#<HelloWorld>)> req.get?
+=> true
+[5] pry(#<HelloWorld>)> req.post?
+=> false
+[7] pry(#<HelloWorld>)> req.port
+=> 8080
+[12] pry(#<HelloWorld>)> req.host()
+=> "localhost"
+[13] pry(#<HelloWorld>)> req.host_with_port()
+=> "localhost:8080"
+[15] pry(#<HelloWorld>)> req.path()
+=> "/jkdfkdjg"
+[18] pry(#<HelloWorld>)> req.url()
+=> "http://localhost:8080/jkdfkdjg"
+[19] pry(#<HelloWorld>)> req.user_agent
+=> "curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5"
+\end{verbatim}
+
+\subsection{Conexión con Parámetros}
+
+Partimos del mismo código fuente que en la sección  anterior:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ cat hello.rb 
+require 'rack'
+require 'pry-debugger'
+
+class HelloWorld
+  def call env
+    binding.pry
+    [200, {"Content-Type" => "text/plain"}, ["Hello world"]]
+  end
+end
+
+\end{verbatim}
+Arrancamos el servidor:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ pry
+[1] pry(main)> require './hello'
+=> true
+[2] pry(main)> Rack::Handler::WEBrick::run HelloWorld.new
+[2013-09-23 13:10:42] INFO  WEBrick 1.3.1
+[2013-09-23 13:10:42] INFO  ruby 1.9.3 (2013-02-22) [x86_64-darwin11.4.2]
+[2013-09-23 13:10:42] INFO  WEBrick::HTTPServer#start: pid=10395 port=8080
+\end{verbatim}
+En el cliente tendríamos:
+\begin{verbatim}
+$ curl -v 'localhost:8080?a=1&b=2&c=3'
+\end{verbatim}
+comienza produciendo esta salida:
+\begin{verbatim}
+* About to connect() to localhost port 8080 (#0)
+*   Trying ::1... connected
+* Connected to localhost (::1) port 8080 (#0)
+> GET /?a=1&b=2&c=3 HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:8080
+> Accept: */*
+> 
+\end{verbatim}
+
+En la ventana del servidor se produce el break:
+\begin{verbatim}
+From: /Users/casiano/local/src/ruby/sinatra/rack/rack-debugging/hello.rb @ line 6 HelloWorld#call:
+
+    5: def call env
+ => 6:   binding.pry
+    7:   [200, {"Content-Type" => "text/plain"}, ["Hello world"]]
+    8: end
+\end{verbatim}
+
+\parrafo{Rack::Request.new}
+
+Creamos un objeto \rackrequest{}:
+\begin{verbatim}
+[1] pry(#<HelloWorld>)> req = Rack::Request.new env
+=> #<Rack::Request:0x007fafd27946c0
+ @env=
+  {"GATEWAY_INTERFACE"=>"CGI/1.1",
+   "PATH_INFO"=>"/",
+   "QUERY_STRING"=>"a=1&b=2&c=3",
+   "REMOTE_ADDR"=>"::1",
+   "REMOTE_HOST"=>"localhost",
+   "REQUEST_METHOD"=>"GET",
+   "REQUEST_URI"=>"http://localhost:8080/?a=1&b=2&c=3",
+   "SCRIPT_NAME"=>"",
+   "SERVER_NAME"=>"localhost",
+   "SERVER_PORT"=>"8080",
+   "SERVER_PROTOCOL"=>"HTTP/1.1",
+   "SERVER_SOFTWARE"=>"WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)",
+   "HTTP_USER_AGENT"=>
+    "curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5",
+   "HTTP_HOST"=>"localhost:8080",
+   "HTTP_ACCEPT"=>"*/*",
+   "rack.version"=>[1, 2],
+   "rack.input"=>#<StringIO:0x007fafd26bbbe0>,
+   "rack.errors"=>#<IO:<STDERR>>,
+   "rack.multithread"=>true,
+   "rack.multiprocess"=>false,
+   "rack.run_once"=>false,
+   "rack.url_scheme"=>"http",
+   "HTTP_VERSION"=>"HTTP/1.1",
+   "REQUEST_PATH"=>"/"}>
+\end{verbatim}
+
+\parrafo{req.params}
+Ahora podemos interrogarle:
+\begin{verbatim}
+[2] pry(#<HelloWorld>)> req.params
+=> {"a"=>"1", "b"=>"2", "c"=>"3"}
+\end{verbatim}
+
+\parrafo{Indexación de los objetos Rack::Request}
+Recordemos que la URL visitada fué: \verb'localhost:8080?a=1&b=2&c=3'
+\begin{verbatim}
+[3] pry(#<HelloWorld>)> req["a"]
+=> "1"
+[4] pry(#<HelloWorld>)> req["b"]
+=> "2"
+[5] pry(#<HelloWorld>)> req["c"]
+=> "3"
+\end{verbatim}
+
+\parrafo{req.path}
+\begin{verbatim}
+[6] pry(#<HelloWorld>)> req.path
+=> "/"
+[7] pry(#<HelloWorld>)> req.fullpath
+=> "/?a=1&b=2&c=3"
+[9] pry(#<HelloWorld>)> req.path_info
+=> "/"
+[10] pry(#<HelloWorld>)> req.query_string
+=> "a=1&b=2&c=3"
+\end{verbatim}
+
+\parrafo{req.url}
+
+\begin{verbatim}
+[11] pry(#<HelloWorld>)> req.url
+=> "http://localhost:8080/?a=1&b=2&c=3"
+\end{verbatim}
+
+\parrafo{req.values}
+
+\begin{verbatim}
+[12] pry(#<HelloWorld>)> req.values_at("a")
+=> ["1"]
+[13] pry(#<HelloWorld>)> req.values_at("a", "b")
+=> ["1", "2"]
+[14] pry(#<HelloWorld>)> req.values_at("a", "b", "c")
+=> ["1", "2", "3"]
+\end{verbatim}
+
+\begin{verbatim}
+[16] pry(#<HelloWorld>)> continue
+localhost - - [23/Sep/2013:13:10:49 WEST] "GET /?a=1&b=2&c=3 HTTP/1.1" 200 11
+- -> /?a=1&b=2&c=3
+\end{verbatim}
+
+\begin{verbatim}
+$ curl -v 'localhost:8080?a=1&b=2&c=3'
+* About to connect() to localhost port 8080 (#0)
+*   Trying ::1... connected
+* Connected to localhost (::1) port 8080 (#0)
+> GET /?a=1&b=2&c=3 HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:8080
+> Accept: */*
+> 
+< HTTP/1.1 200 OK 
+< Content-Type: text/plain
+< Server: WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)
+< Date: Mon, 23 Sep 2013 12:35:37 GMT
+< Content-Length: 11
+< Connection: Keep-Alive
+< 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+Hello world
+\end{verbatim}
+
+\section{Rack::Response}
+
+\subsection{Introducción}
+
+\rackresponse{} provides a convenient interface to create a Rack response.
+
+It allows setting of headers and cookies, and provides useful
+defaults (a \verb|OK| response containing HTML).
+
+You can use \verb|Response#write| to iteratively generate your response,
+but note that this is buffered by \rackresponse{} until you call
+\verb|finish|. 
+
+Alternatively, the method \verb|finish| can take a block inside which calls to write
+are synchronous with the Rack response.
+
+Your application‘s call should end returning \verb|Response#finish|.
+
+\subsection{Ejemplo Simple}
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging(master)]$ cat body_bytesize.rb 
+require 'rack'
+require 'thin'
+
+app = lambda do |env|
+  req = Rack::Request.new env
+  res = Rack::Response.new
+
+  body = "--------------- Header ------------------\n"
+
+  if req.path_info == '/hello'
+    body << "hi "
+    name = req['name']
+    body << name if name 
+    body << "\n"
+  else
+    body << "Instead of #{req.url} visit something like "+
+            "http://localhost:8080/hello?name=Casiano\n"
+  end
+  res['Content-Type'] = 'text/plain'
+  res["Content-Length"] = body.bytesize.to_s
+  #res["Content-Length"] = Rack::Utils.bytesize(body).to_s
+  res.body = [ body ]
+  res.finish
+end
+
+Rack::Handler::Thin.run app
+\end{verbatim}
+
+\subsection{Ejemplo con {\tt POST}}
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ cat hello_response.rb 
+# encoding: utf-8
+require 'rack'
+require 'pry-debugger'
+
+class HelloWorld
+
+  def call env
+    req = Rack::Request.new(env)
+    res = Rack::Response.new 
+    binding.pry if ARGV[0]
+    res['Content-Type'] = 'text/html'
+    name = (req["firstname"] && req["firstname"] != '') ? req["firstname"] :'World'
+    res.write <<-"EOS"
+      <!DOCTYPE HTML>
+      <html>
+        <title>Rack::Response</title>
+        <body>
+          <h1>
+             Hello #{name}!
+             <form action="/" method="post">
+               Your name: <input type="text" name="firstname" autofocus><br>
+               <input type="submit" value="Submit">
+             </form>
+          </h1>
+        </body>
+      </html>
+    EOS
+    res.finish
+  end
+end
+
+Rack::Server.start(
+  :app => HelloWorld.new,
+  :Port => 9292,
+  :server => 'thin'
+)
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ ruby hello_response.rb debug
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+\end{verbatim}
+
+Ahora cuando visitamos la página \verb|http://localhost:9292| el navegador queda a la
+espera del servidor y el servidor alcanza la línea de break.
+
+\begin{verbatim}
+From: /Users/casiano/local/src/ruby/sinatra/rack/rack-debugging/hello_response.rb @ line 10 HelloWorld#call:
+
+     7: def call env
+     8:   req = Rack::Request.new(env)
+     9:   res = Rack::Response.new 
+ => 10:   binding.pry if ARGV[0]
+    11:   res['Content-Type'] = 'text/html'
+    12:   name = (req["firstname"] && req["firstname"] != '') ? req["firstname"] :'World'
+    13:   res.write <<-"EOS"
+    14:     <!DOCTYPE HTML>
+    15:     <html>
+    16:       <title>Rack::Response</title>
+    17:       <body>
+    18:         <h1>
+    19:            Hello #{name}!
+    20:            <form action="/" method="post">
+    21:              Your name: <input type="text" name="firstname" autofocus><br>
+    22:              <input type="submit" value="Submit">
+    23:            </form>
+    24:         </h1>
+    25:       </body>
+    26:     </html>
+    27:   EOS
+    28:   res.finish
+    29: end
+
+[1] pry(#<HelloWorld>)> 
+\end{verbatim}
+Consultemos los contenidos de \verb|res|:
+\begin{verbatim}
+[1] pry(#<HelloWorld>)> res
+=> #<Rack::Response:0x007fe3fb1e6180
+ @block=nil,
+ @body=[],
+ @chunked=false,
+ @header={},
+ @length=0,
+ @status=200,
+ @writer=
+  #<Proc:0x007fe3fb1e5f50@/Users/casiano/.rvm/gems/ruby-1.9.3-p392/gems/rack-1.5.2/lib/rack/response.rb:27 (lambda)>>
+\end{verbatim}
+Después de un par de \verb|continue| el servidor se queda a la espera:
+\begin{verbatim}
+[3] pry(#<HelloWorld>)> continue
+...
+[1] pry(#<HelloWorld>)> continue
+\end{verbatim}
+
+\begin{rawhtml}
+<img src="hellonamerack.png" />
+\end{rawhtml}
+
+Rellenamos la entrada con un nombre (Pedro) y de nuevo el servidor alcanza el punto de ruptura:
+\begin{verbatim}
+[2] pry(#<HelloWorld>)> req.params
+=> {"firstname"=>"Pedro"}
+\end{verbatim}
+
+
+\begin{verbatim}
+[7] pry(#<HelloWorld>)> break 28
+Breakpoint 1: /Users/casiano/local/src/ruby/sinatra/rack/rack-debugging/hello_response.rb @ line 28 (Enabled) :
+
+    26:       </html>
+    27:     EOS
+ => 28:     res.finish
+    29:   end
+
+[8] pry(#<HelloWorld>)> continue
+Breakpoint 1. First hit.
+...
+[9] pry(#<HelloWorld>)> res.headers
+=> {"Content-Type"=>"text/html", "Content-Length"=>"370"}
+[10] pry(#<HelloWorld>)> 
+
+\end{verbatim}
+
+\section{Cookies y Rack}
+\label{section:cookies}
+
+Cookies may be used to maintain data related to the user during
+navigation, possibly across multiple visits.
+
+\parrafo{Introducción}
+\begin{enumerate}
+\item 
+A \cei{cookie},
+is a small piece of data sent from a website and stored in
+a user's web browser while the user is browsing that website. 
+
+\item 
+Every
+time the user loads the website, the browser sends the cookie back
+to the server to notify the website of the user's previous activity
+\item 
+Cookies were designed to be a reliable mechanism for websites to
+remember stateful information (such as items in a shopping cart)
+or to record the user's browsing activity (including clicking
+particular buttons, logging in, or recording which pages were visited
+by the user as far back as months or years ago).
+\item 
+A user's \cei{session cookie}  (also known as an in-memory cookie or
+transient cookie) for a website exists in temporary memory only
+while the user is reading and navigating the website. 
+\item 
+When an expiry
+date or validity interval is not set at cookie creation time, a
+session cookie is created. Web browsers normally delete session
+cookies when the user closes the browser
+\item 
+A \cei{persistent cookie} will outlast user sessions. If a persistent
+cookie has its \tei{Max-Age} set to 1 year, then, during
+that year, the initial value set in that cookie would be sent back
+to the server every time the user visited the server. This could
+be used to record information such as how the user
+initially came to this website. For this reason, persistent cookies
+are also called \cei{tracking cookies}
+\item 
+A \cei{secure cookie} has the \cei{secure attribute} enabled and is only used
+via HTTPS, ensuring that the cookie is always encrypted when
+transmitting from client to server. This makes the cookie less
+likely to be exposed to cookie theft via eavesdropping.
+\item 
+\cei{First-party cookies} are cookies that belong to the same domain that
+is shown in the browser's address bar (or that belong to the sub
+domain of the domain in the address bar). 
+
+\item 
+\cei{Third-party cookies} are
+cookies that belong to domains different from the one shown in the
+address bar. 
+  \begin{enumerate}
+  \item 
+  Web pages can feature content from third-party domains
+  (such as banner adverts), which opens up the potential for tracking
+  the user's browsing history. 
+  \item 
+  Privacy setting options in most modern
+  browsers allow the blocking of third-party tracking cookies.
+  \item 
+  As an example, suppose a user visits \verb|www.example1.com|. 
+  \item 
+  This web
+  site contains an advert from \verb|ad.foxytracking.com|, which, when
+  downloaded, sets a cookie belonging to the advert's domain
+  (\verb|ad.foxytracking.com|). 
+  \item 
+  Then, the user visits another website,
+  \verb|www.example2.com|, which also contains an advert from 
+  \verb|ad.foxytracking.com|,
+  and which also sets a cookie belonging to that domain
+  (\verb|ad.foxytracking.com|). 
+  \item 
+  Eventually, both of these cookies will be
+  sent to the advertiser when loading their ads or visiting their
+  website. 
+  \item 
+  The advertiser can then use these cookies to build up a
+  browsing history of the user across all the websites that have ads
+  from this advertiser.
+  \end{enumerate}
+\end{enumerate}
+
+\parrafo{Propiedades de un cookie}
+
+Un cookie tiene los siguientes atributos:
+\begin{enumerate}
+\item 
+nombre
+\item 
+valor
+\item 
+domain (dominio)
+\item 
+path o camino
+\item 
+secure / seguridad
+\end{enumerate}
+
+Cuando ejecutamos este programa:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-session-cookie(master)]$ cat study_cookie1.ru 
+run lambda { |e|
+  [ 200, 
+    { 'Content-Type' => 'text/html',
+      'Set-cookie'   => "id=123456\nname=jack\nphone=65452334"
+    }, 
+    [ 'hello world' ]
+  ]
+}
+\end{verbatim}
+y hacemos \verb|www.example.com| un alias de \verb|127.0.0.1|:
+\begin{verbatim}
+[~]$ cat /etc/hosts
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1 localhost www.example.com
+\end{verbatim}
+al visitar la página \verb|www.example.com:9292| 
+y abrir las herramientas para desarrolladores 
+tenemos:
+\begin{rawhtml}
+<img src="cookies.png" />
+\end{rawhtml}
+
+Observemos que:
+\begin{enumerate}
+\item 
+Como no hemos establecido el tiempo de caducidad (\tei{expires Max-Age}), los cookies son de sesión.
+\item 
+Como no hemos establecido el dominio, los cookies son de dominio \verb|www.example.com|.
+\end{enumerate}
+
+\parrafo{Estableciendo {\tt expires}}
+
+Modifiquemos el ejemplo anterior para establecer una fecha de caducidad:
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-session-cookie(master)]$ cat study_cookie2.ru 
+run lambda { |e|
+  t = Time.now.gmtime + 3*60
+  [ 200, 
+    { 'Content-Type' => 'text/html',
+      'Set-cookie'   => "chuchu=chachi;expires=#{t.strftime("%a, %d-%b-%Y %H:%M:%S GMT")}"
+    }, 
+    [ 'hello world' ]
+  ]
+}
+\end{verbatim}
+
+
+Al ejecutar este programa vemos que hemos establecido la caducidad. Obsérvese
+la diferencia entre GMT y el tiempo de Canarias.
+
+\begin{rawhtml}
+<p>
+<img src="cookie_expires.png" width="70%"/>
+\end{rawhtml}
+
+\parrafo{Estableciendo el atributo {\tt domain} de una cookie}
+
+\begin{enumerate}
+\item 
+Establezcamos \verb|domain| a \verb|example.com|:
+\begin{verbatim}
+~/local/src/ruby/sinatra/rack/rack-session-cookie(master)]$ cat study_cookie3.ru 
+run lambda { |e|
+  t = Time.now.gmtime + 3*60
+  [ 200, 
+    { 'Content-Type' => 'text/html',
+      'Set-cookie'   => "chuchu=chachi;expires=#{t.strftime("%a, %d-%b-%Y %H:%M:%S GMT")}" +
+                        ";domain=example.com"
+    }, 
+    [ 'hello world' ]
+  ]
+}
+\end{verbatim}
+\item Manipulamos \verb|/etc/hosts|:
+\begin{verbatim}
+[~]$ cat /etc/hosts
+127.0.0.1 localhost www.example.com test.example.com app.test
+\end{verbatim}
+\item 
+Ejecutamos el servidor y lo visitamos con el navegador en \verb|www.example.com:9292|.
+\item 
+A continuación arrancamos este segundo servidor en el puerto 8080:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-simple(master)]$ cat config.ru 
+require './myapp'
+run MyApp.new
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-simple(master)]$ cat myapp.rb 
+# my_app.rb
+#
+class MyApp
+  def call env
+    [200, {"Content-Type" => "text/html"}, ["Hello Rack Participants"]] 
+  end
+end
+\end{verbatim}
+\item 
+y visitamos \verb|test.example.com:8080| (que de nuevo es resuelto a \verb|localhost|)
+\end{enumerate}
+La figura muestra que el cookie generado por \verb|www.example.com:9292|
+es enviado a \verb|test.example.com:8080|:
+\begin{rawhtml}
+<img src="cookiewithdomain.png" />
+\end{rawhtml}
+
+\parrafo{El atributo {\tt path}}
+
+
+Si \verb|path| es \verb|/| entonces casa con todos las páginas en el dominio.
+Si \verb|path| es \verb|/foo| entonces casa con 
+\verb|foobar| y \verb|/foo/chuchu/toto.html|.
+
+\parrafo{El atributo {\tt secure}}
+
+Si se pone \verb|secure| el cookie solo se envía si se usa \tei{https}
+
+
+\parrafo{Envío de Cookies}
+ As long as the URL requested is within the same domain and path
+ defined in the cookie (and all of the other restrictions -- secure,
+  not expired, etc) hold, the cookie will be sent for
+ every request. The client will include a header field similar to this:
+\begin{verbatim}
+Cookie: name1 = value1 [;name2=value2]
+\end{verbatim}
+
+\parrafo{Establecer un cookie usando \rackresponse{}}
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging(master)]$ cat hello_cookie.rb 
+require 'rack'
+
+class HelloWorld
+  def call env
+    response = Rack::Response.new("Hello world!")
+    response.status = 200
+    response.headers['Content-type'] = "text/plain"
+    response.set_cookie('asignatura', 'SYTW')
+    response.finish
+  end
+end
+
+Rack::Handler::WEBrick::run HelloWorld.new
+\end{verbatim}
+
+\parrafo{Obtener los valores de los cookies usando \rackrequest{}}
+
+Es posible acceder a los cookies con el objeto \rackrequest{} mediante
+el método \verb|cookies|.
+Vease la documentación de \rackresponse{} y \rackrequest{}.
+
+\begin{verbatim}
+[~/rack/rack-debugging(master)]$ cat hello_cookie.rb 
+require 'rack'
+
+class HelloWorld
+  def call env
+    req      = Rack::Request.new(env)
+    response = Rack::Response.new("Hello world! cookies = #{req.cookies.inspect}\n")
+    response.write("asignatura => #{req.cookies['asignatura']}") if req.cookies['asignatura']
+    response.status = 200
+    response['Content-type'] = "text/plain"
+    response.set_cookie('asignatura', 'SYTW')
+    response.finish
+  end
+end
+
+Rack::Handler::WEBrick::run HelloWorld.new
+\end{verbatim}
+
+
+\begin{rawhtml}
+<h3>Limpiamos las cookies</h3>
+<p>
+<img src="rackejemploconcookie1.png" width="70%"/>
+\end{rawhtml}
+
+\begin{rawhtml}
+<hr><p>
+<h3>Recargamos la página. El mensaje de
+la página se refiere a las cookies que acaban de llegar,
+mientras que el inspector nos avisa de que ya se ha establecido
+una cookie</h3>
+<p>
+<img src="rackejemploconcookie2.png" width="70%"/>
+\end{rawhtml}
+
+\begin{rawhtml}
+<hr><p>
+<h3>Recargamos de nuevo la página. 
+Ahora los dos están sicronizados</h3>
+<p>
+<img src="rackejemploconcookie3.png" width="70%"/>
+\end{rawhtml}
+
+\parrafo{El código del método {\tt cookies}}
+El método \verb|cookies|
+retorna un hash:
+\begin{verbatim}
+# File lib/rack/request.rb, line 290
+def cookies
+  hash   = @env["rack.request.cookie_hash"] ||= {}
+  string = @env["HTTP_COOKIE"]
+
+  return hash if string == @env["rack.request.cookie_string"]
+  hash.clear
+
+  # According to RFC 2109:
+  #   If multiple cookies satisfy the criteria above, they are ordered in
+  #   the Cookie header such that those with more specific Path attributes
+  #   precede those with less specific.  Ordering with respect to other
+  #   attributes (e.g., Domain) is unspecified.
+  cookies = Utils.parse_query(string, ';,') { |s| Rack::Utils.unescape(s) rescue s }
+  cookies.each { |k,v| hash[k] = Array === v ? v.first : v }
+  @env["rack.request.cookie_string"] = string
+  hash
+end
+\end{verbatim}
+
+\parrafo{Código de {\tt set\_cookie}}
+
+\begin{verbatim}
+        # File lib/rack/response.rb, line 57
+57:     def set_cookie(key, value)
+58:       Utils.set_cookie_header!(header, key, value)
+59:     end
+\end{verbatim}
+
+Aquí \verb|value| es un hash con claves \verb|:domain|,
+\verb|:path|, \verb|:expires|,
+\verb|:secure| y
+\verb|:httponly|
+
+\parrafo{Código de {\tt delete\_cookie}}
+
+\begin{verbatim}
+    # File lib/rack/response.rb, line 61
+61:     def delete_cookie(key, value={})
+62:       Utils.delete_cookie_header!(header, key, value)
+63:     end
+\end{verbatim}
+Aquí \verb|value| es un hash con claves \verb|:domain|,
+\verb|:path|, \verb|:expires|,
+\verb|:secure| y
+\verb|:httponly|
+
+\parrafo{domains, periods, cookies and localhost}
+
+\begin{enumerate}
+\item 
+By design domain names must have at least two dots otherwise browser
+will say they are invalid.
+\item 
+Only hosts within the specified domain can set a cookie for a domain
+\item 
+domains must have at least two (2) or three (3) periods in them
+to prevent domains of the form: \verb".com", \verb".edu", and \verb"va.us". 
+\item 
+Any
+domain that fails within one of the seven special top level domains
+\verb"COM", \verb"EDU", \verb"NET", \verb"ORG", \verb"GOV", \verb"MIL", and \verb"INT"
+require two periods.
+\item 
+Any other domain requires at least three. 
+\item 
+On \verb|localhost|, when we set a cookie on server side and specify the
+domain explicitly as \verb|localhost| (or \verb|.localhost|), the cookie does not
+seem to be accepted by some browsers.
+\end{enumerate}
+
+\section{Gestión de Sesiones}
+\label{section:gestiondesesiones}
+
+\parrafo{Introducción}
+
+\begin{enumerate}
+\item 
+Hypertext Transfer Protocol (HTTP) is stateless: a client computer
+running a web browser must establish a new Transmission Control
+Protocol (TCP) network connection to the web server with each new
+HTTP GET or POST request. 
+
+\item 
+The web server, therefore, cannot rely
+on an established TCP network connection for longer than a single
+HTTP GET or POST operation. 
+
+\item 
+\cei{Session management} is the technique
+used by the web developer to make the stateless HTTP protocol support
+session state. 
+
+\item 
+For example, once a user has been authenticated to
+the web server, the user's next HTTP request (GET or POST) should
+not cause the web server to ask for the user's account and password
+again. 
+
+\item 
+The session information is stored on the web server using the 
+\cei{session identifier}
+generated as a result of the first (sometimes
+the first authenticated) request from the end user running a web
+browser. 
+
+\item 
+The "storage" of Session IDs and the associated session
+data (user name, account number, etc.) on the web server is
+accomplished using a variety of techniques including, but not limited
+to, local memory, flat files, and databases.
+
+\item 
+A \cei{session token} is a unique identifier that is generated and sent
+from a server to a client to identify the current interaction
+session. 
+
+\item 
+The client usually stores and sends the token as an HTTP
+cookie and/or sends it as a parameter in GET or POST queries. The
+reason to use session tokens is that the client only has to handle
+the identifier—all session data is stored on the server (usually
+in a database, to which the client does not have direct access)
+linked to that identifier. 
+\end{enumerate}
+
+\parrafo{Uso de Cookies para el manejo de sesiones}
+
+  \begin{enumerate}
+  \item 
+    Allowing users to log into a website is a frequent use of
+    cookies. 
+  \item 
+   A web server typically sends a cookie containing a unique 
+    \cei{session identifier}. The web browser will send back that session identifier
+   with each subsequent request and related items are stored
+   associated with this unique session identifier.
+    \item 
+    Typically the web server will first send a cookie
+    containing a unique session identifier. Users then submit their
+    credentials and the web application authenticates the session
+    and allows the user access to services.
+    \item 
+    Applications today usually store the gathered information
+    in a database on the server side, rather than storing them 
+    in cookies
+  \end{enumerate}
+
+\parrafo{Ejemplo}
+
+\racksessioncookie{} proporciona un sencillo sistema para gestionar
+sesiones basado en cookies.
+
+\begin{enumerate}
+\item 
+La sesión es un cookie que contiene un
+hash almacenado mediante marshalling codificado en base64.
+\item 
+Por defecto el nombre del cookie es \verb|rack.session| pero puede ser 
+modificado mediante el atributo \verb|:key|.
+\item 
+Dándole un valor a \verb|secret_key| se garantiza que es comprobada 
+la integridad de los datos de la cookie
+\item 
+Para acceder dentro de nuestro programa
+a la sesión accedemos al hash \verb|env["rack.session"]| o bien
+\verb|env["key-value"]| si hemos especificado el atributo
+\verb|:key|
+\end{enumerate}
+
+Sigue un ejemplo:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-session-cookie(master)]$ cat configapp.ru 
+require 'pp'
+require './myapp'
+
+use Rack::Session::Cookie, 
+      :key => 'rack.session', 
+      :domain => 'example.com',
+      :secret => 'some_secret'
+
+run MyApp.new
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-session-cookie(master)]$ cat myapp.rb 
+class MyApp
+
+  def set_env(env)
+    @env = env
+    @session = env['rack.session']
+  end
+
+  def some_key 
+    return @session['some_key'].to_i if @session['some_key']
+    @session['some_key'] = 0
+  end
+
+  def some_key=(value)
+    @session['some_key'] = value
+  end
+
+  def call(env)
+    set_env(env)
+    res = Rack::Response.new
+    req = Rack::Request.new env
+
+    self.some_key = self.some_key + 1 if req.path == '/'
+
+    res.write("some_key = #{@session['some_key']}\n")
+
+    res.finish
+  end
+
+end
+\end{verbatim}
+
+Hagamos la prueba conectándonos a \verb|www.example.com|. Para ello
+edtiamos \verb|/etc/hosts| para que \verb|localhost| apunte a
+\verb|www.example.com|:
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-session-cookie(master)]$ cat /etc/hosts
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1 localhost www.example.com
+...
+\end{verbatim}
+
+Arrancamos el servidor:
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-session-cookie(master)]$ rackup  configapp.ru 
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+\end{verbatim}
+
+Y visitamos \verb|www.example.com| con nuestro navegador:
+\begin{rawhtml}
+<img src="rack_session_example.png" />
+\end{rawhtml}
+
+\subsection{Ejercicio}
+
+Supongamos el siguiente programa \rack{} en el que se incrementa 
+la variable \verb|@some_key|:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-appvswebserver(icon)]$ cat configapp.ru 
+class Persistence
+
+  def call(env)
+    
+    res = Rack::Response.new
+    req = Rack::Request.new env
+
+    @some_key ||= 0
+    @some_key = @some_key + 1 
+
+    res.write("@some_key = #{@some_key}\n")
+
+    res.finish
+  end
+
+end
+
+run Persistence.new
+\end{verbatim}
+
+Supongamos que arranco el servidor:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-appvswebserver(master)]$ rackup configapp.ru >> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+\end{verbatim}
+
+Nótese que con \verb|thin| arrancado desde \verb|rack|
+se tienen los valores de \verb|env| para las claves:
+\begin{verbatim}
+rack.multithread => false
+rack.multiprocess => false
+\end{verbatim}
+lo que indica que el servidor no está soportando multithreading ni multiproceso.
+
+Responda a estas preguntas:
+\begin{enumerate}
+\item 
+¿Que valores de \verb|@some_key| serán mostrados cuando me conecto a \verb|localhost:9292|?
+\item 
+¿Y si recargo la página varias veces?
+\item 
+¿Y si abro un nuevo navegador o ventana de incógnito en la misma URL?
+\item 
+¿Y si re-arranco el servidor?
+\item 
+¿Como afectaría a la conducta que el servidor fuera multithreading?
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-appvswebserver(icon)]$ rvm use jruby-1.7.3
+Using /Users/casiano/.rvm/gems/jruby-1.7.3
+[~/local/src/ruby/sinatra/rack/rack-appvswebserver(icon)]$ rackup configapp.ru 
+Puma 2.6.0 starting...
+* Min threads: 0, max threads: 16
+* Environment: development
+* Listening on tcp://0.0.0.0:9292
+rack.multithread => true
+rack.multiprocess => false
+\end{verbatim}
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-appvswebserver(icon)]$ cat Rakefile 
+desc "run the server"
+task :default do
+  sh <<-"EOS"
+  #rvm use jruby-1.7.3 &&
+  #ruby -v &&
+  rackup -s puma configapp.ru 
+  EOS
+end
+
+desc "run the client"
+task :client do
+  pids = []
+  (0...100).each do
+    pids << fork do
+      sh %q{curl -v 'http://localhost:9292' >> salida 2>> logs}
+    end
+  end
+  puts pids
+end
+
+desc "remove output and logs"
+task :clean do
+  sh "rm -f salida logs"
+end
+\end{verbatim}
+\end{enumerate}
+
+De acuerdo a  una respuesta en StackOverflow a la pregunta:
+\htmladdnormallink{Is Sinatra multi-threaded? I read else where that "sinatra is multi-threaded by default", what does that imply?}{http://stackoverflow.com/questions/6278817/is-sinatra-multi-threaded}
+\begin{quote}
+The choice is mainly made by the server and middleware you use:
+
+\begin{enumerate}
+\item 
+Multi-Process, non-preforking: Mongrel, Thin, WEBrick, Zbatery
+\item 
+Multi-Process, preforking: Unicorn, Rainbows, Passenger
+\item 
+Evented (suited for sinatra-synchrony): Thin, Rainbows, Zbatery
+\item 
+Threaded: Net::HTTP::Server, Threaded Mongrel, Puma, Rainbows,
+Zbatery, Phusion Passenger Enterprise >= 4
+\item 
+Since Sinatra 1.3.0, Thin will be started in threaded mode, if
+it is started by Sinatra (i.e. with ruby app.rb, but not with the
+thin command, nor with rackup).
+\end{enumerate}
+\end{quote}
+
+\section{Ejemplo Simple Combinando Rack::Request, Rack::Response y Middleware (Lobster)}
+
+Este código se encuentra en
+\htmladdnormallink{https://github.com/crguezl/rack-lobster}{https://github.com/crguezl/rack-lobster}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-lobster(master)]$ cat lobster.rb 
+require 'rack/request'
+require 'rack/response'
+
+module Rack
+  class Lobster
+    LobsterString = "a lobster"
+
+    def call(env)
+      req = Request.new(env)
+
+      req.env.keys.sort.each { |x| puts "#{x} => #{req.env[x]}" }
+
+      if req.GET["flip"] == "left"
+        lobster = LobsterString.reverse
+        href = "?flip=right"
+      elsif req.GET["flip"] == "crash"
+        raise "Lobster crashed"
+      else
+        lobster = LobsterString
+        href = "?flip=left"
+      end
+
+      res = Response.new
+      res.write <<-"EOS"
+      <title>Lobstericious!</title>
+      <pre>
+      #{lobster}
+      </pre>
+      <p><a href='#{href}'>flip!</a></p>
+      <p><a href='?flip=crash'>crash!</a></p>
+      EOS
+      res.finish
+    end
+  end
+end
+
+if $0 == __FILE__
+  require 'rack'
+  require 'rack/showexceptions'
+  Rack::Server.start(
+    :app => Rack::ShowExceptions.new(
+              Rack::Lint.new(
+                Rack::Lobster.new)), 
+    :Port => 9292,
+    :server => 'thin'
+  )
+end
+\end{verbatim}
+
+Véase:
+\begin{enumerate}
+\item 
+\htmladdnormallink{rack/lib/rack/showexceptions.rb}{https://github.com/rack/rack/blob/master/lib/rack/showexceptions.rb}
+
+(Rack::ShowExceptions catches all exceptions raised from the app it
+wraps.  It shows a useful backtrace with the sourcefile and
+clickable context, the whole Rack environment and the request
+data.
+
+Be careful when you use this on public-facing sites as it could
+reveal information helpful to attackers)
+\item 
+\htmladdnormallink{rack/lib/rack/lint.rb}{https://github.com/rack/rack/blob/master/lib/rack/lint.rb}
+en GitHub
+
+(Rack::Lint validates your application and the requests and
+ responses according to the Rack spec)
+\end{enumerate}
+Tanto Rack::ShowExceptions como Rack::Lint disponen de un método \verb|call| que recibe una variable \verb|env| describiendo el entorno CGI.
+Esto es, se trata de aplicaciones que siguen el protocolo Rack.
+Así este código:
+\begin{verbatim}
+  Rack::Server.start(
+    :app => Rack::ShowExceptions.new(
+              Rack::Lint.new(
+                Rack::Lobster.new)), 
+    :Port => 9292,
+    :server => 'thin'
+  )
+\end{verbatim}
+
+construye una nueva objeto/aplicación Rack que es la composición
+de los tres Racks.
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-lobster(master)]$ cat Rakefile 
+desc "run the server"
+task :default do
+  sh "ruby lobster.rb"
+end
+
+desc "run the client flip left"
+task :left do
+  sh %q{curl -v 'http://localhost:9292?flip=left'}
+end
+
+desc "run the client flip right"
+task :right do
+  sh %q{curl -v 'http://localhost:9292?flip=right'}
+end
+
+desc "run the client. Generate exception"
+task :crash do
+  sh %q{curl -v 'http://localhost:9292/?flip=crash'}
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-lobster(master)]$ rake left
+curl -v 'http://localhost:9292?flip=left'
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /?flip=left HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Length: 168
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+      <title>Lobstericious!</title>
+      <pre>
+      retsbol a
+      </pre>
+      <p><a href='?flip=right'>flip!</a></p>
+      <p><a href='?flip=crash'>crash!</a></p>
+* Connection #0 to host localhost left intact
+* Closing connection #0
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-lobster(master)]$ rake right
+curl -v 'http://localhost:9292?flip=right'
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /?flip=right HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Length: 167
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+      <title>Lobstericious!</title>
+      <pre>
+      a lobster
+      </pre>
+      <p><a href='?flip=left'>flip!</a></p>
+      <p><a href='?flip=crash'>crash!</a></p>
+* Connection #0 to host localhost left intact
+* Closing connection #0
+\end{verbatim}
+
+
+\begin{rawhtml}
+<img src="rackcrash.png" width="50%" />
+\end{rawhtml}
+
+\sectionpractica{Accediendo a Twitter y Mostrando los últimos twitts en una página}
+Convierta el programa 
+de ejemplo usado en la sección
+{\it Ejemplo en Ruby: Accediendo a Twitter}
+\ref{section:accediendoatwitter}
+en una aplicación Rack que muestre en su página 
+los últimos twitts de una lista de usuarios obtenidos 
+desde un formulario (puede modificar/diseñar la interfaz como crea conveniente)
+
+\section{Ejemplo: Basic Authentication}
+
+\rackauthbasic{} implements 
+\wikip{HTTP Basic Authentication}{Basic\_access\_authentication}, as per RFC 2617.
+
+\parrafo{Introducción}
+
+\begin{enumerate}
+\item 
+In the context of an HTTP transaction, basic access authentication
+is a method for an HTTP user agent to provide a user name and
+password when making a request.
+
+\item 
+\cei{HTTP Basic authentication} (\cei{BA}) implementation is the simplest
+technique for enforcing access controls to web resources because
+it doesn't require cookies, session identifier and login pages.
+Rather, HTTP Basic authentication uses static, standard HTTP headers
+which means that no handshakes have to be done in anticipation.
+
+\item 
+The BA mechanism provides no confidentiality protection for the
+transmitted credentials. They are merely encoded with \wikip{BASE64}{BASE64} in
+transit, but not encrypted or hashed in any way. Basic Authentication
+is, therefore, typically used over HTTPS.
+
+\item 
+Because BA header has to be sent with each HTTP request, the web
+browser needs to cache the credentials for a reasonable period to
+avoid constant prompting user for the username and password. Caching
+policy differs between browsers. 
+
+
+\item 
+While HTTP does not provide a method for web server to instruct the
+browser to "log out" the user (forget cached credentials), there
+are a number of workarounds using specific features in various
+browsers. One of them is redirecting the user to an URL on the same
+domain containing credentials that are intentionally incorrect
+\end{enumerate}
+
+\parrafo{Protocolo}
+
+\begin{enumerate}
+\item 
+When the server wants the user agent to authenticate itself towards
+the server, it can send a request for authentication.
+\item 
+This request should be sent using the HTTP 401 Not Authorized
+response code containing a WWW-Authenticate HTTP header.
+\item 
+The WWW-Authenticate header for basic authentication (used most
+often) is constructed as following:
+\begin{verbatim}
+WWW-Authenticate: Basic realm="insert realm"
+\end{verbatim}
+\item 
+When the user agent wants to send the server authentication credentials
+it may use the Authorization header.
+\item 
+The Authorization header is constructed as follows:
+  \begin{enumerate}
+  \item 
+  Username and password are combined into a string \verb"username:password"
+  \item 
+  The resulting string literal is then encoded using Base64
+  \item 
+  The authorization method and a space i.e. \verb"Basic " is then put
+  before the encoded string.
+  \item 
+  For example, if the user agent uses 
+  \verb'Aladdin' as the username and
+  \verb'open sesame' as the password then the header is formed as
+  follows:.
+  \begin{verbatim}
+  Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+  \end{verbatim}
+  \end{enumerate}
+\end{enumerate}
+
+\parrafo{Ejemplo de BA en Rack}
+
+Initialize with the Rack application that you want protecting, and
+a block that checks if a username and password pair are valid.
+
+
+Puede encontrar el fuente en \htmladdnormallink{GitHub}{https://github.com/crguezl/rack-lobster/blob/master/protectedlobster.rb}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-lobster(master)]$ cat protectedlobster.rb
+require 'rack'
+require './lobster'
+require 'yaml'
+
+lobster = Rack::Lobster.new
+
+passwd = YAML.load(File.open('etc/passwd.yml').read)
+
+protected_lobster = Rack::Auth::Basic.new(lobster) do |username, password|
+  passwd[username] == password
+end
+
+protected_lobster.realm = 'Lobster 2.0'
+pretty_protected_lobster = Rack::ShowStatus.new(Rack::ShowExceptions.new(protected_lobster))
+
+Rack::Server.start :app => pretty_protected_lobster, :Port => 9292
+\end{verbatim}
+
+\parrafo{\htmladdnormallink{lobster.rb}{https://github.com/crguezl/rack-lobster/blob/master/lobster.rb}}
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-lobster(master)]$ cat lobster.rb 
+require 'rack/request'
+require 'rack/response'
+
+module Rack
+  class Lobster
+    LobsterString = "a lobster"
+
+    def call(env)
+      req = Request.new(env)
+
+      req.env.keys.sort.each { |x| puts "#{x} => #{req.env[x]}" }
+
+      if req.GET["flip"] == "left"
+        lobster = LobsterString.reverse
+        href = "?flip=right"
+      elsif req.GET["flip"] == "crash"
+        raise "Lobster crashed"
+      else
+        lobster = LobsterString
+        href = "?flip=left"
+      end
+
+      res = Response.new
+      res.write <<-"EOS"
+      <title>Lobstericious!</title>
+      <pre>
+      #{lobster}
+      </pre>
+      <p><a href='#{href}'>flip!</a></p>
+      <p><a href='?flip=crash'>crash!</a></p>
+      EOS
+      res.finish
+    end
+  end
+end
+
+if $0 == __FILE__
+  require 'rack'
+  require 'rack/showexceptions'
+  Rack::Server.start(
+    :app => Rack::ShowExceptions.new(
+              Rack::Lint.new(
+                Rack::Lobster.new)), 
+    :Port => 9292,
+    :server => 'thin'
+  )
+end
+\end{verbatim}
+
+\parrafo{etc/passwd.yml}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-lobster(master)]$ cat etc/passwd.yml 
+--- # Indented Block
+   casiano: tutu
+   ana: titi
+\end{verbatim}
+
+\parrafo{Rakefile}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-lobster(master)]$ cat Rakefile
+...
+
+desc "run the server for protectedlobster"
+task :protected do
+  sh "ruby protectedlobster.rb"
+end
+
+desc "run the client with user and password flip left"
+task :protectedleft do
+  sh %q{curl -v --basic -u casiano:tutu 'http://localhost:9292?flip=left'}
+end
+
+...
+
+task :crash do
+  sh %q{curl -v 'http://localhost:9292/?flip=crash'}
+end
+\end{verbatim}
+
+\parrafo{Ejecución}
+
+\begin{enumerate}
+\item 
+Servidor:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-lobster(master)]$ rake protected
+ruby protectedlobster.rb
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+
+\end{verbatim}
+\item 
+Cliente:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-lobster(master)]$ rake protectedleft
+curl -v --basic -u casiano:tutu 'http://localhost:9292?flip=left'
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+* Server auth using Basic with user 'casiano'
+> GET /?flip=left HTTP/1.1
+> Authorization: Basic Y2FzaWFubzpzZWNyZXRv
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Length: 168
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+      <title>Lobstericious!</title>
+      <pre>
+      retsbol a
+      </pre>
+      <p><a href='?flip=right'>flip!</a></p>
+      <p><a href='?flip=crash'>crash!</a></p>
+* Connection #0 to host localhost left intact
+* Closing connection #0
+
+\end{verbatim}
+\item Servidor después de la petición:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-lobster(master)]$ rake protected
+ruby protectedlobster.rb
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+...
+HTTP_AUTHORIZATION => Basic Y2FzaWFubzp0dXR1
+REMOTE_USER => casiano
+...
+\end{verbatim}
+\end{enumerate}
+
+\begin{rawhtml}
+<img src="protectedlobster.png" />
+<p>
+Autentificación Básica: vista en el navegador
+\end{rawhtml}
+
+\begin{rawhtml}
+<p>
+Si pulsamos "cancel" obtenemos:<p>
+<p>
+<img src="protectedlobstershowstatus.png" />
+\end{rawhtml}
+
+\parrafo{Véase}
+
+\begin{enumerate}
+\item 
+Código de \htmladdnormallink{rack-lobster}{https://github.com/crguezl/rack-lobster}
+en GitHub
+\item 
+Código fuente de \htmladdnormallink{Rack::Auth::Basic}{https://github.com/rack/rack/blob/master/lib/rack/auth/basic.rb}
+\item 
+Documentación en \rackauthbasic{}
+\item 
+La Wikipedia \wikip{Basic Access Authentication}{Basic\_access\_authentication}
+\end{enumerate}
+
+\section{Redirección}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging(master)]$ cat redirect.rb 
+require 'rack'
+require 'thin'
+
+app = lambda do |env|
+  req = Rack::Request.new env
+  res = Rack::Response.new
+
+  if req.path_info == '/redirect'
+    res.redirect('https://plus.google.com/u/0/')
+  else
+    res.write "You did not get redirected"
+  end
+  res.finish
+end
+
+Rack::Server.start(
+ :app => app,
+ :Port => 9292,
+ :server => 'thin'
+)
+\end{verbatim}
+
+\section{La Estructura de una Aplicación Rack}
+\label{section:estructuradeunaapprack}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging(master)]$ cat middlefoo.rb 
+require 'rack'
+
+class MiddleFoo
+  
+  def initialize(app)
+    @app = app
+  end
+
+  def call env
+    # Podemos modificar el request (env) aqui
+    env['chuchu'] = 'SYTW'
+    status, headers, body = @app.call(env)
+    # Podemos modificar la respuesta aqui
+    newbody = body.map(&:upcase)
+    [status, headers, newbody]
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging(master)]$ cat hello_middle.rb 
+require 'rack'
+require './middlefoo'
+
+class HelloWorld
+  def call env
+    [200, {"Content-Type" => "text/plain"}, ["Hello world\nchuchu=#{env['chuchu']}\n"]]
+  end
+end
+
+Rack::Handler::WEBrick::run MiddleFoo.new(HelloWorld.new)
+\end{verbatim}
+
+Cuando ejecutamos el programa produce la salida:
+\begin{verbatim}
+HELLO WORLD
+CHUCHU=SYTW
+\end{verbatim}
+
+\section{rackup}
+
+
+\parrafo{Introducción}
+\begin{enumerate}
+\item 
+The \Rack{} gem gives you a 
+rackup command which lets you start your app on
+any supported application server. 
+
+\item 
+rackup is a useful tool for
+running Rack applications, which uses the \rackbuilder{} DSL to
+configure middleware and build up applications easily. 
+
+\item 
+rackup
+automatically figures out the environment it is run in, and runs
+your application as FastCGI, CGI, or standalone with Mongrel or
+WEBrick, all from the same configuration.
+\end{enumerate}
+
+De hecho este es todo el código del ejecutable 
+\htmladdnormallink{rackup}{https://github.com/rack/rack/blob/master/bin/rackup}
+\begin{verbatim}
+#!/usr/bin/env ruby
+
+require "rack"
+Rack::Server.start
+\end{verbatim}
+
+El método \tei{start}
+starts a new rack server (like running rackup). This will parse \verb|ARGV| and
+provide standard \verb|ARGV| rackup options, defaulting to load \verb'config.ru'.
+
+Providing an option hash will prevent \verb|ARGV| parsing and will not include
+any default options.
+
+This method can be used to very easily launch a CGI application, for
+example:
+
+\begin{verbatim}
+  Rack::Server.start(
+    :app => lambda do |e|
+      [200, {'Content-Type' => 'text/html'}, ['hello world']]
+    end,
+    :server => 'cgi'
+  )
+\end{verbatim}
+
+Further options available here are documented on \rackserver{}\verb|#initialize|
+(véase el código en \rackserversrc{}):
+\begin{verbatim}
+    def self.start(options = nil)
+      new(options).start
+    end
+\end{verbatim}
+
+como se ve, el código 
+de
+\rackserversrc{}
+está en
+Github.
+
+The Options of \verb|start| and \verb|new|  may include:
+\begin{enumerate}
+\item \verb|:app|
+    a rack application to run (overrides :config)
+\item \verb|:config|
+    a rackup configuration file path to load (.ru)
+\item \verb|:environment|
+    this selects the middleware that will be wrapped around
+    your application. Default options available are:
+    \begin{enumerate}
+      \item development: CommonLogger, ShowExceptions, and Lint
+      \item deployment: CommonLogger
+      \item none: no extra middleware
+    \end{enumerate}
+    note: when the server is a cgi server, CommonLogger is not included.
+\item \verb|:server|
+    choose a specific Rack::Handler, e.g. cgi, fcgi, webrick
+\item \verb|:daemonize|
+    if true, the server will daemonize itself (fork, detach, etc)
+\item \verb|:pid|
+    path to write a pid file after daemonize
+\item \verb|:Host|
+    the host address to bind to (used by supporting Rack::Handler)
+\item \verb|:Port|
+    the port to bind to (used by supporting Rack::Handler)
+\item \verb|:AccessLog|
+    webrick acess log options (or supporting Rack::Handler)
+\item \verb|:debug|
+    turn on debug output \verb|($DEBUG = true)|
+\item \verb|:warn|
+    turn on warnings (\verb|$-w = true|)
+\item \verb|:include|
+    add given paths to \verb|$LOAD_PATH|
+\item \verb|:require|
+    require the given libraries
+\end{enumerate}
+
+\parrafo{Ejemplo de uso}
+
+Si no se especifica, \verb|rackup| busca un fichero con nombre \verb|config.ru|.
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rackup/simple(master)]$ cat config.ru 
+require './myapp'
+run MyApp.new
+\end{verbatim}
+
+Esta es la aplicación:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rackup/simple(master)]$ cat myapp.rb 
+class MyApp
+  def call env
+    [200, {"Content-Type" => "text/html"}, ["Hello Rack Participants"]] 
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rackup/simple(master)]$ cat Rakefile 
+task :default => :server
+
+desc "run server"
+task :server do
+  sh "rackup"
+end
+
+desc "run client via curl"
+task :client do
+  sh "curl -v localhost:9292"
+end
+\end{verbatim}
+
+\parrafo{Ejecución}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rackup/simple(master)]$ rackup
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+\end{verbatim}
+
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rackup/simple(master)]$ curl -v localhost:9292
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html
+< Transfer-Encoding: chunked
+< Connection: close
+< Server: thin 1.5.1 codename Straight Razor
+< 
+* Closing connection #0
+Hello Rack Participants
+\end{verbatim}
+
+\parrafo{Opciones del ejecutable {\tt rackup}}
+\begin{enumerate}
+\item 
+Véase \man{rackup}.
+\end{enumerate}
+
+\begin{verbatim}
+[~]$ rackup --help
+Usage: rackup [ruby options] [rack options] [rackup config]
+
+Ruby options:
+  -e, --eval LINE          evaluate a LINE of code
+  -d, --debug              set debugging flags (set $DEBUG to true)
+  -w, --warn               turn warnings on for your script
+  -I, --include PATH       specify $LOAD_PATH (may be used more than once)
+  -r, --require LIBRARY    require the library, before executing your script
+
+Rack options:
+  -s, --server SERVER      serve using SERVER (webrick/mongrel)
+  -o, --host HOST          listen on HOST (default: 0.0.0.0)
+  -p, --port PORT          use PORT (default: 9292)
+  -O NAME[=VALUE],         pass VALUE to the server as option NAME. 
+                           If no VALUE, sets it to true. 
+                           Run 
+                           'rackup -s SERVER -h' 
+                           to get a list of options for SERVER
+      --option
+  -E, --env ENVIRONMENT    use ENVIRONMENT for defaults (default: development)
+  -D, --daemonize          run daemonized in the background
+  -P, --pid FILE           file to store PID (default: rack.pid)
+
+Common options:
+  -h, -?, --help           Show this message
+      --version            Show version
+\end{verbatim}
+
+\parrafo{Especificación de Opciones en la primera línea}
+Si la primera línea de un fichero \verb|config.ru| empieza por \verb|\#| es tratada 
+como una línea de opciones permitiendo así que los argumentos de \tei{rackup}
+se especifiquen en el fichero de configuración:
+
+\begin{verbatim}
+#\-w -p 8765
+
+use Rack::Reloader, 0
+use Rack::ContentLength
+
+app = proc do |env|
+  [200, {'content-Type' => 'text/plain' }, ['a']]
+end
+
+run app
+\end{verbatim}
+
+\section{Rack::Static}
+
+\parrafo{Véase}
+
+\begin{enumerate}
+\item Documentación de \rackstatic{} 
+\item  Este ejemplo: 
+\htmladdnormallink{rack-static-example}{https://github.com/crguezl/rack-static-example}
+en GitHub
+\item 
+\htmladdnormallink{Código fuente}{https://github.com/rack/rack/blob/master/lib/rack/static.rb}
+de \rackstatic{} en GitHub
+\end{enumerate}
+
+\parrafo{Ejemplo}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ tree
+.
+|--- README
+|--- README.md
+|--- Rakefile
+|--- config.ru
+|--- myapp.rb
+`---- public
+   `--- index.html
+\end{verbatim}
+
+\begin{verbatim}
+1 directory, 6 files
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ cat public/index.html 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Hello</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+  </body>
+</html>
+
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ cat config.ru 
+require './myapp'
+
+use Rack::Static, :urls => ["/public"]
+
+run MyApp.new
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ cat Rakefile 
+task :default => :server
+
+desc "run server"
+task :server do
+  sh "rackup"
+end
+
+desc "run client via curl"
+task :client do
+  sh "curl -v localhost:9292"
+end
+
+desc "access to static file"
+task :index do
+  sh "curl -v localhost:9292/public/index.html"
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ cat myapp.rb 
+# my_app.rb
+#
+class MyApp
+  def call env
+    [200, {"Content-Type" => "text/html"}, ["Hello SYTW!"]] 
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ rake client
+curl -v localhost:9292
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html
+< Transfer-Encoding: chunked
+< Connection: close
+< Server: thin 1.5.1 codename Straight Razor
+< 
+* Closing connection #0
+Hello SYTW!
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-static(master)]$ rake index
+curl -v localhost:9292/public/index.html
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /public/index.html HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Last-Modified: Thu, 03 Oct 2013 08:24:43 GMT
+< Content-Type: text/html
+< Content-Length: 227
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Hello</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+  </body>
+</html>
+
+* Connection #0 to host localhost left intact
+* Closing connection #0
+\end{verbatim}
+
+\parrafo{{\tt El comando rackup}}
+
+\verb|rackup| converts the supplied rack config file to an instance of \rackbuilder{}. 
+In short, rack config files are evaluated within the context of a \rackbuilder{}
+object.
+
+Rackup also has a \cei{use} method that accepts a \cei{middleware}. Let us use one
+of Rack’s built-in middleware.
+
+\begin{verbatim}
+[~/sinatra/rackup/middleware]$ cat config.ru 
+require './myapp'
+require './myrackmiddleware'
+use Rack::Reloader
+use MyRackMiddleware
+run MyApp.new
+\end{verbatim}
+
+\begin{verbatim}
+[~/sinatra/rackup/middleware]$ cat myapp.rb 
+# myapp.rb
+class MyApp
+  def call(env)
+    [200, {"Content-Type" => "text/html"}, ["Hello Rack Participants from across the globe"]] 
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/sinatra/rackup/middleware]$ cat myrackmiddleware.rb 
+class MyRackMiddleware
+  def initialize(appl)
+    @appl = appl
+  end
+  def call(env)
+    status, headers, body = @appl.call(env)
+    append_s = "... greetings from RubyLearning!!"
+    [status, headers, body << append_s]
+  end  
+end
+\end{verbatim}
+
+\parrafo{Véase}
+
+\begin{itemize}
+\item
+\htmladdnormallink{RailCast \#151 Rack Middleware}{http://railscasts.com/episodes/151-rack-middleware}
+\item
+\htmladdnormallink{Rack Middleware as a General Purpose Abstraction por Mitchell Hashimoto}{http://www.confreaks.com/videos/961-mwrc2012-rack-middleware-as-a-general-purpose-abstraction}
+\end{itemize}
+
+
+\section{Un Ejemplo Simple: Piedra, Papel, tijeras}
+
+\begin{verbatim}
+[~/rack/rack-rock-paper-scissors(simple)]$ cat -n rps.rb
+ 1  require 'rack/request'
+ 2  require 'rack/response'
+ 3  
+ 4  module RockPaperScissors
+ 5    class App 
+ 6  
+ 7      def initialize(app = nil)
+ 8        @app = app
+ 9        @content_type = :html
+10        @defeat = {'rock' => 'scissors', 'paper' => 'rock', 'scissors' => 'paper'}
+11        @throws = @defeat.keys
+12        @choose = @throws.map { |x| 
+13           %Q{ <li><a href="/?choice=#{x}">#{x}</a></li> }
+14        }.join("\n")
+15        @choose = "<p>\n<ul>\n#{@choose}\n</ul>"
+16      end
+17  
+18      def call(env)
+19        req = Rack::Request.new(env)
+20  
+21        req.env.keys.sort.each { |x| puts "#{x} => #{req.env[x]}" }
+22  
+23        computer_throw = @throws.sample
+24        player_throw = req.GET["choice"]
+25        anwser = if !@throws.include?(player_throw)
+26            "Choose one of the following:"
+27          elsif player_throw == computer_throw
+28            "You tied with the computer"
+29          elsif computer_throw == @defeat[player_throw]
+30            "Nicely done; #{player_throw} beats #{computer_throw}"
+31          else
+32            "Ouch; #{computer_throw} beats #{player_throw}. Better luck next time!"
+33          end
+34  
+35        res = Rack::Response.new
+36        res.write <<-"EOS"
+37        <html>
+38          <title>rps</title>
+39          <body>
+40            <h1>
+41               #{anwser}
+42               #{@choose}
+43            </h1>
+44          </body>
+45        </html>
+46        EOS
+47        res.finish
+48      end # call
+49    end   # App
+50  end     # RockPaperScissors
+51  
+52  if $0 == __FILE__
+53    require 'rack'
+54    require 'rack/showexceptions'
+55    Rack::Server.start(
+56      :app => Rack::ShowExceptions.new(
+57                Rack::Lint.new(
+58                  RockPaperScissors::App.new)), 
+59      :Port => 9292,
+60      :server => 'thin'
+61    )
+62  end
+\end{verbatim}
+\parrafo{El Objeto {\tt req}}
+El objeto \verb|req| pertenece a la clase \verb|Rack::Request|. Tiene 
+un único atributo \verb|env|:
+
+\begin{verbatim}
+(rdb:1)  req
+#<Rack::Request:0x007f8d735b1410 
+@env={
+"SERVER_SOFTWARE"=>"thin 1.5.1 codename Straight Razor", 
+"SERVER_NAME"=>"0.0.0.0", 
+"rack.input"=>#<Rack::Lint::InputWrapper:0x007f8d735776c0 
+                @input=#<StringIO:0x007f8d735426a0>>, "rack.version"=>[1, 0], 
+                "rack.errors"=>#<Rack::Lint::ErrorWrapper:0x007f8d73577620 @error=#<IO:<STDERR>>
+              >, 
+"rack.multithread"=>false, 
+"rack.multiprocess"=>false, 
+"rack.run_once"=>false, 
+"REQUEST_METHOD"=>"GET", 
+"REQUEST_PATH"=>"/", 
+"PATH_INFO"=>"/", 
+"REQUEST_URI"=>"/", 
+"HTTP_VERSION"=>"HTTP/1.1", 
+"HTTP_HOST"=>"0.0.0.0:9292", 
+"HTTP_CONNECTION"=>"keep-alive", 
+"HTTP_ACCEPT"=>"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", 
+"HTTP_USER_AGENT"=>"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36", 
+"HTTP_ACCEPT_ENCODING"=>"gzip,deflate,sdch", 
+"HTTP_ACCEPT_LANGUAGE"=>"es-ES,es;q=0.8", 
+"GATEWAY_INTERFACE"=>"CGI/1.2", 
+"SERVER_PORT"=>"9292", 
+"QUERY_STRING"=>"", 
+"SERVER_PROTOCOL"=>"HTTP/1.1", 
+"rack.url_scheme"=>"http", 
+"SCRIPT_NAME"=>"", 
+"REMOTE_ADDR"=>"127.0.0.1", 
+"async.callback"=>#<Method: Thin::Connection#post_process>, 
+"async.close"=>#<EventMachine::DefaultDeferrable:0x007f8d735603f8>}>
+\end{verbatim}
+Cuando llamamos a \verb|GET| para obtener el valor del parámetro \verb|choice|:
+\begin{verbatim}
+player_throw = req.GET["choice"]
+\end{verbatim}
+Si visitamos la página \verb|http://0.0.0.0:9292/| el entorno contiene algo como esto:
+\begin{verbatim}
+rdb:1) p @env
+{"SERVER_SOFTWARE"=>"thin 1.5.1 codename Straight Razor",
+ ...
+ "QUERY_STRING"=>"",
+ "REQUEST_URI"=>"/"
+ ...
+}
+\end{verbatim}
+el código de \verb|GET| nos da los datos almacenados en \verb|QUERY_STRING|:
+\begin{verbatim}
+   def GET 
+      if @env["rack.request.query_string"] == query_string
+        @env["rack.request.query_hash"]
+      else
+        @env["rack.request.query_string"] = query_string
+        @env["rack.request.query_hash"]   = parse_query(query_string)
+      end 
+    end 
+
+   def query_string;    @env["QUERY_STRING"].to_s                end
+\end{verbatim}
+si es la primera vez, \verb|@env["rack.request.query_string"]| está a 
+\verb|nil| y se ejecuta el \verb|else| inicializando \verb|@env["rack.request.query_string"]|
+y \verb|@env["rack.request.query_hash"]|
+
+Si por ejemplo visitamos la URL:
+\verb|http://localhost:9292?choice=rock|
+entonces \verb|env| contendrá:
+\begin{verbatim}
+rdb:1) p env
+{ ... 
+  "QUERY_STRING"=>"choice=rock", 
+  "REQUEST_URI"=>"/?choice=rock", 
+  ...
+}
+\end{verbatim}
+Familiaricemonos con algunos de los métodos de \verb|Rack::Request|:
+\begin{verbatim}
+(rdb:1) req.GET
+{"choice"=>"paper"}
+(rdb:1)  req.GET["choice"]
+"paper"
+(rdb:1) req.POST
+{}
+(rdb:1) req.params
+{"choice"=>"paper"}
+(rdb:1) req["choice"]
+"paper"
+(rdb:1) req[:choice]
+"paper"
+(rdb:1) req.cookies()
+{}
+(rdb:1) req.get?
+true
+(rdb:1) req.post?
+false
+(rdb:1) req.fullpath
+"/?choice=paper"
+(rdb:1) req.host
+"0.0.0.0"
+(rdb:1) req.host_with_port
+"0.0.0.0:9292"
+(rdb:1) req.body
+#<Rack::Lint::InputWrapper:0x007f8d7369b5d8 @input=#<StringIO:0x007f8d73690318>>
+(rdb:1) req.cookies()
+{}
+(rdb:1) req.get?
+true
+(rdb:1) req.post?
+false
+(rdb:1) req.fullpath
+"/?choice=paper"
+(rdb:1) req.host
+"0.0.0.0"
+(rdb:1) req.host_with_port
+"0.0.0.0:9292"
+(rdb:1) req.ip
+"127.0.0.1"
+(rdb:1) req.params
+{"choice"=>"paper"}
+(rdb:1) req.path
+"/"
+(rdb:1) req.path_info
+"/"
+(rdb:1) req.port
+9292
+(rdb:1) req.request_method
+"GET"
+(rdb:1) req.scheme
+"http"
+(rdb:1) req.url
+"http://0.0.0.0:9292/?choice=paper"
+(rdb:1) req.user_agent
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_5) AppleWebKit/537.36 (KHTML, like Gecko) 
+Chrome/29.0.1547.76 Safari/537.36"
+(rdb:1) req.values_at("choice")
+["paper"]
+\end{verbatim}
+
+\parrafo{Rakefile}
+
+\begin{verbatim}
+[~/rack/rack-rock-paper-scissors(simple)]$ cat Rakefile 
+desc "run the server"
+task :default do
+  sh "ruby rps.rb"
+end
+
+desc "run the client with rock"
+task :rock do
+  sh %q{curl -v 'http://localhost:9292?choice=rock'}
+end
+
+desc "run the client with paper"
+task :paper do
+  sh %q{curl -v 'http://localhost:9292?choice=paper'}
+end
+
+desc "run the client with scissors"
+task :scissors do
+  sh %q{curl -v 'http://localhost:9292?choice=scissors'}
+end
+\end{verbatim}
+
+\begin{enumerate}
+\item 
+\wikip{curl}{CURL}
+\end{enumerate}
+
+\parrafo{Ejecuciones}
+\begin{verbatim}
+[~/rack/rack-rock-paper-scissors(simple)]$ rake
+ruby rps.rb
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+\end{verbatim}
+
+
+\begin{verbatim}
+[~/rack/rack-rock-paper-scissors(simple)]$ rake rock
+curl -v 'http://localhost:9292?choice=rock'
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /?choice=rock HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Length: 332
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+      <html>
+        <title>rps</title>
+        <body>
+          <h1>
+             Nicely done; rock beats scissors
+             <p>
+<ul>
+ <li><a href="/?choice=rock">rock</a></li> 
+ <li><a href="/?choice=paper">paper</a></li> 
+ <li><a href="/?choice=scissors">scissors</a></li> 
+</ul>
+          </h1>
+        </body>
+      </html>
+* Connection #0 to host localhost left intact
+* Closing connection #0
+\end{verbatim}
+
+
+\begin{verbatim}
+[~/rack/rack-rock-paper-scissors(simple)]$ rake
+ruby rps.rb
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+GATEWAY_INTERFACE => CGI/1.2
+HTTP_ACCEPT => */*
+HTTP_HOST => localhost:9292
+HTTP_USER_AGENT => curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+HTTP_VERSION => HTTP/1.1
+PATH_INFO => /
+QUERY_STRING => choice=rock
+REMOTE_ADDR => 127.0.0.1
+REQUEST_METHOD => GET
+REQUEST_PATH => /
+REQUEST_URI => /?choice=rock
+SCRIPT_NAME => 
+SERVER_NAME => localhost
+SERVER_PORT => 9292
+SERVER_PROTOCOL => HTTP/1.1
+SERVER_SOFTWARE => thin 1.5.1 codename Straight Razor
+async.callback => #<Method: Thin::Connection#post_process>
+async.close => #<EventMachine::DefaultDeferrable:0x007ff4e2bf8e78>
+rack.errors => #<Rack::Lint::ErrorWrapper:0x007ff4e2c04b88>
+rack.input => #<Rack::Lint::InputWrapper:0x007ff4e2c04c00>
+rack.multiprocess => false
+rack.multithread => false
+rack.run_once => false
+rack.url_scheme => http
+rack.version => [1, 0]
+\end{verbatim}
+
+\parrafo{Véase También}
+
+Véase la documentación de las siguientes clases:
+\begin{enumerate}
+\item 
+\rackdoc{Rack::Request}{Rack/Request}
+\item 
+\rackdoc{Rack::Response}{Rack/Response}
+\item 
+\rackdoc{Rack::Server}{Rack/Server}
+\item 
+\rackdoc{Rack::ShowExceptions}{Rack/ShowExceptions}
+\item 
+\rackdoc{Rack::Lint}{Rack/Lint}
+\end{enumerate}
+
+\subsectionpractica{Rock, Paper, Scissors: Debugging}
+Implemente el ejemplo anterior Rock, Paper, Scissors y ejecútelo con 
+un depurador.
+Lea la sección {\it Depurando una Ejecución con Ruby} \ref{section:depuracionsinatra}.
+
+Instale la gema \verb|debugger|.
+Llame al método \verb|debugger| en el punto en el que quiere detener la ejecución para inspeccionar el estado del programa.
+Arranque el servidor y en el navegador visite la página.
+
+\subsectionpractica{Añadir Template Haml a Rock, Paper, Scissors}
+\label{practica:rackandhaml}
+
+Use 
+\htmladdnormallink{Haml}{http://haml.info/}
+para crear un template \verb|index.haml| en un directorio \verb|views|.
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-rock-paper-scissors(template)]$ tree
+.
+|--- README
+|--- Rakefile
+|--- rps.rb
+`--- views
+    `--- index.haml
+\end{verbatim}
+El template puede ser usado así:
+\begin{verbatim}
+require 'rack/request'
+require 'rack/response'
+require 'haml'
+
+module RockPaperScissors
+  class App 
+     ...
+
+    def call(env)
+      ...
+      engine = Haml::Engine.new File.open("views/index.haml").read
+      res = Rack::Response.new 
+      res.write engine.render({}, 
+        :answer => answer, 
+        :choose => @choose,
+        :throws => @throws)
+      res.finish
+    end # call
+  end   # App
+end     # RockPaperScissors
+\end{verbatim}
+
+Véase:
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{Haml::Engine}{http://haml.info/docs/yardoc/Haml/Engine.html}
+\end{enumerate}
+
+La sintáxis del método \verb|render| es:
+\begin{verbatim}
+  (String) render(scope = Object.new, locals = {})
+\end{verbatim}
+También se puede usar como \verb|to_html|.
+Procesa el template y retorna el resultado como una cadena.
+
+El parámetro \verb|scope| es el contexto en el cual se evalúa el template.
+
+Si es un objeto \Binding{} \haml{} lo usa como segundo 
+argumento de 
+\verb|Kernel#eval| (Véase la sección {\it Bindings (encarpetados) y eval} en 
+\ref{subsection:bindings})
+en otro caso, \haml{} utiliza 
+\verb|#instance_eval|.
+
+Nótese que Haml modifica el contexto de la evaluación (bien el objeto ámbito 
+o el objeto \verb|self| del ámbito del binding).
+Se extiende \hamlhelpers{} y se establecen diversas variables de instancia
+(todas ellas prefijadas con \verb|haml_|).
+
+Por ejemplo:
+
+\begin{verbatim}
+s = "foobar"
+Haml::Engine.new("%p= upcase").render(s)
+\end{verbatim}
+produce:
+\begin{verbatim}
+"<p>FOOBAR</p>"
+\end{verbatim}
+
+Ahora \verb#s# extiende \hamlhelpers{}:
+\begin{verbatim}
+s.respond_to?(:html_attrs) #=> true
+\end{verbatim}
+
+\hamlhelpers{} contiene un conjunto de métodos/utilidades
+para facilitar distintas tareas.
+La idea de que estén disponibles en el contexto es para ayudarnos
+dentro del template.
+Por ejemplo el método
+\begin{verbatim}
+- (String) escape_once(text)
+\end{verbatim}
+Escapa las entidades HTML 
+en el texto.
+
+\verb|locals| es un hash de variables locales que se deja disponible dentro 
+del template. Por ejemplo:
+
+\begin{verbatim}
+Haml::Engine.new("%p= foo").render(Object.new, :foo => "Hello, world!") 
+\end{verbatim}
+producirá:
+\begin{verbatim}
+"<p>Hello, world!</p>"
+\end{verbatim}
+
+Si se pasa un bloque a \verb|render| el bloque será ejecutado
+en aquellos puntos en los que se llama a \verb|yield| desde el
+template.
+
+Debido a algunas peculiaridades de Ruby, si el ámbito es un
+\Binding{} y se proporciona también un bloque, el contexto de la evaluación
+puede no ser el que el usuario espera.
+
+
+Parametros:
+\begin{enumerate}
+\item 
+\verb|scope (Binding, Proc, Object)| (por defecto: \verb|Object.new|).
+El contexto en el que se evalúa el template
+
+\item 
+\verb|locals ({Symbol => Object})| (por defecto: \verb|{}|).
+Variables locales que se dejan disponibles en el  template
+\item 
+\verb|block (#to_proc)| 
+Un bloque que será llamado desde el template.
+
+\item 
+Retorna una \String{} con el template renderizado
+\end{enumerate}
+
+\subsectionpractica{Añada Hojas de Estilo a Piedra Papel Tijeras}
+\label{practica:rpscss}
+
+Añada hojas de estilo a la práctica anterior (sección \ref{practica:rackandhaml}).
+
+\begin{enumerate}
+\item 
+Mostramos una posible estructura de ficheros  en la que se incluyen
+hojas de estilo usando \bootstrap{}:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-rock-paper-scissors(bootstrap)]$ tree
+.
+|--- Gemfile
+|--- Gemfile.lock
+|--- README
+|--- Rakefile
+|--- TODO
+|--- config.ru
+|--- lib
+|   `--- rps.rb
+|--- public
+|   |--- css
+|   |   |--- bootstrap-responsive.css
+|   |   |--- bootstrap-responsive.min.css
+|   |   |--- bootstrap.css
+|   |   `-- bootstrap.min.css
+|   |--- img
+|   |   |--- glyphicons-halflings-white.png
+|   |   |--- glyphicons-halflings.png
+|   |   `-- programming-languages.jpg
+|   `-- js
+|       |--- bootstrap.js
+|       `--- bootstrap.min.js
+|--- rps.rb
+`-- views
+    `--- index.haml
+
+6 directories, 18 files
+
+\end{verbatim}
+\item 
+El middleware \rackstatic{} intercepta las peticiones por ficheros
+estáticos (javascript, imágenes, hojas de estilo, etc.) 
+basandose en los prefijos de las urls pasadas en las opciones y
+los sirve utilizando un objeto \rackfile{}.
+Ejemplos:
+
+\begin{verbatim}
+    use Rack::Static, :urls => ["/public"]
+\end{verbatim}
+Servirá todas las peticiones que 
+comiencen por \verb|/public| desde la carpeta \verb"public"
+localizada en el directorio actual (esto
+es \verb|public/*|).
+
+En nuestro jerarquía pondremos en el programa \verb|rps.rb|:
+\begin{verbatim}
+builder = Rack::Builder.new do
+  use Rack::Static, :urls => ['/public']
+  use Rack::ShowExceptions
+  use Rack::Lint
+
+  run RockPaperScissors::App.new
+end
+
+Rack::Handler::Thin.run builder
+\end{verbatim}
+
+y dentro del template \haml{} nos referiremos por ejemplo al fichero javascript como
+
+\begin{verbatim}
+      %script{:src => "/public/js/bootstrap.js"}
+\end{verbatim}
+Otro ejemplo:
+\begin{verbatim}
+    use Rack::Static, :urls => ["/css", "/images"], :root => "public"
+\end{verbatim}
+servirá las peticiones comenzando con \verb|/css| o \verb|/images|
+desde la carpeta \verb|public| en el directorio actual
+(esto es 
+\verb|public/css/*| y \verb|public/images/*|)
+
+\item 
+\htmladdnormallink{Véase el código en GitHub}{https://github.com/rack/rack/blob/master/lib/rack/static.rb}
+de 
+\rackstatic{} 
+\item 
+En el template \verb|views/index.haml| deberá enlazar a las hojas de estilo:
+\begin{verbatim}
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title RPS 
+    %link{:href => "/public/css/bootstrap.css", :rel => "stylesheet"}
+     %link{:href => "/public/css/bootstrap.css", :rel => "stylesheet"}
+\end{verbatim}
+y las imágenes como:
+\begin{verbatim}
+%img(src="/public/img/programming-languages.jpg" width="40%")
+\end{verbatim}
+\item 
+\rackfile{} es un middleware que sirve los ficheros debajo del directorio
+dado, de acuerdo con el \verb|path info| de la petición \Rack{}.
+por ejemplo, cuando  se usa
+\verb|Rack::File.new("/etc")|
+podremos acceder al fichero \verb'passwd' como
+\verb|localhost:9292/passwd|.
+\item 
+\htmladdnormallink{Vease el código en github}{https://github.com/rack/rack/blob/master/lib/rack/file.rb}
+de \rackfile{}
+\item 
+Para saber mas de Bootstrap véase la sección
+\ref{chapter:bootstrap}
+\end{enumerate}
+
+\section{Middleware y la Clase Rack::Builder}
+\label{section:middleware}
+
+We mentioned earlier that between the server and the framework, Rack
+can be customized to your applications needs using middleware. 
+
+The
+fundamental idea behind Rack middleware is
+\begin{enumerate}
+\item 
+come between the
+calling client and the server, 
+\item 
+process the HTTP request before sending
+it to the server, and 
+\item 
+processing the HTTP response before returning it
+to the client.
+\end{enumerate}
+
+\parrafo{Motivación para el método {\tt use}}
+
+Si tenemos una app Rack \verb|rack_app| 
+y dos middlewares con nombres
+\verb|MiddleWare1|
+y
+\verb|MiddleWare2| que queremos usar, podemos escribir esto:
+\begin{verbatim}
+Rack::Handler::Thin.run Middleware1.new(Middleware2.new(rack_app))
+\end{verbatim}
+Si necesitamos pasar opciones en el segundo argumento la llamada quedaría
+mas o menos como esto:
+\begin{verbatim}
+Rack::Handler::Thin.run(
+  Middleware1.new(
+    Middleware2.new(rack_app, options2),
+    options1)
+)
+\end{verbatim}
+Si fueran mas de dos middlewares el correspondiente
+código se volverá aún mas ilegible y hace mas fácil que metamos 
+la pata cuando queramos hacer algo como  - por ejemplo -modificar 
+el orden de los middleware.
+
+\parrafo{La Clase Rack::Builder}
+
+La clase \rackbuilder{} implementa un pequeño DSL para facilitar
+la construcción de aplicaciones Rack.
+
+\rackbuilder{} is the thing that glues various Rack middlewares
+and applications together and convert them into a single entity/rack
+application. 
+
+A good analogy is comparing \rackbuilder{} 
+object with a stack, where at the very bottom is your actual rack
+application and all middlewares on top of it, and the whole stack
+itself is a rack application too.
+
+\begin{enumerate}
+\item 
+El método \rackbuilderi{use} añade un middleware a la pila
+\item 
+El método \rackbuilderi{run} ejecuta una aplicación
+\item 
+El método \rackbuilderi{map} construye un \rackurlmap{} en la forma apropiada.
+It mounts a stack of rack application/middleware  on the specified path or URI.
+\end{enumerate}
+
+\begin{rawhtml}
+<img src="rack_stack.png" />
+\end{rawhtml}
+
+\parrafo{Conversión de una Aplicación Rack a Rack::Builder}
+
+Dada la aplicación:
+
+\begin{verbatim}
+infinity = Proc.new {|env| [200, {"Content-Type" => "text/html"}, env.[inspect]] }
+Rack::Handler::Mongrel.run infinity, :Port => 9292
+\end{verbatim}
+
+Podemos reescribirla:
+
+\begin{verbatim}
+[~/sinatra/rack/rack-builder/map]$ cat app_builder.rb 
+require 'rack'
+
+infinity = Proc.new {|env| [200, {"Content-Type" => "text/html"}, [env.inspect]]}
+builder = Rack::Builder.new
+builder.run infinity
+Rack::Handler::Thin.run builder, :Port => 9292
+\end{verbatim}
+o bien:
+\begin{verbatim}
+[~/sinatra/rack/rack-builder/map]$ cat app_builder2.rb 
+require 'rack'
+
+infinity = Proc.new {|env| [200, {"Content-Type" => "text/html"}, [ env.inspect ]] }
+builder = Rack::Builder.new do
+  run infinity
+end
+Rack::Handler::Thin.run builder, :Port => 9292
+\end{verbatim}
+
+\parrafo{Ejemplo Simple de Uso de Rack::Builder}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-builder/simple1]$ cat app.rb 
+require 'rack'
+require 'rack/server'
+
+app = Rack::Builder.new do
+  use Rack::CommonLogger
+  use Rack::ShowExceptions
+    use Rack::Lint
+    map "/chuchu" do
+      run lambda { |env| [ 200, {}, ["hello"]] }
+    end
+    map "/chachi" do
+      run lambda { |env| [ 200, {}, ["world"]] }
+    end
+    run lambda { |env| [ 200, {}, ["everything"]] }
+end
+
+Rack::Server.start :app => app
+\end{verbatim}
+
+\parrafo{Ejemplo de Uso de Rack::Builder: Dos Middlewares}
+
+\begin{verbatim}
+[~/rack/rack-from-the-beginning(master)]$ cat hello_world.rb 
+# hello_world.rb
+require 'rack'
+require 'rack/server'
+
+class EnsureJsonResponse
+  def initialize(app = nil)
+    @app = app
+  end
+
+  # Set the 'Accept' header to 'application/json' no matter what.
+  # Hopefully the next middleware respects the accept header :)
+  def call(env)
+    env['HTTP_ACCEPT'] = 'application/json'
+    puts "env['HTTP_ACCEPT'] = #{env['HTTP_ACCEPT']}"
+    @app.call(env) if @app
+  end
+end
+
+class Timer
+  def initialize(app = nil)
+    @app = app
+  end
+
+  def call(env)
+    before = Time.now
+    status, headers, body = @app.call(env) if @app
+
+    headers['X-Timing'] = (Time.now - before).to_i.to_s
+
+    [status, headers, body]
+  end
+end
+
+class HelloWorldApp
+
+  def initialize(app = nil)
+    @app = app
+  end
+
+  def self.call(env)
+    [200, {}, ['hello world!']] 
+  end
+end
+
+# put the timer at the top so it captures everything below it
+app = Rack::Builder.new do 
+  use Timer # put the timer at the top so it captures everything below it
+  use EnsureJsonResponse
+  run HelloWorldApp
+end
+
+Rack::Server.start :app => app
+\end{verbatim}
+
+\begin{verbatim}
+~/rack/rack-from-the-beginning(master)]$  cat Rakefile 
+desc "run the server"
+task :default do
+  sh "rackup"
+end
+
+desc "run the server hello_world.rb"
+task :server do
+  sh "ruby hello_world.rb"
+end
+
+desc "run the client"
+task :client do
+  sh %q{curl -v 'http://localhost:9292'}
+end
+
+desc "run the client for hello_world"
+task :client2 do
+  sh %q{curl -v 'http://localhost:8080'}
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/rack/rack-from-the-beginning(master)]$ rake server
+ruby hello_world.rb
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:8080, CTRL+C to stop
+\end{verbatim}
+
+
+\begin{verbatim}
+[~/rack/rack-from-the-beginning(master)]$ rake client2
+curl -v 'http://localhost:8080'
+* About to connect() to localhost port 8080 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:8080
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< X-Timing: 0
+< Connection: close
+< Server: thin 1.5.1 codename Straight Razor
+< 
+* Closing connection #0
+hello world!
+\end{verbatim}
+
+\begin{verbatim}
+[~/rack/rack-from-the-beginning(master)]$ rake server
+ruby hello_world.rb
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:8080, CTRL+C to stop
+env['HTTP_ACCEPT'] = application/json
+\end{verbatim}
+
+\section{Ejemplo de Middleware: Rack::ETag}
+
+An \tei{ETag} or \cei{entity tag}, is part of HTTP, the protocol for the World
+Wide Web. It is one of several mechanisms that HTTP provides for
+\cei{web cache validation}, and which allows a client to make conditional
+requests. 
+
+This allows caches to be more efficient, and saves
+bandwidth, as a web server does not need to send a full response
+if the content has not changed.
+
+An ETag is an opaque identifier assigned by a web server to a
+specific version of a resource found at a URL. 
+
+If the resource
+content at that URL ever changes, a new and different ETag is
+assigned. 
+
+Used in this manner ETags are similar to fingerprints,
+and they can be quickly compared to determine if two versions of a
+resource are the same or not.
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{Rack::ETag}{https://github.com/rack/rack/blob/master/lib/rack/etag.rb}
+en GitHub
+\item 
+Documentación de \htmladdnormallink{Rack::ETag}{http://rack.rubyforge.org/doc/Rack/ETag.html} 
+\end{enumerate}
+
+\begin{verbatim}
+require 'digest/md5'
+
+module Rack
+  class ETag
+    DEFAULT_CACHE_CONTROL = "max-age=0, private, must-revalidate".freeze
+
+    def initialize(app, no_cache_control = nil, cache_control = DEFAULT_CACHE_CONTROL)
+      @app = app
+      @cache_control = cache_control
+      @no_cache_control = no_cache_control
+    end
+
+    def call(env)
+      status, headers, body = @app.call(env)
+
+      if etag_status?(status) && etag_body?(body) && !skip_caching?(headers)
+        digest, body = digest_body(body)
+        headers['ETag'] = %("#{digest}") if digest
+      end
+
+      unless headers['Cache-Control']
+        if digest
+          headers['Cache-Control'] = @cache_control if @cache_control
+        else
+          headers['Cache-Control'] = @no_cache_control if @no_cache_control
+        end
+      end
+
+      [status, headers, body]
+    end
+
+    private
+
+      def etag_status?(status)
+        status == 200 || status == 201
+      end
+
+      def etag_body?(body)
+        !body.respond_to?(:to_path)
+      end
+
+      def skip_caching?(headers)
+        (headers['Cache-Control'] && headers['Cache-Control'].include?('no-cache')) ||
+          headers.key?('ETag') || headers.key?('Last-Modified')
+      end
+
+      def digest_body(body)
+        parts = []
+        digest = nil
+
+        body.each do |part|
+          parts << part
+          (digest ||= Digest::MD5.new) << part unless part.empty?
+        end
+
+        [digest && digest.hexdigest, parts]
+      end
+  end
+end
+\end{verbatim}
+
+\section{Construyendo Nuestro Propio Rack::Builder}
+
+Véase:
+\begin{enumerate}
+\item 
+\htmladdnormallink{https://github.com/crguezl/rack-mybuilder}{https://github.com/crguezl/rack-mybuilder}
+\end{enumerate}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-builder/own(master)]$ cat mybuilder.rb 
+module Rack
+  class MyBuilder
+
+    def initialize(&block)
+      @use = []
+      instance_eval(&block) if block_given?
+    end
+
+    def use(middleware, *args, &block)
+      @use << proc { |app| middleware.new(app, *args, &block) }
+    end
+
+    def run(app)
+      @run = app
+    end
+
+    def to_app
+      @use.reverse.inject(@run) { |app, middleware| middleware[app] }
+    end
+
+    def call(env)
+      to_app.call(env)
+    end
+
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-builder/own(master)]$ cat decorator.rb 
+class Decorator
+
+  def initialize(app, *options, &block)
+    @app = app
+    @options = (options[0] || {})
+  end
+
+  def call(env)
+    status, headers, body = @app.call(env)
+
+    new_body = ""
+    new_body << (@options[:header] || "----Header----<br/>")
+    body.each {|str| new_body << str}
+    new_body << (@options[:footer] || "<br/>----Footer----")
+
+    [status, headers, [new_body]]
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-builder/own(master)]$ cat app.rb 
+require 'rack'
+require 'thin'
+
+require 'mybuilder'
+require 'decorator'
+
+app = Rack::MyBuilder.new do
+  use Decorator, :header => "<strong>*********** header **********</strong><br/>"
+
+  cheer = ARGV.shift || "<h1>Hello world!</h1>"
+  run lambda { |env| [200, { 'Content-Type' => 'text/html' }, [ "<h1>#{cheer}</h1>" ]]}
+end
+
+Rack::Handler::Thin.run app, :Port => 3333, :Host => 'localhost'
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-builder/own(master)]$ cat Rakefile 
+desc "run app server"
+task :default => :server
+
+desc "run app server"
+task :server, :greet  do |t, args|
+  cheer = args[:greet] || 'bye, bye!'
+  sh "ruby -I. app.rb #{cheer}"
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-builder/own(master)]$ rake -T
+rake default        # run app server
+rake server[greet]  # run app server
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-builder/own(master)]$ rake server[tachaaaAAAAAANNN]
+ruby -I. app.rb tachaaaAAAAAANNN
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on localhost:3333, CTRL+C to stop
+\end{verbatim}
+
+\begin{rawhtml}
+<img src="myrackbuilder.png" />
+\end{rawhtml}
+
+\section{Código de \rackbuilder}
+Tomado de 
+\htmladdnormallink{https://github.com/rack/rack/blob/master/lib/rack/builder.rb}{https://github.com/rack/rack/blob/master/lib/rack/builder.rb}:
+\begin{verbatim}
+module Rack
+  # Rack::Builder implements a small DSL to iteratively construct Rack
+  # applications.
+  #
+  # Example:
+  #
+  #  require 'rack/lobster'
+  #  app = Rack::Builder.new do
+  #    use Rack::CommonLogger
+  #    use Rack::ShowExceptions
+  #    map "/lobster" do
+  #      use Rack::Lint
+  #      run Rack::Lobster.new
+  #    end
+  #  end
+  #
+  #  run app
+  #
+  # Or
+  #
+  #  app = Rack::Builder.app do
+  #    use Rack::CommonLogger
+  #    run lambda { |env| [200, {'Content-Type' => 'text/plain'}, ['OK']] }
+  #  end
+  #
+  #  run app
+  #
+  # +use+ adds middleware to the stack, +run+ dispatches to an application.
+  # You can use +map+ to construct a Rack::URLMap in a convenient way.
+
+  class Builder
+    def self.parse_file(config, opts = Server::Options.new)
+      options = {}
+      if config =~ /\.ru$/
+        cfgfile = ::File.read(config)
+        if cfgfile[/^#\\(.*)/] && opts
+          options = opts.parse! $1.split(/\s+/)
+        end
+        cfgfile.sub!(/^__END__\n.*\Z/m, '')
+        app = new_from_string cfgfile, config
+      else
+        require config
+        app = Object.const_get(::File.basename(config, '.rb').capitalize)
+      end
+      return app, options
+    end
+
+    def self.new_from_string(builder_script, file="(rackup)")
+      eval "Rack::Builder.new {\n" + builder_script + "\n}.to_app",
+        TOPLEVEL_BINDING, file, 0
+    end
+
+    def initialize(default_app = nil,&block)
+      @use, @map, @run = [], nil, default_app
+      instance_eval(&block) if block_given?
+    end
+
+    def self.app(default_app = nil, &block)
+      self.new(default_app, &block).to_app
+    end
+
+    # Specifies middleware to use in a stack.
+    #
+    #   class Middleware
+    #     def initialize(app)
+    #       @app = app
+    #     end
+    #
+    #     def call(env)
+    #       env["rack.some_header"] = "setting an example"
+    #       @app.call(env)
+    #     end
+    #   end
+    #
+    #   use Middleware
+    #   run lambda { |env| [200, { "Content-Type => "text/plain" }, ["OK"]] }
+    #
+    # All requests through to this application will first be processed by the middleware class.
+    # The +call+ method in this example sets an additional environment key which then can be
+    # referenced in the application if required.
+    def use(middleware, *args, &block)
+      if @map
+        mapping, @map = @map, nil
+        @use << proc { |app| generate_map app, mapping }
+      end
+      @use << proc { |app| middleware.new(app, *args, &block) }
+    end
+
+    # Takes an argument that is an object that responds to #call and returns a Rack response.
+    # The simplest form of this is a lambda object:
+    #
+    #   run lambda { |env| [200, { "Content-Type" => "text/plain" }, ["OK"]] }
+    #
+    # However this could also be a class:
+    #
+    #   class Heartbeat
+    #     def self.call(env)
+    #      [200, { "Content-Type" => "text/plain" }, ["OK"]]
+    #    end
+    #   end
+    #
+    #   run Heartbeat
+    def run(app)
+      @run = app
+    end
+
+    # Creates a route within the application.
+    #
+    #   Rack::Builder.app do
+    #     map '/' do
+    #       run Heartbeat
+    #     end
+    #   end
+    #
+    # The +use+ method can also be used here to specify middleware to run under a specific path:
+    #
+    #   Rack::Builder.app do
+    #     map '/' do
+    #       use Middleware
+    #       run Heartbeat
+    #     end
+    #   end
+    #
+    # This example includes a piece of middleware which will run before requests hit +Heartbeat+.
+    #
+    def map(path, &block)
+      @map ||= {}
+      @map[path] = block
+    end
+
+    def to_app
+      app = @map ? generate_map(@run, @map) : @run
+      fail "missing run or map statement" unless app
+      @use.reverse.inject(app) { |a,e| e[a] }
+    end
+
+    def call(env)
+      to_app.call(env)
+    end
+
+    private
+
+    def generate_map(default_app, mapping)
+      mapped = default_app ? {'/' => default_app} : {}
+      mapping.each { |r,b| mapped[r] = self.class.new(default_app, &b) }
+      URLMap.new(mapped)
+    end
+  end
+end
+\end{verbatim}
+
+\section{Rack::Cascade}
+
+\rackcascade{} 
+tries an request on several apps, and returns the first response
+that is not 404 (or in a list of configurable status codes).
+
+\parrafo{Ejemplo}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-cascade]$ cat cascade2.ru 
+statuses = [200,404]
+apps = [
+  lambda {|env| 
+    status = statuses.sample
+    [status, {}, ["I'm the first app. Status = #{status}\n"]]
+  }, 
+  lambda {|env| 
+    status = statuses.sample
+    [status, {}, ["I'm the second app. Status = #{status}\n"]]
+  }, 
+  lambda {|env| 
+    status = statuses.sample
+    [status, {}, ["I'm the last app. Status = #{status}\n"]]
+  } 
+]
+use Rack::ContentLength 
+use Rack::ContentType 
+run Rack::Cascade.new(apps)
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-cascade]$ rake client
+curl -v 'http://localhost:9292'
+* About to connect() to localhost port 9292 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html
+< Content-Length: 33
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+I'm the second app. Status = 200
+* Connection #0 to host localhost left intact
+* Closing connection #0
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-cascade]$ rake client
+curl -v 'http://localhost:9292'
+* About to connect() to localhost port 9292 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html
+< Content-Length: 31
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+I'm the last app. Status = 200
+* Connection #0 to host localhost left intact
+* Closing connection #0
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-cascade]$ rake client
+curl -v 'http://localhost:9292'
+* About to connect() to localhost port 9292 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html
+< Content-Length: 32
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+I'm the first app. Status = 200
+* Connection #0 to host localhost left intact
+* Closing connection #0]
+\end{verbatim}
+
+\parrafo{Código del Constructor}
+
+\begin{verbatim}
+        # File lib/rack/cascade.rb, line 11
+11:     def initialize(apps, catch=404)
+12:       @apps = []; @has_app = {}
+13:       apps.each { |app| add app }
+14: 
+15:       @catch = {}
+16:       [*catch].each { |status| @catch[status] = true }
+17:     end
+\end{verbatim}
+
+\parrafo{Código de {\tt call}}
+
+\begin{verbatim}
+        # File lib/rack/cascade.rb, line 19
+19:     def call(env)
+20:       result = NotFound
+21: 
+22:       @apps.each do |app|
+23:         result = app.call(env)
+24:         break unless @catch.include?(result[0].to_i)
+25:       end
+26: 
+27:       result
+28:     end
+\end{verbatim}
+
+\section{Rack::Mount}
+
+\begin{enumerate}
+\item 
+A \cei{router} is similar to a Rack middleware. 
+
+\item 
+The main difference is
+that it doesn’t wrap a single Rack endpoint, but keeps a list of
+endpoints, just like \rackcascade{} does. 
+
+\item 
+Depending on some criteria,
+usually the requested path, the router will then decide what endpoint
+to hand the request to. 
+
+\item 
+Most routers differ in the way they decide which endpoint to hand
+the request to. 
+
+\item 
+All routers meant for general usage do offer routing
+based on the path, but how complex their path matching might be
+varies. 
+
+
+\item 
+While \rackurlmap{} only matches prefixes, most other routers
+allow simple wildcard matching. 
+
+\item 
+Both \rackmount{}, which is used by
+Rails, and Sinatra allow arbitrary matching logic.
+
+\item 
+However, such flexibility comes at a price: \rackmount{} and Sinatra
+have a routing complexity of O(n), meaning that in the worst-case
+scenario an incoming request has to be matched against all the
+defined routes. 
+
+\item 
+\rackmount{} is known to produce fast routing, however its API is
+not meant to be used directly but rather by other libraries, like
+the Rails routes DSL. 
+
+\end{enumerate}
+
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-mount]$ cat config.ru 
+require 'sinatra/base'
+require 'rack/mount'
+
+class Foo < Sinatra::Base
+  get('/foo') { 'foo' }
+  get('/fou') { 'fou' }
+end
+
+class Bar < Sinatra::Base
+  get('/bar') { 'bar' }
+  get('/ba')  { 'ba' }
+end
+
+Routes = Rack::Mount::RouteSet.new do |set|
+  set.add_route Foo, :path_info => %r{^/fo[ou]$}
+  set.add_route Bar, :path_info => %r{^/bar?$}
+end
+
+run Routes
+\end{verbatim}
+
+\section{\rackurlmap{}}
+
+\rackurlmap{} takes a hash mapping urls or paths to apps, and
+dispatches accordingly. Support for HTTP/1.1 host names exists if
+the URLs start with http:// or https://.
+
+\rackurlmap{} modifies the \verb|SCRIPT_NAME| and 
+\verb|PATH_INFO| such that the part
+relevant for dispatch is in the 
+\verb|SCRIPT_NAME|, and the rest in the
+\verb|PATH_INFO|. 
+This should be taken care of when you need to reconstruct
+the URL in order to create links.
+
+\rackurlmap{}  dispatches in such a way that the longest paths are
+tried first, since they are most specific.
+
+
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-urlmap(master)]$ cat config.ru 
+app1 = lambda { |e| [200, {}, ["one\n"]]}
+app2 = lambda { |e| [200, {}, ["two\n"]]}
+app3 = lambda { |e| [200, {}, ["one + two = three\n"]]}
+
+app = Rack::URLMap.new "/one" => app1, "/two" => app2, "/one/two" => app3
+
+run app
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-urlmap(master)]$ cat Rakefile 
+desc "run the server"
+task :default do
+  sh "rackup"
+end
+
+desc "run the client with one"
+task :one do
+  sh %q{curl -v 'http://localhost:9292/one'}
+end
+
+desc "run the client with two"
+task :two do
+  sh %q{curl -v 'http://localhost:9292/two'}
+end
+
+desc "run the client with one/two"
+task :onetwo do
+  sh %q{curl -v 'http://localhost:9292/one/two'}
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-urlmap]$ rake
+rackup
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+127.0.0.1 - - [17/Oct/2013 21:24:48] "GET /two HTTP/1.1" 200 - 0.0006
+\end{verbatim}
+
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-urlmap(master)]$ rake onetwo
+curl -v 'http://localhost:9292/one/two'
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /one/two HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Transfer-Encoding: chunked
+< Connection: close
+< Server: thin 1.5.1 codename Straight Razor
+< 
+one + two = three
+* Closing connection #0
+
+\end{verbatim}
+
+\section{El método {\tt run} de Rack::Handler::WEBrick}
+
+Véa por ejemplo una versión del código de \verb|run| de 
+\htmladdnormallink{Rack::Handler::WEBrick}{https://github.com/rack/rack/blob/master/lib/rack/handler/webrick.rb}:
+(puede encontrarse una en
+\htmladdnormallink{Rack::Handler::WEBrick}{https://github.com/rack/rack/blob/master/lib/rack/handler/webrick.rb}):
+\begin{verbatim}
+  def self.run(app, options={})
+    options[:BindAddress] = options.delete(:Host) if options[:Host]
+    options[:Port] ||= 8080
+    @server = ::WEBrick::HTTPServer.new(options)
+    @server.mount "/", Rack::Handler::WEBrick, app 
+    yield @server  if block_given?
+    @server.start
+  end 
+\end{verbatim}
+
+\begin{enumerate}
+\item 
+Vemos que \verb|run| espera un objeto \verb|app| que representa la
+aplicación y un hash de opciones.
+\item 
+%Podemos apreciar que 
+%la variable \verb|environment|
+%es puesta 
+%por defecto 
+%a \verb|'development'|
+%y se usa para determinar el host por defecto.
+Si arrancamos un servidor en 127.0.0.1, sólo escucha en
+localhost; 
+si lo arrancamos en 0.0.0.0, 
+escucha a cualquier IP, en particular en nuestra IP local.
+%De esta manera si estamos en el entorno \verb|production| escucharemos 
+%en la IP que tengamos.
+
+Veamos el siguiente experimento:
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ cat bindaddress0000.rb 
+require 'rack'
+
+#ENV['RACK-ENV'] = 'production'
+
+app = lambda { |e| 
+ [200, { 'content-type' => 'text/html'}, ["<h1>hello world!</h1>"]]
+ }
+
+ Rack::Handler::WEBrick.run app, { :Host => '0.0.0.0' }
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ ifconfig  en0 | grep 'inet\>'
+  inet 192.168.0.103 
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ ruby bindaddress0000.rb 
+[2013-09-23 12:04:36] INFO  WEBrick 1.3.1
+[2013-09-23 12:04:36] INFO  ruby 1.9.3 (2013-02-22) [x86_64-darwin11.4.2]
+[2013-09-23 12:04:36] INFO  WEBrick::HTTPServer#start: pid=8720 port=8080
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ curl -v 'http://192.168.0.103:8080'* About to connect() to 192.168.0.103 port 8080 (#0)
+*   Trying 192.168.0.103... connected
+* Connected to 192.168.0.103 (192.168.0.103) port 8080 (#0)
+> GET / HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+> Host: 192.168.0.103:8080
+> Accept: */*
+> 
+< HTTP/1.1 200 OK 
+< Content-Type: text/html
+< Server: WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)
+< Date: Mon, 23 Sep 2013 11:11:40 GMT
+< Content-Length: 21
+< Connection: Keep-Alive
+< 
+* Connection #0 to host 192.168.0.103 left intact
+* Closing connection #0
+<h1>hello world!</h1>
+\end{verbatim}
+
+\begin{verbatim}
+ [~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ cat bindaddress127001.rb 
+ require 'rack'
+
+ #ENV['RACK-ENV'] = 'production'
+
+ app = lambda { |e| 
+  [200, { 'content-type' => 'text/html'}, ["<h1>hello world!</h1>"]]
+  }
+
+  Rack::Handler::WEBrick.run app, { :Host => '127.0.0.1' }
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ ruby bindaddress127001.rb 
+[2013-09-23 12:13:07] INFO  WEBrick 1.3.1
+[2013-09-23 12:13:07] INFO  ruby 1.9.3 (2013-02-22) [x86_64-darwin11.4.2]
+[2013-09-23 12:13:07] INFO  WEBrick::HTTPServer#start: pid=8993 port=8080
+\end{verbatim}
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-testing/bindaddress(master)]$ curl -v 'http://192.168.0.103:8080'
+* About to connect() to 192.168.0.103 port 8080 (#0)
+*   Trying 192.168.0.103... Connection refused
+* couldn't connect to host
+* Closing connection #0
+curl: (7) couldn't connect to host
+\end{verbatim}
+\item 
+Luego se crea un nuevo objeto que representa al servidor con 
+\verb|@server = ::WEBrick::HTTPServer.new(options)|.
+
+Esto crea un nuevo objeto 
+\htmladdnormallink{WEBrick HTTP server}{https://github.com/nahi/webrick/blob/master/lib/webrick/httpserver.rb}
+de acuerdo a \verb|options|.
+Un servidor HTTP tiene los siguientes atributos:
+\begin{enumerate}
+\item \verb|AccessLog|: An array of access logs.  See WEBrick::AccessLog
+\item \verb|BindAddress|: Local address for the server to bind to
+\item \verb|DocumentRoot|: Root path to serve files from
+\item \verb|DocumentRootOptions|: Options for the default HTTPServlet::FileHandler
+\item \verb|HTTPVersion|: The HTTP version of this server
+\item \verb|Port|: Port to listen on
+\item \verb|RequestCallback|: Called with a request and response before each
+       request is serviced.
+\item \verb|RequestTimeout|: Maximum time to wait between requests
+\item \verb|ServerAlias|: Array of alternate names for this server for virtual
+               hosting
+\item \verb|ServerName|: Name for this server for virtual hosting
+\end{enumerate}
+\item 
+\verb|mount| recibe un directorio y un servlet. Un servlet es una
+clase que se usa para extender las capacidades
+de un servidor. En este caso estamos extendiendo \verb|@server| que
+es un servidor \verb|WEBrick::HTTPServer|
+con las capacidades definidas en la clase \verb|Rack::Handler::WEBrick|.
+La sintáxis de \verb|mount| es:
+\begin{verbatim}
+   mount(dir, servlet, *options)
+\end{verbatim}
+Las opciones son pasadas al servlet en el momento de la creación
+del servlet.
+\item 
+Observamos  que \verb|run| puede ir seguido de un bloque al que se le pasa como argumento
+el objeto server
+\begin{verbatim}
+yield @server  if block_given?
+\end{verbatim}
+Este bloque puede ser usado como una nueva oportunidad para configurar el server
+\item 
+Se arranca el servidor con la llamada al método \verb|start| definido
+en 
+\htmladdnormallink{{\tt webrick/server.rb}}{https://github.com/nahi/webrick/blob/master/lib/webrick/server.rb}
+\end{enumerate}
+
+
+
+\section{Documentación}
+
+\begin{itemize}
+\item
+\htmladdnormallink{rack documentación}{http://rack.rubyforge.org/doc/}
+\end{itemize}
+
+\section{Pruebas/Testing}
+
+\subsection{Pruebas Unitarias}
+\label{subsectionpruebasunitarias}
+
+\begin{enumerate}
+\item 
+Los fuentes de este ejemplo están en
+\htmladdnormallink{https://github.com/crguezl/rack-unit-test}{https://github.com/crguezl/rack-unit-test}
+\item 
+Fuentes en GitHub de Rack::Test:
+\htmladdnormallink{https://github.com/brynary/rack-test}{https://github.com/brynary/rack-test}
+\end{enumerate}
+
+\begin{verbatim}
+[~/rack/rack-unit-test(master)]$ cat rack_hello_world.rb 
+# my_app.rb
+#
+require 'rack'
+
+class MyApp
+  def call env
+    [200, {"Content-Type" => "text/html"}, ["Hello"]] 
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/rack/rack-unit-test(master)]$ cat test_hello_world.rb 
+require "test/unit"
+require "rack/test"
+require './rack_hello_world'
+
+class AppTest < Test::Unit::TestCase
+  include Rack::Test::Methods
+
+  def app
+    Rack::Builder.new do
+      run MyApp.new
+    end.to_app
+  end
+
+  def test_index
+    get "/"
+    #puts last_response.inspect
+    assert last_response.ok?
+  end
+
+  def test_body
+    get "/"
+    assert_equal last_response.body,  'Hello', "body must be hello"
+  end
+end
+\end{verbatim}
+\begin{enumerate}
+\item 
+The 
+\htmladdnormallink{Rack::Test::Methods}{http://rdoc.info/github/brynary/rack-test/master/Rack/Test/Methods}
+module serves as the primary integration point for using
+\verb|Rack::Test| in a testing environment. 
+
+It depends on an \verb|app| method
+being defined in the same context, 
+\begin{verbatim}
+  def app
+    Rack::Builder.new do
+      run MyApp.new
+    end.to_app
+  end
+\end{verbatim}
+
+and provides the \verb|Rack::Test| API
+methods (see 
+\htmladdnormallink{Rack::Test::Session}{http://rubydoc.info/github/brynary/rack-test/Rack/Test/Session}
+for their documentation).
+\item 
+The \verb|get| method issue a \verb|GET| request for the given URI.
+Stores the issues request object in \verb|#last_request| and the app's response in 
+\verb|#last_response| (whose class is 
+\htmladdnormallink{Rack::MockResponse}{http://rack.rubyforge.org/doc/Rack/MockResponse.html}) . 
+
+Yield \verb|#last_response| to a block if given.
+\begin{verbatim}
+  def test_index
+    get "/"
+    assert last_response.ok?
+  end
+\end{verbatim}
+
+\item 
+Otros métodos que se pueden usar son:
+\begin{enumerate}
+\item \verb|(Object) basic_authorize(username, password) (also: #authorize)|
+Set the username and password for \verb|HTTP| Basic authorization, to be included in subsequent requests in the \verb|HTTP_AUTHORIZATION| header.
+\item \verb|(Object) delete(uri, params = {}, env = {}, &block)|
+Issue a \verb|DELETE| request for the given URI.
+\item \verb|(Object) digest_authorize(username, password)|
+Set the username and password for \verb|HTTP| Digest authorization, to be included in subsequent requests in the \verb|HTTP_AUTHORIZATION| header.
+\item \verb|(Object) env(name, value)|
+Set an env var to be included on all subsequent requests through the session.
+\item \verb|(Object) follow_redirect!|
+Rack::Test will not follow any redirects automatically.
+\item \verb|(Object) get(uri, params = {}, env = {}, &block)|
+Issue a \verb|GET| request for the given \verb|URI| with the given params and Rack environment.
+\item \verb|(Object) head(uri, params = {}, env = {}, &block)|
+Issue a \verb|HEAD| request for the given URI.
+\item \verb|(Object) header(name, value)|
+Set a header to be included on all subsequent requests through the session.
+\item \verb|(Session) initialize(mock_session) constructor|
+Creates a Rack::Test::Session for a given Rack app or Rack::MockSession.
+\item \verb|(Object) options(uri, params = {}, env = {}, &block)|
+Issue an \verb|OPTIONS| request for the given URI.
+\item \verb|(Object) patch(uri, params = {}, env = {}, &block)|
+Issue a \verb|PATCH| request for the given URI.
+\item \verb|(Object) post(uri, params = {}, env = {}, &block)|
+Issue a \verb|POST| request for the given URI.
+\item \verb|(Object) put(uri, params = {}, env = {}, &block)|
+Issue a \verb|PUT| request for the given URI.
+\item \verb|(Object) request(uri, env = {}, &block)|
+Issue a request to the Rack app for the given \verb|URI| and optional Rack environment.
+\end{enumerate}
+
+\item 
+The \verb|#last_response| object has methods:
+\begin{verbatim}
+          =~(other) body() empty?() match(other)
+\end{verbatim}
+and attributes:
+\begin{verbatim}
+errors          [RW]
+original_headers[R]
+Headers
+\end{verbatim}
+\item 
+Si se usan middleware adicionales es necesario especificarlo 
+en \verb|app|:
+\begin{verbatim}
+  def app 
+    Rack::Builder.new do
+      use(Rack::Session::Cookie, {:key => 'rack session',·
+                                  #:domain => 'localhost',
+                                  #:path => '/', #:expire_after => 2592000,·
+                                  :secret => 'change_me'})
+      run RockPaperScissors::App.new
+    end.to_app
+  end 
+
+\end{verbatim}
+\item 
+El método 
+\verb|last_response.body|
+returns the last response received in the session. Raises an error
+if no requests have been sent yet.
+\end{enumerate}
+
+
+\begin{verbatim}
+[~/rack/rack-unit-test(master)]$ cat Rakefile 
+task :default => :test
+desc "run the tests"
+task :test do
+  sh "ruby test_hello_world.rb"
+end 
+\end{verbatim}
+
+\begin{verbatim}
+[~/rack/rack-unit-test(master)]$ cat Gemfile
+source 'https://rubygems.org'
+
+gem 'rack'
+gem 'rack-test'
+\end{verbatim}
+
+
+\begin{verbatim}
+[~/rack/rack-unit-test(master)]$ rake
+ruby test_hello_world.rb
+Run options: 
+
+# Running tests:
+
+..
+
+Finished tests in 0.015253s, 131.1217 tests/s, 131.1217 assertions/s.
+
+2 tests, 2 assertions, 0 failures, 0 errors, 0 skips
+\end{verbatim}
+
+
+
+\subsection{Rspec con Rack}
+\label{subsection:rspecconrack}
+
+
+\parrafo{Véase}
+\begin{enumerate}
+\item 
+Los fuentes de este ejemplo están en:
+\htmladdnormallink{https://github.com/crguezl/rack-rspec}{https://github.com/crguezl/rack-rspec}
+\item 
+\htmladdnormallink{Using RSpec with Rack}{http://youtu.be/FV6AQEKxBOg} en Youtube por 
+\htmladdnormallink{Mike Bethany}{https://github.com/mikbe?tab=repositories}
+\item Documentación en rubydoc.info del módulo Rack::MockSession
+\htmladdnormallink{http://rdoc.info/github/brynary/rack-test/master/Rack/MockSession}{http://rdoc.info/github/brynary/rack-test/master/Rack/MockSession}
+\item \htmladdnormallink{Código fuente en lib/rack/mock.rb}{https://github.com/rack/rack/blob/master/lib/rack/mock.rb}
+\item Documentación en rubydoc.info del módulo Rack::Test::Methods:
+\htmladdnormallink{http://rdoc.info/github/brynary/rack-test/master/Rack/Test/Methods}{http://rdoc.info/github/brynary/rack-test/master/Rack/Test/Methods}
+\item  Documentación de \htmladdnormallink{Rack::Test::Session}{http://rdoc.info/github/brynary/rack-test/master/Rack/Test/Session}
+\item 
+\htmladdnormallink{webmock}{https://github.com/bblimke/webmock}
+gem
+\item 
+\htmladdnormallink{Class: Rack::MockRequest documentation}{http://rubydoc.info/github/rack/rack/master/Rack/MockRequest}
+\item 
+\htmladdnormallink{How to Test Sinatra-Based Web Services by Harlow Ward, March 17, 2013}{http://robots.thoughtbot.com/how-to-test-sinatra-based-web-services} Webmock
+Written by thoughtbot Harlow Ward
+March 17, 2013
+\end{enumerate}
+
+\parrafo{Jerarquía}
+\begin{verbatim}
+[~/rack/rack-rspec(master)]$ tree
+.
+|--- Gemfile
+|--- Gemfile.lock
+|--- README
+|--- Rakefile
+|--- lib
+|   |--- rsack
+|   |   `--- server.rb
+|   `--- rsack.rb
+`--- spec
+    |--- rsack
+    |   `--- server_spec.rb
+    `--- spec_helper.rb
+
+4 directories, 8 files
+\end{verbatim}
+
+\parrafo{lib/rsack.rb}
+\begin{verbatim}
+[~/rack/rack-rspec(master)]$ cat lib/rsack.rb 
+require 'rack'
+require 'rsack/server'
+\end{verbatim}
+
+\parrafo{lib/rsack/server.rb}
+\begin{verbatim}
+[~/rack/rack-rspec(master)]$ cat lib/rsack/server.rb 
+module Rsack
+  class Server
+    def call(env)
+      #["200", {}, "hello"]
+      response = Rack::Response.new
+      response.write("Hello world!")
+      response.finish
+    end
+  end
+end
+\end{verbatim}
+
+\parrafo{spec/rsack/server\_spec.rb}
+\begin{verbatim}
+[~/rack/rack-rspec(master)]$ cat spec/rsack/server_spec.rb 
+require 'spec_helper'
+
+describe Rsack::Server do
+
+  #let(:server) { Rack::MockRequest.new(Rsack::Server.new) }
+  def server
+    Rack::MockRequest.new(Rsack::Server.new) 
+  end
+
+  context '/' do
+    it "should return a 200 code" do
+      response = server.get('/')
+      response.status.should == 200
+    end
+  end
+end
+\end{verbatim}
+\htmladdnormallink{Rack::MockRequest}{http://rack.rubyforge.org/doc/classes/Rack/MockRequest.html}
+helps testing your Rack application without
+actually using HTTP.
+\begin{verbatim}
+    Rack::MockRequest.new(Rsack::Server.new) 
+\end{verbatim}
+After performing a request on a URL \verb|response = server.get('/')|
+with \verb|get/post/put/patch/delete|, it
+returns a 
+\htmladdnormallink{MockResponse}{http://rack.rubyforge.org/doc/Rack/MockResponse.html}
+with useful helper methods for effective
+testing (Véase el código de MockResponse en Github en el fichero
+\htmladdnormallink{lib/rack/mock.rb}{https://github.com/rack/rack/blob/master/lib/rack/mock.rb\#L149-L189}).
+
+Un objeto \htmladdnormallink{MockResponse}{http://rack.rubyforge.org/doc/Rack/MockResponse.html}
+dispone de los métodos:
+\begin{verbatim}
+=~   []   match   new  
+\end{verbatim}
+y de los atributos:
+\begin{verbatim}
+body   [R]   Body
+errors   [RW]    Errors
+headers  [R]   Headers
+original_headers   [R]   Headers
+status   [R]   Status
+\end{verbatim}
+
+Si se usan middleware adicionales es necesario especificarlo en \verb|server|. Por ejemplo:
+\begin{verbatim}
+ Rack::MockRequest.new(Rack::Session::Cookie.new(RockPaperScissors::App.new, 
+                                                 :secret =>'cookie')) 
+\end{verbatim}
+
+\parrafo{spec/spec\_helper.rb}
+\begin{verbatim}
+[~/rack/rack-rspec(master)]$ cat spec/spec_helper.rb 
+$:.unshift File.expand_path(File.dirname(__FILE__)+'../lib')
+$:.unshift File.dirname(__FILE__)
+
+#puts $:.inspect
+
+require 'rspec'
+require 'rack'
+
+require 'rsack'
+\end{verbatim}
+
+\parrafo{Rakefile}
+\begin{verbatim}
+[~/rack/rack-rspec(master)]$ cat Rakefile 
+desc "run rspec tests"
+task :default do
+  sh "rspec spec/rsack/server_spec.rb"
+end
+\end{verbatim}
+
+\parrafo{Gemfile}
+\begin{verbatim}
+[~/rack/rack-rspec(master)]$ cat Gemfile
+# A sample Gemfile
+source "https://rubygems.org"
+
+gem 'rack'
+
+group :development, :test do
+  gem 'rspec'
+end
+\end{verbatim}
+
+
+\sectionpractica{Añada Pruebas a Rock, Paper,Scissors}
+\label{practica:rpsconsessionsypruebas}
+Complete la practica realizada en la sección
+{\it Añada Hojas de Estilo a Piedra Papel Tijeras}
+\ref{practica:rpscss}
+con:
+\begin{enumerate}
+\item 
+ Pruebas unitarias (Vea la sección
+{\it Pruebas Unitarias}
+\ref{subsectionpruebasunitarias}
+\item 
+\cei{Desarrollo Dirigido por las Pruebas} \cei{TDD} (Vea la sección
+{\it Rspec con Rack}
+\ref{subsection:rspecconrack})
+\item 
+Cree una sesión de manera que la aplicación
+disponga de  contadores que lleven el número de partidas jugadas y el número de partidas
+ganadas por el jugador (Vea las secciones
+{\it Gestión de Sesiones}
+\ref{section:gestiondesesiones}
+y
+{\it Cookies}
+\ref{section:cookies})
+\end{enumerate}
+
+%\section{Ejecutando Aplicaciones Web Accesibles en la ETSII}
+\input{etsii/etsii.tex}
+
+\sectionpractica{Despliegue en Heroku su Aplicación Rock, Paper,Scissors}
+\label{practica:despliegueenherokurps}
+
+Despliegue en Heroku la practica realizada en la sección
+{\it Añada Pruebas a Rock, Paper,Scissors}
+\ref{practica:rpsconsessionsypruebas}.
+Repase la sección 
+{\it Despliegue en Heroku}
+\ref{chapter:despliegueenheroku}
+
+\section{Faking Sinatra with Rack and Middleware}
+
+\begin{enumerate}
+\item
+\htmladdnormallink{Faking Sinatra with Rack and Middleware}{https://vimeo.com/15244536} por
+Charles Max Wood (Vimeo)
+\item 
+\htmladdnormallink{crguezl/rack-sinatra-in-5-minutes}{https://github.com/crguezl/rack-sinatra-in-5-minutes} en GitHub
+\item 
+\htmladdnormallink{Noah Gibbs Ruby Hangout}{http://youtu.be/evDJMLb1d28}
+\end{enumerate}
+
+
+
+\section{Véase También}
+
+\begin{itemize}
+\item
+\htmladdnormallink{ArrrrCamp 2013 - Web applications with Ruby (not Rails) YouTube}{http://youtu.be/zoT8Lbt-jk4} David Padilla
+\item 
+\htmladdnormallink{A Quick Introduction to Rack}{http://rubylearning.com/blog/a-quick-introduction-to-rack/}
+\item
+\htmladdnormallink{Writing modular web applications with Rack}{http://rubylearning.com/blog/2010/09/21/writing-modular-web-applications-with-rack/}
+\item
+\htmladdnormallink{Rackup Wiki}{https://github.com/rack/rack/wiki}
+\item
+\htmladdnormallink{Rack from the Beginning}{http://hawkins.io/2012/07/rack_from_the_beginning/}
+por Adam Hawkins 
+(github: 
+\htmladdnormallink{https://github.com/crguezl/rack-from-the-beginning}{https://github.com/crguezl/rack-from-the-beginning})
+\item
+\htmladdnormallink{Understanding Rack de Tekpub Productions}{https://vimeo.com/46906591} (Vimeo)
+\item 
+\htmladdnormallink{Media Test: Rack Middleware on Any Framework por Noah Gibbs}{http://youtu.be/MxfZNe3LLM4} (YouTube)
+\item 
+\htmladdnormallink{Rails Online Conf: Rack in Rails 3}{http://youtu.be/EGGjQrgdg1s} por Ryan Tomayko (Youtube)
+\item
+\htmladdnormallink{32 Rack Resources to Get You Started}{http://jasonseifer.com/2009/04/08/32-rack-resources-to-get-you-started}
+por Jason Seifer
+\item
+\htmladdnormallink{The Little Rack Book}{http://gallery.mailchimp.com/e49655551a5bb47498310c7de/files/RackIntro.pdf}
+\item
+\htmladdnormallink{Rack Developer's Notebook}{http://www.zepho.com/download/RackDevelopersNotebook_v1.pdf}
+\item
+\htmladdnormallink{Rails Conf 2013 You've got a Sinatra on your Rails by José Valim}{http://youtu.be/TslkdT3PfKc}
+\item 
+The 
+\htmladdnormallink{Web Server Gateway Interface }{http://en.wikipedia.org/wiki/Web_Server_Gateway_Interface}
+is a simple and universal interface
+between web servers and web applications or frameworks for the
+Python programming language. Rack is inspired in WSGI
+\end{itemize}
+

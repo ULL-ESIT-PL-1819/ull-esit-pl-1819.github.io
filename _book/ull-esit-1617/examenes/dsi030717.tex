@@ -1,0 +1,154 @@
+\paragraph{Descripción del Problema}\label{descripciuxf3n-del-problema}
+
+Te dan una lista \verb|path| de caminos a ficheros en disco. Cada fichero contiene
+un número y debes dar como resultado una string que contenga los números 
+en los ficheros {\bf en el orden dado en la lista} \verb|path|. 
+Para hacer el problema mas asíncrono se debe esperar en cada lectura un número aleatorio
+entre 0 y 10 de milisegundos antes de añadir el número leído a la string (véase ejemplo mas abajo).
+Por supuesto, no se permite en este problema hacer lectura síncrona. Se debe usar
+\texttt{readFile}.
+
+\paragraph{Una Solución Errónea}\label{una-soluciuxf3n-erruxf3nea}
+
+Este es un ejemplo del tipo de solución que puedes dar. Esta solución es
+errónea:
+
+\begin{verbatim}
+var fs = require('fs');
+var paths = [
+             'first-file',  // contains 10
+             'second-file',  // contains 7
+             'third-file'  // contains 5
+             ];
+var FinalResult = "";
+
+paths.forEach(function(path) {
+    fs.readFile(path, 'utf8', function(err, data) {
+        // here we wait for random time
+        setTimeout(function() {
+            FinalResult += data.replace(/^\s*|\s*$/g,'')+ " "; // trim spaces
+            console.log(FinalResult);
+        }, Math.floor(Math.random() * 10));
+
+    });
+}, () => console.log("FinalResult = "+FinalResult));
+\end{verbatim}
+\pagebreak{}
+Cuando se ejecuta, el orden en que ocurren las tareas es impredecible:
+\begin{verbatim}
+[~/javascript/learning/promises/async-examples/part1(master)]$ node sol12wrong.js 
+10 
+10 7 
+10 7 5 
+[~/javascript/learning/promises/async-examples/part1(master)]$ node sol12wrong.js 
+5 
+5 7 
+5 7 10 
+[~/javascript/learning/promises/async-examples/part1(master)]$ node sol12wrong.js 
+10 
+10 5 
+\end{verbatim}
+Este programa posiblemente imprime los números en un orden incorrecto
+
+\paragraph{pipe}\label{pipe}
+
+Se pide que escribas un método \texttt{pipe} para los objetos
+\verb|Array| que recibe como primer argumento la funcion \verb|asyncTask| 
+conteniendo la tarea asíncrona a realizar
+sobre cada objeto del array y como segundo argumento una \verb|callback| que
+será llamada cuando todas las iteraciones asíncronas hayan terminado. 
+Las tareas son ejecutadas en el orden establecido por el array:
+
+\begin{verbatim}
+Array.prototype.pipe = function(asyncTask, callback) {
+    ....
+}
+\end{verbatim}
+
+La tarea \verb|asyncTask| recibe como primer argumento
+el elemento del array a procesar y como segundo argumento
+una callback a la que deberá llamar 
+para indicar que ha finalizado su tarea:
+\begin{verbatim}
+asynctask = function(item, nextTask) {
+  ... // do your async task
+  nextTask();
+}
+\end{verbatim}
+
+\paragraph{Programa de prueba}\label{programa-de-prueba}
+
+\texttt{Array.prototype.pipe} debe estar escrita de manera que
+se pueda dar una solución al problema propuesto usando dicha función.
+Una vez la tengas escrita, y guardada en un módulo
+\texttt{pipe}, este programa debería funcionar correctamente:
+
+\begin{verbatim}
+require("pipe");
+var fs = require('fs');
+
+var paths = [
+             'first-file',  // contains 10
+             'second-file',  // contains 7
+             'third-file'  // contains 5
+             ];
+var FinalResult = "";
+
+var readFilesInOrder = (path, nextTask) => {
+  fs.readFile(path, 'utf8', function(err, data) {
+      // here we wait for random time
+      setTimeout(function() {
+          FinalResult += data + " ";
+          nextTask();
+      }, Math.floor(Math.random() * 10));
+
+  });
+};
+
+paths.pipe(readFilesInOrder, () => { console.log(FinalResult); });
+\end{verbatim}
+Cuando se ejecuta los números salen en orden:
+\begin{verbatim}
+[~/javascript/async-examples/part1(master)]$ node sol12.js 
+10
+ 7
+ 5
+\end{verbatim}
+
+\paragraph{Requisitos}\label{requisitos}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Escribe un módulo npm que extiende la clase \texttt{Array} con
+  el método \texttt{pipe}}:
+
+\begin{verbatim}
+tasksToDo.pipe(asyncTask, doItAfter);
+\end{verbatim}
+
+que ejecuta las funciones asíncronas \texttt{asyncTask} sobre los
+objetos en el array \texttt{tasksToDo} en el orden determinado por el 
+array; esto es, hace primero \verb|asyncTask(tasksToDo[0])|, cuando este termina \verb|asyncTasks(tasksToDo[1])|, etc.
+y ejecuta \texttt{doItAfter} cuando todas las \texttt{asyncTask} han terminado.
+\item
+  \textbf{Explica como es el proceso para publicar lo hecho como módulo
+  en npm}.
+\item
+  \textbf{Explica como ejecutar las pruebas usando Mocha, y
+  Chai-Should}. Aqui dejamos un esqueleto del que puedes partir:
+\end{enumerate}
+
+\begin{verbatim}
+var should = require('chai').should();
+var ins = require("util").inspect;
+
+describe('testing something', function() {
+  it('does something', function() {
+    let input = "..."; 
+    let r = ....; // call the method to test
+    let expected = ... ; // what is expected
+    r.should.deep.equal(expected);
+  });
+});
+\end{verbatim}

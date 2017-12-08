@@ -1,0 +1,643 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>PEGJS</TITLE>
+<META NAME="description" CONTENT="PEGJS">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node33.html">
+<LINK REL="previous" HREF="node31.html">
+<LINK REL="up" HREF="node30.html">
+<LINK REL="next" HREF="node33.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html1651"
+  HREF="node33.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1645"
+  HREF="node30.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1639"
+  HREF="node31.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1647"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1649"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html1652"
+  HREF="node33.html">Un Ejemplo Sencillo</A>
+<B>Sup:</B> <A NAME="tex2html1646"
+  HREF="node30.html">Análisis Descendente mediante Parsing</A>
+<B> Ant:</B> <A NAME="tex2html1640"
+  HREF="node31.html">Introducción a los PEGs</A>
+<B> Con:</B> 
+<A NAME="tex2html1647"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html1649"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><UL>
+<LI><A NAME="tex2html1653"
+  HREF="node32.html#SECTION04420010000000000000">What is</A>
+<LI><A NAME="tex2html1654"
+  HREF="node32.html#SECTION04420020000000000000">Installation</A>
+<LI><A NAME="tex2html1655"
+  HREF="node32.html#SECTION04420030000000000000">El compilador de línea de comandos</A>
+<LI><A NAME="tex2html1656"
+  HREF="node32.html#SECTION04420040000000000000">Using it</A>
+<LI><A NAME="tex2html1657"
+  HREF="node32.html#SECTION04420050000000000000">Opciones: allowedStartRules</A>
+<LI><A NAME="tex2html1658"
+  HREF="node32.html#SECTION04420060000000000000">Opciones: output</A>
+<LI><A NAME="tex2html1659"
+  HREF="node32.html#SECTION04420070000000000000">Opciones: plugin</A>
+<LI><A NAME="tex2html1660"
+  HREF="node32.html#SECTION04420080000000000000">PEGjs  Coffee Plugin </A>
+<LI><A NAME="tex2html1661"
+  HREF="node32.html#SECTION04420090000000000000">Instalación de pegjs-coffee-plugin</A>
+<LI><A NAME="tex2html1662"
+  HREF="node32.html#SECTION044200100000000000000">Ejemplo con Acciones Semánticas en Coffee</A>
+<LI><A NAME="tex2html1663"
+  HREF="node32.html#SECTION044200110000000000000">Véase También</A>
+<LI><A NAME="tex2html1664"
+  HREF="node32.html#SECTION044200120000000000000">cache</A>
+<LI><A NAME="tex2html1665"
+  HREF="node32.html#SECTION044200130000000000000">optimize</A>
+</UL></UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION04420000000000000000">
+PEGJS</A>
+</H1>
+
+<P>
+
+<H4><A NAME="SECTION04420010000000000000">
+What is</A>
+</H4>
+  
+
+<P>
+ <A NAME="tex2html249"
+  HREF="http://pegjs.majda.cz/">PEG.js</A>
+ is a parser generator for JavaScript that produces 
+parsers. 
+
+<P>
+ <A NAME="tex2html250"
+  HREF="http://pegjs.majda.cz/">PEG.js</A>
+ generates a parser from a Parsing Expression Grammar 
+describing a language.
+
+<P>
+We can specify what the parser returns (using semantic actions on matched
+parts of the input). 
+
+<P>
+
+<H4><A NAME="SECTION04420020000000000000">
+Installation</A>
+</H4>
+  
+
+<P>
+To use the pegjs command, install  <A NAME="tex2html251"
+  HREF="http://pegjs.majda.cz/">PEG.js</A>
+ globally:
+
+<P>
+<PRE>
+$ npm install -g pegjs
+</PRE>
+To use the JavaScript API, install  <A NAME="tex2html252"
+  HREF="http://pegjs.majda.cz/">PEG.js</A>
+ locally:
+
+<P>
+<PRE>
+$ npm install pegjs
+</PRE>
+
+<P>
+To use it from the browser, download the 
+ <A NAME="tex2html253"
+  HREF="http://pegjs.majda.cz/">PEG.js</A>
+
+library (
+<A NAME="tex2html254"
+  HREF="https://github.com/dmajda/pegjs/releases/download/v0.8.0/peg-0.8.0.js">regular </A>
+or <A NAME="tex2html255"
+  HREF="https://github.com/dmajda/pegjs/releases/download/v0.8.0/peg-0.8.0.min.js">minified version</A>).
+
+<P>
+
+<H4><A NAME="SECTION04420030000000000000">
+El compilador de línea de comandos</A>
+</H4>
+  
+
+<P>
+<PRE>
+[~/srcPLgrado/pegjs/examples(master)]$ pegjs --help
+Usage: pegjs [options] [--] [&lt;input_file&gt;] [&lt;output_file&gt;]
+
+Generates a parser from the PEG grammar specified in the &lt;input_file&gt; and writes
+it to the &lt;output_file&gt;.
+
+If the &lt;output_file&gt; is omitted, its name is generated by changing the
+&lt;input_file&gt; extension to ".js". If both &lt;input_file&gt; and &lt;output_file&gt; are
+omitted, standard input and output are used.
+
+Options:
+  -e, --export-var &lt;variable&gt;        name of the variable where the parser
+                                     object will be stored (default:
+                                     "module.exports")
+      --cache                        make generated parser cache results
+      --allowed-start-rules &lt;rules&gt;  comma-separated list of rules the generated
+                                     parser will be allowed to start parsing
+                                     from (default: the first rule in the
+                                     grammar)
+  -o, --optimize &lt;goal&gt;              select optimization for speed or size
+                                     (default: speed)
+      --plugin &lt;plugin&gt;              use a specified plugin (can be specified
+                                     multiple times)
+      --extra-options &lt;options&gt;      additional options (in JSON format) to pass
+                                     to PEG.buildParser
+      --extra-options-file &lt;file&gt;    file with additional options (in JSON
+                                     format) to pass to PEG.buildParser
+  -v, --version                      print version information and exit
+  -h, --help                         print help and exit
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION04420040000000000000">
+Using it</A>
+</H4>
+  
+
+<P>
+<PRE>
+[~/srcPLgrado/pegjs/examples(master)]$ node
+&gt; PEG = require("pegjs")
+{ VERSION: '0.8.0',
+  GrammarError: [Function],
+  parser: 
+   { SyntaxError: [Function: SyntaxError],
+     parse: [Function: parse] },
+  compiler: 
+   { passes: 
+      { check: [Object],
+        transform: [Object],
+        generate: [Object] },
+     compile: [Function] },
+  buildParser: [Function] }
+</PRE>
+<PRE>
+&gt; parser = PEG.buildParser("start = ('a' / 'b')+")
+{ SyntaxError: [Function: SyntaxError],
+  parse: [Function: parse] }
+</PRE>
+
+<P>
+Using the generated parser is simple — just call its <code>parse</code> method
+and pass an input string as a parameter. 
+
+<P>
+The method will return 
+
+<UL>
+<LI>a parse result (the exact value depends on the grammar used to build the parser) or 
+</LI>
+<LI>throw an 
+<FONT COLOR="#ff0000"> exception</FONT> if the input is invalid.  
+
+<P>
+The exception will contain 
+<code>offset</code>, <code>line</code>, <code>column</code>, <code>expected</code>, <code>found</code> and <code>message</code> 
+properties with more details about the error.
+</LI>
+</UL>
+You can tweak parser behavior by passing a second parameter with
+an <code>options</code> object to the <code>parse</code> method. 
+
+<P>
+Only one option is currently supported:
+
+<P>
+<code>startRule</code> which is the name of the rule to start parsing from.
+
+<P>
+<PRE>
+&gt; parser.parse("abba"); 
+[ 'a', 'b', 'b', 'a' ]
+&gt;
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION04420050000000000000">
+Opciones: allowedStartRules</A>
+</H4>
+  
+
+Specifying
+
+<FONT COLOR="#ff0000"> allowedStartRules</FONT> we can set the
+rules the parser will be allowed to start parsing from (default: the first rule in the grammar).
+
+<P>
+<PRE>
+[~/srcPLgrado/pegjs/examples(master)]$ cat allowedstartrules.js 
+var PEG = require("pegjs");
+var grammar = "a = 'hello' b\nb = 'world'"; //"a = 'hello' b\nb='world';
+console.log(grammar); // a = 'hello' b
+                      // b = 'world'
+var parser = PEG.buildParser(grammar,{ allowedStartRules: ['a', 'b'] });
+var r = parser.parse("helloworld", { startRule: 'a' });
+console.log(r); // [ 'hello', 'world' ]
+r = parser.parse("helloworld")
+console.log(r); // [ 'hello', 'world' ]
+
+r =  parser.parse("world", { startRule: 'b' })
+console.log(r); // 'world'
+
+try {
+  r = parser.parse("world"); // Throws an exception
+}
+catch(e) {
+  console.log("Error!!!!");
+  console.log(e);
+}
+</PRE>
+
+<P>
+<PRE>
+[~/srcPLgrado/pegjs/examples(master)]$ node allowedstartrules.js 
+a = 'hello' b
+b = 'world'
+[ 'hello', 'world' ]
+[ 'hello', 'world' ]
+world
+Error!!!!
+{ message: 'Expected "hello" but "w" found.',
+  expected: [ { type: 'literal', value: 'hello', description: '"hello"' } ],
+  found: 'w',
+  offset: 0,
+  line: 1,
+  column: 1,
+  name: 'SyntaxError' }
+</PRE>
+
+<P>
+The 
+<FONT COLOR="#ff0000"> exception</FONT> contains
+
+<UL>
+<LI>message 
+</LI>
+<LI>expected, 
+</LI>
+<LI>found 
+</LI>
+<LI>offset, 
+</LI>
+<LI>line, 
+</LI>
+<LI>column, 
+</LI>
+<LI>name
+</LI>
+</UL>
+and properties with more details about the error.
+
+<P>
+
+<H4><A NAME="SECTION04420060000000000000">
+Opciones: output</A>
+</H4>
+  
+
+<P>
+
+<UL>
+<LI>When
+<code>output</code>
+is set to 
+<FONT COLOR="#ff0000"> parser</FONT>, the method will return generated parser object; 
+<PRE>
+&gt; PEG = require("pegjs")
+&gt; grammar = "a = 'hello' b\nb='world'"
+'a = \'hello\' b\nb=\'world\''
+&gt; console.log(grammar)
+a = 'hello' b
+b='world'
+&gt; parser = PEG.buildParser(grammar,{ output: "parser"})
+{ SyntaxError: [Function: SyntaxError],
+  parse: [Function: parse] }
+  &gt; parser.parse("helloworld")
+  [ 'hello', 'world' ]
+</PRE>
+</LI>
+<LI>if set to 
+<FONT COLOR="#0000ff"> source</FONT>, it will return parser source code as a string 
+<PRE>
+&gt; parser = PEG.buildParser(grammar,{ output: "source"})
+&gt; typeof parser
+'string'
+&gt; console.log(parser.substring(0,100))
+(function() {
+  /*
+   * Generated by PEG.js 0.8.0.
+   *
+   * http://pegjs.majda.cz/
+   */
+</PRE>
+</LI>
+<LI>(default: <code>parser</code>).
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION04420070000000000000">
+Opciones: plugin</A>
+</H4>
+  
+
+La opción 
+
+<FONT COLOR="#ff0000"> plugins</FONT>
+indica que plugin se van a usar.
+<PRE>
+$ pegjs --plugin pegjs-coffee-plugin remove_left_recursive.pegjs
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION04420080000000000000">
+PEGjs  Coffee Plugin </A>
+</H4>
+  
+
+<P>
+<A NAME="tex2html256"
+  HREF="https://github.com/Dignifiedquire/pegjs-coffee-plugin">PEGjs Coffee Plugin </A>
+is a plugin for PEG.js to use CoffeeScript in actions.
+
+<P>
+<PRE>
+[~/srcPLgrado/pegjs_examples(master)]$ cat plugin.coffee 
+#!/usr/bin/env coffee
+PEG = require 'pegjs'
+coffee = require 'pegjs-coffee-plugin'
+grammar = """
+a = 'hello' _ b { console.log 3; "hello world!" }
+b = 'world'     { console.log 2 }
+_ = [ \t]+      { console.log 1 }
+"""
+parser = PEG.buildParser grammar, plugins: [coffee]
+r = parser.parse "hello world"
+console.log("r = #{r}")
+</PRE>
+La ejecución nos muestra además el orden de abajo - arriba
+y de izquierda -derecha en la ejecución de las acciones 
+semánticas:
+<PRE>
+[~/srcPLgrado/pegjs_examples(master)]$ coffee plugin.coffee 
+1
+2
+3
+r = hello world!
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION04420090000000000000">
+Instalación de pegjs-coffee-plugin</A>
+</H4>
+  
+
+<PRE>
+[~/Dropbox/src/javascript/PLgrado/pegjs/examples(master)]$ npm install -g pegjs-coffee-plugin
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION044200100000000000000">
+Ejemplo con Acciones Semánticas en Coffee</A>
+</H4>
+  
+
+<PRE>
+[~/Dropbox/src/javascript/PLgrado/pegjs-coffee-plugin/examples(master)]$ cat simple.pegjs 
+{ 
+  @reduce = (left, right)-&gt;  
+    sum = left
+    for t in right
+      op = t[0]
+      num = t[1]
+      switch op 
+        when '+' then sum += num; break
+        when '-' then sum -= num; break
+        when '*' then sum *= num; break
+        when '/' then sum /= num; break
+        else console.log("Error! "+op)
+    sum
+  
+}
+sum   = left:product right:([+-] product)* { @reduce(left, right); }
+product = left:value right:([*/] value)*   { @reduce(left, right); }
+value   = number:[0-9]+                    { parseInt(number.join(''),10) }
+        / '(' sum:sum ')'                  { sum }
+</PRE>
+
+<P>
+<PRE>
+[~/Dropbox/src/javascript/PLgrado/pegjs-coffee-plugin/examples(master)]$  cat use_simple.coffee 
+PEG = require("./simple.js")
+r = PEG.parse("2+3*(2+1)-10/2")
+console.log(r)
+</PRE>
+
+<P>
+<PRE>
+[~/srcPLgrado/pegjs/examples/coffee-plugin-examples(master)]$ pegjs --plugin pegjs-coffee-plugin simple.pegjs
+[~/srcPLgrado/pegjs/examples/coffee-plugin-examples(master)]$ coffee use_simple.coffee
+input = 3-1-2 result = 0
+input = 2+3*(2+1)-10/2 result = 6
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION044200110000000000000">
+Véase También</A>
+</H4>
+  
+
+<UL>
+<LI><A NAME="tex2html257"
+  HREF="https://github.com/Dignifiedquire/pegjs-coffee-plugin">pegjs-coffee-plugin</A>
+en GitHub
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION044200120000000000000">
+cache</A>
+</H4>
+  
+
+<P>
+If <code>true</code>, makes the parser cache results, avoiding exponential parsing
+time in pathological cases but making the parser slower (default:
+<code>false</code>).
+
+<P>
+
+<H4><A NAME="SECTION044200130000000000000">
+optimize</A>
+</H4>
+  
+
+<P>
+Selects between optimizing the generated parser for parsing speed
+(<code>speed</code>) or code size (<code>size</code>) (default: <code>speed</code>).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html1651"
+  HREF="node33.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1645"
+  HREF="node30.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1639"
+  HREF="node31.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1647"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1649"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html1652"
+  HREF="node33.html">Un Ejemplo Sencillo</A>
+<B>Sup:</B> <A NAME="tex2html1646"
+  HREF="node30.html">Análisis Descendente mediante Parsing</A>
+<B> Ant:</B> <A NAME="tex2html1640"
+  HREF="node31.html">Introducción a los PEGs</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-10-06</I>
+</ADDRESS>
+</BODY>
+</HTML>

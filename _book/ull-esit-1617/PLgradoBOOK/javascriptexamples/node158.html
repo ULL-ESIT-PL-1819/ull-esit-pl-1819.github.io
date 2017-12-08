@@ -1,0 +1,291 @@
+
+<H1><A NAME="SECTION05740000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:conceptosbasicos"><tex2html_anchor_mark></A><BR>
+Conceptos Básicos del Análisis LR
+</H1>
+Los analizadores generados por <tex2html_verb_mark>2092<tex2html_verb_mark> entran en la categoría de analizadores
+<A NAME="15878"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">LR</SPAN>. Estos analizadores construyen una derivación a derechas inversa 
+(o <A NAME="15880"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">antiderivación</SPAN>).
+De ahí la R en LR (del inglés <A NAME="15882"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">rightmost derivation</SPAN>). El árbol sintáctico 
+es construido de las hojas hacia la raíz, siendo el último paso en la antiderivación
+la construcción de la primera derivación desde el símbolo de arranque.
+
+<P>
+Empezaremos entonces considerando las frases que pueden aparecer en una derivación
+a derechas. Tales frases consituyen el <A NAME="15884"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">lenguaje de las formas sentenciales a rderechas</SPAN> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36174#</SPAN>
+<tex2html_verbatim_mark>mathend000#:
+
+<P>
+<P><DIV><#36176#><B>Definición  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#36176#> &nbsp; 
+<#36179#><I>Dada una gramática <tex2html_verbatim_mark>#math6886#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36181#</SPAN>
+<tex2html_verbatim_mark>mathend000# no ambigua, se denota por <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36183#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+(lenguaje de las formas Sentenciales a Derechas) al lenguaje de 
+las sentencias que aparecen en una derivación a derechas desde el símbolo de arranque.
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6887#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36185#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I>Donde la notacion RM indica una derivación a derechas (<SPAN  CLASS="textbf">rightmost</SPAN>).
+Los elementos de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36187#</SPAN>
+<tex2html_verbatim_mark>mathend000# se llaman ``formas sentenciales derechas''.</I><#36179#></DIV><P></P>
+
+
+<P>
+Dada una gramática no ambigua <tex2html_verbatim_mark>#math6888#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36189#</SPAN>
+<tex2html_verbatim_mark>mathend000# y una frase <tex2html_verbatim_mark>#math6889#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36191#</SPAN>
+<tex2html_verbatim_mark>mathend000# el proceso
+de antiderivación consiste en encontrar la última derivación a derechas que dió lugar a 
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36193#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Esto es, si <tex2html_verbatim_mark>#math6890#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36195#</SPAN>
+<tex2html_verbatim_mark>mathend000# es porque existe una derivación a derechas de la forma
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6891#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36197#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+
+</DIV>
+
+<P>
+El problema es averiguar que regla <tex2html_verbatim_mark>#math6892#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36199#</SPAN>
+<tex2html_verbatim_mark>mathend000# se aplicó y en que lugar 
+de la cadena <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36201#</SPAN>
+<tex2html_verbatim_mark>mathend000# se aplicó. En general, si queremos antiderivar
+una forma sentencial derecha <tex2html_verbatim_mark>#math6893#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36203#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+debemos averiguar por que regla <tex2html_verbatim_mark>#math6894#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36205#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+seguir y en que lugar de la forma (después de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36207#</SPAN>
+<tex2html_verbatim_mark>mathend000# en el ejemplo)
+aplicarla. 
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6895#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36209#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+
+</DIV>
+
+<P>
+La pareja formada por la regla y la posición 
+se denomina <A NAME="15886"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">handle</SPAN>, <A NAME="15888"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">mango</SPAN> o <A NAME="15890"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">manecilla</SPAN> de la forma. Esta denominación viene
+de la visualización gráfica de la regla de producción como una mano
+que nos permite escalar hacia arriba en el árbol. Los ``dedos'' serían los
+símbolos en la parte derecha de la regla de producción.
+
+<P>
+<P><DIV><#36211#><B>Definición  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#36211#> &nbsp; 
+<#36214#><I>Dada una gramática <tex2html_verbatim_mark>#math6896#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36216#</SPAN>
+<tex2html_verbatim_mark>mathend000# no ambigua, y dada una forma sentencial derecha 
+<tex2html_verbatim_mark>#math6897#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36218#</SPAN>
+<tex2html_verbatim_mark>mathend000#, con <tex2html_verbatim_mark>#math6898#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36220#</SPAN>
+<tex2html_verbatim_mark>mathend000#, el <A NAME="15892"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">mango</SPAN> o <A NAME="15894"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">handle</SPAN>  de 
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36222#</SPAN>
+<tex2html_verbatim_mark>mathend000# es la última producción/posición  que dió lugar a <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36224#</SPAN>
+<tex2html_verbatim_mark>mathend000#:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6899#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36226#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I></I><#36214#></DIV><P></P>
+
+Escribiremos: 
+<tex2html_verbatim_mark>#math6900#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36228#</SPAN>
+<tex2html_verbatim_mark>mathend000#. La función <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36230#</SPAN>
+<tex2html_verbatim_mark>mathend000# tiene dos componentes:
+<tex2html_verbatim_mark>#math6901#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36232#</SPAN>
+<tex2html_verbatim_mark>mathend000# y 
+<tex2html_verbatim_mark>#math6902#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36234#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+
+<P>
+Si dispusieramos de un procedimiento que fuera capaz de identificar el mango,
+esto es, de detectar la regla y el lugar en el que se posiciona, tendríamos un
+mecanismo para construir un analizador. 
+Lo curioso es que, a menudo es posible encontrar un autómata finito que
+reconoce el lenguaje de los prefijos <tex2html_verbatim_mark>#math6903#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36236#</SPAN>
+<tex2html_verbatim_mark>mathend000# que terminan 
+en el mango. Con mas precisión, del lenguaje:
+
+<P>
+<P><DIV><#36238#><B>Definición  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#36238#> &nbsp; 
+<#36241#><I>El conjunto de <SPAN  CLASS="textbf">prefijos viables</SPAN> de una gramática G se define
+como  el conjunto:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6904#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36243#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I></I><#36241#></DIV><P></P>
+
+
+<P>
+Esto es, es el lenguaje de los prefijos viables es el 
+conjunto de frases que son prefijos de 
+<tex2html_verbatim_mark>#math6905#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36245#</SPAN>
+<tex2html_verbatim_mark>mathend000#, 
+siendo <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36247#</SPAN>
+<tex2html_verbatim_mark>mathend000# una forma sentencial derecha (<tex2html_verbatim_mark>#math6906#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36249#</SPAN>
+<tex2html_verbatim_mark>mathend000#). Los
+elementos de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36251#</SPAN>
+<tex2html_verbatim_mark>mathend000# se denominan prefijos viables.
+
+<P>
+Obsérvese que si se dispone de un autómata que reconoce 
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36253#</SPAN>
+<tex2html_verbatim_mark>mathend000# entonces se dispone de un mecanismo para investigar el lugar y 
+el aspecto que pueda tener el mango. Si damos como 
+entrada la sentencia <tex2html_verbatim_mark>#math6907#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36255#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+a dicho autómata, el autómata aceptará la cadena <tex2html_verbatim_mark>#math6908#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36257#</SPAN>
+<tex2html_verbatim_mark>mathend000# pero rechazará
+cualquier extensión del prefijo. Ahora sabemos que el mango 
+será alguna regla de producción de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36259#</SPAN>
+<tex2html_verbatim_mark>mathend000# cuya parte derecha 
+sea un sufijo de  <tex2html_verbatim_mark>#math6909#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36261#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+<P><DIV><A NAME="definition:slrautomata"><#36263#><B>Definición  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">4</SPAN></B><#36263#></A> &nbsp; 
+<#36266#><I>El siguiente autómata finito no determinista puede ser utilizado para
+reconocer el lenguaje de los prefijos viables PV:
+</I>
+<UL>
+<LI>Alfabeto = <tex2html_verbatim_mark>#math6910#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36268#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+<LI>Los estados del autómata se denominan LR(0) items. Son parejas formadas
+por una regla de producción de la gramática y una posición en la parte derecha 
+de la regla de producción. Por ejemplo, <tex2html_verbatim_mark>#math6911#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36270#</SPAN>
+<tex2html_verbatim_mark>mathend000# sería un
+LR(0) item para la gramática de las expresiones.
+
+<P>
+Conjunto de Estados:
+
+<P>
+<tex2html_verbatim_mark>#math6912#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36272#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+
+<P>
+La notación <tex2html_verbatim_mark>#math6913#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36274#</SPAN>
+<tex2html_verbatim_mark>mathend000# denota la longitud de la cadena <tex2html_verbatim_mark>#math6914#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36276#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+ En vez de la notación <tex2html_verbatim_mark>#math6915#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36278#</SPAN>
+<tex2html_verbatim_mark>mathend000# escribiremos: 
+ <tex2html_verbatim_mark>#math6916#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36280#</SPAN>
+<tex2html_verbatim_mark>mathend000# <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36282#</SPAN>
+<tex2html_verbatim_mark>mathend000#, 
+ donde la flecha ocupa el lugar indicado por el número <tex2html_verbatim_mark>#math6917#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36284#</SPAN>
+<tex2html_verbatim_mark>mathend000# :
+</LI>
+<LI>La función de transición intenta conjeturar que partes derechas de reglas de producción son viables. El conjunto de estados actual del NFA representa el conjunto de pares 
+(regla de producción, posición en la parte derecha) que tienen alguna posibilidad de
+ser aplicadas de acuerdo con la entrada procesada hasta el momento:
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6918#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36286#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+</DIV>
+<P>
+<DIV ALIGN="CENTER"><tex2html_verbatim_mark>#math6919#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36288#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+</LI>
+<LI>Estado de arranque: Se añade la ``superregla'' <tex2html_verbatim_mark>#math6920#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36290#</SPAN>
+<tex2html_verbatim_mark>mathend000# a la gramática <tex2html_verbatim_mark>#math6921#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36292#</SPAN>
+<tex2html_verbatim_mark>mathend000#. El LR(0) item 
+<tex2html_verbatim_mark>#math6922#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36294#</SPAN>
+<tex2html_verbatim_mark>mathend000# es el estado de arranque.
+</LI>
+<LI>Todos los estados definidos (salvo el de muerte) son de aceptación.
+</LI>
+</UL><I></I><#36266#></DIV><P></P>
+
+
+<P>
+Denotaremos por <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36296#</SPAN>
+<tex2html_verbatim_mark>mathend000# a este autómata. Sus estados se denominan <tex2html_verbatim_mark>#math6923#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36298#</SPAN>
+<tex2html_verbatim_mark>mathend000#. La idea es que este
+autómata nos ayuda a reconocer los prefijos viables <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36300#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+Una vez que se tiene un autómata que reconoce los prefijos viables es posible construir un analizador sintáctico que construye una antiderivación a derechas. La estrategia consiste en ``alimentar'' el autómata con la forma sentencial derecha. El lugar en el que el autómata se detiene, rechazando indica el lugar exacto en el que termina el <SPAN  CLASS="textbf">handle</SPAN> de dicha forma.
+
+<P>
+<P><DIV><A NAME="example:asb"><#36302#><B>Ejemplo  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#36302#></A> &nbsp; 
+<#36305#><I>Consideremos la gramática:
+</I>
+<P>
+<I><BR>
+<BR>
+</I>
+<DIV ALIGN="CENTER"><I></I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+S      <tex2html_verbatim_mark>#math6924#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36307#</SPAN>
+<tex2html_verbatim_mark>mathend000# a S b</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+S      <tex2html_verbatim_mark>#math6925#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36309#</SPAN>
+<tex2html_verbatim_mark>mathend000# <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36311#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+</TABLE><I></I></DIV><I>
+<BR>
+<BR>
+</I>
+<P>
+<I>El lenguaje generado por esta gramática es <tex2html_verbatim_mark>#math6926#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36315#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+Es bien sabido que el lenguaje <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36317#</SPAN>
+<tex2html_verbatim_mark>mathend000# no es regular.
+La figura <A HREF=<tex2html_cr_mark>#fig:nfa#15486><tex2html_cr_mark></A> muestra 
+el <A NAME="15896"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">autómata finito no determinista con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36321#</SPAN>
+<tex2html_verbatim_mark>mathend000#-transiciones</SPAN> 
+(<A NAME="15898"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">NFA</SPAN>)
+que reconoce los prefijos viables de esta gramática, construido
+de acuerdo con el algoritmo <A HREF=<tex2html_cr_mark>#definition:slrautomata#15489><tex2html_cr_mark></A>.
+</I>
+<P>
+<I>Véase <A NAME="tex2html397"
+  HREF="https://github.com/crguezl/jison-aSb">https://github.com/crguezl/jison-aSb</A>
+para una implementación en Jison de una variante de esta gramática.
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I></I></DIV>
+<DIV ALIGN="CENTER"><A NAME="fig:nfa"><tex2html_anchor_mark></A><A NAME="15495"><tex2html_anchor_mark></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG><#36322#>Figura<#36322#> 34.1:</STRONG>
+<#36323#>NFA que reconoce los prefijos viables<#36323#></CAPTION>
+<TR><TD><tex2html_image_mark>#figure15493#</TD></TR>
+</TABLE>
+</DIV>
+<DIV ALIGN="CENTER"><I></I></DIV><I></I><#36305#></DIV><P></P>
+
+
+<P>
+<P><DIV><#36326#><B>Ejercicio  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">4</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#36326#> &nbsp; 
+<#36329#><I>Simule el comportamiento del autómata sobre la entrada <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36331#</SPAN>
+<tex2html_verbatim_mark>mathend000#. ¿Donde rechaza?
+¿En que estados está el autómata en el momento del rechazo?. ¿Qué etiquetas tienen?
+Haga también las
+trazas del autómata para las entradas <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36333#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36335#</SPAN>
+<tex2html_verbatim_mark>mathend000#. ¿Que antiderivación 
+ha construido el autómata con sus sucesivos rechazos? ¿Que terminales
+se puede esperar que hayan en la entrada cuando se produce el rechazo
+del autómata?</I><#36329#></DIV><P></P>
+
+
+<P>

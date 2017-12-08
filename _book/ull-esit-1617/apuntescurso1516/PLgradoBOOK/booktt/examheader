@@ -1,0 +1,31 @@
+\begin{tabular}{lcc}
+%%%%
+  \begin{tabular}{c}
+%   \epsfig{file=/tmp/ullesc.eps,width=1.5cm}  
+  \end{tabular}                      &
+%%%%
+  \begin{tabular}{c}
+   {\bf Universidad de La Laguna.  Escuela Técnica Superior de Ingeniería Informática}     \\
+   {\bf [% titulacion  %]}\\
+   {\bf [% asignatura %]}\\
+   [% fecha %]  \pageref*{LastPage} páginas         \\   
+  \end{tabular}                      &
+%%%%
+%%%%
+\end{tabular}
+
+\bigskip
+
+%\hrulefill
+[% nombre -%] \underline{\hspace{11.5cm}} Fecha [% fecha -%]\underline{\hspace{2cm}} 
+\bigskip
+
+%\begin{footnotesize}
+%Notas:
+%\begin{itemize}
+%  \item
+%  La duración del examen completo es de 2 horas.
+%\end{itemize}
+%\end{footnotesize}
+
+

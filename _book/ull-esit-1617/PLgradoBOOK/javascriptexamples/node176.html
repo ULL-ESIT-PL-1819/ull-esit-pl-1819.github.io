@@ -1,0 +1,63 @@
+
+<H1><A NAME="SECTION05840000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:tablas"><tex2html_anchor_mark></A><BR>
+El módulo Generado por <TT>yapp</TT>
+</H1>
+La ejecución de la orden <tex2html_verb_mark>2333<tex2html_verb_mark> produce 
+como salida el módulo <tex2html_verb_mark>2334<tex2html_verb_mark> el cual contiene las tablas LALR(1)
+para la gramática descrita en <tex2html_verb_mark>2335<tex2html_verb_mark>. Estas tablas son las que
+dirigen al analizador LR. 
+Puede ver el código completo del módulo en el apéndice
+que se encuentra en la página <A HREF=<tex2html_cr_mark>#apendice:calcpm#17618><tex2html_cross_ref_visible_mark></A>.
+La  estructura del módulo <tex2html_verb_mark>2336<tex2html_verb_mark> es como sigue:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6128#</PRE>
+
+<P>
+La clase <tex2html_verb_mark>2337<tex2html_verb_mark> hereda de <tex2html_verb_mark>2338<tex2html_verb_mark>, pero el objeto creado
+será bendecido en la clase <tex2html_verb_mark>2339<tex2html_verb_mark> (Línea 4, véanse también 
+la figura <A HREF=<tex2html_cr_mark>#fig:yappinheritance#17621><tex2html_cr_mark></A> 
+y la línea 72 del fuente). 
+Por tanto, el constructor llamado en la línea 11 es el de <tex2html_verb_mark>2340<tex2html_verb_mark>.
+Se utiliza la estrategia de llamada con parámetros con nombre. 
+El valor para la clave <tex2html_verb_mark>2341<tex2html_verb_mark> es una referencia anónima 
+al array de estados y el valor para la clave <tex2html_verb_mark>2342<tex2html_verb_mark> 
+es una referencia anónima a las reglas.
+<PRE><tex2html_verbatim_mark>verbatim6129#</PRE>
+Se ve que un estado se pasa como un hash anónimo indexado en las acciones
+y los saltos. 
+
+<P>
+Para consultar los números asociados con las reglas de producción
+vea el apéndice en la página <A HREF=<tex2html_cr_mark>#apendice:calcouput#17624><tex2html_cross_ref_visible_mark></A>
+conteniendo el fichero <tex2html_verb_mark>2343<tex2html_verb_mark>.
+
+<P>
+A continuación vienen las reglas:
+<PRE><tex2html_verbatim_mark>verbatim6130#</PRE>
+Las reglas son arrays anónimos conteniendo el nombre de la regla o
+variable sintáctica (<tex2html_verb_mark>2344<tex2html_verb_mark>), el número de símbolos en la parte
+derecha y la subrutina anónima con el código asociado.
+
+<P>
+Vemos como la acción es convertida en una subrutina anónima. 
+Los argumentos de dicha subrutina son los atributos semánticos
+asociados con los símbolos en la parte derecha de la regla de 
+producción. El valor retornado por la acción/subrutina
+es el valor asociado con la reducción.
+
+<P>
+Para hacer que 
+el compilador Perl diagnostique los errores relativos al fuente 
+<tex2html_verb_mark>2345<tex2html_verb_mark> se usa una directiva <tex2html_verb_mark>2346<tex2html_verb_mark>.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6131#</PRE>
+
+<P>
+la bendición con dos argumentos hace que el objeto pertenezca a la
+clase <tex2html_verb_mark>2347<tex2html_verb_mark>. A continuación siguen las subrutinas de soporte:
+<PRE><tex2html_verbatim_mark>verbatim6132#</PRE>
+
+<P>

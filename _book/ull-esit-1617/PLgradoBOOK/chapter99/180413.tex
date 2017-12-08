@@ -1,0 +1,65 @@
+
+\item
+Escriba un analizador léxico en Jison 
+(que suponemos se guardará en un fichero \verb|calc.l|) 
+para una calculadora con números, restas, productos y menos unario
+
+\item
+\label{item:grammar}
+Escriba el correspondiente analizador sintáctico en Jison 
+(que suponemos se guardará en un fichero \verb|calc.jison|) 
+para una calculadora con números, productos, restas y menos unario.
+Deberá aceptar frases como \verb|-2.5|, \verb|-3.1e2-5e3|, \verb|-2*3|,
+etc.
+
+
+\item
+Añada acciones semánticas a 
+la gramática del ejercicio 
+\ref{item:grammar}
+para la evaluación de las expresiones
+aritméticas. Puede contestar conjuntamente a este ejercicio 
+y al ejercicio \ref{item:grammar} 
+
+\item 
+Explique que conflictos aparecen en el 
+ejercicio
+\ref{item:grammar} y como los ha resuelto
+¿Cómo se resuelven los conflictos en yacc?
+¿Cómo se da precedencia a las reglas y a los terminales?
+
+\item 
+Escriba el comando para generar el código javascript de la mini
+calculadora a partir de los fuentes \verb|calc.jison| y
+\verb|calc.l|
+
+\item 
+Calcule los FIRST para las variables sintácticas de dicha gramática
+(Véase 
+\ref{subsection:first})
+\item 
+Calcule los FOLLOW  para las variables sintácticas de dicha gramática
+(Véase la sección
+\ref{subsection:first})
+
+\item
+\label{item:dfa}
+Calcule el DFA que reconoce los prefijos viables de dicha gramática
+(Véase la sección 
+\ref{section:conceptosbasicos}
+y la sección
+\ref{subsection:nfa2dfa})
+\item 
+Simule la antiderivacion a derechas/construción del árbol de análisis sintáctico
+realizada usando el DFA construído en el ejercicio 
+\ref{item:dfa}
+sobre la 
+entrada
+'\verb|-1-2|'.
+
+En cada momento de la simulación indique cual es la forma sentencial derecha actual y 
+la posición en la misma (algo como $-e_\uparrow - NUM$),
+en que posición de lectura de la entrada estamos 
+(esto es, quién es el token lookahead que se está viendo), en que estado
+del DFA estamos y cual es la acción tomada (desplazar o reducir).
+

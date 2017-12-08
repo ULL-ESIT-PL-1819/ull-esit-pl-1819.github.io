@@ -1,0 +1,39 @@
+
+<H1><A NAME="SECTION052130000000000000000">
+yyless()</A>
+</H1>
+La funci&#243;n <tex2html_verb_mark>295<tex2html_verb_mark> permite retrasar el puntero de lectura  
+de manera que apunta al car&#225;cter <SPAN  CLASS="textit">n</SPAN> de <SPAN  CLASS="textit">yytext</SPAN>. 
+Veamos un ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim643#</PRE>
+Veamos un ejemplo mas ``real''. supongamos que tenemos que reconocer 
+las cadenas entre comillas dobles, pero que pueden aparecer en las
+mismas secuencias de escape <tex2html_verb_mark>296<tex2html_verb_mark>. La estrategia general del algoritmo
+es utilizar la expresión regular <tex2html_verb_mark>297<tex2html_verb_mark> y examinar si
+los dos últimos  carácteres en <tex2html_verb_mark>298<tex2html_verb_mark> son <tex2html_verb_mark>299<tex2html_verb_mark>. En tal caso, 
+se concatena la cadena actual (sin la <tex2html_verb_mark>300<tex2html_verb_mark> final) como prefijo para
+el próximo emparejamiento (utilizando <tex2html_verb_mark>301<tex2html_verb_mark>). 
+La eliminación de la <tex2html_verb_mark>302<tex2html_verb_mark> se hace a través de la ejecución de 
+<tex2html_verb_mark>303<tex2html_verb_mark>, que al mismo tiempo garantiza que el próximo emparejamiento 
+tendrá lugar con este mismo patrón <tex2html_verb_mark>304<tex2html_verb_mark>.
+<PRE><tex2html_verbatim_mark>verbatim644#</PRE>
+El ejemplo no puede entenderse si no se tiene en cuenta que
+<tex2html_verb_mark>305<tex2html_verb_mark> actualiza los valores de <SPAN  CLASS="textit">yyleng</SPAN> 
+y <SPAN  CLASS="textit">yytext</SPAN>, como muestra la salida.
+<BR>¿Qu&#233; ocurre si intercambiamos las posiciones de <tex2html_verb_mark>306<tex2html_verb_mark>
+e <tex2html_verb_mark>307<tex2html_verb_mark> en el c&#243;digo? ;SPMgt;Cambiara la salida? 
+La respuesta es que no. Parece que la concatenaci&#243;n se hace con el valor
+final de <SPAN  CLASS="textit">yytext</SPAN> y no con el valor que este ten&#305;a en el momento de
+la llamada a <SPAN  CLASS="textit">yymore</SPAN>.
+<BR>Otra observaci&#243;n  a tener en cuenta es que <SPAN  CLASS="textit">yyless()</SPAN>
+es una macro y que, por tanto,
+s&#243;lo puede ser utilizada dentro del fichero <SPAN  CLASS="textit">lex</SPAN> y no en otros
+ficheros fuentes.
+
+<P>
+En general, el uso de estas funciones  nos puede resolver el problema
+de reconocer l&#305;mites que de otra forma ser&#305;an dif&#305;ciles de expresar
+con una expresi&#243;n regular.
+<PRE><tex2html_verbatim_mark>verbatim645#</PRE>
+
+<P>

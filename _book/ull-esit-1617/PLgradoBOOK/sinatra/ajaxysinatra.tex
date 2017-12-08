@@ -1,0 +1,418 @@
+
+\section{Un Programa para Experimentar con las Expresiones Regulares Usando Ajax}
+
+\htmladdnormallink{regular expression testing playground with ruby and sinatra}{https://gist.github.com/blazeeboy/9259204}
+
+\begin{verbatim}
+[~/sinatra/regexp(master)]$ cat regex-tester.rb 
+require 'sinatra' # gem install sinatra --no-ri --no-rdoc
+set :port, 3000
+html = <<-EOT
+<html><head><style>
+#regex,#text{ width:100%; font-size:15px; display:block; margin-bottom:5px; }
+#text{ height: 200px; }
+span{ background:rgb(230,191,161); display:inline-block; border-radius:3px;}
+</style></head><body>
+ 
+  <input id="regex" placeholder="Regex"/>
+  <textarea id="text" placeholder="Text"></textarea>
+  <div id="result"></div>
+ 
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script>
+  $('#regex,#text').keyup(function(){
+      $.get('/preview',{
+        reg:$('#regex').val(),
+        text:$('#text').val()
+      },function(r){
+        $('#result').html(r);
+      });
+  });
+  </script>
+ 
+</body></html>
+EOT
+ 
+get('/'){ html }
+get '/preview' do 
+  begin
+    params['text'].gsub(/(#{params['reg']})/,'<span>\1</span>')
+  rescue
+    'Your regex is invalid'
+  end
+end
+\end{verbatim}
+
+\section{Un Ejemplo Simple}
+
+Véase 
+\htmladdnormallink{sinatra-jquery-ajax}{https://github.com/crguezl/sinatra-jquery-ajax}
+en GitHub.
+
+\begin{verbatim}
+~/sinatra/sinatra-jquery-ajax(master)]$ tree
+.
+|--- Gemfile
+|--- Gemfile.lock
+|--- README
+|--- config.ru
+|--- public
+|   |--- css
+|   |   `--- style.css
+|   `--- js
+|       `--- app.js
+|--- sinatra_jquery_test.rb
+`--- views
+    |--- app.erb
+    `--- layout.erb
+\end{verbatim}
+
+\begin{verbatim}
+[~/sinatra/sinatra-jquery-ajax(master)]$ cat sinatra_jquery_test.rb 
+require 'sinatra'
+
+get '/' do
+  erb :app
+end
+
+get '/play' do 
+  if request.xhr?
+    %q{<h1 class="blue">Hello! <a href="/">back</a></h1>}
+  else
+    "<h1>Not an Ajax request!</h1>"
+  end
+end
+\end{verbatim}
+
+\parrafo{request.xhr?}
+
+El predicado
+\verb|request.xhr?| nos permite saber si este es una request ajax.
+
+\begin{verbatim}
+[~/sinatra/sinatra-jquery-ajax(master)]$ cat views/layout.erb 
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/app.js"></script>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
+\end{verbatim}
+
+\parrafo{Content Delivery Network (CDN)}
+A \cei{Content Delivery Network} (\cei{CDN}) is a distributed system of web servers 
+that aim to deliver content to users quickly and efficiently. 
+
+A large number of CDNs are available for JavaScript libraries. 
+
+The idea is that if lots of sites use the same CDN or \cei{hotlink}
+(véase
+\htmladdnormallink{Hotlinking}{http://simple.wikipedia.org/wiki/Hotlinking}), 
+it will be cached locally on the user’s machine, saving the user 
+from an extra download across all those sites. 
+
+The downside is a loss of control and the chance (however small) 
+that the CDN might go down and be unavailable.
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{Google Hosted Libraries - Developer's Guide}{https://developers.google.com/speed/libraries/devguide}
+\item 
+\htmladdnormallink{jQuery download}{http://jquery.com/download/}
+\end{enumerate}
+
+\parrafo{views/app.erb}
+\begin{verbatim}
+[~/sinatra/sinatra-jquery-ajax(master)]$ cat views/app.erb 
+<div id="div1">
+  <h2 class="pink">Let jQuery AJAX Change This Text</h2>
+  <button type="button">Get External Content</button>
+</div>
+\end{verbatim}
+Inside a \verb|<button>| element you can put content, like text or images. This is the difference between this element and buttons created with the \verb|<input>| element.
+
+Always specify the type attribute for a \verb|<button>| element. Different browsers use different default types for the \verb|<button>| element.
+
+HTML5 has the following new attributes: \verb|autofocus|, \verb|form|, \verb|formaction|, \verb|formenctype|, \verb|formmethod|, \verb|formnovalidate|, and \verb|formtarget|.
+
+
+\parrafo{public/js/app.js}
+
+\begin{verbatim}
+[~/sinatra/sinatra-jquery-ajax(master)]$ cat public/js/app.js 
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#div1").load("/play",function(responseTxt,statusTxt,xhr){
+      /* if(statusTxt=="success") alert("External content loaded successfully!"); */
+      if(statusTxt=="error")
+        alert("Error: "+xhr.status+": "+xhr.statusText);
+    });
+  });
+});
+\end{verbatim}
+
+\parrafo{\$(document).ready(function()\{ ... \})}
+No es posible interactuar de forma segura con el contenido de una página hasta que el documento no se encuentre preparado para su manipulación. 
+
+jQuery permite detectar dicho estado a través de la declaración 
+\begin{verbatim}
+$(document).ready() 
+\end{verbatim}
+de forma tal que el bloque se ejecutará sólo una vez que la página este disponible.
+
+\parrafo{selectores CSS}
+El concepto más básico de jQuery es el de 
+\emph{seleccionar algunos elementos y realizar acciones con ellos}.
+
+La biblioteca soporta gran parte de los selectores CSS3 y varios más no estandarizados. 
+
+\begin{verbatim}
+    $("#div1").load("/play",function(responseTxt,statusTxt,xhr){ ... }
+\end{verbatim}
+
+En 
+\htmladdnormallink{http://api.jquery.com/category/selectors/ }{http://api.jquery.com/category/selectors/ }
+se puede encontrar una completa referencia sobre los selectores de la biblioteca.
+
+\parrafo{Controladores de Eventos (Event Handlers)}
+
+jQuery provee métodos para asociar \cei{controladores de eventos} (en inglés \cei{event handlers}) 
+a selectores. 
+
+Cuando un evento ocurre, la función provista es ejecutada. 
+\begin{verbatim}
+  $("button").click(function(){ ... })
+\end{verbatim}
+
+Dentro de la función, la palabra clave \verb|this| hace referencia al elemento en que el evento ocurre.
+
+Para más detalles sobre los eventos en jQuery, puede consultar 
+\htmladdnormallink{http://api.jquery.com/category/events/.}{http://api.jquery.com/category/events/}
+
+\parrafo{El Evento}
+La función del controlador de eventos puede recibir un objeto. 
+
+Este objeto puede ser utilizado para determinar la naturaleza del
+evento o, por ejemplo, prevenir el comportamiento predeterminado
+de éste.
+
+Para más detalles sobre el objeto del evento, visite 
+
+\parrafo{XMLHttpRequest(XHR)}
+
+\htmladdnormallink{http://api.jquery.com/category/events/event-object/}{http://api.jquery.com/category/events/event-object/}
+
+El método \verb|XMLHttpRequest(XHR)| permite a los navegadores comunicarse con el servidor sin la necesidad de recargar la página. 
+
+Este método, también conocido como \cei{Ajax} (\cei{Asynchronous JavaScript and XML}), permite la creación de aplicaciones ricas en interactividad.
+
+Las peticiones Ajax son ejecutadas por el código JavaScript, el cual 
+
+\begin{enumerate}
+\item 
+envía una petición a una URL y 
+\item 
+cuando recibe una respuesta, una \cei{función de devolución} (\cei{callback}) 
+puede ser ejecutada 
+\item 
+Esta función recibe como argumento la respuesta del servidor y realiza algo con ella. 
+\item 
+Debido a que la respuesta es asíncrona, 
+el resto del código de la aplicación continua ejecutándose, por lo cual, es imperativo que una función de devolución sea ejecutada para manejar la respuesta.
+\end{enumerate}
+
+\parrafo{Métodos jQuery para Ajax}
+A través de varios métodos, jQuery provee soporte para Ajax, 
+permitiendo abstraer las diferencias que pueden existir entre navegadores. 
+
+Los métodos en cuestión son 
+
+\begin{enumerate}
+\item \verb|$.get()|
+\htmladdnormallink{.get()}{http://api.jquery.com/jQuery.get/}
+\item \verb|$.getScript()|
+\htmladdnormallink{.getScript()}{http://api.jquery.com/jQuery.getScript/}
+\item \verb|$.getJSON()|
+\htmladdnormallink{.getJSON()}{http://api.jquery.com/jQuery.getJSON/}
+\item \verb|$.post()|
+\htmladdnormallink{.post()}{http://api.jquery.com/jQuery.post/}
+\item \verb|$().load()|
+\htmladdnormallink{.load()}{http://api.jquery.com/load/}
+\item 
+\item \verb|$().ajax()|
+\htmladdnormallink{jQuery.ajax()}{http://api.jquery.com/jQuery.ajax/}
+\end{enumerate}
+
+A pesar que la definición de Ajax posee la palabra \verb|XML|, la
+mayoría de las aplicaciones no utilizan dicho formato para el
+transporte de datos, sino que en su lugar se utiliza HTML plano o
+información en formato \cei{JSON} (\wikip{JSON}, \cei{JavaScript Object Notation}).
+
+Generalmente, jQuery necesita algunas instrucciones sobre el tipo de información 
+que se espera recibir cuando se realiza una petición Ajax. 
+
+En algunos casos, el tipo de dato es especificado por el nombre del método, 
+pero en otros casos se lo debe detallar como parte de la configuración del método:
+
+\begin{enumerate}
+\item 
+\verb|text| Para el transporte de cadenas de caracteres simples.
+\item 
+\verb|html| Para el transporte de bloques de código HTML que serán ubicados en la página.
+\item 
+\verb|script| Para añadir un nuevo script con código JavaScript a la página.
+\item 
+\verb|json| Para transportar información en formato JSON, el cual puede incluir cadenas de caracteres, arreglos y objetos.
+
+Es recomendable utilizar los mecanismos que posea el lenguaje del
+lado de servidor para la generación de información en JSON.
+\item 
+\verb|jsonp| Para transportar información JSON de un dominio a otro. 
+\item 
+\verb|xml| Para transportar información en formato XML.
+\end{enumerate}
+
+\parrafo{.load()}
+La sintáxis de 
+\htmladdnormallink{.load()}{http://api.jquery.com/load/}
+es:
+\begin{verbatim}
+.load( url [, data ] [, complete(responseText, textStatus, XMLHttpRequest) ] )
+\end{verbatim}
+
+En nuestro ejemplo lo hemos usado así:
+
+\begin{verbatim}
+    $("#div1").load("/play",function(responseTxt,statusTxt,xhr){
+      /* if(statusTxt=="success") alert("External content loaded successfully!"); */
+      if(statusTxt=="error")
+        alert("Error: "+xhr.status+": "+xhr.statusText);
+    });
+\end{verbatim}
+Load data from the server and place the returned HTML into the matched element.
+Por ejemplo:
+\begin{verbatim}
+$( "#result" ).load( "ajax/test.html" );
+\end{verbatim}
+If no element is matched by the selector, in this case, 
+\begin{verbatim}
+.load( url [, data ] [, complete(responseText, textStatus, XMLHttpRequest) ] )
+\end{verbatim}
+if the document does not contain an element with \verb|id="result"|,
+the Ajax request will not be sent.
+
+\parrafo{.load() usa GET si no se especifica {\tt data}}
+The \verb|POST| method is used if \verb|data| \emph{is provided as an
+object}; otherwise, \verb|GET| is assumed.
+
+\parrafo{Especificando un Objeto del Documento Remoto via un Selector}
+The \verb|.load()| method, unlike \verb|$.get()|, 
+allows us to specify a portion of the remote document to be inserted. 
+
+This is achieved with a special syntax for the \verb|url| 
+parameter. 
+
+If one or more space characters are included in the string, 
+the portion of the string following the first space is assumed 
+to be a jQuery selector that determines the content to be loaded.
+
+\begin{verbatim}
+$( "#result" ).load( "ajax/test.html #container" );
+\end{verbatim}
+
+When this method executes, it retrieves the content of \verb|ajax/test.html|,
+but then jQuery parses the returned document to find the element
+with an ID of \verb|container|. 
+
+This element, along with its contents, is
+inserted into the element with an ID of \verb|result|, and the rest of the
+retrieved document is discarded.
+
+We could modify the example above to use only part of the document that is fetched:
+
+\parrafo{.innerHTML y .load}
+
+jQuery uses the browser's 
+\htmladdnormallink{.innerHTML}{http://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_elmnt_innerhtml} property to parse 
+the retrieved document and insert it into the current document. 
+
+During this process, browsers often filter elements from the document such as 
+\verb|<html>|, 
+\verb|<title>|, or 
+\verb|<head>| elements. As a result, the elements retrieved by 
+\verb|.load()| may not be exactly the same as if the 
+document were retrieved directly by the browser.
+
+\section{Ajax, Sinatra y RightJS}
+Ajax has been around for a while now but that doesn’t mean it is any
+less fun. The nice thing about Sinatra is you are left to do as much or
+little JavaScript as you like and you can do it in any way
+that you want as well. 
+
+In this 
+\htmladdnormallink{ditty }{http://ididitmyway.herokuapp.com/past/2011/2/27/ajax_in_sinatra/}
+I hope to show that it’s easy
+to add some Ajax magic to a Sinatra app (with a little help from a
+JavaScript framework).
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{An example of Sinatra working with Ajaxified JQuery based on some pieces of code published by Rafael George on the Sinatra Google Group}{https://gist.github.com/mr-rock/205948}
+\item 
+\htmladdnormallink{Ajax, Sinatra y RightJS}{http://ididitmyway.herokuapp.com/past/2011/2/27/ajax_in_sinatra/}
+Darren Jones
+\end{enumerate}
+
+\sectionpractica{TicTactoe Usando Ajax}
+\label{practica:tictactoeajax}
+
+Extienda la práctica del TicTacToe enunciada e la sección 
+\ref{practica:tictactoedatamapper}
+para que la página no se recarge cada vez que el jugador hace click 
+en una de las casillas.
+
+El código Javascript se encargará de que el navegador envíe la jugada 
+elegida por el usuario ""\verb|b2|". Si la jugada es correcta (la casilla 
+\verb|b2| no está ocupada) el servidor retornará al navegador la información necesaria
+para que pueda proceder a mostrar los movimientos elegidos por el jugador y el computador.
+En caso contrario el servidor envía un código de jugada ilegal.
+El código javascript es el que modifica la clase de la casilla a \verb|cross| o 
+\verb|circle| de manera adecuada.
+
+Mejore las hojas de estilo usando SAAS \ref{chapter:sass}.
+Despliegue la aplicación en \Heroku{}.
+
+\begin{enumerate}
+\item 
+jQuery \htmladdnormallink{.click()}{http://api.jquery.com/click/}
+\item 
+jQuery \htmladdnormallink{.get()}{http://api.jquery.com/jQuery.get/}
+\item 
+jQuery \htmladdnormallink{.addClass()}{http://api.jquery.com/addClass/}
+\item 
+jQuery \htmladdnormallink{.data()}{http://api.jquery.com/data/}
+\item 
+Como obtener en JS el valor de un elemento sobre el que se ha hecho click?.
+Véase una solución en 
+\htmladdnormallink{jsfiddle}{http://jsfiddle.net/UcHuD/}
+\item 
+\htmladdnormallink{HTML5 Custom Data Attributes (data-*)}{http://html5doctor.com/html5-custom-data-attributes/}
+\item Puede usar plain text para la comunicación. Opcionalmente si se quiere usar JSON,
+la gema \htmladdnormallink{sinatra-json}{http://www.sinatrarb.com/contrib/json.html}
+añade un JSON helper que permite retornar documentos JSON.
+Se pueden consultar estas fuentes:
+  \begin{enumerate}
+  \item 
+  \htmladdnormallink{json}{http://www.sinatrarb.com/contrib/json.html}
+  \item 
+  \htmladdnormallink{How to: Return JSON from Sinatra}{http://nathanhoad.net/how-to-return-json-from-sinatra}
+  \item \htmladdnormallink{A very small example app showing how to accept and return JSON as an API}{https://github.com/sklise/sinatra-api-example}
+  \end{enumerate}
+\end{enumerate}
+
+

@@ -1,0 +1,447 @@
+<p><span>lcc</span></p>
+<p>-- --</p>
+<p>&amp;</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center"><span><strong>Universidad de La Laguna. Escuela Técnica Superior de Ingeniería Informática</strong></span></td>
+</tr>
+<tr class="even">
+<td align="center"><span><strong>Tercero del Grado de Informática</strong></span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span>****</span></td>
+</tr>
+<tr class="even">
+<td align="center">2014/2015 páginas</td>
+</tr>
+</tbody>
+</table>
+<p>&amp;</p>
+<h1 id="consideraciones">Consideraciones</h1>
+<p>Faltan preguntas de:</p>
+<h1 id="jquery">jQuery</h1>
+<ol style="list-style-type: decimal">
+<li><p>jQuery uses CSS selectors to select elements? True or false?</p></li>
+<li><p>Which sign does jQuery use as a shortcut for jQuery?</p></li>
+<li><p>With jQuery, look at the following selector: <code>$(&quot;div&quot;)</code>. What does it select?</p></li>
+<li><p>The jQuery <code>html()</code> method works for both HTML and XML documents. True or false?</p></li>
+<li><p>What is the correct jQuery code to set the background color of all p elements to red?</p></li>
+<li><p>With jQuery, look at the following selector: <code>$(&quot;div.intro&quot;)</code>. What does it select?</p></li>
+<li><p>Which jQuery method is used to hide selected elements?</p></li>
+<li><p>Which jQuery method is used to set one or more style properties for selected elements?</p></li>
+<li><p>Which jQuery method is used to perform an asynchronous HTTP request?</p></li>
+<li><p>What is the correct jQuery code for making all div elements 100 pixels high?</p></li>
+<li><p>Which jQuery function is used to prevent code from running, before the document is finished loading?</p></li>
+<li><p>Which jQuery method should be used to deal with name conflicts?</p></li>
+<li><p>Which jQuery method is used to switch between adding/removing one or more classes (for CSS) from selected elements?</p></li>
+<li><p>Look at the following jQuery selector: <code>$(&quot;div#intro .head&quot;)</code>. What does it select?</p></li>
+<li><p>Is jQuery a W3C standard?</p></li>
+</ol>
+<h1 id="underscore">Underscore</h1>
+<ol style="list-style-type: decimal">
+<li><p>¿Que argumentos espera el método <code>template</code> de Underscore? ¿Cual es la función de cada uno de ellos?</p></li>
+<li><p>¿Que diferencia hay entre <code>&lt;% ... %&gt;</code>, <code>&lt;%= ... %&gt;</code> y <code>&lt;%- ... %&gt;</code>?</p></li>
+<li><p>El atributo <code>templateSettings</code> de Underscore puede ser usado para configurar los templates. Rellene las expresiones regulares que faltan para que se usen delimitadores con llaves como <code>{{ ... }}</code> para evaluar, <code>{{= ... }}</code> para interpolar y <code>{{- ... }}</code> para interpolar y escapar el HTML:</p>
+<pre><code>_.templateSettings = {
+       interpolate: /____________________/gim,
+       evaluate:    /____________________/gim
+       escape:      /____________________/gim
+ }</code></pre></li>
+<li><p>Queremos mostrar una lista de <code>items</code> en una tabla con dos columnas. En la primera columna va el número de orden y en la segunda el nombre del item. El template Underscore se carga desde el elemento <code>#usageList</code> del DOM y el resultado del template se vuelca en el elemento <code>#target</code> como sigue:</p>
+<pre><code>var items = [ {name:&quot;Alejandro&quot;}, {name:&quot;.......&quot;}, {name:&quot;Zacarias&quot;} ];
+var template = usageList.innerHTML;
+target.innerHTML = _.template(template,{items:items});</code></pre>
+<p>Complete el identificador del <code>&lt;script&gt;</code>, el identificador del <code>&lt;div&gt;</code> usado para la salida y la parte que falta entre las etiquetas <code>&lt;tbody&gt;</code>:</p>
+<pre><code>&lt;script type=&quot;text/html&quot; id=&#39;_________&#39;&gt;
+    &lt;table&gt; 
+      &lt;thead&gt; 
+         &lt;tr&gt; 
+            &lt;th&gt; Id &lt;/th&gt; &lt;th&gt;Name&lt;/th&gt; 
+         &lt;/tr&gt;
+      &lt;/thead&gt; 
+      &lt;tbody&gt;
+
+
+
+
+
+
+
+    &lt;/tbody &gt; 
+   &lt;/table&gt;
+&lt;/script&gt;
+&lt;!-- Create your target --&gt;
+&lt;div id=&quot;______&quot;&gt;&lt;/div&gt;</code></pre></li>
+</ol>
+<h1 id="localstorage">localStorage</h1>
+<ol style="list-style-type: decimal">
+<li><p>¿Que diferencias y que similitudes hay entre los cookies y localStorage?</p></li>
+<li><p>¿Que diferencias hay entre localStorage y sessionStorage?</p></li>
+<li><p>¿En que consiste las reglas de segregación conocidas como <span><em>same origin policy</em></span>? ¿Como se relacionan con localStorage?</p></li>
+<li><p>¿Como guardo en localStorage el contenido de una variable <code>chuchu</code>? ¿Como leo el contenido almacenado en localStorage con clave <code>chuchu</code>?</p></li>
+<li><p>¿Como borro una clave almacenada en localStorage?</p></li>
+<li><ol style="list-style-type: decimal">
+<li><p>¿Que es ? ¿Que hace la siguiente línea?</p>
+<pre><code>  if (window.localStorage) localStorage.original  = temp;</code></pre></li>
+<li><p>¿Cuando se ejecutará esta callback? ¿Que hace?</p>
+<pre><code>window.onload = function() {
+  // If the browser supports localStorage and we have some stored data
+  if (window.localStorage &amp;&amp; localStorage.original) {
+    document.getElementById(&quot;original&quot;).value = localStorage.original;
+  }
+};</code></pre></li>
+</ol></li>
+</ol>
+<h1 id="heroku">Heroku</h1>
+<ol style="list-style-type: decimal">
+<li><p>Una vez instalado el Heroku toolbelt nos debemos autenticar en heroku con el cliente. ¿Cual es el comando para autenticarnos?</p></li>
+<li><p>¿Cual es el comando para crear nuestra aplicación en Heroku (suponemos que ya esta bajo el control de <code>git</code>? ¿Qué remoto tendremos definido después de crear nuestra aplicación en Heroku?</p></li>
+<li><p>¿Cual es el comando para desplegar nuestra aplicación en Heroku?</p></li>
+<li><p>Si la versión que queremos publicar en heroku no está en la rama <code>master</code> sino que está en la rama <code>tutu</code> ¿Como debemos modificar el comando anterior?</p></li>
+<li><p>¿Con que comando puedo abrir una ventana en el navegador que visite la aplicación desplegada? ¿Que formato tiene la URL para nuestra aplicación?</p></li>
+<li><p>¿Con que comando puedo ver los logs de la aplicación desplegada?</p></li>
+<li><p>¿Como se debe llamar el fichero en el que explicito que comando debe usarse para arrancar nuestra aplicación en Heroku?</p></li>
+<li><p>Heroku se percata que nuestra aplicación es una aplicación desarrollada con <code>Node.js</code> por la presencia de un cierto fichero. ¿De que fichero estamos hablando?</p></li>
+<li><p>¿Cual es la mejor forma de ejecutar en local una aplicación express.js que va a ser desplegada en Heroku?</p></li>
+</ol>
+<h1 id="ecma6">ECMA6</h1>
+<ol style="list-style-type: decimal">
+<li><p>Escriba en ECMA6 un programa que</p></li>
+<li><p>Observemos este ejemplo:</p>
+<pre><code>class Contact {
+1     constructor(name, email, button) {
+2       this.name = name;
+3       this.email = email;
+4     
+5       button.onclick = function(event) {
+6         sendEmail(this.email);
+7       }
+8     }
+9   }</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>¿Cuanto vale <code>this</code> en la línea 6?</p></li>
+<li><p>¿Como podemos reescribir este código en ECMA6 para que <code>this</code> refiera al objeto <code>Contact</code>?</p></li>
+</ol></li>
+<li><p>¿Que se entiende por Hoisting en JS? ¿Que efectos indeseables conlleva? ¿Como se soluciona en ECMA5?</p></li>
+</ol>
+<h1 id="mongo-y-mongoose">Mongo y Mongoose</h1>
+<ol style="list-style-type: decimal">
+<li><p>¿Que diferencia hay entre una tabla de una base de datos relacional y una collection de MongoDB?</p></li>
+<li><p>¿Como se llama la primary key de un documento MongoDB?</p></li>
+<li><p>Escriba el código Mongoose para conectarse a la MongoDB database <code>chuchu</code></p></li>
+<li><p>Escriba el código Mongoose para crear un esquema para modelar una colección de <code>usuarios</code></p></li>
+<li><p>Escriba el código Mongoose para crear un modelo a partir del esquema anterior</p></li>
+<li><p>Escriba el código Mongoose para crear un documento usuario y guardarlo en la base de datos</p></li>
+<li><p>Escriba el código Mongoose para buscar por un documento usuario con nombre <code>'Pepe'</code></p></li>
+</ol>
+<h1 id="ejs">EJS</h1>
+<ol style="list-style-type: decimal">
+<li><p>Véase</p></li>
+<li><p>Mejore este template</p>
+<pre><code>&lt;li&gt;
+    &lt;a href=&#39;supplies/&lt;%= supplies[i] %&gt;&#39;&gt;
+        &lt;%= supplies[i] %&gt;
+    &lt;/a&gt;
+&lt;/li&gt;</code></pre>
+<p>usando un helper proveído por EJS</p></li>
+</ol>
+<h1 id="jade">Jade</h1>
+<ol style="list-style-type: decimal">
+<li><p>Véase</p></li>
+<li><p>Traduzca a Jade el siguiente código HTML:</p>
+<pre><code>&lt;div id=&quot;content&quot;&gt;
+  &lt;div class=&quot;block&quot;&gt;
+    &lt;input id=&quot;bar&quot; class=&quot;foo1 foo2&quot;/&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre></li>
+<li><p>¿Que hace el punto después de un elemento? como en:</p>
+<pre><code>p.
+  foo bar
+  hello world</code></pre></li>
+<li><p>Supongamos que el objeto interpolado es:</p>
+<pre><code>{&quot;name&quot;: &quot;Hello &lt;em&gt;World&lt;/em&gt;&quot;}</code></pre>
+<p>¿Que diferencia hay entre estas dos interpolaciones?</p>
+<ol style="list-style-type: decimal">
+<li><p><code>li= name</code></p></li>
+<li><p><code>li!= name</code></p></li>
+</ol></li>
+<li><p>¿Que diferencia hay entre estas dos interpolaciones?</p>
+<ol style="list-style-type: decimal">
+<li><p><code>li Say #{name}</code></p></li>
+<li><p><code>li Say !{name}</code></p></li>
+</ol></li>
+<li><p>Traduzca a Jade el siguiente fragmento HTML:</p>
+<pre><code>&lt;input type=&quot;text&quot; placeholder=&quot;your name&quot;/&gt;</code></pre></li>
+</ol>
+<h1 id="sass">SASS</h1>
+<ol style="list-style-type: decimal">
+<li><p>¿Como se inicializa una constante en SASS?</p></li>
+<li><p>Reescriba este fragmento CSS en SASS:</p>
+<pre><code>nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  display: block;
+  padding: 6px 12px;
+  text-decoration: none;
+}</code></pre></li>
+</ol>
+<h1 id="expresiones-regulares">Expresiones Regulares</h1>
+<ol style="list-style-type: decimal">
+<li><p>Rellene las partes que faltan:</p>
+<pre><code>&gt; re = /d(b+)(d)/ig
+/d(b+)(d)/gi
+&gt; z = &quot;dBdxdbbdzdbd&quot;
+&#39;dBdxdbbdzdbd&#39;
+&gt; result = re.exec(z)
+[ ______, _____, ______, index: __, input: &#39;dBdxdbbdzdbd&#39; ]
+&gt; re.lastIndex
+______
+&gt; result = re.exec(z)
+[ ______, _____, ______, index: __, input: &#39;dBdxdbbdzdbd&#39; ]
+&gt; re.lastIndex
+______
+&gt; result = re.exec(z)
+[ ______, _____, ______, index: __, input: &#39;dBdxdbbdzdbd&#39; ]
+&gt; re.lastIndex
+______
+&gt; result = re.exec(z)
+_____</code></pre></li>
+<li><p>Escriba la expresión regular <code>r</code> para que produzca el resultado final:</p>
+<pre><code>&gt; x = &quot;hello&quot;
+&gt; r = /l(___)/
+&gt; z = r.exec(x)
+[ &#39;l&#39;, index: 3, input: &#39;hello&#39; ]</code></pre></li>
+<li><p>Rellene el valor que falta:</p>
+<pre><code>&gt; z = &quot;dBdDBBD&quot;
+&gt; re = /d(b+)(d)/ig
+&gt; re.lastIndex = ________
+&gt; result = re.exec(z)
+[ &#39;DBBD&#39;,
+  &#39;BB&#39;,
+  &#39;D&#39;,
+  index: 3,
+  input: &#39;dBdDBBD&#39; ]</code></pre></li>
+<li><p>Conteste:</p>
+<ol style="list-style-type: decimal">
+<li><p>Explique que hace el siguiente fragmento de código:</p>
+<pre><code>&gt; RegExp.prototype.bexec = function(str) {
+...   var i = this.lastIndex;
+...   var m = this.exec(str);
+...   if (m &amp;&amp; m.index == i) return m;
+...   return null;
+... }
+[Function]</code></pre></li>
+<li><p>Rellene las salidas que faltan:</p>
+<pre><code>&gt; re = /d(b+)(d)/ig
+/d(b+)(d)/gi
+&gt; z = &quot;dBdXXXXDBBD&quot;
+&#39;dBdXXXXDBBD&#39;
+&gt; re.lastIndex = 3
+&gt; re.bexec(z)
+_____________________________________________________
+&gt; re.lastIndex = 7
+&gt; re.bexec(z)
+_____________________________________________________</code></pre></li>
+</ol></li>
+<li><p>Escriba una expresión JavaScript que permita reemplazar todas las apariciones de palabras consecutivas repetidas (como <code>hello hello</code>) por una sóla aparición de la misma</p></li>
+<li><p>¿Cual es la salida?</p>
+<pre><code>&gt; &quot;bb&quot;.match(/b|bb/)
+
+&gt; &quot;bb&quot;.match(/bb|b/)</code></pre>
+<p>Justifique su respuesta.</p></li>
+<li><p>El siguiente fragmento de código tiene por objetivo escapar las entidades HTML para que no sean intérpretadas como código HTML. Rellene las partes que faltan.</p>
+<pre><code>var entityMap = {
+    &quot;&amp;&quot;: &quot;&amp;___;&quot;,
+    &quot;&lt;&quot;: &quot;&amp;__;&quot;,
+    &quot;&gt;&quot;: &quot;&amp;__;&quot;,
+    &#39;&quot;&#39;: &#39;&amp;quot;&#39;,
+    &quot;&#39;&quot;: &#39;&amp;#39;&#39;,
+    &quot;/&quot;: &#39;&amp;#x2F;&#39;
+  };
+
+function escapeHtml(string) {
+  return String(string).replace(/_________/g, function (s) {
+    return ____________;
+  });</code></pre></li>
+</ol>
+<h1 id="json">JSON</h1>
+<ol style="list-style-type: decimal">
+<li>¿Como se llama el método que permite obtener una representación como cadena de un objeto? ¿Que parámetros espera? ¿Como afectan dichos parámetros?</li>
+</ol>
+<h1 id="oop">OOP</h1>
+<ol style="list-style-type: decimal">
+<li><p>Escriba un código JavaScript que defina una clase <code>Persona</code> con atributos <code>nombre</code> y <code>apellidos</code> y que disponga de un método <code>saluda</code>.</p></li>
+<li><p>Escriba un código ECMA6 que defina una clase <code>Persona</code> con atributos <code>nombre</code> y <code>apellidos</code> y que disponga de un método <code>saluda</code>.</p></li>
+</ol>
+<h1 id="code-smelling">Code Smelling</h1>
+<ol style="list-style-type: decimal">
+<li><p>Defina el término <span><em>code smelling</em></span></p></li>
+<li><p>¿Que diferencia hay entre un <span><em>code smell</em></span> y un <span><em>bug</em></span>?</p></li>
+<li><p>Explique el code smell <span><em>Duplicated Code</em></span></p></li>
+<li><p>Explique el Switch smell</p></li>
+</ol>
+<h1 id="html">HTML</h1>
+<ol style="list-style-type: decimal">
+<li><p>¿Cual debe ser el valor del atributo <code>rel</code> para usar la imagen como favicon?</p>
+<pre><code>&lt;link rel=&quot;_____________&quot; href=&quot;etsiiull.png&quot; type=&quot;image/x-icon&quot;&gt; </code></pre></li>
+</ol>
+<h1 id="css">CSS</h1>
+<ol style="list-style-type: decimal">
+<li><p>¿Que hacen las siguientes pseudo-clases estructurales CSS3?</p>
+<pre><code>tr:nth-child(odd)    { background-color:#eee; }
+tr:nth-child(even)    { background-color:#00FF66; }</code></pre></li>
+<li><p>¿Que contiene el objeto <code>window</code> en un programa JavaScript que se ejecuta en un navegador?</p></li>
+<li><p>Enumere tres elementos HTML que sean de la categoría <code>inline</code></p></li>
+<li><p>Enumere tres elementos HTML que sean de la categoría <code>block</code></p></li>
+<li><p>¿Cómo se hace para que elementos de la página web permanezcan ocultos para posteriormente mostrarlos? ¿Que hay que hacer en el HTML, en la hoja de estilo y en el JavaScript?</p></li>
+<li><p>Rellene los estilos para los elementos de las clases para que su visibilidad case con la que su nombre indica:</p>
+<pre><code>.hidden      { display: ____; }
+.unhidden    { display: _____; }</code></pre></li>
+</ol>
+<h1 id="mocha-chai">Mocha, Chai</h1>
+<ol style="list-style-type: decimal">
+<li><p>¿Como creamos el directorio con el esqueleto inicial para las pruebas con mocha?</p></li>
+<li><p>Rellene lo que falta:</p>
+<pre><code>[~/srcPLgrado/temperature/tests(master)]$ cat tests.js 
+var assert = chai.______;
+
+suite(&#39;temperature&#39;, function() {
+    test(&#39;[1,{a:2}] == [1,2]&#39;, function() {
+      assert._________([1, {a:2}], [1, {a:2}]);
+    });
+    test(&#39;5X = error&#39;, function() {
+        original.value = &quot;5X&quot;;
+        calculate();
+        assert._____(converted.innerHTML, /ERROR/);
+    });
+});</code></pre></li>
+<li><p>Este es un fichero <code>test/index.html</code> apto para ejecutar las pruebas con Mocha y Chai en la práctica de la Temperatura. Rellene las partes que faltan:</p>
+<pre><code>[~/srcPLgrado/temperature(karma)]$ cat tests/index.html 
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Mocha&lt;/title&gt;
+    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;mocha.css&quot; /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;_____&quot;&gt;&lt;/div&gt;   &lt;!-- para la salida de las pruebas --&gt;
+    &lt;input id=&quot;original&quot; placeholder=&quot;32F&quot; size=&quot;50&quot;&gt;
+    &lt;span class=&quot;output&quot; id=&quot;converted&quot;&gt;&lt;/span&gt;
+
+    &lt;script src=&quot;________&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;________&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;../temperature.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;mocha._____(&#39;___&#39;)&lt;/script&gt;
+    &lt;script src=&quot;tests.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+      mocha.___();
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></li>
+<li><p>Rellene las partes que faltan del fichero con las pruebas TDD en Mocha y Chai para la práctica de la temperatura:</p>
+<pre><code>[~/srcPLgrado/temperature(karma)]$ cat tests/tests.js 
+var assert = ____.assert;
+
+_____(&#39;temperature&#39;, function() {
+
+    ____(&#39;32F = 0C&#39;, function() {
+        original.value = &quot;32F&quot;;
+        calculate();
+        assert._________(converted.innerHTML, &quot;0.0 Celsius&quot;);
+    });
+});</code></pre></li>
+<li><p>¿Como puedo ejecutar las pruebas escritas usando Mocha y Chai usando el comando <code>npm test</code>?. (no se asume el uso de Karma en esta pregunta) Explique como hacerlo.</p></li>
+</ol>
+<h1 id="gulp">Gulp</h1>
+<ol style="list-style-type: decimal">
+<li><p>Complete las partes que faltan del siguiente <code>gulpfile.js</code> en el que se lleva a cabo una tarea para la optimización (uglify/minify) de la aplicación de la práctica de la temperatura:</p>
+<pre><code>/tmp/pl-grado-temperature-converter(karma)]$ cat gulpfile.js 
+var gulp    = require(&#39;gulp&#39;),
+    gutil   = require(&#39;gulp-util&#39;),
+    uglify  = require(&#39;gulp-uglify&#39;),
+    concat  = require(&#39;gulp-concat&#39;);
+var minifyHTML = require(&#39;gulp-minify-html&#39;);
+var minifyCSS  = require(&#39;gulp-minify-css&#39;);
+
+gulp.____(&#39;minify&#39;, function () {
+  gulp.___(&#39;temperature.js&#39;)
+  .____(uglify())
+  .___(gulp.____(&#39;minified&#39;));
+
+  gulp.__(&#39;./index.html&#39;)
+    .___(minifyHTML())
+    .___(gulp.___(&#39;./minified/&#39;))
+
+  gulp.__(&#39;./*.css&#39;)
+   .___(minifyCSS({keepBreaks:true}))
+   .___(gulp.___(&#39;./minified/&#39;))
+});</code></pre></li>
+</ol>
+<h1 id="npm-y-package.json">npm y package.json</h1>
+<ol style="list-style-type: decimal">
+<li><p>¿Con que comando creo el fichero <code>package.json</code>?</p></li>
+<li><p>Explique en consiste el versionado semántico/semantic versioning. ¿Cual es el nombre en inglés de los tres números de version? ¿Como cambian?</p></li>
+<li><p>¿Que se guarda en el campo <code>&quot;dependencies&quot;: {}</code> de <code>package.json</code>?</p></li>
+<li><p>¿Que opción debo añadir al comando <code>npm install</code> para que la librería instalada se añada como dependencia en el fichero <code>package.json</code>?</p></li>
+<li><p>¿Que se guarda en el campo <code>&quot;devDependencies&quot;: {}</code> de <code>package.json</code>?</p></li>
+<li><p>¿Que opción debo añadir al comando <code>npm install</code> para que la librería instalada se añada como <code>&quot;devDependencies&quot;</code> en el fichero <code>package.json</code>?</p></li>
+<li><p>Explique que significan en los objetos que describen las dependencias dentro <code>package.json</code> las siguientes notaciones:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>*</code></p></li>
+<li><p><code>latest</code></p></li>
+</ol></li>
+<li><p>¿Cual es la salida? ¿Como actúa el operador <code>~</code>?</p>
+<pre><code>&gt; var semver = require(&#39;semver&#39;)
+undefined
+&gt; semver.toComparators(&#39;~1.2.3&#39;)
+[ [ &#39;_______&#39;, &#39;______&#39; ] ]</code></pre></li>
+<li><p>¿Cual es la salida? ¿Como actúa el operador <code>^</code>?</p>
+<pre><code>&gt; var semver = require(&#39;semver&#39;)
+undefined
+&gt; semver.toComparators(&#39;^1.2.3&#39;)
+[ [ &#39;_______&#39;, &#39;______&#39; ] ]</code></pre></li>
+</ol>
+<h1 id="karma">Karma</h1>
+<ol style="list-style-type: decimal">
+<li><p>Explique como funciona Karma</p></li>
+<li><p>¿Con que comando puedo crear el fichero de configuración de Karma?</p></li>
+<li><p>¿Que debemos poner en la entrada <code>frameworks</code> de karma para el ejemplo de la temperatura?</p>
+<pre><code>    frameworks: [&#39;_____&#39;],</code></pre></li>
+<li><p>La librería/plugin <code>karma-mocha</code> provee el adapter de Karma para Mocha. ¿Como le pasamos opciones para configurar Mocha desde Karma? Rellene las partes que faltan:</p>
+<pre><code>  client: {
+    args: [&#39;--grep&#39;, &#39;pattern&#39;], // solo pruebas que casan con pattern
+    mocha: {
+      __: &#39;___&#39;
+    }
+  },</code></pre></li>
+<li><p>Explique que debe ponerse (y que no) en la sección <code>files</code> del fichero de configuración de Karma ¿Donde son cargados dichos ficheros?:</p>
+<pre><code>    files: [ ... ],</code></pre></li>
+<li><p>Los preprocesadores en Karma nos permiten procesar los ficheros en <code>files</code> antes de que sean cargados en el navegador.</p>
+<pre><code>  preprocessors = {
+    &#39;**/*.coffee&#39;: &#39;coffee&#39;,
+    &#39;**/*.html&#39;: &#39;html2js&#39;
+  };</code></pre>
+<p>¿Que hace el preprocesador <code>html2js</code>? ¿Que hace el preprocesador <code>coffee</code>?</p></li>
+<li><p>Complete la función <code>setup</code> de las pruebas de la práctica de la temepratura con Mocha, Chai y Karma:</p>
+<pre><code>   setup(function(){
+      if (typeof ________ !== &#39;undefined&#39;) {
+          document.body.innerHTML = ________[&#39;tests/test.html&#39;];
+          original = document.______________(&#39;original&#39;);
+          converted = document.______________(&#39;converted&#39;);
+      }
+    });</code></pre>
+<p>¿Como se llama la variable en la que se guardan los HTML de los ficheros cargados en los navegadores?</p></li>
+<li><p>¿Que es PhantomJS? ¿Como funciona?</p></li>
+</ol>

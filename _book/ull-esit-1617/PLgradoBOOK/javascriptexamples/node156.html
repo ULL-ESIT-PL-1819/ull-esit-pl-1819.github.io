@@ -1,0 +1,175 @@
+
+<H1><A NAME="SECTION05720000000000000000">
+Ejemplo Simple en Jison</A>
+</H1>
+
+<P>
+
+<H4><A NAME="SECTION05720010000000000000">
+Gramática</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5710#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05720020000000000000">
+basic2_lex.jison</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+<PRE><tex2html_verbatim_mark>verbatim5711#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05720030000000000000">
+index.html</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+<PRE><tex2html_verbatim_mark>verbatim5712#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05720040000000000000">
+Rakefile</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5713#</PRE>
+
+<P>
+
+<OL>
+<LI><A NAME="tex2html374"
+  HREF="https://github.com/rickeyski/node-beautifier">node-beautifier</A>
+</LI>
+</OL>
+
+<P>
+
+<H4><A NAME="SECTION05720050000000000000">
+Véase También</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<OL>
+<LI><A NAME="tex2html375"
+  HREF="http://zaach.github.com/jison/">JISON</A>
+</LI>
+<LI><A NAME="tex2html376"
+  HREF="http://zaach.github.com/jison/try/usf/">Try Jison Examples</A>
+</LI>
+<LI><A NAME="tex2html377"
+  HREF="http://www-archive.mozilla.org/js/language/grammar14.html">JavaScript 1.4 LR(1) Grammar</A>
+1999.
+</LI>
+<LI><A NAME="tex2html378"
+  HREF="http://cjihrig.com/blog/creating-a-javascript-parser/">Creating a JavaScript Parser</A>
+Una implementación de ECAMScript 5.1 usando Jison 
+disponible 
+en GitHub
+ en
+<A NAME="tex2html379"
+  HREF="https://github.com/cjihrig/jsparser">https://github.com/cjihrig/jsparser</A>.
+Puede probarse en:
+<A NAME="tex2html380"
+  HREF="http://www.cjihrig.com/development/jsparser/">http://www.cjihrig.com/development/jsparser/</A>
+</LI>
+<LI><A NAME="tex2html381"
+  HREF="http://hansineffect.github.com/Slogo/">Slogo</A>
+a language written using Jison
+</LI>
+<LI><A NAME="tex2html382"
+  HREF="https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS">List of languages that compile to JS</A>
+</LI>
+<LI><A NAME="tex2html383"
+  HREF="http://blog.kalleberg.org/post/1256702765/prototype-of-a-scannerless-generalized-left-to-right">Prototype of a Scannerless, Generalized Left-to-right Rightmost (SGLR) derivation parser for JavaScript</A>
+</LI>
+</OL>
+<H4><A NAME="SECTION05720060000000000000">
+global.css</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5714#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05721000000000000000">
+Véase También</A>
+</H2>
+
+<OL>
+<LI><A NAME="tex2html384"
+  HREF="http://zaach.github.com/jison/">JISON</A>
+</LI>
+<LI><A NAME="tex2html385"
+  HREF="http://zaach.github.com/jison/try/usf/">Try Jison Examples</A>
+</LI>
+<LI><A NAME="tex2html386"
+  HREF="http://www-archive.mozilla.org/js/language/grammar14.html">JavaScript 1.4 LR(1) Grammar</A>
+1999.
+</LI>
+<LI><A NAME="tex2html387"
+  HREF="http://cjihrig.com/blog/creating-a-javascript-parser/">Creating a JavaScript Parser</A>
+Una implementación de ECAMScript 5.1 usando Jison 
+disponible 
+en GitHub
+ en
+<A NAME="tex2html388"
+  HREF="https://github.com/cjihrig/jsparser">https://github.com/cjihrig/jsparser</A>.
+Puede probarse en:
+<A NAME="tex2html389"
+  HREF="http://www.cjihrig.com/development/jsparser/">http://www.cjihrig.com/development/jsparser/</A>
+</LI>
+<LI><A NAME="tex2html390"
+  HREF="http://hansineffect.github.com/Slogo/">Slogo</A>
+a language written using Jison
+</LI>
+<LI><A NAME="tex2html391"
+  HREF="https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS">List of languages that compile to JS</A>
+</LI>
+<LI><A NAME="tex2html392"
+  HREF="http://blog.kalleberg.org/post/1256702765/prototype-of-a-scannerless-generalized-left-to-right">Prototype of a Scannerless, Generalized Left-to-right Rightmost (SGLR) derivation parser for JavaScript</A>
+</LI>
+</OL>
+
+<P>
+
+<H2><A NAME="SECTION05722000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="15843"><tex2html_anchor_invisible_mark></A><BR>
+Práctica: Secuencia de Asignaciones Simples
+</H2>
+  
+Modifique este ejemplo para que el lenguaje acepte una secuencia
+de sentencias de asignación de la forma <tex2html_verb_mark>2084<tex2html_verb_mark> separadas
+por puntos y comas, por ejemplo <tex2html_verb_mark>2085<tex2html_verb_mark>.
+El analizador retorna un hash/objeto 
+cuyas claves son los identificadores y cuyos valores 
+son los números.
+Clone el repositorio en
+<A NAME="tex2html393"
+  HREF="https://github.com/crguezl/jison-basic2">https://github.com/crguezl/jison-basic2</A>.
+
+<P>
+Modifique los analizadores léxico y sintáctico de forma conveniente.
+
+<P>
+Añada acciones semánticas para que el analizador devuelva una tabla de símbolos con los identificadores y sus valores.
+
+<P>

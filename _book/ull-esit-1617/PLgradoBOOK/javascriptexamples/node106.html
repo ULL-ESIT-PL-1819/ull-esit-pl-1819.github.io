@@ -1,0 +1,13 @@
+
+<H1><A NAME="SECTION052250000000000000000">
+Las Macros <TT>YY_USER_ACTION</TT>, <TT>yy_act</TT> e <TT>YY_NUM_RULES</TT></A>
+</H1>
+La macro <tex2html_verb_mark>441<tex2html_verb_mark> permite ejecutar una acción inmediatamente después del ``emparejamiento'' y antes de  la ejecución de la acción asociada.
+cuando se la invoca, la variable <tex2html_verb_mark>442<tex2html_verb_mark> contiene el número de la regla que ha emparejado (las reglas se numeran a partir de uno). La macro <tex2html_verb_mark>443<tex2html_verb_mark> contiene el número de reglas, incluyendo la regla por defecto.
+
+<P>
+El siguiente programa aprovecha
+dichas macros para mostrar las frecuencias de uso de las reglas.
+<PRE><tex2html_verbatim_mark>verbatim678#</PRE>
+
+<P>

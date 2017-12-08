@@ -1,0 +1,356 @@
+\BOOKMARK [-1][-]{part.1}{I PRIMERA PARTE: APUNTES DE JAVASCRIPT}{}% 1
+\BOOKMARK [0][-]{chapter.1}{Introducci\363n}{part.1}% 2
+\BOOKMARK [0][-]{chapter.2}{Estructura L\351xica}{part.1}% 3
+\BOOKMARK [0][-]{chapter.3}{Tipos, Valores y Variables}{part.1}% 4
+\BOOKMARK [0][-]{chapter.4}{Expresiones y Operadores}{part.1}% 5
+\BOOKMARK [0][-]{chapter.5}{Sentencias}{part.1}% 6
+\BOOKMARK [0][-]{chapter.6}{Objetos}{part.1}% 7
+\BOOKMARK [1][-]{section.6.1}{Tutoriales de OOP en JavaScript en la Web}{chapter.6}% 8
+\BOOKMARK [1][-]{section.6.2}{Ejercicios}{chapter.6}% 9
+\BOOKMARK [1][-]{section.6.3}{Comprobando Propiedades}{chapter.6}% 10
+\BOOKMARK [1][-]{section.6.4}{Enumeraci\363n de Propiedades}{chapter.6}% 11
+\BOOKMARK [0][-]{chapter.7}{Arrays}{part.1}% 12
+\BOOKMARK [0][-]{chapter.8}{Funciones}{part.1}% 13
+\BOOKMARK [1][-]{section.8.1}{Definiendo Funciones}{chapter.8}% 14
+\BOOKMARK [1][-]{section.8.2}{Invocando Funciones}{chapter.8}% 15
+\BOOKMARK [1][-]{section.8.3}{Argumentos y Par\341metros}{chapter.8}% 16
+\BOOKMARK [1][-]{section.8.4}{Funciones como Valores}{chapter.8}% 17
+\BOOKMARK [1][-]{section.8.5}{Funciones como Espacios de Nombres}{chapter.8}% 18
+\BOOKMARK [1][-]{section.8.6}{Clausuras}{chapter.8}% 19
+\BOOKMARK [1][-]{section.8.7}{Propiedades, M\351todos y Constructor}{chapter.8}% 20
+\BOOKMARK [2][-]{subsection.8.7.1}{La propiedad length}{section.8.7}% 21
+\BOOKMARK [2][-]{subsection.8.7.2}{La Propiedad property}{section.8.7}% 22
+\BOOKMARK [2][-]{subsection.8.7.3}{Los M\351todos call y apply}{section.8.7}% 23
+\BOOKMARK [1][-]{section.8.8}{Programaci\363n Funcional}{chapter.8}% 24
+\BOOKMARK [0][-]{chapter.9}{Clases y M\363dulos}{part.1}% 25
+\BOOKMARK [1][-]{section.9.1}{Herencia}{chapter.9}% 26
+\BOOKMARK [1][-]{section.9.2}{Ejercicios}{chapter.9}% 27
+\BOOKMARK [0][-]{chapter.10}{Subconjuntos y Extensiones de JavaScript}{part.1}% 28
+\BOOKMARK [0][-]{chapter.11}{JavaScript en el Lado del Servidor}{part.1}% 29
+\BOOKMARK [1][-]{section.11.1}{Instalar Node.js}{chapter.11}% 30
+\BOOKMARK [1][-]{section.11.2}{Primeros Pasos. Un Ejemplo Simple}{chapter.11}% 31
+\BOOKMARK [1][-]{section.11.3}{Usando REPL desde un programa}{chapter.11}% 32
+\BOOKMARK [1][-]{section.11.4}{Usando REPL via un socket TCP}{chapter.11}% 33
+\BOOKMARK [1][-]{section.11.5}{Referencias sobre REPL}{chapter.11}% 34
+\BOOKMARK [1][-]{section.11.6}{Entrada Salida en Node.js}{chapter.11}% 35
+\BOOKMARK [1][-]{section.11.7}{Debugger}{chapter.11}% 36
+\BOOKMARK [1][-]{section.11.8}{Modulos}{chapter.11}% 37
+\BOOKMARK [2][-]{subsection.11.8.1}{Introducci\363n}{section.11.8}% 38
+\BOOKMARK [2][-]{subsection.11.8.2}{Ciclos}{section.11.8}% 39
+\BOOKMARK [2][-]{subsection.11.8.3}{Especificaci\363n de Ficheros Conteniendo M\363dulos}{section.11.8}% 40
+\BOOKMARK [2][-]{subsection.11.8.4}{Carga desde Carpetas node\137modules}{section.11.8}% 41
+\BOOKMARK [2][-]{subsection.11.8.5}{Las Carpetas Usadas Como M\363dulos}{section.11.8}% 42
+\BOOKMARK [2][-]{subsection.11.8.6}{Caching}{section.11.8}% 43
+\BOOKMARK [2][-]{subsection.11.8.7}{El Objeto module y module.exports}{section.11.8}% 44
+\BOOKMARK [2][-]{subsection.11.8.8}{Algoritmo de B\372squeda Ejecutado por require}{section.11.8}% 45
+\BOOKMARK [1][-]{section.11.9}{Como Crear tu Propio M\363dulo en Node.js}{chapter.11}% 46
+\BOOKMARK [2][-]{subsection.11.9.1}{Introducci\363n}{section.11.9}% 47
+\BOOKMARK [2][-]{subsection.11.9.2}{Un Fichero package.json}{section.11.9}% 48
+\BOOKMARK [2][-]{subsection.11.9.3}{README y otros documentos}{section.11.9}% 49
+\BOOKMARK [2][-]{subsection.11.9.4}{V\351ase Tambi\351n}{section.11.9}% 50
+\BOOKMARK [1][-]{section.11.10}{Mas sobre Node}{chapter.11}% 51
+\BOOKMARK [0][-]{chapter.12}{JavaScript en los Navegadores}{part.1}% 52
+\BOOKMARK [0][-]{chapter.13}{El Objeto Window}{part.1}% 53
+\BOOKMARK [0][-]{chapter.14}{Manejo de Documentos en JavaScript}{part.1}% 54
+\BOOKMARK [0][-]{chapter.15}{Manejo de CSS}{part.1}% 55
+\BOOKMARK [0][-]{chapter.16}{Manejo de Eventos}{part.1}% 56
+\BOOKMARK [0][-]{chapter.17}{HTTP}{part.1}% 57
+\BOOKMARK [0][-]{chapter.18}{La Librer\355a JQuery}{part.1}% 58
+\BOOKMARK [0][-]{chapter.19}{Almacenamiento en el Cliente}{part.1}% 59
+\BOOKMARK [0][-]{chapter.20}{Multimedia y Gr\341ficos}{part.1}% 60
+\BOOKMARK [0][-]{chapter.21}{HTML5}{part.1}% 61
+\BOOKMARK [0][-]{chapter.22}{XML}{part.1}% 62
+\BOOKMARK [0][-]{chapter.23}{Backbone}{part.1}% 63
+\BOOKMARK [0][-]{chapter.24}{Closure Tools}{part.1}% 64
+\BOOKMARK [1][-]{section.24.1}{V\351ase Tambi\351n}{chapter.24}% 65
+\BOOKMARK [0][-]{chapter.25}{Pruebas}{part.1}% 66
+\BOOKMARK [1][-]{section.25.1}{Testing en JavaScript: F\341cil y R\341pido}{chapter.25}% 67
+\BOOKMARK [1][-]{section.25.2}{Unit Testing, TDD y BDD con Jasmine}{chapter.25}% 68
+\BOOKMARK [0][-]{chapter.26}{Buenas Pr\341cticas y Patrones}{part.1}% 69
+\BOOKMARK [1][-]{section.26.1}{V\351ase Tambi\351n}{chapter.26}% 70
+\BOOKMARK [0][-]{chapter.27}{Herramientas}{part.1}% 71
+\BOOKMARK [1][-]{section.27.1}{npm}{chapter.27}% 72
+\BOOKMARK [1][-]{section.27.2}{n}{chapter.27}% 73
+\BOOKMARK [1][-]{section.27.3}{Google Chrome y Javascript}{chapter.27}% 74
+\BOOKMARK [1][-]{section.27.4}{Plugins, Editores, IDEs}{chapter.27}% 75
+\BOOKMARK [1][-]{section.27.5}{Grunt}{chapter.27}% 76
+\BOOKMARK [1][-]{section.27.6}{Beautifiers, Pretty-Printers}{chapter.27}% 77
+\BOOKMARK [1][-]{section.27.7}{Modulos}{chapter.27}% 78
+\BOOKMARK [-1][-]{part.2}{II SEGUNDA PARTE: APUNTES DE PROCESADORES DE LENGUAJES}{}% 79
+\BOOKMARK [0][-]{chapter.28}{Expresiones Regulares y An\341lisis L\351xico en JavaScript}{part.2}% 80
+\BOOKMARK [1][-]{section.28.1}{Mozilla Developer Network: Documentaci\363n}{chapter.28}% 81
+\BOOKMARK [1][-]{section.28.2}{Pr\341ctica: Conversor de Temperaturas}{chapter.28}% 82
+\BOOKMARK [1][-]{section.28.3}{Pr\341ctica: Comma Separated Values}{chapter.28}% 83
+\BOOKMARK [1][-]{section.28.4}{Ejercicios}{chapter.28}% 84
+\BOOKMARK [1][-]{section.28.5}{Pr\341ctica: Palabras Repetidas}{chapter.28}% 85
+\BOOKMARK [1][-]{section.28.6}{Ejercicios}{chapter.28}% 86
+\BOOKMARK [1][-]{section.28.7}{Ejercicios}{chapter.28}% 87
+\BOOKMARK [1][-]{section.28.8}{Pr\341ctica: Ficheros INI}{chapter.28}% 88
+\BOOKMARK [1][-]{section.28.9}{Pr\341ctica: Analizador L\351xico para Un Subconjunto de JavaScript}{chapter.28}% 89
+\BOOKMARK [0][-]{chapter.29}{Expresiones Regulares en C}{part.2}% 90
+\BOOKMARK [1][-]{section.29.1}{Expresiones Regulares Posix en C}{chapter.29}% 91
+\BOOKMARK [1][-]{section.29.2}{Expresiones Regulares en Flex}{chapter.29}% 92
+\BOOKMARK [2][-]{subsection.29.2.1}{Estructura de un programa LEX}{section.29.2}% 93
+\BOOKMARK [2][-]{subsection.29.2.2}{Versi\363n Utilizada}{section.29.2}% 94
+\BOOKMARK [2][-]{subsection.29.2.3}{Espacios en blanco dentro de la expresi\363n regular}{section.29.2}% 95
+\BOOKMARK [2][-]{subsection.29.2.4}{Ejemplo Simple}{section.29.2}% 96
+\BOOKMARK [2][-]{subsection.29.2.5}{Suprimir}{section.29.2}% 97
+\BOOKMARK [2][-]{subsection.29.2.6}{Declaraci\363n de yytext}{section.29.2}% 98
+\BOOKMARK [2][-]{subsection.29.2.7}{Declaraci\363n de yylex\(\)}{section.29.2}% 99
+\BOOKMARK [2][-]{subsection.29.2.8}{yywrap\(\)}{section.29.2}% 100
+\BOOKMARK [2][-]{subsection.29.2.9}{unput\(\)}{section.29.2}% 101
+\BOOKMARK [2][-]{subsection.29.2.10}{input\(\)}{section.29.2}% 102
+\BOOKMARK [2][-]{subsection.29.2.11}{REJECT}{section.29.2}% 103
+\BOOKMARK [2][-]{subsection.29.2.12}{yymore\(\)}{section.29.2}% 104
+\BOOKMARK [2][-]{subsection.29.2.13}{yyless\(\)}{section.29.2}% 105
+\BOOKMARK [2][-]{subsection.29.2.14}{Estados}{section.29.2}% 106
+\BOOKMARK [2][-]{subsection.29.2.15}{La pila de estados}{section.29.2}% 107
+\BOOKMARK [2][-]{subsection.29.2.16}{Final de Fichero}{section.29.2}% 108
+\BOOKMARK [2][-]{subsection.29.2.17}{Uso de Dos Analizadores}{section.29.2}% 109
+\BOOKMARK [2][-]{subsection.29.2.18}{La Opci\363n outfile}{section.29.2}% 110
+\BOOKMARK [2][-]{subsection.29.2.19}{Leer desde una Cadena: YY\137INPUT}{section.29.2}% 111
+\BOOKMARK [2][-]{subsection.29.2.20}{El operador de ``trailing context'' o ``lookahead'' positivo}{section.29.2}% 112
+\BOOKMARK [2][-]{subsection.29.2.21}{Manejo de directivas include}{section.29.2}% 113
+\BOOKMARK [2][-]{subsection.29.2.22}{An\341lisis L\351xico desde una Cadena: yy\137scan\137string}{section.29.2}% 114
+\BOOKMARK [2][-]{subsection.29.2.23}{An\341lisis de la L\355nea de Comandos y 2 Analizadores}{section.29.2}% 115
+\BOOKMARK [2][-]{subsection.29.2.24}{Declaraciones pointer y array}{section.29.2}% 116
+\BOOKMARK [2][-]{subsection.29.2.25}{Las Macros YY\137USER\137ACTION, yy\137act e YY\137NUM\137RULES}{section.29.2}% 117
+\BOOKMARK [2][-]{subsection.29.2.26}{Las opciones interactive}{section.29.2}% 118
+\BOOKMARK [2][-]{subsection.29.2.27}{La macro YY\137BREAK}{section.29.2}% 119
+\BOOKMARK [0][-]{chapter.30}{Expresiones Regulares en sed}{part.2}% 120
+\BOOKMARK [1][-]{section.30.1}{Transferencia de Control}{chapter.30}% 121
+\BOOKMARK [1][-]{section.30.2}{Inserci\363n de Texto}{chapter.30}% 122
+\BOOKMARK [1][-]{section.30.3}{Trasferencia de Control Condicional}{chapter.30}% 123
+\BOOKMARK [1][-]{section.30.4}{Rangos}{chapter.30}% 124
+\BOOKMARK [1][-]{section.30.5}{Uso de la negaci\363n}{chapter.30}% 125
+\BOOKMARK [1][-]{section.30.6}{Siguiente L\355nea: La orden n}{chapter.30}% 126
+\BOOKMARK [1][-]{section.30.7}{Manipulando tablas num\351ricas}{chapter.30}% 127
+\BOOKMARK [1][-]{section.30.8}{Traducci\363n entre Tablas}{chapter.30}% 128
+\BOOKMARK [1][-]{section.30.9}{Del espacio de Patrones al de Mantenimiento}{chapter.30}% 129
+\BOOKMARK [1][-]{section.30.10}{La orden N}{chapter.30}% 130
+\BOOKMARK [1][-]{section.30.11}{Suprimir: El Comando D}{chapter.30}% 131
+\BOOKMARK [1][-]{section.30.12}{B\372squeda entre l\355neas}{chapter.30}% 132
+\BOOKMARK [1][-]{section.30.13}{Seleccionando Items en un Registro Multil\355nea}{chapter.30}% 133
+\BOOKMARK [0][-]{chapter.31}{Expresiones Regulares en Perl}{part.2}% 134
+\BOOKMARK [1][-]{section.31.1}{Introducci\363n}{chapter.31}% 135
+\BOOKMARK [2][-]{subsection.31.1.1}{Un ejemplo sencillo}{section.31.1}% 136
+\BOOKMARK [2][-]{subsection.31.1.2}{Depuraci\363n de Expresiones Regulares}{section.31.1}% 137
+\BOOKMARK [2][-]{subsection.31.1.3}{Tablas de Escapes, Metacar\341cteres, Cuantificadores, Clases}{section.31.1}% 138
+\BOOKMARK [2][-]{subsection.31.1.4}{Variables especiales despu\351s de un emparejamiento}{section.31.1}% 139
+\BOOKMARK [2][-]{subsection.31.1.5}{Ambito Autom\341tico}{section.31.1}% 140
+\BOOKMARK [2][-]{subsection.31.1.6}{Opciones}{section.31.1}% 141
+\BOOKMARK [1][-]{section.31.2}{Algunas Extensiones}{chapter.31}% 142
+\BOOKMARK [2][-]{subsection.31.2.1}{Comentarios}{section.31.2}% 143
+\BOOKMARK [2][-]{subsection.31.2.2}{Modificadores locales}{section.31.2}% 144
+\BOOKMARK [2][-]{subsection.31.2.3}{Mirando hacia adetr\341s y hacia adelante}{section.31.2}% 145
+\BOOKMARK [2][-]{subsection.31.2.4}{Definici\363n de Nombres de Patrones}{section.31.2}% 146
+\BOOKMARK [2][-]{subsection.31.2.5}{Patrones Recursivos}{section.31.2}% 147
+\BOOKMARK [2][-]{subsection.31.2.6}{Cuantificadores Posesivos}{section.31.2}% 148
+\BOOKMARK [2][-]{subsection.31.2.7}{Perl 5.10: Numeraci\363n de los Grupos en Alternativas}{section.31.2}% 149
+\BOOKMARK [2][-]{subsection.31.2.8}{Ejecuci\363n de C\363digo dentro de una Expresi\363n Regular}{section.31.2}% 150
+\BOOKMARK [2][-]{subsection.31.2.9}{Expresiones Regulares en tiempo de matching}{section.31.2}% 151
+\BOOKMARK [2][-]{subsection.31.2.10}{Expresiones Condicionales}{section.31.2}% 152
+\BOOKMARK [2][-]{subsection.31.2.11}{Verbos que controlan el retroceso}{section.31.2}% 153
+\BOOKMARK [1][-]{section.31.3}{Expresiones Regulares en Otros Lenguajes}{chapter.31}% 154
+\BOOKMARK [1][-]{section.31.4}{Casos de Estudio}{chapter.31}% 155
+\BOOKMARK [2][-]{subsection.31.4.1}{Secuencias de n\372meros de tama\361o fijo}{section.31.4}% 156
+\BOOKMARK [2][-]{subsection.31.4.2}{Palabras Repetidas}{section.31.4}% 157
+\BOOKMARK [2][-]{subsection.31.4.3}{An\341lisis de cadenas con datos separados por comas}{section.31.4}% 158
+\BOOKMARK [2][-]{subsection.31.4.4}{Las Expresiones Regulares como Exploradores de un \301rbol de Soluciones}{section.31.4}% 159
+\BOOKMARK [2][-]{subsection.31.4.5}{N\372mero de substituciones realizadas}{section.31.4}% 160
+\BOOKMARK [2][-]{subsection.31.4.6}{Expandiendo y comprimiendo tabs}{section.31.4}% 161
+\BOOKMARK [2][-]{subsection.31.4.7}{Modificaci\363n de M\372ltiples Ficheros: one liner}{section.31.4}% 162
+\BOOKMARK [1][-]{section.31.5}{tr y split}{chapter.31}% 163
+\BOOKMARK [1][-]{section.31.6}{Pack y Unpack}{chapter.31}% 164
+\BOOKMARK [1][-]{section.31.7}{Pr\341ctica: Un lenguaje para Componer Invitaciones}{chapter.31}% 165
+\BOOKMARK [1][-]{section.31.8}{Analisis Sint\341ctico con Expresiones Regulares Perl}{chapter.31}% 166
+\BOOKMARK [2][-]{subsection.31.8.1}{Introducci\363n al Analisis Sint\341ctico con Expresiones Regulares}{section.31.8}% 167
+\BOOKMARK [2][-]{subsection.31.8.2}{Construyendo el AST con Expresiones Regulares 5.10}{section.31.8}% 168
+\BOOKMARK [1][-]{section.31.9}{Pr\341ctica: Traducci\363n de invitation a HTML}{chapter.31}% 169
+\BOOKMARK [1][-]{section.31.10}{An\341lisis Sint\341ctico con Regexp::Grammars}{chapter.31}% 170
+\BOOKMARK [2][-]{subsection.31.10.1}{Introducci\363n}{section.31.10}% 171
+\BOOKMARK [2][-]{subsection.31.10.2}{Objetos}{section.31.10}% 172
+\BOOKMARK [2][-]{subsection.31.10.3}{Renombrando los resultados de una subregla}{section.31.10}% 173
+\BOOKMARK [2][-]{subsection.31.10.4}{Listas}{section.31.10}% 174
+\BOOKMARK [2][-]{subsection.31.10.5}{Pseudo sub-reglas}{section.31.10}% 175
+\BOOKMARK [2][-]{subsection.31.10.6}{Llamadas a subreglas desmemoriadas}{section.31.10}% 176
+\BOOKMARK [2][-]{subsection.31.10.7}{Destilaci\363n del resultado}{section.31.10}% 177
+\BOOKMARK [2][-]{subsection.31.10.8}{Llamadas privadas a subreglas y subreglas privadas}{section.31.10}% 178
+\BOOKMARK [2][-]{subsection.31.10.9}{Mas sobre listas}{section.31.10}% 179
+\BOOKMARK [2][-]{subsection.31.10.10}{La directiva require}{section.31.10}% 180
+\BOOKMARK [2][-]{subsection.31.10.11}{Casando con las claves de un hash}{section.31.10}% 181
+\BOOKMARK [2][-]{subsection.31.10.12}{Depuraci\363n}{section.31.10}% 182
+\BOOKMARK [2][-]{subsection.31.10.13}{Mensajes de log del usuario}{section.31.10}% 183
+\BOOKMARK [2][-]{subsection.31.10.14}{Depuraci\363n de Regexps}{section.31.10}% 184
+\BOOKMARK [2][-]{subsection.31.10.15}{Manejo y recuperaci\363n de errores}{section.31.10}% 185
+\BOOKMARK [2][-]{subsection.31.10.16}{Mensajes de Warning}{section.31.10}% 186
+\BOOKMARK [2][-]{subsection.31.10.17}{Simplificando el AST}{section.31.10}% 187
+\BOOKMARK [2][-]{subsection.31.10.18}{Reciclando una Regexp::Grammar}{section.31.10}% 188
+\BOOKMARK [2][-]{subsection.31.10.19}{Pr\341ctica: Calculadora con Regexp::Grammars}{section.31.10}% 189
+\BOOKMARK [0][-]{chapter.32}{An\341lisis Sint\341ctico Descendente en JavaScript}{part.2}% 190
+\BOOKMARK [1][-]{section.32.1}{Ejemplo Simple de Int\351rprete: Una Calculadora}{chapter.32}% 191
+\BOOKMARK [1][-]{section.32.2}{An\341lisis Top Down Usando Precedencia de Operadores}{chapter.32}% 192
+\BOOKMARK [2][-]{subsection.32.2.1}{Gram\341tica de JavaScript}{section.32.2}% 193
+\BOOKMARK [0][-]{chapter.33}{An\341lisis Sint\341ctico Descendente en Perl}{part.2}% 194
+\BOOKMARK [1][-]{section.33.1}{Las Bases}{chapter.33}% 195
+\BOOKMARK [2][-]{subsection.33.1.1}{Repaso: Las Bases}{section.33.1}% 196
+\BOOKMARK [2][-]{subsection.33.1.2}{Pr\341ctica: Crear y documentar el M\363dulo PL::Tutu}{section.33.1}% 197
+\BOOKMARK [1][-]{section.33.2}{Las Fases de un Compilador}{chapter.33}% 198
+\BOOKMARK [2][-]{subsection.33.2.1}{Repaso: Fases de un Compilador}{section.33.2}% 199
+\BOOKMARK [2][-]{subsection.33.2.2}{Pr\341ctica: Fases de un Compilador}{section.33.2}% 200
+\BOOKMARK [1][-]{section.33.3}{An\341lisis L\351xico}{chapter.33}% 201
+\BOOKMARK [2][-]{subsection.33.3.1}{Ejercicio: La opci\363n g}{section.33.3}% 202
+\BOOKMARK [2][-]{subsection.33.3.2}{Ejercicio: Opciones g y c en Expresiones Regulares}{section.33.3}% 203
+\BOOKMARK [2][-]{subsection.33.3.3}{Ejercicio: El orden de las expresiones regulares}{section.33.3}% 204
+\BOOKMARK [2][-]{subsection.33.3.4}{Ejercicio: Regexp para cadenas}{section.33.3}% 205
+\BOOKMARK [2][-]{subsection.33.3.5}{Ejercicio: El or es vago}{section.33.3}% 206
+\BOOKMARK [2][-]{subsection.33.3.6}{Pr\341ctica: N\372meros de L\355nea, Errores, Cadenas y Comentarios}{section.33.3}% 207
+\BOOKMARK [1][-]{section.33.4}{Pruebas para el Analizador L\351xico}{chapter.33}% 208
+\BOOKMARK [2][-]{subsection.33.4.1}{Comprobando el Analizador L\351xico}{section.33.4}% 209
+\BOOKMARK [2][-]{subsection.33.4.2}{Pr\341ctica: Pruebas en el An\341lisis L\351xico}{section.33.4}% 210
+\BOOKMARK [2][-]{subsection.33.4.3}{Repaso: Pruebas en el An\341lisis L\351xico}{section.33.4}% 211
+\BOOKMARK [1][-]{section.33.5}{Conceptos B\341sicos para el An\341lisis Sint\341ctico}{chapter.33}% 212
+\BOOKMARK [2][-]{subsection.33.5.1}{Ejercicio}{section.33.5}% 213
+\BOOKMARK [1][-]{section.33.6}{An\341lisis Sint\341ctico Predictivo Recursivo}{chapter.33}% 214
+\BOOKMARK [2][-]{subsection.33.6.1}{Introducci\363n}{section.33.6}% 215
+\BOOKMARK [2][-]{subsection.33.6.2}{Ejercicio: Recorrido del \341rbol en un ADPR}{section.33.6}% 216
+\BOOKMARK [2][-]{subsection.33.6.3}{Ejercicio: Factores Comunes}{section.33.6}% 217
+\BOOKMARK [2][-]{subsection.33.6.4}{Derivaciones a vac\355o}{section.33.6}% 218
+\BOOKMARK [2][-]{subsection.33.6.5}{Construcci\363n de los conjuntos de Primeros y Siguientes}{section.33.6}% 219
+\BOOKMARK [2][-]{subsection.33.6.6}{Ejercicio: Construir los FIRST}{section.33.6}% 220
+\BOOKMARK [2][-]{subsection.33.6.7}{Ejercicio: Calcular los FOLLOW}{section.33.6}% 221
+\BOOKMARK [2][-]{subsection.33.6.8}{Pr\341ctica: Construcci\363n de los FIRST y los FOLLOW}{section.33.6}% 222
+\BOOKMARK [2][-]{subsection.33.6.9}{Gram\341ticas LL\(1\)}{section.33.6}% 223
+\BOOKMARK [2][-]{subsection.33.6.10}{Ejercicio: Caracterizaci\363n de una gram\341tica LL\(1\) }{section.33.6}% 224
+\BOOKMARK [2][-]{subsection.33.6.11}{Ejercicio: Ambiguedad y LL\(1\)}{section.33.6}% 225
+\BOOKMARK [2][-]{subsection.33.6.12}{Pr\341ctica: Un analizador APDR}{section.33.6}% 226
+\BOOKMARK [2][-]{subsection.33.6.13}{Pr\341ctica: Generaci\363n Autom\341tica de Analizadores Predictivos}{section.33.6}% 227
+\BOOKMARK [1][-]{section.33.7}{Esquemas de Traducci\363n}{chapter.33}% 228
+\BOOKMARK [1][-]{section.33.8}{Recursi\363n por la Izquierda}{chapter.33}% 229
+\BOOKMARK [2][-]{subsection.33.8.1}{Eliminaci\363n de la Recursi\363n por la Izquierda en la Gram\341tica}{section.33.8}% 230
+\BOOKMARK [2][-]{subsection.33.8.2}{Eliminaci\363n de la Recursi\363n por la Izquierda en un Esquema de Traducci\363n}{section.33.8}% 231
+\BOOKMARK [2][-]{subsection.33.8.3}{Ejercicio}{section.33.8}% 232
+\BOOKMARK [2][-]{subsection.33.8.4}{Convirtiendo el Esquema en un Analizador Predictivo}{section.33.8}% 233
+\BOOKMARK [2][-]{subsection.33.8.5}{Ejercicio}{section.33.8}% 234
+\BOOKMARK [2][-]{subsection.33.8.6}{Pr\341ctica: Eliminaci\363n de la Recursividad por la Izquierda}{section.33.8}% 235
+\BOOKMARK [1][-]{section.33.9}{\301rbol de An\341lisis Abstracto}{chapter.33}% 236
+\BOOKMARK [2][-]{subsection.33.9.1}{Lenguajes \301rbol y Gram\341ticas \301rbol}{section.33.9}% 237
+\BOOKMARK [2][-]{subsection.33.9.2}{Realizaci\363n del AAA para Tutu en Perl}{section.33.9}% 238
+\BOOKMARK [2][-]{subsection.33.9.3}{AAA: Otros tipos de nodos}{section.33.9}% 239
+\BOOKMARK [2][-]{subsection.33.9.4}{Declaraciones}{section.33.9}% 240
+\BOOKMARK [2][-]{subsection.33.9.5}{Pr\341ctica: Arbol de An\341lisis Abstracto}{section.33.9}% 241
+\BOOKMARK [1][-]{section.33.10}{An\341lisis Sem\341ntico}{chapter.33}% 242
+\BOOKMARK [2][-]{subsection.33.10.1}{Pr\341ctica: Declaraciones Autom\341ticas}{section.33.10}% 243
+\BOOKMARK [2][-]{subsection.33.10.2}{Pr\341ctica: An\341lisis Sem\341ntico}{section.33.10}% 244
+\BOOKMARK [1][-]{section.33.11}{Optimizaci\363n Independiente de la M\341quina}{chapter.33}% 245
+\BOOKMARK [2][-]{subsection.33.11.1}{Pr\341ctica: Plegado de las Constantes}{section.33.11}% 246
+\BOOKMARK [1][-]{section.33.12}{Patrones \301rbol y Transformaciones \301rbol}{chapter.33}% 247
+\BOOKMARK [2][-]{subsection.33.12.1}{Pr\341ctica: Casando y Transformando \301rboles}{section.33.12}% 248
+\BOOKMARK [1][-]{section.33.13}{Asignaci\363n de Direcciones}{chapter.33}% 249
+\BOOKMARK [2][-]{subsection.33.13.1}{Pr\341ctica: C\341lculo de las Direcciones}{section.33.13}% 250
+\BOOKMARK [1][-]{section.33.14}{Generaci\363n de C\363digo: M\341quina Pila}{chapter.33}% 251
+\BOOKMARK [1][-]{section.33.15}{Generaci\363n de C\363digo: M\341quina Basada en Registros}{chapter.33}% 252
+\BOOKMARK [2][-]{subsection.33.15.1}{Pr\341ctica: Generaci\363n de C\363digo}{section.33.15}% 253
+\BOOKMARK [1][-]{section.33.16}{Optimizaci\363n de C\363digo}{chapter.33}% 254
+\BOOKMARK [2][-]{subsection.33.16.1}{Pr\341ctica: Optimizaci\363n Peephole}{section.33.16}% 255
+\BOOKMARK [0][-]{chapter.34}{An\341lisis Sint\341ctico Ascendente en JavaScript}{part.2}% 256
+\BOOKMARK [1][-]{section.34.1}{Conceptos B\341sicos para el An\341lisis Sint\341ctico}{chapter.34}% 257
+\BOOKMARK [2][-]{subsection.34.1.1}{Ejercicio}{section.34.1}% 258
+\BOOKMARK [1][-]{section.34.2}{Ejemplo Simple en Jison}{chapter.34}% 259
+\BOOKMARK [2][-]{subsection.34.2.1}{V\351ase Tambi\351n}{section.34.2}% 260
+\BOOKMARK [2][-]{subsection.34.2.2}{Pr\341ctica: Secuencia de Asignaciones Simples}{section.34.2}% 261
+\BOOKMARK [1][-]{section.34.3}{Ejemplo en Jison: Calculadora Simple}{chapter.34}% 262
+\BOOKMARK [2][-]{subsection.34.3.1}{Pr\341ctica: Calculadora con Listas de Expresiones y Variables}{section.34.3}% 263
+\BOOKMARK [1][-]{section.34.4}{Conceptos B\341sicos del An\341lisis LR}{chapter.34}% 264
+\BOOKMARK [1][-]{section.34.5}{Construcci\363n de las Tablas para el An\341lisis SLR}{chapter.34}% 265
+\BOOKMARK [2][-]{subsection.34.5.1}{Los conjuntos de Primeros y Siguientes}{section.34.5}% 266
+\BOOKMARK [2][-]{subsection.34.5.2}{Construcci\363n de las Tablas}{section.34.5}% 267
+\BOOKMARK [1][-]{section.34.6}{Pr\341ctica: Calculadora con Funciones}{chapter.34}% 268
+\BOOKMARK [1][-]{section.34.7}{Algoritmo de An\341lisis LR}{chapter.34}% 269
+\BOOKMARK [1][-]{section.34.8}{Pr\341ctica: Traducci\363n de Infijo a Postfijo}{chapter.34}% 270
+\BOOKMARK [1][-]{section.34.9}{El m\363dulo Generado por jison}{chapter.34}% 271
+\BOOKMARK [2][-]{subsection.34.9.1}{Version}{section.34.9}% 272
+\BOOKMARK [2][-]{subsection.34.9.2}{Gram\341tica Inicial}{section.34.9}% 273
+\BOOKMARK [2][-]{subsection.34.9.3}{Tablas}{section.34.9}% 274
+\BOOKMARK [2][-]{subsection.34.9.4}{Acciones Sem\341nticas}{section.34.9}% 275
+\BOOKMARK [2][-]{subsection.34.9.5}{Tabla de Acciones y GOTOs}{section.34.9}% 276
+\BOOKMARK [2][-]{subsection.34.9.6}{defaultActions}{section.34.9}% 277
+\BOOKMARK [2][-]{subsection.34.9.7}{Reducciones}{section.34.9}% 278
+\BOOKMARK [2][-]{subsection.34.9.8}{Desplazamientos/Shifts}{section.34.9}% 279
+\BOOKMARK [2][-]{subsection.34.9.9}{Manejo de Errores}{section.34.9}% 280
+\BOOKMARK [2][-]{subsection.34.9.10}{Analizador L\351xico}{section.34.9}% 281
+\BOOKMARK [2][-]{subsection.34.9.11}{Exportaci\363n}{section.34.9}% 282
+\BOOKMARK [1][-]{section.34.10}{Precedencia y Asociatividad}{chapter.34}% 283
+\BOOKMARK [1][-]{section.34.11}{Depuraci\363n en jison}{chapter.34}% 284
+\BOOKMARK [1][-]{section.34.12}{Construcci\363n del \301rbol Sint\341ctico}{chapter.34}% 285
+\BOOKMARK [1][-]{section.34.13}{Esquemas de Traducci\363n}{chapter.34}% 286
+\BOOKMARK [1][-]{section.34.14}{Definici\363n Dirigida por la Sint\341xis}{chapter.34}% 287
+\BOOKMARK [1][-]{section.34.15}{Manejo en jison de Atributos Heredados}{chapter.34}% 288
+\BOOKMARK [1][-]{section.34.16}{Acciones en Medio de una Regla y Atributos Heredados}{chapter.34}% 289
+\BOOKMARK [1][-]{section.34.17}{Recuperaci\363n de Errores}{chapter.34}% 290
+\BOOKMARK [1][-]{section.34.18}{Consejos a seguir al escribir un programa jison}{chapter.34}% 291
+\BOOKMARK [0][-]{chapter.35}{An\341lisis Sint\341ctico Ascendente en Perl}{part.2}% 292
+\BOOKMARK [1][-]{section.35.1}{Parse::Yapp: Ejemplo de Uso}{chapter.35}% 293
+\BOOKMARK [1][-]{section.35.2}{Conceptos B\341sicos}{chapter.35}% 294
+\BOOKMARK [1][-]{section.35.3}{Construcci\363n de las Tablas para el An\341lisis SLR}{chapter.35}% 295
+\BOOKMARK [2][-]{subsection.35.3.1}{Los conjuntos de Primeros y Siguientes}{section.35.3}% 296
+\BOOKMARK [2][-]{subsection.35.3.2}{Construcci\363n de las Tablas}{section.35.3}% 297
+\BOOKMARK [1][-]{section.35.4}{El m\363dulo Generado por yapp}{chapter.35}% 298
+\BOOKMARK [1][-]{section.35.5}{Algoritmo de An\341lisis LR}{chapter.35}% 299
+\BOOKMARK [1][-]{section.35.6}{Depuraci\363n en yapp}{chapter.35}% 300
+\BOOKMARK [1][-]{section.35.7}{Precedencia y Asociatividad}{chapter.35}% 301
+\BOOKMARK [1][-]{section.35.8}{Generaci\363n interactiva de analizadores Yapp}{chapter.35}% 302
+\BOOKMARK [1][-]{section.35.9}{Construcci\363n del \301rbol Sint\341ctico}{chapter.35}% 303
+\BOOKMARK [1][-]{section.35.10}{Acciones en Medio de una Regla}{chapter.35}% 304
+\BOOKMARK [1][-]{section.35.11}{Esquemas de Traducci\363n}{chapter.35}% 305
+\BOOKMARK [1][-]{section.35.12}{Definici\363n Dirigida por la Sint\341xis}{chapter.35}% 306
+\BOOKMARK [1][-]{section.35.13}{Manejo en yapp de Atributos Heredados}{chapter.35}% 307
+\BOOKMARK [1][-]{section.35.14}{Acciones en Medio de una Regla y Atributos Heredados}{chapter.35}% 308
+\BOOKMARK [1][-]{section.35.15}{Recuperaci\363n de Errores}{chapter.35}% 309
+\BOOKMARK [1][-]{section.35.16}{Recuperaci\363n de Errores en Listas}{chapter.35}% 310
+\BOOKMARK [1][-]{section.35.17}{Consejos a seguir al escribir un programa yapp}{chapter.35}% 311
+\BOOKMARK [1][-]{section.35.18}{Pr\341ctica: Un C simplificado}{chapter.35}% 312
+\BOOKMARK [1][-]{section.35.19}{La Gram\341tica de yapp / yacc}{chapter.35}% 313
+\BOOKMARK [2][-]{subsection.35.19.1}{La Cabecera}{section.35.19}% 314
+\BOOKMARK [2][-]{subsection.35.19.2}{La Cabecera: Diferencias entre yacc y yapp}{section.35.19}% 315
+\BOOKMARK [2][-]{subsection.35.19.3}{El Cuerpo}{section.35.19}% 316
+\BOOKMARK [2][-]{subsection.35.19.4}{La Cola: Diferencias entre yacc y yapp}{section.35.19}% 317
+\BOOKMARK [2][-]{subsection.35.19.5}{El An\341lisis L\351xico en yacc: flex}{section.35.19}% 318
+\BOOKMARK [2][-]{subsection.35.19.6}{Pr\341ctica: Uso de Yacc y Lex}{section.35.19}% 319
+\BOOKMARK [1][-]{section.35.20}{El Analizador Ascendente Parse::Yapp}{chapter.35}% 320
+\BOOKMARK [1][-]{section.35.21}{La Estructura de Datos Generada por YappParse.yp}{chapter.35}% 321
+\BOOKMARK [1][-]{section.35.22}{Pr\341ctica: \040El An\341lisis de las Acciones}{chapter.35}% 322
+\BOOKMARK [1][-]{section.35.23}{Pr\341ctica: \040Autoacciones}{chapter.35}% 323
+\BOOKMARK [1][-]{section.35.24}{Pr\341ctica: Nuevos M\351todos}{chapter.35}% 324
+\BOOKMARK [1][-]{section.35.25}{Pr\341ctica: Generaci\363n Autom\341tica de \301rboles}{chapter.35}% 325
+\BOOKMARK [1][-]{section.35.26}{Recuperacion de Errores: Visi\363n Detallada}{chapter.35}% 326
+\BOOKMARK [1][-]{section.35.27}{Descripci\363n Eyapp del Lenguaje SimpleC}{chapter.35}% 327
+\BOOKMARK [1][-]{section.35.28}{Dise\361o de Analizadores con Parse::Eyapp}{chapter.35}% 328
+\BOOKMARK [1][-]{section.35.29}{Pr\341ctica: Construcci\363n del AST para el Lenguaje Simple C}{chapter.35}% 329
+\BOOKMARK [1][-]{section.35.30}{El Generador de Analizadores byacc}{chapter.35}% 330
+\BOOKMARK [0][-]{chapter.36}{An\341lisis Sint\341ctico Ascendente en C con yacc y bison}{part.2}% 331
+\BOOKMARK [1][-]{section.36.1}{Introducci\363n a yacc}{chapter.36}% 332
+\BOOKMARK [1][-]{section.36.2}{Precedencia y Asociatividad}{chapter.36}% 333
+\BOOKMARK [1][-]{section.36.3}{Uso de union y type}{chapter.36}% 334
+\BOOKMARK [1][-]{section.36.4}{Acciones en medio de una regla}{chapter.36}% 335
+\BOOKMARK [1][-]{section.36.5}{Recuperaci\363n de Errores}{chapter.36}% 336
+\BOOKMARK [1][-]{section.36.6}{Recuperaci\363n de Errores en Listas}{chapter.36}% 337
+\BOOKMARK [0][-]{chapter.37}{An\341lisis Sint\341ctico Ascendente en Ruby}{part.2}% 338
+\BOOKMARK [1][-]{section.37.1}{La Calculadora}{chapter.37}% 339
+\BOOKMARK [2][-]{subsection.37.1.1}{Uso desde L\355nea de Comandos}{section.37.1}% 340
+\BOOKMARK [2][-]{subsection.37.1.2}{An\341lisis L\351xico con rexical}{section.37.1}% 341
+\BOOKMARK [2][-]{subsection.37.1.3}{An\341lisis Sint\341ctico}{section.37.1}% 342
+\BOOKMARK [1][-]{section.37.2}{V\351ase Tambi\351n}{chapter.37}% 343
+\BOOKMARK [0][-]{chapter.38}{An\341lisis Sem\341ntico}{part.2}% 344
+\BOOKMARK [0][-]{chapter.39}{Generaci\363n de C\363digo}{part.2}% 345
+\BOOKMARK [0][-]{chapter.40}{Optimizaci\363n de C\363digo}{part.2}% 346
+\BOOKMARK [0][-]{chapter.41}{Definici\363n y Dise\361o de Lenguajes}{part.2}% 347
+\BOOKMARK [-1][-]{part.3}{III TERCERA PARTE: BIT\301CORA DEL CURSO}{}% 348
+\BOOKMARK [0][-]{chapter.42}{2013}{part.3}% 349
+\BOOKMARK [1][-]{section.42.1}{01}{chapter.42}% 350
+\BOOKMARK [2][-]{subsection.42.1.1}{31/01/13}{section.42.1}% 351
+\BOOKMARK [1][-]{section.42.2}{03}{chapter.42}% 352
+\BOOKMARK [2][-]{subsection.42.2.1}{Repaso 07/03/13}{section.42.2}% 353
+\BOOKMARK [1][-]{section.42.3}{04}{chapter.42}% 354
+\BOOKMARK [2][-]{subsection.42.3.1}{Repaso 18/04/13}{section.42.3}% 355
+\BOOKMARK [2][-]{subsection.42.3.2}{Proyecto: Dise\361a e Implementa un Lenguaje de Dominio Espec\355fico}{section.42.3}% 356

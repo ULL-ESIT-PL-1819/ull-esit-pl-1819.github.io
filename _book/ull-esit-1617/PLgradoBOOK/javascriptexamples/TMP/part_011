@@ -1,0 +1,36 @@
+<tex2html_file>#./chapter_pruebas/pruebas.tex#
+\section<<1859>>Testing en JavaScript: Fácil y Rápido<<1859>>
+\label<<1860>>section:tstingfacil<<1860>>
+\begin<<1861>>enumerate<<1861>>
+\item 
+\htmladdnormallink<<1862>>Quick Tip: Quick and Easy JavaScript Testing with “Assert”<<1862>><<1863>>http://net.tutsplus.com/tutorials/javascript-ajax/quick-tip-quick-and-easy-javascript-testing-with-assert/<<1863>>
+por
+\htmladdnormallink<<1864>>Jeffrey Way<<1864>><<1865>>http://net.tutsplus.com/author/jeffreyway/<<1865>>
+\begin<<1889>>tex2html_deferred<<1889>>\par\end<<1890>>tex2html_deferred<<1890>>
+\end<<1866>>enumerate<<1866>>
+\begin<<1891>>tex2html_deferred<<1891>>\par\end<<1892>>tex2html_deferred<<1892>>
+\section<<1867>>Unit Testing, TDD y BDD con Jasmine<<1867>>
+\begin<<1868>>enumerate<<1868>>
+\item
+\htmladdnormallink<<1869>>Jasmine: BDD Style JavaScript Testing Hello World<<1869>><<1870>>http://youtu.be/nH1Amt_JHLg<<1870>> por Chris McNabb (YouTube Sep. 2012)
+\item
+\htmladdnormallink<<1871>>Download Jasmine<<1871>><<1872>>https://github.com/pivotal/jasmine/downloads<<1872>>
+\item
+\htmladdnormallink<<1873>>Testing Your JavaScript with Jasmine
+Andrew Burgess on Aug 4th 2011<<1873>><<1874>>http://net.tutsplus.com/tutorials/javascript-ajax/testing-your-javascript-with-jasmine/?search_index=3<<1874>>
+\item 
+\htmladdnormallink<<1875>>Unit Testing in JavaScript via Jasmine<<1875>><<1876>>http://youtu.be/eVpXkyN0zOE<<1876>> (Youtube)
+\item 
+\htmladdnormallink<<1877>>Jasmine<<1877>><<1878>>http://pivotal.github.com/jasmine/<<1878>> en GitHub
+\item
+\htmladdnormallink<<1879>>Behavior Driven Testing with Jasmine<<1879>><<1880>>http://youtu.be/KdCQFFHUpi4<<1880>> (YouTube, Davis Frank de Pivotal Labs, Contiene una introducción a BDD)
+\item
+\htmladdnormallink<<1881>>Jasmine Wiki<<1881>><<1882>>https://github.com/pivotal/jasmine/wiki<<1882>>
+\item
+\htmladdnormallink<<1883>>Testem<<1883>><<1884>>http://net.tutsplus.com/tutorials/javascript-ajax/make-javascript-testing-fun-with-testem<<1884>> tutorial en net.tutplus (trabaja sobre Jasmine y sobre Coffee)
+\item
+Jasmine Matchers: \htmladdnormallink<<1885>>Class jasmine.Matchers<<1885>><<1886>>http://pivotal.github.com/jasmine/jsdoc/symbols/jasmine.Matchers.html<<1886>>
+\end<<1887>>enumerate<<1887>>
+<tex2html_endfile>#./chapter_pruebas/pruebas.tex#
+\begin<<1893>>tex2html_deferred<<1893>>\par\end<<1894>>tex2html_deferred<<1894>>
+\chapter<<1888>>Buenas Prácticas y Patrones<<1888>>

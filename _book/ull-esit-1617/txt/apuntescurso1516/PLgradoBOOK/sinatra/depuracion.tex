@@ -1,0 +1,120 @@
+
+\section{Depurando una Ejecución con Ruby}
+\label{section:depuracionsinatra}
+
+\begin{verbatim}
+[~/sinatra/sinatra-debug/example1]$ ls 
+Gemfile           Rakefile          my_sinatra.rb
+Gemfile.lock      config.ru         rackmiddleware.rb
+\end{verbatim}
+
+\begin{verbatim}
+[~/sinatra/sinatra-debug/example1]$ cat Gemfile
+source 'http://rubygems.org'
+
+group :development, :test do
+  gem 'awesome_print'
+  gem 'racksh'
+  gem 'debugger'
+  gem 'pry'
+  gem 'pry-debugger'
+end
+\end{verbatim}
+
+
+\begin{verbatim}
+[~/sinatra/sinatra-debug/example1]$ cat my_sinatra.rb 
+# my_sinatra.rb
+require 'debugger'
+require 'sinatra'
+require './rackmiddleware'
+use RackMiddleware
+get '/:p' do |x|
+   # debugger
+  "Welcome to #{x}"
+end
+\end{verbatim}
+
+
+\begin{verbatim}
+[~/sinatra/sinatra-debug/example1]$ cat rackmiddleware.rb 
+class RackMiddleware
+  def initialize(appl)
+    @appl = appl
+  end
+
+  def call(env)
+    debugger
+    start = Time.now
+    status, headers, body = @appl.call(env) # call our Sinatra app
+    stop = Time.now
+    puts "Response Time: #{stop-start}" # display on console
+    [status, headers, body]
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/sinatra/sinatra-debug/example1]$ ruby my_sinatra.rb 
+== Sinatra/1.4.3 has taken the stage on 4567 for development with backup from Thin
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on localhost:4567, CTRL+C to stop
+\end{verbatim}
+
+Al conectar al servidor queda en espera:
+\begin{verbatim}
+[~/sinatra/sinatra-debug]$ curl 'http://localhost:4567/canarias'
+\end{verbatim}
+
+En la otra terminal el servidor se detiene en el primer breakpoint señalado:
+\begin{verbatim}
+[~/sinatra/sinatra-debug/example1]$ ruby my_sinatra.rb 
+== Sinatra/1.4.3 has taken the stage on 4567 for development with backup from Thin
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on localhost:4567, CTRL+C to stop
+/Users/casiano/Dropbox/src/ruby/sinatra/sinatra-debug/example1/rackmiddleware.rb:8
+start = Time.now
+
+[3, 12] in /Users/casiano/Dropbox/src/ruby/sinatra/sinatra-debug/example1/rackmiddleware.rb
+   3      @appl = appl
+   4    end
+   5  
+   6    def call(env)
+   7      debugger
+=> 8      start = Time.now
+   9      status, headers, body = @appl.call(env) # call our Sinatra app
+   10      stop = Time.now
+   11      puts "Response Time: #{stop-start}" # display on console
+   12      [status, headers, body]
+\end{verbatim}
+
+Ahora podemos ir paso a paso e inspeccionar variables:
+\begin{verbatim}
+(rdb:1) p start
+2013-07-04 15:40:11 +0100
+(rdb:1) n
+/Users/casiano/Dropbox/src/ruby/sinatra/sinatra-debug/example1/rackmiddleware.rb:10
+stop = Time.now
+
+[5, 14] in /Users/casiano/Dropbox/src/ruby/sinatra/sinatra-debug/example1/rackmiddleware.rb
+   5  
+   6    def call(env)
+   7      debugger
+   8      start = Time.now
+   9      status, headers, body = @appl.call(env) # call our Sinatra app
+=> 10      stop = Time.now
+   11      puts "Response Time: #{stop-start}" # display on console
+   12      [status, headers, body]
+   13    end
+   14  end
+(rdb:1) p body
+["Welcome to canarias"]
+(rdb:1) p status
+200
+(rdb:1) p headers
+{"Content-Type"=>"text/html;charset=utf-8", "Content-Length"=>"19"}
+\end{verbatim}
+
+

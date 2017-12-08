@@ -1,0 +1,1159 @@
+\section{Árbol de Análisis Abstracto}
+\label{section:eyapaat}
+Un \cei{árbol de análisis abstracto}  (denotado \cei{AAA}, en
+inglés \cei{abstract syntax tree} o \cei{AST}) 
+porta la misma información que
+el árbol de análisis sintáctico pero de forma mas condensada, eliminándose
+terminales y producciones que no aportan información.
+
+\parrafo{Alfabeto con Aridad o Alfabeto Árbol}
+\begin{definition}
+Un \cei{alfabeto con función de aridad} es un par $(\Sigma, \rho)$
+donde $\Sigma$ es un conjunto finito y
+$\rho$ es una función $\rho: \Sigma \rightarrow \mathds{N}_0$, denominada 
+\cei{función de aridad}.
+Denotamos por $\Sigma_k = \{ a \in \Sigma :\ \rho(a) = k \}$.
+
+\parrafo{Lenguaje de los Arboles}
+Definimos el \cei{lenguaje árbol homogéneo} $B(\Sigma)$ sobre $\Sigma$ inductivamente:
+\begin{itemize}
+\item
+Todos los elementos de aridad 0 están en $B(\Sigma)$: $a \in  \Sigma_0$
+implica $a \in B(\Sigma)$
+\item
+Si $b_1, \ldots , b_k \in B(\Sigma)$ y $f \in \Sigma_k$ es un elemento
+$k$-ario, entonces $f(b_1, \ldots , b_k) \in B(\Sigma)$
+\end{itemize}
+Los elementos de $B(\Sigma)$ se llaman  \cei{árboles} o \cei{términos}.
+\end{definition}
+
+\begin{example}
+Sea $\Sigma = \{A, CONS, NIL \}$ con $\rho(A) = \rho(NIL) = 0,\ \rho(CONS) = 2$. 
+Entonces 
+
+$B(\Sigma) = \{ A, NIL, CONS(A,NIL), CONS(NIL, A), CONS(A, A), CONS(NIL,NIL), \ldots \}$
+\end{example}
+
+\begin{example}
+\label{example:eyaptutuast}
+Una versión simplificada del alfabeto con aridad en el que estan basados
+los árboles construidos por el compilador de Tutu es:
+
+\begin{tabular}{l}
+$\Sigma = \{ID, NUM, LEFTVALUE, STR, PLUS, TIMES, ASSIGN, PRINT \}$\\
+$\rho(ID) = \rho(NUM) = \rho(LEFTVALUE) = \rho(STR) = 0$\\
+$\rho(PRINT) = 1$\\
+$\rho(PLUS) = \rho(TIMES) = \rho(ASSIGN) = 2$.
+\end{tabular}
+
+Observe que los elementos en $B(\Sigma)$ no necesariamente son 
+árboles ``correctos''. Por ejemplo, el árbol
+$ASSIGN(NUM, PRINT(ID))$
+es un elemento de $B(\Sigma)$.
+\end{example}
+
+\parrafo{Gramática Árbol}
+\begin{definition}
+Una \cei{gramática árbol regular} es una cuadrupla $((\Sigma, \rho), N, P, S)$, 
+donde:
+\begin{itemize}
+\item
+$(\Sigma, \rho)$ es un alfabeto con aricidad $\rho: \Sigma \rightarrow \mathds{N}$
+\item
+$N$ es un conjunto finito de variables sintácticas o no terminales
+\item
+$P$ es un conjunto finito de reglas de producción de la forma
+$X \rightarrow s$ con $X \in N$ y $s \in B(\Sigma \cup N)$
+\item
+$S \in N$ es la variable o símbolo de arranque
+\end{itemize}
+
+
+%Definimos el patrón $\tilde{s}$ asociado con la parte derecha $s$
+%como el  patrón en $B(\Sigma \cup \{x_1, \ldots x_k\})$ resultante
+%de reemplazar los noterminales $X_j$ de $N$ por las variables $x_j$.
+\end{definition}
+
+\parrafo{Lenguaje Generado por una Gramática Árbol}
+
+\begin{definition}
+Dada una gramática $(\Sigma, N, P, S)$,
+se dice que un árbol $t \in B(\Sigma \cup N)$ es del tipo $(X_1, \ldots X_k)$
+si el $j$-ésimo noterminal, contando desde la izquierda, que aparece en $t$
+es $X_j \in N$. 
+
+Si $p = X \rightarrow s$ es una producción y $s$ es de tipo $(X_1, \ldots X_n)$,
+diremos que la producción $p$ es de tipo $(X_1, \ldots X_n) \rightarrow X$.
+\end{definition}
+
+\begin{definition}
+Consideremos un árbol  $t \in B(\Sigma \cup N)$
+que sea del tipo $(X_1, \ldots X_n)$, esto es las variables sintácticas
+en el árbol leídas de izquierda a derecha son $(X_1, \ldots X_n)$.
+
+\begin{itemize}
+\item
+Si $X_i \rightarrow s_i \in P$ para algún $i$, entonces 
+decimos que el árbol $t$ \cei{deriva en un paso en el árbol}
+$t'$ resultante de sustituir el nodo $X_i$ por el árbol $s_i$ y escribiremos
+$t \Longrightarrow t'$.  Esto es, $t' = t\{X_i/s_i\}$
+\item
+Todo árbol deriva en cero pasos
+en si mismo $t \stackrel{0}{\Longrightarrow} t$. 
+\item
+Decimos que un árbol $t$ deriva en $n$ pasos en el árbol $t'$
+y escribimos $t \stackrel{n}{\Longrightarrow} t'$
+si $t$ deriva en un paso en un árbol $t''$ el cuál deriva en $n-1$ pasos en $t'$.
+En general, si $t$ deriva en un cierto número de pasos en $t'$ escribiremos
+$t \stackrel{*}{\Longrightarrow} t'$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+Se define el \cei{lenguaje árbol generado por una gramática} $G = (\Sigma, N, P, S)$
+como el lenguaje $L(G) = \{ t \in B(\Sigma): \exists S \stackrel{*}{\Longrightarrow} t \}$.
+\end{definition}
+
+\begin{example}
+\label{example:eyaplisttreegrammar}
+Sea $G = (\Sigma, V, P, S)$ con
+$\Sigma = \{A, CONS, NIL \}$ y $\rho(A) = \rho(NIL) = 0,\ \rho(CONS) = 2$
+y sea $V = \{ exp, list \}$. El conjunto de producciones $P$ es:
+
+\begin{center}
+$P_1 = \{ list \rightarrow NIL,\ list \rightarrow CONS(exp,list),\ exp \rightarrow A \}$
+\end{center}
+
+La producción $list \rightarrow CONS(exp,list)$ es del tipo $(exp,list) \rightarrow list$. 
+%El patrón asociado con su parte derecha $s = CONS(E,L)$ es $\tilde{s} = CONS(x_1, x_2)$. 
+
+El lenguaje generado por $G$ se obtiene realizando sustituciones
+sucesivas (derivando) desde el símbolo de arranque hasta producir un
+árbol cuyos nodos estén etiquetados con elementos de $\Sigma$. 
+En este ejemplo, $L(G)$ es el conjunto de arboles de la forma:
+
+\begin{center}
+$L(G) = \{ NIL, CONS(A, NIL), CONS(A, CONS(A,NIL)), \ldots \}$
+\end{center}
+
+\end{example}
+
+\begin{exercise} 
+Construya una derivación para el árbol $CONS(A, CONS(A,NIL))$.
+¿De que tipo es el árbol $CONS(exp, CONS(A, CONS(exp,L)))$?.
+\end{exercise}
+
+Cuando hablamos del AAA producido por un analizador sintáctico,
+estamos en realidad hablando de un lenguaje árbol cuya definición 
+precisa debe hacerse a través de una gramática
+árbol regular.
+Mediante las gramáticas árbol regulares disponemos de un mecanismo para
+describir formalmente el lenguaje de los 
+AAA que producirá el analizador sintáctico
+para las sentencias Tutu.
+
+\begin{example}
+\label{example:eyaptututreegrammar}
+Sea $G = (\Sigma, V, P, S)$ con
+
+\begin{center}
+\begin{tabular}{l}
+$\Sigma = \{ID, NUM, LEFTVALUE, STR, PLUS, TIMES, ASSIGN, PRINT \}$\\
+$\rho(ID) = \rho(NUM) = \rho(LEFTVALUE) = \rho(STR) = 0$\\
+$\rho(PRINT) = 1$\\
+$\rho(PLUS) = \rho(TIMES) = \rho(ASSIGN) = 2$\\
+$V = \{ st, expr \}$\\
+\end{tabular}
+\end{center}
+y las producciones:
+
+\begin{center}
+\begin{tabular}{lll}
+$P =$    &$\{$      &\\
+         & $st$     &$\rightarrow ASSIGN(LEFTVALUE, expr)$\\
+         & $st$     &$\rightarrow PRINT(expr)$\\
+         & $expr$   &$\rightarrow PLUS(expr, expr)$\\
+         & $expr$   &$\rightarrow TIMES(expr, expr)$\\
+         & $expr$   &$\rightarrow NUM$\\
+         & $expr$   &$\rightarrow ID$\\
+         & $expr$   &$\rightarrow STR$\\
+         &$\}$      & 
+\end{tabular}
+\end{center}
+
+Entonces el lenguaje $L(G)$ contiene árboles
+como el siguiente: 
+
+\begin{tabular}{llll}
+$ASSIGN$  & $($          &         &\\
+          & $LEFTVALUE$, &   &\\
+          & $PLUS$       & $($     &\\
+          &              & $ID$,   & \\
+          &              & $TIMES$ & $($\\
+          &              &         & $NUM$,\\
+          &              &         & $ID$\\
+          &              &         & $)$\\
+          &              & $)$     &\\
+          & $)$          &         &
+\end{tabular}
+
+El cual podría corresponderse con una sentencia como
+\verb|a = b + 4 * c|.
+
+El lenguaje de árboles descrito por esta gramática árbol 
+es el lenguaje de los AAA de las sentencias de Tutu.
+\end{example}
+
+\begin{exercise}
+Redefina el concepto de árbol de análisis concreto dado
+en la definición \ref{definition:arbolconcreto} utilizando el
+concepto de gramática árbol. Con mas precisión,
+dada una gramática $G = (\Sigma, V, P, S)$ defina una gramática
+árbol $T = (\Omega, N, R, U)$ tal que $L(T)$ sea el lenguaje 
+de los árboles concretos de $G$. Puesto que las partes 
+derechas de las reglas de producción de $P$ pueden ser 
+de distinta longitud, existe un problema con
+la aricidad de los elementos de $\Omega$. Discuta posibles
+soluciones.
+\end{exercise}
+
+\begin{exercise}
+¿Cómo son los árboles sintácticos en las derivaciones árbol?
+Dibuje varios árboles sintácticos para las gramáticas 
+introducidas en los ejemplos 
+\ref{example:listtreegrammar}
+y \ref{example:tututreegrammar}.
+
+Intente dar una definición formal del concepto de árbol de análisis
+sintáctico asociado con una derivación en una gramática árbol
+\end{exercise}
+
+\parrafo{Notación de Dewey o Coordenadas de un Árbol}
+\begin{definition} 
+\label{definition:eyapdewey}
+La notación de Dewey es una forma de especificar los subárboles
+de un árbol $t \in B(\Sigma)$. La notación sigue el mismo
+esquema que la numeración de secciones en un texto: 
+es una palabra formada por números separados
+por puntos. Así {\it t/2.1.3 }
+denota al tercer hijo del primer hijo del segundo hijo
+del árbol $t$.
+La definición formal sería:
+\begin{itemize}
+\item
+$t/\epsilon = t$
+\item
+Si $t = a(t_1, \ldots t_k)$ y $j \in \{ 1 \ldots k \}$ y $n$ es una 
+cadena de números y puntos, se define 
+inductivamente el subárbol $t/j.n$ como el subárbol $n$-ésimo del
+$j$-ésimo subárbol de $t$. Esto es: $t/j.n = t_j/n$
+\end{itemize}
+\end{definition}
+%El método \tei{descendant} de los objetos \verb|Parse::Eyapp::Node| descrito en la sección \ref{secion:descendant} puede verse como una implantación de la notación de Dewey.
+
+\begin{exercise}
+Sea el árbol:
+
+\vspace{0.5cm}
+\begin{tabular}{llll}
+$t = ASSIGN$  & $($          &         &\\
+          & $LEFTVALUE$, &   &\\
+          & $PLUS$       & $($     &\\
+          &              & $ID$,   & \\
+          &              & $TIMES$ & $($\\
+          &              &         & $NUM$,\\
+          &              &         & $ID$\\
+          &              &         & $)$\\
+          &              & $)$     &\\
+          & $)$          &         &
+\end{tabular}
+
+\vspace{0.5cm}
+Calcule los subárboles $t/\epsilon$, $t/2\ldotp2\ldotp1$, $t/2\ldotp1$ y $t/2\ldotp1\ldotp2$.
+\end{exercise}
+
+
+\section{Selección de Código y Gramáticas Árbol}
+\label{section:selecciondecodigo}
+La generación de código es la fase en la que a partir de la 
+\cei{Representación intermedia} o \cei{IR} se genera 
+una secuencia de instrucciones para la máquina objeto.
+Esta tarea conlleva diversas subtareas, entre ellas destacan
+tres: 
+\begin{itemize}
+\item
+La selección de instrucciones o selección de código, 
+\item
+La asignación de registros
+y 
+\item
+La planificación de las instrucciones.
+\end{itemize}
+
+El problema de la \cei{selección de código} surge de que
+la mayoría de las máquinas suelen tener una gran variedad de instrucciones,
+habitualmente cientos y muchas instrucciones admiten mas de una decena de modos de 
+direccionamiento.
+En consecuencia, 
+
+\begin{center}
+\begin{quote}
+There Is More Than One Way To Do It (The Translation)
+\end{quote}
+\end{center}
+
+\emph{Es posible asociar 
+una gramática árbol con 
+el juego de instrucciones de una máquina}. 
+Las partes derechas de las reglas de producción de esta gramática vienen determinadas
+por el conjunto de árboles sintácticos de las instrucciones. 
+La gramática tiene dos variables sintácticas 
+que denotan dos tipos de recursos de la máquina: los registros
+representados por la variable sintáctica $R$ y las direcciones de memoria 
+representadas por $M.$ 
+Una instrucción deja su resultado en cierto lugar, normalmente un registro o
+memoria. La idea es que las variables sintácticas en los lados izquierdos
+de las reglas representan los lugares
+en los cuales las instrucciones dejan sus resultados.
+
+Ademas, a cada instrucción le asociamos un coste:
+
+\begin{center}
+\begin{tabular}{|l|p{4.25cm}|l|}
+\hline
+\multicolumn{3}{|c|}{Gramática Arbol Para un Juego de Instrucciones Simple}\\
+\hline
+ Producción                                &   Instrucción           & Coste \\
+\hline
+ R $\rightarrow$ NUM                  &   \verb|LOADC R, NUM|    &   1   \\
+\hline
+ R $\rightarrow$ M                    &   \verb|LOADM R, M|     &   3\\
+\hline
+ M $\rightarrow$ R                    &   \verb|STOREM M, R|     &   3\\
+\hline
+ R $\rightarrow$ PLUS(R,M)            &   \verb|PLUSM R, M|     &   3\\
+\hline
+ R $\rightarrow$ PLUS(R,R)            &   \verb|PLUSR R, R|     &  1\\
+\hline
+  R $\rightarrow$ TIMES(R,M)          &   \verb|TIMESM R, M|    &   6\\
+\hline
+ R $\rightarrow$ TIMES(R,R)           &   \verb|TIMESR R, R|   &  4\\
+\hline
+ R $\rightarrow$ PLUS(R,TIMES(NUM,R)) & \verb|PLUSCR R, NUM, R| & 4\\
+\hline
+ R $\rightarrow$ TIMES(R,TIMES(NUM,R)) &  \verb|TIMESCR R, NUM, R| & 5\\
+\hline
+\end{tabular}
+\end{center}
+
+Consideremos la IR consistente en el AST generado por el front-end del compilador
+para la expresión \verb|x+3*(7*y)|:
+
+\begin{verbatim}
+                           PLUS(M[x],TIMES(N[3],TIMES(N[7],M[y])
+\end{verbatim}
+
+Construyamos una derivación a izquierdas para el árbol anterior:
+
+\begin{center}
+\begin{tabular}{|l|l|p{3cm}|r|}
+\hline
+\multicolumn{4}{|c|}{ Una derivación árbol a izquierdas para $P(M,T(N,T(N,M)))$}\\
+\hline
+Derivación                            & Producción                 & Instrucción          & Coste\\
+\hline
+$R \Longrightarrow$                   & R $\rightarrow$ PLUS(R,R)  &   \verb|PLUSR R, R|  & 1\\
+\hline
+$P(R,R) \Longrightarrow$              & R $\rightarrow$ M          &   \verb|LOADM R, M|  & 3\\ 
+\hline
+$P(M,R) \Longrightarrow$              & R $\rightarrow$ TIMES(R,R) &  \verb|TIMESR R, R|  & 4\\
+\hline
+$P(M, T(R, R)) \Longrightarrow$       & R $\rightarrow$ NUM        &  \verb|LOADC R, NUM| & 1\\
+\hline
+$P(M, T(N, R)) \Longrightarrow$       & R $\rightarrow$ TIMES(R,R) &  \verb|TIMESR R, R|  & 4\\
+\hline
+$P(M, T(N, T(R, R))) \Longrightarrow$ & R $\rightarrow$ NUM        &  \verb|LOADC R, NUM| & 1\\
+\hline
+$P(M, T(N, T(N, R))) \Longrightarrow$ & R $\rightarrow$ M          &  \verb|LOADM R, M|   & 3\\
+\hline
+$P(M,T(N,T(N,M))) $                     &                            &                      & Total: 17\\
+\hline
+\end{tabular}
+\end{center}
+
+Obsérvese que, si asumimos por ahora que hay suficientes registros, la secuencia
+de instrucciones resultante en la tercera columna de la tabla si se lee en orden inverso
+(esto es, si se sigue el orden de instrucciones asociadas a las reglas de producción
+en orden de anti-derivación)
+y se hace una asignación correcta de registros nos da una traducción correcta
+de la expresión \verb|x+3*(7*y)|:
+
+\begin{verbatim}
+LOADM R, M         # y 
+LOADC R, NUM       # 7
+TIMESR R, R        # 7*y
+LOADC R, NUM       # 3
+TIMESR R, R        # 3*(7*y)
+LOADM R, M         # x
+PLUSR R, R         # x+3*(7*y)
+\end{verbatim}
+
+La gramática anterior es ambigua. El árbol de \verb|x+3*(7*y)|
+puede ser generado también mediante la siguiente derivación 
+a izquierdas:
+
+\begin{center}
+\begin{tabular}{|l|l|p{4cm}|r|}
+\hline
+\multicolumn{4}{|c|}{ Otra derivación árbol a izquierdas para $P(M,T(N,T(N,M)))$}\\
+\hline
+Derivación                            & Producción                 & Instrucción     & Coste \\
+\hline
+$R \Longrightarrow$                   & R $\rightarrow$ PLUS(R,TIMES(NUM,R)) & \verb|PLUSCR R, NUM, R| & 4\\
+\hline
+$P(R,T(N,R)) \Longrightarrow$         & R $\rightarrow$ M                    &   \verb|LOADM R, M|     & 3\\
+\hline
+$P(M,T(N,R)) \Longrightarrow$         & R $\rightarrow$ TIMES(R,M)           &   \verb|TIMESM R, M|    & 6\\
+\hline
+$P(M,T(N,T(R,M))) $                   & R $\rightarrow$ NUM                  &   \verb|LOADC R, NUM|   & 1\\
+\hline
+$P(M,T(N,T(N,M))) $                   &                                      &                         & Total: 14\\
+\hline
+\end{tabular}
+\end{center}
+
+La nueva secuencia de instrucciones para \verb|x+3*(7*y)| es:
+
+\begin{verbatim}
+LOADC R, NUM        # 7
+TIMESM R, M         # 7*y
+LOADM R, M          # x
+PLUSCR R, NUM, R    # x+3*(7*y)
+\end{verbatim}
+
+Cada antiderivación a izquierdas produce una secuencia de instrucciones que es una traducción
+legal del AST de \verb|x+3*(7*y)|. 
+
+\emph{El problema de la selección de código óptima
+puede aproximarse resolviendo 
+el problema de  encontrar la derivación árbol óptima que produce el árbol
+de entrada (en representación intermedia IR)}
+
+\begin{definition}
+Un \cei{generador de generadores de código} es una componente software que toma como
+entrada una especificación de la plataforma objeto -por ejemplo mediante una gramática
+árbol- y genera un módulo que es utilizado por el compilador. Este módulo
+lee la representación intermedia (habitualmente un árbol) y 
+retorna código máquina como resultado.
+\end{definition}
+
+Un ejemplo de generador de generadores de código 
+es 
+\htmladdnormallink{iburg}
+                  {http://code.google.com/p/iburg/}
+\cite{Proebsting}.
+
+Véase también el libro 
+\link{Automatic Code Generation Using Dynamic Programming Techniques}{http://www.bytelabs.org/pub/papers/hburg07.pdf}
+y la página \link{http://www.bytelabs.org/hburg.html}{http://www.bytelabs.org/hburg.html}
+
+\begin{exercise}
+Responda a las siguientes preguntas:
+\begin{itemize}
+\item
+Sea $G_M$ la gramática árbol asociada segun la descripción anterior
+con el juego de instrucciones de la máquina $M$. Especifique formalmente
+las cuatro componentes de la gramática $G_M = (\Sigma_M, V_M, P_M, S_M)$ 
+\item
+¿Cual es el lenguaje árbol generado por $G_M$?
+\item
+¿A que lenguaje debe pertenecer la representación intermedia IR para
+que se pueda aplicar la aproximación presentada en esta sección?
+\end{itemize}
+\end{exercise}
+
+\section{Patrones Árbol y Transformaciones Árbol}
+\label{section:eyappatronesarbol}
+Una transformación de un programa puede ser descrita
+como un conjunto de \cei{reglas de transformación} 
+o \cei{esquema de traducción árbol}
+sobre el árbol abstracto que representa el programa.
+
+En su forma mas sencilla, estas reglas de transformación
+vienen definidas
+por ternas $(p, e, action)$, donde la primera componente de la
+terna $p$ es un \cei{patrón árbol} que dice que árboles
+deben ser seleccionados. La segunda componente 
+$e$ dice cómo debe transformarse el árbol que casa con el patrón
+$p$. La acción $action$ indica como deben
+computarse los atributos del árbol transformado
+a partir de los atributos 
+del árbol que casa con el patrón $p$.
+Una forma de representar este esquema sería:
+
+\begin{center}
+$p \Longrightarrow e$  \verb|{ action }|
+\end{center}
+
+Por ejemplo:
+
+\vspace{0.25cm}
+$PLUS(NUM_1, NUM_2) \Longrightarrow NUM_3$ \verb|{ $NUM_3{VAL} = $NUM_1{VAL} + $NUM_2{VAL} }|
+\vspace{0.25cm}
+
+cuyo significado es que dondequiera que haya un nódo del AAA que case 
+con el \cei{patrón de entrada} $PLUS(NUM, NUM)$ deberá sustituirse
+el subárbol $PLUS(NUM, NUM)$ por el subárbol $NUM$. Al igual que en los 
+esquemas de traducción, enumeramos las apariciones de los símbolos,
+para distinguirlos en la parte semántica. La acción indica 
+como deben recomputarse los atributos para el nuevo árbol:
+El atributo \verb|VAL| del árbol resultante es la suma de los atributos
+\verb|VAL| de los operandos en el árbol que ha casado.
+La transformación se repite hasta que se produce la \cei{normalización del árbol}.
+
+Las reglas de ``casamiento''  de árboles pueden ser mas complejas, 
+haciendo alusión a propiedades de los atributos, por ejemplo
+
+\vspace{0.25cm}
+\begin{center}
+$ASSIGN(LEFTVALUE, x)\ and$ \verb|{ notlive($LEFTVALUE{VAL}) }| $\Longrightarrow NIL$
+\end{center}
+\vspace{0.25cm}
+
+indica que se pueden eliminar aquellos árboles de tipo asignación
+en los cuáles la variable asociada con el nodo $LEFTVALUE$
+no se usa posteriormente. 
+
+Otros ejemplos con variables $S_1$ y $S_2$:
+
+\begin{center}
+$IFELSE(NUM, S_1, S_2)$ and \verb|{ $NUM{VAL} != 0 }| $\Longrightarrow S_1$\\ 
+$IFELSE(NUM, S_1, S_2)$ and \verb|{ $NUM{VAL} == 0 }| $\Longrightarrow S_2$ 
+\end{center}
+
+
+%En realidad este formato con selección
+%en términos de los atributos puede reducirse al anterior si se
+%considera que la transformación sólo tiene lugar cuando la acción devuelve 
+%un valor cierto.
+%
+%\vspace{0.25cm}
+%$ASSIGN(LEFTVALUE, x) \Longrightarrow skip$ \verb|{ notlive($LEFTVALUE) }| 
+%\vspace{0.25cm}
+%
+
+Observe que en el patrón de entrada $ASSIGN(LEFTVALUE, x)$ aparece un
+``comodín'': la variable-árbol $x$, que hace que el árbol
+patrón $ASSIGN(LEFTVALUE, x)$ case con cualquier árbol de asignación,
+independientemente de la forma que tenga su subárbol derecho.
+
+Las siguientes definiciones formalizan una aproximación simplificada 
+al significado de los conceptos \cei{patrones árbol} y
+\cei{casamiento de árboles}.
+
+\parrafo{Patrón Árbol}
+\begin{definition}
+Sea $(\Sigma, \rho)$ un alfabeto con función de aridad
+y un conjunto (puede ser infinito) 
+de variables $V =\{ x_1, x_2, \ldots \}$. 
+Las variables tienen
+aridad cero: 
+
+\begin{center}
+$\rho(x) = 0\ \forall x \in V$. 
+\end{center}
+
+Un elemento de $B(V \cup \Sigma)$
+se denomina \cei{patrón} sobre $\Sigma$.
+\end{definition}
+
+\parrafo{Patrón Lineal}
+\begin{definition}
+Se dice que un
+patrón es un \cei{patrón lineal} si ninguna variable se repite.
+\end{definition}
+
+\begin{definition}
+Se dice que un patrón es de tipo $(x_1, \ldots x_k)$ si las variables
+que aparecen en el patrón leidas de izquierda a derecha en el árbol
+son $x_1, \ldots x_k$.
+\end{definition}
+
+\begin{example}
+Sea $\Sigma = \{A, CONS, NIL \}$ con $\rho(A) = \rho(NIL) = 0, \rho(CONS) = 2$
+y sea $V = \{ x \}$. Los siguientes árboles son ejemplos de 
+patrones sobre $\Sigma$:
+
+\begin{center}
+\{ $x, CONS(A, x), CONS(A, CONS(x, NIL)), \ldots \}$
+\end{center}
+
+El patrón $CONS(x, CONS(x, NIL))$ es un ejemplo de patrón no lineal.
+La idea es que un patrón lineal como éste ``fuerza'' a que los árboles $t$
+que casen con el patrón deben tener iguales los dos correspondientes
+subárboles $t/1$ y $t/2 \ldotp 1$ situados en las posiciones de las variables
+\footnote{Repase la notación de Dewey introducida en 
+la definición \ref{definition:dewey}}
+
+\end{example}
+
+\begin{exercise}
+Dado la gramática árbol:
+
+\begin{center}
+$S \rightarrow S_1(a, S, b)$\\
+$S \rightarrow S_2(NIL)$ 
+\end{center}
+
+\noindent la cuál genera los árboles concretos para la gramática
+
+\begin{center}
+$S \rightarrow aSb$  $|$ $\epsilon$
+\end{center}
+
+\noindent ¿Es $S_1(a, X(NIL), b)$ un patrón árbol sobre el conjunto de variables $\{X, Y\}$?
+¿Lo es $S_1(X, Y, a)$? ¿Es $S_1(X, Y, Y)$ un patrón árbol?
+\end{exercise}
+
+\begin{example}
+Ejemplos de patrones para el AAA definido en el ejemplo
+\ref{example:tutuast} para el lenguaje Tutu son:
+
+\begin{center}
+$x, y, PLUS(x, y), ASSIGN(x, TIMES(y,ID)), PRINT(y) \ldots$
+\end{center}
+
+considerando el conjunto de variables $V = \{ x, y \}$. El patrón 
+$ASSIGN(x, TIMES(y,ID))$ es del tipo $(x, y)$.
+\end{example}
+
+\parrafo{Sustitución}
+\begin{definition}
+Una \cei{sustitución árbol} es una aplicación $\theta$ que asigna variables
+a patrones $\theta: V \rightarrow B(V \cup \Sigma)$.
+
+Tal función puede ser naturalmente extendida de las variables
+a los árboles: los nodos (hoja) etiquetados con dichas variables son sustituidos
+por los correspondientes subárboles.
+
+\begin{center}
+\begin{tabular}{l}
+$\theta : B(V \cup \Sigma) \rightarrow B(V \cup \Sigma)$\\
+$t \theta = \left \{ \begin{array}{ll}
+                         x \theta & \mbox{si $t = x \in V$}\\
+                         a(t_1  \theta, \ldots, t_k \theta) & \mbox{si $t = a(t_1, \ldots, t_k)$} 
+                      \end{array}
+             \right. $ 
+\end{tabular}
+\end{center}
+
+Obsérvese que, al revés de lo que es costumbre, la aplicación 
+de la sustitución $\theta$ al patrón se escribe por detrás: $t \theta$.
+
+También se escribe $t \theta = t\{x_1/x_1 \theta, \ldots x_k/x_k \theta\}$ si las variables
+que aparecen en $t$ de izquierda a derecha son $x_1, \ldots x_k$.
+\end{definition}
+
+\begin{example}
+Si aplicamos la sustitución  $\theta = \{x/A, y/CONS(A, NIL)\}$
+al patrón $CONS(x, y)$ obtenemos el árbol $CONS(A, CONS(A, NIL))$.
+En efecto:
+
+\begin{center}
+$CONS(x, y)\theta = CONS(x\theta, y\theta) = CONS(A, CONS(A, NIL))$
+\end{center}
+
+\end{example}
+
+\begin{example}
+Si aplicamos la sustitución  $\theta = \{x/PLUS(NUM, x), y/TIMES(ID, NUM)\}$
+al patrón $PLUS(x, y)$ obtenemos el árbol $PLUS(PLUS(NUM,x), TIMES(ID, NUM))$:
+
+\begin{center}
+$PLUS(x, y)\theta = PLUS(x\theta, y\theta) = PLUS(PLUS(NUM,x), TIMES(ID, NUM))$
+\end{center}
+
+\end{example}
+
+\parrafo{Casamiento Árbol}
+\begin{definition}
+Se dice que un patrón $\tau \in B(V \cup \Sigma)$ con variables
+$x_1, \ldots x_k$ \cei{casa con un árbol}
+$t \in B(\Sigma)$ si existe una sustitución de $\tau$ que produce $t$, esto
+es, si existen $t_1, \ldots t_k \in B(\Sigma)$ tales que 
+$t = \tau \{x_1/t_1, \ldots x_k/t_k\}$. 
+También se dice que $\tau$ \cei{casa con la sustitución}
+$\{x_1/t_1, \ldots x_k/t_k\}$.
+\end{definition}
+
+\begin{example}
+El patrón $\tau = CONS(x, NIL)$ casa con el árbol $t = CONS(CONS(A,NIL),NIL)$ 
+y con el subárbol  $t \ldotp 1$. Las respectivas sustituciones son $t\{x/CONS(A,NIL)\}$ y 
+$t \ldotp 1 \{x/A\}$.
+
+\begin{center}
+$t = \tau \{x/CONS(A,NIL)\}$\\
+$t \ldotp 1 = \tau \{x/A\}$
+\end{center}
+
+\end{example}
+
+\begin{exercise}
+Sea $\tau = PLUS(x, y)$ y $t = TIMES(PLUS(NUM, NUM), TIMES(ID, ID))$.
+Calcule los subárboles $t'$ de $t$ y las sustituciones $\{x/t_1, y/t_2\}$ 
+que hacen que $\tau$ case con $t'$.  
+
+Por ejemplo es obvio que para el árbol raíz $t/\epsilon$ no existe sustitución
+posible:
+
+$t = TIMES(PLUS(NUM, NUM), TIMES(ID, ID)) = \tau\{x/t_1, y/t_2\} =
+PLUS(x, y)\{x/t_1, y/t_2\}$
+
+ya que un término con raíz $TIMES$ nunca podrá ser igual a un término con raíz 
+$PLUS$.
+\end{exercise}
+
+El problema aquí es equivalente al de las expresiones regulares
+en el caso de los lenguajes lineales. En aquellos, los autómatas finitos 
+nos proveen con un mecanismo para reconocer si una determinada cadena
+``casa''' o no con la expresión regular. Existe un concepto análogo,
+el de \cei{autómata árbol} que resuelve el problema del ``casamiento''
+de patrones árbol. Al igual que el concepto de autómata permite 
+la construcción de software para la búsqueda de cadenas y su 
+posterior modificación, el concepto de autómata árbol 
+permite la construcción de software para la búsqueda de los
+subárboles que casan con un patrón árbol dado.
+
+\section{Ejemplo de Transformaciones Árbol: Parse::Eyapp::TreeRegexp}
+
+\parrafo{Instalación}
+
+\begin{verbatim}
+[~/jison/jison-aSb(master)]$ sudo cpan Parse::Eyapp
+\end{verbatim}
+
+\parrafo{Donde}
+
+\begin{itemize}
+\item
+\begin{verbatim}
+[~/src/perl/parse-eyapp/examples/MatchingTrees]$ pwd -P
+/Users/casiano/local/src/perl/parse-eyapp/examples/MatchingTrees
+\end{verbatim}
+\item
+\htmladdnormallink{Parse::Eyapp}{http://search.cpan.org/~casiano/Parse-Eyapp-1.182/lib/Parse/Eyapp/eyapp}
+\item
+\htmladdnormallink{Ejemplo de uso de Parse::Eyapp::Treeregexp}{https://github.com/gitpan/Parse-Eyapp/blob/master/examples/MatchingTrees/synopsis.pl}
+\item
+\htmladdnormallink{Tree Matching and Tree Substitution}{https://github.com/gitpan/Parse-Eyapp/blob/master/lib/Parse/Eyapp/MatchingTrees.pod}
+\item
+\htmladdnormallink{Node.pm}{https://github.com/gitpan/Parse-Eyapp/blob/master/lib/Parse/Eyapp/Node.pm\#L149-L172} (Véase el método \verb|s|)
+\end{itemize}
+
+\parrafo{La gramática: Expresiones}
+
+\begin{verbatim}
+my $grammar = q{
+  %lexer {
+      m{\G\s+}gc;
+      m{\G([0-9]+(?:\.[0-9]+)?)}gc and return('NUM',$1);
+      m{\G([A-Za-z][A-Za-z0-9_]*)}gc and return('VAR',$1);
+      m{\G(.)}gcs and return($1,$1);
+  }
+
+  %right  '='     # Lowest precedence
+  %left   '-' '+' # + and - have more precedence than = Disambiguate a-b-c as (a-b)-c
+  %left   '*' '/' # * and / have more precedence than + Disambiguate a/b/c as (a/b)/c
+  %left   NEG     # Disambiguate -a-b as (-a)-b and not as -(a-b)
+  %tree           # Let us build an abstract syntax tree ...
+
+  %%
+  line: 
+      exp <%name EXPRESSION_LIST + ';'>  
+        { $_[1] } /* list of expressions separated by ';' */
+  ;
+
+  /* The %name directive defines the name of the
+     class to which the node being built belongs */
+  exp:
+      %name NUM  
+      NUM            
+    | %name VAR   
+      VAR         
+    | %name ASSIGN 
+      VAR '=' exp 
+    | %name PLUS 
+      exp '+' exp    
+    | %name MINUS 
+      exp '-' exp 
+    | %name TIMES  
+      exp '*' exp 
+    | %name DIV     
+      exp '/' exp 
+    | %name UMINUS 
+      '-' exp %prec NEG 
+    | '(' exp ')'  
+        { $_[2] }  /* Let us simplify a bit the tree */
+  ;
+
+  %%
+}; # end grammar
+\end{verbatim}
+
+\parrafo{Ejecución}
+\begin{verbatim}
+El trozo de código:
+\begin{verbatim}
+$parser->input(\"2*-3+b*0;--2\n");       # Set the input
+my $t = $parser->YYParse;        
+\end{verbatim}
+da lugar a este árbol:
+\begin{verbatim}
+[~/src/perl/parse-eyapp/examples/MatchingTrees]$ ./synopsis.pl 
+Syntax Tree:
+EXPRESSION_LIST(
+  PLUS(
+    TIMES(
+      NUM( TERMINAL[2]),
+      UMINUS( NUM( TERMINAL[3])) # UMINUS
+    ) # TIMES,
+    TIMES( VAR( TERMINAL[b]), NUM( TERMINAL[0])) # TIMES
+  ) # PLUS,
+  UMINUS(
+    UMINUS( NUM( TERMINAL[2])) # UMINUS
+  ) # UMINUS
+) # EXPRESSION_LIST
+\end{verbatim}
+Al aplicar las transformaciones:
+\begin{verbatim}
+# Let us transform the tree. Define the tree-regular expressions ..
+my $p = Parse::Eyapp::Treeregexp->new( STRING => q{
+    { #  Example of support code
+      my %Op = (PLUS=>'+', MINUS => '-', TIMES=>'*', DIV => '/');
+    }
+    constantfold: /TIMES|PLUS|DIV|MINUS/:bin(NUM($x), NUM($y)) 
+      => { 
+        my $op = $Op{ref($bin)};
+        $x->{attr} = eval  "$x->{attr} $op $y->{attr}";
+        $_[0] = $NUM[0]; 
+      }
+    uminus: UMINUS(NUM($x)) => { $x->{attr} = -$x->{attr}; $_[0] = $NUM }
+    zero_times_whatever: TIMES(NUM($x), .) and { $x->{attr} == 0 } => { $_[0] = $NUM }
+    whatever_times_zero: TIMES(., NUM($x)) and { $x->{attr} == 0 } => { $_[0] = $NUM }
+  },
+  OUTPUTFILE=> 'main.pm'
+);
+$p->generate(); # Create the tranformations
+
+$t->s($uminus); # Transform UMINUS nodes
+$t->s(@all);    # constant folding and mult. by zero
+\end{verbatim}
+Obtenemos el árbol:
+\begin{verbatim}
+Syntax Tree after transformations:
+EXPRESSION_LIST(NUM(TERMINAL[-6]),NUM(TERMINAL[2]))
+\end{verbatim}
+
+\parrafo{synopsis.pl}
+
+\begin{verbatim}
+[~/src/perl/parse-eyapp/examples/MatchingTrees]$ cat synopsis.pl 
+#!/usr/bin/perl -w
+use strict;
+use Parse::Eyapp;
+use Parse::Eyapp::Treeregexp;
+
+sub TERMINAL::info {
+  $_[0]{attr}
+}
+
+my $grammar = q{
+  %lexer {
+      m{\G\s+}gc;
+      m{\G([0-9]+(?:\.[0-9]+)?)}gc and return('NUM',$1);
+      m{\G([A-Za-z][A-Za-z0-9_]*)}gc and return('VAR',$1);
+      m{\G(.)}gcs and return($1,$1);
+  }
+
+  %right  '='     # Lowest precedence
+  %left   '-' '+' # + and - have more precedence than = Disambiguate a-b-c as (a-b)-c
+  %left   '*' '/' # * and / have more precedence than + Disambiguate a/b/c as (a/b)/c
+  %left   NEG     # Disambiguate -a-b as (-a)-b and not as -(a-b)
+  %tree           # Let us build an abstract syntax tree ...
+
+  %%
+  line: 
+      exp <%name EXPRESSION_LIST + ';'>  
+        { $_[1] } /* list of expressions separated by ';' */
+  ;
+
+  /* The %name directive defines the name of the
+     class to which the node being built belongs */
+  exp:
+      %name NUM  
+      NUM            
+    | %name VAR   
+      VAR         
+    | %name ASSIGN 
+      VAR '=' exp 
+    | %name PLUS 
+      exp '+' exp    
+    | %name MINUS 
+      exp '-' exp 
+    | %name TIMES  
+      exp '*' exp 
+    | %name DIV     
+      exp '/' exp 
+    | %name UMINUS 
+      '-' exp %prec NEG 
+    | '(' exp ')'  
+        { $_[2] }  /* Let us simplify a bit the tree */
+  ;
+
+  %%
+}; # end grammar
+
+our (@all, $uminus);
+
+Parse::Eyapp->new_grammar( # Create the parser package/class
+  input=>$grammar,    
+  classname=>'Calc', # The name of the package containing the parser
+); 
+my $parser = Calc->new();                # Create a parser
+$parser->input(\"2*-3+b*0;--2\n");       # Set the input
+my $t = $parser->YYParse;                # Parse it!
+local $Parse::Eyapp::Node::INDENT=2;
+print "Syntax Tree:",$t->str;
+
+# Let us transform the tree. Define the tree-regular expressions ..
+my $p = Parse::Eyapp::Treeregexp->new( STRING => q{
+    { #  Example of support code
+      my %Op = (PLUS=>'+', MINUS => '-', TIMES=>'*', DIV => '/');
+    }
+    constantfold: /TIMES|PLUS|DIV|MINUS/:bin(NUM($x), NUM($y)) 
+      => { 
+        my $op = $Op{ref($bin)};
+        $x->{attr} = eval  "$x->{attr} $op $y->{attr}";
+        $_[0] = $NUM[0]; 
+      }
+    uminus: UMINUS(NUM($x)) => { $x->{attr} = -$x->{attr}; $_[0] = $NUM }
+    zero_times_whatever: TIMES(NUM($x), .) and { $x->{attr} == 0 } => { $_[0] = $NUM }
+    whatever_times_zero: TIMES(., NUM($x)) and { $x->{attr} == 0 } => { $_[0] = $NUM }
+  },
+  OUTPUTFILE=> 'main.pm'
+);
+$p->generate(); # Create the tranformations
+
+$t->s($uminus); # Transform UMINUS nodes
+$t->s(@all);    # constant folding and mult. by zero
+
+local $Parse::Eyapp::Node::INDENT=0;
+print "\nSyntax Tree after transformations:\n",$t->str,"\n";
+\end{verbatim}
+
+\parrafo{El método {\tt s}}
+
+El código de \verb|s| está en 
+\htmladdnormallink{lib/Parse/Eyapp/Node.pm}{https://github.com/gitpan/Parse-Eyapp/blob/master/lib/Parse/Eyapp/Node.pm}:
+\begin{verbatim}
+sub s {
+  my @patterns = @_[1..$#_];
+
+  # Make them Parse::Eyapp:YATW objects if they are CODE references
+  @patterns = map { ref($_) eq 'CODE'? 
+                      Parse::Eyapp::YATW->new(
+                        PATTERN => $_,
+                        #PATTERN_ARGS => [],
+                      )
+                      :
+                      $_
+                  } 
+                  @patterns;
+  my $changes; 
+  do { 
+    $changes = 0;
+    foreach (@patterns) {
+      $_->{CHANGES} = 0;
+      $_->s($_[0]);
+      $changes += $_->{CHANGES};
+    }
+  } while ($changes);
+}
+\end{verbatim}
+
+
+\parrafo{Véase}
+\begin{itemize}
+\item
+\htmladdnormallink{Parse::Eyapp}{http://search.cpan.org/~casiano/Parse-Eyapp-1.182/lib/Parse/Eyapp/eyapp}
+\item
+\htmladdnormallink{Ejemplo de uso de Parse::Eyapp::Treeregexp}{https://github.com/gitpan/Parse-Eyapp/blob/master/examples/MatchingTrees/synopsis.pl}
+\item
+\htmladdnormallink{Tree Matching and Tree Substitution}{https://github.com/gitpan/Parse-Eyapp/blob/master/lib/Parse/Eyapp/MatchingTrees.pod}
+\item
+\htmladdnormallink{Node.pm}{https://github.com/gitpan/Parse-Eyapp/blob/master/lib/Parse/Eyapp/Node.pm\#L149-L172} (Véase el método \verb|s|)
+\end{itemize}
+
+\section{Treehugger}
+
+\parrafo{Donde}
+\begin{itemize}
+\item
+\begin{verbatim}
+[~/srcPLgrado/treehugger(master)]$ pwd -P
+/Users/casiano/local/src/javascript/PLgrado/treehugger
+\end{verbatim}
+\item
+\begin{verbatim}
+[~/srcPLgrado/treehugger(master)]$ git remote -v
+origin  git@github.com:crguezl/treehugger.git (fetch)
+origin  git@github.com:crguezl/treehugger.git (push)
+\end{verbatim}
+\item
+\htmladdnormallink{https://github.com/crguezl/treehugger}{https://github.com/crguezl/treehugger}
+\end{itemize}
+
+\parrafo{learning.html}
+\begin{verbatim}
+[~/srcPLgrado/treehugger(master)]$ cat learning.html 
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>treehugger.js demo</title>
+    <script data-main="lib/demo" src="lib/require.js"></script>
+    <link rel="stylesheet" href="examples/style.css" type="text/css" />
+  </head>
+  <body>
+  <h1>Treehugger.js playground</h1>
+    <table>
+    <tr>
+      <th>Javascript</th>
+      <th>AST</th>
+    </tr>
+    <tr>
+      <td><textarea id="code" rows="15" cols="42">var a = 10, b;
+console.log(a, b, c);</textarea></td>
+      <td><textarea id="ast" rows="15" cols="42" readonly style="background-color: #eee;"></textarea></td>
+    </tr>
+    <tr>
+      <th>Analysis code <button id="runbutton">Run</button></th>
+      <th>Output</th>
+    </tr>
+    <tr>
+      <td><textarea id="analysis" rows="15" cols="42">var declared = {console: true};
+
+ast.traverseTopDown(
+   'VarDecl(x)', function(b) {
+      declared[b.x.value] = true;
+   },
+   'VarDeclInit(x, _)', function(b) {
+      declared[b.x.value] = true;
+   },
+   'Var(x)', function(b) {
+      if(!declared[b.x.value])
+        log("Variable " + b.x.value + " is not declared.");
+   }
+);
+</textarea></td>
+      <td><textarea id="output" rows="15" cols="42" readonly style="background-color: #eee;"></textarea></td>
+    </tr>
+    </table>
+  </body>
+</html>
+\end{verbatim}
+
+\parrafo{lib/demo.js}
+
+\begin{verbatim}
+[~/srcPLgrado/treehugger(master)]$ cat lib/demo.js 
+require({ baseUrl: "lib" }, 
+    ["treehugger/tree", 
+     "treehugger/traverse", 
+     "treehugger/js/parse", 
+     "jquery",
+     "treehugger/js/acorn", // Acorn is a JavaScript parser
+     "treehugger/js/acorn_loose" // This module provides an alternative 
+                                 // parser with the same interface as 
+                                 // `parse`, but will try to parse
+                                 // anything as JavaScript, repairing 
+                                 // syntax error the best it can.
+    ], function(tree, traverse, parsejs, jq, acorn, acorn_loose) {
+          window.acorn_loose = acorn_loose
+
+          function log(message) {
+            $("#output").val($("#output").val() + message + "\n");
+          }
+
+          function exec() {
+            var js = $("#code").val();
+            var analysisJs = $("#analysis").val();
+            $("#output").val("");   
+            
+            // https://developer.mozilla.org/en-US/docs/Web/API/Performance.now()
+            var t = performance.now(); 
+            var ast = parsejs.parse(js);
+            t -= performance.now();
+            $("#ast").val(t + "\n" + ast.toPrettyString());
+            try {
+              eval(analysisJs);
+            } catch(e) {
+              $("#output").val("JS Error");
+              console.log(e.message)
+            }
+          }
+
+          tree.Node.prototype.log = function() {
+            $("#output").val(this.toPrettyString());
+          }
+
+          require.ready(function() {
+              $("#code").keyup(exec);
+              $("#runbutton").click(exec);
+              exec();
+          });
+      }
+);
+\end{verbatim}
+
+\parrafo{Véase}
+\begin{itemize}
+\item
+\htmladdnormallink{treehugger.js is a Javascript library for program processing. It has generic means to represent and manipulate (analyze, transform) abstract syntax trees (ASTs).}{https://github.com/crguezl/treehugger}
+\item
+\htmladdnormallink{You can see treehugger.js in action in this simple demo.}{http://ajaxorg.github.io/treehugger/test.html}
+\item
+\htmladdnormallink{Avoiding JavaScript Pitfalls Through Tree Hugging}{http://zef.me/4030/avoiding-javascript-pitfalls-through-tree-hugging}
+YouTube. 
+\htmladdnormallink{Slides}{http://qconlondon.com/dl/qcon-london-2012/slides/ZefHemel_TamingJavaScriptWithCloud9IDEATaleOfTreeHugging.pdf}.
+\item
+\htmladdnormallink{AST traversal javascript libraries}{http://clausreinke.github.io/js-tools/resources.html\#group:ast-traversal}
+\item
+\htmladdnormallink{RequireJS}{http://requirejs.org/}
+\end{itemize}
+
+
+\sectionpractica{Transformaciones en Los Árboles del Analizador PL0}
+\label{practica:treetransofrmationsPL0}
+Partimos del código realizado en la práctica 
+{\it Análisis de Ámbito en PL0}
+\ref{practica:analisisdeambitopl0}.
+
+Modifique el árbol generado por el código de esa práctica
+usando las transformaciones de \cei{constant folding} o
+\cei{plegado de las constantes}:
+
+\vspace{0.25cm}
+$PLUS(NUM_1, NUM_2) \Longrightarrow NUM_3$ \verb|{ $NUM_3{VAL} = $NUM_1{VAL} + $NUM_2{VAL} }|
+\vspace{0.25cm}
+$MINUS(NUM_1, NUM_2) \Longrightarrow NUM_3$ \verb|{ $NUM_3{VAL} = $NUM_1{VAL} - $NUM_2{VAL} }|
+\vspace{0.25cm}
+$TIMES(NUM_1, NUM_2) \Longrightarrow NUM_3$ \verb|{ $NUM_3{VAL} = $NUM_1{VAL} * $NUM_2{VAL} }|
+\vspace{0.25cm}
+$DIV(NUM_1, NUM_2) \Longrightarrow NUM_3$ \verb|{ $NUM_3{VAL} = $NUM_1{VAL} / $NUM_2{VAL} }|
+
+etc.
+
+Opcionalmente si lo desea puede considerar otras transformaciones: 
+\vspace{0.25cm}
+$TIMES(X, NUM_2)$ and \verb|{ $NUM_2{VAL} = |$2^s$ para algún $s$ \verb|}| $\Longrightarrow SHIFTLEFT(X; NUM_3)$ \verb|{ $NUM_3{VAL} = s }|
+\vspace{0.25cm}

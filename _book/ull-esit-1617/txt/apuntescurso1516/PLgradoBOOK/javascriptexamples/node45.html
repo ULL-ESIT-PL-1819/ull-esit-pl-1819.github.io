@@ -1,0 +1,497 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Ejemplo Simple en Jison</TITLE>
+<META NAME="description" CONTENT="Ejemplo Simple en Jison">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node46.html">
+<LINK REL="previous" HREF="node44.html">
+<LINK REL="up" HREF="node43.html">
+<LINK REL="next" HREF="node46.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html1964"
+  HREF="node46.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1958"
+  HREF="node43.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1952"
+  HREF="node44.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1960"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1962"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html1965"
+  HREF="node46.html">Ejemplo en Jison: Calculadora</A>
+<B>Sup:</B> <A NAME="tex2html1959"
+  HREF="node43.html">Análisis Sintáctico Ascendente en</A>
+<B> Ant:</B> <A NAME="tex2html1953"
+  HREF="node44.html">Conceptos Básicos para el</A>
+<B> Con:</B> 
+<A NAME="tex2html1960"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html1962"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><UL>
+<LI><A NAME="tex2html1966"
+  HREF="node45.html#SECTION04520010000000000000">Gramática</A>
+<LI><A NAME="tex2html1967"
+  HREF="node45.html#SECTION04520020000000000000">basic2_lex.jison</A>
+<LI><A NAME="tex2html1968"
+  HREF="node45.html#SECTION04520030000000000000">index.html</A>
+<LI><A NAME="tex2html1969"
+  HREF="node45.html#SECTION04520040000000000000">Rakefile</A>
+<LI><A NAME="tex2html1970"
+  HREF="node45.html#SECTION04520050000000000000">Véase También</A>
+<LI><A NAME="tex2html1971"
+  HREF="node45.html#SECTION04520060000000000000">global.css</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html1972"
+  HREF="node45.html#SECTION04521000000000000000">Véase También</A>
+<LI><A NAME="tex2html1973"
+  HREF="node45.html#SECTION04522000000000000000">Práctica: Secuencia de Asignaciones Simples</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION04520000000000000000">
+Ejemplo Simple en Jison</A>
+</H1>
+
+<P>
+Jison es un generador de analizadores sintácticos LALR. Otro
+analizador LALR es 
+<A NAME="tex2html291"
+  HREF="http://jscc.phorward-software.com/">JS/CC</A>.
+
+<P>
+
+<H4><A NAME="SECTION04520010000000000000">
+Gramática</A>
+</H4>
+  
+
+<P>
+<PRE>
+%%
+
+S   : A
+    ;
+A   : /* empty */  
+    | A x 
+    ;
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION04520020000000000000">
+basic2_lex.jison</A>
+</H4>
+  
+
+<PRE>
+[~/jison/examples/basic2_lex(develop)]$ cat basic2_lex.jison 
+/* description: Basic grammar that contains a nullable A nonterminal. */
+
+%lex
+%%
+
+\s+               {/* skip whitespace */}
+[a-zA-Z_]\w*      {return 'x';}
+
+/lex
+
+%%
+
+S   : A
+           { return $1+" identifiers"; }
+    ;
+A   : /* empty */  
+           { 
+              console.log("starting"); 
+              $$ = 0; 
+           }
+    | A x  { 
+              $$ = $1 + 1;  
+              console.log($$)
+           }
+    ;
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION04520030000000000000">
+index.html</A>
+</H4>
+  
+
+<PRE>
+$ cat basic2_lex.html
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Jison&lt;/title&gt;
+    &lt;link rel="stylesheet" href="global.css" type="text/css" media="screen" charset="utf-8" /&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;basic2_lex demo&lt;/h1&gt;
+    &lt;div id="content"&gt;
+      &lt;script src="jquery/jquery.js"&gt;&lt;/script&gt; 
+      &lt;script src="basic2_lex.js"&gt;&lt;/script&gt;
+      &lt;script src="main.js"&gt;&lt;/script&gt;
+      &lt;p&gt;
+        &lt;input type="text" value="x x x x" /&gt; &lt;button&gt;parse&lt;/button&gt; 
+        &lt;span id="output"&gt;&lt;/span&gt; &lt;!-- Output goes here! --&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION04520040000000000000">
+Rakefile</A>
+</H4>
+  
+
+<P>
+<PRE>
+$ cat Rakefile 
+# install package:
+#     sudo npm install beautifier
+# 
+#   more about beautifier:
+#       https://github.com/rickeyski/node-beautifier
+
+dec "compile the grammar basic2_lex_ugly.jison"
+task :default =&gt; %w{basic2_lex_ugly.js} do
+  sh "mv basic2_lex.js basic2_lex_ugly.js"
+  sh "jsbeautify basic2_lex_ugly.js &gt; basic2_lex.js"
+  sh "rm -f basic2_lex_ugly.js"
+end
+
+file "basic2_lex_ugly.js" =&gt; %w{basic2_lex.jison} do
+  sh "jison basic2_lex.jison -o basic2_lex.js"
+end
+</PRE>
+
+<P>
+
+<OL>
+<LI><A NAME="tex2html292"
+  HREF="https://github.com/rickeyski/node-beautifier">node-beautifier</A>
+</LI>
+</OL>
+
+<P>
+
+<H4><A NAME="SECTION04520050000000000000">
+Véase También</A>
+</H4>
+  
+
+<OL>
+<LI><A NAME="tex2html293"
+  HREF="http://zaach.github.com/jison/">JISON</A>
+</LI>
+<LI><A NAME="tex2html294"
+  HREF="http://zaach.github.com/jison/try/usf/">Try Jison Examples</A>
+</LI>
+<LI><A NAME="tex2html295"
+  HREF="http://www-archive.mozilla.org/js/language/grammar14.html">JavaScript 1.4 LR(1) Grammar</A>
+1999.
+</LI>
+<LI><A NAME="tex2html296"
+  HREF="http://cjihrig.com/blog/creating-a-javascript-parser/">Creating a JavaScript Parser</A>
+Una implementación de ECMAScript 5.1 usando Jison 
+disponible 
+en GitHub
+ en
+<A NAME="tex2html297"
+  HREF="https://github.com/cjihrig/jsparser">https://github.com/cjihrig/jsparser</A>.
+Puede probarse en:
+<A NAME="tex2html298"
+  HREF="http://www.cjihrig.com/development/jsparser/">http://www.cjihrig.com/development/jsparser/</A>
+</LI>
+<LI><A NAME="tex2html299"
+  HREF="http://www.rolilink.com/presentations/Jison/Charla.html">Bison on JavaScript</A>
+por Rolando Perez
+</LI>
+<LI><A NAME="tex2html300"
+  HREF="http://hansineffect.github.com/Slogo/">Slogo</A>
+a language written using Jison
+</LI>
+<LI><A NAME="tex2html301"
+  HREF="https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS">List of languages that compile to JS</A>
+</LI>
+<LI><A NAME="tex2html302"
+  HREF="http://blog.kalleberg.org/post/1256702765/prototype-of-a-scannerless-generalized-left-to-right">Prototype of a Scannerless, Generalized Left-to-right Rightmost (SGLR) derivation parser for JavaScript</A>
+</LI>
+</OL>
+<H4><A NAME="SECTION04520060000000000000">
+global.css</A>
+</H4>
+  
+
+<P>
+<PRE>
+[~/jison/examples/basic2_lex(develop)]$ cat global.css 
+html *
+{
+   font-size: large; 
+   /* The !important ensures that nothing can override what you've set in this style (unless it is also important). */
+   font-family: Arial;
+}
+
+.thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+
+h1            { text-align: center; font-size: x-large; }
+th, td        { vertical-align: top; text-align: left; }   
+/* #finaltable  * { color: white; background-color: black; }   */
+
+/* #finaltable table { border-collapse:collapse; } */
+/* #finaltable table, td { border:1px solid white; } */
+#finaltable:hover td { background-color: blue; } 
+tr:nth-child(odd)    { background-color:#eee; }
+tr:nth-child(even)    { background-color:#00FF66; }
+input        { text-align: right;  border: none;       }     /* Align input to the right  */
+textarea     { border: outset; border-color: white;       }                        
+table        { border: inset; border-color: white; }
+.hidden      { display: none; }
+.unhidden    { display: block; }
+table.center { margin-left:auto; margin-right:auto; }
+#result      { border-color: red; }
+tr.error       { background-color: red; }
+pre.output   { background-color: white; }
+span.repeated { background-color: red }
+span.header { background-color: blue }
+span.comments { background-color: orange }
+span.blanks { background-color: green }
+span.nameEqualValue { background-color: cyan }
+span.error { background-color: red }
+
+body
+{
+ background-color:#b0c4de;  /* blue */
+}
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION04521000000000000000">
+Véase También</A>
+</H2>
+
+<OL>
+<LI><A NAME="tex2html303"
+  HREF="http://zaach.github.com/jison/">JISON</A>
+</LI>
+<LI><A NAME="tex2html304"
+  HREF="http://zaach.github.com/jison/try/usf/">Try Jison Examples</A>
+</LI>
+<LI><A NAME="tex2html305"
+  HREF="http://www-archive.mozilla.org/js/language/grammar14.html">JavaScript 1.4 LR(1) Grammar</A>
+1999.
+</LI>
+<LI><A NAME="tex2html306"
+  HREF="http://cjihrig.com/blog/creating-a-javascript-parser/">Creating a JavaScript Parser</A>
+Una implementación de ECAMScript 5.1 usando Jison 
+disponible 
+en GitHub
+ en
+<A NAME="tex2html307"
+  HREF="https://github.com/cjihrig/jsparser">https://github.com/cjihrig/jsparser</A>.
+Puede probarse en:
+<A NAME="tex2html308"
+  HREF="http://www.cjihrig.com/development/jsparser/">http://www.cjihrig.com/development/jsparser/</A>
+</LI>
+<LI><A NAME="tex2html309"
+  HREF="http://hansineffect.github.com/Slogo/">Slogo</A>
+a language written using Jison
+</LI>
+<LI><A NAME="tex2html310"
+  HREF="https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS">List of languages that compile to JS</A>
+</LI>
+<LI><A NAME="tex2html311"
+  HREF="http://blog.kalleberg.org/post/1256702765/prototype-of-a-scannerless-generalized-left-to-right">Prototype of a Scannerless, Generalized Left-to-right Rightmost (SGLR) derivation parser for JavaScript</A>
+</LI>
+</OL>
+
+<P>
+
+<H2><A NAME="SECTION04522000000000000000"></A>
+   <A NAME="8190"></A>
+<BR>
+Práctica: Secuencia de Asignaciones Simples
+</H2>
+  
+Modifique este ejemplo para que el lenguaje acepte una secuencia
+de sentencias de asignación de la forma <code>ID = expression</code> separadas
+por puntos y comas, por ejemplo <code>a = 4; b = a+4.56; c = -8.57e34</code>.
+
+<P>
+
+<UL>
+<LI>Como punto de arranque, clone el repositorio en
+<A NAME="tex2html312"
+  HREF="https://github.com/crguezl/jison-simple-html-calc">https://github.com/crguezl/jison-simple-html-calc</A>.
+</LI>
+<LI>Comience añadiendo sólo la asignación <code>ID = NUM</code> y las expresiones <code>ID</code> 
+
+<P>
+</LI>
+<LI>Modifique los analizadores léxico y sintáctico de forma conveniente.
+
+<P>
+</LI>
+<LI>Añada acciones semánticas para que el analizador devuelva la tabla de símbolos con los identificadores y sus valores y un array con los valores calculados.
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html1964"
+  HREF="node46.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1958"
+  HREF="node43.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1952"
+  HREF="node44.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1960"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1962"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html1965"
+  HREF="node46.html">Ejemplo en Jison: Calculadora</A>
+<B>Sup:</B> <A NAME="tex2html1959"
+  HREF="node43.html">Análisis Sintáctico Ascendente en</A>
+<B> Ant:</B> <A NAME="tex2html1953"
+  HREF="node44.html">Conceptos Básicos para el</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-10-06</I>
+</ADDRESS>
+</BODY>
+</HTML>

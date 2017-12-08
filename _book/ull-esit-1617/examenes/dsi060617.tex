@@ -1,0 +1,125 @@
+\paragraph{Descripción del Problema}\label{descripciuxf3n-del-problema}
+
+Te dan una lista de caminos a ficheros en disco. Cada fichero contiene
+un número y debes dar como resultado la suma de esos números. No se
+permite en este problema hacer lectura síncrona. Se debe usar
+\texttt{readFile}.
+
+\paragraph{Una Solución Errónea}\label{una-soluciuxf3n-erruxf3nea}
+
+Este es un ejemplo del tipo de solución que puedes dar. Esta solución es
+errónea:
+
+\begin{verbatim}
+var fs = require('fs');
+
+var paths = [
+             'first-file',  // contains 10
+             'second-file', // contains 7
+             'third-file'   // contains 5
+             ];
+var totalSum = 0;
+
+// this the callback we need to call after all iteration finish
+function printTotalSum() { console.log(totalSum); }
+
+for(var i = 0; i < paths.length; i++) {
+    fs.readFile(paths[i], 'utf8', function(err, data) {
+        var num = parseInt(data);
+        totalSum += num;
+    });
+}
+
+// invoke the callback
+printTotalSum();
+\end{verbatim}
+
+Este programa posiblemente imprima \texttt{0} porque el
+\texttt{printTotalSum} ocurre antes que se haya terminado de leer los
+ficheros.
+
+\paragraph{asyncForEach}\label{asyncforeach}
+
+Se pide que escribas un método \texttt{asyncForEach} para los objetos
+Array que recibe como primer argumento la tarea asíncrona a realizar
+sobre cada objeto del array y como segundo argumento una callback que
+será llamada cuando todas las iteraciones asíncronas hayan terminado:
+
+\begin{verbatim}
+Array.prototype.asyncForEach = function(asynTask, callback) {
+    // this is the function you have to write
+    // the array has the collections of items we want to iterate over
+    // asynTask is a function representing the job when want to do on each item
+    // callback is the function we want to call when all iterations are over
+    ....
+};
+\end{verbatim}
+
+\paragraph{Programa de prueba}\label{programa-de-prueba}
+
+\texttt{Array.prototype.asyncForEach} debe estar escrita de manera que
+se pueda dar una solución al problema propuesto usando dicha función.
+Una vez la tengas escrita, y guardada en un módulo
+\texttt{async-for-each}, este programa debería funcionar correctamente:
+
+\begin{verbatim}
+require('async-for-each');
+var fs = require('fs');
+var paths = [
+             'first-file',  // contains 10
+             'second-file', // contains 7
+             'third-file'   // contains 5
+             ];
+var totalSum = 0;
+function printTotalSum() { console.log(totalSum); }
+
+var asyncTask = function(path, done) {
+  fs.readFile(path, 'utf8', function(err, data) {
+    var num = parseInt(data);
+    totalSum += num;
+    // We must call done to report to asyncForEach the completion of this iteration
+    done();
+  });
+};
+
+paths.asyncForEach(asyncTask, printTotalSum);
+\end{verbatim}
+
+\paragraph{Requisitos}\label{requisitos}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Escribe un módulo npm que extiende la clase \texttt{Array} con
+  el método \texttt{asyncForEach}}:
+
+\begin{verbatim}
+tasksToDo.asyncForEach(asyncTask, doItAfter);
+\end{verbatim}
+
+  que ejecuta las funciones asíncronas \texttt{asynTask} sobre los
+  objetos en el array \texttt{tasksToDo} y ejecuta \texttt{doItAfter}
+  cuando todas las \texttt{asynTask} han terminado.
+\item
+  \textbf{Explica como es el proceso para publicar lo hecho como módulo
+  en npm}.
+\item
+  \textbf{Explica como ejecutar las pruebas usando Mocha, y
+  Chai-Should}. Aqui dejamos un esqueleto del que puedes partir:
+\end{enumerate}
+
+\begin{verbatim}
+var should = require('chai').should();
+var PEG = require("../regexp.js");
+var ins = require("util").inspect;
+let log = (x) => console.log(ins(x, {depth: null}));
+
+describe('testing something', function() {
+  it('does something', function() {
+    let input = "..."; 
+    let r = ....; // call the method to test
+    let expected = ... ; // what is expected
+    r.should.deep.equal(expected);
+  });
+});
+\end{verbatim}

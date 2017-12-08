@@ -1,0 +1,177 @@
+
+<H1><A NAME="SECTION056130000000000000000">
+Asignación de Direcciones</A>
+</H1>
+Esta suele ser considerada  la primera de las fases de síntesis.
+Las anteriores lo eran de análisis. La fase de análisis
+es una transformación <tex2html_verbatim_mark>#math6827#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35794#</SPAN>
+<tex2html_verbatim_mark>mathend000#, mientras
+que la fase síntesis es una transformación inversa
+<tex2html_verbatim_mark>#math6828#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35796#</SPAN>
+<tex2html_verbatim_mark>mathend000# que produce una ``linealización''
+del árbol. En general, se ubican en la fase de síntesis todas
+las tareas que dependan del lenguaje objeto.
+
+<P>
+La asignación de direcciones depende de la máquina objetivo en cuanto
+conlleva consideraciones sobre la longitud de palabra, las unidades
+de memoria direccionables, la compactación de objetos pequeños (por ejemplo,
+valores lógicos), el alineamiento a fronteras de palabra, etc.
+
+<P>
+En nuestro caso debemos distinguir entre las cadenas y las variables enteras.
+
+<P>
+Las constantes literales (como <tex2html_verb_mark>1978<tex2html_verb_mark>) se almacenan 
+concatenadas en orden de aparición textual.
+Una variable de tipo cadena ocupa dos palabras, una dando su dirección 
+y otra dando su longitud.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5622#</PRE>
+
+<P>
+El código de la subrutina <tex2html_verb_mark>1979<tex2html_verb_mark> es:
+<PRE><tex2html_verbatim_mark>verbatim5623#</PRE>
+Una posible mejora es la que se describe en 
+el punto
+<A HREF=<tex2html_cr_mark>#item:norepetidas#11577><tex2html_cr_mark></A>
+de la práctica
+<A HREF=<tex2html_cr_mark>#practica:calculodelasdirecciones#11578><tex2html_cr_mark></A>.
+
+<P>
+Hemos supuesto que las variables enteras y las referencias ocupan una palabra.
+Cada vez que una variable es declarada, se le computa su dirección relativa:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5624#</PRE>
+
+<P>
+Se usa una variable <tex2html_verb_mark>1980<tex2html_verb_mark> para llevar la cuenta de la última 
+dirección utilizada y se introduce un atributo <tex2html_verb_mark>1981<tex2html_verb_mark> en 
+la tabla de símbolos:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5625#</PRE>
+
+<P>
+Por último situamos todas las cadenas después de las variables
+del programa fuente:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5626#</PRE>
+
+<P>
+Esta aproximación es bastante simplista en cuanto que usa una palabra
+por carácter. 
+El punto
+<A HREF=<tex2html_cr_mark>#item:compacta#11585><tex2html_cr_mark></A>
+de la práctica
+<A HREF=<tex2html_cr_mark>#practica:calculodelasdirecciones#11586><tex2html_cr_mark></A> propone una mejora.
+
+<P>
+
+<H2><A NAME="SECTION056131000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12253"><tex2html_anchor_invisible_mark></A>
+  
+<A NAME="practica:calculodelasdirecciones"><tex2html_anchor_mark></A><BR>
+Práctica: Cálculo de las Direcciones
+</H2>
+Modifique el cálculo de las direcciones para la gramática de Tutu
+extendida con sentencias compuestas que fué presentada en 
+la sección 
+<A HREF=<tex2html_cr_mark>#practica:analisis_semantico#11589><tex2html_cr_mark></A>.
+
+<P>
+
+<OL>
+<LI>Resuelva el problema de calcular las direcciones de las variables
+declaradas en los bloques. La memoria ocupada por dichas variables
+se libera al terminar el bloque. Por tanto la variable <tex2html_verb_mark>1982<tex2html_verb_mark>
+disminuye al final de cada bloque.
+</LI>
+<LI><A NAME="item:norepetidas"><tex2html_anchor_mark></A>En el código de la subrutina <tex2html_verb_mark>1983<tex2html_verb_mark> 
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5627#</PRE>
+
+<P>
+no se comprueba si la cadena <tex2html_verb_mark>1984<tex2html_verb_mark> ya está en <tex2html_verb_mark>1985<tex2html_verb_mark>. 
+Es natural que si ya está no la insertemos de nuevo. Introduzca esa 
+mejora. Para ello use la función <tex2html_verb_mark>1986<tex2html_verb_mark>,
+la cual devuelve el desplazamiento en <tex2html_verb_mark>1987<tex2html_verb_mark> donde
+quedó la última búsqueda <tex2html_verb_mark>1988<tex2html_verb_mark>.
+ El siguiente ejemplo con
+el depurador le muestra como trabaja. Escriba <tex2html_verb_mark>1989<tex2html_verb_mark>
+para obtener mas información sobre la función <tex2html_verb_mark>1990<tex2html_verb_mark>.
+Vea un ejemplo de uso:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5628#</PRE>
+
+<P>
+</LI>
+<LI><A NAME="item:compacta"><tex2html_anchor_mark></A>Empaquete las cadenas asumiendo que cada carácter ocupa un octeto o byte.
+Una posible solución al problema de alineamiento que se produce es
+rellenar con ceros los bytes que faltan hasta completar la última palabra
+ocupada por la cadena. Por ejemplo, si la longitud de palabra de la 
+máquina objeto es de 4 
+bytes, la palabra <SPAN  CLASS="textbf">procesador</SPAN> se cargaría asi:
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV><PRE><tex2html_verbatim_mark>verbatim5629#</PRE><DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+Existen dos posibles formas de hacer esta empaquetado.
+Por ejemplo, si tenemos las cadenas
+<tex2html_verb_mark>1991<tex2html_verb_mark> y <tex2html_verb_mark>1992<tex2html_verb_mark> las podemos introducir en 
+la cadena <tex2html_verb_mark>1993<tex2html_verb_mark> asi:
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV><PRE><tex2html_verbatim_mark>verbatim5630#</PRE><DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+o bien:
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV><PRE><tex2html_verbatim_mark>verbatim5631#</PRE><DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+La segunda forma aunque compacta más tiene la desventaja de hacer luego mas 
+lento el código para el 
+direccionamiento de las cadenas, ya que no empiezan en frontera de palabra. 
+Utilice el primer modo.
+
+<P>
+Observe que este empaquetado introduce un efecto en lo que 
+se considera un éxito en la búsqueda de una cadena 
+<tex2html_verb_mark>1994<tex2html_verb_mark> en <tex2html_verb_mark>1995<tex2html_verb_mark>. ¿Que ocurre si <tex2html_verb_mark>1996<tex2html_verb_mark>
+aparece en <tex2html_verb_mark>1997<tex2html_verb_mark> como subcadena de una cadena
+previamente empaquetada ocupando una posición que no es frontera de palabra?
+
+<P>
+Cuando rellene con <tex2html_verb_mark>1998<tex2html_verb_mark> la cadena use el operador <tex2html_verb_mark>1999<tex2html_verb_mark> (letra equis)
+para multiplicar número por cadena:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5632#</PRE>
+
+<P>
+esto le evitará escribir un bucle.
+</LI>
+<LI>Mantega atributos distintos en el nodo <tex2html_verb_mark>2000<tex2html_verb_mark>
+para el desplazamiento y longitud 
+de <tex2html_verb_mark>2001<tex2html_verb_mark> en <tex2html_verb_mark>2002<tex2html_verb_mark> (en caracteres)
+y su dirección y tamaño final en memoria (en palabras).
+
+<P>
+</LI>
+</OL>
+
+<P>

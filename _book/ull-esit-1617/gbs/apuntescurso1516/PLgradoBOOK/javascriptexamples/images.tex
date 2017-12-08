@@ -1,0 +1,1386 @@
+\batchmode
+
+
+\documentclass[11pt,a4paper,oneside,onecolumn]{book}
+\RequirePackage{ifthen}
+
+
+\usepackage{epsfig} 
+\usepackage{latexsym,amsfonts,amssymb,amstext,amsthm,float,amsmath,dsfont}
+\usepackage[spanish]{babel}    
+\usepackage{ucs}
+\usepackage{color}
+\usepackage[utf8x]{inputenc}
+\usepackage{alltt}
+\usepackage{html}
+\usepackage{makeidx}
+\usepackage{hyperref}
+
+
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{listings}
+\lstloadlanguages{Ruby}
+\lstset{%
+backgroundcolor=\color{GreenYellow},
+basicstyle=\ttfamily\color{black},
+commentstyle = \ttfamily\color{red},
+keywordstyle=\ttfamily\color{blue},
+stringstyle=\color{orange}}
+
+
+\voffset -10 mm
+\topmargin 0 mm
+\headheight 0 mm
+\headsep 0 mm
+
+
+\textheight 256 mm
+
+
+\oddsidemargin -5.4 mm
+\evensidemargin -5.4 mm
+
+
+\textwidth 17 cm
+\columnsep 10 mm
+
+%
+\providecommand{\blue}[1]{{\color{blue} #1}}%
+\providecommand{\green}[1]{{\color{green} #1}}%
+\providecommand{\magenta}[1]{{\color{magenta} #1}}%
+\providecommand{\red}[1]{{\color{red} #1}}%
+\providecommand{\yellow}[1]{{\color{yellow} #1}} 
+
+%
+\providecommand{\pegjs}{ \htmladdnormallink{PEG.js}{http://pegjs.majda.cz/} }%
+\providecommand{\jison}{ \htmladdnormallink{Jison}{http://zaach.github.io/jison/} }%
+\providecommand{\OAuth}{ \htmladdnormallink{OAuth}{http://oauth.net/} }%
+\providecommand{\rvm}{ \htmladdnormallink{rvm}{http://rvm.io/} } 
+
+%
+\providecommand{\slim}{ \htmladdnormallink{slim}{http://slim-lang.com/} }%
+\providecommand{\coffeescript}{ \htmladdnormallink{CoffeeScript}{http://coffeescript.org/} }%
+\providecommand{\sass}{ \htmladdnormallink{Sass}{http://sass-lang.com/} } 
+
+%
+\providecommand{\datetofill}{\rule{5mm}{.1pt}/\rule{5mm}{.1pt}/\rule{10mm}{.1pt}} 
+
+%
+\providecommand{\infinity}{\infty} 
+
+%
+\providecommand{\ici}[1]{\index{#1}} 
+
+%
+\providecommand{\perlcookbook}[2]{\htmladdnormallink{#1}{http://docstore.mik.ua/orelly/perl/cookbook/#2}} 
+
+%
+\providecommand{\pci}[1]{\index{Práctica!#1}} 
+
+%
+\providecommand{\ci}[1]{\index{#1}#1} 
+
+%
+\providecommand{\cei}[1]{\index{#1}\emph{#1}} 
+
+%
+\providecommand{\ceis}[2]{\index{#2}\emph{#1}} 
+
+%
+\providecommand{\tei}[1]{ {\tt #1} }  %{\index{#1}{{\tt #1}}}
+
+%
+\providecommand{\htei}[1]{ #1 }  %{\index{#1}}
+
+%
+\providecommand{\teis}[2]{\index{#2}{{\tt #1}}} 
+
+%
+\providecommand{\xsub}[1]{\index{XSUB!{\tt #1}}
+   {\tt #1}
+  } 
+
+%
+\providecommand{\typemap}[1]{\index{typemap!{\tt #1}}
+   {\tt #1}
+  } 
+
+%
+\providecommand{\api}[1]{\index{Perl API!{\tt #1}}
+   {\tt #1}
+  } 
+
+%
+\providecommand{\hueco}[1]{\underline{\hspace{#1cm}}} 
+
+%
+\providecommand{\parrafo}[1]{ 
+  \paragraph{#1}
+  \begin{tabular}{c}
+  \end{tabular}
+} 
+
+%
+\providecommand{\sectionpractica}[1]{\section{Práctica: #1}
+   \index{Práctica!#1}
+  } 
+
+%
+\providecommand{\subsectionpractica}[1]{\subsection{Práctica: #1}
+   \index{Práctica!#1}
+  } 
+
+%
+\providecommand{\subsubsectionpractica}[1]{\subsubsection{Práctica: #1}
+   \index{Práctica!#1}
+  } 
+
+%
+\providecommand{\sectionejercicio}[1]{\section{Ejercicio: #1}
+   \index{Ejercicio!#1}
+  } 
+
+%
+\providecommand{\parrafopractica}[1]{ 
+  \paragraph{Práctica: #1}
+  \begin{tabular}{c}
+  \end{tabular}
+
+   \index{Práctica!#1}
+  } 
+
+%
+\providecommand{\subsectionejercicio}[1]{\subsection{Ejercicio: #1}
+   \index{Ejercicio!#1}
+  } 
+
+%
+\providecommand{\subsubsectionejercicio}[1]{\subsubsection{Ejercicio: #1}
+   \index{Ejercicio!#1}
+  } 
+
+%
+\providecommand{\subsectionrepaso}[1]{\subsection{Repaso: #1}
+   \index{Repaso!#1}
+  } 
+
+%
+\providecommand{\eref}[1]{\externalref{#1} \cite{CasianoIntroAPerl}} 
+
+%
+\providecommand{\regexpg}{\htmladdnormallink{{\tt Regexp::Grammars}}
+ {http://search.cpan.org/perldoc?Regexp::Grammars}} 
+
+%
+\providecommand{\rgsec}[2]{\htmladdnormallink{#1}
+ {http://search.cpan.org/~dconway/Regexp-Grammars/lib/Regexp/Grammars.pm\##2}} 
+
+
+
+\newtheorem{definition}{Definición}[section] 
+\newtheorem{theorem}{Teorema}[section] 
+\newtheorem{algorithm}{Algoritmo}[section] 
+\newtheorem{program}{Programa}[section] 
+\newtheorem{exercise}{Ejercicio}[section] 
+
+
+\newtheorem{example}{Ejemplo}[section] 
+\newtheorem{execution}{Ejecución}[section] 
+\newtheorem{listing}{Listado}[section] 
+\newtheorem{advice}{Consejo}[section] 
+\newtheorem{scheme}{Esquema}[section] 
+
+
+%
+\newenvironment{unicodeverb}{\begin{verbatim}
+}
+{\end{verbatim}
+} 
+
+%
+\providecommand{\modern}{{\it Modern Perl}} 
+
+%
+\providecommand{\lhp}[2]{\htmladdnormallink{#1}
+{http://nereida.deioc.ull.es/~lhp/perlexamples/node#2.html}} 
+
+%
+\providecommand{\man}[1]{\htmladdnormallink{{\tt #1}}
+{http://manpages.debian.net/cgi-bin/man.cgi?query=#1}} 
+
+%
+\providecommand{\manuk}[1]{\htmladdnormallink{{\tt #1}}
+{http://unixhelp.ed.ac.uk/CGI/man-cgi?#1}} 
+
+%
+\providecommand{\mandragonfly}[1]{\htmladdnormallink{{\tt #1}}
+{http://leaf.dragonflybsd.org/cgi/web-man?command=#1&section=ANY}} 
+
+%
+\providecommand{\manopenbsd}[1]{\htmladdnormallink{{\tt #1}}
+{http://www.openbsd.org/cgi-bin/man.cgi?query=#1}} 
+
+%
+\providecommand{\link}[2]{\htmladdnormallink{#1}
+{#2}} 
+
+%
+\providecommand{\cpan}[1]{\htmladdnormallink{{\tt #1}}
+ {http://search.cpan.org/perldoc?#1}} 
+
+%
+\providecommand{\Heroku}{\htmladdnormallink{Heroku}
+ {https://devcenter.heroku.com/articles/quickstart}} 
+
+%
+\providecommand{\travis}{\htmladdnormallink{Travis}
+ {http://travis-ci.org/}} 
+
+%
+\providecommand{\githelp}[2]{\htmladdnormallink{#1}
+ {http://help.github.com/articles/#2}} 
+
+%
+\providecommand{\github}{\htmladdnormallink{GitHub}
+ {http://help.github.com}} 
+
+%
+\providecommand{\npm}{\htmladdnormallink{{\tt npm}}
+ {https://npmjs.org/}} 
+
+%
+\providecommand{\npmdoc}[1]{\htmladdnormallink{{\tt #1}}
+ {https://npmjs.org/doc/#1.html}} 
+
+%
+\providecommand{\githubpeople}[2]{\htmladdnormallink{#1}{https://github.com/#2}} 
+
+%
+\providecommand{\ebnfparser}{\htmladdnormallink{{\tt ebnf-parser}}
+ {https://github.com/zaach/ebnf-parser}} 
+
+%
+\providecommand{\markdown}{\htmladdnormallink{{\tt markdown}}
+ {http://daringfireball.net/projects/markdown/syntax}} 
+
+%
+\providecommand{\rake}{\htmladdnormallink{{\tt Rake}}
+ {http://rake.rubyforge.org/}} 
+
+%
+\providecommand{\rbp}{\htmladdnormallink{{\tt Ruby Best Practices}}
+ {http://www.humbug.in/docs/ruby-best-practices/index.html} \cite{RBP}} 
+
+%
+\providecommand{\guard}{\htmladdnormallink{{\tt Guard}}
+ {https://github.com/guard/guard}} 
+
+%
+\providecommand{\rspec}{\htmladdnormallink{{\tt RSpec}}
+ {http://rspec.info/}} 
+
+%
+\providecommand{\bundler}{\htmladdnormallink{{\tt Bundler}}
+ {http://bundler.io//}} 
+
+%
+\providecommand{\rspecmatchers}{\htmladdnormallink{{\tt RSpec::Matchers}}
+ {http://rubydoc.info/gems/rspec-expectations/2.4.0/RSpec/Matchers}} 
+
+%
+\providecommand{\rubyforge}[2]{\htmladdnormallink{#1}
+ {http://rake.rubyforge.org/classes/#2}} 
+
+%
+\providecommand{\rubygems}{\htmladdnormallink{{\tt RubyGems}}
+ {https://rubygems.org/}} 
+
+%
+\providecommand{\gem}{\htmladdnormallink{{\tt gems}}
+ {http://docs.rubygems.org/read/book/2}} 
+
+%
+\providecommand{\rubymod}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/#1.html}} 
+
+%
+\providecommand{\programmingruby}[2]{\index{#1}\htmladdnormallink{#1}
+ {http://www.ruby-doc.org/docs/ProgrammingRuby/html/#2.html}} 
+
+%
+\providecommand{\Comparable}{\htmladdnormallink{{\tt Comparable}}
+ {http://ruby-doc.org/core-2.0.0/Comparable.html}} 
+
+%
+\providecommand{\Symbol}{\htmladdnormallink{{\tt Symbol}}
+ {http://ruby-doc.org/core-2.0.0/Symbol.html}} 
+
+%
+\providecommand{\Pry}{\htmladdnormallink{{\tt Pry}}
+ {http://pryrepl.org/}} 
+
+%
+\providecommand{\String}{\htmladdnormallink{{\tt String}}
+ {http://ruby-doc.org/core-2.0.0/String.html}} 
+
+%
+\providecommand{\StringIO}{\htmladdnormallink{{\tt StringIO}}
+ {http://ruby-doc.org/core-2.0.0/StringIO.html}} 
+
+%
+\providecommand{\Hash}{\htmladdnormallink{{\tt Hash}}
+ {http://ruby-doc.org/core-2.0.0/Hash.html}} 
+
+%
+\providecommand{\TestUnitTestCase}{\htmladdnormallink{{\tt Test/Unit/TestCase}}
+ {http://www.ruby-doc.org/stdlib-2.0.0/libdoc/test/unit/rdoc/Test/Unit/TestCase.html}} 
+
+%
+\providecommand{\TestUnit}{\htmladdnormallink{{\tt Test/Unit}}
+ {http://www.ruby-doc.org/stdlib-2.0.0/libdoc/test/unit/rdoc/Test/Unit.html}} 
+
+%
+\providecommand{\MiniTestAssertions}{\htmladdnormallink{{\tt MiniTest/Assertions}}
+ {http://ruby-doc.org/stdlib-2.0.0/libdoc/minitest/rdoc/MiniTest/Assertions.html}} 
+
+%
+\providecommand{\MiniTest}{\htmladdnormallink{{\tt MiniTest}}
+ {http://ruby-doc.org/stdlib-2.0.0/libdoc/minitest/rdoc/MiniTest.html}} 
+
+%
+\providecommand{\Regexp}{\htmladdnormallink{{\tt Regexp}}
+ {http://ruby-doc.org/core-2.0.0/Regexp.html}} 
+
+%
+\providecommand{\Array}{\htmladdnormallink{{\tt Array}}
+ {http://ruby-doc.org/core-2.0.0/Array.html}} 
+
+%
+\providecommand{\File}{\htmladdnormallink{{\tt File}}
+ {http://ruby-doc.org/core-2.0.0/File.html}} 
+
+%
+\providecommand{\IO}{\htmladdnormallink{{\tt IO}}
+ {http://ruby-doc.org/core-2.0.0/IO.html}} 
+
+%
+\providecommand{\Fixnum}{\htmladdnormallink{{\tt Fixnum}}
+ {http://ruby-doc.org/core-2.0.0/Fixnum.html}} 
+
+%
+\providecommand{\Bignum}{\htmladdnormallink{{\tt Bignum}}
+ {http://ruby-doc.org/core-2.0.0/Bignum.html}} 
+
+%
+\providecommand{\Numeric}{\htmladdnormallink{{\tt Numeric}}
+ {http://ruby-doc.org/core-2.0.0/Numeric.html}} 
+
+%
+\providecommand{\Matrix}{\htmladdnormallink{{\tt Matrix}}
+ {http://ruby-doc.org/core-2.0.0/Matrix.html}} 
+
+%
+\providecommand{\Math}{\htmladdnormallink{{\tt Math}}
+ {http://ruby-doc.org/core-2.0.0/Math.html}} 
+
+%
+\providecommand{\Proc}{\htmladdnormallink{{\tt Proc}}
+ {http://ruby-doc.org/core-2.0.0/Proc.html}} 
+
+%
+\providecommand{\Thread}{\htmladdnormallink{{\tt Thread}}
+ {http://ruby-doc.org/core-2.0.0/Thread.html}} 
+
+%
+\providecommand{\Mutex}{\htmladdnormallink{{\tt Mutex}}
+ {http://www.ruby-doc.org/core-2.0.0/Mutex.html}} 
+
+%
+\providecommand{\Queue}{\htmladdnormallink{{\tt Queue}}
+ {http://ruby-doc.org/stdlib-2.0.0/libdoc/thread/rdoc/Queue.html}} 
+
+%
+\providecommand{\SizedQueue}{\htmladdnormallink{{\tt SizedQueue}}
+ {http://ruby-doc.org/stdlib-2.0.0/libdoc/thread/rdoc/SizedQueue.html}} 
+
+%
+\providecommand{\TCPSocket}{\htmladdnormallink{{\tt TCPSocket}}
+ {http://ruby-doc.org/stdlib-2.1.0/libdoc/socket/rdoc/TCPSocket.html}} 
+
+%
+\providecommand{\TCPServer}{\htmladdnormallink{{\tt TCPServer}}
+ {http://ruby-doc.org/stdlib-2.1.0/libdoc/socket/rdoc/TCPServer.html}} 
+
+%
+\providecommand{\haml}{\htmladdnormallink{ {\tt haml} }
+ {http://haml.info/docs.html}} 
+
+%
+\providecommand{\hamlhelpers}{\htmladdnormallink{ {\tt Haml::Helpers} }
+ {http://haml.info/docs/yardoc/Haml/Helpers.html}} 
+
+%
+\providecommand{\bootstrap}{\htmladdnormallink{ {\tt bootstrap} }
+ {http://getbootstrap.com/getting-started/}} 
+
+%
+\providecommand{\Method}{\htmladdnormallink{{\tt Method}}
+ {http://ruby-doc.org/core-2.0.0/Method.html}} 
+
+%
+\providecommand{\UnboundMethod}{\htmladdnormallink{{\tt UnboundMethod}}
+ {http://ruby-doc.org/core-2.0.0/UnboundMethod.html}} 
+
+%
+\providecommand{\Binding}{\htmladdnormallink{{\tt Binding}}
+ {http://ruby-doc.org/core-2.0.0/Binding.html}} 
+
+%
+\providecommand{\Object}{\htmladdnormallink{{\tt Object}}
+ {http://ruby-doc.org/core-2.0.0/Object.html}} 
+
+%
+\providecommand{\RDoc}{\htmladdnormallink{{\tt RDoc}}
+ {https://github.com/rdoc/rdoc}} 
+
+%
+\providecommand{\YARD}{\htmladdnormallink{{\tt YARD}}
+ {http://rubydoc.info/gems/yard/}} 
+
+%
+\providecommand{\Kernel}{\htmladdnormallink{{\tt Kernel}}
+ {http://ruby-doc.org/core-2.0.0/Kernel.html}} 
+
+%
+\providecommand{\BasicObject}{\htmladdnormallink{{\tt BasicObject}}
+ {http://ruby-doc.org/core-2.0.0/BasicObject.html}} 
+
+%
+\providecommand{\ObjectSpace}{\htmladdnormallink{{\tt ObjectSpace}}
+ {http://www.ruby-doc.org/core-2.1.3/ObjectSpace.html}} 
+
+%
+\providecommand{\Struct}{\htmladdnormallink{{\tt Struct}}
+ {http://ruby-doc.org/core-2.0.0/Struct.html}} 
+
+%
+\providecommand{\Enumerable}{\htmladdnormallink{{\tt Enumerable}}
+ {http://ruby-doc.org/core-2.0.0/Enumerable.html}} 
+
+%
+\providecommand{\EnumeratorLazy}{\htmladdnormallink{{\tt Enumerator::Lazy}}
+ {http://ruby-doc.org/core-2.0.0/Enumerator/Lazy.html}} 
+
+%
+\providecommand{\Enumerator}{\htmladdnormallink{{\tt Enumerator}}
+ {http://ruby-doc.org/core-2.0.0/Enumerator.html}} 
+
+%
+\providecommand{\Class}{\htmladdnormallink{{\tt Class}}
+ {http://ruby-doc.org/core-2.0.0/Class.html}} 
+
+%
+\providecommand{\Module}{\htmladdnormallink{{\tt Module}}
+ {http://ruby-doc.org/core-2.0.0/Module.html}} 
+
+%
+\providecommand{\rubycoreclassmethod}[2]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/#2.html\#method-c-#1}} 
+
+%
+\providecommand{\rubycoreinstancemethod}[2]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/#2.html\#method-i-#1}} 
+
+%
+\providecommand{\modulec}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/Module.html\#method-c-#1}} 
+
+%
+\providecommand{\classi}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/Class.html\#method-i-#1}} 
+
+%
+\providecommand{\modulei}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/Module.html\#method-i-#1}} 
+
+%
+\providecommand{\modulep}[1]{\index{#1?}\htmladdnormallink{{\tt #1?}}
+ {http://ruby-doc.org/core-2.0.0/Module.html\#method-i-#1-3F}} 
+
+%
+\providecommand{\symboli}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/Symbol.html\#method-i-#1}} 
+
+%
+\providecommand{\kerneli}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/Kernel.html\#method-i-#1}} 
+
+%
+\providecommand{\objecti}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/Object.html\#method-i-#1}} 
+
+%
+\providecommand{\methodi}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/Method.html\#method-i-#1}} 
+
+%
+\providecommand{\proci}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/Proc.html\#method-i-#1}} 
+
+%
+\providecommand{\unboundmethodi}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/UnboundMethod.html\#method-i-#1}} 
+
+%
+\providecommand{\bindingi}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/Binding.html\#method-i-#1}} 
+
+%
+\providecommand{\basicobjecti}[1]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/core-2.0.0/BasicObject.html\#method-i-#1}} 
+
+%
+\providecommand{\rubyclass}[2]{\index{#1}\htmladdnormallink{{\tt #1}}
+ {http://http://ruby-doc.org/core-2.0.0/#2.html}} 
+
+%
+\providecommand{\rubystdlibclass}[2]{\htmladdnormallink{{\tt #1}}
+ {http://ruby-doc.org/stdlib-1.9.3/libdoc/#2.html}} 
+
+%
+\providecommand{\rubypackage}[1]{\htmladdnormallink{{\tt #1}}
+ {http://www.ruby-doc.org/stdlib-1.9.3/libdoc/#1/rdoc/}} 
+
+%
+\providecommand{\rdoc}{\htmladdnormallink{{\tt RDoc}}
+ {http://rdoc.sourceforge.net/doc/index.html}} 
+
+%
+\providecommand{\ERB}{\htmladdnormallink{{\tt ERB}}
+ {http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html}} 
+
+%
+\providecommand{\EventSource}{\htmladdnormallink{ {\tt EventSource} }
+ {http://www.w3.org/TR/eventsource/\#the-eventsource-interface}} 
+
+%
+\providecommand{\Redis}{\htmladdnormallink{Redis}
+ {http://redis.com}} 
+
+%
+\providecommand{\eventmachine}{\htmladdnormallink{Event::Machine}
+ {ihttps://github.com/eventmachine/eventmachine}} 
+
+%
+\providecommand{\EventMachine}{\htmladdnormallink{Event::Machine}
+ {http://eventmachine.rubyforge.org/}} 
+
+%
+\providecommand{\sinatra}[2]{\htmladdnormallink{{\tt #1}}
+ {http://sinatra.rubyforge.org/api/classes/Sinatra/#2}} 
+
+%
+\providecommand{\webrick}{\htmladdnormallink{{\tt Webrick}}{http://naupacto.com/rubydoc/guiaWEBrick/index.html}}%
+\providecommand{\shotgun}{\htmladdnormallink{{\tt Shotgun}}{http://ruby.about.com/od/sinatra/a/sinatra5.htm}} 
+
+%
+\providecommand{\sinatrabase}[1]{\htmladdnormallink{#1}
+ {https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb}} 
+
+%
+\providecommand{\sinatraapplication}[1]{\htmladdnormallink{#1}
+ {https://github.com/sinatra/sinatra/blob/master/lib/sinatra/main.rb}} 
+
+%
+\providecommand{\rack}{\htmladdnormallink{rack}
+ {http://rack.github.io/}} 
+
+%
+\providecommand{\rackprotection}{\htmladdnormallink{Rack::Protection}
+ {http://rubydoc.info/gems/rack-protection/}} 
+
+%
+\providecommand{\rackdoc}[2]{\htmladdnormallink{#1}
+ {http://rack.rubyforge.org/doc/#2.html}} 
+
+%
+\providecommand{\Rack}{\htmladdnormallink{Rack}
+ {http://rack.rubyforge.org/doc/}} 
+
+%
+\providecommand{\rackrequest}{\htmladdnormallink{Rack::Request}
+ {http://rack.rubyforge.org/doc/Rack/Request.html}} 
+
+%
+\providecommand{\rackresponse}{\htmladdnormallink{Rack::Response}
+ {http://rack.rubyforge.org/doc/Rack/Response.html}} 
+
+%
+\providecommand{\rackbuilder}{\htmladdnormallink{Rack::Builder}
+ {http://rack.rubyforge.org/doc/Rack/Builder.html}} 
+
+%
+\providecommand{\rackstatic}{\htmladdnormallink{Rack::Static}
+ {http://rack.rubyforge.org/doc/Rack/Static.html}} 
+
+%
+\providecommand{\rackfile}{\htmladdnormallink{Rack::File}
+ {http://rack.rubyforge.org/doc/Rack/File.html}} 
+
+%
+\providecommand{\rackserver}{\htmladdnormallink{Rack::Server}
+ {http://rack.rubyforge.org/doc/Rack/Server.html}} 
+
+%
+\providecommand{\racksessioncookie}{\htmladdnormallink{Rack::Session::Cookie}
+ {http://rack.rubyforge.org/doc/Rack/Session/Cookie.html}} 
+
+%
+\providecommand{\rackbuilderi}[1]{\htmladdnormallink{ {\tt #1} }
+ {http://rack.rubyforge.org/doc/Rack/Builder.html\#method-i-#1}} 
+
+%
+\providecommand{\rackserversrc}{
+\htmladdnormallink{Rack::Server}{https://github.com/rack/rack/blob/master/lib/rack/server.rb}
+} 
+
+%
+\providecommand{\rackurlmap}{\htmladdnormallink{Rack::URLMap}
+ {http://rack.rubyforge.org/doc/Rack/URLMap.html}} 
+
+%
+\providecommand{\rackauthbasic}{\htmladdnormallink{Rack::Auth::Basic}
+ {http://rack.rubyforge.org/doc/Rack/Auth/Basic.html}} 
+
+%
+\providecommand{\rackmount}{\htmladdnormallink{Rack::Mount}
+ {http://rack.rubyforge.org/doc/Rack/Mount.html}} 
+
+%
+\providecommand{\rackcascade}{\htmladdnormallink{Rack::Cascade}
+ {http://rack.rubyforge.org/doc/Rack/Cascade.html}} 
+
+%
+\providecommand{\saasengine}{\htmladdnormallink{{\tt Saas::Engine}}
+ {http://sass-lang.com/documentation/Sass/Engine.html}} 
+
+%
+\providecommand{\datamapper}{\htmladdnormallink{{\tt DataMapper}}
+ {http://datamapper.org/docs/}} 
+
+%
+\providecommand{\cpanf}[2]{\htmladdnormallink{#2}
+ {http://search.cpan.org/perldoc?#1\##2}} 
+
+%
+\providecommand{\gnereida}[1]{\htmladdnormallink{#1}
+ {http://www.google.es/search?q=site:nereida.deioc.ull.es+#1&ie=UTF-8&hl=es}} 
+
+%
+\providecommand{\gdefine}[1]{\htmladdnormallink{#1}
+ {http://www.google.com/search?q=define:#1}} 
+
+%
+\providecommand{\googlecode}[1]{\htmladdnormallink{#1}
+ {http://code.google.com/p/#1/}} 
+
+%
+\providecommand{\perldocf}[1]{\htmladdnormallink{{\tt #1}}
+{http://www.ayni.com/perldoc/functions/#1.html}} 
+
+%
+\providecommand{\perldoc}[1]{\htmladdnormallink{{\tt #1}}
+{http://search.cpan.org/perldoc/?#1}} 
+
+%
+\providecommand{\vim}{\htmladdnormallink{{\tt vim}}{http://www.vim.org/}} 
+
+%
+\providecommand{\vimdoc}[2]{\htmladdnormallink{{\tt #1}}
+{http://vimdoc.sourceforge.net/htmldoc/#2}} 
+
+%
+\providecommand{\pd}[2]{la sección '#2' en \htmladdnormallink{{\tt #1}}
+{http://perldoc.perl.org/#1.html\##2}} 
+
+%
+\providecommand{\wikipedia}[2]{\htmladdnormallink{#1}
+{http://en.wikipedia.org/wiki/#1}} 
+
+%
+\providecommand{\wikip}[2]{\htmladdnormallink{#1}
+{http://en.wikipedia.org/wiki/#2}} 
+
+%
+\providecommand{\perlmonk}[1]{\htmladdnormallink{PerlMonks}
+{http://www.perlmonks.org/?node_id=#1}} 
+
+%
+\providecommand{\pmm}[2]{\htmladdnormallink{#2}
+{http://www.perlmonks.org/?node_id=#1}} 
+
+%
+\providecommand{\code}[1]{{\tt #1}} 
+
+%
+\providecommand{\perlmarkmail}[1]{\htmladdnormallink{#1}
+{http://perl.markmail.org/search/?q=#1}} 
+
+%
+\providecommand{\cpandist}[1]{\htmladdnormallink{{\tt #1}}
+{http://search.cpan.org/dist/#1}} 
+
+%
+\providecommand{\I}[1]{{\it #1}} 
+
+%
+\providecommand{\svnbook}[2]{\htmladdnormallink{#1}{http://svnbook.red-bean.com/nightly/en/#2.html}}%
+\providecommand{\svnb}[2]{\htmladdnormallink{#1}{http://svnbook.red-bean.com/en/1.5/#2}} 
+
+
+\pagestyle{plain} %each page number
+
+
+\title{Apuntes de la Asignatura Procesadores de Lenguajes\
+  }
+\author{Casiano R. León \thanks{DEIOC Universidad de La Laguna}}
+
+
+\makeindex
+
+
+\htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=35 
+                 alt="Apuntes de LPP"
+                ]
+     {logoLPP.png}}
+     {http://nereida.deioc.ull.es/perlexamples/index.html}} 
+
+
+\htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=50 
+                 alt="PL moodle 2014/2015"
+                ]
+     {moodleLHPlogo.jpeg}}
+     {https://campusvirtual.ull.es/1415/course/view.php?id=5669}} 
+
+
+\htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=50 
+                 alt="PL moodle 2013/2014"
+                ]
+     {moodleLHPlogo.jpeg}}
+     {http://campusvirtual.ull.es/1314/course/view.php?id=1104}} 
+
+
+\htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=30 
+                 alt="ps"
+                ]
+     {gv.jpeg}}
+     {javascriptexamples.pdf}} 
+
+
+\htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=27 
+                 alt="comunidad g+ PL1415"
+                ]
+     {perl6.jpg}}
+     {https://plus.google.com/u/0/communities/103299470687051533933}} 
+
+
+\htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=35 
+                 alt="google"
+                ]
+     {ggoogle.gif}}
+     {http://www.google.es/}} 
+
+
+\htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=35 
+                 alt="etsii"
+                ]
+     {etsii.png}}
+     {http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es}} 
+
+
+\htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=35 
+                 alt="ull"
+                ]
+     {ull.gif}}
+     {http://www.ull.es/}} 
+
+
+\htmladdtonavigation{\htmladdnormallink{
+     \htmladdimg[
+                 width=32 
+                 alt="crguezl at github"
+                ]
+     {logopcgull.gif}}
+     {https://github.com/crguezl}} 
+
+
+
+
+
+\pagecolor[gray]{.7}
+
+\usepackage[latin1]{inputenc}
+
+
+
+\makeatletter
+
+\makeatletter
+\count@=\the\catcode`\_ \catcode`\_=8 
+\newenvironment{tex2html_wrap}{}{}%
+\catcode`\<=12\catcode`\_=\count@
+\newcommand{\providedcommand}[1]{\expandafter\providecommand\csname #1\endcsname}%
+\newcommand{\renewedcommand}[1]{\expandafter\providecommand\csname #1\endcsname{}%
+  \expandafter\renewcommand\csname #1\endcsname}%
+\newcommand{\newedenvironment}[1]{\newenvironment{#1}{}{}\renewenvironment{#1}}%
+\let\newedcommand\renewedcommand
+\let\renewedenvironment\newedenvironment
+\makeatother
+\let\mathon=$
+\let\mathoff=$
+\ifx\AtBeginDocument\undefined \newcommand{\AtBeginDocument}[1]{}\fi
+\newbox\sizebox
+\setlength{\hoffset}{0pt}\setlength{\voffset}{0pt}
+\addtolength{\textheight}{\footskip}\setlength{\footskip}{0pt}
+\addtolength{\textheight}{\topmargin}\setlength{\topmargin}{0pt}
+\addtolength{\textheight}{\headheight}\setlength{\headheight}{0pt}
+\addtolength{\textheight}{\headsep}\setlength{\headsep}{0pt}
+\setlength{\textwidth}{451pt}
+\setlength{\textheight}{554pt}
+\newwrite\lthtmlwrite
+\makeatletter
+\let\realnormalsize=\normalsize
+\global\topskip=2sp
+\def\preveqno{}\let\real@float=\@float \let\realend@float=\end@float
+\def\@float{\let\@savefreelist\@freelist\real@float}
+\def\liih@math{\ifmmode$\else\bad@math\fi}
+\def\end@float{\realend@float\global\let\@freelist\@savefreelist}
+\let\real@dbflt=\@dbflt \let\end@dblfloat=\end@float
+\let\@largefloatcheck=\relax
+\let\if@boxedmulticols=\iftrue
+\def\@dbflt{\let\@savefreelist\@freelist\real@dbflt}
+\def\adjustnormalsize{\def\normalsize{\mathsurround=0pt \realnormalsize
+ \parindent=0pt\abovedisplayskip=0pt\belowdisplayskip=0pt}%
+ \def\phantompar{\csname par\endcsname}\normalsize}%
+\def\lthtmltypeout#1{{\let\protect\string \immediate\write\lthtmlwrite{#1}}}%
+\newcommand\lthtmlhboxmathA{\adjustnormalsize\setbox\sizebox=\hbox\bgroup\kern.05em }%
+\newcommand\lthtmlhboxmathB{\adjustnormalsize\setbox\sizebox=\hbox to\hsize\bgroup\hfill }%
+\newcommand\lthtmlvboxmathA{\adjustnormalsize\setbox\sizebox=\vbox\bgroup %
+ \let\ifinner=\iffalse \let\)\liih@math }%
+\newcommand\lthtmlboxmathZ{\@next\next\@currlist{}{\def\next{\voidb@x}}%
+ \expandafter\box\next\egroup}%
+\newcommand\lthtmlmathtype[1]{\gdef\lthtmlmathenv{#1}}%
+\newcommand\lthtmllogmath{\dimen0\ht\sizebox \advance\dimen0\dp\sizebox
+  \ifdim\dimen0>.95\vsize
+   \lthtmltypeout{%
+*** image for \lthtmlmathenv\space is too tall at \the\dimen0, reducing to .95 vsize ***}%
+   \ht\sizebox.95\vsize \dp\sizebox\z@ \fi
+  \lthtmltypeout{l2hSize %
+:\lthtmlmathenv:\the\ht\sizebox::\the\dp\sizebox::\the\wd\sizebox.\preveqno}}%
+\newcommand\lthtmlfigureA[1]{\let\@savefreelist\@freelist
+       \lthtmlmathtype{#1}\lthtmlvboxmathA}%
+\newcommand\lthtmlpictureA{\bgroup\catcode`\_=8 \lthtmlpictureB}%
+\newcommand\lthtmlpictureB[1]{\lthtmlmathtype{#1}\egroup
+       \let\@savefreelist\@freelist \lthtmlhboxmathB}%
+\newcommand\lthtmlpictureZ[1]{\hfill\lthtmlfigureZ}%
+\newcommand\lthtmlfigureZ{\lthtmlboxmathZ\lthtmllogmath\copy\sizebox
+       \global\let\@freelist\@savefreelist}%
+\newcommand\lthtmldisplayA{\bgroup\catcode`\_=8 \lthtmldisplayAi}%
+\newcommand\lthtmldisplayAi[1]{\lthtmlmathtype{#1}\egroup\lthtmlvboxmathA}%
+\newcommand\lthtmldisplayB[1]{\edef\preveqno{(\theequation)}%
+  \lthtmldisplayA{#1}\let\@eqnnum\relax}%
+\newcommand\lthtmldisplayZ{\lthtmlboxmathZ\lthtmllogmath\lthtmlsetmath}%
+\newcommand\lthtmlinlinemathA{\bgroup\catcode`\_=8 \lthtmlinlinemathB}
+\newcommand\lthtmlinlinemathB[1]{\lthtmlmathtype{#1}\egroup\lthtmlhboxmathA
+  \vrule height1.5ex width0pt }%
+\newcommand\lthtmlinlineA{\bgroup\catcode`\_=8 \lthtmlinlineB}%
+\newcommand\lthtmlinlineB[1]{\lthtmlmathtype{#1}\egroup\lthtmlhboxmathA}%
+\newcommand\lthtmlinlineZ{\egroup\expandafter\ifdim\dp\sizebox>0pt %
+  \expandafter\centerinlinemath\fi\lthtmllogmath\lthtmlsetinline}
+\newcommand\lthtmlinlinemathZ{\egroup\expandafter\ifdim\dp\sizebox>0pt %
+  \expandafter\centerinlinemath\fi\lthtmllogmath\lthtmlsetmath}
+\newcommand\lthtmlindisplaymathZ{\egroup %
+  \centerinlinemath\lthtmllogmath\lthtmlsetmath}
+\def\lthtmlsetinline{\hbox{\vrule width.1em \vtop{\vbox{%
+  \kern.1em\copy\sizebox}\ifdim\dp\sizebox>0pt\kern.1em\else\kern.3pt\fi
+  \ifdim\hsize>\wd\sizebox \hrule depth1pt\fi}}}
+\def\lthtmlsetmath{\hbox{\vrule width.1em\kern-.05em\vtop{\vbox{%
+  \kern.1em\kern0.8 pt\hbox{\hglue.17em\copy\sizebox\hglue0.8 pt}}\kern.3pt%
+  \ifdim\dp\sizebox>0pt\kern.1em\fi \kern0.8 pt%
+  \ifdim\hsize>\wd\sizebox \hrule depth1pt\fi}}}
+\def\centerinlinemath{%
+  \dimen1=\ifdim\ht\sizebox<\dp\sizebox \dp\sizebox\else\ht\sizebox\fi
+  \advance\dimen1by.5pt \vrule width0pt height\dimen1 depth\dimen1 
+ \dp\sizebox=\dimen1\ht\sizebox=\dimen1\relax}
+
+\def\lthtmlcheckvsize{\ifdim\ht\sizebox<\vsize 
+  \ifdim\wd\sizebox<\hsize\expandafter\hfill\fi \expandafter\vfill
+  \else\expandafter\vss\fi}%
+\providecommand{\selectlanguage}[1]{}%
+\makeatletter \tracingstats = 1 
+\providecommand{\Beta}{\textrm{B}}
+\providecommand{\Mu}{\textrm{M}}
+\providecommand{\Kappa}{\textrm{K}}
+\providecommand{\Rho}{\textrm{R}}
+\providecommand{\Epsilon}{\textrm{E}}
+\providecommand{\Chi}{\textrm{X}}
+\providecommand{\Iota}{\textrm{J}}
+\providecommand{\omicron}{\textrm{o}}
+\providecommand{\Zeta}{\textrm{Z}}
+\providecommand{\Eta}{\textrm{H}}
+\providecommand{\Nu}{\textrm{N}}
+\providecommand{\Omicron}{\textrm{O}}
+\providecommand{\Tau}{\textrm{T}}
+\providecommand{\Alpha}{\textrm{A}}
+
+
+\begin{document}
+\pagestyle{empty}\thispagestyle{empty}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength hsize=\the\hsize}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength vsize=\the\vsize}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength hoffset=\the\hoffset}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength voffset=\the\voffset}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength topmargin=\the\topmargin}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength topskip=\the\topskip}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength headheight=\the\headheight}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength headsep=\the\headsep}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength parskip=\the\parskip}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength oddsidemargin=\the\oddsidemargin}\lthtmltypeout{}%
+\makeatletter
+\if@twoside\lthtmltypeout{latex2htmlLength evensidemargin=\the\evensidemargin}%
+\else\lthtmltypeout{latex2htmlLength evensidemargin=\the\oddsidemargin}\fi%
+\lthtmltypeout{}%
+\makeatother
+\setcounter{page}{1}
+\onecolumn
+
+% !!! IMAGES START HERE !!!
+
+\stepcounter{part}
+\stepcounter{chapter}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{chapter}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{chapter}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{chapter}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{chapter}
+\stepcounter{section}
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlinlinemathA{tex2html_wrap_inline22296}%
+
+% latex2html id marker 22296
+$ S = program$%
+\lthtmlinlinemathZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{chapter}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{chapter}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{part}
+\stepcounter{chapter}
+\stepcounter{section}
+\stepcounter{chapter}
+\stepcounter{chapter}
+\stepcounter{chapter}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{chapter}
+\stepcounter{chapter}
+\stepcounter{part}
+\stepcounter{chapter}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{chapter}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{paragraph}
+\stepcounter{paragraph}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+
+\end{document}

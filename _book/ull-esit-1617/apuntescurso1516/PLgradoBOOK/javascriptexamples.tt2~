@@ -1,0 +1,135 @@
+[% title  = 
+  'Apuntes de la Asignatura Procesadores de Lenguajes\\
+  '
+
+%]
+[% author = 'Casiano R. León \\thanks{DEIOC Universidad de La Laguna}' %]
+[% 
+   navigation = [
+     { alt = "PL", img = "logoLPP.png", width = 35,  url = "http://nereida.deioc.ull.es/~plgrado/index.html"},
+     { alt = "PL moodle", img = "moodleLHPlogo.jpeg", width = 50, url = "http://campusvirtual.ull.es/1213m2/course/view.php?id=271"},
+     { alt = "ps", img = "gv.jpeg", width = 30, url = "javascriptexamples.pdf"},
+
+     { alt = "ruby gems", img = "lupa.gif", width = 60, url = "https://dl.dropbox.com/u/14539152/PLgrado/PLgradoBOOK/index.html"},
+
+     { alt = "perldoc", img = "perlonion.jpeg", width = 30, url = "https://developer.mozilla.org/es/docs/JavaScript"},
+
+
+
+     { alt = "google code project hosting", img = "google-code-project-hosting.jpeg", width = 27, url = "http://github.com"},
+
+     { alt = "blogs", img = "perl6.jpg", width = 27, url = "http://jquery.com/"},
+     { alt = "google", img = "ggoogle.gif", width = 35, url = "http://www.google.es/"},
+     { alt = "etsii", img = "etsii.png", width = 35, url = "http://www.ull.es/view/centros/etsii/Grado/es"},
+     { alt = "ull", img = "ull.gif", width = 35, url = "http://www.ull.es/"},
+     { alt = "pcgull", img = "logopcgull.gif", width = 32, url = "http://crondinosaur.blogspot.com/"},
+   ]
+%]
+
+[% 
+    PROCESS booktt/pdfpreamble  # PDF
+%]
+[% 
+    # PROCESS booktt/preamble 
+%]
+
+\begin{document}
+
+\topmargin=5pt
+\maketitle
+
+
+[%
+alumnosacknowledge = 'A mis alumnos de 
+Procesadores de Lenguajes del Grado de Informática
+de la Escuela Superior de Informática en la Universidad de La Laguna'
+%]
+[% PROCESS booktt/lppacknowledgments %]
+
+\part{Apuntes de Javascript}
+
+%1
+\chapter{Introduccion}
+
+\input{chapter1/chapter1.tex}
+
+%3
+\chapter{JavaScript en el Cliente}
+
+   \section{El Objeto Window}
+   \section{DOM}
+     \subsection{Selección de Elementos}
+     \subsection{Estructura del Documento y Recorridos}
+  \section{CSS}
+  \section{Eventos}
+
+\chapter{La Librería JQuery}
+
+\chapter{XML}
+\input{chapterxml/xml.tex}
+
+\chapter{Backbone}
+\begin{enumerate}
+\item 
+\htmladdnormallink{Developing Backbone.js Applications}{http://addyosmani.github.com/backbone-fundamentals/}
+\end{enumerate}
+
+\chapter{Google Chrome y Javascript}
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{Building Browser Apps with Google Chrome}{http://www.buildbrowserapps.com/chromeappbook/index.html}
+\end{enumerate}
+
+
+\chapter{Herramientas}
+\input{chapter11/herramientas.tex}
+
+\part{Procesadores de Lenguajes}
+
+
+%2
+\input{chapter2/regexp.tex}
+
+\input{chapter2/flex.tex}
+
+\chapter{Expresiones Regulares en sed}·
+\input{chapter2/sed.tex}
+
+\input{chapter2/perlregexp.tex}
+
+\chapter{Análisis Sintáctico Descendente en JavaScript}
+
+  \input{chapter_descendente/calculadora.tex}
+
+  \input{chapter_descendente/topdownprecedence.tex}
+
+\chapter{Análisis Sintáctico Ascendente en JavaScript}
+\input{chapter_bottomup/jison.tex}
+
+\chapter{Análisis Sintáctico Ascendente en Perl}
+\input{chapter_bottomup/analisis_bottomup_en_perl.tex}
+
+\chapter{Análisis Sintáctico Ascendente en C con {\tt yacc} y {\tt bison}}
+\input{chapter_bottomup/yaccexamples.tex}
+
+\chapter{Análisis Semántico}
+
+\chapter{Generación de Código}
+
+\chapter{Optimización de Código}
+
+\part{Bitácora}
+\input{chapter99/bitacora.tex}
+
+\tableofcontents 
+\listoffigures
+\listoftables
+
+\printindex
+
+\bibliographystyle{unsrt}
+%\bibliographystyle{plain}
+%\bibliography{perlbib/perl}
+\bibliography{perlbib/ruby}
+\end{document}

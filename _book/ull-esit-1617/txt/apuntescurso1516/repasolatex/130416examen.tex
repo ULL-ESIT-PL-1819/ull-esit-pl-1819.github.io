@@ -1,0 +1,212 @@
+\documentclass[spanish,a4paper,11pt]{article}
+
+\usepackage{latexsym,amsfonts,amssymb,amstext,amsthm,float,amsmath}
+
+\usepackage[spanish]{babel}    
+\usepackage{html}
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\usepackage{color}
+
+\usepackage{listings}
+\lstset{language=Ruby}
+\lstset{
+escapeinside={\#(*}{*)}
+}
+
+%\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\usepackage[dvips]{epsfig}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%123456789012345678901234567890123456789012345678901234567890123456789
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Format
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\topmargin -5 mm
+\headheight 2 mm
+%\headsep 0 mm
+\textheight 255 mm
+\oddsidemargin -5.8 mm
+\evensidemargin -5.8 mm
+\textwidth 16 cm
+\columnsep 0 mm
+%\pagestyle{plain}
+\pagestyle{myheadings}
+\markright{}
+
+%\pagenumbering{arabic}
+%\cfoot{\thepage\ of \pageref{LastPage}}
+
+\input{amssym.def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
+%
+% En la cabecera hay que cambiar al FECHA de la convocatoria
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
+
+
+\input{booktt/commontex/commands.tex}
+
+
+
+
+
+\begin{document}
+\thispagestyle{empty}
+\begin{tabular}{lcc}
+%%%%
+  \begin{tabular}{c}
+%   \epsfig{file=/tmp/ullesc.eps,width=1.5cm}  
+  \end{tabular}                      &
+%%%%
+  \begin{tabular}{c}
+   {\bf Universidad de La Laguna.  Escuela Técnica Superior de Ingeniería Informática}     \\
+   {\bf Tercero del Grado de Informática}\\
+   {\bf PROCESADORES DE LENGUAJES. REPASO 2ª PARTE}\\
+   2015/2016  \pageref*{LastPage} páginas         \\   
+  \end{tabular}                      &
+%%%%
+%%%%
+\end{tabular}
+
+\bigskip
+
+%\hrulefill
+Nombre:  \underline{\hspace{11.5cm}} Fecha 2015/2016\underline{\hspace{2cm}} 
+\bigskip
+
+%\begin{footnotesize}
+%%Notas:
+%\begin{itemize}
+%  \item
+%%  La duración del examen completo es de 2 horas.
+%   Respete el uso de mayúsuclas y minúsculas en los comandos y programas
+%  \item Escriba con letra clara. Use también el reverso de las hojas 
+%  \item Los ejercicios deben realizarse con bolígrafo.
+%  \item Al finalizar el exámen, ENTREGAR TODOS LOS FOLIOS utilizados, incluyendo éste.
+%  \item Las calificaciones del exámen estarán disponibles unos días antes de la fecha límite de entrega de las actas.
+%%  \item Si esta es su 5ª ó 6ª convocatoria, escriba “Xª CONVOCATORIA” en el encabezado de esta hoja.
+%\end{itemize}
+%\end{footnotesize}
+
+
+
+%\tableofcontents
+
+\begin{enumerate}
+
+
+
+% \section{Underscore}
+% \begin{enumerate}
+\item 
+\begin{enumerate}
+\item  Escriba un conversor de temperaturas
+usando objetos y herencia.
+\item  Defina una clase \verb|Medida| cuyos objetos tienen un \verb|valor| numérico (p.  ej. \verb|4.5e2|) y un tipo dado por una cadena (p. ej "\verb|Km|" por Kilómetros o "\verb|m3|" por metros cúbicos o "\verb|F|" por grados Fahrenheit).
+
+\item  Las clase \verb|Temperatura| hereda de \verb|Medida|.
+\item  Las clases \verb|Celsius|, \verb|Fahrenheit| heredan de \verb|Temperatura|
+\item 
+Si \verb|num| está en Celsius, la expresión \verb|(num * 9/5)+32| nos da los grados Fahrenheit; si \verb|num| 
+está em Fahrenheit, la expresión  \verb|(num - 32)*5/9| nos da los grados Celsius
+\item  En la entrada se podrán escribir entradas como \verb|-1.43e2f to C| para convertir de Fahrenheit a Celsius.
+\end{enumerate}
+
+\item  ¿Que argumentos espera el método \verb|template| de Underscore?
+¿Cual es la función de cada uno de ellos?
+% _.template(templateString, [data], [settings])
+\item 
+¿Que diferencia hay entre \verb|<% ... %>|, \verb|<%= ... %>| y \verb|<%- ... %>|?
+% \end{enumerate}
+
+
+\item 
+Escriba una expresión JavaScript que permita reemplazar 
+todas las apariciones de palabras consecutivas repetidas 
+(como \verb|hello hello|)
+por una sóla aparición de la misma
+%\item 
+%Supongamos que se usa una función como segundo argumento de \verb|replace|.
+%¿Que argumentos recibe?
+%\item 
+%¿Cual es la salida? 
+%\begin{verbatim}
+%> "bb".match(/b|bb/)
+%
+%> "bb".match(/bb|b/)
+%\end{verbatim}
+%
+%Justifique su respuesta.
+%
+\item Escriba una expresión regular que reconozca las cadenas delimitadas entre dobles comillas en las que se permiten comillas escapadas en su interior
+%\item  El siguiente fragmento de código tiene por objetivo
+%escapar las entidades HTML para que no sean intérpretadas como código HTML.
+%Rellene las partes que faltan.
+%\begin{verbatim}
+%var entityMap = {
+%    "&": "&___;",
+%    "<": "&__;",
+%    ">": "&__;",
+%    '"': '&quot;',
+%    "'": '&#39;',
+%    "/": '&#x2F;'
+%  };
+%
+%function escapeHtml(string) {
+%  return String(string).replace(/_________/g, function (s) {
+%    return ____________;
+%  });
+%\end{verbatim}
+% \end{enumerate}
+
+% \section{JSON}
+% \begin{enumerate}
+\item
+¿Como se llama el método que permite obtener una representación como cadena de un objeto?
+¿Que parámetros espera? ¿Como afectan dichos parámetros?
+% \end{enumerate}
+
+% \section{Code Smelling}
+% \begin{enumerate}
+\item 
+Defina el término {\it code smelling}
+% a code smell is a surface indication that usually corresponds to a deeper problem in the system.
+% Smells are certain structures in the code that indicate violation of fundamental design principles and negatively impact design quality.
+\item 
+¿Que diferencia hay entre un {\it code smell} y un {\it bug}?
+%Code smells are usually not bugs. They are not technically incorrect and do not currently prevent the program from functioning. Instead, they indicate weaknesses in design that may be slowing down development or increasing the risk of bugs or failures in the future.
+
+\item  Explique el code smell {\it Duplicated Code}
+\item  Explique el Switch smell
+% \end{enumerate}
+
+% \section{Mocha, Chai}
+
+% \begin{enumerate}
+\item 
+¿Como creamos el directorio con el esqueleto inicial para las pruebas con mocha?
+% mocha init tests
+\item Rellene lo que falta:
+\begin{verbatim}
+var assert = chai.______;
+
+suite('temperature', function() {
+    test('[1,{a:2}] == [1,2]', function() {
+      assert._________([1, {a:2}], [1, {a:2}]);
+    });
+    test('5X = error', function() {
+        original.value = "5X";
+        calculate();
+        assert._____(converted.innerHTML, /ERROR/);
+    });
+});
+\end{verbatim}
+% deepEqual, match
+\item 
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,83 @@
+[% PROCESS booktt/preambleexam %]
+[% 
+   titulacion = "Tercero del Grado en Ingeniería Informática. Itinerario de Computación."
+   asignatura = 'Procesadores de Lenguajes. Expresiones Regulares' 
+   fecha = '20/03/2012'; 
+-%]
+
+\begin{document}
+[% nombre = 'Nombre: ' 
+-%]
+[% PROCESS booktt/examheader 
+-%]
+
+\begin{enumerate}
+\item
+¿Que retorna?
+\begin{verbatim}
+"hello small world and blue sky".scan /(\S+)\s+(\S+)/
+\end{verbatim}
+
+\item
+Indique que casa con el primer paréntesis y que con el segundo en las siguientes expresiones regulares:
+\begin{verbatim}
+> $_ = "I have 2 numbers: 53147"
+> pats = %w{ (.*)(\d*) 
+             (.*)(\d+) 
+             (.*?)(\d*) 
+             (.*?)(\d+) 
+             (.*)(\d+)$ 
+             (.*?)(\d+)$ 
+             (.*)\b(\d+)$ 
+             (.*\D)(\d+)$ 
+           }.map { |x| %r{#{x}} }
+\end{verbatim}
+\item
+¿Que queda en \verb|$1| despúes del matching?:
+\begin{verbatim}
+>  a = "hola juan"
+ => "hola juan" 
+> a =~ /(?:hola )*(juan)/
+\end{verbatim}
+
+\item 
+¿Que queda en \verb|m[:a]| y en \verb|m[:b]|?
+\begin{verbatim}
+m = /((?<a>.)(?<b>.)\k<b>\k<a>){2}/.match "abbacddc" 
+\end{verbatim}
+\item 
+Escriba una expresión regular que reconozca cadenas de dobles comillas coma \verb|"hello world"|
+y \verb|"Hello \"Jane\" and Jakes"|
+
+\item
+Escriba una expresión regular que reconozca los números en punto flotante como
+\verb|2.34|, \verb|-5.2e-1| y \verb|0.9e3|
+
+\item
+¿Que queda en \verb|$1|?
+\begin{verbatim}
+> 'main() /* 1c */ { /* 2c */ return; /* 3c */ }' =~ %r{(/\*.*\*/)}
+\end{verbatim}
+¿Porqué?
+\item Escriba una expresión regular que reconozca los comentarios del lenguaje C.
+No se admiten comentarios anidados. Se deberían reconocer los dos comentarios en:
+\verb|/* .... */ ... /* ... */|
+\item
+Se quiere poner un espacio en blanco después de la aparición de cada coma:
+\begin{verbatim}
+> 'ab,cd,4,3,   de,   fg'.gsub(',', ', ')
+=> "ab, cd, 4, 3,    de,    fg" 
+\end{verbatim}
+pero se quiere que la sustitución no tenga lugar si la coma esta incrustada entre
+dos dígitos. Además se pide que si hay ya un espacio después de la coma,
+no se duplique
+
+\item
+Escribe un patrón regular
+que reconozca las cadenas palíndromo
+
+
+\end{enumerate}
+\end{document}
+
+

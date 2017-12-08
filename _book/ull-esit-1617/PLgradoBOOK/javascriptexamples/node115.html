@@ -1,0 +1,40 @@
+
+<H1><A NAME="SECTION05360000000000000000">
+Manipulando tablas numéricas</A>
+</H1>
+El siguiente ejemplo intercambia la primera y ultima columnas
+de un fichero como el que sigue:
+<PRE><tex2html_verbatim_mark>verbatim720#</PRE>
+La parte mas complicada es preservar el sangrado.
+El truco reside, en parte, en el patrón central <tex2html_verbatim_mark>#math6390#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33030#</SPAN>
+<tex2html_verbatim_mark>mathend000#2, que 
+memoriza los blancos después de la primera columna y un sólo blanco 
+antes de la última.
+<PRE><tex2html_verbatim_mark>verbatim721#</PRE>
+El siguiente ejemplo utiliza
+una opción del operador de sustitución que permite decidir que aparición
+del patrón deseamos sustituir. Asi,
+
+<P>
+<tex2html_verb_mark>467<tex2html_verb_mark>
+
+<P>
+sustituirá la 3 aparición de <tex2html_verb_mark>468<tex2html_verb_mark> por <tex2html_verb_mark>469<tex2html_verb_mark>, obviando las otras.
+
+<P>
+El ejemplo selecciona la columna dos del fichero:
+<PRE><tex2html_verbatim_mark>verbatim722#</PRE>
+Mas general que el anterior, el siguiente ejemplo elimina 
+un número de columnas arbitrario <tex2html_verb_mark>470<tex2html_verb_mark> por la izquierda y otro 
+número <tex2html_verb_mark>471<tex2html_verb_mark> por la derecha.
+Para lograrlo, es necesario utilizar un un guión para la <tex2html_verb_mark>472<tex2html_verb_mark> 
+que llama al correspondiente guión <tex2html_verb_mark>473<tex2html_verb_mark>. Los parámetros 
+son introducidos en el guión <tex2html_verb_mark>474<tex2html_verb_mark> mediante el uso apropiado
+de las comillas dobles y simples:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim723#</PRE>
+Veamos un ejemplo de uso:
+<PRE><tex2html_verbatim_mark>verbatim724#</PRE>
+
+<P>

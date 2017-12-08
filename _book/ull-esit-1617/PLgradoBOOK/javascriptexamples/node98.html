@@ -1,0 +1,28 @@
+
+<H1><A NAME="SECTION052170000000000000000">
+Uso de Dos Analizadores</A>
+</H1>
+La opción <tex2html_verb_mark>338<tex2html_verb_mark> de flex cambia el prefijo por defecto <tex2html_verb_mark>339<tex2html_verb_mark>
+para todas las variables globales y funciones. Por ejemplo 
+<tex2html_verb_mark>340<tex2html_verb_mark> cambia el nombre de  <tex2html_verb_mark>341<tex2html_verb_mark> <tex2html_verb_mark>342<tex2html_verb_mark>.  
+También cambia el nombre del fichero de salida 
+de  <tex2html_verb_mark>343<tex2html_verb_mark>  a <tex2html_verb_mark>344<tex2html_verb_mark>.  
+Sigue la lista de identificadores afectados:
+<PRE><tex2html_verbatim_mark>verbatim654#</PRE> 
+Desde dentro del analizador léxico puedes referirte a las 
+variables globales y funciones por cualquiera de los nombres,
+pero externamente tienen el nombre cambiado.
+Esta opción nos permite enlazar diferentes programas flex en un mismo ejecutable.
+
+<P>
+Sigue un ejemplo de uso de dos analizadores l&#233;xicos dentro del mismo programa:
+<PRE><tex2html_verbatim_mark>verbatim655#</PRE>
+Como hemos mencionado, la compilaci&#243;n <SPAN  CLASS="textit">flex</SPAN> se debe realizar con el opci&#243;n <tex2html_verb_mark>345<tex2html_verb_mark>,
+que cambia el prefijo por defecto <tex2html_verb_mark>346<tex2html_verb_mark> de las funciones
+y variables accesibles por el usuario.
+El mismo efecto puede conseguirse utilizando la opción <tex2html_verb_mark>347<tex2html_verb_mark>, escribiendo
+<tex2html_verb_mark>349<tex2html_verb_mark> y <tex2html_verb_mark>350<tex2html_verb_mark> en los respectivos programas 
+<tex2html_verb_mark>351<tex2html_verb_mark> y <tex2html_verb_mark>352<tex2html_verb_mark>. 
+<PRE><tex2html_verbatim_mark>verbatim656#</PRE>
+
+<P>

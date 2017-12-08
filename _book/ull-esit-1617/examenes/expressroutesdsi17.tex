@@ -1,0 +1,41 @@
+\subsection{Rutas en Express}\label{rutas-en-express}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Escriba un servidor que sirva ficheros estáticos desde el directorio
+  \texttt{/public}
+\item
+  El servidor deberá responder a requests \texttt{GET} en las rutas
+  \texttt{/user/nombredeusuario} (donde \texttt{nombredeusuario} varía)
+  con una página que diga \texttt{Hola nombredeusuario} usando el método
+  \texttt{render} del objeto \texttt{response}
+\end{enumerate}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  La página se elaborara con una vista que debe estar en el directorio
+  \texttt{views/} usando el motor de vistas \texttt{ejs}
+\item
+  La página elaborada en la respuesta tendrá un tag \texttt{img}
+  referenciando a una imagen que está en \texttt{public/}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Escriba un middleware que intercepte en las rutas
+  \texttt{/user/nombredeusuario} y que vuelque en la consola información
+  sobre el \href{https://expressjs.com/en/4x/api.html\#req}{request}:
+  (por ejemplo los atributos \texttt{method}, \texttt{path}, etc.)
+\item
+  Explique como se puede aislar el código anterior en un fichero
+  \texttt{routes/user.js} que sea cargado desde el programa principal
+\item
+  Explique que hay que hacer para desplegar la aplicación en la máquina
+  virtual del iaas
+\end{enumerate}

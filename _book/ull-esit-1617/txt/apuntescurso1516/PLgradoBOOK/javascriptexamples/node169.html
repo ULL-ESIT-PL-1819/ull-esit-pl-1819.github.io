@@ -1,0 +1,510 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Rack::Request y Depuración con pry-debugger</TITLE>
+<META NAME="description" CONTENT="Rack::Request y Depuración con pry-debugger">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node170.html">
+<LINK REL="previous" HREF="node168.html">
+<LINK REL="up" HREF="node163.html">
+<LINK REL="next" HREF="node170.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html4848"
+  HREF="node170.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4842"
+  HREF="node163.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4836"
+  HREF="node168.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4844"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4846"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html4849"
+  HREF="node170.html">Rack::Response</A>
+<B>Sup:</B> <A NAME="tex2html4843"
+  HREF="node163.html">Rack, un Webserver Ruby</A>
+<B> Ant:</B> <A NAME="tex2html4837"
+  HREF="node168.html">HTTP</A>
+<B> Con:</B> 
+<A NAME="tex2html4844"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html4846"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html4850"
+  HREF="node169.html#SECTION012161000000000000000">Conexión sin Parámetros</A>
+<LI><A NAME="tex2html4851"
+  HREF="node169.html#SECTION012162000000000000000">Conexión con Parámetros</A>
+<UL>
+<LI><A NAME="tex2html4852"
+  HREF="node169.html#SECTION012162010000000000000">Rack::Request.new</A>
+<LI><A NAME="tex2html4853"
+  HREF="node169.html#SECTION012162020000000000000">req.params</A>
+<LI><A NAME="tex2html4854"
+  HREF="node169.html#SECTION012162030000000000000">Indexación de los objetos Rack::Request</A>
+<LI><A NAME="tex2html4855"
+  HREF="node169.html#SECTION012162040000000000000">req.path</A>
+<LI><A NAME="tex2html4856"
+  HREF="node169.html#SECTION012162050000000000000">req.url</A>
+<LI><A NAME="tex2html4857"
+  HREF="node169.html#SECTION012162060000000000000">req.values</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION012160000000000000000">
+Rack::Request y Depuración con <TT>pry-debugger</TT></A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION012161000000000000000">
+Conexión sin Parámetros</A>
+</H2>
+
+<P>
+Partimos del mismo código fuente que en la sección  anterior:
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ cat hello.rb 
+require 'rack'
+require 'pry-debugger'
+
+class HelloWorld
+  def call env
+    binding.pry
+    [200, {"Content-Type" =&gt; "text/plain"}, ["Hello world"]]
+  end
+end
+</PRE>
+
+<P>
+Arranquemos un servidor dentro de <code>pry</code>:
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ pry
+[1] pry(main)&gt; require './hello'
+=&gt; true
+[2] pry(main)&gt; Rack::Handler::WEBrick::run HelloWorld.new
+[2013-09-23 13:10:42] INFO  WEBrick 1.3.1
+[2013-09-23 13:10:42] INFO  ruby 1.9.3 (2013-02-22) [x86_64-darwin11.4.2]
+[2013-09-23 13:10:42] INFO  WEBrick::HTTPServer#start: pid=10395 port=8080
+</PRE>
+
+<P>
+Si visitamos la página:
+<PRE>
+$ curl -v localhost:8080/jkdfkdjg
+</PRE>
+
+<P>
+Esto hace que se alcance el break:
+<PRE>
+From: /Users/casiano/local/src/ruby/sinatra/rack/rack-debugging/hello.rb @ line 6 HelloWorld#call:
+
+    5: def call env
+ =&gt; 6:   binding.pry
+    7:   [200, {"Content-Type" =&gt; "text/plain"}, ["Hello world"]]
+    8: end
+</PRE>
+Ahora creamos un objeto
+<A NAME="tex2html439"
+  HREF="http://rack.rubyforge.org/doc/Rack/Request.html">Rack::Request</A>:
+
+<P>
+<PRE>
+[3] pry(#&lt;HelloWorld&gt;)&gt; req = Rack::Request.new(env)
+=&gt; #&lt;Rack::Request:0x007fbba4ff3298
+ @env=
+  {"GATEWAY_INTERFACE"=&gt;"CGI/1.1",
+   "PATH_INFO"=&gt;"/jkdfkdjg",
+   "QUERY_STRING"=&gt;"",
+   "REMOTE_ADDR"=&gt;"::1",
+   "REMOTE_HOST"=&gt;"localhost",
+   "REQUEST_METHOD"=&gt;"GET",
+   "REQUEST_URI"=&gt;"http://localhost:8080/jkdfkdjg",
+   "SCRIPT_NAME"=&gt;"",
+   "SERVER_NAME"=&gt;"localhost",
+   "SERVER_PORT"=&gt;"8080",
+   "SERVER_PROTOCOL"=&gt;"HTTP/1.1",
+   "SERVER_SOFTWARE"=&gt;"WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)",
+   "HTTP_USER_AGENT"=&gt;
+    "curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5",
+   "HTTP_HOST"=&gt;"localhost:8080",
+   "HTTP_ACCEPT"=&gt;"*/*",
+   "rack.version"=&gt;[1, 2],
+   "rack.input"=&gt;#&lt;StringIO:0x007fbba4e74980&gt;,
+   "rack.errors"=&gt;#&lt;IO:&lt;STDERR&gt;&gt;,
+   "rack.multithread"=&gt;true,
+   "rack.multiprocess"=&gt;false,
+   "rack.run_once"=&gt;false,
+   "rack.url_scheme"=&gt;"http",
+   "HTTP_VERSION"=&gt;"HTTP/1.1",
+   "REQUEST_PATH"=&gt;"/jkdfkdjg"}&gt;
+</PRE>
+Este objeto <A NAME="tex2html440"
+  HREF="http://rack.rubyforge.org/doc/Rack/Request.html">Rack::Request</A> tiene métodos para informarnos del 
+<A NAME="tex2html441"
+  HREF="http://rack.rubyforge.org/doc/Rack/Request.html">Rack::Request</A>:
+<PRE>
+[4] pry(#&lt;HelloWorld&gt;)&gt; req.get?
+=&gt; true
+[5] pry(#&lt;HelloWorld&gt;)&gt; req.post?
+=&gt; false
+[7] pry(#&lt;HelloWorld&gt;)&gt; req.port
+=&gt; 8080
+[12] pry(#&lt;HelloWorld&gt;)&gt; req.host()
+=&gt; "localhost"
+[13] pry(#&lt;HelloWorld&gt;)&gt; req.host_with_port()
+=&gt; "localhost:8080"
+[15] pry(#&lt;HelloWorld&gt;)&gt; req.path()
+=&gt; "/jkdfkdjg"
+[18] pry(#&lt;HelloWorld&gt;)&gt; req.url()
+=&gt; "http://localhost:8080/jkdfkdjg"
+[19] pry(#&lt;HelloWorld&gt;)&gt; req.user_agent
+=&gt; "curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5"
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION012162000000000000000">
+Conexión con Parámetros</A>
+</H2>
+
+<P>
+Partimos del mismo código fuente que en la sección  anterior:
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ cat hello.rb 
+require 'rack'
+require 'pry-debugger'
+
+class HelloWorld
+  def call env
+    binding.pry
+    [200, {"Content-Type" =&gt; "text/plain"}, ["Hello world"]]
+  end
+end
+</PRE>
+Arrancamos el servidor:
+<PRE>
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ pry
+[1] pry(main)&gt; require './hello'
+=&gt; true
+[2] pry(main)&gt; Rack::Handler::WEBrick::run HelloWorld.new
+[2013-09-23 13:10:42] INFO  WEBrick 1.3.1
+[2013-09-23 13:10:42] INFO  ruby 1.9.3 (2013-02-22) [x86_64-darwin11.4.2]
+[2013-09-23 13:10:42] INFO  WEBrick::HTTPServer#start: pid=10395 port=8080
+</PRE>
+En el cliente tendríamos:
+<PRE>
+$ curl -v 'localhost:8080?a=1&amp;b=2&amp;c=3'
+</PRE>
+comienza produciendo esta salida:
+<PRE>
+* About to connect() to localhost port 8080 (#0)
+*   Trying ::1... connected
+* Connected to localhost (::1) port 8080 (#0)
+&gt; GET /?a=1&amp;b=2&amp;c=3 HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+&gt; Host: localhost:8080
+&gt; Accept: */*
+&gt;
+</PRE>
+
+<P>
+En la ventana del servidor se produce el break:
+<PRE>
+From: /Users/casiano/local/src/ruby/sinatra/rack/rack-debugging/hello.rb @ line 6 HelloWorld#call:
+
+    5: def call env
+ =&gt; 6:   binding.pry
+    7:   [200, {"Content-Type" =&gt; "text/plain"}, ["Hello world"]]
+    8: end
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012162010000000000000">
+Rack::Request.new</A>
+</H4>
+  
+
+<P>
+Creamos un objeto <A NAME="tex2html442"
+  HREF="http://rack.rubyforge.org/doc/Rack/Request.html">Rack::Request</A>:
+<PRE>
+[1] pry(#&lt;HelloWorld&gt;)&gt; req = Rack::Request.new env
+=&gt; #&lt;Rack::Request:0x007fafd27946c0
+ @env=
+  {"GATEWAY_INTERFACE"=&gt;"CGI/1.1",
+   "PATH_INFO"=&gt;"/",
+   "QUERY_STRING"=&gt;"a=1&amp;b=2&amp;c=3",
+   "REMOTE_ADDR"=&gt;"::1",
+   "REMOTE_HOST"=&gt;"localhost",
+   "REQUEST_METHOD"=&gt;"GET",
+   "REQUEST_URI"=&gt;"http://localhost:8080/?a=1&amp;b=2&amp;c=3",
+   "SCRIPT_NAME"=&gt;"",
+   "SERVER_NAME"=&gt;"localhost",
+   "SERVER_PORT"=&gt;"8080",
+   "SERVER_PROTOCOL"=&gt;"HTTP/1.1",
+   "SERVER_SOFTWARE"=&gt;"WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)",
+   "HTTP_USER_AGENT"=&gt;
+    "curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5",
+   "HTTP_HOST"=&gt;"localhost:8080",
+   "HTTP_ACCEPT"=&gt;"*/*",
+   "rack.version"=&gt;[1, 2],
+   "rack.input"=&gt;#&lt;StringIO:0x007fafd26bbbe0&gt;,
+   "rack.errors"=&gt;#&lt;IO:&lt;STDERR&gt;&gt;,
+   "rack.multithread"=&gt;true,
+   "rack.multiprocess"=&gt;false,
+   "rack.run_once"=&gt;false,
+   "rack.url_scheme"=&gt;"http",
+   "HTTP_VERSION"=&gt;"HTTP/1.1",
+   "REQUEST_PATH"=&gt;"/"}&gt;
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012162020000000000000">
+req.params</A>
+</H4>
+  
+
+Ahora podemos interrogarle:
+<PRE>
+[2] pry(#&lt;HelloWorld&gt;)&gt; req.params
+=&gt; {"a"=&gt;"1", "b"=&gt;"2", "c"=&gt;"3"}
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012162030000000000000">
+Indexación de los objetos Rack::Request</A>
+</H4>
+  
+
+Recordemos que la URL visitada fué: <code>localhost:8080?a=1&amp;b=2&amp;c=3</code>
+<PRE>
+[3] pry(#&lt;HelloWorld&gt;)&gt; req["a"]
+=&gt; "1"
+[4] pry(#&lt;HelloWorld&gt;)&gt; req["b"]
+=&gt; "2"
+[5] pry(#&lt;HelloWorld&gt;)&gt; req["c"]
+=&gt; "3"
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012162040000000000000">
+req.path</A>
+</H4>
+  
+
+<PRE>
+[6] pry(#&lt;HelloWorld&gt;)&gt; req.path
+=&gt; "/"
+[7] pry(#&lt;HelloWorld&gt;)&gt; req.fullpath
+=&gt; "/?a=1&amp;b=2&amp;c=3"
+[9] pry(#&lt;HelloWorld&gt;)&gt; req.path_info
+=&gt; "/"
+[10] pry(#&lt;HelloWorld&gt;)&gt; req.query_string
+=&gt; "a=1&amp;b=2&amp;c=3"
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012162050000000000000">
+req.url</A>
+</H4>
+  
+
+<P>
+<PRE>
+[11] pry(#&lt;HelloWorld&gt;)&gt; req.url
+=&gt; "http://localhost:8080/?a=1&amp;b=2&amp;c=3"
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012162060000000000000">
+req.values</A>
+</H4>
+  
+
+<P>
+<PRE>
+[12] pry(#&lt;HelloWorld&gt;)&gt; req.values_at("a")
+=&gt; ["1"]
+[13] pry(#&lt;HelloWorld&gt;)&gt; req.values_at("a", "b")
+=&gt; ["1", "2"]
+[14] pry(#&lt;HelloWorld&gt;)&gt; req.values_at("a", "b", "c")
+=&gt; ["1", "2", "3"]
+</PRE>
+
+<P>
+<PRE>
+[16] pry(#&lt;HelloWorld&gt;)&gt; continue
+localhost - - [23/Sep/2013:13:10:49 WEST] "GET /?a=1&amp;b=2&amp;c=3 HTTP/1.1" 200 11
+- -&gt; /?a=1&amp;b=2&amp;c=3
+</PRE>
+
+<P>
+<PRE>
+$ curl -v 'localhost:8080?a=1&amp;b=2&amp;c=3'
+* About to connect() to localhost port 8080 (#0)
+*   Trying ::1... connected
+* Connected to localhost (::1) port 8080 (#0)
+&gt; GET /?a=1&amp;b=2&amp;c=3 HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8y zlib/1.2.5
+&gt; Host: localhost:8080
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 200 OK 
+&lt; Content-Type: text/plain
+&lt; Server: WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)
+&lt; Date: Mon, 23 Sep 2013 12:35:37 GMT
+&lt; Content-Length: 11
+&lt; Connection: Keep-Alive
+&lt; 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+Hello world
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html4848"
+  HREF="node170.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4842"
+  HREF="node163.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4836"
+  HREF="node168.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4844"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4846"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html4849"
+  HREF="node170.html">Rack::Response</A>
+<B>Sup:</B> <A NAME="tex2html4843"
+  HREF="node163.html">Rack, un Webserver Ruby</A>
+<B> Ant:</B> <A NAME="tex2html4837"
+  HREF="node168.html">HTTP</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

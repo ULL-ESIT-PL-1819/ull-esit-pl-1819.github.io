@@ -1,0 +1,78 @@
+\section{Definiendo Funciones}
+
+\section{Invocando Funciones}
+
+\section{Argumentos y Parámetros}
+
+\section{Funciones como Valores}
+
+\section{Funciones como Espacios de Nombres}
+
+\section{Clausuras}
+
+\section{Propiedades, Métodos y Constructor}
+
+\subsection{La propiedad {\tt length}}
+
+\subsection{La Propiedad {\tt property}}
+
+\subsection{Los Métodos {\tt call} y {\tt apply}}
+\label{subsection:callyapply}
+Los métodos \tei{call} y \tei{apply} nos permiten
+invocar una función como si fuera un método de algún otro 
+objeto.
+
+\begin{verbatim}
+[~/Dropbox/src/javascript/learning]$ cat call.js 
+var Bob = {
+  name: "Bob",
+  greet: function() {
+    console.log("Hi, I'm " + this.name);
+  }
+}
+ 
+var Alice = {
+  name: "Alice",
+};
+
+Bob.greet.call(Alice);
+\end{verbatim}
+
+\begin{verbatim}
+[~/Dropbox/src/javascript/learning]$ node call.js
+Hi, I'm Alice
+\end{verbatim}
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{Function.apply and Function.call in JavaScript}{http://odetocode.com/blogs/scott/archive/2007/07/05/function-apply-and-function-call-in-javascript.aspx}
+\begin{verbatim}
+> function f() { console.log(this.x); }
+undefined
+> f.toString()
+'function f() { console.log(this.x); }'
+> z = { x : 99 }
+{ x: 99 }
+> f.call(z)
+99
+undefined
+> 
+\end{verbatim}
+\item 
+\begin{verbatim}
+> o  = { x : 15 }
+{ x: 15 }
+> function f(m) { console.log(m+" "+this.x); }
+undefined
+> f("invoking f")
+invoking f 10
+undefined
+> f.call(o, "invoking f via call");
+invoking f via call 15
+undefined
+\end{verbatim}
+\end{enumerate}
+
+
+\section{Programación Funcional}
+

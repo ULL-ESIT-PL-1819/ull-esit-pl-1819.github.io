@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>DataMapper y Sinatra</TITLE>
+<META NAME="description" CONTENT="DataMapper y Sinatra">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node245.html">
+<LINK REL="previous" HREF="node238.html">
+<LINK REL="up" HREF="node162.html">
+<LINK REL="next" HREF="node241.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html6049"
+  HREF="node241.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6043"
+  HREF="node162.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6037"
+  HREF="node239.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6045"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6047"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html6050"
+  HREF="node241.html">Introducción a Los Object</A>
+<B>Sup:</B> <A NAME="tex2html6044"
+  HREF="node162.html">PARTE: SINATRA</A>
+<B> Ant:</B> <A NAME="tex2html6038"
+  HREF="node239.html">Referencias. Véase Tambien</A>
+<B> Con:</B> 
+<A NAME="tex2html6045"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html6047"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION012900000000000000000"></A>
+<A NAME="chapter:datamapperysinatra"></A>
+<BR>
+DataMapper y Sinatra
+</H1>
+
+<P>
+<BR> <HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html6051"
+  HREF="node241.html">Introducción a Los Object Relational Mappers (ORM)</A>
+<LI><A NAME="tex2html6052"
+  HREF="node242.html">Introducción al Patrón DataMapper</A>
+<LI><A NAME="tex2html6053"
+  HREF="node243.html">Ejemplo de Uso de DataMapper</A>
+<UL>
+<LI><A NAME="tex2html6054"
+  HREF="node243.html#SECTION012930010000000000000">Donde</A>
+<LI><A NAME="tex2html6055"
+  HREF="node243.html#SECTION012930020000000000000">Enlaces</A>
+<LI><A NAME="tex2html6056"
+  HREF="node243.html#SECTION012930030000000000000">La Clase Song</A>
+<LI><A NAME="tex2html6057"
+  HREF="node243.html#SECTION012930040000000000000">DataMapper.finalize</A>
+<LI><A NAME="tex2html6058"
+  HREF="node243.html#SECTION012930050000000000000">Mas código de Song.rb</A>
+<LI><A NAME="tex2html6059"
+  HREF="node243.html#SECTION012930060000000000000">Song.create</A>
+<LI><A NAME="tex2html6060"
+  HREF="node243.html#SECTION012930070000000000000">Una sesión con pry probando DataMapper</A>
+<LI><A NAME="tex2html6061"
+  HREF="node243.html#SECTION012930080000000000000">DataMapper.setup</A>
+<LI><A NAME="tex2html6062"
+  HREF="node243.html#SECTION012930090000000000000">Multiple Data-Store Connections</A>
+<LI><A NAME="tex2html6063"
+  HREF="node243.html#SECTION0129300100000000000000">El Objeto DataMapper::Adapters</A>
+<LI><A NAME="tex2html6064"
+  HREF="node243.html#SECTION0129300110000000000000">Creando las tablas con DataMapper.auto_migrate!</A>
+<LI><A NAME="tex2html6065"
+  HREF="node243.html#SECTION0129300120000000000000">DataMapper.auto_upgrade!</A>
+<LI><A NAME="tex2html6066"
+  HREF="node243.html#SECTION0129300130000000000000">Métodos de la Clase Mapeada</A>
+<LI><A NAME="tex2html6067"
+  HREF="node243.html#SECTION0129300140000000000000">El método create</A>
+<LI><A NAME="tex2html6068"
+  HREF="node243.html#SECTION0129300150000000000000">first_or_create</A>
+<LI><A NAME="tex2html6069"
+  HREF="node243.html#SECTION0129300160000000000000">Comprobando con sqlite3</A>
+<LI><A NAME="tex2html6070"
+  HREF="node243.html#SECTION0129300170000000000000">Búsquedas y Consultas</A>
+<LI><A NAME="tex2html6071"
+  HREF="node243.html#SECTION0129300180000000000000">Borrando</A>
+<LI><A NAME="tex2html6072"
+  HREF="node243.html#SECTION0129300190000000000000">Búsqueda con Condiciones</A>
+<LI><A NAME="tex2html6073"
+  HREF="node243.html#SECTION0129300200000000000000">Insertando SQL</A>
+<LI><A NAME="tex2html6074"
+  HREF="node243.html#SECTION0129300210000000000000">main.rb</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html6075"
+  HREF="node244.html">Configurando la Base de Datos en Heroku con DataMapper. Despliegue</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html6049"
+  HREF="node241.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6043"
+  HREF="node162.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6037"
+  HREF="node239.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6045"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6047"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html6050"
+  HREF="node241.html">Introducción a Los Object</A>
+<B>Sup:</B> <A NAME="tex2html6044"
+  HREF="node162.html">PARTE: SINATRA</A>
+<B> Ant:</B> <A NAME="tex2html6038"
+  HREF="node239.html">Referencias. Véase Tambien</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

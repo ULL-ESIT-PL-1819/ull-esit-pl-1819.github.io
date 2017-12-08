@@ -1,0 +1,87 @@
+
+<H1><A NAME="SECTION056140000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:pila"><tex2html_anchor_mark></A><BR>
+Generación de Código: Máquina Pila
+</H1>
+El generador de código emite el código para el lenguaje objeto, utilizando
+las direcciones calculadas en la fase anterior. Hemos simplificado esta fase
+considerando una máquina orientada a pila: una memoria de pila en la que se
+computan las expresiones, un segmento de datos en el que se guardan las variables
+y un segmento para guardar las cadenas.
+La estrategia utilizada es similar a la que vimos en el plegado de las constantes.
+Definimos un método para la traducción de cada clase de nodo del AAA.
+Entonces, para traducir el programa basta con llamar al correspondiente método:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5633#</PRE>
+
+<P>
+en la cadena <tex2html_verb_mark>2003<tex2html_verb_mark> dejamos el código emitido.
+Cada método visita los hijos, traduciéndolos y añadiendo 
+el código que fuera necesario para la traducción del nodo.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5634#</PRE>
+
+<P>
+Traducir la lista de sentencias es concatenar la traducción
+de cada una de las sentencias en la lista:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5635#</PRE>
+
+<P>
+Si suponemos que disponemos en el ensamblador de nuestra máquina
+objeto de instrucciones <tex2html_verb_mark>2004<tex2html_verb_mark>  y <tex2html_verb_mark>2005<tex2html_verb_mark>
+que imprimen el contenido 
+de la expresión que esta en la cima de la pila, la traducción será:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5636#</PRE>
+Asi, si la sentencia era <tex2html_verb_mark>2006<tex2html_verb_mark>, donde <tex2html_verb_mark>2007<tex2html_verb_mark> es del tipo cadena, 
+se debería eventualmente llamar al método de traducción del identificador:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5637#</PRE>
+la función <tex2html_verb_mark>2008<tex2html_verb_mark> simplemente concatena el código 
+producido a la salida:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5638#</PRE>
+
+<P>
+Para la traducción de una sentencia de asignación
+supondremos de la existencia de isntrucciones <tex2html_verb_mark>2009<tex2html_verb_mark>
+y <tex2html_verb_mark>2010<tex2html_verb_mark>. La instrucción <tex2html_verb_mark>2011<tex2html_verb_mark> asume 
+que en la cima de la pila están la dirección y la cadena a almacenar.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5639#</PRE>
+Si se está traduciendo una sentencia como <tex2html_verb_mark>2012<tex2html_verb_mark>,
+se acabará llamando al método 
+de traducción asociado con la clase <tex2html_verb_mark>2013<tex2html_verb_mark>
+el cual actúa empujando la dirección y la longitud de la cadena en
+la pila:
+<PRE><tex2html_verbatim_mark>verbatim5640#</PRE>
+Así la traducción de este fuente:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5641#</PRE>
+
+<P>
+es:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5642#</PRE>
+
+<P>
+El resto de los métodos de traducción es similar:
+<PRE><tex2html_verbatim_mark>verbatim5643#</PRE>
+
+<P>
+Veamos un ejemplo. Dado el código fuente:
+<PRE><tex2html_verbatim_mark>verbatim5644#</PRE>
+el código generado es:
+<PRE><tex2html_verbatim_mark>verbatim5645#</PRE>
+
+<P>

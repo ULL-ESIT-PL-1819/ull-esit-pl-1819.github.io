@@ -1,0 +1,70 @@
+
+<H1><A NAME="SECTION052230000000000000000">
+An&#225;lisis de la L&#305;nea de Comandos y 2 Analizadores</A>
+</H1>
+El objetivo de este ejercicio es mostrar como realizar un
+an&#225;lisis l&#233;xico de los argumentos pasados en la l&#305;nea de
+comandos.  Para ello dise&#241;aremos una librer&#305;a que proporcionar&#225; un 
+funci&#243;n <tex2html_verb_mark>427<tex2html_verb_mark> que hace el an&#225;lisis
+de la l&#305;nea de acuerdo con la especificaci&#243;n
+<SPAN  CLASS="textit">flex</SPAN> correspondiente. En el ejemplo, esta descripci&#243;n del analizador l&#233;xico
+es proporcionada en el fichero <SPAN  CLASS="textit">fl.l</SPAN>.  Para complicar un poco mas
+las cosas, supondremos que queremos hacer el an&#225;lisis l&#233;xico
+de un fichero (especificado en la l&#305;nea de comandos) seg&#250;n 
+se especifica en un segundo analizador l&#233;xico <SPAN  CLASS="textit">trivial.l</SPAN>.
+El siguiente ejemplo de ejecuci&#243;n muestra la conducta del programa:
+<PRE><tex2html_verbatim_mark>verbatim667#</PRE>
+Los contenidos del fichero <SPAN  CLASS="textit">Makefile</SPAN> definen las dependencias 
+y la estructura de la aplicaci&#243;n:
+<PRE><tex2html_verbatim_mark>verbatim668#</PRE>
+Observa el uso de la opci&#243;n <tex2html_verb_mark>428<tex2html_verb_mark> en la traducci&#243;n del fichero 
+<SPAN  CLASS="textit">fl.l</SPAN>. As&#305; no solo el fichero generado por <SPAN  CLASS="textit">flex</SPAN>, sino todas las variables
+y rutinas accesibles estar&#225;n prefijadas por <SPAN  CLASS="textit">arg</SPAN> en vez de <SPAN  CLASS="textit">yy</SPAN>. 
+La librer&#305;a la denominamos <SPAN  CLASS="textit">libflarg.a</SPAN>. (<SPAN  CLASS="textit">flarg</SPAN> 
+por <SPAN ID="txt2765">fl</SPAN>ex <SPAN ID="txt2766">arg</SPAN>uments). 
+El correspondiente fichero cabecera ser&#225; <SPAN  CLASS="textit">flarg.h</SPAN>.
+Los fuentes de las rutinas que compondr&#225;n la 
+librer&#305;a se mantendr&#225;n en el fichero <SPAN  CLASS="textit">flarg.c</SPAN>.
+
+<P>
+Lo que haremos ser&#225; redefinir <tex2html_verb_mark>429<tex2html_verb_mark> para que
+lea su entrada desde la l&#305;nea de argumentos.
+<PRE><tex2html_verbatim_mark>verbatim669#</PRE>
+La funci&#243;n <tex2html_verb_mark>430<tex2html_verb_mark> utiliza los punteros
+<tex2html_verb_mark>431<tex2html_verb_mark> y <tex2html_verb_mark>432<tex2html_verb_mark> para moverse a trav&#233;s
+de la familia de argumentos. Mientras que el primero es utilizado para el
+recorrido, el segundo marca el l&#305;mite final. Su inicializaci&#243;n ocurre en
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>433<tex2html_verb_mark>
+
+</DIV>
+con las asignaciones:
+<PRE><tex2html_verbatim_mark>verbatim670#</PRE>
+
+<P>
+despues, de lo cual, se llama al analizador l&#233;xico generado, <SPAN  CLASS="textit">arglex</SPAN> .
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim671#</PRE>
+El fichero <SPAN  CLASS="textit">fl.l</SPAN> contiene el analizador l&#233;xico de la l&#305;nea de comandos:
+<PRE><tex2html_verbatim_mark>verbatim672#</PRE>
+Observe el uso de la clase <tex2html_verb_mark>434<tex2html_verb_mark> para reconocer
+los blancos. Las clases son las mismas que las introducidas
+en <SPAN  CLASS="textit">gawk</SPAN>.
+
+<P>
+El an&#225;lisis l&#233;xico del fichero que se lee despu&#233;s de procesar la
+l&#305;nea de comandos es descrito en <SPAN  CLASS="textit">trivial.l</SPAN>.
+Partiendo de <SPAN  CLASS="textit">trivial.l</SPAN>, la ejecuci&#243;n del <SPAN  CLASS="textit">Makefile</SPAN>
+da lugar a la construcci&#243;n por parte de <SPAN  CLASS="textit">flex</SPAN> del fichero 
+<SPAN  CLASS="textit">lex.yy.c</SPAN> conteniendo la rutina <SPAN  CLASS="textit">yylex</SPAN>.
+<PRE><tex2html_verbatim_mark>verbatim673#</PRE>
+El fichero <SPAN  CLASS="textit">tokens.h</SPAN> contiene la definici&#243;n de los <SPAN  CLASS="textit">tokens</SPAN>
+y es compartido con <SPAN  CLASS="textit">main.c</SPAN>. 
+<PRE><tex2html_verbatim_mark>verbatim674#</PRE>
+Nos queda por presentar el fichero <SPAN  CLASS="textit">main.c</SPAN>:
+<PRE><tex2html_verbatim_mark>verbatim675#</PRE>
+
+<P>

@@ -1,0 +1,17 @@
+
+Las aplicaciones normales Sinatra se denominan \cei{alicaciones clásicas sinatra}
+y viven en \sinatrabase{Sinatra::Application},
+que es una subclase de \sinatrabase{Sinatra::Base}.
+
+En las aplicaciones clásicas Sinatra extiende la clase \verb|Object| en el momento 
+de cargarse lo que, en cierto modo, contamina el espacio de nombres global. Eso dificulta que nuestra aplicación 
+pueda ser distribuída como una gema y que se puedan tener varias aplicaciones clásicas 
+en un único proceso.
+
+Una aplicación Sinatra se dice una \cei{aplicación modular sinatra}
+si no hace uso de \sinatrabase{Sinatra::Application},
+renunciando al DSL de alto nivel proveído por Sinatra,
+sino que hereda de \sinatrabase{Sinatra::Base}.
+
+Podemos combinar una aplicación clásica  con una modular, pero sólo puede haber una aplicación clásica por proceso.
+

@@ -1,0 +1,287 @@
+
+<H1><A NAME="SECTION056100000000000000000">
+Análisis Semántico</A>
+</H1>
+Hay quien dice que el análisis semántico es la determinación 
+de aquellas propiedades que, siendo dependientes del contexto, pueden ser
+computadas estáticamente en tiempo de compilación para cualquier programa
+correcto. Entre estas propiedades
+están: la comprobación de que las variables son declaradas,
+la compatibilidad de tipos
+en las expresiones, el correcto uso de las llamadas a función asi
+como el ámbito y visibilidad de las variables.
+La fase de análisis semántico puede verse como una fase de ``adornado''
+o ``etiquetado'' del AAA, en la cual los atributos de los nodos
+del AAA son computados.
+
+<P>
+Aunque la veamos como una fase separada del análisis sintáctico, puede
+en numerosas ocasiones llevarse a cabo al mismo tiempo que se construye
+el árbol. Así lo hacemos en este ejemplo: incrustamos la acción semántica
+en la correspondiente rutina de análisis sintáctico. Así, en la rutina <tex2html_verb_mark>1913<tex2html_verb_mark>, una vez 
+que hemos obtenido los dos operandos, comprobamos que son de tipo numérico
+llamando (línea 8) a 
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>1914<tex2html_verb_mark>:
+
+</DIV>
+
+<P>
+Observe como aparece un nuevo atributo <tex2html_verb_mark>1915<tex2html_verb_mark> decorando el nodo
+creado (línea 9):
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5597#</PRE>
+
+<P>
+En el manejo de errores de tipo, un tipo especial <tex2html_verb_mark>1916<tex2html_verb_mark>
+es usado para indicar un error de tipo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5598#</PRE>
+La subrutina <tex2html_verb_mark>1917<tex2html_verb_mark> comprueba que los
+dos operandos son de tipo numérico y devuelve el correspondiente
+tipo. Si ha ocurrido un error de tipo, intenta encontrar 
+un tipo conveniente para el operando:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5599#</PRE>
+
+<P>
+Es parte del análisis semántico la declaración de tipos:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5600#</PRE>
+Para ello se utiliza una tabla de símbolos que es un hash <tex2html_verb_mark>1919<tex2html_verb_mark>
+indexado en los identificadores del programa:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5601#</PRE>
+
+<P>
+Cada vez que aparece una variable en el código, bien en un factor o en 
+una asignación, comprobamos que ha sido declarada:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5602#</PRE>
+
+<P>
+La función <tex2html_verb_mark>1920<tex2html_verb_mark> devuelve el atributo
+<tex2html_verb_mark>1921<tex2html_verb_mark> de la correspondiente entrada en la tabla de 
+símbolos.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5603#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION056101000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12209"><tex2html_anchor_invisible_mark></A><BR>
+Práctica: Declaraciones Automáticas
+</H2>
+  
+
+<P>
+Modifique la subrutina <tex2html_verb_mark>1922<tex2html_verb_mark> para que cuando
+una variable no haya sido declarada se declare ``sobre la marcha''. 
+¿Puede utilizar 
+información dependiente del contexto para decidir cual es la mejor forma
+de declararla?
+
+<P>
+
+<H2><A NAME="SECTION056102000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12211"><tex2html_anchor_invisible_mark></A>
+  
+<A NAME="practica:analisis_semantico"><tex2html_anchor_mark></A><BR>
+Práctica: Análisis Semántico
+</H2>
+Extienda el código de la práctica 
+<A HREF=<tex2html_cr_mark>#practica:AAA#11420><tex2html_cr_mark></A>
+para comprobar la compatibilidad de tipos.
+
+<P>
+<BR>
+<BR>
+<SMALL CLASS="SMALL"></SMALL>
+<DIV ALIGN="CENTER"><SMALL CLASS="SMALL"></SMALL><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL">
+1 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  p  <tex2html_verbatim_mark>#math6729#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35393#</SPAN>
+<tex2html_verbatim_mark>mathend000# b     </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+2 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  b  <tex2html_verbatim_mark>#math6730#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35395#</SPAN>
+<tex2html_verbatim_mark>mathend000# ds  ss     </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+3 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  b  <tex2html_verbatim_mark>#math6731#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35397#</SPAN>
+<tex2html_verbatim_mark>mathend000# ss         </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+4 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  ds <tex2html_verbatim_mark>#math6732#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35399#</SPAN>
+<tex2html_verbatim_mark>mathend000# d  ';'  ds  </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+5 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  ds <tex2html_verbatim_mark>#math6733#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35401#</SPAN>
+<tex2html_verbatim_mark>mathend000# d ';'      </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+6 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  d  <tex2html_verbatim_mark>#math6734#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35403#</SPAN>
+<tex2html_verbatim_mark>mathend000# INT  il     </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+7 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  d  <tex2html_verbatim_mark>#math6735#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35405#</SPAN>
+<tex2html_verbatim_mark>mathend000# STRING  il </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+8 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  ss <tex2html_verbatim_mark>#math6736#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35407#</SPAN>
+<tex2html_verbatim_mark>mathend000# s  ';'  ss  </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+9 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  ss <tex2html_verbatim_mark>#math6737#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35409#</SPAN>
+<tex2html_verbatim_mark>mathend000# s          </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+10 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  s  <tex2html_verbatim_mark>#math6738#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35411#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID '=' e   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+11 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  s  <tex2html_verbatim_mark>#math6739#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35413#</SPAN>
+<tex2html_verbatim_mark>mathend000# '{' b '}'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+12 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  s  <tex2html_verbatim_mark>#math6740#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35415#</SPAN>
+<tex2html_verbatim_mark>mathend000# P  e       </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+13 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  s <tex2html_verbatim_mark>#math6741#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35417#</SPAN>
+<tex2html_verbatim_mark>mathend000# </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+14 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  e <tex2html_verbatim_mark>#math6742#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35419#</SPAN>
+<tex2html_verbatim_mark>mathend000# e1 '+' t    </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+15 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  e <tex2html_verbatim_mark>#math6743#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35421#</SPAN>
+<tex2html_verbatim_mark>mathend000# e1 '-' t    </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+16 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  e <tex2html_verbatim_mark>#math6744#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35423#</SPAN>
+<tex2html_verbatim_mark>mathend000# t           </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+17 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  t <tex2html_verbatim_mark>#math6745#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35425#</SPAN>
+<tex2html_verbatim_mark>mathend000# t1 '*' f    </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+18 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  t <tex2html_verbatim_mark>#math6746#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35427#</SPAN>
+<tex2html_verbatim_mark>mathend000# t '/' f     </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+19 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  t <tex2html_verbatim_mark>#math6747#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35429#</SPAN>
+<tex2html_verbatim_mark>mathend000# f           </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+20 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  f <tex2html_verbatim_mark>#math6748#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35431#</SPAN>
+<tex2html_verbatim_mark>mathend000# '(' e ')'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+21 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  f <tex2html_verbatim_mark>#math6749#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35433#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID         </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+22 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  f <tex2html_verbatim_mark>#math6750#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35435#</SPAN>
+<tex2html_verbatim_mark>mathend000# NUM        </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+23 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  f <tex2html_verbatim_mark>#math6751#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35437#</SPAN>
+<tex2html_verbatim_mark>mathend000# STR        </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+24 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  il <tex2html_verbatim_mark>#math6752#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35439#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID ',' il  </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+25 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  il <tex2html_verbatim_mark>#math6753#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35441#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID         </SMALL></TD>
+</TR>
+</TABLE><SMALL CLASS="SMALL"></SMALL></DIV><SMALL CLASS="SMALL"></SMALL>
+<BR>
+<BR>
+En cuanto a las sentencias de bloque,
+se pretende que el ámbito y visibilidad de las variables sea como en el lenguaje
+C, esto es, las declaraciones mas internas con el mismo identificador
+ocultan las mas externas. Así:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5604#</PRE>
+
+<P>
+Imprimiría 5 y 4. Para traducir esta sentencia es necesario 
+<SPAN  CLASS="textbf">usar una lista/pila de referencias a tablas de símbolos. Cada 
+sentencia compuesta o bloque tendrá
+su propia tabla de símbolos</SPAN>. Los identificadores se búscan
+en la lista de referencias a tablas de símbolos, primero 
+en la última tabla de símbolos insertada y sino se encuentra
+se busca en la penúltima insertada, etc.
+
+<P>
+Guarde como un atributo del identificador (<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35493#</SPAN>
+<tex2html_verbatim_mark>mathend000#) 
+la referencia a la tabla de símbolos
+a la que pertenece. Guarde como un atributo del nodo bloque (<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35495#</SPAN>
+<tex2html_verbatim_mark>mathend000#) 
+la referencia a la tabla de símbolos asociada.
+
+<P>

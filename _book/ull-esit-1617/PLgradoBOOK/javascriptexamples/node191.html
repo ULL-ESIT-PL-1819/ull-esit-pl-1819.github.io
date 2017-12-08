@@ -1,0 +1,281 @@
+
+<H1><A NAME="SECTION058190000000000000000">
+La Gramática de <TT>yapp</TT> / <TT>yacc</TT></A>
+</H1>
+En esta sección veremos con mas detalle, la sintaxis de <tex2html_verb_mark>2555<tex2html_verb_mark>,
+usando la propia notación <tex2html_verb_mark>2556<tex2html_verb_mark> para describir el lenguaje.
+Un programa <tex2html_verb_mark>2557<tex2html_verb_mark> consta de tres partes:
+la cabeza, el cuerpo y la cola. Cada una de las partes
+va separada de las otras por el símbolo <tex2html_verb_mark>2559<tex2html_verb_mark> en una
+línea aparte.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6186#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION058191000000000000000">
+La Cabecera</A>
+</H2>
+En la cabecera se colocan las declaraciones de variables,
+terminales, etc. 
+<PRE><tex2html_verbatim_mark>verbatim6187#</PRE>
+
+<P>
+El terminal  <#18450#><TT>START</TT><#18450#>  se corresponde con una declaración 
+<tex2html_verb_mark>2561<tex2html_verb_mark> indicando cual es el símbolo de arranque de la gramática.
+Por defecto, el símbolo de arranque es el primero de la gramática.
+
+<P>
+El terminal <tex2html_verb_mark>2562<tex2html_verb_mark> está por los terminales que indican
+precedencia y asociatividad.
+Esto se ve claro si se analiza el contenido del fichero 
+<tex2html_verb_mark>2563<tex2html_verb_mark> (<A HREF=<tex2html_cr_mark>#chapter:parseyp#17990><tex2html_cross_ref_visible_mark></A>)
+en el que se puede encontrar 
+el código del analizador léxico del módulo 
+<tex2html_verb_mark>2564<tex2html_verb_mark>.
+El código dice:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6188#</PRE>
+La variable <tex2html_verb_mark>2565<tex2html_verb_mark> indica en que sección nos encontramos:
+cabecera, cuerpo o cola. El terminal <tex2html_verb_mark>2566<tex2html_verb_mark> 
+indica la presencia de una declaración <tex2html_verb_mark>2568<tex2html_verb_mark> en el fuente,
+la cual cuando es seguida de un número indica el numero de
+conflictos shift-reduce que cabe esperar. Use <tex2html_verb_mark>2569<tex2html_verb_mark>
+si quiere silenciar las advertencias de <tex2html_verb_mark>2570<tex2html_verb_mark> sobre la presencia
+de conflictos cuya resolución automática considere correcta.
+
+<P>
+
+<H2><A NAME="SECTION058192000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="subsection:cabecerayaccyapp"><tex2html_anchor_mark></A><BR>
+La Cabecera: Diferencias entre <TT>yacc</TT> y <TT>yapp</TT>
+</H2>
+Las declaraciones de tipo
+correspondientes a <tex2html_verb_mark>2572<tex2html_verb_mark> y a las especificaciones de 
+tipo entre símbolos menor mayor (<tex2html_verb_mark>2573<tex2html_verb_mark>) en declaraciones <tex2html_verb_mark>2574<tex2html_verb_mark> y 
+<tex2html_verb_mark>2576<tex2html_verb_mark> no son usadas por <tex2html_verb_mark>2577<tex2html_verb_mark>. Estas declaraciones son
+necesarias cuando el código de las acciones semánticas
+se escribe en <tex2html_verb_mark>2578<tex2html_verb_mark> como es el caso de <A NAME="18453"><tex2html_anchor_invisible_mark></A><#18454#><TT>yacc</TT><#18454#> y <A NAME="18458"><tex2html_anchor_invisible_mark></A><#18459#><TT>bison</TT><#18459#>.
+Sigue un ejemplo de programa <tex2html_verb_mark>2579<tex2html_verb_mark>/<tex2html_verb_mark>2580<tex2html_verb_mark> que usa declaraciones <tex2html_verb_mark>2582<tex2html_verb_mark>
+y de tipo para los atributos:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6189#</PRE>
+La declaración <tex2html_verb_mark>2584<tex2html_verb_mark> de la línea 8 indica que los atributos
+son de dos tipos: enteros y punteros a caracteres. 
+El nombre del campo es posteriormente usado en las 
+declaraciones de las líneas 13-17 para indicar el tipo 
+del atributo asociado con la variable o con el terminal.
+Así, la declaración de la línea 13 indica 
+que los terminales <tex2html_verb_mark>2585<tex2html_verb_mark> e <tex2html_verb_mark>2586<tex2html_verb_mark>
+son de tipo entero, mientras que la declaración de la línea 16 nos
+dice que el terminal <tex2html_verb_mark>2587<tex2html_verb_mark> es de tipo cadena.
+<PRE><tex2html_verbatim_mark>verbatim6190#</PRE>
+La información proveída sobre los tipos permite a <tex2html_verb_mark>2588<tex2html_verb_mark> 
+introducir automáticamente en el código <tex2html_verb_mark>2589<tex2html_verb_mark> producido 
+los <SPAN  CLASS="textbf">typecasting</SPAN> o ahormados
+para las asignaciones de las líneas 30-31 y 35-36. Obsérve que
+en <tex2html_verb_mark>2590<tex2html_verb_mark> el atributo de la variable en la parte izquierda
+se denota por <tex2html_verb_mark>2591<tex2html_verb_mark>.
+
+<P>
+Otra diferencia entre <tex2html_verb_mark>2592<tex2html_verb_mark> y <tex2html_verb_mark>2593<tex2html_verb_mark> es que en <tex2html_verb_mark>2594<tex2html_verb_mark> los 
+atributos de la parte derecha no constituyen un vector, denotándose
+por <tex2html_verb_mark>2595<tex2html_verb_mark>, <tex2html_verb_mark>2596<tex2html_verb_mark>, <tex2html_verb_mark>2597<tex2html_verb_mark> ...
+
+<P>
+En ocasiones <tex2html_verb_mark>2598<tex2html_verb_mark> no puede determinar el tipo de un atributo. 
+En particular cuando se habla del atributo asociado con una acción
+intermedia, ya que esta no tiene variable sintáctica asociada 
+explícitamente o bien cuando se habla de los atributos
+de símbolos que están a la izquierda de la reducción actual
+(véase la sección <A HREF=<tex2html_cr_mark>#section:heredados#18003><tex2html_cr_mark></A>). Los atributos de símbolos 
+a la izquierda de la producción actual se denotan en <tex2html_verb_mark>2599<tex2html_verb_mark> por números 
+no positivos <tex2html_verb_mark>2600<tex2html_verb_mark>, <tex2html_verb_mark>2601<tex2html_verb_mark>, <tex2html_verb_mark>2602<tex2html_verb_mark> .... 
+
+<P>
+En estos casos 
+el programador deberá especificar explícitamente el tipo del 
+atributo usando la notación <tex2html_verb_mark>2603<tex2html_verb_mark>. Donde <tex2html_verb_mark>2604<tex2html_verb_mark> es 
+uno de los campos de la <tex2html_verb_mark>2605<tex2html_verb_mark> y <tex2html_verb_mark>2606<tex2html_verb_mark> es el numeral 
+del símbolo correspondiente:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6191#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION058193000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="subsection:elcuerpo"><tex2html_anchor_mark></A><BR>
+El Cuerpo
+</H2>
+El cuerpo de un programa <tex2html_verb_mark>2607<tex2html_verb_mark> contiene la gramática
+y las acciones 
+<PRE><tex2html_verbatim_mark>verbatim6192#</PRE>
+Las acciones semánticas (variable sintáctica <tex2html_verb_mark>2608<tex2html_verb_mark> y terminal <tex2html_verb_mark>2609<tex2html_verb_mark>)
+se ejecutan siempre que ocurre una reducción por una regla y, en general, devuelven 
+un valor semántico. El código de la acción se copia verbatim
+en el analizador. La estrategia usada por el analizador léxico
+es contar las llaves abrir y cerrar en 
+el texto. Véase el correspondiente fragmento del analizador
+léxico:
+<PRE><tex2html_verbatim_mark>verbatim6193#</PRE>
+Las llaves dentro de cadenas y comentarios no son significativas en la cuenta.
+El problema es que el reconocimiento de cadenas en Perl es mas difícil que
+en otros lenguajes: existe toda una variedad de formas de denotar una cadena.
+Por tanto, si el programador usuario de <tex2html_verb_mark>2610<tex2html_verb_mark> necesita 
+escribir una llave dentro de una cadena de doble comilla, deberá escaparla.
+Si la cadena es de simple comilla escaparla no es solución, pues 
+aparecería el símbolo de escape en la cadena. En ese caso se deberá añadir 
+un comentario con la correspondiente falsa llave. Siguen
+algunos ejemplos tomadados de la documentación de <tex2html_verb_mark>2611<tex2html_verb_mark>
+<PRE><tex2html_verbatim_mark>verbatim6194#</PRE>
+
+<P>
+<P><DIV><#37866#><B>Ejercicio  <SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">19</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#37866#> &nbsp; 
+<#37869#><I>Genere programas de prueba <tex2html_verb_mark>2612<tex2html_verb_mark> con cadenas que produzcan confusión
+en el analizador y observe el comportamiento. Pruébelas en las diferentes
+secciones en las que puede ocurrir código: en la cabecera, en el cuerpo 
+y en la cola.</I><#37869#></DIV><P></P>
+
+
+<P>
+
+<H2><A NAME="SECTION058194000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="subsection:colayaccyapp"><tex2html_anchor_mark></A><BR>
+La Cola: Diferencias entre <TT>yacc</TT> y <TT>yapp</TT>
+</H2>
+La cola de un program <tex2html_verb_mark>2613<tex2html_verb_mark> contiene las rutinas de soporte.
+<PRE><tex2html_verbatim_mark>verbatim6195#</PRE>
+el terminal <tex2html_verb_mark>2614<tex2html_verb_mark> al igual que los terminales
+<tex2html_verb_mark>2615<tex2html_verb_mark> y <tex2html_verb_mark>2616<tex2html_verb_mark> indican que en ese punto se puede encontrar 
+código Perl. La detección de <tex2html_verb_mark>2617<tex2html_verb_mark> y <tex2html_verb_mark>2618<tex2html_verb_mark> son mas sencillas
+que las de <tex2html_verb_mark>2619<tex2html_verb_mark>.
+
+<P>
+La cola de un programa <tex2html_verb_mark>2620<tex2html_verb_mark> es similar.
+Para el programa <tex2html_verb_mark>2621<tex2html_verb_mark> cuya cabecera y cuerpo
+se mostraron en la sección 
+<A HREF=<tex2html_cr_mark>#subsection:cabecerayaccyapp#18021><tex2html_cr_mark></A>
+la cola es:
+<PRE><tex2html_verbatim_mark>verbatim6196#</PRE>
+
+<P>
+La declaración del manejador de fichero <tex2html_verb_mark>2622<tex2html_verb_mark> en la línea 14 
+referencia el archivo 
+de entrada para el analizador. La variable (comentada, línea 7) 
+<tex2html_verb_mark>2623<tex2html_verb_mark> controla la información para la depuración de la gramática.
+Para que sea realmente efectiva, el programa deberá además compilarse
+definiendo la macro <tex2html_verb_mark>2624<tex2html_verb_mark>. Sigue un ejemplo
+de <tex2html_verb_mark>2625<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim6197#</PRE>
+
+<P>
+Al compilar tenemos:
+<PRE><tex2html_verbatim_mark>verbatim6198#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION058195000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="subsection:flex"><tex2html_anchor_mark></A><BR>
+El Análisis Léxico en <TT>yacc</TT>: <TT>flex</TT>
+</H2>
+El analizador léxico para <tex2html_verb_mark>2626<tex2html_verb_mark> desarrollado
+en las secciones anteriores ha sido escrito
+usando la variante <A NAME="18463"><tex2html_anchor_invisible_mark></A><#18464#><TT>flex</TT><#18464#> del lenguaje <A NAME="18468"><tex2html_anchor_invisible_mark></A><#18469#><TT>LEX</TT><#18469#>. Un programa
+<tex2html_verb_mark>2627<tex2html_verb_mark> tiene una estructura similar a la 
+de un program <tex2html_verb_mark>2628<tex2html_verb_mark> con tres partes: cabeza, cuerpo
+y cola separados por <tex2html_verb_mark>2630<tex2html_verb_mark>. Veamos como ejemplo de manejo de
+<tex2html_verb_mark>2631<tex2html_verb_mark>, los contenidos
+del fichero flex <tex2html_verb_mark>2632<tex2html_verb_mark> utilizado en las secciones
+anteriores:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6199#</PRE>
+La cabeza contiene declaraciones <tex2html_verb_mark>2633<tex2html_verb_mark> asi como definiciones
+regulares. El fichero <tex2html_verb_mark>2634<tex2html_verb_mark> que es incluído en la línea
+3, fué generado 
+por <tex2html_verb_mark>2635<tex2html_verb_mark> y contiene, entre otras cosas,
+la información recolectada
+por <tex2html_verb_mark>2636<tex2html_verb_mark> sobre los tipos de los atributos 
+(declaración <tex2html_verb_mark>2638<tex2html_verb_mark>) y la enumeración de los terminales.
+Es, por tanto, necesario que la compilación con <tex2html_verb_mark>2639<tex2html_verb_mark>
+preceda a la compilación con <tex2html_verb_mark>2640<tex2html_verb_mark>.
+La información en <tex2html_verb_mark>2641<tex2html_verb_mark> es usada por el analizador léxico
+para ``sincronizarse'' con el analizador sintáctico.
+Se definen en las líneas 5 y 6 las 
+macros para el reconocimiento de identificadores (<tex2html_verb_mark>2642<tex2html_verb_mark>)
+y blancos (<tex2html_verb_mark>2643<tex2html_verb_mark>). Estas macros son llamadas en el cuerpo
+en las líneas 12 y 13. 
+La estructura del cuerpo
+consiste en parejas formadas por una definición
+regular seguidas de una acción.
+La variable <tex2html_verb_mark>2644<tex2html_verb_mark> contiene el atributo asociado
+con el terminal actual. Puesto que el token <tex2html_verb_mark>2645<tex2html_verb_mark>
+fué declarado del tipo cadena (véase <A HREF=<tex2html_cr_mark>#subsection:cabecerayaccyapp#18035><tex2html_cr_mark></A>), 
+se usa el correspondiente
+nombre de campo <tex2html_verb_mark>2646<tex2html_verb_mark>.
+La cadena que acaba de casar queda guardada en la variable
+<tex2html_verb_mark>2647<tex2html_verb_mark>, y su longitud queda en la
+variable entera global <tex2html_verb_mark>2648<tex2html_verb_mark>.
+
+<P>
+Una vez compilado con <tex2html_verb_mark>2649<tex2html_verb_mark> el fuente,
+obtenemos un fichero denominado <tex2html_verb_mark>2650<tex2html_verb_mark>. 
+Este fichero contiene la rutina <tex2html_verb_mark>2651<tex2html_verb_mark> que realiza el an&#225;lisis
+l&#233;xico del lenguaje descrito. 
+
+<P>
+La funci&#243;n <tex2html_verb_mark>2652<tex2html_verb_mark> analiza las entradas, buscando la
+secuencia mas larga que casa con alguna de las expresiones regulares
+y ejecuta la correspondiente acci&#243;n.
+Si no se encuentra ningun  emparejamiento se ejecuta la regla ``por defecto'', que es:
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>2654<tex2html_verb_mark>
+
+</DIV>
+
+<P>
+Si encuentran dos expresiones regulares con las que la cadena mas larga
+casa, elige la que figura primera en el programa <tex2html_verb_mark>2655<tex2html_verb_mark>.
+
+<P>
+Una vez que se ha ejecutado la correspondiente acci&#243;n, <tex2html_verb_mark>2656<tex2html_verb_mark>
+contin&#250;a con el resto de la entrada, buscando por subsiguientes
+emparejamientos. Asi continúa hasta encontrar un final de fichero
+en cuyo caso termina, retornando un cero o bien hasta que una de las
+acciones explicitamente ejecuta una sentencia <tex2html_verb_mark>2657<tex2html_verb_mark>.
+
+<P>
+Cuando el analizador l&#233;xico alcanza el final del fichero, el
+comportamiento en las subsiguientes llamadas a <tex2html_verb_mark>2658<tex2html_verb_mark>
+resulta indefinido.  En el momento en que  <tex2html_verb_mark>2659<tex2html_verb_mark>
+alcanza el final del fichero llama a la funci&#243;n <tex2html_verb_mark>2660<tex2html_verb_mark>, la cual retorna un
+valor de 0 o 1 seg&#250;n haya mas entrada o no. Si el valor es 0,
+la funci&#243;n <tex2html_verb_mark>2661<tex2html_verb_mark> asume que la propia <tex2html_verb_mark>2662<tex2html_verb_mark>
+se ha encargado de abrir el nuevo fichero y asignarselo
+a <tex2html_verb_mark>2663<tex2html_verb_mark>.  
+
+<P>
+
+<H2><A NAME="SECTION058196000000000000000">
+Práctica: Uso de <TT>Yacc</TT> y <TT>Lex</TT></A>
+</H2>
+   <A NAME="18476"><tex2html_anchor_invisible_mark></A>
+  
+Use <tex2html_verb_mark>2664<tex2html_verb_mark> y <tex2html_verb_mark>2665<tex2html_verb_mark> para 
+completar los analizadores sintáctico y léxico descritos en las secciones
+<A HREF=<tex2html_cr_mark>#subsection:cabecerayaccyapp#18040><tex2html_cr_mark></A>,
+<A HREF=<tex2html_cr_mark>#subsection:colayaccyapp#18041><tex2html_cr_mark></A> y
+<A HREF=<tex2html_cr_mark>#subsection:flex#18042><tex2html_cr_mark></A>. 
+La gramática en cuestión es similar a la descrita
+en la sección <A HREF=<tex2html_cr_mark>#section:heredados#18043><tex2html_cr_mark></A>.
+Usando la variable <tex2html_verb_mark>2666<tex2html_verb_mark> y la macro <tex2html_verb_mark>2667<tex2html_verb_mark>
+analize el comportamiento para la entrada
+<tex2html_verb_mark>2668<tex2html_verb_mark>. 
+
+<P>

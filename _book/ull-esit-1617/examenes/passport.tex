@@ -1,0 +1,154 @@
+\subsection{Preguntas de Passport}\label{preguntas-de-passport}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  ¿Que es OAuth?
+\item
+  OAuth provides a method for users to grant third-party limited access
+  (in scope, duration, etc.) access to their resources without sharing
+  their passwords
+\item
+  ¿Quienes son los cuatro roles que aparecen en una autenticación con
+  OAuth?
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  resource owner: An entity capable of granting access to a protected
+  resource. When the resource owner is a person, it is referred to as an
+  end-user. (El usuario)
+\item
+  resource server: The server hosting the protected resources, capable
+  of accepting and responding to protected resource requests using
+  access tokens. (El servidor de Pinterest)
+\item
+  client: An application making protected resource requests on behalf of
+  the resource owner and with its authorization (por ejemplo, un cliente
+  de pinterest en el teléfono). The term " client" does not imply any
+  particular implementation characteristics (e.g., whether the
+  application executes on a server, a desktop, or other devices).
+\item
+  authorization server: The server issuing access tokens to the client
+  after successfully authenticating the resource owner and obtaining
+  authorization (por ejemplo, Facebook, cuando nos autenticamos con
+  Facebook)
+\end{enumerate}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  ¿Qué tres elementos de información suelen ser necesarios a la hora de
+  registrar nuestra aplicación ante un proveedor de OAuth?
+\item
+  Before using OAuth with your application, you must register your
+  application with the service.
+\item
+  This is done through a registration form in the developer or API
+  portion of the service's website, where you will provide the following
+  information (and probably details about your application):
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    Application Name
+  \item
+    Application Website
+  \item
+    Redirect URI or Callback URL
+  \end{enumerate}
+\item
+  ¿Que se debe poner en \emph{Redirect URI or Callback URL} cuando se
+  está registrando nuestra aplicación?
+\item
+  The redirect URI is where the service will redirect the user after
+  they authorize (or deny) your application, and therefore the part of
+  your application that will handle authorization codes or access
+  tokens.
+\item
+  Una vez que registramos la aplicación, el servicio provee las
+  credenciales del cliente. ¿En que consisten esas credenciales?
+\item
+  Once your application is registered, the service will issue client
+  credentials in the form of a client identifier and a client secret.
+\item
+  The Client ID is a publicly exposed string that is used by the service
+  API to identify the application, and is also used to build
+  authorization URLs that are presented to users.
+\item
+  The Client Secret is used to authenticate the identity of the
+  application to the service API when the application requests to access
+  a user's account, and must be kept private between the application and
+  the API.
+\item
+  ¿Que es \emph{passport}, que funcionalidades provee y como funciona?
+\item
+  Passport is authentication middleware for Node.js. Extremely flexible
+  and modular, Passport can be unobtrusively dropped in to any
+  Express-based web application. A comprehensive set of strategies
+  support authentication using a username and password, Facebook,
+  Twitter, and more.
+\item
+  Rellene las partes que faltan:
+\end{itemize}
+
+```javascript var passport = require(`passport'); var Strategy =
+require(`\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_').Strategy; var github =
+require(`octonode'); \ldots{}. var datos\_config =
+JSON.parse(JSON.stringify(config));
+
+passport.use(new Strategy(\{ clientID: datos\_config.clientID,
+clientSecret: datos\_config.clientSecret, callbackURL: callbackURL\_ \},
+function(accessToken, refreshToken, profile, cb) \{
+
+\begin{verbatim}
+    var token = datos_config.token;
+    var client = github.client(_____);
+
+    var ghorg = client.___('ULL-ESIT-SYTW-1617');
+
+    ghorg.______(profile.username, (err,result) =>
+    {
+        if(err) console.log(err);
+        console.log("Result:"+result);
+        if(result == true)
+          return cb(null, profile);
+        else {
+          return cb(null,null);
+        }
+    });
+\end{verbatim}
+
+\})); ``` - Respuesta:
+
+```javascript var passport = require(`passport'); var Strategy =
+require(`passport-github').Strategy; var github = require(`octonode');
+\ldots{}. var datos\_config = JSON.parse(JSON.stringify(config));
+
+passport.use(new Strategy(\{ clientID: datos\_config.clientID,
+clientSecret: datos\_config.clientSecret, callbackURL: callbackURL\_ \},
+function(accessToken, refreshToken, profile, cb) \{
+
+\begin{verbatim}
+    var token = datos_config.token;
+    var client = github.client(token);
+
+    var ghorg = client.org('ULL-ESIT-SYTW-1617');
+
+    ghorg.member(profile.username, (err,result) =>
+    {
+        if(err) console.log(err);
+        console.log("Result:"+result);
+        if(result == true)
+          return cb(null, profile);
+        else {
+          return cb(null,null);
+        }
+    });
+  // return cb(null, profile);
+\end{verbatim}
+
+\})); ```

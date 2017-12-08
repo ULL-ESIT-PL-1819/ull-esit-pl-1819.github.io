@@ -1,0 +1,180 @@
+
+<H1><A NAME="SECTION058200000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:analizadorLR"><tex2html_anchor_mark></A><BR>
+El Analizador Ascendente  <TT>Parse::Yapp</TT>
+</H1>
+
+<P>
+El program <tex2html_verb_mark>2669<tex2html_verb_mark> es un traductor y, por tanto, constituye
+un ejemplo de como escribir un traductor. El lenguaje fuente
+es el lenguaje <tex2html_verb_mark>2670<tex2html_verb_mark> y el lenguaje objeto es <tex2html_verb_mark>2671<tex2html_verb_mark>.
+Como es habitual en muchos lenguajes, el lenguaje objeto se ve 
+;SPMquot;expandido;SPMquot; con un conjunto de funciones de soporte. En el caso de 
+<tex2html_verb_mark>2672<tex2html_verb_mark> estas funciones de soporte, son en 
+realidad métodos y están en el módulo <tex2html_verb_mark>2673<tex2html_verb_mark>.
+Cualquier módulo generado por <tex2html_verb_mark>2674<tex2html_verb_mark> hereda de dicho módulo
+(véase por ejemplo, el módulo generado para nuestro ejemplo de la calculadora,
+en la sección <A HREF=<tex2html_cr_mark>#section:tablas#18046><tex2html_cr_mark></A>).
+
+<P>
+Como se ve en la figura <A HREF=<tex2html_cr_mark>#fig:yappinheritance#18047><tex2html_cr_mark></A>, 
+los módulos generados por <tex2html_verb_mark>2675<tex2html_verb_mark>
+heredan y usan la clase <tex2html_verb_mark>2676<tex2html_verb_mark>
+la  cual contiene el analizador sintáctico LR genérico.
+Este módulo contiene los métodos de soporte visibles
+al usuario <tex2html_verb_mark>2677<tex2html_verb_mark>, <tex2html_verb_mark>2678<tex2html_verb_mark>, <tex2html_verb_mark>2679<tex2html_verb_mark>, <tex2html_verb_mark>2680<tex2html_verb_mark>,
+etc.
+
+<P>
+La figura <A HREF=<tex2html_cr_mark>#fig:yappinheritance#18048><tex2html_cr_mark></A> muestra además el 
+resto de los módulos
+que conforman el ``compilador'' <tex2html_verb_mark>2681<tex2html_verb_mark>.
+La herencia se ha representado mediante flechas contínuas.
+Las flechas punteadas indican una relación de uso entre los módulos.
+El guión <tex2html_verb_mark>2682<tex2html_verb_mark> es un programa aparte que es
+usado para producir el correspondiente
+módulo desde el fichero conteniendo la gramática.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:yappinheritance"><tex2html_anchor_mark></A><A NAME="18246"><tex2html_anchor_mark></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG><#37874#>Figura<#37874#>:</STRONG>
+<#37875#>Esquema de herencia de <#18050#><TT>Parse::Yapp</TT><#18050#>. 
+Las flechas contínuas indican herencia, las punteadas uso.
+La clase <#18051#><TT>Calc</TT><#18051#> es implementada en el módulo generado por <#18052#><TT>yapp</TT><#18052#><#37875#></CAPTION>
+<TR><TD><tex2html_image_mark>#figure18049#</TD></TR>
+</TABLE>
+</DIV>
+
+
+<P>
+(Para ver el contenido de los módulos, descarge <tex2html_verb_mark>2683<tex2html_verb_mark> desde CPAN:
+<tex2html_verbatim_mark>rawhtml6200#
+o bien desde uno de nuestros servidores locales; en 
+el mismo directorio en que se guarda la
+versión HTML de estos apuntes encontrará una copia de 
+<A NAME="tex2html407"
+  HREF="Parse-Yapp-1.05.tar.gz">Parse-Yapp-1.05.tar.gz</A>).
+La versión a la que se refiere este capítulo es la 1.05.
+
+<P>
+El módulo <tex2html_verb_mark>2684<tex2html_verb_mark> se limita a contener la documentación
+y descansa toda la tarea de análisis en los otros módulos.
+El módulo <tex2html_verb_mark>2685<tex2html_verb_mark> contiene los métodos
+<tex2html_verb_mark>2686<tex2html_verb_mark> y <tex2html_verb_mark>2687<tex2html_verb_mark> los cuales se encargan de escribir
+el analizador: partiendo de un esqueleto genérico rellenan 
+las partes específicas a partir de la información computada
+por los otros módulos. 
+
+<P>
+El módulo <tex2html_verb_mark>2688<tex2html_verb_mark>
+analiza las opciones de entrada. El módulo <tex2html_verb_mark>2689<tex2html_verb_mark>
+calcula las tablas de análisis LALR. Por último el módulo
+<tex2html_verb_mark>2690<tex2html_verb_mark> contiene varios métodos de soporte 
+para el tratamiento de la gramática.
+
+<P>
+El modulo <#18057#><TT>Parse::Yapp::Driver</TT><#18057#> contiene el método
+<tex2html_verb_mark>2691<tex2html_verb_mark> encargado del análisis.
+En realidad, el método <tex2html_verb_mark>2692<tex2html_verb_mark> delega 
+en el método privado <tex2html_verb_mark>2693<tex2html_verb_mark> la tarea de análisis.
+Esta es la estructura del analizador genérico usado por <tex2html_verb_mark>2694<tex2html_verb_mark>.
+Léalo con cuidado y compare con la estructura explicada en la
+sección <A HREF=<tex2html_cr_mark>#section:algoritmoLR#18058><tex2html_cr_mark></A>.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6201#</PRE>
+La componente 0 de <tex2html_verb_mark>2695<tex2html_verb_mark> es el estado, la componente
+1 es el atributo.
+<PRE><tex2html_verbatim_mark>verbatim6202#</PRE>
+<tex2html_verb_mark>2696<tex2html_verb_mark> es una referencia a un vector. Cada entrada 
+<tex2html_verb_mark>2697<tex2html_verb_mark> es una referencia a un hash que 
+contiene dos claves. La clave <tex2html_verb_mark>2698<tex2html_verb_mark> contiene
+las acciones para ese estado. La clave <tex2html_verb_mark>2699<tex2html_verb_mark>
+contiene los saltos correspondientes a ese estado.
+<PRE><tex2html_verbatim_mark>verbatim6203#</PRE>
+La entrada <tex2html_verb_mark>2700<tex2html_verb_mark> de una acción contiene la acción 
+a ejecutar por defecto.
+<PRE><tex2html_verbatim_mark>verbatim6204#</PRE>
+La línea 35 esta relacionada con la recuperación de errores.
+Cuando <tex2html_verb_mark>2701<tex2html_verb_mark> ha podido desplazar varios terminales
+sin que se produzca error considerará que se ha recuperado 
+con éxito del último error.
+<PRE><tex2html_verbatim_mark>verbatim6205#</PRE>
+A menos que se trate del final de fichero, se reinicializa
+la pareja <tex2html_verb_mark>2702<tex2html_verb_mark> y se repite el bucle
+de análisis.
+Si <tex2html_verb_mark>2703<tex2html_verb_mark> es negativo se trata de una reducción
+y la entrada <tex2html_verb_mark>2704<tex2html_verb_mark> es una referencia
+a un vector con tres elementos: la variable sintáctica,
+la longitud de la parte derecha y el código asociado:
+<PRE><tex2html_verbatim_mark>verbatim6206#</PRE>
+Si <tex2html_verb_mark>2705<tex2html_verb_mark> es cero indica una acción de aceptación.
+El método <tex2html_verb_mark>2706<tex2html_verb_mark> se encuentra en <tex2html_verb_mark>2707<tex2html_verb_mark>.
+Simplemente contiene:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6207#</PRE>
+
+<P>
+Esta entrada será comprobada al final de la iteración para comprobar
+la condición de aceptación (a través de la 
+variable <tex2html_verb_mark>2708<tex2html_verb_mark>, la cuál es una referencia).
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6208#</PRE>
+En la línea 52 obtenemos el primer carácter en el nombre de la variable.
+Las acciones intermedias en <tex2html_verb_mark>2709<tex2html_verb_mark> producen una variable
+auxiliar que comienza por <tex2html_verb_mark>2710<tex2html_verb_mark> y casa con el patrón
+especificado en la línea 54. Obsérvese que el número después
+del guión contiene la posición relativa en la regla 
+de la acción intermedia.
+<PRE><tex2html_verbatim_mark>verbatim6209#</PRE>
+El array <tex2html_verb_mark>2711<tex2html_verb_mark> se inicia a la lista vacía 
+si <tex2html_verb_mark>2712<tex2html_verb_mark> es nulo. En caso contrario
+contiene la lista de los atributos de los últimos <tex2html_verb_mark>2713<tex2html_verb_mark>
+elementos referenciados en la pila.
+Si la regla es intermedia estamos haciendo referencia
+a los atributos de los símbolos a su izquierda.
+<PRE><tex2html_verbatim_mark>verbatim6210#</PRE>
+Es en este punto que ocurre la ejecución de la acción.
+La subrutina referenciada por <tex2html_verb_mark>2714<tex2html_verb_mark> es llamada
+con primer argumento la referencia al objeto analizador <tex2html_verb_mark>2715<tex2html_verb_mark>
+y como argumentos los atributos que se han computado
+previamente en <tex2html_verb_mark>2716<tex2html_verb_mark>. Si no existe tal código se devuelve 
+el atributo del primer elemento, si es que existe un tal primer
+elemento. 
+
+<P>
+El valor retornado por la subrutina/acción asociada es guardado en 
+<tex2html_verb_mark>2717<tex2html_verb_mark>.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6211#</PRE>
+La funci&#243;n <tex2html_verb_mark>2718<tex2html_verb_mark> toma en general cuatro argumentos:
+el array a modificar, el &#305;ndice en el cual es modificado,
+el n&#250;mero de elementos a suprimir y la lista de elementos
+extra a insertar. Aquí, la llamada a <tex2html_verb_mark>2719<tex2html_verb_mark> cambia los elementos de
+<tex2html_verb_mark>2720<tex2html_verb_mark> a partir del índice <tex2html_verb_mark>2721<tex2html_verb_mark>.
+El número de elementos a suprimir es <tex2html_verb_mark>2722<tex2html_verb_mark>.  
+A continuación se comprueba si hay que terminar, bien 
+porque se ha llegado al estado de aceptación (<tex2html_verb_mark>2723<tex2html_verb_mark>)
+o porque ha habido un error fatal:
+<PRE><tex2html_verbatim_mark>verbatim6212#</PRE>
+Si las cosas van bien, se empuja en la cima de la pila el estado
+resultante de transitar desde el estado en la cima con la variable
+sintáctica en el lado izquierdo:
+<PRE><tex2html_verbatim_mark>verbatim6213#</PRE>
+La expresión <tex2html_verb_mark>2724<tex2html_verb_mark> es una referencia a un hash cuya
+clave <tex2html_verb_mark>2725<tex2html_verb_mark> contiene una referencia a un hash conteniendo la 
+tabla de transiciones del éstado en la cima de la pila (<tex2html_verb_mark>2726<tex2html_verb_mark>).
+La entrada de clave <tex2html_verb_mark>2727<tex2html_verb_mark> contiene el estado al que se transita al ver la
+variable sintáctica de la izquierda de la regla de producción. El atributo
+asociado es el devuelto por la acción: <tex2html_verb_mark>2728<tex2html_verb_mark>.
+<PRE><tex2html_verbatim_mark>verbatim6214#</PRE>
+...<#18088#><#18088#> y el bucle <tex2html_verb_mark>2729<tex2html_verb_mark> de la línea 15 continúa.  
+Compare este código con el seudo-código introducido
+en la sección <A HREF=<tex2html_cr_mark>#section:algoritmoLR#18089><tex2html_cr_mark></A>.
+
+<P>

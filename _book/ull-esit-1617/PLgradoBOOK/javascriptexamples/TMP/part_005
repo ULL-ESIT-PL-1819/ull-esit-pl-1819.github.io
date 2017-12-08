@@ -1,0 +1,73 @@
+<tex2html_file>#./chapter_funciones/funciones.tex#
+\section<<1221>>Definiendo Funciones<<1221>>
+\begin<<1277>>tex2html_deferred<<1277>>\par\end<<1278>>tex2html_deferred<<1278>>
+\section<<1222>>Invocando Funciones<<1222>>
+\begin<<1279>>tex2html_deferred<<1279>>\par\end<<1280>>tex2html_deferred<<1280>>
+\section<<1223>>Argumentos y Parámetros<<1223>>
+\begin<<1281>>tex2html_deferred<<1281>>\par\end<<1282>>tex2html_deferred<<1282>>
+\section<<1224>>Funciones como Valores<<1224>>
+\begin<<1283>>tex2html_deferred<<1283>>\par\end<<1284>>tex2html_deferred<<1284>>
+\section<<1225>>Funciones como Espacios de Nombres<<1225>>
+\begin<<1285>>tex2html_deferred<<1285>>\par\end<<1286>>tex2html_deferred<<1286>>
+\section<<1226>>Clausuras<<1226>>
+\begin<<1287>>tex2html_deferred<<1287>>\par\end<<1288>>tex2html_deferred<<1288>>
+\section<<1227>>Propiedades, Métodos y Constructor<<1227>>
+\begin<<1289>>tex2html_deferred<<1289>>\par\end<<1290>>tex2html_deferred<<1290>>
+\subsection<<1272>>La propiedad <<1228>>\begin<<1291>>tex2html_deferred<<1291>>\tt\end<<1292>>tex2html_deferred<<1292>>length<<1228>><<1272>>
+\begin<<1293>>tex2html_deferred<<1293>>\par\end<<1294>>tex2html_deferred<<1294>>
+\subsection<<1273>>La Propiedad <<1229>>\begin<<1295>>tex2html_deferred<<1295>>\tt\end<<1296>>tex2html_deferred<<1296>>property<<1229>><<1273>>
+\begin<<1297>>tex2html_deferred<<1297>>\par\end<<1298>>tex2html_deferred<<1298>>
+\subsection<<1274>>Los Métodos <<1230>>\begin<<1299>>tex2html_deferred<<1299>>\tt\end<<1300>>tex2html_deferred<<1300>>call<<1230>> y <<1231>>\begin<<1301>>tex2html_deferred<<1301>>\tt\end<<1302>>tex2html_deferred<<1302>>apply<<1231>><<1274>>
+\label<<1232>>subsection:callyapply<<1232>>
+Los métodos  <<1275>>\begin<<1303>>tex2html_deferred<<1303>>\tt\end<<1304>>tex2html_deferred<<1304>>call<<1275>>  y  <<1276>>\begin<<1305>>tex2html_deferred<<1305>>\tt\end<<1306>>tex2html_deferred<<1306>>apply<<1276>>  nos permiten
+invocar una función como si fuera un método de algún otro 
+objeto.
+\begin<<1307>>tex2html_deferred<<1307>>\par\end<<1308>>tex2html_deferred<<1308>>
+\begin<<1235>>tex2html_preform<<1235>><tex2html_verbatim_mark>verbatim50#\end<<1236>>tex2html_preform<<1236>>
+\begin<<1309>>tex2html_deferred<<1309>>\par\end<<1310>>tex2html_deferred<<1310>>
+\begin<<1237>>tex2html_preform<<1237>><tex2html_verbatim_mark>verbatim51#\end<<1238>>tex2html_preform<<1238>>
+\begin<<1311>>tex2html_deferred<<1311>>\par\end<<1312>>tex2html_deferred<<1312>>
+\section<<1239>>Programación Funcional<<1239>>
+<tex2html_endfile>#./chapter_funciones/funciones.tex#
+\begin<<1313>>tex2html_deferred<<1313>>\par\end<<1314>>tex2html_deferred<<1314>>
+\chapter<<1240>>Clases y Módulos<<1240>>
+Véase el libro <<1241>>\begin<<1315>>tex2html_deferred<<1315>>\it\end<<1316>>tex2html_deferred<<1316>>Learning JavaScript Design Pattern<<1241>>
+\cite<<1242>>osmani2012learning<<1242>>
+\begin<<1317>>tex2html_deferred<<1317>>\par\end<<1318>>tex2html_deferred<<1318>>
+\section<<1243>>Herencia<<1243>>
+\begin<<1319>>tex2html_deferred<<1319>>\par\end<<1320>>tex2html_deferred<<1320>>
+\begin<<1244>>tex2html_preform<<1244>><tex2html_verbatim_mark>verbatim52#\end<<1245>>tex2html_preform<<1245>>
+\begin<<1321>>tex2html_deferred<<1321>>\par\end<<1322>>tex2html_deferred<<1322>>
+\begin<<1246>>tex2html_preform<<1246>><tex2html_verbatim_mark>verbatim53#\end<<1247>>tex2html_preform<<1247>>
+\begin<<1323>>tex2html_deferred<<1323>>\par\end<<1324>>tex2html_deferred<<1324>>
+\subsection<<1248>>call y apply<<1248>>
+\begin<<1325>>tex2html_deferred<<1325>>\par\end<<1326>>tex2html_deferred<<1326>>
+\begin<<1249>>enumerate<<1249>>
+\item 
+\htmladdnormallink<<1250>>Function.apply and Function.call in JavaScript<<1250>><<1251>>http://odetocode.com/blogs/scott/archive/2007/07/05/function-apply-and-function-call-in-javascript.aspx<<1251>>
+\begin<<1252>>tex2html_preform<<1252>><tex2html_verbatim_mark>verbatim54#\end<<1253>>tex2html_preform<<1253>>
+\item 
+\begin<<1254>>tex2html_preform<<1254>><tex2html_verbatim_mark>verbatim55#\end<<1255>>tex2html_preform<<1255>>
+\end<<1256>>enumerate<<1256>>
+\begin<<1327>>tex2html_deferred<<1327>>\par\end<<1328>>tex2html_deferred<<1328>>
+\section<<1257>>Ejercicios<<1257>>
+\begin<<1258>>enumerate<<1258>>
+\item ¿Cual es la salida?
+\begin<<1259>>tex2html_preform<<1259>><tex2html_verbatim_mark>verbatim56#\end<<1260>>tex2html_preform<<1260>>
+\begin<<1329>>tex2html_deferred<<1329>>\par\end<<1330>>tex2html_deferred<<1330>>
+\item  ¿Cuales son los resultados?
+\begin<<1261>>tex2html_preform<<1261>><tex2html_verbatim_mark>verbatim57#\end<<1262>>tex2html_preform<<1262>>
+\item 
+Describa las salidas:
+\begin<<1263>>tex2html_preform<<1263>><tex2html_verbatim_mark>verbatim58#\end<<1264>>tex2html_preform<<1264>>
+\item 
+Explique la salida:
+\begin<<1265>>tex2html_preform<<1265>><tex2html_verbatim_mark>verbatim59#\end<<1266>>tex2html_preform<<1266>>
+\item 
+Explique las salidas:
+\begin<<1267>>tex2html_preform<<1267>><tex2html_verbatim_mark>verbatim60#\end<<1268>>tex2html_preform<<1268>>
+\end<<1269>>enumerate<<1269>>
+\begin<<1331>>tex2html_deferred<<1331>>\par\end<<1332>>tex2html_deferred<<1332>>
+\chapter<<1270>>Subconjuntos y Extensiones de JavaScript<<1270>>
+\begin<<1333>>tex2html_deferred<<1333>>\par\end<<1334>>tex2html_deferred<<1334>>
+\chapter<<1271>>JavaScript en el Lado del Servidor<<1271>>

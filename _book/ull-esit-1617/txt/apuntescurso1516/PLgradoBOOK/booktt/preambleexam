@@ -1,0 +1,53 @@
+\documentclass[spanish,a4paper,11pt]{article}
+
+\usepackage{latexsym,amsfonts,amssymb,amstext,amsthm,float,amsmath}
+
+\usepackage[spanish]{babel}    
+\usepackage{html}
+\usepackage{ucs}
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+
+\usepackage{listings}
+\lstset{language=Ruby}
+\lstset{
+escapeinside={\#(*}{*)}
+}
+
+%\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\usepackage[dvips]{epsfig}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%123456789012345678901234567890123456789012345678901234567890123456789
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Format
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\topmargin -5 mm
+\headheight 2 mm
+%\headsep 0 mm
+\textheight 255 mm
+\oddsidemargin -5.8 mm
+\evensidemargin -5.8 mm
+\textwidth 16 cm
+\columnsep 0 mm
+%\pagestyle{plain}
+\pagestyle{myheadings}
+\markright{[% heading %]}
+
+%\pagenumbering{arabic}
+%\cfoot{\thepage\ of \pageref{LastPage}}
+
+\input{amssym.def}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
+%
+% En la cabecera hay que cambiar al FECHA de la convocatoria
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     
+
+
+\input{booktt/commontex/commands.tex}
+

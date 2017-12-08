@@ -1,0 +1,358 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Ejercicios</TITLE>
+<META NAME="description" CONTENT="Ejercicios">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node15.html">
+<LINK REL="previous" HREF="node13.html">
+<LINK REL="up" HREF="node7.html">
+<LINK REL="next" HREF="node15.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html1260"
+  HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1254"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1248"
+  HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1256"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1258"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html1261"
+  HREF="node15.html">Práctica: Palabras Repetidas</A>
+<B>Sup:</B> <A NAME="tex2html1255"
+  HREF="node7.html">Expresiones Regulares y Análisis</A>
+<B> Ant:</B> <A NAME="tex2html1249"
+  HREF="node13.html">Comentarios y Consejos</A>
+<B> Con:</B> 
+<A NAME="tex2html1256"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html1258"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION04170000000000000000"></A>
+<A NAME="section:ejercicioslastindex"></A>
+<BR>
+Ejercicios
+</H1>
+
+<OL>
+<LI>Paréntesis:
+<PRE>
+&gt; str = "John Smith"
+'John Smith'
+&gt; newstr = str.replace(re, "$2, $1")
+'Smith, John'
+</PRE>
+</LI>
+<LI>El método <code>exec</code>.
+
+<P>
+If your regular expression uses the <code>g</code> flag, you can use the <code>exec</code>
+method multiple times to find successive matches in the same string.
+When you do so, the search starts at the substring of str specified
+by the regular expression's <code>lastIndex</code> property.
+
+<P>
+<PRE>
+&gt; re = /d(b+)(d)/ig
+/d(b+)(d)/gi
+&gt; z = "dBdxdbbdzdbd"
+'dBdxdbbdzdbd'
+&gt; result = re.exec(z)
+[ 'dBd', 'B', 'd', index: 0, input: 'dBdxdbbdzdbd' ]
+&gt; re.lastIndex
+3
+&gt; result = re.exec(z)
+[ 'dbbd', 'bb', 'd', index: 4, input: 'dBdxdbbdzdbd' ]
+&gt; re.lastIndex
+8
+&gt; result = re.exec(z)
+[ 'dbd', 'b', 'd', index: 9, input: 'dBdxdbbdzdbd' ]
+&gt; re.lastIndex
+12
+&gt; z.length
+12
+&gt; result = re.exec(z)
+null
+</PRE>
+</LI>
+<LI>JavaScript tiene lookaheads:
+<PRE>
+&gt; x = "hello"
+'hello'
+&gt; r = /l(?=o)/
+/l(?=o)/
+&gt; z = r.exec(x)
+[ 'l', index: 3, input: 'hello' ]
+</PRE>
+</LI>
+<LI>JavaScript no tiene lookbehinds:
+<PRE>
+&gt; x = "hello"
+'hello'
+&gt; r = /(?&lt;=l)l/
+SyntaxError: Invalid regular expression: /(?&lt;=l)l/: Invalid group
+&gt; .exit
+</PRE>
+<PRE>
+[~/Dropbox/src/javascript/PLgrado/csv(master)]$ irb
+ruby-1.9.2-head :001 &gt; x = "hello"
+ =&gt; "hello" 
+ruby-1.9.2-head :002 &gt; r = /(?&lt;=l)l/
+ =&gt; ll 
+ruby-1.9.2-head :008 &gt; x =~ r
+ =&gt; 3 
+ruby-1.9.2-head :009 &gt; $&amp;
+ =&gt; "l"
+</PRE>
+</LI>
+<LI>El siguiente ejemplo comprueba la validez de números de teléfono:
+<PRE>
+[~/local/src/javascript/PLgrado/regexp]$ pwd -P
+/Users/casiano/local/src/javascript/PLgrado/regexp
+[~/local/src/javascript/PLgrado/regexp]$ cat phone.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;  
+  &lt;head&gt;  
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"&gt;  
+    &lt;meta http-equiv="Content-Script-Type" content="text/javascript"&gt;  
+    &lt;script type="text/javascript"&gt;  
+      var re = /\(?\d{3}\)?([-\/\.])\d{3}\1\d{4}/;  
+      function testInfo(phoneInput){  
+        var OK = re.exec(phoneInput.value);  
+        if (!OK)  
+          window.alert(RegExp.input + " isn't a phone number with area code!");  
+        else
+          window.alert("Thanks, your phone number is " + OK[0]);  
+      }  
+    &lt;/script&gt;  
+  &lt;/head&gt;  
+  &lt;body&gt;  
+    &lt;p&gt;Enter your phone number (with area code) and then click "Check".
+        &lt;br&gt;The expected format is like ###-###-####.&lt;/p&gt;
+    &lt;form action="#"&gt;  
+      &lt;input id="phone"&gt;&lt;button onclick="testInfo(document.getElementById('phone'));"&gt;Check&lt;/button&gt;
+    &lt;/form&gt;  
+  &lt;/body&gt;  
+&lt;/html&gt;
+</PRE>
+</LI>
+<LI>¿Con que cadenas casa  la expresión regular <code>/^(11+)\1+$/</code>?
+<PRE>
+&gt; '1111'.match(/^(11+)\1+$/) # 4 unos
+[ '1111',
+  '11',
+  index: 0,
+  input: '1111' ]
+&gt; '111'.match(/^(11+)\1+$/) # 3 unos
+null
+&gt; '11111'.match(/^(11+)\1+$/) # 5 unos
+null
+&gt; '111111'.match(/^(11+)\1+$/) # 6 unos
+[ '111111',
+  '111',
+  index: 0,
+  input: '111111' ]
+&gt; '11111111'.match(/^(11+)\1+$/) # 8 unos
+[ '11111111',
+  '1111',
+  index: 0,
+  input: '11111111' ]
+&gt; '1111111'.match(/^(11+)\1+$/)
+null
+&gt;
+</PRE>
+</LI>
+<LI><P>
+Busque  una solución al siguiente ejercicio 
+(véase 'Regex to add space after punctuation sign' en <A NAME="tex2html135"
+  HREF="http://www.perlmonks.org/?node_id=319742">PerlMonks</A>)
+Se quiere poner un espacio en blanco después de la aparición de cada coma:
+<PRE>
+&gt; x = "a,b,c,1,2,d, e,f"
+'a,b,c,1,2,d, e,f'
+&gt; x.replace(/,/g,", ")
+'a, b, c, 1, 2, d,  e, f'
+</PRE>
+pero se quiere que la sustitución no tenga lugar si la coma esta incrustada entre
+dos dígitos. Además se pide que si hay ya un espacio después de la coma,
+no se duplique.
+
+<P>
+
+<OL>
+<LI>La siguiente solución logra el segundo objetivo, pero estropea los números:
+<PRE>
+&gt; x = "a,b,c,1,2,d, e,f"
+'a,b,c,1,2,d, e,f'
+&gt; x.replace(/,(\S)/g,", $1")
+'a, b, c, 1, 2, d, e, f'
+</PRE>
+</LI>
+<LI>Esta  otra funciona bien con los números pero no con los espacios ya existentes:
+<PRE>
+&gt; x = "a,b,c,1,2,d, e,f"
+'a,b,c,1,2,d, e,f'
+&gt; x.replace(/,(\D)/g,", $1")
+'a, b, c,1,2, d,  e, f'
+</PRE>
+</LI>
+<LI>Explique cuando casa esta expresión regular:
+<PRE>
+&gt; r = /(\d[,.]\d)|(,(?=\S))/g
+/(\d[,.]\d)|(,(?=\S))/g
+</PRE>
+Aproveche que el método <code>replace</code> puede recibir como segundo argumento
+una función (vea <A NAME="tex2html136"
+  HREF="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/replace">replace</A>):
+<PRE>
+&gt; z = "a,b,1,2,d, 3,4,e"
+'a,b,1,2,d, 3,4,e'
+&gt; f = function(match, p1, p2, offset, string) { return (p1 || p2 + " "); }
+[Function]
+&gt; z.replace(r, f)
+'a, b, 1,2, d, 3,4, e'
+</PRE>
+</LI>
+</OL>
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html1260"
+  HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html1254"
+  HREF="node7.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html1248"
+  HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html1256"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html1258"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html1261"
+  HREF="node15.html">Práctica: Palabras Repetidas</A>
+<B>Sup:</B> <A NAME="tex2html1255"
+  HREF="node7.html">Expresiones Regulares y Análisis</A>
+<B> Ant:</B> <A NAME="tex2html1249"
+  HREF="node13.html">Comentarios y Consejos</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-10-06</I>
+</ADDRESS>
+</BODY>
+</HTML>

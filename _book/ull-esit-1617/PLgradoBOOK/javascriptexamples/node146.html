@@ -1,0 +1,1246 @@
+
+<H1><A NAME="SECTION05690000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:aat"><tex2html_anchor_mark></A><BR>
+Árbol de Análisis Abstracto
+</H1>
+
+<H2><A NAME="SECTION05691000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="subsection:lenguajesarbol"><tex2html_anchor_mark></A><BR>
+Lenguajes Árbol y Gramáticas Árbol
+</H2>
+Un <A NAME="12170"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">árbol de análisis abstracto</SPAN>  (denotado <A NAME="12172"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">AAA</SPAN>, en
+inglés <A NAME="12174"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">abstract syntax tree</SPAN> o <A NAME="12176"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">AST</SPAN>) 
+porta la misma información que
+el árbol de análisis sintáctico pero de forma mas condensada, eliminándose
+terminales y producciones que no aportan información.
+
+<P>
+<P><DIV><#34582#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#34582#> &nbsp; 
+<#34585#><I>Un <A NAME="12178"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">alfabeto con función de aridad</SPAN> es un par <tex2html_verbatim_mark>#math6603#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34587#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+donde <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34589#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un conjunto finito y
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34591#</SPAN>
+<tex2html_verbatim_mark>mathend000# es una función <tex2html_verbatim_mark>#math6604#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34593#</SPAN>
+<tex2html_verbatim_mark>mathend000#, denominada 
+<A NAME="12180"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">función de aridad</SPAN>.
+Denotamos por <tex2html_verbatim_mark>#math6605#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34595#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+</I>
+<P>
+<I>Definimos el <A NAME="12182"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">lenguaje árbol homogéneo</SPAN> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34597#</SPAN>
+<tex2html_verbatim_mark>mathend000# sobre <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34599#</SPAN>
+<tex2html_verbatim_mark>mathend000# inductivamente:
+</I>
+<UL>
+<LI>Todos los elementos de aridad 0 están en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34601#</SPAN>
+<tex2html_verbatim_mark>mathend000#: <tex2html_verbatim_mark>#math6606#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34603#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+implica <tex2html_verbatim_mark>#math6607#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34605#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+<LI>Si <tex2html_verbatim_mark>#math6608#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34607#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verbatim_mark>#math6609#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34609#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un elemento
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34611#</SPAN>
+<tex2html_verbatim_mark>mathend000#-ario, entonces <tex2html_verbatim_mark>#math6610#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34613#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+</UL><I>
+Los elementos de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34615#</SPAN>
+<tex2html_verbatim_mark>mathend000# se llaman  <A NAME="12184"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">árboles</SPAN> o <A NAME="12186"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">términos</SPAN>.</I><#34585#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34617#><B>Ejemplo  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#34617#> &nbsp; 
+<#34620#><I>Sea <tex2html_verbatim_mark>#math6611#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34622#</SPAN>
+<tex2html_verbatim_mark>mathend000# con <tex2html_verbatim_mark>#math6612#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34624#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+Entonces 
+</I>
+<P>
+<I><tex2html_verbatim_mark>#math6613#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34626#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I><#34620#></DIV><P></P>
+
+
+<P>
+<P><DIV><A NAME="example:tutuast"><#34628#><B>Ejemplo  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#34628#></A> &nbsp; 
+<#34631#><I>Una versión simplificada del alfabeto con aridad en el que estan basados
+los árboles construidos por el compilador de Tutu es:
+</I>
+<P>
+<I></I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+<tex2html_verbatim_mark>#math6614#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34633#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6615#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34635#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6616#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34637#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6617#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34639#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+</I></TD>
+</TR>
+</TABLE><I>
+</I>
+<P>
+<I>Observe que los elementos en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34645#</SPAN>
+<tex2html_verbatim_mark>mathend000# no necesariamente son 
+árboles ``correctos''. Por ejemplo, el árbol
+<tex2html_verbatim_mark>#math6618#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34647#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+es un elemento de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34649#</SPAN>
+<tex2html_verbatim_mark>mathend000#.</I><#34631#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34651#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#34651#> &nbsp; 
+<#34654#><I>Una <A NAME="12188"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">gramática árbol regular</SPAN> es una cuadrupla <tex2html_verbatim_mark>#math6619#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34656#</SPAN>
+<tex2html_verbatim_mark>mathend000#, 
+donde:
+</I>
+<UL>
+<LI><tex2html_verbatim_mark>#math6620#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34658#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un alfabeto con aricidad <tex2html_verbatim_mark>#math6621#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34660#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+<LI><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34662#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un conjunto finito de variables sintácticas o no terminales
+</LI>
+<LI><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34664#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un conjunto finito de reglas de producción de la forma
+<tex2html_verbatim_mark>#math6622#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34666#</SPAN>
+<tex2html_verbatim_mark>mathend000# con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34668#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verbatim_mark>#math6623#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34670#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+<LI><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34672#</SPAN>
+<tex2html_verbatim_mark>mathend000# es la variable o símbolo de arranque
+</LI>
+</UL><I>
+</I>
+<P>
+<I></I><#34654#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34674#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#34674#> &nbsp; 
+<#34677#><I>Dada una gramática <tex2html_verbatim_mark>#math6624#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34679#</SPAN>
+<tex2html_verbatim_mark>mathend000#,
+se dice que un árbol <tex2html_verbatim_mark>#math6625#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34681#</SPAN>
+<tex2html_verbatim_mark>mathend000# es del tipo <tex2html_verbatim_mark>#math6626#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34683#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+si el <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34685#</SPAN>
+<tex2html_verbatim_mark>mathend000#-ésimo noterminal, contando desde la izquierda, que aparece en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34687#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+es <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34689#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+</I>
+<P>
+<I>Si <tex2html_verbatim_mark>#math6627#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34691#</SPAN>
+<tex2html_verbatim_mark>mathend000# es una producción y <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34693#</SPAN>
+<tex2html_verbatim_mark>mathend000# es de tipo <tex2html_verbatim_mark>#math6628#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34695#</SPAN>
+<tex2html_verbatim_mark>mathend000#,
+diremos que la producción <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34697#</SPAN>
+<tex2html_verbatim_mark>mathend000# es de tipo <tex2html_verbatim_mark>#math6629#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34699#</SPAN>
+<tex2html_verbatim_mark>mathend000#.</I><#34677#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34701#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">4</SPAN></B><#34701#> &nbsp; 
+<#34704#><I>Consideremos un árbol  <tex2html_verbatim_mark>#math6630#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34706#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+que sea del tipo <tex2html_verbatim_mark>#math6631#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34708#</SPAN>
+<tex2html_verbatim_mark>mathend000#, esto es las variables sintácticas
+en el árbol leídas de izquierda a derecha son <tex2html_verbatim_mark>#math6632#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34710#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+</I>
+<P>
+<I></I>
+<UL>
+<LI>Si <tex2html_verbatim_mark>#math6633#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34712#</SPAN>
+<tex2html_verbatim_mark>mathend000# para algún <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34714#</SPAN>
+<tex2html_verbatim_mark>mathend000#, entonces 
+decimos que el árbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34716#</SPAN>
+<tex2html_verbatim_mark>mathend000# <A NAME="12190"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">deriva en un paso en el árbol</SPAN>
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34718#</SPAN>
+<tex2html_verbatim_mark>mathend000# resultante de sustituir el nodo <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34720#</SPAN>
+<tex2html_verbatim_mark>mathend000# por el árbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34722#</SPAN>
+<tex2html_verbatim_mark>mathend000# y escribiremos
+<tex2html_verbatim_mark>#math6634#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34724#</SPAN>
+<tex2html_verbatim_mark>mathend000#.  Esto es, <tex2html_verbatim_mark>#math6635#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34726#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+<LI>Todo árbol deriva en cero pasos
+en si mismo <tex2html_verbatim_mark>#math6636#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34728#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+</LI>
+<LI>Decimos que un árbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34730#</SPAN>
+<tex2html_verbatim_mark>mathend000# deriva en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34732#</SPAN>
+<tex2html_verbatim_mark>mathend000# pasos en el árbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34734#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+y escribimos <tex2html_verbatim_mark>#math6637#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34736#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+si <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34738#</SPAN>
+<tex2html_verbatim_mark>mathend000# deriva en un paso en un árbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34740#</SPAN>
+<tex2html_verbatim_mark>mathend000# el cuál deriva en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34742#</SPAN>
+<tex2html_verbatim_mark>mathend000# pasos en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34744#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+En general, si <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34746#</SPAN>
+<tex2html_verbatim_mark>mathend000# deriva en un cierto número de pasos en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34748#</SPAN>
+<tex2html_verbatim_mark>mathend000# escribiremos
+<tex2html_verbatim_mark>#math6638#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34750#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+</LI>
+</UL><I></I><#34704#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34752#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">5</SPAN></B><#34752#> &nbsp; 
+<#34755#><I>Se define el <A NAME="12192"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">lenguaje árbol generado por una gramática</SPAN> <tex2html_verbatim_mark>#math6639#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34757#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+como el lenguaje <tex2html_verbatim_mark>#math6640#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34759#</SPAN>
+<tex2html_verbatim_mark>mathend000#.</I><#34755#></DIV><P></P>
+
+
+<P>
+<P><DIV><A NAME="example:listtreegrammar"><#34761#><B>Ejemplo  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#34761#></A> &nbsp; 
+<#34764#><I>Sea <tex2html_verbatim_mark>#math6641#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34766#</SPAN>
+<tex2html_verbatim_mark>mathend000# con
+<tex2html_verbatim_mark>#math6642#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34768#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verbatim_mark>#math6643#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34770#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+y sea <tex2html_verbatim_mark>#math6644#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34772#</SPAN>
+<tex2html_verbatim_mark>mathend000#. El conjunto de producciones <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34774#</SPAN>
+<tex2html_verbatim_mark>mathend000# es:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6645#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34776#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I>La producción <tex2html_verbatim_mark>#math6646#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34778#</SPAN>
+<tex2html_verbatim_mark>mathend000# es del tipo <tex2html_verbatim_mark>#math6647#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34780#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+</I>
+<P>
+<I>Informalmente, el lenguaje generado por <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34782#</SPAN>
+<tex2html_verbatim_mark>mathend000# se obtiene realizando sustituciones
+sucesivas (derivando) desde el símbolo de arranque hasta producir un
+árbol cuyos nodos estén etiquetados con elementos de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34784#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Debería ser claro
+que, en este ejemplo, <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34786#</SPAN>
+<tex2html_verbatim_mark>mathend000# es el conjunto de las listas en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34788#</SPAN>
+<tex2html_verbatim_mark>mathend000#, incluyendo la lista vacía:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6648#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34790#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I></I><#34764#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34792#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#34792#> &nbsp; 
+<#34795#><I>Construya una derivación para el árbol <tex2html_verbatim_mark>#math6649#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34797#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+¿De que tipo es el árbol <tex2html_verbatim_mark>#math6650#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34799#</SPAN>
+<tex2html_verbatim_mark>mathend000#?.</I><#34795#></DIV><P></P>
+
+
+<P>
+Cuando hablamos del AAA producido por un analizador sintáctico,
+estamos en realidad hablando de un lenguaje árbol cuya definición 
+precisa debe hacerse a través de una gramática
+árbol regular.
+Mediante las gramáticas árbol regulares disponemos de un mecanismo para
+describir formalmente el lenguaje de los 
+AAA que producirá el analizador sintáctico
+para las sentencias Tutu.
+
+<P>
+<P><DIV><A NAME="example:tututreegrammar"><#34801#><B>Ejemplo  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">4</SPAN></B><#34801#></A> &nbsp; 
+<#34804#><I>Sea <tex2html_verbatim_mark>#math6651#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34806#</SPAN>
+<tex2html_verbatim_mark>mathend000# con
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I></I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+<tex2html_verbatim_mark>#math6652#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34808#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6653#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34810#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6654#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34812#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6655#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34814#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6656#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34816#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+</TABLE><I></I></DIV><I>
+y las producciones:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I></I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34823#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34825#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34827#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6657#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34829#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34831#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6658#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34833#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34835#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6659#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34837#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34839#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6660#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34841#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34843#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6661#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34845#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34847#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6662#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34849#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34851#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6663#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34853#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+         </I></TD>
+<TD ALIGN="LEFT"><I><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34855#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> 
+</I></TD>
+</TR>
+</TABLE><I></I></DIV><I>
+</I>
+<P>
+<I>Entonces el lenguaje <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34884#</SPAN>
+<tex2html_verbatim_mark>mathend000# contiene árboles
+como el siguiente: 
+</I>
+<P>
+<I></I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34886#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34888#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I>         </I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34890#</SPAN>
+<tex2html_verbatim_mark>mathend000#, </I></TD>
+<TD ALIGN="LEFT"><I>   </I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34892#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34894#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34896#</SPAN>
+<tex2html_verbatim_mark>mathend000#,   </I></TD>
+<TD ALIGN="LEFT"><I> </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34898#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34900#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I>         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34902#</SPAN>
+<tex2html_verbatim_mark>mathend000#,</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I>         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34904#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I>         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34906#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34908#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34910#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I>         </I></TD>
+<TD ALIGN="LEFT"><I>
+</I></TD>
+</TR>
+</TABLE><I>
+</I>
+<P>
+<I>El cual podría corresponderse con una sentencia como
+<tex2html_verb_mark>1874<tex2html_verb_mark>.
+</I>
+<P>
+<I>El lenguaje de árboles descrito por esta gramática árbol 
+es el lenguaje de los AAA de las sentencias de Tutu.</I><#34804#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34952#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#34952#> &nbsp; 
+<#34955#><I>Redefina el concepto de árbol de análisis concreto dado
+en la definición <A HREF=<tex2html_cr_mark>#definition:arbolconcreto#11288><tex2html_cr_mark></A> utilizando el
+concepto de gramática árbol. Con mas precisión,
+dada una gramática <tex2html_verbatim_mark>#math6664#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34957#</SPAN>
+<tex2html_verbatim_mark>mathend000# defina una gramática
+árbol <tex2html_verbatim_mark>#math6665#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34959#</SPAN>
+<tex2html_verbatim_mark>mathend000# tal que <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34961#</SPAN>
+<tex2html_verbatim_mark>mathend000# sea el lenguaje 
+de los árboles concretos de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34963#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Puesto que las partes 
+derechas de las reglas de producción de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34965#</SPAN>
+<tex2html_verbatim_mark>mathend000# pueden ser 
+de distinta longitud, existe un problema con
+la aricidad de los elementos de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34967#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Discuta posibles
+soluciones.</I><#34955#></DIV><P></P>
+
+
+<P>
+<P><DIV><#34969#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#34969#> &nbsp; 
+<#34972#><I>¿Cómo son los árboles sintácticos en las derivaciones árbol?
+Dibuje varios árboles sintácticos para las gramáticas 
+introducidas en los ejemplos 
+<A HREF=<tex2html_cr_mark>#example:listtreegrammar#11291><tex2html_cr_mark></A>
+y <A HREF=<tex2html_cr_mark>#example:tututreegrammar#11292><tex2html_cr_mark></A>.
+</I>
+<P>
+<I>Intente dar una definición formal del concepto de árbol de análisis
+sintáctico asociado con una derivación en una gramática árbol</I><#34972#></DIV><P></P>
+
+
+<P>
+<P><DIV><A NAME="definition:dewey"><#34974#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">6</SPAN></B><#34974#></A> &nbsp; 
+<#34977#><I>La notación de Dewey es una forma de especificar los subárboles
+de un árbol <tex2html_verbatim_mark>#math6666#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34979#</SPAN>
+<tex2html_verbatim_mark>mathend000#. La notación sigue el mismo
+esquema que la numeración de secciones en un texto: 
+es una palabra formada por números separados
+por puntos. Así <#11296#><I>t/2.1.3 </I><#11296#>
+denota al tercer hijo del primer hijo del segundo hijo
+del árbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34981#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+La definición formal sería:
+</I>
+<UL>
+<LI><tex2html_verbatim_mark>#math6667#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34983#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+<LI>Si <tex2html_verbatim_mark>#math6668#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34985#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verbatim_mark>#math6669#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34987#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34989#</SPAN>
+<tex2html_verbatim_mark>mathend000# es una 
+cadena de números y puntos, se define 
+inductivamente el subárbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34991#</SPAN>
+<tex2html_verbatim_mark>mathend000# como el subárbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34993#</SPAN>
+<tex2html_verbatim_mark>mathend000#-ésimo del
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34995#</SPAN>
+<tex2html_verbatim_mark>mathend000#-ésimo subárbol de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34997#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Esto es: <tex2html_verbatim_mark>#math6670#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline34999#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+</UL><I></I><#34977#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35001#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">4</SPAN></B><#35001#> &nbsp; 
+<#35004#><I>Sea el árbol:
+</I>
+<P>
+<I><BR>
+<BR>
+</I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+<tex2html_verbatim_mark>#math6671#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35006#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35008#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I>         </I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35010#</SPAN>
+<tex2html_verbatim_mark>mathend000#, </I></TD>
+<TD ALIGN="LEFT"><I>   </I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35012#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35014#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35016#</SPAN>
+<tex2html_verbatim_mark>mathend000#,   </I></TD>
+<TD ALIGN="LEFT"><I> </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35018#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35020#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I>         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35022#</SPAN>
+<tex2html_verbatim_mark>mathend000#,</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I>         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35024#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I>         </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35026#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I>              </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35028#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I></I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+          </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35030#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I>         </I></TD>
+<TD ALIGN="LEFT"><I>
+</I></TD>
+</TR>
+</TABLE><I>
+</I>
+<P>
+<I><BR>
+<BR>
+Calcule los subárboles <tex2html_verbatim_mark>#math6672#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35072#</SPAN>
+<tex2html_verbatim_mark>mathend000#, <tex2html_verbatim_mark>#math6673#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35074#</SPAN>
+<tex2html_verbatim_mark>mathend000#, <tex2html_verbatim_mark>#math6674#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35076#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verbatim_mark>#math6675#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35078#</SPAN>
+<tex2html_verbatim_mark>mathend000#.</I><#35004#></DIV><P></P>
+
+
+<P>
+
+<H2><A NAME="SECTION05692000000000000000">
+Realización del AAA para Tutu en Perl</A>
+</H2>
+En la sección 
+<A HREF=<tex2html_cr_mark>#subsection:introduccion#11308><tex2html_cr_mark></A>
+nos limitamos a realizar un recorrido del árbol
+de análisis sintáctico concreto. En esta sección construimos un 
+<A NAME="12194"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">árbol de análisis sintáctico abstracto</SPAN>. Este proceso puede
+verse como <SPAN  CLASS="textbf">la traducción desde el lenguaje de árboles concretos
+hasta el lenguaje de árboles abstractos</SPAN>.
+
+<P>
+<P><DIV><A NAME="definition:tutuast"><#35081#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">9</SPAN>.<SPAN CLASS="arabic">7</SPAN></B><#35081#></A> &nbsp; 
+<#35084#><I>La gramática árbol extendida que especifica los árboles AAA
+para el compilador de Tutu es esta:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I></I><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><I>
+  1 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35086#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6676#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35088#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+  2 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35090#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6677#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35092#</SPAN>
+<tex2html_verbatim_mark>mathend000# list <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35094#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+  3 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35096#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6678#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35098#</SPAN>
+<tex2html_verbatim_mark>mathend000# list <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35100#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+  4 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35102#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6679#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35104#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+  5 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35106#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6680#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35108#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+  6 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35110#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6681#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35112#</SPAN>
+<tex2html_verbatim_mark>mathend000# list <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35114#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+  7 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35116#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6682#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35118#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+  8 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35120#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6683#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35122#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+  9 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35124#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6684#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35126#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+ 10 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35128#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6685#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35130#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+ 11 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35132#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6686#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35134#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+ 12 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35136#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6687#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35138#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+ 13 </I></TD>
+<TD ALIGN="LEFT"><I> <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35140#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I><tex2html_verbatim_mark>#math6688#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35142#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+</TABLE><I></I></DIV><I></I><#35084#></DIV><P></P>
+
+
+<P>
+Hemos extendido el concepto de gramática 
+árbol con el concepto de <A NAME="12196"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">lista de no terminales</SPAN>. 
+A la hora de construir las estructuras de datos
+las listas de variables se van a traducir por listas de árboles.
+
+<P>
+Por ejemplo, un árbol abstracto para el programa
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5578#</PRE>
+
+<P>
+Sería de la forma:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5579#</PRE>
+
+<P>
+Donde los corchetes indican listas y los paréntesis tuplas.
+
+<P>
+Para llevar a cabo la traducción deberemos 
+tomar decisiones sobre que forma de representación nos conviene.
+Cada nodo del AAA va a ser un objeto y la clase indicará si es un nodo
+suma, producto, una declaración, una asignación, etc. 
+
+<P>
+Cada nodo del árbol AAA va a ser un objeto. 
+De este modo el acceso a los atributos del nodo se hará a través de
+los métodos asociados. Además, el procedimiento de traducción
+al lenguaje objetivo depende del tipo de nodo. Así por ejemplo,
+el método <SPAN  CLASS="textbf">traducción</SPAN>
+es diferente para un nodo de tipo <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35183#</SPAN>
+<tex2html_verbatim_mark>mathend000# que para otro de tipo <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35185#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+Resumamos antes de entrar en detalle, la forma de manejar los
+objetos en Perl:
+
+<P>
+
+<UL>
+<LI>Para crear una <A NAME="12198"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">clase</SPAN> se construye un ``package'':
+<PRE><tex2html_verbatim_mark>verbatim5580#</PRE>
+</LI>
+<LI>Para crea un <A NAME="12200"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">método</SPAN> se escribe una subrutina:
+<PRE><tex2html_verbatim_mark>verbatim5581#</PRE>
+el primer argumento de un método suele ser la referencia al 
+objeto en cuestión.
+</LI>
+<LI>Para crear un <A NAME="12202"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">objeto</SPAN>, se bendice (``bless'') una referencia.
+Los objetos Perl son datos normales como hashes y arrays que han sido 
+``bendecidos'' en un paquete. Por ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim5582#</PRE>
+crea un objeto referenciado por <tex2html_verb_mark>1875<tex2html_verb_mark> que pertenece a la clase <tex2html_verb_mark>1876<tex2html_verb_mark>.
+Los métodos del objeto son las subrutinas que aparecen en el <tex2html_verb_mark>1877<tex2html_verb_mark>.
+</LI>
+<LI>Para referirse a un método de un objeto se usa la sintáxis ``flecha'':
+<PRE><tex2html_verbatim_mark>verbatim5583#</PRE>
+Cuando se usa la sintáxis flecha, el primer argumento de la rutina es 
+la referencia al objeto, esto es, la llamada anterior es equivalente a
+<tex2html_verb_mark>1878<tex2html_verb_mark>
+</LI>
+<LI>Constructores: En Perl son rutinas que retornan una referencia a un objeto 
+recién creado e inicializado
+<PRE><tex2html_verbatim_mark>verbatim5584#</PRE>
+Normalmente se llaman usando la sintáxis flecha, pero a la izquierda de la
+flecha va el nombre de la clase. Por ejemplo:
+
+<P>
+<tex2html_verb_mark>1879<tex2html_verb_mark> 
+
+<P>
+En este caso,
+el primer argumento es el nombre de la clase. La llamada anterior es
+equivalente a 
+
+<P>
+<tex2html_verb_mark>1880<tex2html_verb_mark>
+</LI>
+</UL>
+
+<P>
+Volviendo a nuestro problema de crear el AAA, para crear los 
+objetos de las diferentes clases de nodos
+usaremos el módulo  <tex2html_verb_mark>1881<tex2html_verb_mark>
+(véase la línea 9):
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5585#</PRE>
+
+<P>
+Hemos aislado la fase de análisis sintáctica en un módulo
+aparte denominado <tex2html_verb_mark>1882<tex2html_verb_mark>.
+La dependencia se actualiza en <tex2html_verb_mark>1883<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5586#</PRE>
+Se actualiza también MANIFEST:
+<PRE><tex2html_verbatim_mark>verbatim5587#</PRE>
+
+<P>
+Ahora <tex2html_verb_mark>1884<tex2html_verb_mark> llama a <tex2html_verb_mark>1885<tex2html_verb_mark> pasándole
+como argumento la lista de terminales <tex2html_verb_mark>1886<tex2html_verb_mark>. La función <tex2html_verb_mark>1887<tex2html_verb_mark>
+devuelve el AAA:
+<PRE><tex2html_verbatim_mark>verbatim5588#</PRE>
+El módulo <tex2html_verb_mark>1888<tex2html_verb_mark>
+permite crear constructores y métodos de acceso.
+El módulo no viene con la distribución de Perl, así que, en general, deberá 
+descargarlo desde CPAN e instalarlo.
+Así definimos que existe una clase de nodos <tex2html_verb_mark>1889<tex2html_verb_mark>
+que nuestro AAA va a tener:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5589#</PRE>
+
+<P>
+El uso de los argumentos <tex2html_verb_mark>1890<tex2html_verb_mark>
+hace que se cree un objeto de tipo hash  con claves 
+<tex2html_verb_mark>1891<tex2html_verb_mark> y <tex2html_verb_mark>1892<tex2html_verb_mark> así como métodos <tex2html_verb_mark>1893<tex2html_verb_mark>
+y <tex2html_verb_mark>1894<tex2html_verb_mark> que cuando se llaman con un argumento devuelven
+el valor y cuando se llaman con dos argumentos modifican el
+valor correspondiente. 
+La clave <tex2html_verb_mark>1895<tex2html_verb_mark> produce métodos de acceso
+y modificación de los atributos del objeto que
+tienen la forma:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5590#</PRE>
+
+<P>
+Asi mismo el uso de <tex2html_verb_mark>1896<tex2html_verb_mark>
+genera un constructor cuyo nombre
+será <tex2html_verb_mark>1897<tex2html_verb_mark> y que cuando es llamado inicializará el
+objeto con los argumentos con nombre especificados en la llamada.
+El constructor construído (vaya retruécano) cuando se usa la clave
+<tex2html_verb_mark>1898<tex2html_verb_mark> tiene el siguiente aspecto:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5591#</PRE>
+
+<P>
+Ahora podemos crear objetos de la clase <tex2html_verb_mark>1899<tex2html_verb_mark> haciendo:
+<PRE><tex2html_verbatim_mark>verbatim5592#</PRE>
+Cada uno de estos objetos es un hash con las correspondientes
+claves para el nombre y el tipo.
+
+<P>
+Otros tipos de nodos del AAA son:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5593#</PRE>
+
+<P>
+Hemos extendido el concepto de gramática 
+árbol con el concepto de <A NAME="12204"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">lista de no terminales</SPAN>. 
+A la hora de construir las estructuras de datos
+las listas de variables se van a traducir por listas de árboles.
+Los tipos de nodos (<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35187#</SPAN>
+<tex2html_verbatim_mark>mathend000#, <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35189#</SPAN>
+<tex2html_verbatim_mark>mathend000#, ...)
+se traducen en nombres de clases. Hemos hecho
+una excepción con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35191#</SPAN>
+<tex2html_verbatim_mark>mathend000# el cual es simplemente una 
+variable cadena conteniendo el identificador correspondiente.
+
+<P>
+El siguiente esquema de traducción resume la idea para una gramática 
+simplificada: cada vez que encontremos un nodo en el árbol sintáctico 
+concreto con una operación crearemos un nodo en el AAA cuya clase
+viene definida por el tipo de operación. Para los terminales
+creamos igualmente nodos indicando de que clase de terminal 
+se trata. El atributo nodo lo denotaremos por <tex2html_verb_mark>1900<tex2html_verb_mark>:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6689#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35193#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>1901<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6690#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35195#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>1902<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6691#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35197#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>1903<tex2html_verb_mark></TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+
+<P>
+La estructura de cada rutina sigue siendo la misma, 
+sólo que ampliada con las acciones para la construcción de los
+correspondientes nodos. Veamos por ejemplo, como modificamos
+la subrutina factor:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5594#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05693000000000000000">
+AAA: Otros tipos de nodos</A>
+</H2>
+Hemos optado por que las rutinas asociadas a variables sintácticas que 
+describen listas de subcategorías devuelvan 
+las correspondientes listas de nodos. Teníamos tres variables tipo lista.
+Las reglas para las listas eran:
+
+<P>
+<BR>
+<BR>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Gramática de los Árboles de Tutu</TD>
+<TD ALIGN="LEFT">Gramática del lenguaje Tutu</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35206#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verbatim_mark>#math6692#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35208#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">declarations <tex2html_verbatim_mark>#math6693#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35210#</SPAN>
+<tex2html_verbatim_mark>mathend000# declaration  ';'  declarations    <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35212#</SPAN>
+<tex2html_verbatim_mark>mathend000# declaration ';'</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35214#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verbatim_mark>#math6694#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35216#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">statements   <tex2html_verbatim_mark>#math6695#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35218#</SPAN>
+<tex2html_verbatim_mark>mathend000# statement  ';'  statements        <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35220#</SPAN>
+<tex2html_verbatim_mark>mathend000# statement</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35222#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verbatim_mark>#math6696#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35224#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">idlist       <tex2html_verbatim_mark>#math6697#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35226#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID ',' idlist <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35228#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+En este caso las subrutinas asociadas no devuelven
+objetos sino listas de objetos. 
+Esto da lugar a una compactación del AAA.
+Veánse los códigos de <tex2html_verb_mark>1904<tex2html_verb_mark> y <tex2html_verb_mark>1905<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5595#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05694000000000000000">
+Declaraciones</A>
+</H2>
+ Los nodos del tipo declaration no existen propiamente, son nodos 
+de la clase <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35239#</SPAN>
+<tex2html_verbatim_mark>mathend000# o de la clase <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35241#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+La parte de la gramática árbol de la que hablamos es:
+
+<P>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">2</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35243#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6698#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35245#</SPAN>
+<tex2html_verbatim_mark>mathend000# list <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35247#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT">4</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35249#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6699#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35251#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT">5</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35253#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6700#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35255#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT">6</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35257#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6701#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35259#</SPAN>
+<tex2html_verbatim_mark>mathend000# list <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35261#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+Los nodos declaration son un hash con una clave <tex2html_verb_mark>1906<tex2html_verb_mark> la cual
+apunta a la estructura de datos/objeto
+describiendo el tipo. La otra clave del hash <tex2html_verb_mark>1907<tex2html_verb_mark> apunta  a una 
+lista de identificadores. Los elementos de esta lista son simples
+identificadores (identificados en la gramática árbol anterior 
+como <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35275#</SPAN>
+<tex2html_verbatim_mark>mathend000# y no como objetos <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35277#</SPAN>
+<tex2html_verbatim_mark>mathend000#).
+La parte de la gramática implicada en las declaraciones es:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">declaration  <tex2html_verbatim_mark>#math6702#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35279#</SPAN>
+<tex2html_verbatim_mark>mathend000# INT  idlist   <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35281#</SPAN>
+<tex2html_verbatim_mark>mathend000# STRING   idlist</TD>
+</TR>
+<TR><TD ALIGN="LEFT">idlist       <tex2html_verbatim_mark>#math6703#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35283#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID ',' idlist <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35285#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID</TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+
+<P>
+Así pues, el código construye un nodo de la clase 
+<tex2html_verb_mark>1908<tex2html_verb_mark> o <tex2html_verb_mark>1909<tex2html_verb_mark> según sea el caso.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5596#</PRE>
+Observe la llamada <tex2html_verb_mark>1910<tex2html_verb_mark>
+en la cual la clase se usa a través de una referencia simbólica.
+
+<P>
+
+<H2><A NAME="SECTION05695000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12207"><tex2html_anchor_invisible_mark></A>
+  
+<A NAME="practica:AAA"><tex2html_anchor_mark></A><BR>
+Práctica: Arbol de Análisis Abstracto
+</H2>
+Complete la fase de análisis sintáctico para la gramática  de Tutu extendida 
+con sentencias de bloque (vea las reglas 1,2,3 y 11)
+construyendo el AAA según el lenguaje árbol especificado  
+por una gramática árbol que extienda la dada en la definición 
+<A HREF=<tex2html_cr_mark>#definition:tutuast#11390><tex2html_cr_mark></A>.
+Genere pruebas, usando <tex2html_verb_mark>1911<tex2html_verb_mark> 
+para comprobar el correcto funcionamiento de su analizador sobre las mismas.
+Utilize el módulo <tex2html_verb_mark>1912<tex2html_verb_mark> para volcar las estructuras de datos
+resultantes.
+
+<P>
+<BR>
+<BR>
+<SMALL CLASS="SMALL"></SMALL>
+<DIV ALIGN="CENTER"><SMALL CLASS="SMALL"></SMALL><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL">
+1 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  p  <tex2html_verbatim_mark>#math6704#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35290#</SPAN>
+<tex2html_verbatim_mark>mathend000# b     </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+2 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  b  <tex2html_verbatim_mark>#math6705#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35292#</SPAN>
+<tex2html_verbatim_mark>mathend000# ds  ss     </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+3 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  b  <tex2html_verbatim_mark>#math6706#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35294#</SPAN>
+<tex2html_verbatim_mark>mathend000# ss         </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+4 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  ds <tex2html_verbatim_mark>#math6707#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35296#</SPAN>
+<tex2html_verbatim_mark>mathend000# d  ';'  ds  </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+5 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  ds <tex2html_verbatim_mark>#math6708#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35298#</SPAN>
+<tex2html_verbatim_mark>mathend000# d ';'      </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+6 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  d  <tex2html_verbatim_mark>#math6709#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35300#</SPAN>
+<tex2html_verbatim_mark>mathend000# INT  il     </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+7 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  d  <tex2html_verbatim_mark>#math6710#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35302#</SPAN>
+<tex2html_verbatim_mark>mathend000# STRING  il </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+8 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  ss <tex2html_verbatim_mark>#math6711#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35304#</SPAN>
+<tex2html_verbatim_mark>mathend000# s  ';'  ss  </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+9 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  ss <tex2html_verbatim_mark>#math6712#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35306#</SPAN>
+<tex2html_verbatim_mark>mathend000# s          </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+10 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  s  <tex2html_verbatim_mark>#math6713#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35308#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID = e   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+11 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  s  <tex2html_verbatim_mark>#math6714#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35310#</SPAN>
+<tex2html_verbatim_mark>mathend000# '{' b '}'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+12 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  s  <tex2html_verbatim_mark>#math6715#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35312#</SPAN>
+<tex2html_verbatim_mark>mathend000# P  e       </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+13 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  s <tex2html_verbatim_mark>#math6716#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35314#</SPAN>
+<tex2html_verbatim_mark>mathend000# </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+14 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  e <tex2html_verbatim_mark>#math6717#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35316#</SPAN>
+<tex2html_verbatim_mark>mathend000# e1 '+' t    </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+15 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  e <tex2html_verbatim_mark>#math6718#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35318#</SPAN>
+<tex2html_verbatim_mark>mathend000# e1 '-' t    </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+16 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  e <tex2html_verbatim_mark>#math6719#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35320#</SPAN>
+<tex2html_verbatim_mark>mathend000# t           </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+17 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  t <tex2html_verbatim_mark>#math6720#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35322#</SPAN>
+<tex2html_verbatim_mark>mathend000# t1 '*' f    </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+18 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  t <tex2html_verbatim_mark>#math6721#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35324#</SPAN>
+<tex2html_verbatim_mark>mathend000# t '/' f     </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+19 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  t <tex2html_verbatim_mark>#math6722#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35326#</SPAN>
+<tex2html_verbatim_mark>mathend000# f           </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+20 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  f <tex2html_verbatim_mark>#math6723#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35328#</SPAN>
+<tex2html_verbatim_mark>mathend000# '(' e ')'   </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+21 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  f <tex2html_verbatim_mark>#math6724#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35330#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID         </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+22 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  f <tex2html_verbatim_mark>#math6725#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35332#</SPAN>
+<tex2html_verbatim_mark>mathend000# NUM        </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+23 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  f <tex2html_verbatim_mark>#math6726#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35334#</SPAN>
+<tex2html_verbatim_mark>mathend000# STR        </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+24 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  il <tex2html_verbatim_mark>#math6727#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35336#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID ',' il  </SMALL></TD>
+</TR>
+<TR><TD ALIGN="RIGHT"><SMALL CLASS="SMALL"> 
+
+25 </SMALL></TD>
+<TD ALIGN="LEFT"><SMALL CLASS="SMALL">  il <tex2html_verbatim_mark>#math6728#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35338#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID         </SMALL></TD>
+</TR>
+</TABLE><SMALL CLASS="SMALL"></SMALL></DIV><SMALL CLASS="SMALL"></SMALL>
+<BR>
+<BR>
+
+<P>

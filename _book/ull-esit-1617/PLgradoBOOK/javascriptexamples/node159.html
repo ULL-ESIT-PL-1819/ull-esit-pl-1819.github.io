@@ -1,0 +1,718 @@
+
+<H1><A NAME="SECTION05750000000000000000">
+Construcción de las Tablas para el Análisis SLR</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION05751000000000000000">
+Los conjuntos de Primeros y Siguientes</A>
+</H2>
+Repasemos las nociones de conjuntos de <A NAME="15900"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">Primeros</SPAN> y <A NAME="15902"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">siguientes</SPAN>:
+
+<P>
+<P><DIV><#36339#><B>Definición  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#36339#> &nbsp; 
+<#36342#><I>Dada una gramática <tex2html_verbatim_mark>#math6927#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36344#</SPAN>
+<tex2html_verbatim_mark>mathend000# y una frase <tex2html_verbatim_mark>#math6928#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36346#</SPAN>
+<tex2html_verbatim_mark>mathend000# se define el conjunto <tex2html_verbatim_mark>#math6929#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36348#</SPAN>
+<tex2html_verbatim_mark>mathend000# como:
+</I>
+<P>
+<I><tex2html_verbatim_mark>#math6930#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36350#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+</I>
+<P>
+<I>donde:
+</I>
+<P>
+<I><tex2html_verbatim_mark>#math6931#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36352#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+</I>
+<P>
+<I></I><#36342#></DIV><P></P>
+
+
+<P>
+<P><DIV><#36354#><B>Definición  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#36354#> &nbsp; 
+<#36357#><I>Dada una gramática <tex2html_verbatim_mark>#math6932#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36359#</SPAN>
+<tex2html_verbatim_mark>mathend000# y una variable <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36361#</SPAN>
+<tex2html_verbatim_mark>mathend000# se define el conjunto <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36363#</SPAN>
+<tex2html_verbatim_mark>mathend000# como: 
+</I>
+<P>
+<I><tex2html_verbatim_mark>#math6933#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36365#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</I>
+<P>
+<I>donde
+</I>
+<P>
+<I><tex2html_verbatim_mark>#math6934#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36367#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+</I>
+<P>
+<I></I><#36357#></DIV><P></P>
+
+
+<P>
+<P><DIV><#36369#><B>Algoritmo  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#36369#> &nbsp; 
+<#36372#><I>Construcción de los conjuntos <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36374#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</I>
+<OL>
+<LI><tex2html_verbatim_mark>#math6935#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36376#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+<LI><tex2html_verbatim_mark>#math6936#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36378#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</LI>
+<LI><tex2html_verbatim_mark>#math6937#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36380#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+<BR>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<tex2html_verbatim_mark>#math6938#
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36383#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36385#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36387#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36389#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36391#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36393#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL">
+</LI>
+</OL><I></I><#36372#></DIV><P></P>
+
+Este algoritmo puede ser extendido para calcular <tex2html_verbatim_mark>#math6939#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36395#</SPAN>
+<tex2html_verbatim_mark>mathend000# para <tex2html_verbatim_mark>#math6940#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36397#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+<P><DIV><#36399#><B>Algoritmo  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#36399#> &nbsp; 
+<#36402#><I>Construcción del conjunto <tex2html_verbatim_mark>#math6941#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36404#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+</I><BR>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<tex2html_verbatim_mark>#math6942#
+<TABLE CELLPADDING="0" ALIGN="CENTER" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36407#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36409#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36411#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36413#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36415#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36417#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP WIDTH="50%" ALIGN="RIGHT">&nbsp;</TD>
+<TD>&nbsp;</TD>
+<TD ALIGN="LEFT" NOWRAP WIDTH="50%"><tex2html_image_mark>#tex2html_wrap_indisplay36419#</TD>
+<TD CLASS="eqno" WIDTH=10 ALIGN="RIGHT">
+&nbsp;</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL">
+<I></I><#36402#></DIV><P></P>
+
+
+<P>
+<P><DIV><#36421#><B>Algoritmo  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#36421#> &nbsp; 
+<#36424#><I>Construcción de los conjuntos <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36426#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+para las variables sintácticas <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36428#</SPAN>
+<tex2html_verbatim_mark>mathend000#: 
+</I>
+<P>
+<I>Repetir los siguientes pasos hasta que ninguno de los conjuntos <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36430#</SPAN>
+<tex2html_verbatim_mark>mathend000# cambie:
+</I>
+ 
+<OL>
+<LI><tex2html_verbatim_mark>#math6943#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36432#</SPAN>
+<tex2html_verbatim_mark>mathend000# (<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36434#</SPAN>
+<tex2html_verbatim_mark>mathend000# representa el final de la entrada)
+</LI>
+<LI><tex2html_verbatim_mark>#math6944#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36436#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+<P><tex2html_verbatim_mark>#math6945#</P><DIV ALIGN="CENTER" CLASS="mathdisplay">
+<tex2html_image_mark>#tex2html_wrap_indisplay36438#
+</DIV><P>
+<tex2html_verbatim_mark>mathend000#</P>
+</LI>
+<LI><tex2html_verbatim_mark>#math6946#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36440#</SPAN>
+<tex2html_verbatim_mark>mathend000# o bien <tex2html_verbatim_mark>#math6947#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36442#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+y <tex2html_verbatim_mark>#math6948#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36444#</SPAN>
+<tex2html_verbatim_mark>mathend000# entonces
+
+<P>
+<P><tex2html_verbatim_mark>#math6949#</P><DIV ALIGN="CENTER" CLASS="mathdisplay">
+<tex2html_image_mark>#tex2html_wrap_indisplay36446#
+</DIV><P>
+<tex2html_verbatim_mark>mathend000#</P>
+</LI>
+</OL><I></I><#36424#></DIV><P></P>
+
+
+<P>
+
+<H2><A NAME="SECTION05752000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="subsection:nfa2dfa"><tex2html_anchor_mark></A><BR>
+Construcción de las Tablas
+</H2>
+
+<P>
+Para la construcción de las tablas de un analizador SLR
+se construye el <A NAME="15904"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">autómata finito determinista</SPAN> (<A NAME="15906"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">DFA</SPAN>) 
+<tex2html_verbatim_mark>#math6950#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36449#</SPAN>
+<tex2html_verbatim_mark>mathend000# equivalente al NFA 
+presentado en la sección
+<A HREF=<tex2html_cr_mark>#section:conceptosbasicos#15545><tex2html_cr_mark></A>
+usando el <A NAME="15908"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">algoritmo de construcción del subconjunto</SPAN>.
+
+<P>
+Como recordará, en la construcción del subconjunto,
+partiendo del estado de arranque <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36451#</SPAN>
+<tex2html_verbatim_mark>mathend000# del NFA con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36453#</SPAN>
+<tex2html_verbatim_mark>mathend000#-transiciones
+se calcula su <A NAME="15910"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">clausura</SPAN> <tex2html_verbatim_mark>#math6951#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36455#</SPAN>
+<tex2html_verbatim_mark>mathend000# y las 
+clausuras de los conjuntos de estados <tex2html_verbatim_mark>#math6952#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36457#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+a los que transita.  Se repite el proceso
+con los conjuntos resultantes hasta que no se introducen nuevos
+conjuntos-estado.
+
+<P>
+La clausura <tex2html_verbatim_mark>#math6953#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36459#</SPAN>
+<tex2html_verbatim_mark>mathend000# de un subconjunto de estados del autómata <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36461#</SPAN>
+<tex2html_verbatim_mark>mathend000# esta formada
+por todos los estados que pueden ser alcanzados mediante transiciones
+etiquetadas con la palabra vacía (denominadas <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36463#</SPAN>
+<tex2html_verbatim_mark>mathend000# transiciones)
+desde los estados de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36465#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Se incluyen en <tex2html_verbatim_mark>#math6954#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36467#</SPAN>
+<tex2html_verbatim_mark>mathend000#, naturalmente los estados 
+de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36469#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6955#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36471#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+Aquí <tex2html_verbatim_mark>#math6956#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36473#</SPAN>
+<tex2html_verbatim_mark>mathend000# denota la <A NAME="15912"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">función de transición del autómata</SPAN> extendida  a cadenas
+de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36475#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+<P></P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay"><A NAME="equation:deltahat"><tex2html_anchor_mark></A><tex2html_verbatim_mark>#math6957#<TABLE CLASS="equation" CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_indisplay36477#</SPAN></TD>
+<TD NOWRAP CLASS="eqno" WIDTH="10" ALIGN="RIGHT">
+(<SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">1</SPAN>)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+
+<P>
+En la práctica, y a partir de ahora así lo haremos, se prescinde de diferenciar
+entre <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36479#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verbatim_mark>#math6958#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36481#</SPAN>
+<tex2html_verbatim_mark>mathend000# usándose indistintamente la notación
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36483#</SPAN>
+<tex2html_verbatim_mark>mathend000# para ambas funciones.
+
+<P>
+La clausura puede ser computada usando una estructura de pila o aplicando 
+la expresión recursiva dada en la ecuación <A HREF=<tex2html_cr_mark>#equation:deltahat#15569><tex2html_cr_mark></A>.
+
+<P>
+Para el NFA mostrado en el ejemplo <A HREF=<tex2html_cr_mark>#example:asb#15570><tex2html_cr_mark></A> el DFA construído mediante esta
+técnica es el que se muestra en la figura <A HREF=<tex2html_cr_mark>#fig:dfa#15571><tex2html_cr_mark></A>. Se ha utilizado el símbolo
+<tex2html_verb_mark>2093<tex2html_verb_mark> como marcador. Se ha omitido el número 3 para que los estados coincidan
+en numeración con los generados por <tex2html_verb_mark>2094<tex2html_verb_mark> (véase el cuadro
+<A HREF=<tex2html_cr_mark>#table:tablaslalr#15572><tex2html_cr_mark></A>).
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+<DIV ALIGN="CENTER"><A NAME="fig:dfa"><tex2html_anchor_mark></A><A NAME="15761"><tex2html_anchor_mark></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG><#36484#>Figura<#36484#> 34.2:</STRONG>
+<#36485#>DFA equivalente al NFA de la figura <A HREF=<tex2html_cr_mark>#fig:nfa#15576><tex2html_cr_mark></A><#36485#></CAPTION>
+<TR><TD><tex2html_image_mark>#figure15574#</TD></TR>
+</TABLE>
+</DIV>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+Un analizador sintáctico LR utiliza una tabla para su análisis.
+Esa tabla se construye a partir de la tabla de transiciones del DFA.
+De hecho, la tabla se divide en dos tablas, una llamada 
+<A NAME="15914"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">tabla de saltos</SPAN> o <A NAME="15916"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">tabla de gotos</SPAN> y la otra
+<A NAME="15918"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">tabla de acciones</SPAN>.
+
+<P>
+La tabla <A NAME="15920"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">goto</SPAN> de un analizador <A NAME="15922"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">SLR</SPAN>
+no es más que la tabla de transiciones del autómata DFA 
+obtenido aplicando la construcción del subconjunto al NFA
+definido en <A HREF=<tex2html_cr_mark>#definition:slrautomata#15585><tex2html_cr_mark></A>. De hecho es la tabla
+de transiciones restringida a <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36488#</SPAN>
+<tex2html_verbatim_mark>mathend000# (recuerde que el alfabeto del
+autómata es <tex2html_verbatim_mark>#math6959#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36490#</SPAN>
+<tex2html_verbatim_mark>mathend000#).
+Esto es, 
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6960#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36492#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+</DIV>
+<P>
+<DIV ALIGN="CENTER">donde se define <tex2html_verbatim_mark>#math6961#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36494#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+La parte de la función de transiciones
+del DFA que corresponde a los terminales que no producen rechazo, 
+esto es, <tex2html_verbatim_mark>#math6962#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36496#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+se adjunta a una tabla que se denomina <A NAME="15924"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">tabla de acciones</SPAN>.
+La tabla de acciones es una tabla de doble entrada en los estados
+y en los símbolos de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36498#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+Las acciones de transición ante terminales 
+se denominan <A NAME="15926"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">acciones de desplazamiento</SPAN> o (<A NAME="15928"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">acciones shift</SPAN>):
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6963#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36500#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+<P>
+<DIV ALIGN="CENTER">donde se define <tex2html_verbatim_mark>#math6964#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36502#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+Cuando un estado <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36504#</SPAN>
+<tex2html_verbatim_mark>mathend000# contiene un LR(0)-item de la forma 
+<tex2html_verbatim_mark>#math6965#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36506#</SPAN>
+<tex2html_verbatim_mark>mathend000#, 
+esto es, el estado corresponde a un posible rechazo,
+ello indica que hemos llegado a un final del prefijo viable, que hemos
+visto <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36508#</SPAN>
+<tex2html_verbatim_mark>mathend000# y que, por tanto, es probable que <tex2html_verbatim_mark>#math6966#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36510#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+sea el <SPAN  CLASS="textbf">handle</SPAN> de la forma sentencial derecha actual. Por tanto,
+añadiremos en entradas de la forma <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36512#</SPAN>
+<tex2html_verbatim_mark>mathend000# de la tabla de acciones 
+una acción que indique que hemos encontrado el mango en la 
+posición actual y que la regla asociada es <tex2html_verbatim_mark>#math6967#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36514#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+A una acción de este tipo se la denomina <A NAME="15930"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">acción de reducción</SPAN>.
+
+<P>
+La cuestión es, ¿para que valores de <tex2html_verbatim_mark>#math6968#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36516#</SPAN>
+<tex2html_verbatim_mark>mathend000# debemos disponer que
+la acción para <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36518#</SPAN>
+<tex2html_verbatim_mark>mathend000# es de reducción?
+
+<P>
+<DIV ALIGN="CENTER">
+Se define <tex2html_verbatim_mark>#math6969#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36520#</SPAN>
+<tex2html_verbatim_mark>mathend000# ¿Pero, para que <tex2html_verbatim_mark>#math6970#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36522#</SPAN>
+<tex2html_verbatim_mark>mathend000#?
+
+</DIV>
+
+<P>
+Podríamos decidir que ante cualquier terminal <tex2html_verbatim_mark>#math6971#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36524#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+que produzca un rechazo del autómata, pero podemos ser un poco mas
+selectivos. No cualquier terminal puede estar en la entrada en el momento
+en el que se produce la antiderivación o reducción. 
+Observemos que si <tex2html_verbatim_mark>#math6972#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36526#</SPAN>
+<tex2html_verbatim_mark>mathend000# es el <SPAN  CLASS="textbf">handle</SPAN>
+de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36528#</SPAN>
+<tex2html_verbatim_mark>mathend000# es porque:
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6973#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36530#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+Por tanto, cuando estamos reduciendo por <tex2html_verbatim_mark>#math6974#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36532#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+los únicos terminales legales que cabe esperar en una reducción por <tex2html_verbatim_mark>#math6975#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36534#</SPAN>
+<tex2html_verbatim_mark>mathend000# son los terminales <tex2html_verbatim_mark>#math6976#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36536#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+<DIV ALIGN="CENTER">
+Se define <tex2html_verbatim_mark>#math6977#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36538#</SPAN>
+<tex2html_verbatim_mark>mathend000# Para <tex2html_verbatim_mark>#math6978#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36540#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+Dada una gramática <tex2html_verbatim_mark>#math6979#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36542#</SPAN>
+<tex2html_verbatim_mark>mathend000#, podemos construir las tablas de acciones (<SPAN  CLASS="textbf">action table</SPAN>) y  transiciones (<SPAN  CLASS="textbf">gotos table</SPAN>) mediante el siguiente algoritmo:
+
+<P>
+<P><DIV><A NAME="alg:tables"><#36544#><B>Algoritmo  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">4</SPAN></B><#36544#></A> &nbsp; 
+<#36547#><I>Construcción de Tablas <A NAME="15932"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">SLR</SPAN>
+</I>
+<P>
+<I></I>
+<OL>
+<LI>Utilizando el Algoritmo de Construcción del Subconjunto, se construye
+el Autómata Finito Determinista (DFA) <tex2html_verbatim_mark>#math6980#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36549#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+equivalente al Autómata Finito No
+Determinista (NFA) definido en <A HREF=<tex2html_cr_mark>#definition:slrautomata#15619><tex2html_cr_mark></A>.
+Sea <tex2html_verbatim_mark>#math6981#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36551#</SPAN>
+<tex2html_verbatim_mark>mathend000# el conjunto de estados
+del DFA. Cada estado <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36553#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un conjunto de LR(0)-items o estados
+del NFA. Asociemos un índice <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36555#</SPAN>
+<tex2html_verbatim_mark>mathend000# con cada conjunto <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36557#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+</LI>
+<LI>La tabla de <SPAN  CLASS="textbf">gotos</SPAN> no es más que la función de transición del 
+autómata restringida a las variables de la gramática:
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6982#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36559#</SPAN>
+<tex2html_verbatim_mark>mathend000# para todo <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36561#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+</LI>
+<LI>Las acciones para el estado <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36563#</SPAN>
+<tex2html_verbatim_mark>mathend000# se determinan como sigue:
+  
+<OL>
+<LI>Si <tex2html_verbatim_mark>#math6983#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36565#</SPAN>
+<tex2html_verbatim_mark>mathend000#, <tex2html_verbatim_mark>#math6984#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36567#</SPAN>
+<tex2html_verbatim_mark>mathend000#, <tex2html_verbatim_mark>#math6985#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36569#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+  entonces:
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6986#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36571#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+</LI>
+<LI>Si <tex2html_verbatim_mark>#math6987#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36573#</SPAN>
+<tex2html_verbatim_mark>mathend000# entonces 
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6988#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36575#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+</LI>
+<LI>Para cualquier otro caso de la forma <tex2html_verbatim_mark>#math6989#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36577#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+  distinto del anterior hacer
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6990#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36579#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+</LI>
+</OL>
+</LI>
+<LI>Las entradas de la tabla de acción que queden indefinidas después de aplicado el proceso anterior corresponden a acciones de ``<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36581#</SPAN>
+<tex2html_verbatim_mark>mathend000#''.
+</LI>
+</OL><I></I><#36547#></DIV><P></P>
+
+
+<P>
+<P><DIV><#36583#><B>Definición  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#36583#> &nbsp; 
+<#36586#><I>Si alguna de las entradas de la tabla resulta multievaluada, decimos
+que existe un conflicto y que la gramática no es <A NAME="15934"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">SLR</SPAN>.
+</I>
+<P>
+<I></I>
+<OL>
+<LI>En tal caso, si una de las acciones es de `reducción'' y la otra es de
+`desplazamiento'', decimos que hay un <A NAME="15936"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">conflicto shift-reduce</SPAN> o
+<A NAME="15938"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">conflicto de desplazamiento-reducción</SPAN>. 
+</LI>
+<LI>Si las
+dos reglas indican una acción de reducción, decimos que tenemos un 
+<A NAME="15940"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">conflicto reduce-reduce</SPAN> o de <A NAME="15942"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">reducción-reducción</SPAN>.
+</LI>
+</OL><I></I><#36586#></DIV><P></P>
+
+
+<P>
+<P><DIV><A NAME="example:tablasslr"><#36588#><B>Ejemplo  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#36588#></A> &nbsp; 
+<#36591#><I>Al aplicar el algoritmo <A HREF=<tex2html_cr_mark>#alg:tables#15644><tex2html_cr_mark></A>       
+a la gramática <A HREF=<tex2html_cr_mark>#example:asb#15645><tex2html_cr_mark></A> 
+</I>
+<P>
+<I><BR>
+<BR>
+</I>
+<DIV ALIGN="CENTER"><I></I><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><I>
+1 </I></TD>
+<TD ALIGN="LEFT"><I> S      <tex2html_verbatim_mark>#math6991#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36593#</SPAN>
+<tex2html_verbatim_mark>mathend000# a S b</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+
+2 </I></TD>
+<TD ALIGN="LEFT"><I> S      <tex2html_verbatim_mark>#math6992#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36595#</SPAN>
+<tex2html_verbatim_mark>mathend000# <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36597#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+</TR>
+</TABLE><I></I></DIV><I>
+<BR>
+<BR>
+</I>
+<P>
+<I>partiendo del autómata finito determinista
+que se construyó en 
+la figura <A HREF=<tex2html_cr_mark>#fig:dfa#15653><tex2html_cr_mark></A> y calculando los 
+conjuntos de primeros y siguientes
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I></I><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><I>
+     </I></TD>
+<TD ALIGN="LEFT"><I> FIRST  </I></TD>
+<TD ALIGN="LEFT"><I> FOLLOW </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+
+S    </I></TD>
+<TD ALIGN="LEFT"><I> a, <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36603#</SPAN>
+<tex2html_verbatim_mark>mathend000# </I></TD>
+<TD ALIGN="LEFT"><I> b, $</I></TD>
+</TR>
+</TABLE><I></I></DIV><I>
+</I>
+<P>
+<I>obtenemos la siguiente tabla de acciones SLR:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I></I><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT"><I>
+     </I></TD>
+<TD ALIGN="LEFT"><I>  a  </I></TD>
+<TD ALIGN="LEFT"><I>  b  </I></TD>
+<TD ALIGN="LEFT"><I> $ </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+
+0    </I></TD>
+<TD ALIGN="LEFT"><I> s2  </I></TD>
+<TD ALIGN="LEFT"><I>  r2 </I></TD>
+<TD ALIGN="LEFT"><I> r2 </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+
+1    </I></TD>
+<TD ALIGN="LEFT"><I>     </I></TD>
+<TD ALIGN="LEFT"><I>     </I></TD>
+<TD ALIGN="LEFT"><I> aceptar</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+
+2    </I></TD>
+<TD ALIGN="LEFT"><I> s2  </I></TD>
+<TD ALIGN="LEFT"><I> r2  </I></TD>
+<TD ALIGN="LEFT"><I> r2</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+
+4    </I></TD>
+<TD ALIGN="LEFT"><I>     </I></TD>
+<TD ALIGN="LEFT"><I> s5  </I></TD>
+<TD ALIGN="LEFT"><I>   </I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+
+5    </I></TD>
+<TD ALIGN="LEFT"><I>     </I></TD>
+<TD ALIGN="LEFT"><I> r1  </I></TD>
+<TD ALIGN="LEFT"><I> r1</I></TD>
+</TR>
+</TABLE><I></I></DIV><I>
+</I>
+<P>
+<I>Las entradas denotadas con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36635#</SPAN>
+<tex2html_verbatim_mark>mathend000# <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36637#</SPAN>
+<tex2html_verbatim_mark>mathend000# (<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36639#</SPAN>
+<tex2html_verbatim_mark>mathend000# por shift) indican un desplazamiento
+al estado <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36641#</SPAN>
+<tex2html_verbatim_mark>mathend000#, las denotadas con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36643#</SPAN>
+<tex2html_verbatim_mark>mathend000# <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36645#</SPAN>
+<tex2html_verbatim_mark>mathend000# (<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36647#</SPAN>
+<tex2html_verbatim_mark>mathend000# por reduce o reducción) indican una operación
+de reducción o antiderivación por la regla <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36649#</SPAN>
+<tex2html_verbatim_mark>mathend000#.  Las entradas vacías 
+corresponden a acciones de error.</I><#36591#></DIV><P></P>
+
+
+<P>
+El método de análisis <A NAME="15944"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">LALR</SPAN> usado por <tex2html_verb_mark>2095<tex2html_verb_mark>
+es una extensión del método SLR esbozado
+aqui. Supone un compromiso entre potencia (conjunto de gramáticas
+englobadas) y eficiencia (cantidad de memoria utilizada, tiempo de
+proceso).
+Veamos como <tex2html_verb_mark>2096<tex2html_verb_mark> aplica la construcción del subconjunto a la 
+gramática del ejemplo
+<A HREF=<tex2html_cr_mark>#example:asb#15666><tex2html_cr_mark></A>.
+Para ello construimos el siguiente programa <tex2html_verb_mark>2097<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5723#</PRE>
+y lo compilamos con <tex2html_verb_mark>2098<tex2html_verb_mark>. Estas son las opciones disponibles:
+<PRE><tex2html_verbatim_mark>verbatim5724#</PRE>
+Desafortunadamente carece de la típica opción <tex2html_verb_mark>2099<tex2html_verb_mark> que permite generar las tablas
+de análisis. Podemos intentar usar <tex2html_verb_mark>2100<tex2html_verb_mark>, pero, obviamente, <tex2html_verb_mark>2101<tex2html_verb_mark> protesta ante la entrada:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5725#</PRE>
+El error es causado por la presencia del analizador léxico 
+empotrado en el fichero <tex2html_verb_mark>2102<tex2html_verb_mark>.  Si suprimimos provisionalmente
+las líneas del analizador léxico empotrado,
+<tex2html_verb_mark>2103<tex2html_verb_mark> es capaz de analizar la gramática:
+<PRE><tex2html_verbatim_mark>verbatim5726#</PRE>
+Que tiene los siguientes contenidos:
+<PRE><tex2html_verbatim_mark>verbatim5727#</PRE>
+
+<P>
+El contenido del fichero <tex2html_verb_mark>2104<tex2html_verb_mark> se muestra
+en la tabla 
+<A HREF=<tex2html_cr_mark>#table:tablaslalr#15677><tex2html_cr_mark></A>.
+Los números de referencia a las producciones en las acciones
+de reducción vienen dados por:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5728#</PRE> 
+
+<P>
+Observe que el final de la entrada se denota 
+por <tex2html_verb_mark>2105<tex2html_verb_mark> y el marcador en un LR-item 
+por un punto. Fíjese en el estado 2: 
+En ese estado están también los items
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>2106<tex2html_verb_mark>
+y <tex2html_verb_mark>2107<tex2html_verb_mark>
+
+</DIV>
+
+<P>
+sin embargo no se explicitan
+por que se entiende que su pertenencia es
+consecuencia directa de aplicar la operación 
+de clausura. Los LR items cuyo marcador
+no está al principio se denominan
+<A NAME="15946"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">items núcleo</SPAN>. 
+
+<P>
+<BR>
+<BR>
+<BR><P></P>
+<DIV ALIGN="CENTER"><A NAME="15763"><tex2html_anchor_mark></A>
+<TABLE>
+<CAPTION><STRONG><#36662#>Tabla<#36662#> 34.1:</STRONG>
+<#36663#>Tablas generadas por <#15704#><TT>bison</TT><#15704#>. El estado 3 resulta de transitar con $<#36663#></CAPTION>
+<TR><TD><DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1" ALIGN="CENTER">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>Estado 0</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>Estado 1</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>Estado 2</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113><PRE><tex2html_verbatim_mark>verbatim5729#</PRE></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113><PRE><tex2html_verbatim_mark>verbatim5730#</PRE></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113><PRE><tex2html_verbatim_mark>verbatim5731#</PRE> 
+
+<P></TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>Estado 3</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>Estado 4</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113>Estado 5</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113><PRE><tex2html_verbatim_mark>verbatim5732#</PRE></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113><PRE><tex2html_verbatim_mark>verbatim5733#</PRE></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=113><PRE><tex2html_verbatim_mark>verbatim5734#</PRE></TD>
+</TR>
+</TABLE>
+</DIV>
+
+<A NAME="table:tablaslalr"><tex2html_anchor_mark></A></TD></TR>
+</TABLE>
+</DIV><P></P><BR>
+
+<P>
+<P><DIV><#36666#><B>Ejercicio  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#36666#> &nbsp; 
+<#36669#><I>Compare la tabla <A HREF=<tex2html_cr_mark>#table:tablaslalr#15708><tex2html_cr_mark></A> resultante de 
+aplicar <tex2html_verb_mark>2108<tex2html_verb_mark> con la que obtuvo en el ejemplo
+<A HREF=<tex2html_cr_mark>#example:tablasslr#15709><tex2html_cr_mark></A>.</I><#36669#></DIV><P></P>
+
+
+<P>

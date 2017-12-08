@@ -1,0 +1,297 @@
+
+<H1><A NAME="SECTION05210000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:estructuraflex"><tex2html_anchor_mark></A><BR>
+Estructura de un programa LEX
+</H1>
+
+<P>
+
+<H4><A NAME="SECTION05210010000000000000">
+Estructura de un programa</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+ <#2837#><TT>LEX</TT><#2837#>  y  <#2838#><TT>FLEX</TT><#2838#>  son ejemplos de generadores léxicos.  <#2839#><TT>Flex</TT><#2839#> 
+lee desde la entrada est&#225;ndar si no se especifica explícitamente
+un fichero de entrada. El fichero de entrada <tex2html_verb_mark>110<tex2html_verb_mark> (se suele usar el tipo <tex2html_verb_mark>111<tex2html_verb_mark>)
+debe tener la forma:
+<BR>
+<P>
+<TT><tex2html_percent_mark>{              
+<BR>declaration C1              
+<BR>.
+<BR>.
+<BR>.
+<BR>
+<BR>declaration CM              
+<BR><tex2html_percent_mark>}              
+<BR>macro_name1 regular_definition1                  
+<BR>.
+<BR>.
+<BR>.
+<BR>
+<BR>macro_nameR regular_definitionR                  
+<BR></TT>
+<P>
+<TT><tex2html_percent_mark>x exclusive_state
+<BR><tex2html_percent_mark>s inclusive_state
+<BR><tex2html_percent_mark><tex2html_percent_mark>              
+<BR>              
+<BR>regular_expression1 { action1(); }              
+<BR>.
+<BR>.
+<BR>.
+<BR>
+<BR>regular_expressionN { actionN(); }              
+<BR>              
+<BR><tex2html_percent_mark><tex2html_percent_mark>              
+<BR>support_routine1() {              
+<BR>}              
+<BR>.
+<BR>.
+<BR>.
+<BR>
+<BR>support_routineS() {              
+<BR>}              
+<BR></TT>
+
+<P>
+Como vemos,  un programa <tex2html_verb_mark>112<tex2html_verb_mark> consta de 3 secciones, separadas
+por <tex2html_verb_mark>114<tex2html_verb_mark>. La primera secci&#243;n se denomina <A NAME="2840"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textit">secci&#243;n de
+definiciones</SPAN>,
+la segunda <A NAME="2842"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textit">secci&#243;n de reglas</SPAN> 
+y la tercera <A NAME="2844"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textit">secci&#243;n de c&#243;digo</SPAN>. 
+La primera y la &#250;ltima son opcionales, as&#305; el programa legal <tex2html_verb_mark>115<tex2html_verb_mark> mas simple es:
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=227><PRE><tex2html_verbatim_mark>verbatim622#</PRE></TD>
+</TR>
+</TABLE>
+
+<P>
+que genera un analizador que copia su entrada en <tex2html_verb_mark>116<tex2html_verb_mark>.
+
+<P>
+
+<H4><A NAME="SECTION05210020000000000000">
+Compilación</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Una vez compilado el fichero de entrada <tex2html_verb_mark>117<tex2html_verb_mark>
+mediante la correspondiente orden:
+
+<P>
+<tex2html_verb_mark>118<tex2html_verb_mark> 
+
+<P>
+obtenemos un fichero denominado <tex2html_verb_mark>119<tex2html_verb_mark>. Este fichero
+contiene la rutina <tex2html_verb_mark>120<tex2html_verb_mark> que realiza el an&#225;lisis l&#233;xico
+del lenguaje descrito en <tex2html_verb_mark>121<tex2html_verb_mark>. Supuesto que una de las
+<tex2html_verb_mark>122<tex2html_verb_mark> es una funci&#243;n <tex2html_verb_mark>123<tex2html_verb_mark> que llama a la
+funci&#243;n <tex2html_verb_mark>124<tex2html_verb_mark>, podemos compilar el fichero generado con un
+compilador C para obtener un ejecutable <tex2html_verb_mark>125<tex2html_verb_mark>:
+
+<P>
+<tex2html_verb_mark>126<tex2html_verb_mark> 
+
+<P>
+La inclusi&#243;n de la opci&#243;n <tex2html_verb_mark>127<tex2html_verb_mark> enlaza con la
+librer&#305;a de <tex2html_verb_mark>128<tex2html_verb_mark>, que contiene dos funciones: <tex2html_verb_mark>129<tex2html_verb_mark>
+y <tex2html_verb_mark>130<tex2html_verb_mark>.
+
+<P>
+
+<H4><A NAME="SECTION05210030000000000000">
+Ejecución</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Cuando ejecutamos el programa <tex2html_verb_mark>131<tex2html_verb_mark>, la funci&#243;n <tex2html_verb_mark>132<tex2html_verb_mark>
+analiza las entradas, buscando la secuencia mas larga que casa con alguna
+de las expresiones regulares (<tex2html_verb_mark>133<tex2html_verb_mark>) y ejecuta la
+correspondiente acci&#243;n (<tex2html_verb_mark>134<tex2html_verb_mark>).
+Si no se encuentra ningun  emparejamiento se ejecuta la <A NAME="2854"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textit">regla por defecto</SPAN>, que es:
+
+<P>
+<tex2html_verb_mark>136<tex2html_verb_mark>
+
+<P>
+Si encuentran dos expresiones regulares con las que la cadena mas larga
+casa, elige la que figura primera en el programa <tex2html_verb_mark>137<tex2html_verb_mark>.
+Una vez que <tex2html_verb_mark>138<tex2html_verb_mark> ha encontrado el <SPAN  CLASS="textit">token</SPAN>, esto es, el
+patr&#243;n que casa con la cadena mas larga, dicha cadena queda disponible
+a trav&#233;s del puntero global  <#2856#><TT>yytext</TT><#2856#> , y su longitud queda en la
+variable entera global  <#2857#><TT>yyleng</TT><#2857#> .
+
+<P>
+Una vez que se ha ejecutado la correspondiente acci&#243;n, <tex2html_verb_mark>139<tex2html_verb_mark>
+contin&#250;a con el resto de la entrada, buscando por subsiguientes
+emparejamientos. Asi continúa hasta encontrar un <tex2html_verb_mark>140<tex2html_verb_mark>,
+en cuyo caso termina, retornando un cero o bien hasta que una de las
+acciones explicitamente ejecuta una sentencia <tex2html_verb_mark>141<tex2html_verb_mark>.
+
+<P>
+
+<H4><A NAME="SECTION05210040000000000000">
+Secci&#243;n de definiciones</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+La primera secci&#243;n contiene, si las hubiera,  las definiciones regulares
+y las declaraciones de los estados de arranque.
+
+<P>
+Las definiciones tiene la forma:
+
+<P>
+<SPAN  CLASS="textit">name regular_definition</SPAN>
+
+<P>
+donde <SPAN  CLASS="textit">name</SPAN> puede ser descrito mediante la expresi&#243;n regular:
+
+<P>
+<tex2html_verb_mark>142<tex2html_verb_mark> 
+
+<P>
+La <SPAN  CLASS="textit">regular_definition</SPAN> comienza en el primer car&#225;cter no
+blanco que sigue a <SPAN  CLASS="textit">name</SPAN> y termina al final de la l&#305;nea. La
+definici&#243;n es una expresi&#243;n regular extendida. Las subsiguientes
+definiciones pueden ``llamar'' a la macro <tex2html_verb_mark>143<tex2html_verb_mark> escribi&#233;ndola
+entre llaves. La macro se expande entonces a <tex2html_verb_mark>144<tex2html_verb_mark>
+en <tex2html_verb_mark>145<tex2html_verb_mark> y a <tex2html_verb_mark>146<tex2html_verb_mark> en <tex2html_verb_mark>147<tex2html_verb_mark>.
+
+<P>
+El c&#243;digo entre los delimitadores <tex2html_verb_mark>149<tex2html_verb_mark> y <tex2html_verb_mark>150<tex2html_verb_mark> se copia
+verbatim al fichero de salida, situ&#225;ndose en la parte de declaraciones
+globales. Los delimitadores deben aparecer (s&#243;los) al comienzo de
+la l&#305;nea.
+
+<P>
+
+<H4><A NAME="SECTION05210050000000000000">
+El Lenguaje de las Expresiones Regulares Flex</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+La sint&#225;xis que puede utilizarse para la descripci&#243;n de las
+expresiones regulares es la que se conoce como ``extendida'':
+
+<P>
+
+<UL>
+<LI><tex2html_verb_mark>151<tex2html_verb_mark>	      Casa con 'x'
+</LI>
+<LI><tex2html_verb_mark>152<tex2html_verb_mark>	      Cualquier car&#225;cter, excepto <tex2html_verb_mark>153<tex2html_verb_mark>.
+</LI>
+<LI><tex2html_verb_mark>154<tex2html_verb_mark>      Una ``clase''; en este caso una de las letras <tex2html_verb_mark>155<tex2html_verb_mark>, <tex2html_verb_mark>156<tex2html_verb_mark>, <tex2html_verb_mark>157<tex2html_verb_mark>
+</LI>
+<LI><tex2html_verb_mark>158<tex2html_verb_mark>   Una ``clase'' con un rango; casa con  <tex2html_verb_mark>159<tex2html_verb_mark>,  <tex2html_verb_mark>160<tex2html_verb_mark>, cualquier letra desde  <tex2html_verb_mark>161<tex2html_verb_mark> hasta <tex2html_verb_mark>162<tex2html_verb_mark>, o una <tex2html_verb_mark>163<tex2html_verb_mark>
+</LI>
+<LI><tex2html_verb_mark>164<tex2html_verb_mark>     Una ``Clase complementada'' esto es, todos los caracteres que no est&#225;n en la clase. Cualquier car&#225;cter, excepto las letras may&#250;sculas. Obs&#233;rvese que el retorno de carro <tex2html_verb_mark>165<tex2html_verb_mark> casa
+con esta expresion. As&#305; es posible que, ;SPMlt;un patr&#243;n como <tex2html_verb_mark>166<tex2html_verb_mark> pueda casar con todo el fichero!.
+</LI>
+<LI><tex2html_verb_mark>167<tex2html_verb_mark>   Cualquier car&#225;cter, excepto las letras may&#250;sculas o un <tex2html_verb_mark>168<tex2html_verb_mark>.
+</LI>
+<LI><P>
+<tex2html_verb_mark>169<tex2html_verb_mark> Casa con cualquier caracter alfanum&#233;rico. Aqui <tex2html_verb_mark>170<tex2html_verb_mark> se refiere a una de las clases predefinidas. Las otras clases son: <tex2html_verb_mark>171<tex2html_verb_mark> <tex2html_verb_mark>172<tex2html_verb_mark> <tex2html_verb_mark>173<tex2html_verb_mark> <tex2html_verb_mark>174<tex2html_verb_mark> <tex2html_verb_mark>175<tex2html_verb_mark> <tex2html_verb_mark>176<tex2html_verb_mark> <tex2html_verb_mark>177<tex2html_verb_mark> <tex2html_verb_mark>178<tex2html_verb_mark> <tex2html_verb_mark>179<tex2html_verb_mark> <tex2html_verb_mark>180<tex2html_verb_mark> <tex2html_verb_mark>181<tex2html_verb_mark>. Estas clases designan el mismo conjunto de caracteres que la correspondiente funci&#243;n C <tex2html_verb_mark>182<tex2html_verb_mark>.
+
+<P>
+</LI>
+<LI><tex2html_verb_mark>183<tex2html_verb_mark>	Cero o mas <tex2html_verb_mark>184<tex2html_verb_mark>.
+</LI>
+<LI><tex2html_verb_mark>185<tex2html_verb_mark>       Una o mas <tex2html_verb_mark>186<tex2html_verb_mark>.
+</LI>
+<LI><tex2html_verb_mark>187<tex2html_verb_mark>	Cero o una  <tex2html_verb_mark>188<tex2html_verb_mark>.
+</LI>
+<LI><tex2html_verb_mark>189<tex2html_verb_mark>     Entre 2 y 5  <tex2html_verb_mark>190<tex2html_verb_mark>.
+</LI>
+<LI><tex2html_verb_mark>191<tex2html_verb_mark>      2 o mas <tex2html_verb_mark>192<tex2html_verb_mark>. 
+<tex2html_verb_mark>193<tex2html_verb_mark>	  Exactamente 4 <tex2html_verb_mark>194<tex2html_verb_mark>. 
+</LI>
+<LI><tex2html_verb_mark>195<tex2html_verb_mark>     La expansi&#243;n de <tex2html_verb_mark>196<tex2html_verb_mark> por su <SPAN  CLASS="textit">regular_definition</SPAN>
+</LI>
+<LI><tex2html_verb_mark>197<tex2html_verb_mark> Exactamente la cadena: [xyz];SPMquot;foo
+</LI>
+<LI><tex2html_verb_mark>198<tex2html_verb_mark>	      Si <tex2html_verb_mark>199<tex2html_verb_mark> is an <tex2html_verb_mark>200<tex2html_verb_mark>, <tex2html_verb_mark>201<tex2html_verb_mark>, <tex2html_verb_mark>202<tex2html_verb_mark>, <tex2html_verb_mark>203<tex2html_verb_mark>, <tex2html_verb_mark>204<tex2html_verb_mark>, <tex2html_verb_mark>205<tex2html_verb_mark>, o <tex2html_verb_mark>206<tex2html_verb_mark>, entonces, la interpretaci&#243;n ANSI-C de <tex2html_verb_mark>207<tex2html_verb_mark>.  En cualquier otro caso <tex2html_verb_mark>208<tex2html_verb_mark>.
+</LI>
+<LI><tex2html_verb_mark>209<tex2html_verb_mark>	      El car&#225;cter NUL (ASCII 0).
+</LI>
+<LI><tex2html_verb_mark>210<tex2html_verb_mark>	      El car&#225;cter cuyo c&#243;digo octal es 123.
+</LI>
+<LI><tex2html_verb_mark>211<tex2html_verb_mark>	      El car&#225;cter cuyo c&#243;digo hexadecimal es 2a.
+</LI>
+<LI><tex2html_verb_mark>212<tex2html_verb_mark>	      Los par&#233;ntesis son utilizados para cambiar la precedencia.
+</LI>
+<LI><tex2html_verb_mark>213<tex2html_verb_mark>	      Concatenation
+</LI>
+<LI><tex2html_verb_mark>214<tex2html_verb_mark>	      Casa con  <tex2html_verb_mark>215<tex2html_verb_mark> o <tex2html_verb_mark>216<tex2html_verb_mark>
+</LI>
+<LI><tex2html_verb_mark>217<tex2html_verb_mark>	      Una <tex2html_verb_mark>218<tex2html_verb_mark> pero s&#243;lo si va seguida de una <tex2html_verb_mark>219<tex2html_verb_mark>. El texto casado con <tex2html_verb_mark>220<tex2html_verb_mark> se incluye a la hora de decidir cual es el emparejamiento mas largo, pero se devuelve a la entrada cuando se ejecuta la acci&#243;n. La acci&#243;n s&#243;lo ve el texto asociado con <tex2html_verb_mark>221<tex2html_verb_mark>. Este tipo de patr&#243;n se denomina <SPAN  CLASS="textit">trailing context</SPAN> o <SPAN  CLASS="textit">lookahead</SPAN> positivo.  
+</LI>
+<LI><tex2html_verb_mark>222<tex2html_verb_mark>	      Casa con <tex2html_verb_mark>223<tex2html_verb_mark>, al comienzo de una l&#305;nea.
+                      Un <tex2html_verb_mark>224<tex2html_verb_mark> que no aparece al comienzo de la l&#305;nea o un <tex2html_verb_mark>225<tex2html_verb_mark> que no aparece al final de la l&#305;nea, pierde su naturaleza de ``ancla'' y es tratado como un car&#225;cter ordinario. Asi: <tex2html_verb_mark>226<tex2html_verb_mark> se empareja con <tex2html_verb_mark>227<tex2html_verb_mark>. Si lo que se quer&#305;a es la otra interpretaci&#243;n, es posible escribir <tex2html_verb_mark>228<tex2html_verb_mark>, o bien:
+<PRE><tex2html_verbatim_mark>verbatim623#</PRE>
+</LI>
+<LI><tex2html_verb_mark>229<tex2html_verb_mark>	      Casa con <tex2html_verb_mark>230<tex2html_verb_mark>, al final de una l&#305;nea. Este es tambi&#233;n un operador de <SPAN  CLASS="textit">trailing context</SPAN>. Una regla no puede tener mas de un operador de <SPAN  CLASS="textit">trailing context</SPAN>. Por ejemplo, la expresi&#243;n <tex2html_verb_mark>231<tex2html_verb_mark> es incorrecta.
+</LI>
+<LI><tex2html_verb_mark>232<tex2html_verb_mark>	      Casa con <tex2html_verb_mark>233<tex2html_verb_mark>, pero s&#243;lo si se est&#225; en el estado <tex2html_verb_mark>234<tex2html_verb_mark>.
+</LI>
+<LI><tex2html_verb_mark>235<tex2html_verb_mark>    Idem, si se esta en alguno de los estados <tex2html_verb_mark>236<tex2html_verb_mark>, <tex2html_verb_mark>237<tex2html_verb_mark>, or <tex2html_verb_mark>238<tex2html_verb_mark>
+</LI>
+<LI><tex2html_verb_mark>239<tex2html_verb_mark>	      Casa con <tex2html_verb_mark>240<tex2html_verb_mark> cualquiera que sea el estado, incluso si este es exclusivo.
+</LI>
+<LI><tex2html_verb_mark>241<tex2html_verb_mark>        Un final de fichero.
+</LI>
+<LI><tex2html_verb_mark>242<tex2html_verb_mark> Un final de fichero, si los estados son <tex2html_verb_mark>243<tex2html_verb_mark> o <tex2html_verb_mark>244<tex2html_verb_mark>
+</LI>
+</UL>
+
+<P>
+Los operadores han sido listados en orden de precedencia, de la
+mas alta a la mas baja. Por ejemplo <tex2html_verb_mark>245<tex2html_verb_mark> es lo mismo que
+<tex2html_verb_mark>246<tex2html_verb_mark>.
+
+<P>
+
+<H4><A NAME="SECTION05210060000000000000">
+Las Acciones Semánticas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Cada patrón regular tiene su correspondiente acción asociada. El patrón
+termina en el primer espacio en blanco (sin contar aquellos que están
+entre comillas dobles o prefijados de secuencias de escape).
+Si la acción comienza con <tex2html_verb_mark>247<tex2html_verb_mark>, entonces se puede extender a través
+de multiples líneas, hasta la correspondiente <tex2html_verb_mark>248<tex2html_verb_mark>.  El programa
+<tex2html_verb_mark>249<tex2html_verb_mark>  no hace un análisis del código C dentro de la acción.
+Existen tres directivas que pueden insertarse dentro de las acciones:
+<tex2html_verb_mark>250<tex2html_verb_mark>, <tex2html_verb_mark>251<tex2html_verb_mark> y <tex2html_verb_mark>252<tex2html_verb_mark>. Su uso se muestra en los
+subsiguientes ejemplos.
+
+<P>
+La secci&#243;n de c&#243;digo se copia verbatim en <tex2html_verb_mark>253<tex2html_verb_mark>. Es
+utilizada para proveer las funciones de apoyo que se requieran para la
+descripci&#243;n de las acciones asociadas con los patrones que parecen en
+la secci&#243;n de reglas.
+
+<P>

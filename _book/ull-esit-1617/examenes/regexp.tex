@@ -1,0 +1,154 @@
+\subsection{Preguntas de Repaso de Expresiones
+Regulares}\label{preguntas-de-repaso-de-expresiones-regulares}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Rellene las partes que faltan:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{> re = }\OtherTok{/d}\FloatTok{(}\OtherTok{b}\FloatTok{+)(}\OtherTok{d}\FloatTok{)}\OtherTok{/ig}
+\OtherTok{/d}\FloatTok{(}\OtherTok{b}\FloatTok{+)(}\OtherTok{d}\FloatTok{)}\OtherTok{/gi}
+\NormalTok{> z = }\StringTok{"dBdxdbbdzdbd"}
+\StringTok{'dBdxdbbdzdbd'}
+\NormalTok{> result = }\OtherTok{re}\NormalTok{.}\FunctionTok{exec}\NormalTok{(z)}
+\NormalTok{[ ______, _____, ______, index: __, input: }\StringTok{'dBdxdbbdzdbd'} \NormalTok{]}
+\NormalTok{> }\OtherTok{re}\NormalTok{.}\FunctionTok{lastIndex}
+\NormalTok{______}
+\NormalTok{> result = }\OtherTok{re}\NormalTok{.}\FunctionTok{exec}\NormalTok{(z)}
+\NormalTok{[ ______, _____, ______, index: __, input: }\StringTok{'dBdxdbbdzdbd'} \NormalTok{]}
+\NormalTok{> }\OtherTok{re}\NormalTok{.}\FunctionTok{lastIndex}
+\NormalTok{______}
+\NormalTok{> result = }\OtherTok{re}\NormalTok{.}\FunctionTok{exec}\NormalTok{(z)}
+\NormalTok{[ ______, _____, ______, index: __, input: }\StringTok{'dBdxdbbdzdbd'} \NormalTok{]}
+\NormalTok{> }\OtherTok{re}\NormalTok{.}\FunctionTok{lastIndex}
+\NormalTok{______}
+\NormalTok{> result = }\OtherTok{re}\NormalTok{.}\FunctionTok{exec}\NormalTok{(z)}
+\NormalTok{_____}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Escriba la expresión regular \texttt{r} para que produzca el resultado
+  final:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{> x = }\StringTok{"hello"}
+\NormalTok{> r = }\OtherTok{/l}\FloatTok{(}\OtherTok{___}\FloatTok{)}\OtherTok{/}
+\NormalTok{> z = }\OtherTok{r}\NormalTok{.}\FunctionTok{exec}\NormalTok{(x)}
+\NormalTok{[ }\StringTok{'l'}\NormalTok{, index: }\DecValTok{3}\NormalTok{, input: }\StringTok{'hello'} \NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Rellene el valor que falta:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{> z = }\StringTok{"dBdDBBD"}
+\NormalTok{> re = }\OtherTok{/d}\FloatTok{(}\OtherTok{b}\FloatTok{+)(}\OtherTok{d}\FloatTok{)}\OtherTok{/ig}
+\NormalTok{> }\OtherTok{re}\NormalTok{.}\FunctionTok{lastIndex} \NormalTok{= ________}
+\NormalTok{> result = }\OtherTok{re}\NormalTok{.}\FunctionTok{exec}\NormalTok{(z)}
+\NormalTok{[ }\StringTok{'DBBD'}\NormalTok{,}
+  \StringTok{'BB'}\NormalTok{,}
+  \StringTok{'D'}\NormalTok{,}
+  \NormalTok{index: }\DecValTok{3}\NormalTok{,}
+  \NormalTok{input: }\StringTok{'dBdDBBD'} \NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\item
+  Conteste:
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    Explique que hace el siguiente fragmento de código:
+
+\begin{verbatim}
+> RegExp.prototype.bexec = function(str) {
+...   var i = this.lastIndex;
+...   var m = this.exec(str);
+...   if (m && m.index == i) return m;
+...   return null;
+... }
+[Function]
+\end{verbatim}
+  \item
+    Rellene las salidas que faltan:
+  \end{enumerate}
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{> re = }\OtherTok{/d}\FloatTok{(}\OtherTok{b}\FloatTok{+)(}\OtherTok{d}\FloatTok{)}\OtherTok{/ig}
+\OtherTok{/d}\FloatTok{(}\OtherTok{b}\FloatTok{+)(}\OtherTok{d}\FloatTok{)}\OtherTok{/gi}
+\NormalTok{> z = }\StringTok{"dBdXXXXDBBD"}
+\StringTok{'dBdXXXXDBBD'}
+\NormalTok{> }\OtherTok{re}\NormalTok{.}\FunctionTok{lastIndex} \NormalTok{= }\DecValTok{3}
+\NormalTok{> }\OtherTok{re}\NormalTok{.}\FunctionTok{bexec}\NormalTok{(z)}
+\NormalTok{_____________________________________________________}
+\NormalTok{> }\OtherTok{re}\NormalTok{.}\FunctionTok{lastIndex} \NormalTok{= }\DecValTok{7}
+\NormalTok{> }\OtherTok{re}\NormalTok{.}\FunctionTok{bexec}\NormalTok{(z)}
+\NormalTok{_____________________________________________________}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\item
+  Escriba una expresión JavaScript que permita reemplazar todas las
+  apariciones de palabras consecutivas repetidas (como
+  \texttt{hello hello}) por una sóla aparición de la misma
+\item
+  ¿Cual es la salida?
+
+\begin{verbatim}
+> "bb".match(/b|bb/)
+
+> "bb".match(/bb|b/)
+\end{verbatim}
+
+  Justifique su respuesta.
+\item
+  El siguiente fragmento de código tiene por objetivo escapar las
+  entidades HTML para que no sean intérpretadas como código HTML.
+  Rellene las partes que faltan.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var} \NormalTok{entityMap = \{}
+    \StringTok{"&"}\NormalTok{: }\StringTok{"&___;"}\NormalTok{,}
+    \StringTok{"<"}\NormalTok{: }\StringTok{"&__;"}\NormalTok{,}
+    \StringTok{">"}\NormalTok{: }\StringTok{"&__;"}\NormalTok{,}
+    \StringTok{'"'}\NormalTok{: }\StringTok{'&quot;'}\NormalTok{,}
+    \StringTok{"'"}\NormalTok{: }\StringTok{'&#39;'}\NormalTok{,}
+    \StringTok{"/"}\NormalTok{: }\StringTok{'&#x2F;'}
+  \NormalTok{\};}
+
+\KeywordTok{function} \FunctionTok{escapeHtml}\NormalTok{(string) \{}
+  \KeywordTok{return} \FunctionTok{String}\NormalTok{(string).}\FunctionTok{replace}\NormalTok{(}\OtherTok{/_________/g}\NormalTok{, }\KeywordTok{function} \NormalTok{(s) \{}
+    \KeywordTok{return} \NormalTok{____________;}
+  \NormalTok{\});}
+\end{Highlighting}
+\end{Shaded}
+

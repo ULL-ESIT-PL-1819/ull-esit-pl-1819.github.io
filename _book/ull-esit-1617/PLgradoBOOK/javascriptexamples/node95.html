@@ -1,0 +1,55 @@
+
+<H1><A NAME="SECTION052140000000000000000">
+Estados</A>
+</H1>
+Las expresiones regulares pueden ser prefijadas mediante <SPAN  CLASS="textit">estados</SPAN>.
+Los estados o condiciones de arranque, se denotan mediante un
+identificador entre &#225;ngulos y se declaran
+en la parte de las definiciones. Las declaraciones se hacen mediante 
+<tex2html_verb_mark>309<tex2html_verb_mark> para los estados ``inclusivos'' o bien <tex2html_verb_mark>310<tex2html_verb_mark> para los estados ``exclusivos'',
+seguidos de los nombres de los estados. No pueden haber caracteres en blanco antes de la declaración.
+Un <SPAN  CLASS="textit">estado</SPAN> se activa mediante la 
+acci&#243;n BEGIN <SPAN  CLASS="textit">estado</SPAN>. A partir de ese momento, las reglas que esten
+prefijadas con el estado pasan a estar activas. En el caso de que el estado
+sea inclusivo, las reglas no prefijadas tambi&#233;n permanecen activas.
+Los estados exclusivos son especialmente útiles para especificar ``sub analizadores''
+que analizan porciones de la entrada cuya estructura ``sintáctica'' es diferente
+de la del resto de la entrada.
+
+<P>
+El ejemplo ``absorbe'' los comentarios, conservando el numero de
+l&#305;neas del fichero en la variable <tex2html_verb_mark>311<tex2html_verb_mark>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim646#</PRE>
+La opción <tex2html_verb_mark>312<tex2html_verb_mark> hace que <tex2html_verb_mark>313<tex2html_verb_mark> no llame a la función <tex2html_verb_mark>314<tex2html_verb_mark>
+al final del fichero y que asuma que no hay mas entrada por procesar.
+
+<P>
+Los estados se traducen por enteros, pudiendo ser manipulados como tales.
+La macro <tex2html_verb_mark>315<tex2html_verb_mark> puede utilizarse para referirse al estado 0.
+Las macros <tex2html_verb_mark>316<tex2html_verb_mark> y <tex2html_verb_mark>317<tex2html_verb_mark> contienen el valor del estado actual.
+<PRE><tex2html_verbatim_mark>verbatim647#</PRE>
+En <SPAN  CLASS="textit">flex</SPAN> es posible asociar un &#225;mbito con los estados o 
+condiciones iniciales. Basta con colocar entre llaves las 
+parejas <SPAN  CLASS="textit">patr&#243;n acci&#243;n</SPAN> gobernadas por ese estado.
+El siguiente ejemplo procesa las cadenas <SPAN  CLASS="textit">C</SPAN>:
+<PRE><tex2html_verbatim_mark>verbatim648#</PRE>
+Obsérve la conducta del programa ante las siguientes entradas:
+
+<UL>
+<LI>Entrada:
+<PRE><tex2html_verbatim_mark>verbatim649#</PRE>
+¿Cuál será la salida? ¿Que patrón del programa anterior es el que casa aqui?
+</LI>
+<LI>Entrada:
+<tex2html_verb_mark>318<tex2html_verb_mark>.
+¿Cuál será la salida? ¿Que patrón del programa anterior es el que casa aqui?
+</LI>
+<LI><PRE><tex2html_verbatim_mark>verbatim650#</PRE>
+Donde hay un retorno del carro después de <tex2html_verb_mark>319<tex2html_verb_mark>.
+¿Cuál será la salida? <tex2html_comment_mark>494
+</LI>
+</UL>
+
+<P>

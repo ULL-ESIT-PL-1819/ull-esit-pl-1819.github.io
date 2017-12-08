@@ -1,0 +1,472 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Rack, un Webserver Ruby Modular</TITLE>
+<META NAME="description" CONTENT="Rack, un Webserver Ruby Modular">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node197.html">
+<LINK REL="previous" HREF="node162.html">
+<LINK REL="up" HREF="node162.html">
+<LINK REL="next" HREF="node164.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html4628"
+  HREF="node164.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4622"
+  HREF="node162.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4616"
+  HREF="node162.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4624"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4626"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html4629"
+  HREF="node164.html">Introducción</A>
+<B>Sup:</B> <A NAME="tex2html4623"
+  HREF="node162.html">PARTE: SINATRA</A>
+<B> Ant:</B> <A NAME="tex2html4617"
+  HREF="node162.html">PARTE: SINATRA</A>
+<B> Con:</B> 
+<A NAME="tex2html4624"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html4626"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION012100000000000000000"></A>
+<A NAME="chapter:rack"></A>
+<BR>
+Rack, un Webserver Ruby Modular
+</H1>
+<BR> <HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html4630"
+  HREF="node164.html">Introducción</A>
+<UL>
+<LI><A NAME="tex2html4631"
+  HREF="node164.html#SECTION012110010000000000000">Que es Rack</A>
+<LI><A NAME="tex2html4632"
+  HREF="node164.html#SECTION012110020000000000000">Que es una Aplicación Rack</A>
+<LI><A NAME="tex2html4633"
+  HREF="node164.html#SECTION012110030000000000000">Un Ejemplo Sencillo</A>
+<LI><A NAME="tex2html4634"
+  HREF="node164.html#SECTION012110040000000000000">Un Ejemplo con la Consola Interactiva de Ruby</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4635"
+  HREF="node165.html">Analizando <TT>env</TT> con <TT>pry-debugger</TT></A>
+<UL>
+<LI><A NAME="tex2html4636"
+  HREF="node165.html#SECTION012121000000000000000">Introducción</A>
+<LI><A NAME="tex2html4637"
+  HREF="node165.html#SECTION012122000000000000000">REQUEST_METHOD, QUERY_STRING y PATH_INFO</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4638"
+  HREF="node166.html">Detectando el Proceso que está Usando un Puerto</A>
+<LI><A NAME="tex2html4639"
+  HREF="node167.html">Usando <TT>PATH_INFO</TT> y <TT>erubis</TT> para construir una aplicación (Noah Gibbs)</A>
+<UL>
+<LI><A NAME="tex2html4640"
+  HREF="node167.html#SECTION012140010000000000000">config.ru</A>
+<LI><A NAME="tex2html4641"
+  HREF="node167.html#SECTION012140020000000000000">Template erb</A>
+<LI><A NAME="tex2html4642"
+  HREF="node167.html#SECTION012140030000000000000">Arrancando el Servidor</A>
+<LI><A NAME="tex2html4643"
+  HREF="node167.html#SECTION012140040000000000000">Ejecutando un cliente</A>
+<LI><A NAME="tex2html4644"
+  HREF="node167.html#SECTION012140050000000000000">Logs del servidor</A>
+<LI><A NAME="tex2html4645"
+  HREF="node167.html#SECTION012140060000000000000">Véase</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4646"
+  HREF="node168.html">HTTP</A>
+<UL>
+<LI><A NAME="tex2html4647"
+  HREF="node168.html#SECTION012151000000000000000">Introducción</A>
+<LI><A NAME="tex2html4648"
+  HREF="node168.html#SECTION012152000000000000000">Sesiones HTTP</A>
+<LI><A NAME="tex2html4649"
+  HREF="node168.html#SECTION012153000000000000000">Métodos de Petición</A>
+<LI><A NAME="tex2html4650"
+  HREF="node168.html#SECTION012154000000000000000">Véase</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4651"
+  HREF="node169.html">Rack::Request y Depuración con <TT>pry-debugger</TT></A>
+<UL>
+<LI><A NAME="tex2html4652"
+  HREF="node169.html#SECTION012161000000000000000">Conexión sin Parámetros</A>
+<LI><A NAME="tex2html4653"
+  HREF="node169.html#SECTION012162000000000000000">Conexión con Parámetros</A>
+<UL>
+<LI><A NAME="tex2html4654"
+  HREF="node169.html#SECTION012162010000000000000">Rack::Request.new</A>
+<LI><A NAME="tex2html4655"
+  HREF="node169.html#SECTION012162020000000000000">req.params</A>
+<LI><A NAME="tex2html4656"
+  HREF="node169.html#SECTION012162030000000000000">Indexación de los objetos Rack::Request</A>
+<LI><A NAME="tex2html4657"
+  HREF="node169.html#SECTION012162040000000000000">req.path</A>
+<LI><A NAME="tex2html4658"
+  HREF="node169.html#SECTION012162050000000000000">req.url</A>
+<LI><A NAME="tex2html4659"
+  HREF="node169.html#SECTION012162060000000000000">req.values</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html4660"
+  HREF="node170.html">Rack::Response</A>
+<UL>
+<LI><A NAME="tex2html4661"
+  HREF="node170.html#SECTION012171000000000000000">Introducción</A>
+<LI><A NAME="tex2html4662"
+  HREF="node170.html#SECTION012172000000000000000">Ejemplo Simple</A>
+<LI><A NAME="tex2html4663"
+  HREF="node170.html#SECTION012173000000000000000">Ejemplo con <TT>POST</TT></A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4664"
+  HREF="node171.html">Cookies y Rack</A>
+<UL>
+<LI><A NAME="tex2html4665"
+  HREF="node171.html#SECTION012180010000000000000">Introducción</A>
+<LI><A NAME="tex2html4666"
+  HREF="node171.html#SECTION012180020000000000000">Propiedades de un cookie</A>
+<LI><A NAME="tex2html4667"
+  HREF="node171.html#SECTION012180030000000000000">Estableciendo <TT>expires</TT></A>
+<LI><A NAME="tex2html4668"
+  HREF="node171.html#SECTION012180040000000000000">Estableciendo el atributo <TT>domain</TT> de una cookie</A>
+<LI><A NAME="tex2html4669"
+  HREF="node171.html#SECTION012180050000000000000">El atributo <TT>path</TT></A>
+<LI><A NAME="tex2html4670"
+  HREF="node171.html#SECTION012180060000000000000">El atributo <TT>secure</TT></A>
+<LI><A NAME="tex2html4671"
+  HREF="node171.html#SECTION012180070000000000000">Envío de Cookies</A>
+<LI><A NAME="tex2html4672"
+  HREF="node171.html#SECTION012180080000000000000">Establecer un cookie usando Rack::Response</A>
+<LI><A NAME="tex2html4673"
+  HREF="node171.html#SECTION012180090000000000000">Obtener los valores de los cookies usando Rack::Request</A>
+<LI><A NAME="tex2html4674"
+  HREF="node171.html#SECTION0121800100000000000000">El código del método <TT>cookies</TT></A>
+<LI><A NAME="tex2html4675"
+  HREF="node171.html#SECTION0121800110000000000000">Código de <TT>set_cookie</TT></A>
+<LI><A NAME="tex2html4676"
+  HREF="node171.html#SECTION0121800120000000000000">Código de <TT>delete_cookie</TT></A>
+<LI><A NAME="tex2html4677"
+  HREF="node171.html#SECTION0121800130000000000000">domains, periods, cookies and localhost</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4678"
+  HREF="node172.html">Gestión de Sesiones</A>
+<UL>
+<LI><A NAME="tex2html4679"
+  HREF="node172.html#SECTION012190010000000000000">Introducción</A>
+<LI><A NAME="tex2html4680"
+  HREF="node172.html#SECTION012190020000000000000">Uso de Cookies para el manejo de sesiones</A>
+<LI><A NAME="tex2html4681"
+  HREF="node172.html#SECTION012190030000000000000">Ejemplo</A>
+<LI><A NAME="tex2html4682"
+  HREF="node172.html#SECTION012191000000000000000">Ejercicio</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4683"
+  HREF="node173.html">Ejemplo Simple Combinando Rack::Request, Rack::Response y Middleware (Lobster)</A>
+<LI><A NAME="tex2html4684"
+  HREF="node174.html">Práctica: Accediendo a Twitter y Mostrando los últimos twitts en una página</A>
+<LI><A NAME="tex2html4685"
+  HREF="node175.html">Ejemplo: Basic Authentication</A>
+<UL>
+<LI><A NAME="tex2html4686"
+  HREF="node175.html#SECTION0121120010000000000000">Introducción</A>
+<LI><A NAME="tex2html4687"
+  HREF="node175.html#SECTION0121120020000000000000">Protocolo</A>
+<LI><A NAME="tex2html4688"
+  HREF="node175.html#SECTION0121120030000000000000">Ejemplo de BA en Rack</A>
+<LI><A NAME="tex2html4689"
+  HREF="node175.html#SECTION0121120040000000000000">lobster.rb</A>
+<LI><A NAME="tex2html4690"
+  HREF="node175.html#SECTION0121120050000000000000">etc/passwd.yml</A>
+<LI><A NAME="tex2html4691"
+  HREF="node175.html#SECTION0121120060000000000000">Rakefile</A>
+<LI><A NAME="tex2html4692"
+  HREF="node175.html#SECTION0121120070000000000000">Ejecución</A>
+<LI><A NAME="tex2html4693"
+  HREF="node175.html#SECTION0121120080000000000000">Véase</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4694"
+  HREF="node176.html">Redirección</A>
+<LI><A NAME="tex2html4695"
+  HREF="node177.html">La Estructura de una Aplicación Rack</A>
+<LI><A NAME="tex2html4696"
+  HREF="node178.html">rackup</A>
+<UL>
+<LI><A NAME="tex2html4697"
+  HREF="node178.html#SECTION0121150010000000000000">Introducción</A>
+<LI><A NAME="tex2html4698"
+  HREF="node178.html#SECTION0121150020000000000000">Ejemplo de uso</A>
+<LI><A NAME="tex2html4699"
+  HREF="node178.html#SECTION0121150030000000000000">Ejecución</A>
+<LI><A NAME="tex2html4700"
+  HREF="node178.html#SECTION0121150040000000000000">Opciones del ejecutable <TT>rackup</TT></A>
+<LI><A NAME="tex2html4701"
+  HREF="node178.html#SECTION0121150050000000000000">Especificación de Opciones en la primera línea</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4702"
+  HREF="node179.html">Rack::Static</A>
+<UL>
+<LI><A NAME="tex2html4703"
+  HREF="node179.html#SECTION0121160010000000000000">Véase</A>
+<LI><A NAME="tex2html4704"
+  HREF="node179.html#SECTION0121160020000000000000">Ejemplo</A>
+<LI><A NAME="tex2html4705"
+  HREF="node179.html#SECTION0121160030000000000000"><TT>El comando rackup</TT></A>
+<LI><A NAME="tex2html4706"
+  HREF="node179.html#SECTION0121160040000000000000">Véase</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4707"
+  HREF="node180.html">Un Ejemplo Simple: Piedra, Papel, tijeras</A>
+<UL>
+<LI><A NAME="tex2html4708"
+  HREF="node180.html#SECTION0121170010000000000000">El Objeto <TT>req</TT></A>
+<LI><A NAME="tex2html4709"
+  HREF="node180.html#SECTION0121170020000000000000">Rakefile</A>
+<LI><A NAME="tex2html4710"
+  HREF="node180.html#SECTION0121170030000000000000">Ejecuciones</A>
+<LI><A NAME="tex2html4711"
+  HREF="node180.html#SECTION0121170040000000000000">Véase También</A>
+<LI><A NAME="tex2html4712"
+  HREF="node180.html#SECTION0121171000000000000000">Práctica: Rock, Paper, Scissors: Debugging</A>
+<LI><A NAME="tex2html4713"
+  HREF="node180.html#SECTION0121172000000000000000">Práctica: Añadir Template Haml a Rock, Paper, Scissors</A>
+<LI><A NAME="tex2html4714"
+  HREF="node180.html#SECTION0121173000000000000000">Práctica: Añada Hojas de Estilo a Piedra Papel Tijeras</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4715"
+  HREF="node181.html">Middleware y la Clase Rack::Builder</A>
+<UL>
+<LI><A NAME="tex2html4716"
+  HREF="node181.html#SECTION0121180010000000000000">Motivación para el método <TT>use</TT></A>
+<LI><A NAME="tex2html4717"
+  HREF="node181.html#SECTION0121180020000000000000">La Clase Rack::Builder</A>
+<LI><A NAME="tex2html4718"
+  HREF="node181.html#SECTION0121180030000000000000">Conversión de una Aplicación Rack a Rack::Builder</A>
+<LI><A NAME="tex2html4719"
+  HREF="node181.html#SECTION0121180040000000000000">Ejemplo Simple de Uso de Rack::Builder</A>
+<LI><A NAME="tex2html4720"
+  HREF="node181.html#SECTION0121180050000000000000">Ejemplo de Uso de Rack::Builder: Dos Middlewares</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4721"
+  HREF="node182.html">Ejemplo de Middleware: Rack::ETag</A>
+<LI><A NAME="tex2html4722"
+  HREF="node183.html">Construyendo Nuestro Propio Rack::Builder</A>
+<LI><A NAME="tex2html4723"
+  HREF="node184.html">Código de Rack::Builder</A>
+<LI><A NAME="tex2html4724"
+  HREF="node185.html">Rack::Cascade</A>
+<UL>
+<LI><A NAME="tex2html4725"
+  HREF="node185.html#SECTION0121220010000000000000">Ejemplo</A>
+<LI><A NAME="tex2html4726"
+  HREF="node185.html#SECTION0121220020000000000000">Código del Constructor</A>
+<LI><A NAME="tex2html4727"
+  HREF="node185.html#SECTION0121220030000000000000">Código de <TT>call</TT></A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4728"
+  HREF="node186.html">Rack::Mount</A>
+<LI><A NAME="tex2html4729"
+  HREF="node187.html">Rack::URLMap</A>
+<LI><A NAME="tex2html4730"
+  HREF="node188.html">El método <TT>run</TT> de Rack::Handler::WEBrick</A>
+<LI><A NAME="tex2html4731"
+  HREF="node189.html">Documentación</A>
+<LI><A NAME="tex2html4732"
+  HREF="node190.html">Pruebas/Testing</A>
+<UL>
+<LI><A NAME="tex2html4733"
+  HREF="node190.html#SECTION0121271000000000000000">Pruebas Unitarias</A>
+<LI><A NAME="tex2html4734"
+  HREF="node190.html#SECTION0121272000000000000000">Rspec con Rack</A>
+<UL>
+<LI><A NAME="tex2html4735"
+  HREF="node190.html#SECTION0121272010000000000000">Véase</A>
+<LI><A NAME="tex2html4736"
+  HREF="node190.html#SECTION0121272020000000000000">Jerarquía</A>
+<LI><A NAME="tex2html4737"
+  HREF="node190.html#SECTION0121272030000000000000">lib/rsack.rb</A>
+<LI><A NAME="tex2html4738"
+  HREF="node190.html#SECTION0121272040000000000000">lib/rsack/server.rb</A>
+<LI><A NAME="tex2html4739"
+  HREF="node190.html#SECTION0121272050000000000000">spec/rsack/server_spec.rb</A>
+<LI><A NAME="tex2html4740"
+  HREF="node190.html#SECTION0121272060000000000000">spec/spec_helper.rb</A>
+<LI><A NAME="tex2html4741"
+  HREF="node190.html#SECTION0121272070000000000000">Rakefile</A>
+<LI><A NAME="tex2html4742"
+  HREF="node190.html#SECTION0121272080000000000000">Gemfile</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html4743"
+  HREF="node191.html">Práctica: Añada Pruebas a Rock, Paper,Scissors</A>
+<LI><A NAME="tex2html4744"
+  HREF="node192.html">Prácticas: Centro de Cálculo</A>
+<LI><A NAME="tex2html4745"
+  HREF="node193.html">Despliegue de una Aplicación Web en la ETSII</A>
+<UL>
+<LI><A NAME="tex2html4746"
+  HREF="node193.html#SECTION0121300010000000000000">Véase también</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html4747"
+  HREF="node194.html">Práctica: Despliegue en Heroku su Aplicación Rock, Paper,Scissors</A>
+<LI><A NAME="tex2html4748"
+  HREF="node195.html">Faking Sinatra with Rack and Middleware</A>
+<LI><A NAME="tex2html4749"
+  HREF="node196.html">Véase También</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html4628"
+  HREF="node164.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html4622"
+  HREF="node162.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html4616"
+  HREF="node162.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html4624"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html4626"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html4629"
+  HREF="node164.html">Introducción</A>
+<B>Sup:</B> <A NAME="tex2html4623"
+  HREF="node162.html">PARTE: SINATRA</A>
+<B> Ant:</B> <A NAME="tex2html4617"
+  HREF="node162.html">PARTE: SINATRA</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

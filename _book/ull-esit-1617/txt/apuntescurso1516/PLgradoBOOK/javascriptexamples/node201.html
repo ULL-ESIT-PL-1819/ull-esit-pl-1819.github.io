@@ -1,0 +1,482 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Rutas/Routes</TITLE>
+<META NAME="description" CONTENT="Rutas/Routes">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node202.html">
+<LINK REL="previous" HREF="node200.html">
+<LINK REL="up" HREF="node199.html">
+<LINK REL="next" HREF="node202.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html5453"
+  HREF="node202.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5447"
+  HREF="node199.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5441"
+  HREF="node200.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5449"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5451"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5454"
+  HREF="node202.html">Ficheros Estáticos</A>
+<B>Sup:</B> <A NAME="tex2html5448"
+  HREF="node199.html">Fundamentos</A>
+<B> Ant:</B> <A NAME="tex2html5442"
+  HREF="node200.html">Ejemplo Simple de uso</A>
+<B> Con:</B> 
+<A NAME="tex2html5449"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html5451"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><UL>
+<LI><A NAME="tex2html5455"
+  HREF="node201.html#SECTION012320010000000000000">Aplicacion</A>
+<LI><A NAME="tex2html5456"
+  HREF="node201.html#SECTION012320020000000000000">config.ru</A>
+<LI><A NAME="tex2html5457"
+  HREF="node201.html#SECTION012320030000000000000">Rakefile</A>
+<LI><A NAME="tex2html5458"
+  HREF="node201.html#SECTION012320040000000000000">Ejecución del servidor</A>
+<LI><A NAME="tex2html5459"
+  HREF="node201.html#SECTION012320050000000000000">Ejecución de los clientes</A>
+</UL>
+</UL>
+<BR>
+<LI><A NAME="tex2html5460"
+  HREF="node201.html#SECTION012321000000000000000">Verbos HTTP en Sinatra/Base</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION012320000000000000000"></A><A NAME="routes"></A>
+<BR>
+Rutas/Routes
+</H1>
+
+<P>
+Repase la sección
+<I>HTTP</I>
+<A HREF="node168.html#section:http">43.5</A>.
+
+<P>
+Vease el código de este ejemplo en 
+<A NAME="tex2html579"
+  HREF="https://github.com/crguezl/sinatra-simple">GitHub</A>
+<P>
+
+<H4><A NAME="SECTION012320010000000000000">
+Aplicacion</A>
+</H4>
+  
+
+<PRE>
+[~/Dropbox/src/ruby/sinatra/sinatra-simple(master)]$ cat app.rb
+require 'sinatra/base'
+
+class App &lt; Sinatra::Base
+  get '/' do
+    "hello get!"
+  end
+
+  post '/' do
+    'hello post!'
+  end
+
+  put '/' do
+    'hello put!'
+  end
+
+  delete '/' do
+    'hello delete!'
+  end
+
+  get '/:name' do |name|
+    "hello #{name}!"
+  end
+
+  get '/:name/?:apelido1?' do |name, apellido|
+    "hello #{apellido}, #{name}!"
+  end
+end
+</PRE>
+
+<P>
+In Sinatra, a route is an HTTP method paired with a URL-matching
+pattern. Each route is associated with a block
+
+<P>
+Routes are matched in the order they are defined. The first route
+that matches the request is invoked.
+
+<P>
+Route patterns may include named parameters, accessible via the params hash:
+
+<P>
+<PRE>        get '/hello/:name' do
+          # matches "GET /hello/foo" and "GET /hello/bar"
+          # params[:name] is 'foo' or 'bar'
+          "Hello #{params[:name]}!"
+        end
+</PRE>
+
+<P>
+You can also access named parameters via block parameters:
+
+<P>
+<PRE>        get '/:name' do |name|
+          "hello #{name}!"
+        end
+</PRE>
+
+<P>
+Route patterns may also include splat (or wildcard) parameters,
+accessible via the <TT>params[:splat]</TT> array:
+
+<P>
+<PRE>        get '/say/*/to/*' do
+          # matches /say/hello/to/world
+          params[:splat] # =&gt; ["hello", "world"]
+        end
+
+        get '/download/*.*' do
+          # matches /download/path/to/file.xml
+          params[:splat] # =&gt; ["path/to/file", "xml"]
+        end
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012320020000000000000">
+config.ru</A>
+</H4>
+  
+
+<PRE>
+[~/sinatra/sinatra-simple(master)]$ cat config.ru 
+require './app'
+
+run App
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012320030000000000000">
+Rakefile</A>
+</H4>
+  
+
+<PRE>
+[~/sinatra/sinatra-simple(master)]$ cat Rakefile 
+task :default =&gt; :server
+
+desc "run server"
+task :server do
+  sh "rackup"
+end
+
+desc "make a get / request via curl"
+task :get do
+  sh "curl -v localhost:9292"
+end
+
+desc "make a post / request via curl"
+task :post do
+  sh "curl -X POST -v -d 'ignored data' localhost:9292"
+end
+
+desc "make a put / request via curl"
+task :put do
+  sh "curl -X PUT -v localhost:9292"
+end
+
+desc "make a DELETE / request via curl"
+task :delete do
+  sh "curl -X DELETE -v localhost:9292"
+end
+
+desc "make a get /name request via curl"
+task :getname, :name do |t,h|
+  name = h[:name] or 'pepe'
+  sh "curl -v localhost:9292/#{name}"
+end
+
+desc "make a get /name/appellido request via curl"
+task :getfullname, :name, :apellido do |t,h|
+  name = h[:name] or 'pepe'
+  apellido = h[:apellido] or 'rodriguez'
+  sh "curl -v localhost:9292/#{name}/#{apellido}"
+end
+
+task :html do
+  sh "kramdown README.md &gt; README.html"
+end
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012320040000000000000">
+Ejecución del servidor</A>
+</H4>
+  
+
+<P>
+<PRE>
+[~/sinatra/sinatra-simple(master)]$ rake server
+rackup
+&gt;&gt; Thin web server (v1.5.1 codename Straight Razor)
+&gt;&gt; Maximum connections set to 1024
+&gt;&gt; Listening on 0.0.0.0:9292, CTRL+C to stop
+127.0.0.1 - - [01/Jul/2013 20:25:16] "GET /juana HTTP/1.1" 200 12 0.0689
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012320050000000000000">
+Ejecución de los clientes</A>
+</H4>
+  
+
+<P>
+<PRE>
+[~/Dropbox/src/ruby/sinatra/sinatra-simple(master)]$ rake getname[juana]
+{:name=&gt;"juana"}
+curl -v localhost:9292/juana
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+&gt; GET /juana HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+&gt; Host: localhost:9292
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 200 OK
+&lt; Content-Type: text/html;charset=utf-8
+&lt; Content-Length: 12
+&lt; X-XSS-Protection: 1; mode=block
+&lt; X-Content-Type-Options: nosniff
+&lt; X-Frame-Options: SAMEORIGIN
+&lt; Connection: keep-alive
+&lt; Server: thin 1.5.1 codename Straight Razor
+&lt; 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+hello juana!
+</PRE>
+
+<P>
+<PRE>
+[~/Dropbox/src/ruby/sinatra/sinatra-simple(master)]$ rake getfullname[Ana,Hernandez]
+curl -v localhost:9292/Ana/Hernandez
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+&gt; GET /Ana/Hernandez HTTP/1.1
+&gt; User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+&gt; Host: localhost:9292
+&gt; Accept: */*
+&gt; 
+&lt; HTTP/1.1 200 OK
+&lt; Content-Type: text/html;charset=utf-8
+&lt; Content-Length: 21
+&lt; X-XSS-Protection: 1; mode=block
+&lt; X-Content-Type-Options: nosniff
+&lt; X-Frame-Options: SAMEORIGIN
+&lt; Connection: keep-alive
+&lt; Server: thin 1.5.1 codename Straight Razor
+&lt; 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+hello Hernandez, Ana!
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION012321000000000000000">
+Verbos HTTP en Sinatra/Base</A>
+</H2>
+
+<P>
+<A NAME="tex2html580"
+  HREF="https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb#L1351">Método <TT>get</TT></A>
+<PRE>
+      def get(path, opts = {}, &amp;block)
+        conditions = @conditions.dup
+        route('GET', path, opts, &amp;block)
+
+        @conditions = conditions
+        route('HEAD', path, opts, &amp;block)
+      end
+</PRE>
+
+<P>
+<PRE>
+      def put(path, opts = {}, &amp;bk)     route 'PUT',     path, opts, &amp;bk end
+      def post(path, opts = {}, &amp;bk)    route 'POST',    path, opts, &amp;bk end
+      def delete(path, opts = {}, &amp;bk)  route 'DELETE',  path, opts, &amp;bk end
+      def head(path, opts = {}, &amp;bk)    route 'HEAD',    path, opts, &amp;bk end
+      def options(path, opts = {}, &amp;bk) route 'OPTIONS', path, opts, &amp;bk end
+      def patch(path, opts = {}, &amp;bk)   route 'PATCH',   path, opts, &amp;bk end
+      def link(path, opts = {}, &amp;bk)    route 'LINK',    path, opts, &amp;bk end
+      def unlink(path, opts = {}, &amp;bk)  route 'UNLINK',  path, opts, &amp;bk end
+</PRE>
+
+<P>
+<A NAME="tex2html581"
+  HREF="https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb#L1563">Método <TT>route</TT></A>
+<PRE>
+      def route(verb, path, options = {}, &amp;block)
+        # Because of self.options.host
+        host_name(options.delete(:host)) if options.key?(:host)
+        enable :empty_path_info if path == "" and empty_path_info.nil?
+        signature = compile!(verb, path, block, options)
+        (@routes[verb] ||= []) &lt;&lt; signature
+        invoke_hook(:route_added, verb, path, block)
+        signature
+      end
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html5453"
+  HREF="node202.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5447"
+  HREF="node199.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5441"
+  HREF="node200.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5449"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5451"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5454"
+  HREF="node202.html">Ficheros Estáticos</A>
+<B>Sup:</B> <A NAME="tex2html5448"
+  HREF="node199.html">Fundamentos</A>
+<B> Ant:</B> <A NAME="tex2html5442"
+  HREF="node200.html">Ejemplo Simple de uso</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

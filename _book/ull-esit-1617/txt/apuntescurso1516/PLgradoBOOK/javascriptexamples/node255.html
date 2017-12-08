@@ -1,0 +1,461 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Logging</TITLE>
+<META NAME="description" CONTENT="Logging">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node256.html">
+<LINK REL="previous" HREF="node254.html">
+<LINK REL="up" HREF="node253.html">
+<LINK REL="next" HREF="node256.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html6405"
+  HREF="node256.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6399"
+  HREF="node253.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6393"
+  HREF="node254.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6401"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6403"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html6406"
+  HREF="node256.html">Heroku Postgress</A>
+<B>Sup:</B> <A NAME="tex2html6400"
+  HREF="node253.html">Heroku</A>
+<B> Ant:</B> <A NAME="tex2html6394"
+  HREF="node254.html">Introducción</A>
+<B> Con:</B> 
+<A NAME="tex2html6401"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html6403"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><UL>
+<LI><A NAME="tex2html6407"
+  HREF="node255.html#SECTION013120010000000000000">Writing to your log</A>
+<LI><A NAME="tex2html6408"
+  HREF="node255.html#SECTION013120020000000000000">To fetch your logs</A>
+<LI><A NAME="tex2html6409"
+  HREF="node255.html#SECTION013120030000000000000">Log message ordering</A>
+<LI><A NAME="tex2html6410"
+  HREF="node255.html#SECTION013120040000000000000">Log history limits</A>
+<LI><A NAME="tex2html6411"
+  HREF="node255.html#SECTION013120050000000000000">Log format</A>
+<LI><A NAME="tex2html6412"
+  HREF="node255.html#SECTION013120060000000000000">Realtime tail</A>
+<LI><A NAME="tex2html6413"
+  HREF="node255.html#SECTION013120070000000000000">Filtering</A>
+</UL></UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION013120000000000000000">
+Logging</A>
+</H1>
+Heroku aggregates three categories of logs for your app:
+
+<OL>
+<LI>App logs - Output from your application. 
+
+<P>
+This will include logs
+generated from 
+
+<OL>
+<LI>within your application, 
+</LI>
+<LI>application server and
+</LI>
+<LI>libraries. 
+</LI>
+</OL>
+(Filter: <code>--source app</code>)
+</LI>
+<LI>System logs - 
+
+<P>
+Messages about actions taken by the Heroku platform
+infrastructure on behalf of your app, such as: 
+
+<OL>
+<LI>restarting a crashed process, 
+</LI>
+<LI>sleeping or waking a 
+<FONT COLOR="#ff0000"> web dyno</FONT>, or 
+</LI>
+<LI>serving an error page
+due to a problem in your app. 
+</LI>
+</OL>
+(Filter: <code>--source heroku</code>)
+</LI>
+<LI>API logs - 
+
+<P>
+Messages about administrative actions taken by you and
+other developers working on your app, such as: 
+
+<P>
+
+<OL>
+<LI>deploying new code,
+</LI>
+<LI>scaling the process formation, or 
+</LI>
+<LI>toggling maintenance mode. 
+</LI>
+</OL>
+(Filter: <code>--source heroku --ps api</code>)
+
+<P>
+<PRE>
+[~/rack/rack-rock-paper-scissors(master)]$ heroku logs --source heroku --ps api
+2013-10-23T21:33:41.105090+00:00 heroku[api]: Deploy 5ec1351 by chuchu.chachi.leon@gmail.com
+2013-10-23T21:33:41.154690+00:00 heroku[api]: Release v7 created by chuchu.chachi.leon@gmail.com
+</PRE>
+</LI>
+</OL>
+
+<P>
+Logplex is designed for collating and routing log messages, not for
+storage. It keeps the last 1,500 lines of consolidated logs. 
+
+<P>
+Heroku recommends using a separate service for long-term log storage; see
+Syslog drains for more information.
+
+<P>
+
+<H4><A NAME="SECTION013120010000000000000">
+Writing to your log</A>
+</H4>
+  
+
+<P>
+Anything written to standard out (stdout) or standard error (stderr)
+is captured into your logs. This means that you can log from anywhere
+in your application code with a simple output statement:
+<PRE>
+puts "Hello, logs!"
+</PRE>
+To take advantage of the realtime logging, you may need to disable
+any log buffering your application may be carrying out. For example,
+in Ruby add this to your config.ru:
+<PRE>
+$stdout.sync = true
+</PRE>
+Some frameworks send log output somewhere other than stdout by
+default. 
+
+<P>
+
+<H4><A NAME="SECTION013120020000000000000">
+To fetch your logs</A>
+</H4>
+  
+
+<PRE>
+$ heroku logs
+2010-09-16T15:13:46.677020+00:00 app[web.1]: Processing PostController#list (for 208.39.138.12 at 2010-09-16 15:13:46) [GET]
+2010-09-16T15:13:46.677023+00:00 app[web.1]: Rendering template within layouts/application
+2010-09-16T15:13:46.677902+00:00 app[web.1]: Rendering post/list
+2010-09-16T15:13:46.678990+00:00 app[web.1]: Rendered includes/_header (0.1ms)
+2010-09-16T15:13:46.698234+00:00 app[web.1]: Completed in 74ms (View: 31, DB: 40) | 200 OK [http://myapp.heroku.com/]
+2010-09-16T15:13:46.723498+00:00 heroku[router]: at=info method=GET path=/posts host=myapp.herokuapp.com fwd="204.204.204.204" dyno=web.1 connect=1ms service=18ms status=200 bytes=975
+2010-09-16T15:13:47.893472+00:00 app[worker.1]: 2 jobs processed at 16.6761 j/s, 0 failed ...
+</PRE>
+In this example, the output includes log lines from one of the app’s
+
+<FONT COLOR="#ff0000"> web dyno</FONT>s, the Heroku HTTP router, and one of the app’s workers.
+
+<P>
+The logs command retrieves 100 log lines by default.
+
+<P>
+
+<H4><A NAME="SECTION013120030000000000000">
+Log message ordering</A>
+</H4>
+  
+
+<P>
+When retrieving logs, you may notice that the logs are not always
+in order, especially when multiple components are involved. 
+
+<P>
+This
+is likely an artifact of distributed computing. 
+
+<P>
+Logs originate from
+many sources (router nodes, dynos, etc) and are assembled into a
+single log stream by logplex. 
+
+<P>
+It is up to the logplex user to sort
+the logs and provide the ordering required by their application,
+if any
+
+<P>
+
+<H4><A NAME="SECTION013120040000000000000">
+Log history limits</A>
+</H4>
+  
+
+<P>
+You can fetch up to 1500 lines using the -num (or -n) option:
+<PRE>
+$ heroku logs -n 200
+</PRE>
+Heroku only stores the last 1500 lines of log history. If you’d
+like to persist more than 1500 lines, use a logging add-on or create
+your own syslog drain<A NAME="tex2html680"
+  HREF="footnode.html#foot15981"><SUP><SPAN CLASS="arabic">58</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>.
+
+<P>
+
+<H4><A NAME="SECTION013120050000000000000">
+Log format</A>
+</H4>
+  
+
+<P>
+Each line is formatted as follows:
+
+<OL>
+<LI>timestamp source[dyno]: message
+</LI>
+<LI>Timestamp - The date and time recorded at the time the log line was produced by the dyno or component. The timestamp is in the format specified by RFC5424, and includes microsecond precision.
+</LI>
+<LI>Source - 
+  
+<OL>
+<LI>All of your app’s dynos (
+<FONT COLOR="#ff0000"> web dyno</FONT>s, background workers, cron) have a source of app. 
+</LI>
+<LI>All of Heroku’s system components (HTTP router, dyno manager) have a source of heroku.
+  
+</LI>
+</OL>
+</LI>
+<LI>Dyno - The name of the dyno or component that wrote this log line.
+For example, <code>worker #3</code> appears as <code>worker.3</code>, and the Heroku HTTP
+router appears as router.
+</LI>
+<LI>Message - The content of the log line. Dynos can generate messages
+up to approximately 1024 bytes in length and longer messages will
+be truncated. 
+</LI>
+</OL>
+
+<P>
+
+<H4><A NAME="SECTION013120060000000000000">
+Realtime tail</A>
+</H4>
+  
+
+<P>
+
+<OL>
+<LI>Similar to <code>tail -f</code>, realtime tail displays recent logs and leaves
+the session open for realtime logs to stream in. 
+</LI>
+<LI>By viewing a live
+stream of logs from your app, you can gain insight into the behavior
+of your live application and debug current problems.
+</LI>
+<LI>You may tail your logs using <code>--tail</code> (or <code>-t</code>).
+<PRE>
+$ heroku logs --tail
+</PRE>
+When you are done, press Ctrl-C to close the session.
+</LI>
+</OL>
+
+<P>
+
+<H4><A NAME="SECTION013120070000000000000">
+Filtering</A>
+</H4>
+  
+
+<P>
+If you only want to fetch logs with a certain source, a certain
+dyno, or both, you can use the <code>--source</code> (or <code>-s</code>) and
+<code>--ps</code> (or <code>-p</code>) filtering arguments:
+<PRE>
+$ heroku logs --ps router
+2012-02-07T09:43:06.123456+00:00 heroku[router]: at=info method=GET path=/stylesheets/dev-center/library.css host=devcenter.heroku.com fwd="204.204.204.204" dyno=web.5 connect=1ms service=18ms status=200 bytes=13
+2012-02-07T09:43:06.123456+00:00 heroku[router]: at=info method=GET path=/articles/bundler host=devcenter.heroku.com fwd="204.204.204.204" dyno=web.6 connect=1ms service=18ms status=200 bytes=20375
+</PRE>
+
+<P>
+<PRE>
+$ heroku logs --source app
+2012-02-07T09:45:47.123456+00:00 app[web.1]: Rendered shared/_search.html.erb (1.0ms)
+2012-02-07T09:45:47.123456+00:00 app[web.1]: Completed 200 OK in 83ms (Views: 48.7ms | ActiveRecord: 32.2ms)
+2012-02-07T09:45:47.123456+00:00 app[worker.1]: [Worker(host:465cf64e-61c8-46d3-b480-362bfd4ecff9 pid:1)] 1 jobs processed at 23.0330 j/s, 0 failed ...
+2012-02-07T09:46:01.123456+00:00 app[web.6]: Started GET "/articles/buildpacks" for 4.1.81.209 at 2012-02-07 09:46:01 +0000
+</PRE>
+
+<P>
+<PRE>
+$ heroku logs --source app --ps worker
+2012-02-07T09:47:59.123456+00:00 app[worker.1]: [Worker(host:260cf64e-61c8-46d3-b480-362bfd4ecff9 pid:1)] Article#record_view_without_delay completed after 0.0221
+2012-02-07T09:47:59.123456+00:00 app[worker.1]: [Worker(host:260cf64e-61c8-46d3-b480-362bfd4ecff9 pid:1)] 5 jobs processed at 31.6842 j/s, 0 failed ...
+</PRE>
+
+<P>
+When filtering by dyno, either the base name, <code>--ps web</code>, or the full
+name, <code>--ps web.1</code>, may be used.
+
+<P>
+You can also combine the filtering switches with <code>--tail</code> to get a
+realtime stream of filtered output.
+<PRE>
+$ heroku logs --source app --tail
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html6405"
+  HREF="node256.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6399"
+  HREF="node253.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6393"
+  HREF="node254.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6401"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6403"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html6406"
+  HREF="node256.html">Heroku Postgress</A>
+<B>Sup:</B> <A NAME="tex2html6400"
+  HREF="node253.html">Heroku</A>
+<B> Ant:</B> <A NAME="tex2html6394"
+  HREF="node254.html">Introducción</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

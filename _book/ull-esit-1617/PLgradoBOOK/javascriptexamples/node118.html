@@ -1,0 +1,46 @@
+
+<H1><A NAME="SECTION05390000000000000000">
+La orden <I>N</I></A>
+</H1>
+<#3252#><I>N</I><#3252#> añade la siguiente línea de entrada al espacio de
+patrones. Las dos líneas se separan mediante un retorno de
+carro. Después de su ejecución, el comando <#3253#><I>N</I><#3253#> pasa el control a los
+subsiguientes comandos en el <#3254#><I>script</I><#3254#>.
+<BR>El siguiente ejemplo propuesto en [#sedawk#<tex2html_cite_mark>#1##<tex2html_cite_mark>#] muestra una
+búsqueda y sustitución multilínea. Se trata de sustituir la
+cadena ``Owner and Operator Guide'' por ``Installation Guide'', cualquiera que sea su posición en una línea o entre ellas.
+Los autores de [#sedawk#<tex2html_cite_mark>#1##<tex2html_cite_mark>#] y [#power#<tex2html_cite_mark>#1##<tex2html_cite_mark>#] proponen la siguiente
+solución:
+<PRE><tex2html_verbatim_mark>verbatim734#</PRE>
+Veamos primero los contenidos del fichero de prueba:
+<PRE><tex2html_verbatim_mark>verbatim735#</PRE>
+La ejecución del <#3262#><I>script</I><#3262#> da la siguiente salida:
+<PRE><tex2html_verbatim_mark>verbatim736#</PRE>
+Uno de los problemas, que aparece en el primer párrafo del
+ejemplo de prueba, es que la segunda línea leída debe ser
+;SPMquot;reciclada;SPMquot;
+para su uso en la siguiente búsqueda. El segundo fallo, 
+que aparece en el último párrafo, es consecuencia de la
+limitación del <#3265#><I>script</I><#3265#> para trabajar con  patrones partidos
+en más de dos líneas.
+<BR>Consideremos esta otra solución:
+<PRE><tex2html_verbatim_mark>verbatim737#</PRE>
+Este otro <#3268#><I>script</I><#3268#> hace que <#3269#><TT>sed</TT><#3269#> permanezca en un bucle mientras
+la línea adjuntada en segundo lugar contenga un prefijo estricto 
+de la cadena buscada. 
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim738#</PRE>
+Un problema que aparece con esta aproximación es la presencia
+de líneas muy largas. Las líneas permanecen en el espacio de trabajo
+mientras terminen en un prefijo de la cadena buscada. Para
+que la salida quepa en la hoja he
+tenido que partir las líneas del fichero de salida, lo que he indicado con los
+símbolos <tex2html_verbatim_mark>#math6391#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33044#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Considere esta modificación:
+<PRE><tex2html_verbatim_mark>verbatim739#</PRE>
+Es indudable la ventaja de disponer de esta
+capacidad de búsqueda multilínea no puede realizarse con 
+otras utilidades como <#3274#><I>ex</I><#3274#> o <#3275#><I>vi</I><#3275#>.
+
+<P>

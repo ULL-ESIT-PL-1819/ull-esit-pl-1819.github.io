@@ -1,0 +1,573 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>05</TITLE>
+<META NAME="description" CONTENT="05">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="previous" HREF="node287.html">
+<LINK REL="up" HREF="node282.html">
+<LINK REL="next" HREF="node289.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html7036"
+  HREF="node289.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html7030"
+  HREF="node282.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html7026"
+  HREF="node287.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html7032"
+  HREF="node289.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html7034"
+  HREF="node292.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html7037"
+  HREF="node289.html">&#205;ndice General</A>
+<B>Sup:</B> <A NAME="tex2html7031"
+  HREF="node282.html">2014</A>
+<B> Ant:</B> <A NAME="tex2html7027"
+  HREF="node287.html">04</A>
+<B> Con:</B> 
+<A NAME="tex2html7032"
+  HREF="node289.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html7034"
+  HREF="node292.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html7038"
+  HREF="node288.html#SECTION014161000000000000000">Repaso para la prueba del 14/05/2014</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION014160000000000000000">
+05</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION014161000000000000000">
+Repaso para la prueba del 14/05/2014</A>
+</H2>
+
+<OL>
+<LI><OL>
+<LI>Complete las partes que faltan de esta calculadora escrita en Jison:
+<PRE>
+%___
+%%
+
+\s+                   /* skip whitespace */
+[0-9]+("."[0-9]+)?\b  return 'NUMBER'
+"*"                   return '*'
+"/"                   return '/'
+"-"                   return '-'
+"+"                   return '+'
+"^"                   return '^'
+"!"                   return '!'
+"%"                   return '%'
+"("                   return '('
+")"                   return ')'
+"PI"                  return 'PI'
+"E"                   return 'E'
+&lt;&lt;EOF&gt;&gt;               return 'EOF'
+.                     return 'INVALID'
+
+/___
+
+%left _______
+%left _______
+%____'^'
+%_____    '!'
+%______   '%'
+%left UMINUS
+
+%start ___________
+
+%% /* language grammar */
+
+expressions
+    : e EOF
+        { typeof console !== 'undefined' ? console.log($1) : print($1);
+          return $1; }
+    ;
+
+e
+    : e '+' e
+        {___________}
+    | e '-' e
+        {___________}
+    | e '*' e
+        {___________}
+    | e '/' e
+        {___________}
+    | e '^' e
+        {__ = Math.pow(______);}
+    | e '!'
+        {{
+          $$ = (function fact (n) { return n==0 ? _ : _____________ })($1);
+        }}
+    | e '%'
+        {$$ = $1/100;}
+    | '-' e %____ ______
+        {_________}
+    | '(' e ')'
+        {________}
+    | NUMBER
+        {____________________}
+    | E
+        {$$ = Math.E;}
+    | PI
+        {$$ = Math.PI;}
+    ;
+</PRE>
+</LI>
+<LI>¿Cómo  habría que modificar la calculadora  para que las frases de
+la forma <code>4-5-8</code> se interpretaran como <code>4-(5-8)</code>?
+</LI>
+<LI>¿Cómo  habría que modificar la calculadora  para que las frases de
+la forma <code>4-5*8</code> se interpretaran como <code>(4-5)*8)</code>?
+</LI>
+<LI>¿Cómo  habría que modificar la calculadora  para que las frases de
+la forma <code>-5*8</code> se interpretaran como <code>-(5*8)</code>?
+</LI>
+<LI>¿Cómo habría que modificar el analizador léxico para que se admitieran 
+comentarios tipo javascript <code>/* ... */</code>?
+</LI>
+<LI>¿Con que comando compilamos la gramática Jison anterior para producir el parser?
+</LI>
+</OL>
+</LI>
+<LI>Complete el algoritmo de análisis LR.
+
+<UL>
+<LI><SPAN CLASS="MATH"><IMG
+ WIDTH="24" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img198.png"
+ ALT="$ \vert x\vert$"></SPAN> denota la longitud de la cadena <SPAN CLASS="MATH"><IMG
+ WIDTH="15" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img34.png"
+ ALT="$ x$"></SPAN>. 
+</LI>
+<LI>La función <code>top(k)</code> devuelve el elemento que ocupa la 
+posición <code>k</code> contando desde el <SPAN  CLASS="textbf">top</SPAN> de la pila
+</LI>
+<LI>La función <code>pop(k)</code> extrae <code>k</code> elementos de la pila.
+</LI>
+<LI>La notación <code>state.attr</code> hace referencia al atributo
+asociado con cada estado.
+</LI>
+<LI>Denotamos por <code>Sem</code> el hash de acciones semánticas
+</LI>
+</UL>
+<PRE>
+ push(__);
+ b = yylex();
+ for( ; ; ;) {
+   s = top(0); a = b;
+   switch (action[_][_]) {
+     case "shift t" : 
+       t.attr = _.____;
+       push(_); 
+       b = _______;
+       break;
+     case "reduce A -&gt;alpha" : 
+       eval(Sem{_ __ _____}(top(|alpha|-1).attr, ... , top(0).attr)); 
+       pop(|_____|); 
+       push(goto[______][_]); 
+       break;
+     case "accept" : return (1); 
+     default : yyerror("syntax error");
+   }
+ }
+</PRE>
+</LI>
+<LI><OL>
+<LI>Escriba un autómata finito no determinista que reconozca el lenguaje 
+de los prefijos viables de la gramática:
+<PRE>
+e: e '-' e | NUM ;
+</PRE>
+</LI>
+<LI>Usando la construcción del subconjunto encuentre un autómata finito determinista que sea equivalente al construído en el apartado anterior
+</LI>
+<LI>Encuentre el conjunto de terminales que puede aparecer a continuación de 
+<code>e</code> en una derivación de la gramática. No se olvide de considerar el terminale <code>END-OF-INPUT</code>. Use el carácter <code>'$'</code> para representarlo.
+</LI>
+<LI>Construya la tabla de acciones (<code>action</code>) del analizador SLR para esta gramática
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI>Complete las partes que faltan del fichero <code>auth.rb</code> que permite 
+autentificación usando OAuth mediante la gema <code>omniauth</code>:
+<PRE>
+require 'omniauth-oauth2'
+require 'omniauth-google-oauth2'
+
+___ OmniAuth::Builder do
+  config = YAML.load_file 'config/config.yml'
+  ________ :google_oauth2, config['identifier'], config['secret']
+end
+
+get '/auth/:name/callback' do
+  session[:auth]  = @auth = request.env['________.____']
+  session[:name]  = @auth['info'].____
+  session[:image] = @auth['info']._____
+  flash[:notice] = 
+      %Q{&lt;div class="success"&gt;Authenticated as #{session[:name]}.&lt;/div&gt;}
+  redirect '/'
+end
+
+get '/auth/failure' do
+  flash[:notice] = params[:message] 
+  redirect '/'
+end
+</PRE>
+
+<P>
+</LI>
+<LI>Complete el código para el análisis de ámbito en esta extensión de la 
+calculadora que admite funciones anidadas.
+
+<P>
+En primer lugar tenemos las estructuras de datos necesarias:
+<PRE>
+%{
+var symbolTables = [{ name: '', father: null, vars: {} }];
+var scope = 0; 
+var symbolTable = symbolTables[scope];
+</PRE>
+
+<P>
+
+<OL>
+<LI>Complete este accessor para <code>scope</code>:
+<PRE>
+function getScope() {
+  return _____;
+}
+</PRE>
+
+<P>
+</LI>
+<LI>La función <code>getFormerScope</code> se llama cuando se sale de un ámbito:
+<PRE>
+function getFormerScope() {
+   _______;
+   symbolTable = symbolTables[_____];
+}
+</PRE>
+</LI>
+<LI>La función <code>makeNewScope</code> se llama cada vez que se entra en un nuevo ámbito:
+<PRE>
+function makeNewScope(id) {
+   _______;
+   symbolTable.vars[id].symbolTable = symbolTables[_____] =  
+                 { name: id, father: symbolTable, vars: {} };
+   symbolTable = symbolTables[_____];
+   return symbolTable;
+}
+</PRE>
+</LI>
+<LI>Necesitamos una función <code>findSymbol</code> para encontrar donde está
+la definición del objeto cuyo nombre es <code>x</code>:
+<PRE>
+function findSymbol(x) {
+  var f;
+  var s = scope;
+  do {
+    f = symbolTables[s].vars[x];
+    ___;
+  } while (______ &amp;&amp; !f);
+  s++;
+  return [f, s];
+}
+</PRE>
+</LI>
+<LI>Cuando se detecta una llamada se hacen comprobaciones 
+en la tabla de símbolos:
+<PRE>
+function functionCall(name, arglist) {
+  var info = findSymbol(name);
+  var s = info[1];
+  info = info[0];
+
+  if (!info || info.type != 'FUNC') {
+    _________________________________________;
+  }
+  else if(arglist.length != info.arity) {
+    __________________________________________;
+  }
+  ....
+}
+</PRE>
+
+<P>
+</LI>
+<LI>Complete el código que falta en la acción
+semántica asociada con la definición de una función:
+<PRE>
+dec 
+    : DEF functionname  optparameters "{" decs statements "}" 
+                  { 
+                     ______________();
+
+                     $$ = translateFunction(...);
+                  }
+    | VAR varlist ';'   { ... }
+    ;
+</PRE>
+</LI>
+<LI>En la produción anterior aparecía <code>functionname</code> el cual produce simplemente un identificador:
+<PRE>
+functionname
+    : ID 
+                  {
+                     if (symbolTable.vars[$ID]) 
+                       throw ___________________________________________;
+                     symbolTable.vars[$ID] = { type: ______, name: ___ };
+
+                     ____________($ID);
+
+                     $$ = $ID;
+                  }
+    ;
+</PRE>
+¿Por qué se crea esta regla de producción? 
+Rellene el código que falta.
+</LI>
+<LI>Cuandos se analiza la definición de parámetros es preciso 
+crear la entrada y guardar la información relevante. Complete 
+el código:
+<PRE>
+parameters
+    : ID                { 
+                          symbolTable.vars[___] = { type : '_____' };
+                          $$ = [ $ID ]; 
+                        }
+    | parameters "," ID { 
+                          symbolTable.vars[___] = { type : '_____' };
+                          $$ = $1; 
+                          $$.push($ID); 
+                        }
+    ;
+</PRE>
+</LI>
+<LI>Cuando se usa un identificador hay que comprobar que su 
+uso es conforme a su definición:
+<PRE>
+e
+    : ID "=" e
+        { 
+           var info = findSymbol($ID);
+           var s = info[1];
+           info = info[0];
+
+           if (info &amp;&amp; info.type === 'VAR') { 
+             $$ = binary($e,unary("&amp;"+$ID+", "+(getScope()-s)), "=");
+           }
+           else if (info &amp;&amp; info.type === 'PAR') { 
+             $$ = binary($e,unary("&amp;$"+$ID+", "+(getScope()-s)), "=");
+           }
+           else if (info &amp;&amp; info.type === 'FUNC') { 
+              ______________________________________________________;
+           }
+           else { 
+              ______________________________________________;
+           }
+        }
+    | ....
+</PRE>
+</LI>
+</OL>
+</LI>
+<LI>Responda a las siguientes preguntas sobre transformaciones árbol:
+
+<OL>
+<LI>Defina alfabeto con aridad
+</LI>
+<LI>Defina el conjunto de todos los árboles sobre un alfabeto
+</LI>
+<LI>Defina gramática árbol
+</LI>
+<LI>Defina lenguaje generado por una gramática árbol
+</LI>
+<LI>¿Que es un patrón árbol? ¿Que significa que un árbol casa con un patrón árbol?
+</LI>
+<LI>Defina que es un esquema de transformaciones árbol
+</LI>
+<LI>Escriba en pseudocódigo un esquema de transformaciones árbol 
+para el plegado de constantes
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI>Calcule los conjuntos <code>FIRST</code> y <code>FOLLOW</code> para las variables
+sintácticas de esta gramática:
+<PRE>
+S : A B 'a' A | 'b' S B
+  ;
+A : /* vacío */ | A 'a' 
+  ;
+B : /* vacío */ | B 'b'
+  ;
+</PRE>
+
+<P>
+</LI>
+<LI>Escriba un traductor de expresiones en infijo a postfijo usando Jison.
+Una expresión como <code>a+2*b</code> deberá traducirse como
+<code>a 2 b * +</code>.
+
+<P>
+</LI>
+<LI>Explique que código se debería añadir al
+ejercicio anterior para traducir una expresion
+<code>if expression then expression else expression</code>.
+
+<P>
+</LI>
+<LI>Haga un diagrama de un stackframe de una llamada explicando
+las diferentes partes para un lenguaje que admite procedimientos 
+anidados.
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html7036"
+  HREF="node289.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html7030"
+  HREF="node282.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html7026"
+  HREF="node287.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html7032"
+  HREF="node289.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html7034"
+  HREF="node292.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html7037"
+  HREF="node289.html">&#205;ndice General</A>
+<B>Sup:</B> <A NAME="tex2html7031"
+  HREF="node282.html">2014</A>
+<B> Ant:</B> <A NAME="tex2html7027"
+  HREF="node287.html">04</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,33 @@
+rule '.pdf' => ['.tex'] do |t|
+  sh "pdflatex", t.source, t.name
+end
+
+rule '.tex' => ['.tt2'] do |t|
+  sh "perl booktt/commontex/tt2article.pl #{t.source}"
+end
+
+#exams = %w{191211 111010 141111}
+#exams = %w{170112_1 170112_2 170112_3}
+exam = %q{130416repaso}
+exams = [ exam ]
+
+file 'exam.tt2' do
+  sh "perl booktt/commontex/tt2article.pl #{t.source}"
+end
+
+desc "Build #{exam}.pdf from #{exam}.tt2"
+task :default do
+  sh "perl booktt/commontex/tt2article.pl #{exam}.tt2"
+  sh "pdflatex #{exam}" 
+end
+
+desc "Convert to markdown"
+task :md do
+  sh " pandoc 130416repaso.tex -o dsirepaso.md"
+end
+require "rake/clean"
+CLEANLIST = [ '*.toc', '*.log', '*.dvi', '*.aux', '*.bbl', '*.blg', 'tmp', '*.out']
+CLEAN.include(CLEANLIST)
+CLEAN.include(exams.map {|e| "#{e}.tex" })
+CLEAN.include(exams.map {|e| "#{e}.pdf" })
+

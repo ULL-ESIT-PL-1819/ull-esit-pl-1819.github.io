@@ -1,0 +1,245 @@
+
+<H1><A NAME="SECTION05650000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:conceptos"><tex2html_anchor_mark></A><BR>
+Conceptos Básicos para el Análisis Sintáctico
+</H1>
+Suponemos que el lector de esta sección ha realizado con éxito
+un curso en teoría de autómatas y lenguajes formales.
+Las siguientes definiciones repasan los conceptos mas importantes.
+
+<P>
+<P><DIV><#33541#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#33541#> &nbsp; 
+<#33544#><I>Dado un conjunto <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33546#</SPAN>
+<tex2html_verbatim_mark>mathend000#, se define <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33548#</SPAN>
+<tex2html_verbatim_mark>mathend000# el cierre de Kleene de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33550#</SPAN>
+<tex2html_verbatim_mark>mathend000# como:
+</I><tex2html_verbatim_mark>#math6396#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33552#</SPAN>
+<tex2html_verbatim_mark>mathend000#<I>
+</I>
+<P>
+<I>Se admite que <tex2html_verbatim_mark>#math6397#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33554#</SPAN>
+<tex2html_verbatim_mark>mathend000#, donde <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33556#</SPAN>
+<tex2html_verbatim_mark>mathend000# denota la palabra vacía, esto es
+la palabra que tiene longitud cero, formada por cero símbolos del conjunto base <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33558#</SPAN>
+<tex2html_verbatim_mark>mathend000#.</I><#33544#></DIV><P></P>
+
+
+<P>
+<P><DIV><#33560#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#33560#> &nbsp; 
+<#33563#><I>Una gramática <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33565#</SPAN>
+<tex2html_verbatim_mark>mathend000# es una cuaterna <tex2html_verbatim_mark>#math6398#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33567#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33569#</SPAN>
+<tex2html_verbatim_mark>mathend000# es el conjunto de terminales. <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33571#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un conjunto (disjunto de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33573#</SPAN>
+<tex2html_verbatim_mark>mathend000#)
+que se denomina conjunto de <SPAN  CLASS="textbf">variables sintácticas</SPAN> o <SPAN  CLASS="textbf">categorías gramáticales</SPAN>,
+P es un conjunto de pares de <tex2html_verbatim_mark>#math6399#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33575#</SPAN>
+<tex2html_verbatim_mark>mathend000#. En vez de escribir
+un par usando la notación <tex2html_verbatim_mark>#math6400#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33577#</SPAN>
+<tex2html_verbatim_mark>mathend000# se escribe <tex2html_verbatim_mark>#math6401#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33579#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+Un elemento de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33581#</SPAN>
+<tex2html_verbatim_mark>mathend000# se denomina producción. Por último, <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33583#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un símbolo del conjunto
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33585#</SPAN>
+<tex2html_verbatim_mark>mathend000# que se denomina símbolo de arranque.</I><#33563#></DIV><P></P>
+
+
+<P>
+<P><DIV><#33587#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#33587#> &nbsp; 
+<#33590#><I>Dada una gramática <tex2html_verbatim_mark>#math6402#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33592#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verbatim_mark>#math6403#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33594#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+una frase formada por variables y terminales y <tex2html_verbatim_mark>#math6404#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33596#</SPAN>
+<tex2html_verbatim_mark>mathend000# una producción de 
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33598#</SPAN>
+<tex2html_verbatim_mark>mathend000#, decimos que  <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33600#</SPAN>
+<tex2html_verbatim_mark>mathend000# deriva en un paso en  <tex2html_verbatim_mark>#math6405#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33602#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Esto es, derivar 
+una cadena <tex2html_verbatim_mark>#math6406#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33604#</SPAN>
+<tex2html_verbatim_mark>mathend000# es sustituir 
+una variable sintáctica <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33606#</SPAN>
+<tex2html_verbatim_mark>mathend000# de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33608#</SPAN>
+<tex2html_verbatim_mark>mathend000# por la parte derecha <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33610#</SPAN>
+<tex2html_verbatim_mark>mathend000# de una de sus reglas de producción.
+Se dice que <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33612#</SPAN>
+<tex2html_verbatim_mark>mathend000# deriva en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33614#</SPAN>
+<tex2html_verbatim_mark>mathend000# pasos en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33616#</SPAN>
+<tex2html_verbatim_mark>mathend000# si deriva en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33618#</SPAN>
+<tex2html_verbatim_mark>mathend000# pasos en una cadena
+<tex2html_verbatim_mark>#math6407#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33620#</SPAN>
+<tex2html_verbatim_mark>mathend000# la cual deriva en un paso en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33622#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Se escribe entonces
+que <tex2html_verbatim_mark>#math6408#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33624#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Una cadena deriva en 0 pasos en si misma.
+</I>
+<P>
+<I></I><#33590#></DIV><P></P>
+
+
+<P>
+<P><DIV><A NAME="definition:lenguajegenerado"><#33626#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">4</SPAN></B><#33626#></A> &nbsp; 
+<#33629#><I>Dada una gramática <tex2html_verbatim_mark>#math6409#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33631#</SPAN>
+<tex2html_verbatim_mark>mathend000# se denota por <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33633#</SPAN>
+<tex2html_verbatim_mark>mathend000# o lenguaje
+generado por <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33635#</SPAN>
+<tex2html_verbatim_mark>mathend000# al lenguaje:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6410#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33637#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I>Esto es, el lenguaje generado por la gramática <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33639#</SPAN>
+<tex2html_verbatim_mark>mathend000# esta formado por las cadenas
+de terminales que pueden ser derivados desde el símbolo de arranque.</I><#33629#></DIV><P></P>
+
+
+<P>
+<P><DIV><#33641#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">5</SPAN></B><#33641#> &nbsp; 
+<#33644#><I>Una derivación que comienza en el símbolo de arranque y termina en una secuencia
+formada por sólo terminales de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33646#</SPAN>
+<tex2html_verbatim_mark>mathend000# se dice <SPAN  CLASS="textbf">completa</SPAN>.
+</I>
+<P>
+<I>Una derivación <tex2html_verbatim_mark>#math6411#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33648#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+en la cual en cada paso <tex2html_verbatim_mark>#math6412#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33650#</SPAN>
+<tex2html_verbatim_mark>mathend000# la regla de producción aplicada <tex2html_verbatim_mark>#math6413#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33652#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+se aplica en la variable sintáctica mas a la derecha se dice <SPAN  CLASS="textbf">una derivación a derechas</SPAN>
+</I>
+<P>
+<I>Una derivación <tex2html_verbatim_mark>#math6414#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33654#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+en la cual en cada paso <tex2html_verbatim_mark>#math6415#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33656#</SPAN>
+<tex2html_verbatim_mark>mathend000# la regla de producción aplicada <tex2html_verbatim_mark>#math6416#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33658#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+se aplica en la variable sintáctica mas a la izquierda se dice <SPAN  CLASS="textbf">una derivación a izquierdas</SPAN></I><#33644#></DIV><P></P>
+
+
+<P>
+<P><DIV><#33660#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">6</SPAN></B><#33660#> &nbsp; 
+<#33663#><I>Observe que una derivación puede ser representada como un árbol cuyos nodos
+están etiquetados en <tex2html_verbatim_mark>#math6417#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33665#</SPAN>
+<tex2html_verbatim_mark>mathend000#. La aplicación de la regla de 
+producción <tex2html_verbatim_mark>#math6418#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33667#</SPAN>
+<tex2html_verbatim_mark>mathend000# se traduce en asignar como hijos del nodo etiquetado con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33669#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+a los nodos etiquetados con los símbolos <tex2html_verbatim_mark>#math6419#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33671#</SPAN>
+<tex2html_verbatim_mark>mathend000# que constituyen
+la frase <tex2html_verbatim_mark>#math6420#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33673#</SPAN>
+<tex2html_verbatim_mark>mathend000#.  
+Este árbol se llama <A NAME="12120"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">árbol sintáctico concreto</SPAN> asociado 
+con la derivación.</I><#33663#></DIV><P></P>
+
+
+<P>
+<P><DIV><A NAME="definition:arbolconcreto"><#33675#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">7</SPAN></B><#33675#></A> &nbsp; 
+<#33678#><I>Observe que, dada una frase <tex2html_verbatim_mark>#math6421#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33680#</SPAN>
+<tex2html_verbatim_mark>mathend000# una derivación desde el
+símbolo de arranque da lugar a  un árbol. Ese árbol tiene como raíz el 
+símbolo de arranque y como hojas los terminales 
+<tex2html_verbatim_mark>#math6422#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33682#</SPAN>
+<tex2html_verbatim_mark>mathend000# que forman <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33684#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Dicho árbol se denomina <SPAN  CLASS="textbf">árbol
+de análisis sintáctico concreto</SPAN> de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33686#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Una derivación determina
+una forma de recorrido del árbol de análisis sintáctico concreto.</I><#33678#></DIV><P></P>
+
+
+<P>
+<P><DIV><#33688#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">8</SPAN></B><#33688#> &nbsp; 
+<#33691#><I>Una gramática <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33693#</SPAN>
+<tex2html_verbatim_mark>mathend000# se dice ambigua si existe alguna frase <tex2html_verbatim_mark>#math6423#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33695#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+con al menos dos árboles sintácticos. 
+Es claro que esta definición es equivalente a afirmar que existe 
+alguna frase <tex2html_verbatim_mark>#math6424#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33697#</SPAN>
+<tex2html_verbatim_mark>mathend000# para la cual existen dos derivaciones a 
+izquierda (derecha) distintas.</I><#33691#></DIV><P></P>
+
+
+<P>
+
+<H2><A NAME="SECTION05651000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="ejercicio:tutugrammar"><tex2html_anchor_mark></A><BR>
+Ejercicio
+</H2>
+Dada la gramática con producciones:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">program      <tex2html_verbatim_mark>#math6425#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33700#</SPAN>
+<tex2html_verbatim_mark>mathend000# declarations  statements         <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33702#</SPAN>
+<tex2html_verbatim_mark>mathend000# statements</TD>
+</TR>
+<TR><TD ALIGN="LEFT">declarations <tex2html_verbatim_mark>#math6426#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33704#</SPAN>
+<tex2html_verbatim_mark>mathend000# declaration  ';'  declarations    <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33706#</SPAN>
+<tex2html_verbatim_mark>mathend000# declaration ';'</TD>
+</TR>
+<TR><TD ALIGN="LEFT">declaration  <tex2html_verbatim_mark>#math6427#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33708#</SPAN>
+<tex2html_verbatim_mark>mathend000# INT  idlist                       <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33710#</SPAN>
+<tex2html_verbatim_mark>mathend000# STRING   idlist</TD>
+</TR>
+<TR><TD ALIGN="LEFT">statements   <tex2html_verbatim_mark>#math6428#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33712#</SPAN>
+<tex2html_verbatim_mark>mathend000# statement  ';'  statements        <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33714#</SPAN>
+<tex2html_verbatim_mark>mathend000# statement</TD>
+</TR>
+<TR><TD ALIGN="LEFT">statement    <tex2html_verbatim_mark>#math6429#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33716#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID '=' expression                 <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33718#</SPAN>
+<tex2html_verbatim_mark>mathend000# P  expression</TD>
+</TR>
+<TR><TD ALIGN="LEFT">expression   <tex2html_verbatim_mark>#math6430#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33720#</SPAN>
+<tex2html_verbatim_mark>mathend000# term '+' expression               <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33722#</SPAN>
+<tex2html_verbatim_mark>mathend000# term</TD>
+</TR>
+<TR><TD ALIGN="LEFT">term         <tex2html_verbatim_mark>#math6431#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33724#</SPAN>
+<tex2html_verbatim_mark>mathend000# factor '*' term                   <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33726#</SPAN>
+<tex2html_verbatim_mark>mathend000# factor</TD>
+</TR>
+<TR><TD ALIGN="LEFT">factor       <tex2html_verbatim_mark>#math6432#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33728#</SPAN>
+<tex2html_verbatim_mark>mathend000# '(' expression ')' <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33730#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33732#</SPAN>
+<tex2html_verbatim_mark>mathend000# NUM <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33734#</SPAN>
+<tex2html_verbatim_mark>mathend000# STR</TD>
+</TR>
+<TR><TD ALIGN="LEFT">idlist       <tex2html_verbatim_mark>#math6433#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33736#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID ',' idlist <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33738#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID</TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+
+<P>
+En esta gramática, <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33749#</SPAN>
+<tex2html_verbatim_mark>mathend000# esta formado por los caracteres entre comillas simples y 
+los símbolos cuyos identificadores están en mayúsculas. Los restantes identificadores
+corresponden a elementos de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33751#</SPAN>
+<tex2html_verbatim_mark>mathend000#. El símbolo de arranque es <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33753#</SPAN>
+<tex2html_verbatim_mark>mathend000# program.
+
+<P>
+Conteste a las siguientes cuestiones:
+
+<P>
+
+<OL>
+<LI>Describa con palabras el lenguaje generado.
+</LI>
+<LI><A NAME="ejer:arbol"><tex2html_anchor_mark></A>Construya el árbol de análisis sintáctico
+concreto para cuatro frases del lenguaje.
+</LI>
+<LI>Señale a que recorridos del árbol corresponden las respectivas
+derivaciones a izquierda y a derecha en el apartado <A HREF=<tex2html_cr_mark>#ejer:arbol#10883><tex2html_cr_mark></A>.
+</LI>
+<LI>¿Es ambigua esta gramática?. Justifique su respuesta.
+</LI>
+</OL>
+
+<P>

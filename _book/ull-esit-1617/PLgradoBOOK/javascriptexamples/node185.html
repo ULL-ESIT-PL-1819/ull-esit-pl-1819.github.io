@@ -1,0 +1,236 @@
+
+<H1><A NAME="SECTION058130000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:heredados"><tex2html_anchor_mark></A><BR>
+Manejo en <TT>yapp</TT> de Atributos Heredados
+</H1>
+Supongamos  que <tex2html_verb_mark>2396<tex2html_verb_mark> esta inmerso 
+en la construcción de la antiderivación a derechas y que la forma sentencial
+derecha en ese momento es:
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math7133#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37363#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+y que el mango es <tex2html_verbatim_mark>#math7134#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37365#</SPAN>
+<tex2html_verbatim_mark>mathend000# y en la entrada quedan por 
+procesar <tex2html_verbatim_mark>#math7135#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37367#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+Es posible acceder en <tex2html_verb_mark>2397<tex2html_verb_mark> a los valores de los atributos de los estados en la pila
+del analizador que se encuentran ``por debajo'' o si se quiere
+``a la izquierda'' de los estados asociados
+con la regla por la que se reduce. Para ello se usa una llamada al método
+<A NAME="18434"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf"><#18437#><TT>YYSemval</TT><#18437#></SPAN>. La llamada es de la forma 
+<tex2html_verb_mark>2398<tex2html_verb_mark>, donde <tex2html_verb_mark>2399<tex2html_verb_mark> es un entero.
+Cuando se usan los valores <tex2html_verb_mark>2400<tex2html_verb_mark> ...<tex2html_verb_mark>2401<tex2html_verb_mark> devuelve lo mismo
+que <tex2html_verb_mark>2402<tex2html_verb_mark>, ...<tex2html_verb_mark>2403<tex2html_verb_mark>. Esto es 
+<tex2html_verb_mark>2404<tex2html_verb_mark> es el atributo asociado con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37369#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verb_mark>2405<tex2html_verb_mark> es el atributo
+asociado con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37371#</SPAN>
+<tex2html_verbatim_mark>mathend000#.  Cuando se usa con el valor
+0 devolverá el valor del atributo asociado con el símbolo que esta a la izquierda 
+del mango actual, esto es el atributo asociado con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37373#</SPAN>
+<tex2html_verbatim_mark>mathend000#, 
+si se llama con -1 el que está dos unidades a la izquierda de la variable actual, 
+esto es, el asociado con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37375#</SPAN>
+<tex2html_verbatim_mark>mathend000# etc. Así <tex2html_verb_mark>2406<tex2html_verb_mark> denota el atributo
+de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37377#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+Esta forma de acceder a los atributos es especialmente útil cuando se 
+trabaja con <A NAME="18438"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">atributos heredados</SPAN>. Esto es, cuando un atributo
+de un nodo del árbol sintáctico se computa en términos
+de valores de atributos de su padre y/o sus hermanos.
+Ejemplos de atributos heredados son la clase y tipo en la declaración
+de variables. Supongamos que tenemos el siguiente 
+<A NAME="18440"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">esquema de traducción</SPAN> para calcular la clase (C) y tipo (T) en 
+las declaraciones (D) de listas (L) de identificadores:
+
+<P>
+<BR>
+<BR>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">D <tex2html_verbatim_mark>#math7136#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37379#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">C T <tex2html_verb_mark>2407<tex2html_verb_mark> L</TD>
+</TR>
+<TR><TD ALIGN="LEFT">C <tex2html_verbatim_mark>#math7137#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37381#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">global   <tex2html_verb_mark>2408<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT">C <tex2html_verbatim_mark>#math7138#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37383#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">local    <tex2html_verb_mark>2409<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT">T <tex2html_verbatim_mark>#math7139#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37385#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">integer  <tex2html_verb_mark>2410<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT">T <tex2html_verbatim_mark>#math7140#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37387#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">float    <tex2html_verb_mark>2411<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT">L <tex2html_verbatim_mark>#math7141#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37389#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><tex2html_verb_mark>2412<tex2html_verb_mark><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37391#</SPAN>
+<tex2html_verbatim_mark>mathend000#<tex2html_verb_mark>2413<tex2html_verb_mark><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37393#</SPAN>
+<tex2html_verbatim_mark>mathend000#<tex2html_verb_mark>2414<tex2html_verb_mark> L<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37395#</SPAN>
+<tex2html_verbatim_mark>mathend000# ','</TD>
+</TR>
+<TR><TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT">id <tex2html_verb_mark>2415<tex2html_verb_mark></TD>
+</TR>
+<TR><TD ALIGN="LEFT">L <tex2html_verbatim_mark>#math7142#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37397#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">id   <tex2html_verb_mark>2416<tex2html_verb_mark></TD>
+</TR>
+</TABLE>
+</DIV>
+<BR>
+<BR>
+
+<P>
+Los atributos <tex2html_verb_mark>2417<tex2html_verb_mark> y <tex2html_verb_mark>2418<tex2html_verb_mark> denotan respectivamente
+la clase y el tipo. 
+
+<P>
+<P><DIV><#37415#><B>Ejercicio  <SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">13</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#37415#> &nbsp; 
+<#37418#><I>Evalúe el esquema de traducción para la entrada
+<tex2html_verb_mark>2419<tex2html_verb_mark>. Represente el árbol de análisis, las
+acciones incrustadas y determine el orden de ejecución.
+</I>
+<P>
+<I>Olvide por un momento la notación usada en las acciones y 
+suponga que se tratara de acciones <tex2html_verb_mark>2420<tex2html_verb_mark>. ¿En que orden
+construye <tex2html_verb_mark>2421<tex2html_verb_mark> el árbol y en que orden ejecutará las
+acciones?</I><#37418#></DIV><P></P>
+
+
+<P>
+A la hora de transformar este esquema de traducción en un programa
+<tex2html_verb_mark>2422<tex2html_verb_mark> es importante darse cuenta que en cualquier derivación a derechas
+desde D, cuando se reduce por una de las reglas 
+
+<P>
+<DIV ALIGN="CENTER">
+L <tex2html_verbatim_mark>#math7143#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37420#</SPAN>
+<tex2html_verbatim_mark>mathend000# id <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37422#</SPAN>
+<tex2html_verbatim_mark>mathend000# L<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37424#</SPAN>
+<tex2html_verbatim_mark>mathend000# ',' id
+
+</DIV>
+
+<P>
+el símbolo a la izquierda de L es T y el que esta a la izquierda de T es C.
+Considere, por ejemplo la derivación a derechas:
+
+<P>
+<DIV ALIGN="CENTER">
+D <tex2html_verbatim_mark>#math7144#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37426#</SPAN>
+<tex2html_verbatim_mark>mathend000# C T L <tex2html_verbatim_mark>#math7145#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37428#</SPAN>
+<tex2html_verbatim_mark>mathend000# C T L, id <tex2html_verbatim_mark>#math7146#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37430#</SPAN>
+<tex2html_verbatim_mark>mathend000# C T L, id, id
+<tex2html_verbatim_mark>#math7147#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37432#</SPAN>
+<tex2html_verbatim_mark>mathend000# C T id, id, id <tex2html_verbatim_mark>#math7148#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37434#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+<BR><tex2html_verbatim_mark>#math7149#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37436#</SPAN>
+<tex2html_verbatim_mark>mathend000# C float id, id, id <tex2html_verbatim_mark>#math7150#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37438#</SPAN>
+<tex2html_verbatim_mark>mathend000# local float id, id, id
+
+</DIV>
+
+<P>
+Observe que el orden de recorrido de <tex2html_verb_mark>2423<tex2html_verb_mark> es:
+<DIV ALIGN="CENTER">
+local float id, id, id <tex2html_verbatim_mark>#math7151#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37440#</SPAN>
+<tex2html_verbatim_mark>mathend000# C float id, id <tex2html_verbatim_mark>#math7152#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37442#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+C T id, id, id <tex2html_verbatim_mark>#math7153#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37444#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+<BR><tex2html_verbatim_mark>#math7154#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37446#</SPAN>
+<tex2html_verbatim_mark>mathend000# C T L, id, id <tex2html_verbatim_mark>#math7155#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37448#</SPAN>
+<tex2html_verbatim_mark>mathend000# C T L, id <tex2html_verbatim_mark>#math7156#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37450#</SPAN>
+<tex2html_verbatim_mark>mathend000# C T L <tex2html_verbatim_mark>#math7157#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37452#</SPAN>
+<tex2html_verbatim_mark>mathend000# D
+
+</DIV>
+
+<P>
+en la antiderivación, cuando el mango es una de las dos reglas 
+para listas de identificadores, L <tex2html_verbatim_mark>#math7158#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37454#</SPAN>
+<tex2html_verbatim_mark>mathend000# id y L <tex2html_verbatim_mark>#math7159#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37456#</SPAN>
+<tex2html_verbatim_mark>mathend000# L, id 
+es decir durante las tres ultimas antiderivaciones:
+
+<P>
+<DIV ALIGN="CENTER">
+C T L, id, id <tex2html_verbatim_mark>#math7160#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37458#</SPAN>
+<tex2html_verbatim_mark>mathend000# C T L, id <tex2html_verbatim_mark>#math7161#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37460#</SPAN>
+<tex2html_verbatim_mark>mathend000# C T L <tex2html_verbatim_mark>#math7162#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37462#</SPAN>
+<tex2html_verbatim_mark>mathend000# D
+
+</DIV>
+
+<P>
+las variables a la izquierda del mango son
+T y C. Esto ocurre siempre. 
+Estas observaciones nos conducen al siguiente
+programa <tex2html_verb_mark>2424<tex2html_verb_mark>: 
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6156#</PRE>
+
+<P>
+A continuación escribimos el programa que usa 
+el módulo generado por <tex2html_verb_mark>2425<tex2html_verb_mark>:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6157#</PRE>
+En las líneas de la 15 a la 51 esta nuestro analizador léxico.
+La entrada se lee en una variable local cuyo valor permanece
+entre llamadas: hemos creado una clausura con la variable
+<tex2html_verb_mark>2426<tex2html_verb_mark> (véase la sección <A HREF=<tex2html_ext_cr_mark>#section:clausura#18442><tex2html_ext_cr_mark></A> [#CasianoIntroAPerl#<tex2html_cite_mark>#1##<tex2html_cite_mark>#] para mas detalles
+sobre el uso de clausuras en Perl). Aunque la variable <tex2html_verb_mark>2427<tex2html_verb_mark>
+queda inaccesible desde fuera de la clausura, persiste entre llamadas
+como consecuencia de que la subrutina <tex2html_verb_mark>2428<tex2html_verb_mark> la utiliza.
+
+<P>
+A continuación sigue un ejemplo de ejecución:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6158#</PRE>
+
+<P>
+<P><DIV><#37464#><B>Ejercicio  <SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">13</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#37464#> &nbsp; 
+<#37467#><I>El siguiente programa <tex2html_verb_mark>2429<tex2html_verb_mark> calcula 
+un árbol de análisis abstracto para la gramática
+del ejemplo anterior:
+</I><PRE><tex2html_verbatim_mark>verbatim6159#</PRE><I>
+sigue un ejemplo de ejecución:
+</I><PRE><tex2html_verbatim_mark>verbatim6160#</PRE><I>
+</I>
+<P>
+<I>Extienda el programa del ejemplo para que la gramática 
+incluya las acciones del esquema de traducción.
+Las acciones se tratarán como un terminal <tex2html_verb_mark>2430<tex2html_verb_mark>
+y serán devueltas por el analizador léxico. Su atributo
+asociado es el texto del código. El programa 
+<tex2html_verb_mark>2431<tex2html_verb_mark> deberá devolver el árbol abstracto
+extendido con las acciones-terminales.
+La parte mas difícil de este problema consiste en ``reconocer''
+el código Perl incrustado. La estrategia seguir consiste
+en contar el número de llaves que se abren y se cierran.
+Cuando el contador alcanza cero es que hemos llegado
+al final del código Perl incrustado. Esta estrategia
+tiene una serie de problemas. ¿Sabría decir cuáles?
+(sugerencia: repase la sección <A HREF=<tex2html_cr_mark>#subsection:elcuerpo#17823><tex2html_cr_mark></A> 
+o vea como <tex2html_verb_mark>2432<tex2html_verb_mark> resuelve el problema).</I><#37467#></DIV><P></P>
+
+
+<P>

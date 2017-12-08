@@ -1,0 +1,241 @@
+
+<H1><A NAME="SECTION05780000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:tablas"><tex2html_anchor_mark></A><BR>
+El módulo Generado por <TT>jison</TT>
+</H1>
+
+<P>
+<tex2html_file>#./chapter_bottomup/aSb.tex#
+
+<H2><A NAME="SECTION05781000000000000000">
+Version</A>
+</H2>
+
+<P>
+En esta sección estudiamos el analizador generado por Jison:
+<PRE><tex2html_verbatim_mark>verbatim5762#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05782000000000000000">
+Gramática Inicial</A>
+</H2>
+Veamos el módulo generado por jison para esta gramática:
+<PRE><tex2html_verbatim_mark>verbatim5763#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05783000000000000000">
+Tablas</A>
+</H2>
+Esta es la primera parte del parser generado:
+<PRE><tex2html_verbatim_mark>verbatim5764#</PRE>
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>rawhtml5765#
+
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION05784000000000000000">
+Acciones Semánticas</A>
+</H2>
+Cada vez que se produce una acción de reducción esta función es llamada:
+<PRE><tex2html_verbatim_mark>verbatim5766#</PRE>
+
+<UL>
+<LI>Parece que  cuando se llama a este método <tex2html_verb_mark>2132<tex2html_verb_mark> refiere a un objeto <tex2html_verb_mark>2133<tex2html_verb_mark>. Este es el
+punto  de llamada a la acción semántica dentro del parser generado por Jison.
+Puede encontrarse dentro del parser en el caso de un <tex2html_verb_mark>2134<tex2html_verb_mark> 
+que corresponde a la acción de reducción:
+<PRE><tex2html_verbatim_mark>verbatim5767#</PRE>
+El método <tex2html_verb_mark>2135<tex2html_verb_mark>
+nos permite invocar una función como si fuera un método de algún otro 
+objeto. Véase la sección 
+<A HREF=<tex2html_cr_mark>#subsection:callyapply#16813><tex2html_cr_mark></A>.
+
+<P>
+Este objeto <tex2html_verb_mark>2136<tex2html_verb_mark> tiene dos atributos: <tex2html_verb_mark>2137<tex2html_verb_mark> y <tex2html_verb_mark>2138<tex2html_verb_mark>.
+  
+<UL>
+<LI>El atributo 
+  <tex2html_verb_mark>2139<tex2html_verb_mark> se corresponde con <tex2html_verb_mark>2140<tex2html_verb_mark> de la gramática (atributo de la variable
+  sintactica en la parte izquierda)
+</LI>
+<LI>El atributo <tex2html_verb_mark>2141<tex2html_verb_mark> guarda información
+  sobre la posición del último token leído.
+  
+</LI>
+</UL>
+</LI>
+<LI><tex2html_verb_mark>2142<tex2html_verb_mark> parece contener el texto asociado con el token actual
+</LI>
+<LI><tex2html_verb_mark>2143<tex2html_verb_mark> es la longitud del token actual
+</LI>
+<LI><tex2html_verb_mark>2144<tex2html_verb_mark> es la línea actual (empezando en 0)
+</LI>
+<LI><tex2html_verb_mark>2145<tex2html_verb_mark> es un objeto con dos atributos <tex2html_verb_mark>2146<tex2html_verb_mark> y <tex2html_verb_mark>2147<tex2html_verb_mark> 
+</LI>
+<LI><tex2html_verb_mark>2148<tex2html_verb_mark> es el estado actual 
+</LI>
+<LI><tex2html_verb_mark>2149<tex2html_verb_mark> parece ser un array/pila conteniendo 
+los valores de los atributos asociados con los estados de la pila (<tex2html_verb_mark>2150<tex2html_verb_mark> ¿Por value stack?)
+</LI>
+<LI>Asi pues <tex2html_verb_mark>2151<tex2html_verb_mark> es el índice en <tex2html_verb_mark>2152<tex2html_verb_mark> del último elemento de <tex2html_verb_mark>2153<tex2html_verb_mark>.
+Por ejemplo, una acción semántica como:
+<PRE><tex2html_verbatim_mark>verbatim5768#</PRE>
+Se traduce por:
+<PRE><tex2html_verbatim_mark>verbatim5769#</PRE>
+</LI>
+<LI><tex2html_verb_mark>2154<tex2html_verb_mark>
+Es un array con la información sobre la localización de los simbolos (<tex2html_verb_mark>2155<tex2html_verb_mark> ¿Por location stack?)
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION05785000000000000000">
+Tabla de Acciones y GOTOs</A>
+</H2>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5770#</PRE>
+
+<P>
+
+<UL>
+<LI>La tabla es un array de objetos
+</LI>
+<LI>El índice de la tabla es el estado. En el ejemplo tenemos 5 estados
+</LI>
+<LI>El objeto/hash que es el valor contiene las acciones ante los símbolos.
+
+<OL>
+<LI>Los atributos/claves son los símbolos, los valores las acciones
+</LI>
+<LI>Las acciones son de dos tipos:
+
+<OL>
+<LI>El número del estado al que se transita mediante la tabla <tex2html_verb_mark>2156<tex2html_verb_mark>
+cuando el símbolo es una variable sintactica 
+</LI>
+<LI>Un par <tex2html_verb_mark>2157<tex2html_verb_mark>. 
+Si el <tex2html_verb_mark>2158<tex2html_verb_mark> es 1 indica un shift al <tex2html_verb_mark>2159<tex2html_verb_mark> con ese número.
+Si el <tex2html_verb_mark>2160<tex2html_verb_mark> es 2 indica una reducción por la <tex2html_verb_mark>2161<tex2html_verb_mark> con ese número.
+</LI>
+</OL>
+</LI>
+<LI>Por ejemplo <tex2html_verb_mark>2162<tex2html_verb_mark> es 
+<PRE><tex2html_verbatim_mark>verbatim5771#</PRE>
+</LI>
+</OL>
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION05786000000000000000">
+defaultActions</A>
+</H2>
+<PRE><tex2html_verbatim_mark>verbatim5772#</PRE>
+
+<P>
+
+<UL>
+<LI><tex2html_verb_mark>2163<tex2html_verb_mark> contiene las acciones por defecto.
+
+<P>
+</LI>
+<LI>Después de la construcción de la tabla, Jison identifica para
+cada estado la reducción que tiene el conjunto 
+de lookaheads mas grande. Para reducir el tamaño del parser,
+Jison puede decidir suprimir dicho conjunto y asiganr esa reducción como 
+acción del parser por defecto. Tal reducción se conoce como
+<A NAME="16986"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">reducción por defecto</SPAN>.
+</LI>
+<LI>Esto puede verse en este segmento del código del parser:
+<PRE><tex2html_verbatim_mark>verbatim5773#</PRE>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION05787000000000000000">
+Reducciones</A>
+</H2>
+<PRE><tex2html_verbatim_mark>verbatim5774#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05788000000000000000">
+Desplazamientos/Shifts</A>
+</H2>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5775#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05789000000000000000">
+Manejo de Errores</A>
+</H2>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5776#</PRE>
+
+<P>
+La función <tex2html_verb_mark>2164<tex2html_verb_mark> genera una excepción:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5777#</PRE>
+
+<P>
+
+<UL>
+<LI><tex2html_verb_mark>2165<tex2html_verb_mark> es llamada cada vez que ocurre un error sintáctico.
+<tex2html_verb_mark>2166<tex2html_verb_mark> contiene la cadena con el mensaje de error del tipo: 
+<tex2html_verb_mark>2167<tex2html_verb_mark>.
+<tex2html_verb_mark>2168<tex2html_verb_mark> contiene atributos como <tex2html_verb_mark>2169<tex2html_verb_mark>: el array de tokens esperados; 
+<tex2html_verb_mark>2170<tex2html_verb_mark> la línea implicada, <tex2html_verb_mark>2171<tex2html_verb_mark> una descripción de la localización detallada del punto/terminal
+en el que ocurre el error; etc.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION057810000000000000000">
+Analizador Léxico</A>
+</H2>
+El analizador léxico:
+<PRE><tex2html_verbatim_mark>verbatim5778#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION057811000000000000000">
+Exportación</A>
+</H2>
+
+<P>
+Si no ha sido exportado ya ...
+<PRE><tex2html_verbatim_mark>verbatim5779#</PRE>
+El objeto <tex2html_verb_mark>2172<tex2html_verb_mark> representa al parser. Este es el código que lo crea.
+<PRE><tex2html_verbatim_mark>verbatim5780#</PRE>
+También se exporta una función <tex2html_verb_mark>2173<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5781#</PRE>
+y una función <tex2html_verb_mark>2174<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5782#</PRE>
+Esto permite ejecutar el módulo directamente:
+<PRE><tex2html_verbatim_mark>verbatim5783#</PRE>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5784#</PRE>
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5785#</PRE>
+<tex2html_endfile>#./chapter_bottomup/aSb.tex#
+
+<P>

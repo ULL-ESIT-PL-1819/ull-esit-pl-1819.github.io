@@ -1,0 +1,909 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>El módulo Generado por jison</TITLE>
+<META NAME="description" CONTENT="El módulo Generado por jison">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node57.html">
+<LINK REL="previous" HREF="node55.html">
+<LINK REL="up" HREF="node43.html">
+<LINK REL="next" HREF="node57.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html2142"
+  HREF="node57.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2136"
+  HREF="node43.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2130"
+  HREF="node55.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2138"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2140"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html2143"
+  HREF="node57.html">Precedencia y Asociatividad</A>
+<B>Sup:</B> <A NAME="tex2html2137"
+  HREF="node43.html">Análisis Sintáctico Ascendente en</A>
+<B> Ant:</B> <A NAME="tex2html2131"
+  HREF="node55.html">Algoritmo de Análisis LR</A>
+<B> Con:</B> 
+<A NAME="tex2html2138"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html2140"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html2144"
+  HREF="node56.html#SECTION045131000000000000000">Version</A>
+<LI><A NAME="tex2html2145"
+  HREF="node56.html#SECTION045132000000000000000">Gramática Inicial</A>
+<LI><A NAME="tex2html2146"
+  HREF="node56.html#SECTION045133000000000000000">Tablas</A>
+<LI><A NAME="tex2html2147"
+  HREF="node56.html#SECTION045134000000000000000">Acciones Semánticas</A>
+<LI><A NAME="tex2html2148"
+  HREF="node56.html#SECTION045135000000000000000">Tabla de Acciones y GOTOs</A>
+<LI><A NAME="tex2html2149"
+  HREF="node56.html#SECTION045136000000000000000">defaultActions</A>
+<LI><A NAME="tex2html2150"
+  HREF="node56.html#SECTION045137000000000000000">Reducciones</A>
+<LI><A NAME="tex2html2151"
+  HREF="node56.html#SECTION045138000000000000000">Desplazamientos/Shifts</A>
+<LI><A NAME="tex2html2152"
+  HREF="node56.html#SECTION045139000000000000000">Manejo de Errores</A>
+<LI><A NAME="tex2html2153"
+  HREF="node56.html#SECTION0451310000000000000000">Analizador Léxico</A>
+<LI><A NAME="tex2html2154"
+  HREF="node56.html#SECTION0451311000000000000000">Exportación</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION045130000000000000000"></A>
+<A NAME="section:tablas"></A>
+<BR>
+El módulo Generado por <TT>jison</TT>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION045131000000000000000">
+Version</A>
+</H2>
+
+<P>
+En esta sección estudiamos el analizador generado por Jison:
+<PRE>
+[~/Dropbox/src/javascript/PLgrado/jison-aSb(develop)]$ jison --version
+0.4.2
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION045132000000000000000">
+Gramática Inicial</A>
+</H2>
+Veamos el módulo generado por jison para esta gramática:
+<PRE>
+[~/srcPLgrado/aSb(develop)]$ cat aSb.jison 
+%lex
+%%
+.               { return yytext; }
+/lex
+%%
+S: /* empty */  { console.log("empty"); }
+   | 'a' S 'b'  { console.log("S -&gt; aSb"); }
+;
+%%
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION045133000000000000000">
+Tablas</A>
+</H2>
+Esta es la primera parte del parser generado:
+<PRE>
+/* parser generated by jison 0.4.2 */
+var aSb = (function() {
+    var parser = {
+        trace: function trace() {},
+        yy: {},
+        symbols_: {
+            "$accept": 0, /* super-arranque $accept -&gt; S */
+            "$end": 1     /* end of input */
+            "error": 2, /* numero para el símbolo 'error' */
+            "S": 3,     /* numero para el símbolo 'S' */
+            "a": 4,
+            "b": 5,
+        },
+        /* array inverso de terminales */
+        terminals_: {   /* numero -&gt; terminal */
+            2: "error", 
+            4: "a",
+            5: "b"
+        },
+        productions_: 
+        [0, 
+/* 1 */     [3, 0], /* S : vacio        simbolo,longitud de la parte derecha */
+/* 2 */     [3, 3]  /* S : a S b        simbolo,longitud */
+        ],
+</PRE>
+
+<P>
+<DIV ALIGN="CENTER">
+
+<img src="aSb.png" width="50%"/>
+<p>
+
+DFA construido por Jison
+
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION045134000000000000000">
+Acciones Semánticas</A>
+</H2>
+Cada vez que se produce una acción de reducción esta función es llamada:
+<PRE>
+performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate, $$, _$) {
+
+    var $0 = $$.length - 1;
+    switch (yystate) { /* yystate: numero de regla de producción */
+        case 1:
+            console.log("empty");
+            break;
+        case 2:
+            console.log("S -&gt; aSb");
+            break;
+    }
+},
+</PRE>
+
+<UL>
+<LI>Parece que  cuando se llama a este método <code>this</code> refiere a un objeto <code>yyval</code>. Este es el
+punto  de llamada a la acción semántica dentro del parser generado por Jison.
+Puede encontrarse dentro del parser en el caso de un <code>switch</code> 
+que corresponde a la acción de reducción:
+<PRE>
+r = this.performAction.call(yyval, yytext, yyleng, yylineno, this.yy, action[1], vstack, lstack);
+</PRE>
+El método <code>call</code>
+nos permite invocar una función como si fuera un método de algún otro 
+objeto. Véase la sección 
+<A HREF="node95.html#subsection:callyapply"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]" SRC="crossref.png"></A>.
+
+<P>
+Este objeto <code>yyval</code> tiene dos atributos: <code>$</code> y <code>_$</code>.
+  
+<UL>
+<LI>El atributo 
+  <code>$</code> se corresponde con <code>$$</code> de la gramática (atributo de la variable
+  sintactica en la parte izquierda)
+</LI>
+<LI>El atributo <code>_$</code> guarda información
+  sobre la posición del último token leído.
+  
+</LI>
+</UL>
+</LI>
+<LI><code>yytext</code> parece contener el texto asociado con el token actual
+</LI>
+<LI><code>yyleng</code> es la longitud del token actual
+</LI>
+<LI><code>yylineno</code> es la línea actual (empezando en 0)
+</LI>
+<LI><code>yy</code> es un objeto con dos atributos <code>lexer</code> y <code>parser</code> 
+</LI>
+<LI><code>yystate</code> es el estado actual 
+</LI>
+<LI><code>$$</code> parece ser un array/pila conteniendo 
+los valores de los atributos asociados con los estados de la pila (<code>vstack</code> ¿Por value stack?)
+</LI>
+<LI>Asi pues <code>$0</code> es el índice en <code>$0</code> del último elemento de <code>$$</code>.
+Por ejemplo, una acción semántica asociada con una regla <code>A : B C D</code> con tres elementos como:
+<PRE>
+$$ = $1 + $2 + $3;
+</PRE>
+Se traduce por:
+<PRE>
+this.$ = $$[$0 - 2] + $$[$0 - 1] + $$[$0];
+</PRE>
+</LI>
+<LI><code>_$</code>
+Es un array con la información sobre la localización de los simbolos (<code>lstack</code> ¿Por location stack?)
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION045135000000000000000">
+Tabla de Acciones y GOTOs</A>
+</H2>
+
+<P>
+<PRE>
+        table: [{
+/* 0 */     1: [2, 1],    /* En estado 0 viendo $end(1) reducir por S : vacio */
+            3: 1,         /* En el estado 0 viendo S(3) ir al estado 1 */
+            4: [1, 2]     /* Estado 0 viendo a(4) shift(1) al estado 2 */
+        }, {
+/* 1 */     1: [3]        /* En 1 viendo $end(1) aceptar */
+        }, {
+/* 2 */     3: 3,         /* En 2 viendo S ir a 3 */
+            4: [1, 2],    /* En 2 viendo a(4) shift a 2 */
+            5: [2, 1]     /* En 2 viendo b(5) reducir por regla 1: S -&gt; vacio */
+        }, {
+/* 3 */     5: [1, 4]     /* En 3 viendo b(5) shift a 4 */
+        }, {
+/* 4 */     1: [2, 2],    /* En 4  viendo $end(1) reducir(2) por la 2: S -&gt; aSb */
+            5: [2, 2]     /* En 4 viendo b(5) reducir por la 2: S-&gt; aSb */
+        }],
+</PRE>
+
+<P>
+
+<UL>
+<LI>La tabla es un array de objetos
+</LI>
+<LI>El índice de la tabla es el estado. En el ejemplo tenemos 5 estados
+</LI>
+<LI>El objeto/hash que es el valor contiene las acciones ante los símbolos.
+
+<OL>
+<LI>Los atributos/claves son los símbolos, los valores las acciones
+</LI>
+<LI>Las acciones son de dos tipos:
+
+<OL>
+<LI>El número del estado al que se transita mediante la tabla <code>goto</code>
+cuando el símbolo es una variable sintactica 
+</LI>
+<LI>Un par <code>[tipo de acción, estado o regla]</code>. 
+Si el <code>tipo de acción</code> es 1 indica un shift al <code>estado</code> con ese número.
+Si el <code>tipo de acción</code> es 2 indica una reducción por la <code>regla</code> con ese número.
+</LI>
+</OL>
+</LI>
+<LI>Por ejemplo <code>table[0]</code> es 
+<PRE>
+        {
+            1: [2, 1],    /* En estado 0 viendo $end(1) reducir(2) por S : vacio */
+            3: 1,         /* En el estado 0 viendo S(3) ir (goto) al estado 1 */
+            4: [1, 2]     /* Estado 0 viendo a(4) shift(1) al estado 2 */
+        }
+</PRE>
+</LI>
+</OL>
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION045136000000000000000">
+defaultActions</A>
+</H2>
+<PRE>
+        defaultActions: {},
+</PRE>
+
+<P>
+
+<UL>
+<LI><code>defaultActions</code> contiene las acciones por defecto.
+
+<P>
+</LI>
+<LI>Después de la construcción de la tabla, Jison identifica para
+cada estado la reducción que tiene el conjunto 
+de lookaheads mas grande. Para reducir el tamaño del parser,
+Jison puede decidir suprimir dicho conjunto y asiganr esa reducción como 
+acción del parser por defecto. Tal reducción se conoce como
+<A NAME="9578"></A><SPAN  CLASS="textbf">reducción por defecto</SPAN>.
+</LI>
+<LI>Esto puede verse en este segmento del código del parser:
+<PRE>
+    while (true) {
+          state = stack[stack.length - 1]; 
+          if (this.defaultActions[state]) {
+              action = this.defaultActions[state];
+          } else {
+              if (symbol === null || typeof symbol == "undefined") {
+                  symbol = lex();
+              }   
+              action = table[state] &amp;&amp; table[state][symbol];
+          }   
+          ...
+    }
+</PRE>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION045137000000000000000">
+Reducciones</A>
+</H2>
+<PRE>
+parse: function parse(input) {
+    ...
+    while (true) {
+        state = stack[stack.length - 1];
+        if (this.defaultActions[state]) {
+            action = this.defaultActions[state];
+        } else {
+            if (symbol === null || typeof symbol == "undefined") {
+                symbol = lex(); /* obtener siguiente token */
+            }
+            action = table[state] &amp;&amp; table[state][symbol];
+        }
+        if (typeof action === "undefined" || !action.length || !action[0]) {
+          ... // error
+        }
+        if (action[0] instanceof Array &amp;&amp; action.length &gt; 1) {
+            throw new Error("Parse Error: multiple actions possible at state: ..." 
+        }
+        switch (action[0]) {
+            case 1:                                    // shift
+                ...
+                break;
+            case 2:                                    // reduce
+                len = this.productions_[action[1]][1]; // longitud de la producción
+                yyval.$ = vstack[vstack.length - len];
+                yyval._$ = {                           // datos de la posición
+                    first_line: lstack[lstack.length - (len || 1)].first_line,
+                    last_line: lstack[lstack.length - 1].last_line,
+                    first_column: lstack[lstack.length - (len || 1)].first_column,
+                    last_column: lstack[lstack.length - 1].last_column
+                };
+                ...
+                r = this.performAction.call(yyval, yytext, yyleng, yylineno, this.yy, action[1], vstack, lstack);
+                if (typeof r !== "undefined") {
+                    return r; /* un return de algo distinto de undefined nos saca del parser */
+                }
+                if (len) {                                  /* retirar de las pilas */
+                    stack = stack.slice(0, - 1 * len * 2);  /* simbolo, estado, simbolo, estado ... */
+                    vstack = vstack.slice(0, - 1 * len);    /* retirar atributos */
+                    lstack = lstack.slice(0, - 1 * len);    /* retirar localizaciones */
+                }
+                stack.push(this.productions_[action[1]][0]); /* empujemos el símbolo */
+                vstack.push(yyval.$);                        /* empujemos valor semantico */
+                lstack.push(yyval._$);                       /* empujemos localización */
+                newState = table[stack[stack.length - 2]][stack[stack.length - 1]];
+                stack.push(newState);                        /* empujemos goto[top][A]*/
+                break;
+            case 3: // accept
+                return true;
+        }
+    }
+    return true;
+}
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION045138000000000000000">
+Desplazamientos/Shifts</A>
+</H2>
+
+<P>
+<PRE>
+parse: function parse(input) {
+    ...
+    while (true) {
+        state = stack[stack.length - 1];     /* estado en el top de la pila */
+        if (this.defaultActions[state]) {    /* definida la acción por defecto? */
+            action = this.defaultActions[state];
+        } else {
+            if (symbol === null || typeof symbol == "undefined") {
+                symbol = lex();              /* obtener token */
+            }
+            action = table[state] &amp;&amp; table[state][symbol]; /* obtener la acción para el estado actual */
+        }
+        if (typeof action === "undefined" || !action.length || !action[0]) { 
+            ... /* error */
+        }
+        if (action[0] instanceof Array &amp;&amp; action.length &gt; 1) {
+            throw new Error("Parse Error: multiple actions possible at state: " + state + ", token: " + symbol);
+        }
+        switch (action[0]) {
+            case 1:
+                stack.push(symbol);                /* empujamos token */
+                vstack.push(this.lexer.yytext);    /* empujamos el atributo del token */
+                lstack.push(this.lexer.yylloc);    /* salvamos la localización del token */
+                stack.push(action[1]);             /* salvamos el estado */
+                symbol = null;
+                if (!preErrorSymbol) {             /* si no hay errores ... */
+                    yyleng = this.lexer.yyleng;    /* actualizamos los atributos */
+                    yytext = this.lexer.yytext;    /* del objeto */
+                    yylineno = this.lexer.yylineno;
+                    yyloc = this.lexer.yylloc;
+                    if (recovering &gt; 0) recovering--; /* las cosas van mejor si hubieron errores */
+                } else {
+                    symbol = preErrorSymbol;
+                    preErrorSymbol = null;
+                }
+                break;
+            case 2:
+                ...
+                break;
+            case 3:
+                return true;
+        }
+    }
+    return true;
+}
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION045139000000000000000">
+Manejo de Errores</A>
+</H2>
+
+<P>
+<PRE>
+while (true) {
+    state = stack[stack.length - 1];
+    if (this.defaultActions[state]) { action = this.defaultActions[state]; } 
+    else {
+        if (symbol === null || typeof symbol == "undefined") { symbol = lex(); }
+        action = table[state] &amp;&amp; table[state][symbol];
+    }
+    if (typeof action === "undefined" || !action.length || !action[0]) {
+        var errStr = "";
+        if (!recovering) { /* recovering = en estado de recuperación de un error */
+            expected = [];                       /* computemos los tokens esperados */
+            for (p in table[state])              /* si el estado "state" transita con p */
+              if (this.terminals_[p] &amp;&amp; p &gt; 2) { /* y "p" es un terminal no especial */
+                  expected.push("'" + this.terminals_[p] + "'"); /* entonces es esperado */
+              }
+            if (this.lexer.showPosition) { /* si esta definida la función showPosition */
+                errStr = "Parse error on line " + (yylineno + 1) + 
+                         ":\n" + this.lexer.showPosition() + 
+                         "\nExpecting " + expected.join(", ") + 
+                         ", got '" + 
+                         (this.terminals_[symbol] || symbol) + /* terminals_ es el array inverso */
+                         "'";                                  /* numero -&gt; terminal             */
+            } else { /* ¡monta la cadena como puedas! */
+                errStr = "Parse error on line " + (yylineno + 1) + 
+                         ": Unexpected " + 
+                         (symbol == 1 ? "end of input" : "'" + 
+                         (this.terminals_[symbol] || symbol) + "'");
+            }
+            this.parseError(errStr, {    /* genera la excepción */
+                text: this.lexer.match,  /* hash/objeto conteniendo los detalles del */
+                token: this.terminals_[symbol] || symbol,                   /* error */
+                line: this.lexer.yylineno,
+                loc: yyloc,
+                expected: expected
+            });
+        }
+    }
+    if (action[0] instanceof Array &amp;&amp; action.length &gt; 1) {
+        throw new Error("Parse Error: multiple actions possible at state: " + state + ", token: " + symbol);
+    }
+    ...
+}
+</PRE>
+
+<P>
+La función <code>parseError</code> genera una excepción:
+
+<P>
+<PRE>
+        parseError: function parseError(str, hash) {
+            throw new Error(str); /* El hash contiene info sobre el error: token, linea, etc. */
+        },
+</PRE>
+
+<P>
+
+<UL>
+<LI><code>parseError</code> es llamada cada vez que ocurre un error sintáctico.
+<code>str</code> contiene la cadena con el mensaje de error del tipo: 
+<code>Expecting something, got other thing'</code>.
+<code>hash</code> contiene atributos como <code>expected</code>: el array de tokens esperados; 
+<code>line</code> la línea implicada, <code>loc</code> una descripción de la localización detallada del punto/terminal
+en el que ocurre el error; etc.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION0451310000000000000000">
+Analizador Léxico</A>
+</H2>
+El analizador léxico:
+<PRE>
+/* generated by jison-lex 0.1.0 */
+var lexer = (function() {
+    var lexer = {
+        EOF: 1,
+        parseError: function parseError(str, hash) { /* manejo de errores léxicos */ },
+        setInput: function(input) { /* inicializar la entrada para el analizadorléxico */},
+        input: function() { /* ... */ },
+        unput: function(ch) { /* devolver al flujo de entrada */ },
+        more: function() { /* ... */ },
+        less: function(n) { /* ... */ },
+        pastInput: function() { /* ... */ },
+        upcomingInput: function() { /* ... */ },
+        showPosition: function() { /* ... */ },
+        next: function() {
+                if (this.done) { return this.EOF; }
+                if (!this._input) this.done = true;
+
+                var token, match, tempMatch, index, col, lines;
+                if (!this._more) { this.yytext = ''; this.match = ''; }
+                var rules = this._currentRules();
+                for (var i = 0; i &lt; rules.length; i++) {
+                    tempMatch = this._input.match(this.rules[rules[i]]);
+                    if (tempMatch &amp;&amp; (!match || tempMatch[0].length &gt; match[0].length)) {
+                        match = tempMatch;
+                        index = i;
+                        if (!this.options.flex) break;
+                    }
+                }
+                if (match) {
+                    lines = match[0].match(/(?:\r\n?|\n).*/g);
+                    if (lines) this.yylineno += lines.length;
+                    this.yylloc = {
+                        first_line: this.yylloc.last_line,
+                        last_line: this.yylineno + 1,
+                        first_column: this.yylloc.last_column,
+                        last_column: 
+                          lines ? lines[lines.length - 1].length - 
+                                  lines[lines.length - 1].match(/\r?\n?/)[0].length 
+                                  : 
+                                  this.yylloc.last_column + match[0].length
+                    };
+                    this.yytext += match[0];
+                    this.match += match[0];
+                    this.matches = match;
+                    this.yyleng = this.yytext.length;
+                    if (this.options.ranges) {
+                        this.yylloc.range = [this.offset, this.offset += this.yyleng];
+                    }
+                    this._more = false;
+                    this._input = this._input.slice(match[0].length);
+                    this.matched += match[0];
+                    token = this.performAction.call(
+                                 this, 
+                                 this.yy, 
+                                 this, 
+                                 rules[index], 
+                                 this.conditionStack[this.conditionStack.length - 1]
+                            );
+                    if (this.done &amp;&amp; this._input) this.done = false;
+                    if (token) return token;
+                    else return;
+                }
+                if (this._input === "") { return this.EOF; } 
+                else {
+                    return this.parseError(
+                             'Lexical error on line ' + (this.yylineno + 1) + 
+                              '. Unrecognized text.\n' + this.showPosition(), 
+                              { text: "", token: null, line: this.yylineno }
+                           );
+                }
+            },
+        lex: function lex() {
+            var r = this.next();
+            if (typeof r !== 'undefined') {
+                return r;
+            } else {
+                return this.lex();
+            }
+        },
+        begin: function begin(condition) { },
+        popState: function popState() { },
+        _currentRules: function _currentRules() { },
+        topState: function() { },
+        pushState: function begin(condition) { },
+        options: {},
+        performAction: function anonymous(yy, yy_, $avoiding_name_collisions, YY_START)
+        {
+            var YYSTATE = YY_START;
+            switch ($avoiding_name_collisions) {
+                case 0:
+                    return yy_.yytext;
+                    break;
+            }
+        },
+        rules: [/^(?:.)/], /* lista de expresiones regulares */
+        conditions: { /* ... */ }
+  }
+};
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION0451311000000000000000">
+Exportación</A>
+</H2>
+
+<P>
+Si no ha sido exportado ya ...
+<PRE>
+if (typeof require !== 'undefined' &amp;&amp; typeof exports !== 'undefined') {
+    exports.parser = aSb;         /* hacemos accesible el objeto aSb  */
+    exports.Parser = aSb.Parser;
+</PRE>
+El objeto <code>aSb.Parser</code> representa al parser. Este es el código que lo crea.
+<PRE>
+      function Parser() {
+          this.yy = {}; 
+      }   
+      Parser.prototype = parser;
+      parser.Parser = Parser;
+      return new Parser;
+  })();
+</PRE>
+También se exporta una función <code>parse</code>:
+<PRE>
+    exports.parse = function() {
+        return aSb.parse.apply(aSb, arguments);
+    };
+</PRE>
+y una función <code>main</code>:
+<PRE>
+    exports.main = function commonjsMain(args) {
+        if (!args[1]) {
+            console.log('Usage: ' + args[0] + ' FILE');
+            process.exit(1);
+        }
+        var source = require('fs').readFileSync(require('path').normalize(args[1]), "utf8");
+        return exports.parser.parse(source);
+    };
+    if (typeof module !== 'undefined' &amp;&amp; require.main === module) {
+        exports.main(process.argv.slice(1));
+    }
+}
+</PRE>
+Esto permite ejecutar el módulo directamente:
+<PRE>
+[~/Dropbox/src/javascript/PLgrado/jison-aSb(develop)]$ node aSb.js input.ab 
+empty
+S -&gt; aSb
+S -&gt; aSb
+[~/Dropbox/src/javascript/PLgrado/jison-aSb(develop)]$ cat input.ab 
+aabb
+</PRE>
+
+<P>
+<PRE>
+~/Dropbox/src/javascript/PLgrado/jison-aSb(develop)]$ node debug aSb.js input.ab 
+&lt; debugger listening on port 5858
+connecting... ok
+break in aSb.js:2
+  1 /* parser generated by jison 0.4.2 */
+  2 var aSb = (function() {
+  3     var parser = {
+  4         trace: function trace() {},
+debug&gt; n
+break in aSb.js:390
+ 388     return new Parser;
+ 389 })();
+ 390 if (typeof require !== 'undefined' &amp;&amp; typeof exports !== 'undefined') {
+ 391     exports.parser = aSb;
+ 392     exports.Parser = aSb.Parser;
+</PRE>
+
+<P>
+<PRE>
+debug&gt; repl
+Press Ctrl + C to leave debug repl
+&gt; 
+&gt; typeof require
+'function'
+&gt; typeof exports
+'object'
+&gt; aSb
+{ yy: {} }
+&gt; aSb.Parser
+[Function]
+^C
+debug&gt; sb(396)
+ 395     };
+debug&gt; c
+break in aSb.js:396
+ 394         return aSb.parse.apply(aSb, arguments);
+ 395     };
+*396     exports.main = function commonjsMain(args) {
+ 397         if (!args[1]) {
+ 398             console.log('Usage: ' + args[0] + ' FILE');
+debug&gt; n
+break in aSb.js:404
+ 402         return exports.parser.parse(source);
+ 403     };
+ 404     if (typeof module !== 'undefined' &amp;&amp; require.main === module) {
+ 405         exports.main(process.argv.slice(1));
+ 406     }
+debug&gt; repl
+Press Ctrl + C to leave debug repl
+&gt; process.argv.slice(1)
+[ '/Users/casiano/Dropbox/src/javascript/PLgrado/jison-aSb/aSb.js',
+  'input.ab' ]
+&gt; typeof module
+'object'
+&gt; require.main
+{ id: '.',
+  exports: 
+   { parser: { yy: {} },
+     Parser: [Function],
+     parse: [Function],
+     main: [Function] },
+  parent: null,
+  filename: '/Users/casiano/Dropbox/src/javascript/PLgrado/jison-aSb/aSb.js',
+  loaded: false,
+  children: [],
+  paths: 
+   [ '/Users/casiano/Dropbox/src/javascript/PLgrado/jison-aSb/node_modules',
+     '/Users/casiano/Dropbox/src/javascript/PLgrado/node_modules',
+     '/Users/casiano/Dropbox/src/javascript/node_modules',
+     '/Users/casiano/Dropbox/src/node_modules',
+     '/Users/casiano/Dropbox/node_modules',
+     '/Users/casiano/node_modules',
+     '/Users/node_modules',
+     '/node_modules' ] }
+^C
+debug&gt; n
+break in aSb.js:405
+ 403     };
+ 404     if (typeof module !== 'undefined' &amp;&amp; require.main === module) {
+ 405         exports.main(process.argv.slice(1));
+ 406     }
+ 407 }
+debug&gt; n
+&lt; empty
+&lt; S -&gt; aSb
+&lt; S -&gt; aSb
+break in aSb.js:409
+ 407 }
+ 408 
+ 409 });
+debug&gt; c
+program terminated
+debug&gt;
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html2142"
+  HREF="node57.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html2136"
+  HREF="node43.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html2130"
+  HREF="node55.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html2138"
+  HREF="node101.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html2140"
+  HREF="node104.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/perlexamples/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="Apuntes de LPP"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html2143"
+  HREF="node57.html">Precedencia y Asociatividad</A>
+<B>Sup:</B> <A NAME="tex2html2137"
+  HREF="node43.html">Análisis Sintáctico Ascendente en</A>
+<B> Ant:</B> <A NAME="tex2html2131"
+  HREF="node55.html">Algoritmo de Análisis LR</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-10-06</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,53 @@
+
+<H1><A NAME="SECTION058110000000000000000">
+Esquemas de Traducción</A>
+</H1>
+Un <A NAME="18399"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">esquema de traducción</SPAN> es una gramática independiente del
+contexto en la cuál se han asociado atributos a los símbolos de la gramática.
+Un atributo queda caracterizado por un identificador
+o nombre y un tipo o clase. Además se han insertado acciones, esto es,
+código Perl/Python/C, ...en medio de las partes derechas.
+En ese código es posible referenciar los atributos de los
+símbolos de la gramática como variables del lenguaje subyacente.
+
+<P>
+Recuerde que el orden en que se evalúan los fragmentos de código
+es el de un recorrido primero-profundo del árbol de análisis sintáctico.
+Mas específicamente, considerando a las acciones como hijos-hoja del nodo,
+el recorrido que realiza un esquema de traducción es:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6155#</PRE>
+
+<P>
+Obsérvese que, como el bucle de la línea 4 recorre a los hijos
+de izquierda a derecha, se debe dar la siguiente
+condición para que un esquema  de traducción funcione:
+
+<P>
+Para cualquier regla de producción aumentada con acciones, de la forma 
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math7124#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37325#</SPAN>
+<tex2html_verbatim_mark>mathend000#<tex2html_verb_mark>2391<tex2html_verb_mark><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37327#</SPAN>
+<tex2html_verbatim_mark>mathend000#<tex2html_verb_mark>2392<tex2html_verb_mark><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37329#</SPAN>
+<tex2html_verbatim_mark>mathend000#<tex2html_verb_mark>2393<tex2html_verb_mark><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37331#</SPAN>
+<tex2html_verbatim_mark>mathend000#<tex2html_verb_mark>2394<tex2html_verb_mark><tex2html_verbatim_mark>#math7125#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37333#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+debe ocurrir que los atributos evaluados en
+la acción insertada después de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37335#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+dependan de atributos y variables que fueron computadas durante
+la visita de los hermanos izquierdos o de sus ancestros.
+En particular no deberían depender de atributos asociados
+con las variables <tex2html_verbatim_mark>#math7126#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37337#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Ello no significa que
+no sea correcto evaluar atributos de <tex2html_verbatim_mark>#math7127#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37339#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+en esa acción.
+
+<P>

@@ -1,0 +1,27 @@
+
+<H1><A NAME="SECTION05350000000000000000">
+Siguiente Línea: La orden <I>n</I></A>
+</H1>
+Mediante la orden <#3179#><I>n</I><#3179#> podemos reemplazar el espacio de
+patrones actual por la siguiente línea. Si no se ha utilizado
+la opción <tex2html_verb_mark>464<tex2html_verb_mark> en la ejecución de <tex2html_verb_mark>465<tex2html_verb_mark>, el contenido del espacio
+de patrones se imprimirá antes de ser eliminada. El control
+pasa al comando siguiendo al comando <#3180#><I>n</I><#3180#> y no al primer
+comando del <#3181#><I>script</I><#3181#>. Se trata, por tanto, de una orden que
+altera la conducta habitual de <tex2html_verb_mark>466<tex2html_verb_mark>: Lo común es que, cuando se lee una nueva
+línea, se ejecute el primer comando del guión.
+
+<P>
+El siguiente ejemplo extrae los comentarios de un programa <#3182#><I>C</I><#3182#>.
+Se asume que, aunque los comentarios se pueden extender sobre
+varias líneas, no existe mas de un comentario por línea.
+<PRE><tex2html_verbatim_mark>verbatim717#</PRE>
+Supongamos el siguiente programa de prueba:
+<PRE><tex2html_verbatim_mark>verbatim718#</PRE>
+La salida al ejecutar el programa es la siguiente:
+<PRE><tex2html_verbatim_mark>verbatim719#</PRE>
+Observe la desaparición de la línea `` still empty */'' 
+debido a la existencia de dos comentarios, uno de ellos inacabado 
+en la línea anterior. 
+
+<P>

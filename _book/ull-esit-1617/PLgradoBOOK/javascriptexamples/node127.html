@@ -1,0 +1,494 @@
+
+<H1><A NAME="SECTION05450000000000000000">
+Casos de Estudio</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION05451000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:numeros"><tex2html_anchor_mark></A><BR>
+Secuencias de números de tamaño fijo
+</H2>
+El siguiente problema y sus soluciones se describen en el libro de J.E.F. Friedl
+[#friedl#<tex2html_cite_mark>#1##<tex2html_cite_mark>#].
+Supongamos que tenemos un texto conteniendo códigos que son 
+números de tamaño fijo, digamos 
+seis dígitos, todos pegados, sin separadores entre ellos, como sigue:
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV><DIV ALIGN="CENTER"><TT>012345678901<#7253#><B>123334</B><#7253#>234567890123<#7254#><B>125934</B><#7254#>890123345126
+</TT>
+</DIV>
+
+<P>
+El problema es encontrar los códigos que comienzan por <#7257#><TT>12</TT><#7257#>. En negrita 
+se han resaltado las soluciones.  Son soluciones sólo aquellas que, comienzan
+por <tex2html_verb_mark>1165<tex2html_verb_mark> en una posición múltiplo de seis. 
+Una solución es:
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV><PRE><tex2html_verbatim_mark>verbatim1515#</PRE><DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+que genera una lista con los números y luego selecciona los que comienzan por
+<tex2html_verb_mark>1166<tex2html_verb_mark>.
+Otra solución es:
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV><PRE><tex2html_verbatim_mark>verbatim1516#</PRE><DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+que aprovecha que la expresión regular devolverá una lista vacía cuando
+el número no empieza por <tex2html_verb_mark>1167<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim1517#</PRE>
+Obsérvese que se esta utilizando también que el operador <tex2html_verb_mark>1168<tex2html_verb_mark> no es <SPAN  CLASS="textbf">greedy</SPAN>.
+
+<P>
+¿Se puede resolver el problema usando sólamente una expresión regular?
+Obsérvese que esta solución ``casi funciona'':
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV><PRE><tex2html_verbatim_mark>verbatim1518#</PRE><DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+recoge la secuencia mas corta de grupos de seis dígitos que no casan, seguida 
+de una secuencia que casa. 
+El problema que tiene esta solución 
+es al final, cuando se han casado todas las soluciones, entonces 
+la búsqueda exhaustiva hará que nos muestre soluciones que no comienzan en posiciones
+múltiplo de seis. Por eso encuentra <tex2html_verb_mark>1169<tex2html_verb_mark>:
+<DIV ALIGN="CENTER">
+</DIV><DIV ALIGN="CENTER"><TT>012345678901<#7275#><B>123334</B><#7275#>234567890123<#7276#><B>125934</B><#7276#>890<#7277#><B>123345</B><#7277#>126
+</TT>
+</DIV>
+Por eso, Friedl propone esta solución:
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV><PRE><tex2html_verbatim_mark>verbatim1519#</PRE><DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+Se asume que existe al menos un éxito en la entrada inicial.
+Que es un extraordinario ejemplo de como el uso de paréntesis de agrupamiento
+simplifica y mejora la legibilidad de la solución. Es fantástico también el uso
+del operador de predicción negativo.
+
+<P>
+
+<H4><A NAME="SECTION05451010000000000000">
+Solución usando el ancla <TT><tex2html_verbatim_mark>#math6395#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline33326#</SPAN>
+<tex2html_verbatim_mark>mathend000# G</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El ancla <tex2html_verb_mark>1170<tex2html_verb_mark> ha sido concebida para su uso con la opción <tex2html_verb_mark>1171<tex2html_verb_mark>.
+Casa con el punto en la cadena en el que terminó el último emparejamiento.
+Cuando se trata del primer intento o no se está usando <tex2html_verb_mark>1172<tex2html_verb_mark>, usar <tex2html_verb_mark>1173<tex2html_verb_mark>
+es lo mismo que usar <tex2html_verb_mark>1174<tex2html_verb_mark>.
+
+<P>
+Mediante el uso de este ancla es posible formular la siguiente solución 
+al problema planteado:
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV><PRE><tex2html_verbatim_mark>verbatim1520#</PRE><DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<H4><A NAME="SECTION05451020000000000000">
+Sustitución</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Si lo que se quiere es sustituir las secuencias deseadas es poisble hacerlo con 
+la siguiente expresión regular:
+<PRE><tex2html_verbatim_mark>verbatim1521#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05452000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:repetidas"><tex2html_anchor_mark></A><BR>
+Palabras Repetidas
+</H2>
+Su jefe le pide una herramienta que compruebe la aparición de
+duplicaciones consecutivas en un texto texto (como esta esta y la anterior anterior).
+La solución debe cumplir las siguientes especificaciones:
+
+<UL>
+<LI>Aceptar cualquier número de ficheros. Resaltar las apariciones
+de duplicaciones. Cada línea del informe debe estar precedida del nombre del fichero.
+</LI>
+<LI>Funcionar no sólo cuando la duplicación ocurre en la misma línea.
+</LI>
+<LI>Funcionar independientemente del <SPAN  CLASS="textbf">case</SPAN> y de los blancos usados en medio
+de ambas palabras.
+</LI>
+<LI>Las palabras en cuestión pueden estar separadas por <SPAN  CLASS="textbf">tags</SPAN> <tex2html_verb_mark>1175<tex2html_verb_mark>.
+</LI>
+</UL>
+
+<P>
+<tex2html_verbatim_mark>rawhtml1522#<tex2html_comment_mark>1373
+
+<P>
+<tex2html_verbatim_mark>rawhtml1523#
+
+<P>
+
+<H2><A NAME="SECTION05453000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:csv"><tex2html_anchor_mark></A><BR>
+Análisis de cadenas con datos separados por comas
+</H2>
+Supongamos que tenemos cierto texto en <tex2html_verb_mark>1176<tex2html_verb_mark> proveniente
+de un fichero <tex2html_verb_mark>1177<tex2html_verb_mark> (<SPAN  CLASS="textbf">Comma Separated Values</SPAN>). Esto es
+el fichero contiene líneas con el formato:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1524#</PRE>
+
+<P>
+Esta línea representa cinco campos.
+Es razonable querer guardar esta información en un <SPAN  CLASS="textbf">array</SPAN>,
+digamos <tex2html_verb_mark>1178<tex2html_verb_mark>, de manera que <tex2html_verb_mark>1179<tex2html_verb_mark>,
+<tex2html_verb_mark>1180<tex2html_verb_mark>, etc.
+Esto no sólo implica descomponer la cadena en campos sino
+también quitar las comillas de los campos entrecomillados.
+La primera solución que se nos ocurre es hacer uso de la
+función <tex2html_verb_mark>1181<tex2html_verb_mark>:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1525#</PRE>
+
+<P>
+Pero esta solución deja las comillas dobles en  los campos
+entrecomillados.  Peor aún, los campos entrecomillados pueden contener
+comas, en cuyo caso  la división proporcionada por <tex2html_verb_mark>1182<tex2html_verb_mark> sería
+errónea. 
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1526#</PRE>
+
+<P>
+Las subrutinas  en Perl reciben sus argumentos en el <SPAN  CLASS="textbf">array</SPAN>
+<tex2html_verb_mark>1183<tex2html_verb_mark>. Si la lista de argumentos contiene listas, estas 
+son ``aplanadas'' en una única lista. Si, como es el caso, la subrutina
+ha sido declarada antes de la llamada, los argumentos pueden
+escribirse sin paréntesis que les rodeen:
+<PRE><tex2html_verbatim_mark>verbatim1527#</PRE>
+
+<P>
+Otro modo de llamar una subrutina es usando el prefijo <tex2html_verb_mark>1184<tex2html_verb_mark>,
+pero sin proporcionar lista de argumentos.
+<PRE><tex2html_verbatim_mark>verbatim1528#</PRE>
+En este caso se le pasa a la rutina el valor actual del  <SPAN  CLASS="textbf">array</SPAN> <tex2html_verb_mark>1185<tex2html_verb_mark>.
+
+<P>
+Los operadores <tex2html_verb_mark>1186<tex2html_verb_mark> (usado en la línea 17) y <tex2html_verb_mark>1187<tex2html_verb_mark> trabajan
+sobre el final del <SPAN  CLASS="textbf">array</SPAN>. De manera análoga los operadores
+<tex2html_verb_mark>1188<tex2html_verb_mark> y <tex2html_verb_mark>1189<tex2html_verb_mark> lo hacen sobre el comienzo.
+El operador ternario <tex2html_verb_mark>1190<tex2html_verb_mark> trabaja de manera análoga como lo hace en C.
+
+<P>
+El código del <tex2html_verb_mark>1191<tex2html_verb_mark> podría sustituirse por este otro:
+<PRE><tex2html_verbatim_mark>verbatim1529#</PRE>
+Puesto que la variable <tex2html_verb_mark>1192<tex2html_verb_mark> contiene la cadena que ha casado
+con el último paréntesis que haya casado en el ultimo ``matching''.
+
+<P>
+La segunda parte del código muestra que existe un 
+módulo en Perl, el módulo <tex2html_verb_mark>1193<tex2html_verb_mark> que proporciona la rutina <tex2html_verb_mark>1194<tex2html_verb_mark> que hace la misma función que nuestra subrutina.
+
+<P>
+Sigue un ejemplo de ejecución:
+<PRE><tex2html_verbatim_mark>verbatim1530#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05454000000000000000">
+Las Expresiones Regulares como Exploradores de un Árbol de Soluciones</A>
+</H2>
+
+<P>
+
+<H4><A NAME="SECTION05454010000000000000">
+Números Primos</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El siguiente programa evalúa si un número es primo o no:
+<PRE><tex2html_verbatim_mark>verbatim1531#</PRE>
+Siguen varias ejecuciones:
+<PRE><tex2html_verbatim_mark>verbatim1532#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05454020000000000000">
+Ecuaciones Diofánticas: Una solución</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Según dice la entrada <A NAME="tex2html276"
+  HREF="http://en.wikipedia.org/wiki/Diophantine_equation">Diophantine_equation</A>
+en la wikipedia:
+
+<P>
+<I></I>
+<BLOCKQUOTE><I>In mathematics, a Diophantine equation is an indeterminate polynomial equation that allows the variables to be integers only. 
+</I></BLOCKQUOTE><I></I>
+
+<P>
+La siguiente sesión con el depurador muestra como se puede 
+resolver una ecuación lineal diofántica con coeficientes 
+positivos usando una expresión regular:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1533#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05454030000000000000">
+Ecuaciones Diofánticas: Todas las soluciones</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Usando el verbo <tex2html_verb_mark>1195<tex2html_verb_mark> es posible obtener todas las soluciones:
+<PRE><tex2html_verbatim_mark>verbatim1534#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05454040000000000000">
+Ecuaciones Diofánticas: Resolutor general</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El siguiente programa recibe en línea de comandos los coeficientes y 
+término inependeinte de una ecuación lineal diofántica con coeficientes 
+positivos y muestra todas las soluciones. El
+algoritmo primero crea una cadena conteniendo 
+el código Perl que contiene la expresión regular adecuada 
+para pasar luego a evaluarlo:
+<PRE><tex2html_verbatim_mark>verbatim1535#</PRE>
+Sigue un ejemplo de ejecución:
+<PRE><tex2html_verbatim_mark>verbatim1536#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05454050000000000000">
+Las  Tres Hijas</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+<A NAME="parrfo:lastreshijas"><tex2html_anchor_mark></A>
+<P>
+En la páginas de Retos Matemáticos de
+
+<P>
+<A NAME="tex2html277"
+  HREF="http://divulgamat.ehu.es/weborriak/RetosMatematicos/Problemas/Prob15.asp">DIVULGAMAT</A>
+<P>
+puede encontrarse el siguiente problema:
+
+<P>
+<P><DIV><#33337#><B>Ejercicio  <SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#33337#> &nbsp; 
+<#33340#><I>Dos matemáticos se vieron en la calle después de muchos años sin coincidir.
+</I>
+<P>
+<I></I>
+<UL>
+<LI>¡Hola!, ¿qué tal?, ¿te casaste?, y... ¿cuántos hijos tienes?
+</LI>
+<LI>Pues tengo tres hijas.
+</LI>
+<LI>¿y qué años tienen?
+</LI>
+<LI>¡A ver si lo adivinas!: el producto de las edades de las tres es 36, y su suma es el número del portal que ves enfrente...
+</LI>
+<LI>¡Me falta un dato!
+</LI>
+<LI>¡Ah, sí!, ¡la mayor toca el piano!
+</LI>
+</UL><I>
+</I>
+<P>
+<I>¿Qué edad tendrán las tres hijas?
+</I>
+<P>
+<I>¿Podemos ayudarnos de una expresión regular para resolver el problema?
+Al ejecutar el siguiente programa:
+</I>
+<P>
+<I></I><PRE><tex2html_verbatim_mark>verbatim1537#</PRE><I>
+</I>
+<P>
+<I>obtenemos la salida:
+</I>
+<P>
+<I></I><PRE><tex2html_verbatim_mark>verbatim1538#</PRE><I>
+</I>
+<P>
+<I>Explique el funcionamiento del programa. 
+A la vista de la salida ¿Cuáles eran las 
+edades de las hijas?</I><#33340#></DIV><P></P>
+
+
+<P>
+
+<H4><A NAME="SECTION05454060000000000000">
+Mochila 0-1</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Para una definición del problema vea la sección 
+<A NAME="tex2html278"
+  HREF="http://nereida.deioc.ull.es/&#126;lhp/perlexamples/node205.html">El Problema de la Mochila 0-1</A>
+en los apuntes de LHP
+<P><DIV><#33343#><B>Ejercicio  <SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#33343#> &nbsp; 
+<#33346#><I>¿Sería capaz de resolver usando expresiones regulares el problema de la mochila 0-1?
+</I>
+<P>
+<I>¡Si lo logra merece el premio a la solución mas freak que se haya encontrado para dicho problema!</I><#33346#></DIV><P></P>
+
+
+<P>
+
+<H4><A NAME="SECTION05454070000000000000">
+Véase también</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Véase  también:
+
+<UL>
+<LI>Véase el nodo en <A NAME="tex2html279"
+  HREF="http://www.perlmonks.org/?node_id=796576">PerlMonks</A>
+<SPAN  CLASS="textbf">The Oldest Plays the Piano</SPAN>
+</LI>
+<LI><A NAME="tex2html280"
+  HREF="http://blog.stevenlevithan.com/archives/algebra-with-regexes">Solving Algebraic Equations Using Regular Expressions</A>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION05455000000000000000">
+Número de substituciones realizadas</A>
+</H2>
+El operador de substitución devuelve el número de substituciones
+realizadas, que puede ser mayor que uno si se usa la opción
+<tex2html_verb_mark>1196<tex2html_verb_mark>. En cualquier otro caso retorna el valor falso.
+<PRE><tex2html_verbatim_mark>verbatim1539#</PRE>
+El resultado de la ejecución es el siguiente:
+<PRE><tex2html_verbatim_mark>verbatim1540#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05456000000000000000">
+Expandiendo y comprimiendo tabs</A>
+</H2>
+Este programa convierte los tabs en el número apropiado de blancos.
+<tex2html_verbatim_mark>rawhtml1541#
+Sigue un ejemplo de ejecución:
+<tex2html_verbatim_mark>rawhtml1542#
+
+<P>
+<P><DIV><#33351#><B>Ejercicio  <SPAN CLASS="arabic">31</SPAN>.<SPAN CLASS="arabic">5</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#33351#> &nbsp; 
+<#33354#><I>¿Funciona igual si se cambia el bucle <tex2html_verb_mark>1197<tex2html_verb_mark> por una opción <tex2html_verb_mark>1198<tex2html_verb_mark>?
+<tex2html_verbatim_mark>rawhtml1543#
+¿Porqué?</I><#33354#></DIV><P></P>
+
+
+<P>
+
+<H2><A NAME="SECTION05457000000000000000">
+Modificación de Múltiples Ficheros: one liner</A>
+</H2>
+Aunque no es la forma de uso habitual, Perl puede ser utilizado en ``modo sed'' para modificar el texto en múltiples ficheros: 
+
+<P>
+<tex2html_verb_mark>1199<tex2html_verb_mark>
+
+<P>
+Este programa sustituye la palabra original (g)lobalmente e i)gnorando el ``case'') en todos los ficheros <tex2html_verb_mark>1200<tex2html_verb_mark> y para cada uno de ellos crea una copia de seguridad <tex2html_verb_mark>1201<tex2html_verb_mark>. 
+
+<P>
+Otro ejemplo: la sustitución que sigue ocurre en todos los ficheros <tex2html_verb_mark>1202<tex2html_verb_mark> en todos
+los subdirectorios de los subdirectorios que comiencen por <tex2html_verb_mark>1203<tex2html_verb_mark>:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim1544#</PRE>
+
+<P>
+Las <A NAME="8450"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">opciones de línea</SPAN> de comandos significan lo siguiente:
+
+<P>
+<DL COMPACT>
+<DT><#33360#><#33356#>-e<#33356#><#33360#></DT>
+<DD>puede usarse para definir el script en la línea de comandos. Multiples -e te permiten escribir un multi-script. Cuando se usa -e, perl
+      no busca por un fichero de script entre la lista de argumentos. 
+
+<P>
+</DD>
+<DT><#33361#><#33357#>-p<#33357#><#33361#></DT>
+<DD>La opción <A NAME="8452"><tex2html_anchor_invisible_mark></A><#8453#><#8454#><TT>-p</TT><#8454#><#8453#> hace que perl incluya un bucle alrededor de tu ``script'' al estilo sed: 
+<PRE><tex2html_verbatim_mark>verbatim1545#</PRE>
+</DD>
+<DT><#33362#><#33358#>-n<#33358#><#33362#></DT>
+<DD>Nótese que las líneas se imprimen automáticamente. Para suprimir la impresión usa la opción 
+<A NAME="8455"><tex2html_anchor_invisible_mark></A><#8456#><#8457#><TT>-n</TT><#8457#><#8456#> 
+
+<P>
+</DD>
+<DT><#33363#><#33359#>-i[ext]<#33359#><#33363#></DT>
+<DD>La opción <A NAME="8458"><tex2html_anchor_invisible_mark></A><#8459#><#8460#><TT>-i</TT><#8460#><#8459#> Expresa que los ficheros procesados serán modificados. Se renombra el fichero de entrada <tex2html_verb_mark>1204<tex2html_verb_mark> a <tex2html_verb_mark>1205<tex2html_verb_mark>, abriendo el de salida con el mismo nombre del fichero de entrada <tex2html_verb_mark>1206<tex2html_verb_mark>.
+      Se selecciona dicho fichero como de salida por defecto para las sentencias <tex2html_verb_mark>1207<tex2html_verb_mark>. Si se proporciona una extensión se hace una copia de seguridad. Si no, no se hace copia de seguridad.
+</DD>
+</DL>
+
+<P>
+En general las opciones pueden ponerse en la primera
+línea del ``script'', donde se indica el intérprete. 
+Asi pues, decir 
+
+<P>
+<tex2html_verb_mark>1208<tex2html_verb_mark> 
+
+<P>
+es equivalente a usar el ``script'': 
+<PRE><tex2html_verbatim_mark>verbatim1546#</PRE>
+
+<P>

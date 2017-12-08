@@ -1,0 +1,117 @@
+\subsection{Preguntas de Repaso de Expresiones
+Regulares}\label{preguntas-de-repaso-de-expresiones-regulares}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Escriba expresiones regulares que casen con las siguientes
+  especificaciones:
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    car and cat
+  \item
+    pop and prop
+  \item
+    ferret, ferry, and ferrari
+  \item
+    Any word ending in ious
+  \item
+    A whitespace character followed by a dot, comma, colon, or semicolon
+  \item
+    A word longer than six letters
+  \item
+    A word without the letter e
+  \end{enumerate}
+\item
+  Escriba una expresión regular que reconozca las cadenas de doble
+  comillas. Debe permitir la presencia de comillas y caracteres
+  escapados.
+\item
+  Escriba una expresión regular que reconozca los números en punto
+  flotante (por ejemplo \texttt{-2.3e-1}, \texttt{-3e2}, \texttt{23},
+  \texttt{3.2}). numbers = /\^{} \ldots{} \$/, matching exacto
+\item
+  Escriba una expresión regular que case con los números no primos
+  expresados en unario. Pruebe con \texttt{1111}, \texttt{111},
+  \texttt{111111}, \texttt{1111111}, \ldots{}
+\item
+  Escriba una expresión regular que case con los comentarios JavaScript.
+\item
+  Escriba una expresión JavaScript que permita reemplazar todas las
+  apariciones de palabras consecutivas repetidas (como
+  \texttt{hello hello}) por una sóla aparición de la misma
+\item
+  ¿Cual es la salida?
+
+\begin{verbatim}
+> "bb".match(/b|bb/)
+
+> "bb".match(/bb|b/)
+\end{verbatim}
+
+  Justifique su respuesta.
+\item
+  El siguiente fragmento de código tiene por objetivo escapar las
+  entidades HTML para que no sean intérpretadas como código HTML.
+  Rellene las partes que faltan.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{var} \NormalTok{entityMap = \{}
+    \StringTok{"&"}\NormalTok{: }\StringTok{"&___;"}\NormalTok{,}
+    \StringTok{"<"}\NormalTok{: }\StringTok{"&__;"}\NormalTok{,}
+    \StringTok{">"}\NormalTok{: }\StringTok{"&__;"}\NormalTok{,}
+    \StringTok{'"'}\NormalTok{: }\StringTok{'&quot;'}\NormalTok{,}
+    \StringTok{"'"}\NormalTok{: }\StringTok{'&#39;'}\NormalTok{,}
+    \StringTok{"/"}\NormalTok{: }\StringTok{'&#x2F;'}
+  \NormalTok{\};}
+
+\KeywordTok{function} \FunctionTok{escapeHtml}\NormalTok{(string) \{}
+  \KeywordTok{return} \FunctionTok{String}\NormalTok{(string).}\FunctionTok{replace}\NormalTok{(}\OtherTok{/_________/g}\NormalTok{, }\KeywordTok{function} \NormalTok{(s) \{}
+    \KeywordTok{return} \NormalTok{____________;}
+  \NormalTok{\});}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  Se quiere poner un espacio en blanco después de la aparición de cada
+  coma:
+
+\begin{verbatim}
+> x = "a,b,c,1,2,d, e,f"
+'a,b,c,1,2,d, e,f'
+> x.replace(/,/g,", ")
+'a, b, c, 1, 2, d,  e, f'
+\end{verbatim}
+
+  Se pide que si hay ya un espacio después de la coma, no se duplique.
+\item
+  Se pide una expresión regular que case con expresiones del tipo
+  \texttt{identifier = number} y retorne con cada paréntesis el
+  identificador y el número. Pruebe con \texttt{h     = 4},
+  \texttt{temp = 5.6}, \texttt{x23= -2.3e1} y \texttt{z += 3}
+\item
+  Imagine you have written a story and used single quotation marks
+  throughout to mark pieces of dialogue. Now you want to replace all the
+  dialogue quotes with double quotes, while keeping the single quotes
+  used in contractions like \emph{aren't}. Think of a pattern that
+  distinguishes these two kinds of quote usage and craft a call to the
+  replace method that does the proper replacement.
+
+\begin{verbatim}
+var text = "'I'm the cook,' he said, 'it's my job.'";
+// Change this call.
+var result = text.replace(/.../g, '...');
+console.log(result);
+var expected = `"I'm the cook," he said, "it's my job."`;
+if (expected === result) console.log("OK")
+else console.log("ERROR!");
+\end{verbatim}
+\end{enumerate}

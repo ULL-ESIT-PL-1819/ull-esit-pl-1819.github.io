@@ -1,0 +1,30 @@
+
+<H1><A NAME="SECTION05280000000000000000">
+yywrap()</A>
+</H1>
+Cuando el analizador l&#233;xico alcanza el final del fichero, el
+comportamiento en las subsiguientes llamadas a <SPAN  CLASS="textit">yylex</SPAN>
+resulta indefinido.  En el momento en que  <SPAN  CLASS="textit">yylex()</SPAN>
+alcanza el final del fichero llama a la funci&#243;n <SPAN  CLASS="textit">yywrap</SPAN>, la cual retorna un
+valor de 0 o 1 seg&#250;n haya mas entrada o no. Si el valor es 0,
+la funci&#243;n <SPAN  CLASS="textit">yylex</SPAN> asume que la propia <SPAN  CLASS="textit">yywrap</SPAN>
+se ha encargado de abrir el nuevo fichero y asignarselo
+a  <#2871#><TT>yyin</TT><#2871#> .  Otra manera de continuar es haciendo uso de
+la funci&#243;n <SPAN  CLASS="textit">yyrestart(FILE *file)</SPAN>. 
+El siguiente ejemplo cuenta el n&#250;mero de l&#305;neas, palabras y
+caracteres en una lista de ficheros proporcionados como entrada.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim634#</PRE>
+
+<P>
+La figura muestra el proceso de compilaci&#243;n y la ejecuci&#243;n:
+<PRE><tex2html_verbatim_mark>verbatim635#</PRE>
+La diferencia esencial entre asignar <SPAN  CLASS="textit">yyin</SPAN> o llamar a la
+funci&#243;n <SPAN  CLASS="textit">yyrestart</SPAN> es que esta &#250;ltima puede ser utilizada para
+conmutar entre ficheros en medio de un an&#225;lisis l&#233;xico. El
+funcionamiento del programa anterior no se modifica si se 
+se intercambian asignaciones a <SPAN  CLASS="textit">yyin</SPAN> (<SPAN  CLASS="textit">yyin = file</SPAN>)
+y llamadas a <SPAN  CLASS="textit">yyrestart(file)</SPAN>.
+
+<P>

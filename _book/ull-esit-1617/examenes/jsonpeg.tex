@@ -1,0 +1,142 @@
+\textbf{Write a PEGjs parser that takes a JSON input and returns the
+corresponding JavaScript object.}
+
+\textbf{JSON} (JavaScript Object Notation) is a lightweight
+data-interchange format. It is easy for humans to read and write. It is
+easy for machines to parse and generate. It is based on a subset of the
+JavaScript Programming Language, Standard ECMA-262 3rd Edition -
+December 1999. JSON is a text format that is completely language
+independent but uses conventions that are familiar to programmers of the
+C-family of languages, including C, C++, C\#, Java, JavaScript, Perl,
+Python, and many others. These properties make JSON an ideal
+data-interchange language.
+
+JSON is built on two structures:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  A collection of name/value pairs. In various languages, this is
+  realized as an object, record, struct, dictionary, hash table, keyed
+  list, or associative array.
+\item
+  An ordered list of values. In most languages, this is realized as an
+  array, vector, list, or sequence.
+\end{itemize}
+
+These are universal data structures. Virtually all modern programming
+languages support them in one form or another. It makes sense that a
+data format that is interchangeable with programming languages also be
+based on these structures.
+
+In JSON, they take on these forms:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  An \emph{object} is an unordered set of name/value pairs. An object
+  begins with \texttt{\{}~(left brace) and ends with \texttt{\}}~(right
+  brace). Each name is followed by \texttt{:}~(colon) and the name/value
+  pairs are separated by \texttt{,}~(comma).
+\item
+  An \emph{array} is an ordered collection of values. An array begins
+  with \texttt{{[}}~(left bracket) and ends with \texttt{{]}}~(right
+  bracket). Values are separated by \texttt{,}~(comma).
+\item
+  A \emph{value} can be a
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    \emph{string} in double quotes,
+  \item
+    or a \emph{number},
+  \item
+    or \texttt{true}
+  \item
+    or \texttt{false}
+  \item
+    or \texttt{null},
+  \item
+    or an \emph{object}
+  \item
+    or an \emph{array}.
+  \end{enumerate}
+\end{enumerate}
+
+These structures can be nested. Be cautious when parsing \texttt{null}.
+In PEGjs you can't return \texttt{null} inside a semantic action because
+that would mean parse failure
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  A \emph{string} is a sequence of zero or more Unicode characters,
+  wrapped in double quotes. To help you with your work, here is the rule
+  for a single \texttt{char}:
+\end{enumerate}
+
+\begin{verbatim}
+char
+  = [^"\\\0-\x1F\x7f]
+  / '\\"'  { return '"';  }
+  / "\\\\" { return "\\"; }
+  / "\\/"  { return "/";  }
+  / "\\b"  { return "\b"; }
+  / "\\f"  { return "\f"; }
+  / "\\n"  { return "\n"; }
+  / "\\r"  { return "\r"; }
+  / "\\t"  { return "\t"; }
+  / "\\u" digits:$(hexDigit hexDigit hexDigit hexDigit) {
+      return String.fromCharCode(parseInt("0x" + digits));
+    }
+
+hexDigit
+  = [0-9a-fA-F]
+\end{verbatim}
+
+The \texttt{String} method \texttt{fromCharCode()} converts a Unicode
+number into a character.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  A \emph{number} is very much like a C or JavaScript number, except
+  that the octal and hexadecimal formats are not used. To simplify your
+  work, here are some PEGjs definitions you can assume in your solution:
+\end{enumerate}
+
+\begin{verbatim}
+int
+  = digit19 digits
+  / digit
+  / "-" digit19 digits
+  / "-" digit
+
+frac = "." digits
+
+exp = e digits
+
+digits = digit+
+
+e = [eE] [+-]?
+
+digit = [0-9]
+
+digit19 = [1-9]
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Whitespace can be inserted between any pair of tokens.
+\end{enumerate}
+
+That completely describes the language.

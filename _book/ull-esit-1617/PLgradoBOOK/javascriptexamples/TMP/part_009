@@ -1,0 +1,13 @@
+<tex2html_file>#./chapterxml/xml.tex#
+Véase el libro \htmladdnormallink<<1820>>Sams Teach Yourself XML in 21 Days<<1820>><<1821>>http://books.google.es/books?id=q8XqByA2dXYC<<1821>> en Google o en 
+\htmladdnormallink<<1822>>informit<<1822>><<1823>>http://www.informit.com/library/library.aspx?b=STY_XML_21days<<1823>>
+\cite<<1824>>holzner2003sams<<1824>>
+<tex2html_endfile>#./chapterxml/xml.tex#
+\begin<<1831>>tex2html_deferred<<1831>>\par\end<<1832>>tex2html_deferred<<1832>>
+\chapter<<1825>>Backbone<<1825>>
+\begin<<1826>>enumerate<<1826>>
+\item 
+\htmladdnormallink<<1827>>Developing Backbone.js Applications<<1827>><<1828>>http://addyosmani.github.com/backbone-fundamentals/<<1828>>
+\end<<1829>>enumerate<<1829>>
+\begin<<1833>>tex2html_deferred<<1833>>\par\end<<1834>>tex2html_deferred<<1834>>
+\chapter<<1830>>Closure Tools<<1830>>

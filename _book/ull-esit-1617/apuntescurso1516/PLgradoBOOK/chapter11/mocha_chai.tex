@@ -1,0 +1,299 @@
+\parrafo{Pruebas: Mocha y Chai}
+\label{parrafo:mochaychai}
+Mocha is a test framework while Chai is an expectation one. 
+
+Mocha is the \red{simple, flexible, and fun} JavaScript unit-testing framework
+that runs in Node.js or in the browser. 
+
+It is open source (MIT licensed),
+and we can learn more about it at
+\htmladdnormallink{https://github.com/mochajs/mocha}{https://github.com/mochajs/mocha}
+
+Let's say
+Mocha setups and describes test suites and Chai provides convenient
+helpers to perform all kinds of assertions against your JavaScript code.
+
+\parrafo{Pruebas: Estructura}
+
+Podemos instalar \verb|mocha| globalmente:
+\begin{verbatim}
+$ npm install -g mocha
+\end{verbatim}
+pero podemos también añadirlo en \verb|package.json| como una \verb|devDependencies|:
+\begin{verbatim}
+[/tmp/pl-grado-temperature-converter(karma)]$ head -n 5 package.json 
+{
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "latest"
+  },
+\end{verbatim}
+
+Y ahora podemos instalar todas las dependencias usando  \verb|npm install|:
+\begin{verbatim}
+$ npm install
+npm http GET https://registry.npmjs.org/mocha
+npm http 200 https://registry.npmjs.org/mocha
+npm http GET https://registry.npmjs.org/commander/2.3.0
+...
+\end{verbatim}
+
+En este caso \verb|mocha| es instalado localmente, no globalmente:
+\begin{verbatim}
+[/tmp/pl-grado-temperature-converter(karma)]$ ls -ltr node_modules/
+total 0
+drwxr-xr-x  12 casiano  staff  408  5 feb 18:40 mocha
+\end{verbatim}
+
+Una vez instalado Mocha, creamos la estructura para las pruebas:
+
+\begin{verbatim}
+$ mocha init tests
+\end{verbatim}
+esto en el caso de que lo hayamos instalado globalmente o bien
+\begin{verbatim}
+$ node_modules/mocha/bin/mocha init tests
+\end{verbatim}
+si lo hemos instalado localmente.
+
+\begin{verbatim}
+$ tree tests
+tests
+|-- index.html
+|-- mocha.css
+|-- mocha.js
+`-- tests.js
+\end{verbatim}
+
+Añadimos \verb|chai.js|
+(Véase 
+\htmladdnormallink{http://chaijs.com/guide/installation/}{http://chaijs.com/guide/installation/}) al directorio \verb|tests|.
+
+Chai is a platform-agnostic BDD/TDD assertion library featuring several interfaces 
+(for example, should, expect, and assert). 
+It is open source (MIT licensed), and we can learn more about it at
+\htmladdnormallink{http://chaijs.com/}{http://chaijs.com/}
+
+We can also install Chai on the command line using npm, as follows:
+\begin{verbatim}
+            npm install chai --save-dev
+\end{verbatim}
+
+
+The latest tagged version will be available for hot-linking at 
+\htmladdnormallink{http://chaijs.com/chai.js}{http://chaijs.com/chai.js}.
+
+If you prefer to host yourself, use the \verb|chai.js| file from the root of the 
+\htmladdnormallink{github project at https://github.com/chaijs/chai}{https://github.com/chaijs/chai}. 
+\begin{verbatim}
+[/tmp/pl-grado-temperature-converter(karma)]$ 
+$ curl https://raw.githubusercontent.com/chaijs/chai/master/chai.js -o tests/chai.js
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  118k  100  118k    0     0  65521      0  0:00:01  0:00:01 --:--:-- 65500
+\end{verbatim}
+Ya tenemos nuestro fichero \verb|tests/chai.js|:
+\begin{verbatim}
+[/tmp/pl-grado-temperature-converter(karma)]$ head tests/chai.js 
+
+;(function(){
+
+/**
+ * Require the module at `name`.
+ *
+ * @param {String} name
+ * @return {Object} exports
+ * @api public
+ */
+\end{verbatim}
+Quedando el árbol como sigue:
+\begin{verbatim}
+[~/srcPLgrado/temperature(master)]$ tree tests/
+tests/
+|-- chai.js
+|-- index.html
+|-- mocha.css
+|-- mocha.js
+`-- tests.js
+
+0 directories, 5 files
+\end{verbatim}
+
+\parrafo{Pruebas: {\tt index.html}}
+
+Modificamos el fichero \verb|tests/index.html| que fué generado por \verb|mocha init|
+para 
+\begin{itemize}
+\item
+Cargar \verb|chai.js|
+\item
+Cargar \verb|temperature.js|
+\item
+Usar el estilo \verb|mocha.setup('tdd')|:
+\item
+Imitar la página \verb|index.html| con los correspondientes \verb|input| y 
+\verb|span|:
+\begin{verbatim}
+    <input id="original" placeholder="32F" size="50">
+    <span class="output" id="converted"></span>
+\end{verbatim}
+\end{itemize}
+quedando así:
+\begin{verbatim}
+[~/srcPLgrado/temperature(master)]$ cat tests/index.html 
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mocha</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mocha.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <input id="original" placeholder="32F" size="50">
+    <span class="output" id="converted"></span>
+
+    <script src="chai.js"></script>
+    <script src="mocha.js"></script>
+    <script src="../temperature.js"></script>
+    <script>mocha.setup('tdd')</script>
+    <script src="tests.js"></script>
+
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>
+\end{verbatim}
+
+\parrafo{Pruebas: Añadir los tests}
+
+The "TDD" interface provides 
+\begin{itemize}
+\item \verb|suite()|
+\item  \verb|test()|
+\item  \verb|setup()|
+\item  \verb|teardown()|.
+\end{itemize}
+
+\begin{verbatim}
+[~/srcPLgrado/temperature(master)]$ cat tests/tests.js 
+var assert = chai.assert;
+
+suite('temperature', function() {
+    test('32F = 0C', function() {
+        original.value = "32F";
+        calculate();
+        assert.deepEqual(converted.innerHTML, "0.0 Celsius");
+    });
+    test('45C = 113.0 Farenheit', function() {
+        original.value = "45C";
+        calculate();
+        assert.deepEqual(converted.innerHTML, "113.0 Farenheit");
+    });
+    test('5X = error', function() {
+        original.value = "5X";
+        calculate();
+        assert.match(converted.innerHTML, /ERROR/);
+    });
+});
+\end{verbatim}
+
+The \cei{BDD} interface provides \verb|describe()|, \verb|it()|, \verb|before()|, \verb|after()|, \verb|beforeEach()|, and \verb|afterEach()|:
+
+\begin{verbatim}
+describe('Array', function(){
+  before(function(){
+    // ...
+  });
+
+  describe('#indexOf()', function(){
+    it('should return -1 when not present', function(){
+      [1,2,3].indexOf(4).should.equal(-1);
+    });
+  });
+});
+\end{verbatim}
+The \cei{Chai should} style allows for the same chainable assertions as the 
+\cei{expect interface}, however it extends each object with a \verb|should| 
+property to start your chain. 
+
+\parrafo{Chai Assert Style}
+
+The \cei{assert style} is exposed through assert interface. 
+
+This provides the classic assert-dot notation, similiar to that packaged with node.js. 
+
+This \verb|assert| module, however, provides several additional tests and is browser compatible.
+
+\begin{verbatim}
+var assert = require('chai').assert
+  , foo = 'bar'
+  , beverages = { tea: [ 'chai', 'matcha', 'oolong' ] };
+
+assert.typeOf(foo, 'string', 'foo is a string');
+assert.equal(foo, 'bar', 'foo equal `bar`');
+assert.lengthOf(foo, 3, 'foo`s value has a length of 3');
+assert.lengthOf(beverages.tea, 3, 'beverages has 3 types of tea');
+\end{verbatim}
+In all cases, the assert style allows you to include an optional message as the last parameter in the assert statement. 
+
+These will be included in the error messages should your assertion not pass.
+
+\parrafo{Assert API, Expect/Should API}
+
+\begin{itemize}
+\item
+Here  is the documentation of the 
+\htmladdnormallink{Assert API}{http://chaijs.com/api/assert/}.
+
+
+\item
+Here  is the documentation of the 
+\htmladdnormallink{Should/Expect API}{http://chaijs.com/api/bdd/}.
+\end{itemize}
+
+\parrafo{Chai Expect Style}
+
+The BDD style is exposed through expect or should interfaces. In both scenarios, you chain together natural language assertions.
+
+\begin{verbatim}
+var expect = require('chai').expect
+  , foo = 'bar'
+  , beverages = { tea: [ 'chai', 'matcha', 'oolong' ] };
+
+expect(foo).to.be.a('string');
+expect(foo).to.equal('bar');
+expect(foo).to.have.length(3);
+expect(beverages).to.have.property('tea').with.length(3);
+\end{verbatim}
+Expect also allows you to include arbitrary messages to prepend to any failed assertions that might occur.
+
+\begin{verbatim}
+var answer = 43;
+\end{verbatim}
+
+\begin{verbatim}
+// AssertionError: expected 43 to equal 42.
+expect(answer).to.equal(42); 
+\end{verbatim}
+
+\begin{verbatim}
+// AssertionError: topic [answer]: expected 43 to equal 42.
+expect(answer, 'topic [answer]').to.equal(42);
+\end{verbatim}
+This comes in handy when being used with non-descript topics such as booleans or numbers.
+
+\parrafo{Ejecución Simple}
+Ahora podemos ejecutar las pruebas abriendo en el navegador el
+fichero \verb|tests/index.html|:
+\begin{verbatim}
+$ open tests/index.html 
+\end{verbatim}
+
+Esta información aparece también en las secciones {\it Unit Testing: Mocha}
+\ref{subsection:mocha} de
+estos apuntes.
+
+

@@ -1,0 +1,60 @@
+\htmladdnormallink{Sinatra::Flash}{https://github.com/SFEley/sinatra-flash}
+is an extension that lets you store information between
+requests. 
+
+Often, when an application processes a request, it will redirect
+to another URL upon finishing, which generates another request. 
+
+This
+means that any information from the previous request is lost (due to the
+stateless nature of HTTP). 
+
+\htmladdnormallink{Sinatra::Flash}{https://github.com/SFEley/sinatra-flash}
+overcomes this by providing
+access to the \red{flash}—a hash-like object that stores temporary values
+such as error messages so that they can be retrieved later—usually
+on the next request. 
+
+It also removes the information once it’s been
+used. 
+
+All this can be achieved via sessions (and that’s exactly how
+\htmladdnormallink{Sinatra::Flash}{https://github.com/SFEley/sinatra-flash}
+does it), but 
+\htmladdnormallink{Sinatra::Flash}{https://github.com/SFEley/sinatra-flash}
+is easy to implement and
+provides a number of helper methods.
+
+\parrafo{Ejemplo}
+\begin{verbatim}
+[~/sinatra/sinatra-flash]$ cat app.rb 
+require 'sinatra'
+require 'sinatra/flash'
+
+enable :sessions
+
+get '/blah' do
+  # This message won't be seen until the NEXT Web request that accesses the flash collection
+  flash[:blah] = "You were feeling blah at #{Time.now}."
+
+  # Accessing the flash displays messages set from the LAST request
+  "Feeling blah again? That's too bad. #{flash[:blah]}"
+end
+
+get '/pum' do
+  # This message won't be seen until the NEXT Web request that accesses the flash collection
+  flash[:pum] = "You were feeling pum at #{Time.now}."
+
+  # Accessing the flash displays messages set from the LAST request
+  "Feeling pum again? That's too bad. #{flash[:pum]}"
+end
+\end{verbatim}
+
+\parrafo{Gemfile}
+\begin{verbatim}
+[~/sinatra/sinatra-flash]$ cat Gemfile
+source 'https://rubygems.org'
+
+gem 'sinatra'
+gem 'sinatra-flash'
+\end{verbatim}

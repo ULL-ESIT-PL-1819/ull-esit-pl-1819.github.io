@@ -1,0 +1,99 @@
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Escriba un PEGJS que recibe como entrada una expresión regular como
+  \texttt{a(b.c)+\textbar{}abc} y produce como salida un árbol de
+  análisis sintáctico:
+
+\begin{verbatim}
+  [ 'ALT',
+    [ 'CAT',
+      [ [ 'CHAR', 'a' ],
+        [ '+',
+          [ 'CAT', [ [ 'CHAR', 'b' ], 
+                     [ 'DOT', [] ], 
+                     [ 'CHAR', 'c' ] 
+                   ] 
+          ] 
+        ] 
+      ] 
+    ],
+    [ 'CAT', [ [ 'CHAR', 'a' ], [ 'CHAR', 'b' ], [ 'CHAR', 'c' ] ] ] 
+  ]
+\end{verbatim}
+\end{enumerate}
+
+En esta representación del árbol AST hemos usado un formato muy simple
+mediante arrays: el primer elemento del array indica el tipo de nodo
+(por ejemplo \texttt{\textquotesingle{}ALT\textquotesingle{}} para
+indicar una alternativa o unión ) y el resto de elementos en el array
+son los hijos de ese nodo.
+
+No tiene por que ser esta la representación que use para su AST:
+cualquier representación razonable que respete la prioridad y
+asociatividad de las operaciones y facilite el recorrido del AST será
+considerada correcta.
+
+Las expresiones regulares que consideramos vienen definidas por las
+siguientes reglas:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Si \texttt{re1}y \texttt{re2} son dos regexps entonces
+  \texttt{re1 \textbar{} re2} es una regexp
+\item
+  La concatenacion de regexps es una regexp
+\item
+  Los cierres de regexps \texttt{re} como
+\end{enumerate}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \texttt{re?}
+\item
+  \texttt{re*}
+\item
+  \texttt{re+} son regexps
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Si \texttt{re} es una regexp entonces \texttt{(re)} entre paréntesis
+  es también una regexp
+\item
+  El punto \texttt{\textquotesingle{}.\textquotesingle{}}, el
+  \texttt{\textquotesingle{}\^{}\textquotesingle{}} y el
+  \texttt{\textquotesingle{}\$\textquotesingle{}} son regexps
+\item
+  Los caracteres que no son metasimbolos (esto es, distintos de
+  \texttt{\textquotesingle{}*\textquotesingle{}},
+  \texttt{\textquotesingle{}+\textquotesingle{}},
+  \texttt{\textquotesingle{}\textbar{}\textquotesingle{}}, etc.) son
+  expresiones regulares
+\item
+  Los metasímbolos (como \texttt{\textquotesingle{}*\textquotesingle{}},
+  \texttt{\textquotesingle{}+\textquotesingle{}},
+  \texttt{\textquotesingle{}\textbar{}\textquotesingle{}}, etc.) cuando
+  son escapados
+  \texttt{\textquotesingle{}\textbackslash{}*\textquotesingle{}} se
+  consideran caracteres y son también expresiones regulares
+\item
+  \textbf{Si no ha superado la segunda parte deberá incluir en su
+  lenguaje de regexps las clases o conjuntos}:
+\end{enumerate}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Una clase es una secuencia de items entre corchetes:
+  \texttt{{[} items {]}} es una regexp
+\item
+  Los \texttt{items} pueden ser bien carácteres o bien rangos
+  \texttt{char - char}
+\end{itemize}

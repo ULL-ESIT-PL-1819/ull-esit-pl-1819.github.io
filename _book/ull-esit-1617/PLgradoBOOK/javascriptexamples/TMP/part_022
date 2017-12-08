@@ -1,0 +1,1026 @@
+\section<<15268>>Conceptos Básicos para el Análisis Sintáctico<<15268>>
+\label<<15269>>section:conceptos<<15269>>
+Suponemos que el lector de esta sección ha realizado con éxito
+un curso en teoría de autómatas y lenguajes formales.
+Las siguientes definiciones repasan los conceptos mas importantes.
+\begin<<16458>>tex2html_deferred<<16458>>\par\end<<16459>>tex2html_deferred<<16459>>
+\begin<<15768>>theorem_type<<15768>>[definition][definition][section][][][]
+Dado un conjunto \begin<<15954>>tex2html_wrap_inline<<15954>>$A$\end<<15955>>tex2html_wrap_inline<<15955>>, se define \begin<<15956>>tex2html_wrap_inline<<15956>>$A^*$\end<<15957>>tex2html_wrap_inline<<15957>>\space el cierre de Kleene de \begin<<15958>>tex2html_wrap_inline<<15958>>$A$\end<<15959>>tex2html_wrap_inline<<15959>>\space como:
+\begin<<15271>>math<<15271>>
+A^* = \cup_<<15272>>n=0<<15272>>^<<15273>>\infty<<15273>> A^n
+\end<<15274>>math<<15274>>
+\begin<<16460>>tex2html_deferred<<16460>>\par\end<<16461>>tex2html_deferred<<16461>>
+Se admite que \begin<<15960>>tex2html_wrap_inline<<15960>>$A^0 = \{ \epsilon \}$\end<<15961>>tex2html_wrap_inline<<15961>>, donde \begin<<15962>>tex2html_wrap_inline<<15962>>$\epsilon$\end<<15963>>tex2html_wrap_inline<<15963>>\space denota la palabra vacía, esto es
+la palabra que tiene longitud cero, formada por cero símbolos del conjunto base \begin<<15964>>tex2html_wrap_inline<<15964>>$A$\end<<15965>>tex2html_wrap_inline<<15965>>.\end<<15769>>theorem_type<<15769>>
+\begin<<16462>>tex2html_deferred<<16462>>\par\end<<16463>>tex2html_deferred<<16463>>
+\begin<<15770>>theorem_type<<15770>>[definition][definition][section][][][]
+Una gramática \begin<<15966>>tex2html_wrap_inline<<15966>>$G$\end<<15967>>tex2html_wrap_inline<<15967>>\space es una cuaterna \begin<<15968>>tex2html_wrap_inline<<15968>>$G =(\Sigma,V,P,S)$\end<<15969>>tex2html_wrap_inline<<15969>>. 
+\begin<<15970>>tex2html_wrap_inline<<15970>>$\Sigma$\end<<15971>>tex2html_wrap_inline<<15971>>\space es el conjunto de terminales. \begin<<15972>>tex2html_wrap_inline<<15972>>$V$\end<<15973>>tex2html_wrap_inline<<15973>>\space es un conjunto (disjunto de \begin<<15974>>tex2html_wrap_inline<<15974>>$\Sigma$\end<<15975>>tex2html_wrap_inline<<15975>>)
+que se denomina conjunto de \emph<<15277>>variables sintácticas<<15277>> o \emph<<15278>>categorías gramáticales<<15278>>,
+P es un conjunto de pares de \begin<<15976>>tex2html_wrap_inline<<15976>>$V \times (V \cup \Sigma )^*$\end<<15977>>tex2html_wrap_inline<<15977>>. En vez de escribir
+un par usando la notación \begin<<15978>>tex2html_wrap_inline<<15978>>$(A, \alpha) \in P$\end<<15979>>tex2html_wrap_inline<<15979>>\space se escribe \begin<<15980>>tex2html_wrap_inline<<15980>>$A \rightarrow \alpha$\end<<15981>>tex2html_wrap_inline<<15981>>.
+Un elemento de \begin<<15982>>tex2html_wrap_inline<<15982>>$P$\end<<15983>>tex2html_wrap_inline<<15983>>\space se denomina producción. Por último, \begin<<15984>>tex2html_wrap_inline<<15984>>$S$\end<<15985>>tex2html_wrap_inline<<15985>>\space es un símbolo del conjunto
+\begin<<15986>>tex2html_wrap_inline<<15986>>$V$\end<<15987>>tex2html_wrap_inline<<15987>>\space que se denomina símbolo de arranque.\end<<15771>>theorem_type<<15771>>
+\begin<<16464>>tex2html_deferred<<16464>>\par\end<<16465>>tex2html_deferred<<16465>>
+\begin<<15772>>theorem_type<<15772>>[definition][definition][section][][][]
+Dada una gramática \begin<<15988>>tex2html_wrap_inline<<15988>>$G=(\Sigma,V,P,S)$\end<<15989>>tex2html_wrap_inline<<15989>>\space y \begin<<15990>>tex2html_wrap_inline<<15990>>$\mu = \alpha A \beta \in (V \cup \Sigma)^*$\end<<15991>>tex2html_wrap_inline<<15991>>
+una frase formada por variables y terminales y \begin<<15992>>tex2html_wrap_inline<<15992>>$A \rightarrow \gamma$\end<<15993>>tex2html_wrap_inline<<15993>>\space una producción de 
+\begin<<15994>>tex2html_wrap_inline<<15994>>$P$\end<<15995>>tex2html_wrap_inline<<15995>>, decimos que  \begin<<15996>>tex2html_wrap_inline<<15996>>$\mu$\end<<15997>>tex2html_wrap_inline<<15997>>\space deriva en un paso en  \begin<<15998>>tex2html_wrap_inline<<15998>>$\alpha \gamma \beta$\end<<15999>>tex2html_wrap_inline<<15999>>. Esto es, derivar 
+una cadena \begin<<16000>>tex2html_wrap_inline<<16000>>$\alpha A \beta$\end<<16001>>tex2html_wrap_inline<<16001>>\space es sustituir 
+una variable sintáctica \begin<<16002>>tex2html_wrap_inline<<16002>>$A$\end<<16003>>tex2html_wrap_inline<<16003>>\space de \begin<<16004>>tex2html_wrap_inline<<16004>>$V$\end<<16005>>tex2html_wrap_inline<<16005>>\space por la parte derecha \begin<<16006>>tex2html_wrap_inline<<16006>>$\gamma$\end<<16007>>tex2html_wrap_inline<<16007>>\space de una de sus reglas de producción.
+Se dice que \begin<<16008>>tex2html_wrap_inline<<16008>>$\mu$\end<<16009>>tex2html_wrap_inline<<16009>>\space deriva en \begin<<16010>>tex2html_wrap_inline<<16010>>$n$\end<<16011>>tex2html_wrap_inline<<16011>>\space pasos en \begin<<16012>>tex2html_wrap_inline<<16012>>$\delta$\end<<16013>>tex2html_wrap_inline<<16013>>\space si deriva en \begin<<16014>>tex2html_wrap_inline<<16014>>$n-1$\end<<16015>>tex2html_wrap_inline<<16015>>\space pasos en una cadena
+\begin<<16016>>tex2html_wrap_inline<<16016>>$\alpha A \beta$\end<<16017>>tex2html_wrap_inline<<16017>>\space la cual deriva en un paso en \begin<<16018>>tex2html_wrap_inline<<16018>>$\delta$\end<<16019>>tex2html_wrap_inline<<16019>>. Se escribe entonces
+que \begin<<16020>>tex2html_wrap_inline<<16020>>$\mu  \stackrel<<15281>>*<<15281>><<15282>>\Longrightarrow<<15282>>  \delta$\end<<16021>>tex2html_wrap_inline<<16021>>. Una cadena deriva en 0 pasos en si misma.
+\begin<<16466>>tex2html_deferred<<16466>>\par\end<<16467>>tex2html_deferred<<16467>>\end<<15773>>theorem_type<<15773>>
+\begin<<16468>>tex2html_deferred<<16468>>\par\end<<16469>>tex2html_deferred<<16469>>
+\begin<<15774>>theorem_type<<15774>>[definition][definition][section][][][]
+\label<<15285>>definition:lenguajegenerado<<15285>>
+Dada una gramática \begin<<16022>>tex2html_wrap_inline<<16022>>$G=(\Sigma,V,P,S)$\end<<16023>>tex2html_wrap_inline<<16023>>\space se denota por \begin<<16024>>tex2html_wrap_inline<<16024>>$L(G)$\end<<16025>>tex2html_wrap_inline<<16025>>\space o lenguaje
+generado por \begin<<16026>>tex2html_wrap_inline<<16026>>$G$\end<<16027>>tex2html_wrap_inline<<16027>>\space al lenguaje:
+\begin<<16470>>tex2html_deferred<<16470>>\par\end<<16471>>tex2html_deferred<<16471>>
+\begin<<15286>>center<<15286>>
+\begin<<16028>>tex2html_wrap_inline<<16028>>$L(G) = \{ x \in \Sigma^* : S \stackrel<<15287>>*<<15287>><<15288>>\Longrightarrow<<15288>> x \}$\end<<16029>>tex2html_wrap_inline<<16029>>
+\end<<15289>>center<<15289>>
+\begin<<16472>>tex2html_deferred<<16472>>\par\end<<16473>>tex2html_deferred<<16473>>
+Esto es, el lenguaje generado por la gramática \begin<<16030>>tex2html_wrap_inline<<16030>>$G$\end<<16031>>tex2html_wrap_inline<<16031>>\space esta formado por las cadenas
+de terminales que pueden ser derivados desde el símbolo de arranque.\end<<15775>>theorem_type<<15775>>
+\begin<<16474>>tex2html_deferred<<16474>>\par\end<<16475>>tex2html_deferred<<16475>>
+\begin<<15776>>theorem_type<<15776>>[definition][definition][section][][][]
+Una derivación que comienza en el símbolo de arranque y termina en una secuencia
+formada por sólo terminales de \begin<<16032>>tex2html_wrap_inline<<16032>>$\Sigma$\end<<16033>>tex2html_wrap_inline<<16033>>\space se dice \emph<<15292>>completa<<15292>>.
+\begin<<16476>>tex2html_deferred<<16476>>\par\end<<16477>>tex2html_deferred<<16477>>
+Una derivación \begin<<16034>>tex2html_wrap_inline<<16034>>$\mu  \stackrel<<15293>>*<<15293>><<15294>>\Longrightarrow<<15294>>  \delta$\end<<16035>>tex2html_wrap_inline<<16035>> 
+en la cual en cada paso \begin<<16036>>tex2html_wrap_inline<<16036>>$\alpha A x$\end<<16037>>tex2html_wrap_inline<<16037>>\space la regla de producción aplicada \begin<<16038>>tex2html_wrap_inline<<16038>>$A \rightarrow \gamma$\end<<16039>>tex2html_wrap_inline<<16039>>
+se aplica en la variable sintáctica mas a la derecha se dice \emph<<15295>>una derivación a derechas<<15295>>
+\begin<<16478>>tex2html_deferred<<16478>>\par\end<<16479>>tex2html_deferred<<16479>>
+Una derivación \begin<<16040>>tex2html_wrap_inline<<16040>>$\mu  \stackrel<<15296>>*<<15296>><<15297>>\Longrightarrow<<15297>>  \delta$\end<<16041>>tex2html_wrap_inline<<16041>> 
+en la cual en cada paso \begin<<16042>>tex2html_wrap_inline<<16042>>$x A \alpha$\end<<16043>>tex2html_wrap_inline<<16043>>\space la regla de producción aplicada \begin<<16044>>tex2html_wrap_inline<<16044>>$A \rightarrow \gamma$\end<<16045>>tex2html_wrap_inline<<16045>>
+se aplica en la variable sintáctica mas a la izquierda se dice \emph<<15298>>una derivación a izquierdas<<15298>>\end<<15777>>theorem_type<<15777>>
+\begin<<16480>>tex2html_deferred<<16480>>\par\end<<16481>>tex2html_deferred<<16481>>
+\begin<<15778>>theorem_type<<15778>>[definition][definition][section][][][]
+Observe que una derivación puede ser representada como un árbol cuyos nodos
+están etiquetados en \begin<<16046>>tex2html_wrap_inline<<16046>>$V \cup \Sigma$\end<<16047>>tex2html_wrap_inline<<16047>>. La aplicación de la regla de 
+producción \begin<<16048>>tex2html_wrap_inline<<16048>>$A \rightarrow \gamma$\end<<16049>>tex2html_wrap_inline<<16049>>\space se traduce en asignar como hijos del nodo etiquetado con \begin<<16050>>tex2html_wrap_inline<<16050>>$A$\end<<16051>>tex2html_wrap_inline<<16051>>
+a los nodos etiquetados con los símbolos \begin<<16052>>tex2html_wrap_inline<<16052>>$X_1 \ldots X_n$\end<<16053>>tex2html_wrap_inline<<16053>>\space que constituyen
+la frase \begin<<16054>>tex2html_wrap_inline<<16054>>$\gamma = X_1 \ldots X_n$\end<<16055>>tex2html_wrap_inline<<16055>>.  
+Este árbol se llama \index<<15816>>árbol sintáctico concreto<<15816>>\emph<<15817>>árbol sintáctico concreto<<15817>> asociado 
+con la derivación.\end<<15779>>theorem_type<<15779>>
+\begin<<16482>>tex2html_deferred<<16482>>\par\end<<16483>>tex2html_deferred<<16483>>
+\begin<<15780>>theorem_type<<15780>>[definition][definition][section][][][]
+\label<<15304>>definition:arbolconcreto<<15304>>
+Observe que, dada una frase \begin<<16056>>tex2html_wrap_inline<<16056>>$x \in L(G)$\end<<16057>>tex2html_wrap_inline<<16057>>\space una derivación desde el
+símbolo de arranque da lugar a  un árbol. Ese árbol tiene como raíz el 
+símbolo de arranque y como hojas los terminales 
+\begin<<16058>>tex2html_wrap_inline<<16058>>$x_1 \ldots x_n$\end<<16059>>tex2html_wrap_inline<<16059>>\space que forman \begin<<16060>>tex2html_wrap_inline<<16060>>$x$\end<<16061>>tex2html_wrap_inline<<16061>>. Dicho árbol se denomina \emph<<15305>>árbol
+de análisis sintáctico concreto<<15305>> de \begin<<16062>>tex2html_wrap_inline<<16062>>$x$\end<<16063>>tex2html_wrap_inline<<16063>>. Una derivación determina
+una forma de recorrido del árbol de análisis sintáctico concreto.\end<<15781>>theorem_type<<15781>>
+\begin<<16484>>tex2html_deferred<<16484>>\par\end<<16485>>tex2html_deferred<<16485>>
+\begin<<15782>>theorem_type<<15782>>[definition][definition][section][][][]
+Una gramática \begin<<16064>>tex2html_wrap_inline<<16064>>$G$\end<<16065>>tex2html_wrap_inline<<16065>>\space se dice ambigua si existe alguna frase \begin<<16066>>tex2html_wrap_inline<<16066>>$x \in L(G)$\end<<16067>>tex2html_wrap_inline<<16067>>
+con al menos dos árboles sintácticos. 
+Es claro que esta definición es equivalente a afirmar que existe 
+alguna frase \begin<<16068>>tex2html_wrap_inline<<16068>>$x \in L(G)$\end<<16069>>tex2html_wrap_inline<<16069>>\space para la cual existen dos derivaciones a 
+izquierda (derecha) distintas.\end<<15783>>theorem_type<<15783>>
+\begin<<16486>>tex2html_deferred<<16486>>\par\end<<16487>>tex2html_deferred<<16487>>
+\subsection<<15309>>Ejercicio<<15309>>
+\label<<15310>>ejercicio:tutugrammar<<15310>>
+Dada la gramática con producciones:
+\begin<<16488>>tex2html_deferred<<16488>>\par\end<<16489>>tex2html_deferred<<16489>>
+\vspace<<15311>>0.5cm<<15311>>
+\begin<<15312>>tabular<<15312>><<15313>>l<<15313>>
+program      \begin<<16070>>tex2html_wrap_inline<<16070>>$\rightarrow$\end<<16071>>tex2html_wrap_inline<<16071>>\space  declarations  statements         \begin<<16072>>tex2html_wrap_inline<<16072>>$|$\end<<16073>>tex2html_wrap_inline<<16073>>\space statements\\ 
+declarations \begin<<16074>>tex2html_wrap_inline<<16074>>$\rightarrow$\end<<16075>>tex2html_wrap_inline<<16075>>\space declaration  ';'  declarations    \begin<<16076>>tex2html_wrap_inline<<16076>>$|$\end<<16077>>tex2html_wrap_inline<<16077>>\space declaration ';'\\ 
+declaration  \begin<<16078>>tex2html_wrap_inline<<16078>>$\rightarrow$\end<<16079>>tex2html_wrap_inline<<16079>>\space INT  idlist                       \begin<<16080>>tex2html_wrap_inline<<16080>>$|$\end<<16081>>tex2html_wrap_inline<<16081>>\space STRING   idlist\\ 
+statements   \begin<<16082>>tex2html_wrap_inline<<16082>>$\rightarrow$\end<<16083>>tex2html_wrap_inline<<16083>>\space statement  ';'  statements        \begin<<16084>>tex2html_wrap_inline<<16084>>$|$\end<<16085>>tex2html_wrap_inline<<16085>>\space statement\\ 
+statement    \begin<<16086>>tex2html_wrap_inline<<16086>>$\rightarrow$\end<<16087>>tex2html_wrap_inline<<16087>>\space ID '=' expression                 \begin<<16088>>tex2html_wrap_inline<<16088>>$|$\end<<16089>>tex2html_wrap_inline<<16089>>\space P  expression\\ 
+expression   \begin<<16090>>tex2html_wrap_inline<<16090>>$\rightarrow$\end<<16091>>tex2html_wrap_inline<<16091>>\space term '+' expression               \begin<<16092>>tex2html_wrap_inline<<16092>>$|$\end<<16093>>tex2html_wrap_inline<<16093>>\space term\\ 
+term         \begin<<16094>>tex2html_wrap_inline<<16094>>$\rightarrow$\end<<16095>>tex2html_wrap_inline<<16095>>\space factor '*' term                   \begin<<16096>>tex2html_wrap_inline<<16096>>$|$\end<<16097>>tex2html_wrap_inline<<16097>>\space factor\\ 
+factor       \begin<<16098>>tex2html_wrap_inline<<16098>>$\rightarrow$\end<<16099>>tex2html_wrap_inline<<16099>>\space '(' expression ')' \begin<<16100>>tex2html_wrap_inline<<16100>>$|$\end<<16101>>tex2html_wrap_inline<<16101>>\space ID \begin<<16102>>tex2html_wrap_inline<<16102>>$|$\end<<16103>>tex2html_wrap_inline<<16103>>\space NUM \begin<<16104>>tex2html_wrap_inline<<16104>>$|$\end<<16105>>tex2html_wrap_inline<<16105>>\space STR\\ 
+idlist       \begin<<16106>>tex2html_wrap_inline<<16106>>$\rightarrow$\end<<16107>>tex2html_wrap_inline<<16107>>\space ID ',' idlist \begin<<16108>>tex2html_wrap_inline<<16108>>$|$\end<<16109>>tex2html_wrap_inline<<16109>>\space ID
+\end<<15314>>tabular<<15314>>
+\vspace<<15315>>0.25cm<<15315>>
+\begin<<16490>>tex2html_deferred<<16490>>\par\end<<16491>>tex2html_deferred<<16491>>
+En esta gramática, \begin<<16110>>tex2html_wrap_inline<<16110>>$\Sigma$\end<<16111>>tex2html_wrap_inline<<16111>>\space esta formado por los caracteres entre comillas simples y 
+los símbolos cuyos identificadores están en mayúsculas. Los restantes identificadores
+corresponden a elementos de \begin<<16112>>tex2html_wrap_inline<<16112>>$V$\end<<16113>>tex2html_wrap_inline<<16113>>. El símbolo de arranque es \begin<<16114>>tex2html_wrap_inline<<16114>>$S = program$\end<<16115>>tex2html_wrap_inline<<16115>>.
+\begin<<16492>>tex2html_deferred<<16492>>\par\end<<16493>>tex2html_deferred<<16493>>
+Conteste a las siguientes cuestiones:
+\begin<<16494>>tex2html_deferred<<16494>>\par\end<<16495>>tex2html_deferred<<16495>>
+\begin<<15316>>enumerate<<15316>>
+\item
+Describa con palabras el lenguaje generado.
+\item
+\label<<15317>>ejer:arbol<<15317>>
+Construya el árbol de análisis sintáctico
+concreto para cuatro frases del lenguaje.
+\item
+Señale a que recorridos del árbol corresponden las respectivas
+derivaciones a izquierda y a derecha en el apartado \ref<<15318>>ejer:arbol<<15318>>.
+\item
+¿Es ambigua esta gramática?. Justifique su respuesta.
+\end<<15319>>enumerate<<15319>>
+\begin<<16496>>tex2html_deferred<<16496>>\par\end<<16497>>tex2html_deferred<<16497>>
+\section<<15320>>Ejemplo Simple en Jison<<15320>>
+\begin<<16498>>tex2html_deferred<<16498>>\par\end<<16499>>tex2html_deferred<<16499>>
+ 
+  \paragraph<<15818>>Gramática<<15818>>
+  \begin<<15819>>tabular<<15819>><<15820>>c<<15820>>
+  \end<<15821>>tabular<<15821>>
+
+\begin<<16500>>tex2html_deferred<<16500>>\par\end<<16501>>tex2html_deferred<<16501>>
+\begin<<15322>>tex2html_preform<<15322>><tex2html_verbatim_mark>verbatim5710#\end<<15323>>tex2html_preform<<15323>>
+\begin<<16502>>tex2html_deferred<<16502>>\par\end<<16503>>tex2html_deferred<<16503>>
+ 
+  \paragraph<<15822>>basic2\_lex.jison<<15822>>
+  \begin<<15823>>tabular<<15823>><<15824>>c<<15824>>
+  \end<<15825>>tabular<<15825>>
+
+\begin<<15325>>tex2html_preform<<15325>><tex2html_verbatim_mark>verbatim5711#\end<<15326>>tex2html_preform<<15326>>
+\begin<<16504>>tex2html_deferred<<16504>>\par\end<<16505>>tex2html_deferred<<16505>>
+ 
+  \paragraph<<15826>>index.html<<15826>>
+  \begin<<15827>>tabular<<15827>><<15828>>c<<15828>>
+  \end<<15829>>tabular<<15829>>
+
+\begin<<15328>>tex2html_preform<<15328>><tex2html_verbatim_mark>verbatim5712#\end<<15329>>tex2html_preform<<15329>>
+\begin<<16506>>tex2html_deferred<<16506>>\par\end<<16507>>tex2html_deferred<<16507>>
+ 
+  \paragraph<<15830>>Rakefile<<15830>>
+  \begin<<15831>>tabular<<15831>><<15832>>c<<15832>>
+  \end<<15833>>tabular<<15833>>
+
+\begin<<16508>>tex2html_deferred<<16508>>\par\end<<16509>>tex2html_deferred<<16509>>
+\begin<<15331>>tex2html_preform<<15331>><tex2html_verbatim_mark>verbatim5713#\end<<15332>>tex2html_preform<<15332>>
+\begin<<16510>>tex2html_deferred<<16510>>\par\end<<16511>>tex2html_deferred<<16511>>
+\begin<<15333>>enumerate<<15333>>
+\item 
+\htmladdnormallink<<15334>>node-beautifier<<15334>><<15335>>https://github.com/rickeyski/node-beautifier<<15335>>
+\end<<15336>>enumerate<<15336>>
+\begin<<16512>>tex2html_deferred<<16512>>\par\end<<16513>>tex2html_deferred<<16513>>
+ 
+  \paragraph<<15834>>Véase También<<15834>>
+  \begin<<15835>>tabular<<15835>><<15836>>c<<15836>>
+  \end<<15837>>tabular<<15837>>
+
+\begin<<15338>>enumerate<<15338>>
+\item 
+\htmladdnormallink<<15339>>JISON<<15339>><<15340>>http://zaach.github.com/jison/<<15340>>
+\item 
+\htmladdnormallink<<15341>>Try Jison Examples<<15341>><<15342>>http://zaach.github.com/jison/try/usf/<<15342>>
+\item 
+\htmladdnormallink<<15343>>JavaScript 1.4 LR(1) Grammar<<15343>><<15344>>http://www-archive.mozilla.org/js/language/grammar14.html<<15344>> 1999.
+\item 
+\htmladdnormallink<<15345>>Creating a JavaScript Parser<<15345>><<15346>>http://cjihrig.com/blog/creating-a-javascript-parser/<<15346>> Una implementación de ECAMScript 5.1 usando Jison 
+disponible 
+en GitHub
+ en
+\htmladdnormallink<<15347>>https://github.com/cjihrig/jsparser<<15347>><<15348>>https://github.com/cjihrig/jsparser<<15348>>.
+Puede probarse en:
+\htmladdnormallink<<15349>>http://www.cjihrig.com/development/jsparser/<<15349>><<15350>>http://www.cjihrig.com/development/jsparser/<<15350>>
+\item 
+\htmladdnormallink<<15351>>Slogo<<15351>><<15352>>http://hansineffect.github.com/Slogo/<<15352>> a language written using Jison
+\item 
+\htmladdnormallink<<15353>>List of languages that compile to JS<<15353>><<15354>>https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS<<15354>>
+\item 
+\htmladdnormallink<<15355>>Prototype of a Scannerless, Generalized Left-to-right Rightmost (SGLR) derivation parser for JavaScript<<15355>><<15356>>http://blog.kalleberg.org/post/1256702765/prototype-of-a-scannerless-generalized-left-to-right<<15356>>
+\end<<15357>>enumerate<<15357>>
+ 
+  \paragraph<<15838>>global.css<<15838>>
+  \begin<<15839>>tabular<<15839>><<15840>>c<<15840>>
+  \end<<15841>>tabular<<15841>>
+
+\begin<<16514>>tex2html_deferred<<16514>>\par\end<<16515>>tex2html_deferred<<16515>>
+\begin<<15359>>tex2html_preform<<15359>><tex2html_verbatim_mark>verbatim5714#\end<<15360>>tex2html_preform<<15360>>
+\begin<<16516>>tex2html_deferred<<16516>>\par\end<<16517>>tex2html_deferred<<16517>>
+\subsection<<15361>>Véase También<<15361>>
+\begin<<15362>>enumerate<<15362>>
+\item 
+\htmladdnormallink<<15363>>JISON<<15363>><<15364>>http://zaach.github.com/jison/<<15364>>
+\item 
+\htmladdnormallink<<15365>>Try Jison Examples<<15365>><<15366>>http://zaach.github.com/jison/try/usf/<<15366>>
+\item 
+\htmladdnormallink<<15367>>JavaScript 1.4 LR(1) Grammar<<15367>><<15368>>http://www-archive.mozilla.org/js/language/grammar14.html<<15368>> 1999.
+\item 
+\htmladdnormallink<<15369>>Creating a JavaScript Parser<<15369>><<15370>>http://cjihrig.com/blog/creating-a-javascript-parser/<<15370>> Una implementación de ECAMScript 5.1 usando Jison 
+disponible 
+en GitHub
+ en
+\htmladdnormallink<<15371>>https://github.com/cjihrig/jsparser<<15371>><<15372>>https://github.com/cjihrig/jsparser<<15372>>.
+Puede probarse en:
+\htmladdnormallink<<15373>>http://www.cjihrig.com/development/jsparser/<<15373>><<15374>>http://www.cjihrig.com/development/jsparser/<<15374>>
+\item 
+\htmladdnormallink<<15375>>Slogo<<15375>><<15376>>http://hansineffect.github.com/Slogo/<<15376>> a language written using Jison
+\item 
+\htmladdnormallink<<15377>>List of languages that compile to JS<<15377>><<15378>>https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS<<15378>>
+\item 
+\htmladdnormallink<<15379>>Prototype of a Scannerless, Generalized Left-to-right Rightmost (SGLR) derivation parser for JavaScript<<15379>><<15380>>http://blog.kalleberg.org/post/1256702765/prototype-of-a-scannerless-generalized-left-to-right<<15380>>
+\end<<15381>>enumerate<<15381>>
+\begin<<16518>>tex2html_deferred<<16518>>\par\end<<16519>>tex2html_deferred<<16519>>
+\subsection<<15842>>Práctica: Secuencia de Asignaciones Simples<<15842>>
+   \index<<15843>>Práctica!Secuencia de Asignaciones Simples<<15843>>
+  
+Modifique este ejemplo para que el lenguaje acepte una secuencia
+de sentencias de asignación de la forma <tex2html_verb_mark>2084<tex2html_verb_mark> separadas
+por puntos y comas, por ejemplo <tex2html_verb_mark>2085<tex2html_verb_mark>.
+El analizador retorna un hash/objeto 
+cuyas claves son los identificadores y cuyos valores 
+son los números.
+Clone el repositorio en
+\htmladdnormallink<<15383>>https://github.com/crguezl/jison-basic2<<15383>><<15384>>https://github.com/crguezl/jison-basic2<<15384>>.
+\begin<<16520>>tex2html_deferred<<16520>>\par\end<<16521>>tex2html_deferred<<16521>>
+Modifique los analizadores léxico y sintáctico de forma conveniente.
+\begin<<16522>>tex2html_deferred<<16522>>\par\end<<16523>>tex2html_deferred<<16523>>
+Añada acciones semánticas para que el analizador devuelva una tabla de símbolos con los identificadores y sus valores.
+\begin<<16524>>tex2html_deferred<<16524>>\par\end<<16525>>tex2html_deferred<<16525>>
+\section<<15385>>Ejemplo en Jison: Calculadora Simple<<15385>>
+\label<<15386>>section:calculadora<<15386>>
+\begin<<16526>>tex2html_deferred<<16526>>\par\end<<16527>>tex2html_deferred<<16527>>
+\begin<<15387>>enumerate<<15387>>
+\item 
+Enlace al fork  \htmladdnormallink<<15388>>del proyecto jison de crguezl<<15388>><<15389>>https://github.com/crguezl/jison/tree/develop/examples/html_calc_example<<15389>> (GitHub)
+\end<<15390>>enumerate<<15390>>
+ 
+  \paragraph<<15844>>calculator.jison<<15844>>
+  \begin<<15845>>tabular<<15845>><<15846>>c<<15846>>
+  \end<<15847>>tabular<<15847>>
+
+\begin<<15392>>tex2html_preform<<15392>><tex2html_verbatim_mark>verbatim5715#\end<<15393>>tex2html_preform<<15393>>
+\begin<<16528>>tex2html_deferred<<16528>>\par\end<<16529>>tex2html_deferred<<16529>>
+ 
+  \paragraph<<15848>>main.js<<15848>>
+  \begin<<15849>>tabular<<15849>><<15850>>c<<15850>>
+  \end<<15851>>tabular<<15851>>
+
+\begin<<15395>>tex2html_preform<<15395>><tex2html_verbatim_mark>verbatim5716#\end<<15396>>tex2html_preform<<15396>>
+\begin<<16530>>tex2html_deferred<<16530>>\par\end<<16531>>tex2html_deferred<<16531>>
+ 
+  \paragraph<<15852>>calculator.html<<15852>>
+  \begin<<15853>>tabular<<15853>><<15854>>c<<15854>>
+  \end<<15855>>tabular<<15855>>
+
+\begin<<15398>>tex2html_preform<<15398>><tex2html_verbatim_mark>verbatim5717#\end<<15399>>tex2html_preform<<15399>>
+\begin<<16532>>tex2html_deferred<<16532>>\par\end<<16533>>tex2html_deferred<<16533>>
+ 
+  \paragraph<<15856>>Rakefile<<15856>>
+  \begin<<15857>>tabular<<15857>><<15858>>c<<15858>>
+  \end<<15859>>tabular<<15859>>
+
+\begin<<15401>>tex2html_preform<<15401>><tex2html_verbatim_mark>verbatim5718#\end<<15402>>tex2html_preform<<15402>>
+\begin<<16534>>tex2html_deferred<<16534>>\par\end<<16535>>tex2html_deferred<<16535>>
+ 
+  \paragraph<<15860>>global.css<<15860>>
+  \begin<<15861>>tabular<<15861>><<15862>>c<<15862>>
+  \end<<15863>>tabular<<15863>>
+
+\begin<<16536>>tex2html_deferred<<16536>>\par\end<<16537>>tex2html_deferred<<16537>>
+\begin<<15404>>tex2html_preform<<15404>><tex2html_verbatim_mark>verbatim5719#\end<<15405>>tex2html_preform<<15405>>
+\begin<<16538>>tex2html_deferred<<16538>>\par\end<<16539>>tex2html_deferred<<16539>>
+ 
+  \paragraph<<15864>>test/assert.html<<15864>>
+  \begin<<15865>>tabular<<15865>><<15866>>c<<15866>>
+  \end<<15867>>tabular<<15867>>
+
+\begin<<15407>>tex2html_preform<<15407>><tex2html_verbatim_mark>verbatim5720#\end<<15408>>tex2html_preform<<15408>>
+\begin<<16540>>tex2html_deferred<<16540>>\par\end<<16541>>tex2html_deferred<<16541>>
+ 
+  \paragraph<<15868>>test/test.css<<15868>>
+  \begin<<15869>>tabular<<15869>><<15870>>c<<15870>>
+  \end<<15871>>tabular<<15871>>
+
+\begin<<16542>>tex2html_deferred<<16542>>\par\end<<16543>>tex2html_deferred<<16543>>
+\begin<<15410>>tex2html_preform<<15410>><tex2html_verbatim_mark>verbatim5721#\end<<15411>>tex2html_preform<<15411>>
+\begin<<16544>>tex2html_deferred<<16544>>\par\end<<16545>>tex2html_deferred<<16545>>
+ 
+  \paragraph<<15872>>test/test.html<<15872>>
+  \begin<<15873>>tabular<<15873>><<15874>>c<<15874>>
+  \end<<15875>>tabular<<15875>>
+
+\begin<<16546>>tex2html_deferred<<16546>>\par\end<<16547>>tex2html_deferred<<16547>>
+\begin<<15413>>tex2html_preform<<15413>><tex2html_verbatim_mark>verbatim5722#\end<<15414>>tex2html_preform<<15414>>
+\begin<<16548>>tex2html_deferred<<16548>>\par\end<<16549>>tex2html_deferred<<16549>>
+\subsection<<15876>>Práctica: Calculadora con Listas de Expresiones y Variables<<15876>>
+   \index<<15877>>Práctica!Calculadora con Listas de Expresiones y Variables<<15877>>
+  
+\label<<15416>>subsectionpractica:calculadora<<15416>>
+Modifique la calculadora vista en la sección anterior 
+\ref<<15417>>section:calculadora<<15417>>
+para que el lenguaje cumpla los siguientes requisitos:
+\begin<<15418>>itemize<<15418>>
+\item
+Extienda el lenguaje de la calculadora para que admita expresiones
+de asignación <tex2html_verb_mark>2086<tex2html_verb_mark>
+\item
+Extienda el lenguaje de la calculadora para que admita listas de
+sentencias <tex2html_verb_mark>2087<tex2html_verb_mark>
+\item
+El analizador devuelve la lista de expresiones
+evaluadas y la tabla de símbolos (con las parejas variable-valor).
+\item
+Emita un mensaje de error específico si se intentan modificar las constantes 
+<tex2html_verb_mark>2088<tex2html_verb_mark> y <tex2html_verb_mark>2089<tex2html_verb_mark>.
+\item
+Emita un mensaje de error específico si se intenta una división por cero
+\item
+Emita un mensaje de error específico si se intenta acceder para lectura a una variable 
+no inicializada <tex2html_verb_mark>2090<tex2html_verb_mark>
+\item
+El lenguaje debería admitir expresiones vacías, estos es secuencias consecutivas de puntos y comas sin producir error (<tex2html_verb_mark>2091<tex2html_verb_mark>)
+\item
+Introduzca pruebas unitarias como las descritas en 
+la sección \ref<<15419>>section:tstingfacil<<15419>> (<<15755>>\begin<<16550>>tex2html_deferred<<16550>>\it\end<<16551>>tex2html_deferred<<16551>>
+\htmladdnormallink<<15420>>Quick Tip: Quick and Easy JavaScript Testing with “Assert”<<15420>><<15421>>http://net.tutsplus.com/tutorials/javascript-ajax/quick-tip-quick-and-easy-javascript-testing-with-assert/<<15421>><<15755>>)
+\begin<<16552>>tex2html_deferred<<16552>>\par\end<<16553>>tex2html_deferred<<16553>>
+\end<<15422>>itemize<<15422>>
+\begin<<16554>>tex2html_deferred<<16554>>\par\end<<16555>>tex2html_deferred<<16555>>
+\section<<15423>>Conceptos Básicos del Análisis LR<<15423>>
+\label<<15424>>section:conceptosbasicos<<15424>>
+Los analizadores generados por <tex2html_verb_mark>2092<tex2html_verb_mark> entran en la categoría de analizadores
+\index<<15878>>LR<<15878>>\emph<<15879>>LR<<15879>>. Estos analizadores construyen una derivación a derechas inversa 
+(o \index<<15880>>antiderivación<<15880>>\emph<<15881>>antiderivación<<15881>>).
+De ahí la R en LR (del inglés \index<<15882>>rightmost derivation<<15882>>\emph<<15883>>rightmost derivation<<15883>>). El árbol sintáctico 
+es construido de las hojas hacia la raíz, siendo el último paso en la antiderivación
+la construcción de la primera derivación desde el símbolo de arranque.
+\begin<<16556>>tex2html_deferred<<16556>>\par\end<<16557>>tex2html_deferred<<16557>>
+Empezaremos entonces considerando las frases que pueden aparecer en una derivación
+a derechas. Tales frases consituyen el \index<<15884>>lenguaje de las formas sentenciales a rderechas<<15884>>\emph<<15885>>lenguaje de las formas sentenciales a rderechas<<15885>> \begin<<16116>>tex2html_wrap_inline<<16116>>$FSD$\end<<16117>>tex2html_wrap_inline<<16117>>:
+\begin<<16558>>tex2html_deferred<<16558>>\par\end<<16559>>tex2html_deferred<<16559>>
+\begin<<15784>>theorem_type<<15784>>[definition][definition][section][][][]
+Dada una gramática \begin<<16118>>tex2html_wrap_inline<<16118>>$G=(\Sigma,V,P,S)$\end<<16119>>tex2html_wrap_inline<<16119>>\space no ambigua, se denota por \begin<<16120>>tex2html_wrap_inline<<16120>>$FSD$\end<<16121>>tex2html_wrap_inline<<16121>> 
+(lenguaje de las formas Sentenciales a Derechas) al lenguaje de 
+las sentencias que aparecen en una derivación a derechas desde el símbolo de arranque.
+\begin<<16560>>tex2html_deferred<<16560>>\par\end<<16561>>tex2html_deferred<<16561>>
+\begin<<15430>>center<<15430>>
+\begin<<16122>>tex2html_wrap_inline<<16122>>$FSD = \left \{ \alpha \in (\Sigma \cup V)* : \exists S \begin<<15431>>array<<15431>><<15432>>c<<15432>> *\\  \Longrightarrow \\  <<15433>>\scriptstyle RM<<15433>> \end<<15434>>array<<15434>> \alpha \right \}$\end<<16123>>tex2html_wrap_inline<<16123>>
+\end<<15435>>center<<15435>>
+\begin<<16562>>tex2html_deferred<<16562>>\par\end<<16563>>tex2html_deferred<<16563>>
+Donde la notacion RM indica una derivación a derechas (\emph<<15436>>rightmost<<15436>>).
+Los elementos de \begin<<16124>>tex2html_wrap_inline<<16124>>$FSD$\end<<16125>>tex2html_wrap_inline<<16125>>\space se llaman ``formas sentenciales derechas''.\end<<15785>>theorem_type<<15785>>
+\begin<<16564>>tex2html_deferred<<16564>>\par\end<<16565>>tex2html_deferred<<16565>>
+Dada una gramática no ambigua \begin<<16126>>tex2html_wrap_inline<<16126>>$G=(\Sigma,V,P,S)$\end<<16127>>tex2html_wrap_inline<<16127>>\space y una frase \begin<<16128>>tex2html_wrap_inline<<16128>>$x \in L(G)$\end<<16129>>tex2html_wrap_inline<<16129>>\space el proceso
+de antiderivación consiste en encontrar la última derivación a derechas que dió lugar a 
+\begin<<16130>>tex2html_wrap_inline<<16130>>$x$\end<<16131>>tex2html_wrap_inline<<16131>>. Esto es, si \begin<<16132>>tex2html_wrap_inline<<16132>>$x \in L(G)$\end<<16133>>tex2html_wrap_inline<<16133>>\space es porque existe una derivación a derechas de la forma
+\begin<<16566>>tex2html_deferred<<16566>>\par\end<<16567>>tex2html_deferred<<16567>>
+\begin<<15438>>center<<15438>>
+\begin<<16134>>tex2html_wrap_inline<<16134>>$S \stackrel<<15439>>*<<15439>><<15440>>\Longrightarrow<<15440>> y A z \Longrightarrow y w z = x$\end<<16135>>tex2html_wrap_inline<<16135>>. 
+\end<<15441>>center<<15441>>
+\begin<<16568>>tex2html_deferred<<16568>>\par\end<<16569>>tex2html_deferred<<16569>>
+El problema es averiguar que regla \begin<<16136>>tex2html_wrap_inline<<16136>>$A \rightarrow w$\end<<16137>>tex2html_wrap_inline<<16137>>\space se aplicó y en que lugar 
+de la cadena \begin<<16138>>tex2html_wrap_inline<<16138>>$x$\end<<16139>>tex2html_wrap_inline<<16139>>\space se aplicó. En general, si queremos antiderivar
+una forma sentencial derecha \begin<<16140>>tex2html_wrap_inline<<16140>>$\beta \alpha w$\end<<16141>>tex2html_wrap_inline<<16141>> 
+debemos averiguar por que regla \begin<<16142>>tex2html_wrap_inline<<16142>>$A \rightarrow \alpha$\end<<16143>>tex2html_wrap_inline<<16143>>
+seguir y en que lugar de la forma (después de \begin<<16144>>tex2html_wrap_inline<<16144>>$\beta$\end<<16145>>tex2html_wrap_inline<<16145>>\space en el ejemplo)
+aplicarla. 
+\begin<<16570>>tex2html_deferred<<16570>>\par\end<<16571>>tex2html_deferred<<16571>>
+\begin<<15442>>center<<15442>>
+\begin<<16146>>tex2html_wrap_inline<<16146>>$S \stackrel<<15443>>*<<15443>><<15444>>\Longrightarrow<<15444>> \beta A w \Longrightarrow \beta \alpha w$\end<<16147>>tex2html_wrap_inline<<16147>>. 
+\end<<15445>>center<<15445>>
+\begin<<16572>>tex2html_deferred<<16572>>\par\end<<16573>>tex2html_deferred<<16573>>
+La pareja formada por la regla y la posición 
+se denomina \index<<15886>>handle<<15886>>\emph<<15887>>handle<<15887>>, \index<<15888>>mango<<15888>>\emph<<15889>>mango<<15889>> o \index<<15890>>manecilla<<15890>>\emph<<15891>>manecilla<<15891>> de la forma. Esta denominación viene
+de la visualización gráfica de la regla de producción como una mano
+que nos permite escalar hacia arriba en el árbol. Los ``dedos'' serían los
+símbolos en la parte derecha de la regla de producción.
+\begin<<16574>>tex2html_deferred<<16574>>\par\end<<16575>>tex2html_deferred<<16575>>
+\begin<<15786>>theorem_type<<15786>>[definition][definition][section][][][]
+Dada una gramática \begin<<16148>>tex2html_wrap_inline<<16148>>$G=(\Sigma,V,P,S)$\end<<16149>>tex2html_wrap_inline<<16149>>\space no ambigua, y dada una forma sentencial derecha 
+\begin<<16150>>tex2html_wrap_inline<<16150>>$\alpha = \beta \gamma x$\end<<16151>>tex2html_wrap_inline<<16151>>, con \begin<<16152>>tex2html_wrap_inline<<16152>>$x \in \Sigma^*$\end<<16153>>tex2html_wrap_inline<<16153>>, el \index<<15892>>mango<<15892>>\emph<<15893>>mango<<15893>> o \index<<15894>>handle<<15894>>\emph<<15895>>handle<<15895>>  de 
+\begin<<16154>>tex2html_wrap_inline<<16154>>$\alpha$\end<<16155>>tex2html_wrap_inline<<16155>>\space es la última producción/posición  que dió lugar a \begin<<16156>>tex2html_wrap_inline<<16156>>$\alpha$\end<<16157>>tex2html_wrap_inline<<16157>>:
+\begin<<16576>>tex2html_deferred<<16576>>\par\end<<16577>>tex2html_deferred<<16577>>
+\begin<<15452>>center<<15452>>
+\begin<<16158>>tex2html_wrap_inline<<16158>>$ S \begin<<15453>>array<<15453>><<15454>>c<<15454>> *\\ \Longrightarrow  \\  <<15455>>\scriptstyle RM<<15455>> \end<<15456>>array<<15456>> \beta B x \Longrightarrow \beta \gamma x = \alpha$\end<<16159>>tex2html_wrap_inline<<16159>>
+\end<<15457>>center<<15457>>
+\begin<<16578>>tex2html_deferred<<16578>>\par\end<<16579>>tex2html_deferred<<16579>>\end<<15787>>theorem_type<<15787>>
+Escribiremos: 
+\begin<<16160>>tex2html_wrap_inline<<16160>>$handle(\alpha) = (B \rightarrow \gamma, \beta \gamma)$\end<<16161>>tex2html_wrap_inline<<16161>>. La función \begin<<16162>>tex2html_wrap_inline<<16162>>$handle$\end<<16163>>tex2html_wrap_inline<<16163>>\space tiene dos componentes:
+\begin<<16164>>tex2html_wrap_inline<<16164>>$handle_1(\alpha) = B \rightarrow \gamma$\end<<16165>>tex2html_wrap_inline<<16165>>\space y 
+\begin<<16166>>tex2html_wrap_inline<<16166>>$handle_2(\alpha) =  \beta \gamma$\end<<16167>>tex2html_wrap_inline<<16167>>
+\begin<<16580>>tex2html_deferred<<16580>>\par\end<<16581>>tex2html_deferred<<16581>>
+Si dispusieramos de un procedimiento que fuera capaz de identificar el mango,
+esto es, de detectar la regla y el lugar en el que se posiciona, tendríamos un
+mecanismo para construir un analizador. 
+Lo curioso es que, a menudo es posible encontrar un autómata finito que
+reconoce el lenguaje de los prefijos \begin<<16168>>tex2html_wrap_inline<<16168>>$\beta \gamma$\end<<16169>>tex2html_wrap_inline<<16169>>\space  que terminan 
+en el mango. Con mas precisión, del lenguaje:
+\begin<<16582>>tex2html_deferred<<16582>>\par\end<<16583>>tex2html_deferred<<16583>>
+\begin<<15788>>theorem_type<<15788>>[definition][definition][section][][][]
+El conjunto de \emph<<15460>>prefijos viables<<15460>> de una gramática G se define
+como  el conjunto:
+\begin<<16584>>tex2html_deferred<<16584>>\par\end<<16585>>tex2html_deferred<<16585>>
+\begin<<15461>>center<<15461>>
+\begin<<16170>>tex2html_wrap_inline<<16170>>$PV = \left \{ \delta \in (\Sigma \cup V)* :  \exists S \begin<<15462>>array<<15462>><<15463>>c<<15463>> *\\  \Longrightarrow \\  <<15464>>\scriptstyle RM<<15464>> \end<<15465>>array<<15465>> \alpha = \beta \gamma x \mbox<<15466>> y <<15466>>\delta\ es\ un\ prefijo\ de\  handle_2(\alpha) = \beta \gamma \right \}$\end<<16171>>tex2html_wrap_inline<<16171>> 
+\end<<15467>>center<<15467>>\end<<15789>>theorem_type<<15789>>
+\begin<<16586>>tex2html_deferred<<16586>>\par\end<<16587>>tex2html_deferred<<16587>>
+Esto es, es el lenguaje de los prefijos viables es el 
+conjunto de frases que son prefijos de 
+\begin<<16172>>tex2html_wrap_inline<<16172>>$handle_2(\alpha)) =  \beta \gamma$\end<<16173>>tex2html_wrap_inline<<16173>>, 
+siendo \begin<<16174>>tex2html_wrap_inline<<16174>>$\alpha$\end<<16175>>tex2html_wrap_inline<<16175>>\space una forma sentencial derecha (\begin<<16176>>tex2html_wrap_inline<<16176>>$\alpha \in FSD$\end<<16177>>tex2html_wrap_inline<<16177>>). Los
+elementos de \begin<<16178>>tex2html_wrap_inline<<16178>>$PV$\end<<16179>>tex2html_wrap_inline<<16179>>\space se denominan prefijos viables.
+\begin<<16588>>tex2html_deferred<<16588>>\par\end<<16589>>tex2html_deferred<<16589>>
+Obsérvese que si se dispone de un autómata que reconoce 
+\begin<<16180>>tex2html_wrap_inline<<16180>>$PV$\end<<16181>>tex2html_wrap_inline<<16181>>\space entonces se dispone de un mecanismo para investigar el lugar y 
+el aspecto que pueda tener el mango. Si damos como 
+entrada la sentencia \begin<<16182>>tex2html_wrap_inline<<16182>>$\alpha = \beta \gamma x$\end<<16183>>tex2html_wrap_inline<<16183>>
+a dicho autómata, el autómata aceptará la cadena \begin<<16184>>tex2html_wrap_inline<<16184>>$\beta \gamma$\end<<16185>>tex2html_wrap_inline<<16185>>\space pero rechazará
+cualquier extensión del prefijo. Ahora sabemos que el mango 
+será alguna regla de producción de \begin<<16186>>tex2html_wrap_inline<<16186>>$G$\end<<16187>>tex2html_wrap_inline<<16187>>\space cuya parte derecha 
+sea un sufijo de  \begin<<16188>>tex2html_wrap_inline<<16188>>$\beta \gamma$\end<<16189>>tex2html_wrap_inline<<16189>>.
+\begin<<16590>>tex2html_deferred<<16590>>\par\end<<16591>>tex2html_deferred<<16591>>
+\begin<<15790>>theorem_type<<15790>>[definition][definition][section][][][]
+\label<<15470>>definition:slrautomata<<15470>>
+El siguiente autómata finito no determinista puede ser utilizado para
+reconocer el lenguaje de los prefijos viables PV:
+\begin<<15471>>itemize<<15471>>
+\item
+Alfabeto = \begin<<16190>>tex2html_wrap_inline<<16190>>$V \cup \Sigma$\end<<16191>>tex2html_wrap_inline<<16191>>
+\item
+Los estados del autómata se denominan LR(0) items. Son parejas formadas
+por una regla de producción de la gramática y una posición en la parte derecha 
+de la regla de producción. Por ejemplo, \begin<<16192>>tex2html_wrap_inline<<16192>>$(E \rightarrow E + E, 2)$\end<<16193>>tex2html_wrap_inline<<16193>>\space sería un
+LR(0) item para la gramática de las expresiones.
+\begin<<16592>>tex2html_deferred<<16592>>\par\end<<16593>>tex2html_deferred<<16593>>
+Conjunto de Estados:
+\begin<<16594>>tex2html_deferred<<16594>>\par\end<<16595>>tex2html_deferred<<16595>>
+\begin<<16194>>tex2html_wrap_inline<<16194>>$Q =  \left \{ (A \rightarrow \alpha, n) :  A \rightarrow \alpha \in P,\ n \le |\alpha| \right \}$\end<<16195>>tex2html_wrap_inline<<16195>>
+\begin<<16596>>tex2html_deferred<<16596>>\par\end<<16597>>tex2html_deferred<<16597>>
+La notación \begin<<16196>>tex2html_wrap_inline<<16196>>$\mid \alpha \mid$\end<<16197>>tex2html_wrap_inline<<16197>>\space denota la longitud de la cadena \begin<<16198>>tex2html_wrap_inline<<16198>>$\mid \alpha \mid$\end<<16199>>tex2html_wrap_inline<<16199>>.
+ En vez de la notación \begin<<16200>>tex2html_wrap_inline<<16200>>$(A \rightarrow \alpha, n)$\end<<16201>>tex2html_wrap_inline<<16201>>\space escribiremos: 
+ \begin<<16202>>tex2html_wrap_inline<<16202>>$A \rightarrow \beta _\uparrow \gamma$\end<<16203>>tex2html_wrap_inline<<16203>>\space \begin<<16204>>tex2html_wrap_inline<<16204>>$ = \alpha$\end<<16205>>tex2html_wrap_inline<<16205>>, 
+ donde la flecha ocupa el lugar indicado por el número \begin<<16206>>tex2html_wrap_inline<<16206>>$n = \mid \beta \mid$\end<<16207>>tex2html_wrap_inline<<16207>>\space :
+\item
+La función de transición intenta conjeturar que partes derechas de reglas de producción son viables. El conjunto de estados actual del NFA representa el conjunto de pares 
+(regla de producción, posición en la parte derecha) que tienen alguna posibilidad de
+ser aplicadas de acuerdo con la entrada procesada hasta el momento:
+\begin<<16598>>tex2html_deferred<<16598>>\par\end<<16599>>tex2html_deferred<<16599>>
+\begin<<15472>>center<<15472>>
+\begin<<16208>>tex2html_wrap_inline<<16208>>$\delta(A \rightarrow \alpha _\uparrow X \beta, X) = A \rightarrow \alpha X _\uparrow \beta\ \forall X \in  V \cup \Sigma$\end<<16209>>tex2html_wrap_inline<<16209>> 
+\begin<<16600>>tex2html_deferred<<16600>>\par\end<<16601>>tex2html_deferred<<16601>>
+\begin<<16210>>tex2html_wrap_inline<<16210>>$\delta(A \rightarrow \alpha _\uparrow B \beta, \epsilon) = B \rightarrow 
+_\uparrow \gamma\  \forall B \rightarrow \gamma \in  P$\end<<16211>>tex2html_wrap_inline<<16211>> 
+\end<<15473>>center<<15473>>
+\begin<<16602>>tex2html_deferred<<16602>>\par\end<<16603>>tex2html_deferred<<16603>>
+\item
+Estado de arranque: Se añade la ``superregla'' \begin<<16212>>tex2html_wrap_inline<<16212>>$S' \rightarrow S$\end<<16213>>tex2html_wrap_inline<<16213>>\space a la gramática \begin<<16214>>tex2html_wrap_inline<<16214>>$G = (\Sigma,V,P,S)$\end<<16215>>tex2html_wrap_inline<<16215>>. El LR(0) item 
+\begin<<16216>>tex2html_wrap_inline<<16216>>$S' \rightarrow _\uparrow S$\end<<16217>>tex2html_wrap_inline<<16217>>\space es el estado de arranque.
+\item
+Todos los estados definidos (salvo el de muerte) son de aceptación.
+\end<<15474>>itemize<<15474>>\end<<15791>>theorem_type<<15791>>
+\begin<<16604>>tex2html_deferred<<16604>>\par\end<<16605>>tex2html_deferred<<16605>>
+Denotaremos por \begin<<16218>>tex2html_wrap_inline<<16218>>$LR(0)$\end<<16219>>tex2html_wrap_inline<<16219>>\space a este autómata. Sus estados se denominan \begin<<16220>>tex2html_wrap_inline<<16220>>$LR(0)-items$\end<<16221>>tex2html_wrap_inline<<16221>>. La idea es que este
+autómata nos ayuda a reconocer los prefijos viables \begin<<16222>>tex2html_wrap_inline<<16222>>$PV$\end<<16223>>tex2html_wrap_inline<<16223>>.
+\begin<<16606>>tex2html_deferred<<16606>>\par\end<<16607>>tex2html_deferred<<16607>>
+Una vez que se tiene un autómata que reconoce los prefijos viables es posible construir un analizador sintáctico que construye una antiderivación a derechas. La estrategia consiste en ``alimentar'' el autómata con la forma sentencial derecha. El lugar en el que el autómata se detiene, rechazando indica el lugar exacto en el que termina el \emph<<15476>>handle<<15476>> de dicha forma.
+\begin<<16608>>tex2html_deferred<<16608>>\par\end<<16609>>tex2html_deferred<<16609>>
+\begin<<15792>>theorem_type<<15792>>[example][example][section][][][]
+\label<<15478>>example:asb<<15478>>
+Consideremos la gramática:
+\begin<<16610>>tex2html_deferred<<16610>>\par\end<<16611>>tex2html_deferred<<16611>>
+\vspace<<15479>>0.5cm<<15479>>
+\begin<<15480>>center<<15480>>
+\begin<<15481>>tabular<<15481>><<15482>>l<<15482>>
+S      \begin<<16224>>tex2html_wrap_inline<<16224>>$\rightarrow$\end<<16225>>tex2html_wrap_inline<<16225>>\space  a S b\\ 
+S      \begin<<16226>>tex2html_wrap_inline<<16226>>$\rightarrow$\end<<16227>>tex2html_wrap_inline<<16227>>\space \begin<<16228>>tex2html_wrap_inline<<16228>>$\epsilon$\end<<16229>>tex2html_wrap_inline<<16229>> 
+\end<<15483>>tabular<<15483>>
+\end<<15484>>center<<15484>>
+\vspace<<15485>>0.25cm<<15485>>
+\begin<<16612>>tex2html_deferred<<16612>>\par\end<<16613>>tex2html_deferred<<16613>>
+El lenguaje generado por esta gramática es \begin<<16230>>tex2html_wrap_inline<<16230>>$L(G) = \{ a^n b^n\ :\ n \ge 0 \}$\end<<16231>>tex2html_wrap_inline<<16231>>
+Es bien sabido que el lenguaje \begin<<16232>>tex2html_wrap_inline<<16232>>$L(G)$\end<<16233>>tex2html_wrap_inline<<16233>>\space no es regular.
+La figura \ref<<15486>>fig:nfa<<15486>> muestra 
+el \index<<15896>>autómata finito no determinista con \begin<<16234>>tex2html_wrap_inline<<16234>>$\epsilon$\end<<16235>>tex2html_wrap_inline<<16235>>-transiciones<<15896>>\emph<<15897>>autómata finito no determinista con \begin<<16236>>tex2html_wrap_inline<<16236>>$\epsilon$\end<<16237>>tex2html_wrap_inline<<16237>>-transiciones<<15897>> 
+(\index<<15898>>NFA<<15898>>\emph<<15899>>NFA<<15899>>)
+que reconoce los prefijos viables de esta gramática, construido
+de acuerdo con el algoritmo \ref<<15489>>definition:slrautomata<<15489>>.
+\begin<<16614>>tex2html_deferred<<16614>>\par\end<<16615>>tex2html_deferred<<16615>>
+Véase \htmladdnormallink<<15490>>https://github.com/crguezl/jison-aSb<<15490>><<15491>>https://github.com/crguezl/jison-aSb<<15491>> para una implementación en Jison de una variante de esta gramática.
+\begin<<16616>>tex2html_deferred<<16616>>\par\end<<16617>>tex2html_deferred<<16617>>
+\begin<<15492>>center<<15492>>
+\begin<<15493>>figure<<15493>>[htb]
+\begin<<16618>>tex2html_deferred<<16618>>\centerline<<15756>>\epsfig<<15494>>file=chapter_bottomup/nfa.eps, width=12cm<<15494>><<15756>>\end<<16619>>tex2html_deferred<<16619>>
+\begin<<16620>>tex2html_deferred<<16620>>\caption<<15495>>NFA que reconoce los prefijos viables<<15495>>\end<<16621>>tex2html_deferred<<16621>>
+\label<<15496>>fig:nfa<<15496>>
+\end<<15497>>figure<<15497>>
+\end<<15498>>center<<15498>>\end<<15793>>theorem_type<<15793>>
+\begin<<16622>>tex2html_deferred<<16622>>\par\end<<16623>>tex2html_deferred<<16623>>
+\begin<<15794>>theorem_type<<15794>>[exercise][exercise][section][][][]
+Simule el comportamiento del autómata sobre la entrada \begin<<16238>>tex2html_wrap_inline<<16238>>$aabb$\end<<16239>>tex2html_wrap_inline<<16239>>. ¿Donde rechaza?
+¿En que estados está el autómata en el momento del rechazo?. ¿Qué etiquetas tienen?
+Haga también las
+trazas del autómata para las entradas \begin<<16240>>tex2html_wrap_inline<<16240>>$aaSbb$\end<<16241>>tex2html_wrap_inline<<16241>>\space y \begin<<16242>>tex2html_wrap_inline<<16242>>$aSb$\end<<16243>>tex2html_wrap_inline<<16243>>. ¿Que antiderivación 
+ha construido el autómata con sus sucesivos rechazos? ¿Que terminales
+se puede esperar que hayan en la entrada cuando se produce el rechazo
+del autómata?\end<<15795>>theorem_type<<15795>>
+\begin<<16624>>tex2html_deferred<<16624>>\par\end<<16625>>tex2html_deferred<<16625>>
+\section<<15502>>Construcción de las Tablas para el Análisis SLR<<15502>>
+\begin<<16626>>tex2html_deferred<<16626>>\par\end<<16627>>tex2html_deferred<<16627>>
+\subsection<<15503>>Los conjuntos de Primeros y Siguientes<<15503>>
+Repasemos las nociones de conjuntos de \index<<15900>>Primeros<<15900>>\emph<<15901>>Primeros<<15901>> y \index<<15902>>siguientes<<15902>>\emph<<15903>>siguientes<<15903>>:
+\begin<<16628>>tex2html_deferred<<16628>>\par\end<<16629>>tex2html_deferred<<16629>>
+\begin<<15796>>theorem_type<<15796>>[definition][definition][section][][][]
+Dada una gramática \begin<<16244>>tex2html_wrap_inline<<16244>>$G=(\Sigma,V,P,S)$\end<<16245>>tex2html_wrap_inline<<16245>>\space y una frase \begin<<16246>>tex2html_wrap_inline<<16246>>$\alpha \in (V \cup \Sigma)^*$\end<<16247>>tex2html_wrap_inline<<16247>>\space se define el conjunto \begin<<16248>>tex2html_wrap_inline<<16248>>$FIRST(\alpha)$\end<<16249>>tex2html_wrap_inline<<16249>>\space como:
+\begin<<16630>>tex2html_deferred<<16630>>\par\end<<16631>>tex2html_deferred<<16631>>
+\begin<<16250>>tex2html_wrap_inline<<16250>>$FIRST(\alpha) = \left \{ b \in \Sigma :  \alpha  \stackrel<<15507>>*<<15507>><<15508>>\Longrightarrow<<15508>>  b \beta \right \}
+\cup N(\alpha)$\end<<16251>>tex2html_wrap_inline<<16251>> 
+\begin<<16632>>tex2html_deferred<<16632>>\par\end<<16633>>tex2html_deferred<<16633>>
+\noindent donde:
+\begin<<16634>>tex2html_deferred<<16634>>\par\end<<16635>>tex2html_deferred<<16635>>
+\begin<<16254>>tex2html_wrap_inline<<16254>>$N(\alpha) = \left \{ \begin<<15509>>array<<15509>><<15510>>ll<<15510>>
+                         \left \{ \epsilon \right \};SPMamp; \mbox<<15757>>si \begin<<16252>>tex2html_wrap_inline<<16252>>$\alpha \stackrel<<15511>>*<<15511>><<15512>>\Longrightarrow<<15512>> \epsilon$\end<<16253>>tex2html_wrap_inline<<16253>><<15757>> \\ 
+                         \emptyset ;SPMamp; \mbox<<15513>>en otro caso<<15513>> 
+                      \end<<15514>>array<<15514>>
+             \right. $\end<<16255>>tex2html_wrap_inline<<16255>> 
+\begin<<16636>>tex2html_deferred<<16636>>\par\end<<16637>>tex2html_deferred<<16637>>\end<<15797>>theorem_type<<15797>>
+\begin<<16638>>tex2html_deferred<<16638>>\par\end<<16639>>tex2html_deferred<<16639>>
+\begin<<15798>>theorem_type<<15798>>[definition][definition][section][][][]
+Dada una gramática \begin<<16256>>tex2html_wrap_inline<<16256>>$G=(\Sigma,V,P,S)$\end<<16257>>tex2html_wrap_inline<<16257>>\space y una variable \begin<<16258>>tex2html_wrap_inline<<16258>>$A \in V$\end<<16259>>tex2html_wrap_inline<<16259>>\space se define el conjunto \begin<<16260>>tex2html_wrap_inline<<16260>>$FOLLOW(A)$\end<<16261>>tex2html_wrap_inline<<16261>>\space como: 
+\begin<<16640>>tex2html_deferred<<16640>>\par\end<<16641>>tex2html_deferred<<16641>>
+\begin<<16262>>tex2html_wrap_inline<<16262>>$FOLLOW(A) = \left \{ b \in \Sigma :  \exists\ S  \stackrel<<15517>>*<<15517>><<15518>>\Longrightarrow<<15518>>  \alpha A b \beta \right \} \cup E(A)$\end<<16263>>tex2html_wrap_inline<<16263>>
+\begin<<16642>>tex2html_deferred<<16642>>\par\end<<16643>>tex2html_deferred<<16643>>
+\noindent donde
+\begin<<16644>>tex2html_deferred<<16644>>\par\end<<16645>>tex2html_deferred<<16645>>
+\begin<<16266>>tex2html_wrap_inline<<16266>>$E(A) = \left \{ \begin<<15519>>array<<15519>><<15520>>ll<<15520>>
+                         \{ \$  \};SPMamp; \mbox<<15758>>si \begin<<16264>>tex2html_wrap_inline<<16264>>$S \stackrel<<15521>>*<<15521>><<15522>>\Longrightarrow<<15522>> \alpha A$\end<<16265>>tex2html_wrap_inline<<16265>><<15758>> \\ 
+                         \emptyset ;SPMamp; \mbox<<15523>>en otro caso<<15523>> 
+                      \end<<15524>>array<<15524>>
+             \right. $\end<<16267>>tex2html_wrap_inline<<16267>> 
+\begin<<16646>>tex2html_deferred<<16646>>\par\end<<16647>>tex2html_deferred<<16647>>\end<<15799>>theorem_type<<15799>>
+\begin<<16648>>tex2html_deferred<<16648>>\par\end<<16649>>tex2html_deferred<<16649>>
+\begin<<15800>>theorem_type<<15800>>[algorithm][algorithm][section][][][]
+Construcción de los conjuntos \begin<<16268>>tex2html_wrap_inline<<16268>>$FIRST(X)$\end<<16269>>tex2html_wrap_inline<<16269>>
+\begin<<15527>>enumerate<<15527>>
+\item
+\begin<<16270>>tex2html_wrap_inline<<16270>>$Si\ X \in \Sigma\ entonces\ FIRST(X) = <<15528>>X<<15528>>$\end<<16271>>tex2html_wrap_inline<<16271>>
+\item
+\begin<<16272>>tex2html_wrap_inline<<16272>>$Si\ X \rightarrow \epsilon\ entonces\ FIRST(X) =  FIRST(X) \cup \{ \epsilon \}$\end<<16273>>tex2html_wrap_inline<<16273>>
+\item
+\begin<<16274>>tex2html_wrap_inline<<16274>>$Si X \in V \ y\ X \rightarrow Y_1 Y_2 \cdots Y_k \in P\ entonces$\end<<16275>>tex2html_wrap_inline<<16275>>
+\begin<<15529>>eqnarray*<<15529>>
+;SPMamp;;SPMamp;i = 1; \\ 
+;SPMamp;;SPMamp;do\\ 
+;SPMamp;;SPMamp;\ \ FIRST(X) = FIRST(X) \cup FIRST(Y_i) - \{ \epsilon \};\\ 
+;SPMamp;;SPMamp;\ \ i++;\\ 
+;SPMamp;;SPMamp;mientras\ (\epsilon \in FIRST(Y_i)\ and\ (i \leq k))\\ 
+;SPMamp;;SPMamp;si\ (\epsilon \in FIRST(Y_k)\ and\ i ;SPMgt; k)\ FIRST(X) = FIRST(X) \cup \{ \epsilon \}
+\end<<15530>>eqnarray*<<15530>>
+\end<<15531>>enumerate<<15531>>\end<<15801>>theorem_type<<15801>>
+Este algoritmo puede ser extendido para calcular \begin<<16276>>tex2html_wrap_inline<<16276>>$FIRST(\alpha)$\end<<16277>>tex2html_wrap_inline<<16277>>\space para \begin<<16278>>tex2html_wrap_inline<<16278>>$\alpha = X_1 X_2 \cdots X_n \in (V \cup \Sigma)^*$\end<<16279>>tex2html_wrap_inline<<16279>>.
+\begin<<16650>>tex2html_deferred<<16650>>\par\end<<16651>>tex2html_deferred<<16651>>
+\begin<<15802>>theorem_type<<15802>>[algorithm][algorithm][section][][][]
+Construcción del conjunto \begin<<16280>>tex2html_wrap_inline<<16280>>$FIRST(\alpha)$\end<<16281>>tex2html_wrap_inline<<16281>> 
+\begin<<15534>>eqnarray*<<15534>>
+;SPMamp;;SPMamp;i = 1; \nonumber\\ 
+;SPMamp;;SPMamp;FIRST(\alpha) = \emptyset; \nonumber\\ 
+;SPMamp;;SPMamp;do \nonumber\\ 
+;SPMamp;;SPMamp;\ \ FIRST(\alpha) = FIRST(\alpha) \cup FIRST(X_i) - \{ \epsilon \}; \nonumber\\ 
+;SPMamp;;SPMamp;\ \ i++; \nonumber\\ 
+;SPMamp;;SPMamp;mientras\ (\epsilon \in FIRST(X_i)\ and\ (i \leq n)) \nonumber\\ 
+;SPMamp;;SPMamp;si\ (\epsilon \in FIRST(X_n)\ and\ i ;SPMgt; n)\ FIRST(\alpha) = FIRST(X) \cup \{ \epsilon \}
+\end<<15535>>eqnarray*<<15535>>\end<<15803>>theorem_type<<15803>>
+\begin<<16652>>tex2html_deferred<<16652>>\par\end<<16653>>tex2html_deferred<<16653>>
+\begin<<15804>>theorem_type<<15804>>[algorithm][algorithm][section][][][]
+Construcción de los conjuntos \begin<<16282>>tex2html_wrap_inline<<16282>>$FOLLOW(A)$\end<<16283>>tex2html_wrap_inline<<16283>>
+para las variables sintácticas \begin<<16284>>tex2html_wrap_inline<<16284>>$A \in V$\end<<16285>>tex2html_wrap_inline<<16285>>: 
+\begin<<16654>>tex2html_deferred<<16654>>\par\end<<16655>>tex2html_deferred<<16655>>
+Repetir los siguientes pasos hasta que ninguno de los conjuntos \begin<<16286>>tex2html_wrap_inline<<16286>>$FOLLOW$\end<<16287>>tex2html_wrap_inline<<16287>>\space cambie:
+\begin<<15538>>enumerate<<15538>> 
+\item 
+\begin<<16288>>tex2html_wrap_inline<<16288>>$FOLLOW(S) = \{\$\} $\end<<16289>>tex2html_wrap_inline<<16289>>\space  (\begin<<16290>>tex2html_wrap_inline<<16290>>$\$$\end<<16291>>tex2html_wrap_inline<<16291>>\space representa el final de la entrada)
+\item
+\begin<<16292>>tex2html_wrap_inline<<16292>>$Si\ A \rightarrow \alpha B \beta\ entonces$\end<<16293>>tex2html_wrap_inline<<16293>>
+\begin<<15950>>displaymath<<15950>> FOLLOW(B) =  FOLLOW(B) \cup (FIRST(\beta) - \{\epsilon\})\end<<15952>>displaymath<<15952>>
+\item
+\begin<<16294>>tex2html_wrap_inline<<16294>>$Si\ A \rightarrow \alpha B$\end<<16295>>tex2html_wrap_inline<<16295>>\space o bien \begin<<16296>>tex2html_wrap_inline<<16296>>$A \rightarrow \alpha B \beta$\end<<16297>>tex2html_wrap_inline<<16297>>
+y \begin<<16298>>tex2html_wrap_inline<<16298>>$\epsilon \in FIRST(\beta)$\end<<16299>>tex2html_wrap_inline<<16299>>\space  entonces
+\begin<<16656>>tex2html_deferred<<16656>>\par\end<<16657>>tex2html_deferred<<16657>>
+\begin<<15951>>displaymath<<15951>> FOLLOW(B) = FOLLOW(B) \cup FOLLOW(A)\end<<15953>>displaymath<<15953>>
+\end<<15539>>enumerate<<15539>>\end<<15805>>theorem_type<<15805>>
+\begin<<16658>>tex2html_deferred<<16658>>\par\end<<16659>>tex2html_deferred<<16659>>
+\subsection<<15541>>Construcción de las Tablas<<15541>>
+\label<<15542>>subsection:nfa2dfa<<15542>>
+\begin<<16660>>tex2html_deferred<<16660>>\par\end<<16661>>tex2html_deferred<<16661>>
+Para la construcción de las tablas de un analizador SLR
+se construye el \index<<15904>>autómata finito determinista<<15904>>\emph<<15905>>autómata finito determinista<<15905>> (\index<<15906>>DFA<<15906>>\emph<<15907>>DFA<<15907>>) 
+\begin<<16300>>tex2html_wrap_inline<<16300>>$(Q, \Sigma, \delta, q_0)$\end<<16301>>tex2html_wrap_inline<<16301>>\space equivalente al NFA 
+presentado en la sección
+\ref<<15545>>section:conceptosbasicos<<15545>>
+usando el \index<<15908>>algoritmo de construcción del subconjunto<<15908>>\emph<<15909>>algoritmo de construcción del subconjunto<<15909>>.
+\begin<<16662>>tex2html_deferred<<16662>>\par\end<<16663>>tex2html_deferred<<16663>>
+Como recordará, en la construcción del subconjunto,
+partiendo del estado de arranque \begin<<16302>>tex2html_wrap_inline<<16302>>$q_0$\end<<16303>>tex2html_wrap_inline<<16303>>\space del NFA con \begin<<16304>>tex2html_wrap_inline<<16304>>$\epsilon$\end<<16305>>tex2html_wrap_inline<<16305>>-transiciones
+se calcula su \index<<15910>>clausura<<15910>>\emph<<15911>>clausura<<15911>> \begin<<16306>>tex2html_wrap_inline<<16306>>$\overline<<15548>>\{q_0\}<<15548>>$\end<<16307>>tex2html_wrap_inline<<16307>>\space y las 
+clausuras de los conjuntos de estados \begin<<16308>>tex2html_wrap_inline<<16308>>$\overline<<15759>>\delta(\overline<<15549>>\{q_0\}<<15549>>,a)<<15759>>$\end<<16309>>tex2html_wrap_inline<<16309>> 
+a los que transita.  Se repite el proceso
+con los conjuntos resultantes hasta que no se introducen nuevos
+conjuntos-estado.
+\begin<<16664>>tex2html_deferred<<16664>>\par\end<<16665>>tex2html_deferred<<16665>>
+La clausura \begin<<16310>>tex2html_wrap_inline<<16310>>$\overline<<15550>>A<<15550>>$\end<<16311>>tex2html_wrap_inline<<16311>>\space de un subconjunto de estados del autómata \begin<<16312>>tex2html_wrap_inline<<16312>>$A$\end<<16313>>tex2html_wrap_inline<<16313>>\space esta formada
+por todos los estados que pueden ser alcanzados mediante transiciones
+etiquetadas con la palabra vacía (denominadas \begin<<16314>>tex2html_wrap_inline<<16314>>$\epsilon$\end<<16315>>tex2html_wrap_inline<<16315>>\space transiciones)
+desde los estados de \begin<<16316>>tex2html_wrap_inline<<16316>>$A$\end<<16317>>tex2html_wrap_inline<<16317>>. Se incluyen en \begin<<16318>>tex2html_wrap_inline<<16318>>$\overline<<15551>>A<<15551>>$\end<<16319>>tex2html_wrap_inline<<16319>>, naturalmente los estados 
+de \begin<<16320>>tex2html_wrap_inline<<16320>>$A$\end<<16321>>tex2html_wrap_inline<<16321>>.
+\begin<<16666>>tex2html_deferred<<16666>>\par\end<<16667>>tex2html_deferred<<16667>>
+\begin<<15552>>center<<15552>>
+\begin<<16322>>tex2html_wrap_inline<<16322>>$\overline<<15553>>A<<15553>> = \{ q \in Q\ /\  \exists q' \in Q\ :\ \hat<<15554>>\delta<<15554>>(q', \epsilon) = q \}$\end<<16323>>tex2html_wrap_inline<<16323>>
+\end<<15555>>center<<15555>>
+\begin<<16668>>tex2html_deferred<<16668>>\par\end<<16669>>tex2html_deferred<<16669>>
+Aquí \begin<<16324>>tex2html_wrap_inline<<16324>>$\hat<<15556>>\delta<<15556>>$\end<<16325>>tex2html_wrap_inline<<16325>>\space denota la \index<<15912>>función de transición del autómata<<15912>>\emph<<15913>>función de transición del autómata<<15913>> extendida  a cadenas
+de \begin<<16326>>tex2html_wrap_inline<<16326>>$\Sigma^*$\end<<16327>>tex2html_wrap_inline<<16327>>.
+\begin<<16670>>tex2html_deferred<<16670>>\par\end<<16671>>tex2html_deferred<<16671>>
+\begin<<15558>>equation<<15558>>
+\label<<15559>>equation:deltahat<<15559>>
+\hat<<15560>>\delta<<15560>>(q, x) = \left \{ \begin<<15561>>array<<15561>><<15562>>ll<<15562>>
+                         \delta(\hat<<15563>>\delta<<15563>>(q,y),a) ;SPMamp; \mbox<<15564>>si \begin<<16328>>tex2html_wrap_inline<<16328>>$x = ya$\end<<16329>>tex2html_wrap_inline<<16329>><<15564>> \\ 
+                         q ;SPMamp; \mbox<<15565>>si \begin<<16330>>tex2html_wrap_inline<<16330>>$x = \epsilon$\end<<16331>>tex2html_wrap_inline<<16331>><<15565>> 
+                      \end<<15566>>array<<15566>>
+             \right.  
+\end<<15567>>equation<<15567>>
+\begin<<16672>>tex2html_deferred<<16672>>\par\end<<16673>>tex2html_deferred<<16673>>
+En la práctica, y a partir de ahora así lo haremos, se prescinde de diferenciar
+entre \begin<<16332>>tex2html_wrap_inline<<16332>>$\delta$\end<<16333>>tex2html_wrap_inline<<16333>>\space y \begin<<16334>>tex2html_wrap_inline<<16334>>$\hat<<15568>>\delta<<15568>>$\end<<16335>>tex2html_wrap_inline<<16335>>\space usándose indistintamente la notación
+\begin<<16336>>tex2html_wrap_inline<<16336>>$\delta$\end<<16337>>tex2html_wrap_inline<<16337>>\space para ambas funciones.
+\begin<<16674>>tex2html_deferred<<16674>>\par\end<<16675>>tex2html_deferred<<16675>>
+La clausura puede ser computada usando una estructura de pila o aplicando 
+la expresión recursiva dada en la ecuación \ref<<15569>>equation:deltahat<<15569>>.
+\begin<<16676>>tex2html_deferred<<16676>>\par\end<<16677>>tex2html_deferred<<16677>>
+Para el NFA mostrado en el ejemplo \ref<<15570>>example:asb<<15570>> el DFA construído mediante esta
+técnica es el que se muestra en la figura \ref<<15571>>fig:dfa<<15571>>. Se ha utilizado el símbolo
+<tex2html_verb_mark>2093<tex2html_verb_mark> como marcador. Se ha omitido el número 3 para que los estados coincidan
+en numeración con los generados por <tex2html_verb_mark>2094<tex2html_verb_mark> (véase el cuadro
+\ref<<15572>>table:tablaslalr<<15572>>).
+\begin<<16678>>tex2html_deferred<<16678>>\par\end<<16679>>tex2html_deferred<<16679>>
+\begin<<15573>>center<<15573>>
+\begin<<15574>>figure<<15574>>[htb]
+\begin<<16680>>tex2html_deferred<<16680>>\centerline<<15760>>\epsfig<<15575>>file=chapter_bottomup/dfa.eps, width=12cm<<15575>><<15760>>\end<<16681>>tex2html_deferred<<16681>>
+\begin<<16682>>tex2html_deferred<<16682>>\caption<<15761>>DFA equivalente al NFA de la figura \ref<<15576>>fig:nfa<<15576>><<15761>>\end<<16683>>tex2html_deferred<<16683>>
+\label<<15577>>fig:dfa<<15577>>
+\end<<15578>>figure<<15578>>
+\end<<15579>>center<<15579>>
+\begin<<16684>>tex2html_deferred<<16684>>\par\end<<16685>>tex2html_deferred<<16685>>
+Un analizador sintáctico LR utiliza una tabla para su análisis.
+Esa tabla se construye a partir de la tabla de transiciones del DFA.
+De hecho, la tabla se divide en dos tablas, una llamada 
+\index<<15914>>tabla de saltos<<15914>>\emph<<15915>>tabla de saltos<<15915>> o \index<<15916>>tabla de gotos<<15916>>\emph<<15917>>tabla de gotos<<15917>> y la otra
+\index<<15918>>tabla de acciones<<15918>>\emph<<15919>>tabla de acciones<<15919>>.
+\begin<<16686>>tex2html_deferred<<16686>>\par\end<<16687>>tex2html_deferred<<16687>>
+La tabla \index<<15920>>goto<<15920>>\emph<<15921>>goto<<15921>> de un analizador \index<<15922>>SLR<<15922>>\emph<<15923>>SLR<<15923>>
+no es más que la tabla de transiciones del autómata DFA 
+obtenido aplicando la construcción del subconjunto al NFA
+definido en \ref<<15585>>definition:slrautomata<<15585>>. De hecho es la tabla
+de transiciones restringida a \begin<<16338>>tex2html_wrap_inline<<16338>>$V$\end<<16339>>tex2html_wrap_inline<<16339>>\space (recuerde que el alfabeto del
+autómata es \begin<<16340>>tex2html_wrap_inline<<16340>>$V \cup \Sigma$\end<<16341>>tex2html_wrap_inline<<16341>>).
+Esto es, 
+\begin<<16688>>tex2html_deferred<<16688>>\par\end<<16689>>tex2html_deferred<<16689>>
+\begin<<15586>>center<<15586>>
+\begin<<16342>>tex2html_wrap_inline<<16342>>$\delta_<<15587>>| V \times Q<<15587>> :  V \times Q \rightarrow Q$\end<<16343>>tex2html_wrap_inline<<16343>>. 
+\begin<<16690>>tex2html_deferred<<16690>>\par\end<<16691>>tex2html_deferred<<16691>>
+donde se define \begin<<16344>>tex2html_wrap_inline<<16344>>$goto(i, A) = \delta(A,I_i)$\end<<16345>>tex2html_wrap_inline<<16345>>
+\end<<15588>>center<<15588>>
+\begin<<16692>>tex2html_deferred<<16692>>\par\end<<16693>>tex2html_deferred<<16693>>
+La parte de la función de transiciones
+del DFA que corresponde a los terminales que no producen rechazo, 
+esto es, \begin<<16346>>tex2html_wrap_inline<<16346>>$\delta_<<15589>>| \Sigma \times Q<<15589>> :  \Sigma \times Q \rightarrow Q$\end<<16347>>tex2html_wrap_inline<<16347>>
+se adjunta a una tabla que se denomina \index<<15924>>tabla de acciones<<15924>>\emph<<15925>>tabla de acciones<<15925>>.
+La tabla de acciones es una tabla de doble entrada en los estados
+y en los símbolos de \begin<<16348>>tex2html_wrap_inline<<16348>>$\Sigma$\end<<16349>>tex2html_wrap_inline<<16349>>.
+Las acciones de transición ante terminales 
+se denominan \index<<15926>>acciones de desplazamiento<<15926>>\emph<<15927>>acciones de desplazamiento<<15927>> o (\index<<15928>>acciones shift<<15928>>\emph<<15929>>acciones shift<<15929>>):
+\begin<<16694>>tex2html_deferred<<16694>>\par\end<<16695>>tex2html_deferred<<16695>>
+\begin<<15593>>center<<15593>>
+\begin<<16350>>tex2html_wrap_inline<<16350>>$\delta_<<15594>>| \Sigma \times Q<<15594>> :  \Sigma \times Q \rightarrow Q$\end<<16351>>tex2html_wrap_inline<<16351>>
+\begin<<16696>>tex2html_deferred<<16696>>\par\end<<16697>>tex2html_deferred<<16697>>
+donde se define \begin<<16352>>tex2html_wrap_inline<<16352>>$action(i, a) = shift\ \delta(a,I_i)$\end<<16353>>tex2html_wrap_inline<<16353>>
+\end<<15595>>center<<15595>>
+\begin<<16698>>tex2html_deferred<<16698>>\par\end<<16699>>tex2html_deferred<<16699>>
+Cuando un estado \begin<<16354>>tex2html_wrap_inline<<16354>>$s$\end<<16355>>tex2html_wrap_inline<<16355>>\space contiene un LR(0)-item de la forma 
+\begin<<16356>>tex2html_wrap_inline<<16356>>$A \rightarrow \alpha_\uparrow$\end<<16357>>tex2html_wrap_inline<<16357>>, 
+esto es, el estado corresponde a un posible rechazo,
+ello indica que hemos llegado a un final del prefijo viable, que hemos
+visto \begin<<16358>>tex2html_wrap_inline<<16358>>$\alpha$\end<<16359>>tex2html_wrap_inline<<16359>>\space y que, por tanto, es probable que \begin<<16360>>tex2html_wrap_inline<<16360>>$A \rightarrow \alpha$\end<<16361>>tex2html_wrap_inline<<16361>>
+sea el \emph<<15596>>handle<<15596>> de la forma sentencial derecha actual. Por tanto,
+añadiremos en entradas de la forma \begin<<16362>>tex2html_wrap_inline<<16362>>$(s,a)$\end<<16363>>tex2html_wrap_inline<<16363>>\space de la tabla de acciones 
+una acción que indique que hemos encontrado el mango en la 
+posición actual y que la regla asociada es \begin<<16364>>tex2html_wrap_inline<<16364>>$A \rightarrow \alpha$\end<<16365>>tex2html_wrap_inline<<16365>>.
+A una acción de este tipo se la denomina \index<<15930>>acción de reducción<<15930>>\emph<<15931>>acción de reducción<<15931>>.
+\begin<<16700>>tex2html_deferred<<16700>>\par\end<<16701>>tex2html_deferred<<16701>>
+La cuestión es, ¿para que valores de \begin<<16366>>tex2html_wrap_inline<<16366>>$a \in \Sigma$\end<<16367>>tex2html_wrap_inline<<16367>>\space debemos disponer que
+la acción para \begin<<16368>>tex2html_wrap_inline<<16368>>$(s, a)$\end<<16369>>tex2html_wrap_inline<<16369>>\space es de reducción?
+\begin<<16702>>tex2html_deferred<<16702>>\par\end<<16703>>tex2html_deferred<<16703>>
+\begin<<15598>>center<<15598>>
+Se define \begin<<16370>>tex2html_wrap_inline<<16370>>$action(i, a) = reduce\ A \rightarrow \alpha$\end<<16371>>tex2html_wrap_inline<<16371>>\space ¿Pero, para que \begin<<16372>>tex2html_wrap_inline<<16372>>$a \in \Sigma$\end<<16373>>tex2html_wrap_inline<<16373>>?
+\end<<15599>>center<<15599>>
+\begin<<16704>>tex2html_deferred<<16704>>\par\end<<16705>>tex2html_deferred<<16705>>
+Podríamos decidir que ante cualquier terminal \begin<<16374>>tex2html_wrap_inline<<16374>>$a \in \Sigma$\end<<16375>>tex2html_wrap_inline<<16375>>
+que produzca un rechazo del autómata, pero podemos ser un poco mas
+selectivos. No cualquier terminal puede estar en la entrada en el momento
+en el que se produce la antiderivación o reducción. 
+Observemos que si \begin<<16376>>tex2html_wrap_inline<<16376>>$A \rightarrow \alpha$\end<<16377>>tex2html_wrap_inline<<16377>>\space es el \emph<<15600>>handle<<15600>>
+de \begin<<16378>>tex2html_wrap_inline<<16378>>$\gamma$\end<<16379>>tex2html_wrap_inline<<16379>>\space es porque:
+\begin<<16706>>tex2html_deferred<<16706>>\par\end<<16707>>tex2html_deferred<<16707>>
+\begin<<15601>>center<<15601>>
+\begin<<16380>>tex2html_wrap_inline<<16380>>$\exists S \begin<<15602>>array<<15602>><<15603>>c<<15603>> *\\  \Longrightarrow \\  <<15604>>\scriptstyle RM<<15604>> \end<<15605>>array<<15605>> \beta A b x \begin<<15606>>array<<15606>><<15607>>c<<15607>> *\\  \Longrightarrow \\  <<15608>>\scriptstyle RM<<15608>> \end<<15609>>array<<15609>>  
+\beta \alpha b x = \gamma$\end<<16381>>tex2html_wrap_inline<<16381>>
+\end<<15610>>center<<15610>>
+\begin<<16708>>tex2html_deferred<<16708>>\par\end<<16709>>tex2html_deferred<<16709>>
+Por tanto, cuando estamos reduciendo por \begin<<16382>>tex2html_wrap_inline<<16382>>$A \rightarrow \alpha$\end<<16383>>tex2html_wrap_inline<<16383>>
+los únicos terminales legales que cabe esperar en una reducción por \begin<<16384>>tex2html_wrap_inline<<16384>>$A \rightarrow \alpha$\end<<16385>>tex2html_wrap_inline<<16385>>\space son los terminales \begin<<16386>>tex2html_wrap_inline<<16386>>$b \in FOLLOW(A)$\end<<16387>>tex2html_wrap_inline<<16387>>.
+\begin<<16710>>tex2html_deferred<<16710>>\par\end<<16711>>tex2html_deferred<<16711>>
+\begin<<15611>>center<<15611>>
+Se define \begin<<16388>>tex2html_wrap_inline<<16388>>$action(i, b) = reduce\ A \rightarrow \alpha$\end<<16389>>tex2html_wrap_inline<<16389>>\space Para \begin<<16390>>tex2html_wrap_inline<<16390>>$b \in FOLLOW(A)$\end<<16391>>tex2html_wrap_inline<<16391>>
+\end<<15612>>center<<15612>>
+\begin<<16712>>tex2html_deferred<<16712>>\par\end<<16713>>tex2html_deferred<<16713>>
+Dada una gramática \begin<<16392>>tex2html_wrap_inline<<16392>>$G=(\Sigma,V,P,S)$\end<<16393>>tex2html_wrap_inline<<16393>>, podemos construir las tablas de acciones (\emph<<15613>>action table<<15613>>) y  transiciones (\emph<<15614>>gotos table<<15614>>) mediante el siguiente algoritmo:
+\begin<<16714>>tex2html_deferred<<16714>>\par\end<<16715>>tex2html_deferred<<16715>>
+\begin<<15806>>theorem_type<<15806>>[algorithm][algorithm][section][][][]
+\label<<15616>>alg:tables<<15616>>       
+Construcción de Tablas \index<<15932>>SLR<<15932>>\emph<<15933>>SLR<<15933>>
+\begin<<16716>>tex2html_deferred<<16716>>\par\end<<16717>>tex2html_deferred<<16717>>
+\begin<<15618>>enumerate<<15618>>
+\item
+Utilizando el Algoritmo de Construcción del Subconjunto, se construye
+el Autómata Finito Determinista (DFA) \begin<<16394>>tex2html_wrap_inline<<16394>>$(Q, V \cup \Sigma, \delta, I_0, F)$\end<<16395>>tex2html_wrap_inline<<16395>>
+equivalente al Autómata Finito No
+Determinista (NFA) definido en \ref<<15619>>definition:slrautomata<<15619>>.
+Sea \begin<<16396>>tex2html_wrap_inline<<16396>>$C = \left \{ I_1, I_2, \cdots I_n \right \}$\end<<16397>>tex2html_wrap_inline<<16397>>\space el conjunto de estados
+del DFA. Cada estado \begin<<16398>>tex2html_wrap_inline<<16398>>$I_i$\end<<16399>>tex2html_wrap_inline<<16399>>\space es un conjunto de LR(0)-items o estados
+del NFA. Asociemos un índice \begin<<16400>>tex2html_wrap_inline<<16400>>$i$\end<<16401>>tex2html_wrap_inline<<16401>>\space con cada conjunto \begin<<16402>>tex2html_wrap_inline<<16402>>$I_i$\end<<16403>>tex2html_wrap_inline<<16403>>.
+\item
+La tabla de \emph<<15620>>gotos<<15620>> no es más que la función de transición del 
+autómata restringida a las variables de la gramática:
+\begin<<16718>>tex2html_deferred<<16718>>\par\end<<16719>>tex2html_deferred<<16719>>
+\begin<<15621>>center<<15621>>
+\begin<<16404>>tex2html_wrap_inline<<16404>>$goto(i,A) = \delta(I_i, A)$\end<<16405>>tex2html_wrap_inline<<16405>>\space para todo \begin<<16406>>tex2html_wrap_inline<<16406>>$A \in V$\end<<16407>>tex2html_wrap_inline<<16407>>
+\end<<15622>>center<<15622>>
+\item
+Las acciones para el estado \begin<<16408>>tex2html_wrap_inline<<16408>>$I_i$\end<<16409>>tex2html_wrap_inline<<16409>>\space se determinan como sigue:
+  \begin<<15623>>enumerate<<15623>>
+  \item
+  Si \begin<<16410>>tex2html_wrap_inline<<16410>>$A \rightarrow \alpha _\uparrow a \beta \in I_i$\end<<16411>>tex2html_wrap_inline<<16411>>, \begin<<16412>>tex2html_wrap_inline<<16412>>$\delta(I_i,a) = I_j$\end<<16413>>tex2html_wrap_inline<<16413>>, \begin<<16414>>tex2html_wrap_inline<<16414>>$a \in \Sigma$\end<<16415>>tex2html_wrap_inline<<16415>> 
+  entonces:
+\begin<<16720>>tex2html_deferred<<16720>>\par\end<<16721>>tex2html_deferred<<16721>>
+\begin<<15624>>center<<15624>>
+  \begin<<16416>>tex2html_wrap_inline<<16416>>$action[i][a] = shift\ j$\end<<16417>>tex2html_wrap_inline<<16417>>
+\end<<15625>>center<<15625>>
+  \item
+  Si \begin<<16418>>tex2html_wrap_inline<<16418>>$S' \rightarrow S_\uparrow \in I_i$\end<<16419>>tex2html_wrap_inline<<16419>>\space entonces 
+\begin<<16722>>tex2html_deferred<<16722>>\par\end<<16723>>tex2html_deferred<<16723>>
+\begin<<15626>>center<<15626>>
+  \begin<<16420>>tex2html_wrap_inline<<16420>>$action[i][\$] = accept$\end<<16421>>tex2html_wrap_inline<<16421>>
+\end<<15627>>center<<15627>>
+  \item
+  Para cualquier otro caso de la forma \begin<<16422>>tex2html_wrap_inline<<16422>>$A \rightarrow \alpha _\uparrow \in I_i$\end<<16423>>tex2html_wrap_inline<<16423>> 
+  distinto del anterior hacer
+\begin<<16724>>tex2html_deferred<<16724>>\par\end<<16725>>tex2html_deferred<<16725>>
+\begin<<15628>>center<<15628>>
+  \begin<<16424>>tex2html_wrap_inline<<16424>>$\forall a \in\ FOLLOW(A):\ action[i][a] = reduce\ A \rightarrow \alpha$\end<<16425>>tex2html_wrap_inline<<16425>>
+\end<<15629>>center<<15629>>
+  \end<<15630>>enumerate<<15630>>
+\item
+  Las entradas de la tabla de acción que queden indefinidas después de aplicado el proceso anterior corresponden a acciones de ``\begin<<16426>>tex2html_wrap_inline<<16426>>$error$\end<<16427>>tex2html_wrap_inline<<16427>>''.
+\end<<15631>>enumerate<<15631>>\end<<15807>>theorem_type<<15807>>
+\begin<<16726>>tex2html_deferred<<16726>>\par\end<<16727>>tex2html_deferred<<16727>>
+\begin<<15808>>theorem_type<<15808>>[definition][definition][section][][][]
+Si alguna de las entradas de la tabla resulta multievaluada, decimos
+que existe un conflicto y que la gramática no es \index<<15934>>SLR<<15934>>\emph<<15935>>SLR<<15935>>.
+\begin<<16728>>tex2html_deferred<<16728>>\par\end<<16729>>tex2html_deferred<<16729>>
+\begin<<15635>>enumerate<<15635>>
+\item
+En tal caso, si una de las acciones es de `reducción'' y la otra es de
+`desplazamiento'', decimos que hay un \index<<15936>>conflicto shift-reduce<<15936>>\emph<<15937>>conflicto shift-reduce<<15937>> o
+\index<<15938>>conflicto de desplazamiento-reducción<<15938>>\emph<<15939>>conflicto de desplazamiento-reducción<<15939>>. 
+\item
+Si las
+dos reglas indican una acción de reducción, decimos que tenemos un 
+\index<<15940>>conflicto reduce-reduce<<15940>>\emph<<15941>>conflicto reduce-reduce<<15941>> o de \index<<15942>>reducción-reducción<<15942>>\emph<<15943>>reducción-reducción<<15943>>.
+\end<<15640>>enumerate<<15640>>\end<<15809>>theorem_type<<15809>>
+\begin<<16730>>tex2html_deferred<<16730>>\par\end<<16731>>tex2html_deferred<<16731>>
+\begin<<15810>>theorem_type<<15810>>[example][example][section][][][]
+\label<<15643>>example:tablasslr<<15643>>
+Al aplicar el algoritmo \ref<<15644>>alg:tables<<15644>>       
+a la gramática \ref<<15645>>example:asb<<15645>> 
+\begin<<16732>>tex2html_deferred<<16732>>\par\end<<16733>>tex2html_deferred<<16733>>
+\vspace<<15646>>0.5cm<<15646>>
+\begin<<15647>>center<<15647>>
+\begin<<15648>>tabular<<15648>><<15649>>|l|l|<<15649>>
+\hline
+1 ;SPMamp; S      \begin<<16428>>tex2html_wrap_inline<<16428>>$\rightarrow$\end<<16429>>tex2html_wrap_inline<<16429>>\space  a S b\\ 
+\hline
+2 ;SPMamp; S      \begin<<16430>>tex2html_wrap_inline<<16430>>$\rightarrow$\end<<16431>>tex2html_wrap_inline<<16431>>\space \begin<<16432>>tex2html_wrap_inline<<16432>>$\epsilon$\end<<16433>>tex2html_wrap_inline<<16433>>\space \\ 
+\hline
+\end<<15650>>tabular<<15650>>
+\end<<15651>>center<<15651>>
+\vspace<<15652>>0.25cm<<15652>>
+\begin<<16734>>tex2html_deferred<<16734>>\par\end<<16735>>tex2html_deferred<<16735>>
+partiendo del autómata finito determinista
+que se construyó en 
+la figura \ref<<15653>>fig:dfa<<15653>> y calculando los 
+conjuntos de primeros y siguientes
+\begin<<16736>>tex2html_deferred<<16736>>\par\end<<16737>>tex2html_deferred<<16737>>
+\begin<<15654>>center<<15654>>
+\begin<<15655>>tabular<<15655>><<15656>>|l|l|l|<<15656>>
+\hline
+     ;SPMamp; FIRST  ;SPMamp; FOLLOW \\ 
+\hline
+S    ;SPMamp; a, \begin<<16434>>tex2html_wrap_inline<<16434>>$\epsilon$\end<<16435>>tex2html_wrap_inline<<16435>>\space ;SPMamp; b, \$\\ 
+\hline
+\end<<15657>>tabular<<15657>>
+\end<<15658>>center<<15658>>
+\begin<<16738>>tex2html_deferred<<16738>>\par\end<<16739>>tex2html_deferred<<16739>>
+obtenemos la siguiente tabla de acciones SLR:
+\begin<<16740>>tex2html_deferred<<16740>>\par\end<<16741>>tex2html_deferred<<16741>>
+\begin<<15659>>center<<15659>>
+\begin<<15660>>tabular<<15660>><<15661>>|l|l|l|l|<<15661>>
+\hline
+     ;SPMamp;  a  ;SPMamp;  b  ;SPMamp; \$ \\ 
+\hline
+0    ;SPMamp; s2  ;SPMamp;  r2 ;SPMamp; r2 \\ 
+\hline
+1    ;SPMamp;     ;SPMamp;     ;SPMamp; aceptar\\ 
+\hline
+2    ;SPMamp; s2  ;SPMamp; r2  ;SPMamp; r2\\ 
+\hline
+4    ;SPMamp;     ;SPMamp; s5  ;SPMamp;   \\ 
+\hline
+5    ;SPMamp;     ;SPMamp; r1  ;SPMamp; r1\\ 
+\hline
+\end<<15662>>tabular<<15662>>
+\end<<15663>>center<<15663>>
+\begin<<16742>>tex2html_deferred<<16742>>\par\end<<16743>>tex2html_deferred<<16743>>
+Las entradas denotadas con \begin<<16436>>tex2html_wrap_inline<<16436>>$s$\end<<16437>>tex2html_wrap_inline<<16437>>\space \begin<<16438>>tex2html_wrap_inline<<16438>>$n$\end<<16439>>tex2html_wrap_inline<<16439>>\space (\begin<<16440>>tex2html_wrap_inline<<16440>>$s$\end<<16441>>tex2html_wrap_inline<<16441>>\space por shift) indican un desplazamiento
+al estado \begin<<16442>>tex2html_wrap_inline<<16442>>$n$\end<<16443>>tex2html_wrap_inline<<16443>>, las denotadas con \begin<<16444>>tex2html_wrap_inline<<16444>>$r$\end<<16445>>tex2html_wrap_inline<<16445>>\space \begin<<16446>>tex2html_wrap_inline<<16446>>$n$\end<<16447>>tex2html_wrap_inline<<16447>>\space (\begin<<16448>>tex2html_wrap_inline<<16448>>$r$\end<<16449>>tex2html_wrap_inline<<16449>>\space por reduce o reducción) indican una operación
+de reducción o antiderivación por la regla \begin<<16450>>tex2html_wrap_inline<<16450>>$n$\end<<16451>>tex2html_wrap_inline<<16451>>.  Las entradas vacías 
+corresponden a acciones de error.\end<<15811>>theorem_type<<15811>>
+\begin<<16744>>tex2html_deferred<<16744>>\par\end<<16745>>tex2html_deferred<<16745>>
+El método de análisis \index<<15944>>LALR<<15944>>\emph<<15945>>LALR<<15945>> usado por <tex2html_verb_mark>2095<tex2html_verb_mark>
+es una extensión del método SLR esbozado
+aqui. Supone un compromiso entre potencia (conjunto de gramáticas
+englobadas) y eficiencia (cantidad de memoria utilizada, tiempo de
+proceso).
+Veamos como <tex2html_verb_mark>2096<tex2html_verb_mark> aplica la construcción del subconjunto a la 
+gramática del ejemplo
+\ref<<15666>>example:asb<<15666>>.
+Para ello construimos el siguiente programa <tex2html_verb_mark>2097<tex2html_verb_mark>:
+\begin<<15667>>tex2html_preform<<15667>><tex2html_verbatim_mark>verbatim5723#\end<<15668>>tex2html_preform<<15668>>
+y lo compilamos con <tex2html_verb_mark>2098<tex2html_verb_mark>. Estas son las opciones disponibles:
+\begin<<15669>>tex2html_preform<<15669>><tex2html_verbatim_mark>verbatim5724#\end<<15670>>tex2html_preform<<15670>>
+Desafortunadamente carece de la típica opción <tex2html_verb_mark>2099<tex2html_verb_mark> que permite generar las tablas
+de análisis. Podemos intentar usar <tex2html_verb_mark>2100<tex2html_verb_mark>, pero, obviamente, <tex2html_verb_mark>2101<tex2html_verb_mark> protesta ante la entrada:
+\begin<<16746>>tex2html_deferred<<16746>>\par\end<<16747>>tex2html_deferred<<16747>>
+\begin<<15671>>tex2html_preform<<15671>><tex2html_verbatim_mark>verbatim5725#\end<<15672>>tex2html_preform<<15672>>
+El error es causado por la presencia del analizador léxico 
+empotrado en el fichero <tex2html_verb_mark>2102<tex2html_verb_mark>.  Si suprimimos provisionalmente
+las líneas del analizador léxico empotrado,
+<tex2html_verb_mark>2103<tex2html_verb_mark> es capaz de analizar la gramática:
+\begin<<15673>>tex2html_preform<<15673>><tex2html_verbatim_mark>verbatim5726#\end<<15674>>tex2html_preform<<15674>>
+Que tiene los siguientes contenidos:
+\begin<<15675>>tex2html_preform<<15675>><tex2html_verbatim_mark>verbatim5727#\end<<15676>>tex2html_preform<<15676>>
+\begin<<16748>>tex2html_deferred<<16748>>\par\end<<16749>>tex2html_deferred<<16749>>
+El contenido del fichero <tex2html_verb_mark>2104<tex2html_verb_mark> se muestra
+en la tabla 
+\ref<<15677>>table:tablaslalr<<15677>>.
+Los números de referencia a las producciones en las acciones
+de reducción vienen dados por:
+\begin<<16750>>tex2html_deferred<<16750>>\par\end<<16751>>tex2html_deferred<<16751>>
+\begin<<15678>>tex2html_preform<<15678>><tex2html_verbatim_mark>verbatim5728#\end<<15679>>tex2html_preform<<15679>> 
+\begin<<16752>>tex2html_deferred<<16752>>\par\end<<16753>>tex2html_deferred<<16753>>
+Observe que el final de la entrada se denota 
+por <tex2html_verb_mark>2105<tex2html_verb_mark> y el marcador en un LR-item 
+por un punto. Fíjese en el estado 2: 
+En ese estado están también los items
+\begin<<16754>>tex2html_deferred<<16754>>\par\end<<16755>>tex2html_deferred<<16755>>
+\begin<<15680>>center<<15680>>
+ <tex2html_verb_mark>2106<tex2html_verb_mark>
+y <tex2html_verb_mark>2107<tex2html_verb_mark>
+\end<<15681>>center<<15681>>
+\begin<<16756>>tex2html_deferred<<16756>>\par\end<<16757>>tex2html_deferred<<16757>>
+sin embargo no se explicitan
+por que se entiende que su pertenencia es
+consecuencia directa de aplicar la operación 
+de clausura. Los LR items cuyo marcador
+no está al principio se denominan
+\index<<15946>>items núcleo<<15946>>\emph<<15947>>items núcleo<<15947>>. 
+\begin<<16758>>tex2html_deferred<<16758>>\par\end<<16759>>tex2html_deferred<<16759>>
+\vspace<<15683>>0.5cm<<15683>>
+\begin<<15684>>table<<15684>>[htb]
+\begin<<15685>>center<<15685>>
+\begin<<15686>>tabular<<15686>><<15762>>|p<<15687>>4cm<<15687>>|p<<15688>>4cm<<15688>>|p<<15689>>4cm<<15689>>|<<15762>>
+\hline
+Estado 0 ;SPMamp; Estado 1 ;SPMamp; Estado 2\\ 
+\hline
+\begin<<15690>>tex2html_preform<<15690>><tex2html_verbatim_mark>verbatim5729#\end<<15691>>tex2html_preform<<15691>> 
+;SPMamp;
+\begin<<15692>>tex2html_preform<<15692>><tex2html_verbatim_mark>verbatim5730#\end<<15693>>tex2html_preform<<15693>> 
+;SPMamp;
+\begin<<15694>>tex2html_preform<<15694>><tex2html_verbatim_mark>verbatim5731#\end<<15695>>tex2html_preform<<15695>> 
+\begin<<16760>>tex2html_deferred<<16760>>\par\end<<16761>>tex2html_deferred<<16761>>
+\\ 
+\begin<<16762>>tex2html_deferred<<16762>>\par\end<<16763>>tex2html_deferred<<16763>>
+\hline
+Estado 3 ;SPMamp; Estado 4 ;SPMamp; Estado 5\\ 
+\hline
+\begin<<16764>>tex2html_deferred<<16764>>\par\end<<16765>>tex2html_deferred<<16765>>
+\begin<<15696>>tex2html_preform<<15696>><tex2html_verbatim_mark>verbatim5732#\end<<15697>>tex2html_preform<<15697>> 
+;SPMamp;
+\begin<<15698>>tex2html_preform<<15698>><tex2html_verbatim_mark>verbatim5733#\end<<15699>>tex2html_preform<<15699>> 
+;SPMamp;
+\begin<<15700>>tex2html_preform<<15700>><tex2html_verbatim_mark>verbatim5734#\end<<15701>>tex2html_preform<<15701>>
+\\ 
+\hline
+\end<<15702>>tabular<<15702>>
+\end<<15703>>center<<15703>>
+\begin<<16766>>tex2html_deferred<<16766>>\caption<<15763>>Tablas generadas por <<15704>>\tt bison<<15704>>. El estado 3 resulta de transitar con \$<<15763>>\end<<16767>>tex2html_deferred<<16767>>
+\label<<15705>>table:tablaslalr<<15705>>
+\end<<15706>>table<<15706>>
+\begin<<16768>>tex2html_deferred<<16768>>\par\end<<16769>>tex2html_deferred<<16769>>
+\begin<<15812>>theorem_type<<15812>>[exercise][exercise][section][][][]
+Compare la tabla \ref<<15708>>table:tablaslalr<<15708>> resultante de 
+aplicar <tex2html_verb_mark>2108<tex2html_verb_mark> con la que obtuvo en el ejemplo
+\ref<<15709>>example:tablasslr<<15709>>.\end<<15813>>theorem_type<<15813>>
+\begin<<16770>>tex2html_deferred<<16770>>\par\end<<16771>>tex2html_deferred<<16771>>
+\section<<15711>>Algoritmo de Análisis LR<<15711>>
+\label<<15712>>section:algoritmoLR<<15712>>
+Asi  pues la tabla de transiciones del autómata nos genera dos tablas:
+la tabla de acciones y la de saltos.
+El  algoritmo  de análisis sintáctico \emph<<15713>>LR<<15713>> en el  que 
+se basa \emph<<15714>>jison<<15714>> utiliza una pila y dos tablas 
+para analizar la entrada. <tex2html_comment_mark>5704
+Como se ha visto, la tabla  de acciones contiene cuatro tipo de acciones: 
+\begin<<15715>>enumerate<<15715>>
+\item
+Desplazar (\emph<<15716>>shift<<15716>>)
+\item
+Reducir (\emph<<15717>>reduce<<15717>>)
+\item
+Aceptar
+\item
+Error
+\end<<15718>>enumerate<<15718>>
+El algoritmo utiliza una pila en la que se guardan los estados
+del autómata. De este modo se evita tener que ``comenzar'' 
+el procesado de la forma sentencial derecha resultante
+después de una reducción (antiderivación).
+\begin<<15814>>theorem_type<<15814>>[algorithm][algorithm][section][][][]
+\label<<15720>>alg:parser<<15720>>       
+Análizador LR
+\begin<<15721>>tex2html_preform<<15721>><tex2html_verbatim_mark>verbatim5735#\end<<15722>>tex2html_preform<<15722>>\end<<15815>>theorem_type<<15815>>
+Como es habitual, \begin<<16452>>tex2html_wrap_inline<<16452>>$|x|$\end<<16453>>tex2html_wrap_inline<<16453>>\space denota la longitud de la cadena \begin<<16454>>tex2html_wrap_inline<<16454>>$x$\end<<16455>>tex2html_wrap_inline<<16455>>.
+La función <tex2html_verb_mark>2109<tex2html_verb_mark> devuelve el elemento que ocupa la 
+posición <tex2html_verb_mark>2110<tex2html_verb_mark> desde el \emph<<15724>>top<<15724>> de la pila (esto es, está a profundidad <tex2html_verb_mark>2111<tex2html_verb_mark>).
+La función <tex2html_verb_mark>2112<tex2html_verb_mark> extrae <tex2html_verb_mark>2113<tex2html_verb_mark> elementos de la pila.
+La notación <tex2html_verb_mark>2114<tex2html_verb_mark> hace referencia al atributo
+asociado con cada estado. Denotamos por <tex2html_verb_mark>2115<tex2html_verb_mark>
+el código de la acción asociada con la regla \begin<<16456>>tex2html_wrap_inline<<16456>>$A \rightarrow \alpha$\end<<16457>>tex2html_wrap_inline<<16457>>.
+\begin<<16772>>tex2html_deferred<<16772>>\par\end<<16773>>tex2html_deferred<<16773>>
+Todos los analizadores LR comparten, salvo pequeñas
+exepciones, el mismo algoritmo
+de análisis. Lo que más los diferencia es la forma en 
+la que construyen las tablas.
+En <tex2html_verb_mark>2116<tex2html_verb_mark>
+la construcción de las tablas de \emph<<15725>>acciones<<15725>> y \emph<<15726>>gotos<<15726>>
+se realiza mediante el algoritmo \emph<<15727>>LALR<<15727>>.
+\begin<<16774>>tex2html_deferred<<16774>>\par\end<<16775>>tex2html_deferred<<16775>>
+\section<<15948>>Práctica: Traducción de Infijo a Postfijo<<15948>>
+   \index<<15949>>Práctica!Traducción de Infijo a Postfijo<<15949>>
+  
+\label<<15729>>section:calculadoraampliada<<15729>>
+Modifique el programa Jison realizado en la práctica 
+\ref<<15730>>subsectionpractica:calculadora<<15730>>
+para traducir de infijo a postfijo. 
+Añada los operadores de comparación e igualdad.
+Por ejemplo
+\begin<<16776>>tex2html_deferred<<16776>>\par\end<<16777>>tex2html_deferred<<16777>>
+\begin<<15731>>center<<15731>>
+\begin<<15732>>tabular<<15732>><<15764>>p<<15733>>6cm<<15733>>|p<<15734>>6cm<<15734>><<15764>>
+Infijo              ;SPMamp; Postfijo \\ 
+<tex2html_verb_mark>2117<tex2html_verb_mark>    ;SPMamp;  <tex2html_verb_mark>2118<tex2html_verb_mark>\\ 
+<tex2html_verb_mark>2119<tex2html_verb_mark>  ;SPMamp;  <tex2html_verb_mark>2120<tex2html_verb_mark>
+\end<<15735>>tabular<<15735>>
+\end<<15736>>center<<15736>>
+En estas traducciones la notación 
+<tex2html_verb_mark>2121<tex2html_verb_mark> indica la dirección de la variable <tex2html_verb_mark>2122<tex2html_verb_mark>
+y <tex2html_verb_mark>2123<tex2html_verb_mark> indica el valor almacenado en la variable <tex2html_verb_mark>2124<tex2html_verb_mark>.
+\begin<<16778>>tex2html_deferred<<16778>>\par\end<<16779>>tex2html_deferred<<16779>>
+Añada sentencias 
+<tex2html_verb_mark>2125<tex2html_verb_mark> ...
+<tex2html_verb_mark>2126<tex2html_verb_mark> e <tex2html_verb_mark>2127<tex2html_verb_mark> ... <tex2html_verb_mark>2128<tex2html_verb_mark> ... <tex2html_verb_mark>2129<tex2html_verb_mark>
+\begin<<16780>>tex2html_deferred<<16780>>\par\end<<16781>>tex2html_deferred<<16781>>
+Para realizar la traducción de estas sentencias
+añada 
+instrucciones <tex2html_verb_mark>2130<tex2html_verb_mark> y <tex2html_verb_mark>2131<tex2html_verb_mark> (por <<15737>>\begin<<16782>>tex2html_deferred<<16782>>\it\end<<16783>>tex2html_deferred<<16783>>jump if zero<<15737>>)
+y etiquetas:
+\begin<<16784>>tex2html_deferred<<16784>>\par\end<<16785>>tex2html_deferred<<16785>>
+\begin<<15738>>center<<15738>>
+\begin<<15739>>tabular<<15739>><<15765>>p<<15740>>8cm<<15740>>|p<<15741>>6cm<<15741>><<15765>>
+Infijo              ;SPMamp; Postfijo \\ 
+\begin<<15742>>tex2html_preform<<15742>><tex2html_verbatim_mark>verbatim5736#\end<<15743>>tex2html_preform<<15743>>
+;SPMamp;
+\begin<<15744>>tex2html_preform<<15744>><tex2html_verbatim_mark>verbatim5737#\end<<15745>>tex2html_preform<<15745>>
+\end<<15746>>tabular<<15746>>
+\end<<15747>>center<<15747>>
+Introduzca pruebas unitarias como las descritas en 
+la sección \ref<<15748>>section:tstingfacil<<15748>> (<<15766>>\begin<<16786>>tex2html_deferred<<16786>>\it\end<<16787>>tex2html_deferred<<16787>>
+\htmladdnormallink<<15749>>Quick Tip: Quick and Easy JavaScript Testing with “Assert”<<15749>><<15750>>http://net.tutsplus.com/tutorials/javascript-ajax/quick-tip-quick-and-easy-javascript-testing-with-assert/<<15750>><<15766>>)
+\begin<<16788>>tex2html_deferred<<16788>>\par\end<<16789>>tex2html_deferred<<16789>>
+\begin<<15751>>tex2html_preform<<15751>><tex2html_verbatim_mark>verbatim5738#\end<<15752>>tex2html_preform<<15752>>
+\begin<<16790>>tex2html_deferred<<16790>>\par\end<<16791>>tex2html_deferred<<16791>>
+\section<<15767>>El módulo Generado por <<15753>>\begin<<16792>>tex2html_deferred<<16792>>\tt\end<<16793>>tex2html_deferred<<16793>>jison<<15753>><<15767>>
+\label<<15754>>section:tablas<<15754>>
+\begin<<16794>>tex2html_deferred<<16794>>\par\end<<16795>>tex2html_deferred<<16795>>

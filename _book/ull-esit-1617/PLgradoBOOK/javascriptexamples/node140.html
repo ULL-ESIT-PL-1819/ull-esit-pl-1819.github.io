@@ -1,0 +1,389 @@
+
+<H1><A NAME="SECTION05630000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:analisislexico"><tex2html_anchor_mark></A><BR>
+Análisis Léxico
+</H1>
+Comenzaremos con la parte mas sencilla del compilador: el analizador 
+léxico. 
+Habitualmente el término ``análisis léxico'' se refiere al tratamiento
+de la entrada que produce como salida
+la lista de <SPAN  CLASS="textbf">tokens</SPAN>. Un <SPAN  CLASS="textbf">token</SPAN> hace alusión 
+a las unidades mas simples que tiene significado. Habitualmente 
+un <SPAN  CLASS="textbf">token</SPAN> o lexema queda descrito por una expresión regular.
+Léxico viene del griego <SPAN  CLASS="textbf">lexis</SPAN>, que significa ``palabra''.
+Perl es, sobra decirlo, una herramienta eficaz para encontrar en que lugar 
+de la cadena se produce un emparejamiento.
+Sin embargo, en el análisis léxico, el problema es encontrar la subcadena
+a partir de la última posición en la que se produjo un emparejamiento
+y que es aceptada por una de las expresiones
+regulares que definen los lexemas del lenguaje dado.
+
+<P>
+La estructura general del analizador léxico consiste en un bucle en el que se va
+recorriendo la entrada, buscando por un emparejamiento con 
+uno de los patrones/lexemas especificados y, cuando se encuentra, se retorna esa información
+al analziador sintáctico. Como no tenemos escrito el analaizador sintáctico 
+simplemente iremos añadiéndo los terminales al final de una lista.
+
+<P>
+Una iteración del bucle tiene la forma de una secuencia de condicionales
+en las que se va comprobando si la entrada casa con cada una de las expresiones regulares
+que definen los terminales del lenguaje. Las condiciones tienen un aspecto similar a este:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5503#</PRE>
+
+<P>
+Una expresión como <tex2html_verb_mark>1572<tex2html_verb_mark> es una expresión regular.
+Es conveniente que en este punto repase la introducción a las 
+expresiones regulares en 
+<A HREF=<tex2html_ext_cr_mark>#section:introregexp#11988><tex2html_ext_cr_mark></A> [#CasianoIntroAPerl#<tex2html_cite_mark>#1##<tex2html_cite_mark>#]. 
+
+<P>
+
+<H4><A NAME="SECTION05630010000000000000">
+El Operador de Binding</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Nótese que, puesto que no se menciona sobre que variable
+se hace el <SPAN  CLASS="textbf">binding</SPAN> (no se usa ninguno de los operadores
+de <SPAN  CLASS="textbf">binding</SPAN> <tex2html_verb_mark>1573<tex2html_verb_mark> y <tex2html_verb_mark>1574<tex2html_verb_mark>): se entiende que 
+es sobre la variable por defecto <tex2html_verb_mark>1575<tex2html_verb_mark> sobre la que se 
+hace el matching.
+
+<P>
+
+<H4><A NAME="SECTION05630020000000000000">
+Casando a partir del Ültimo Emparejamiento</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+El ancla <tex2html_verb_mark>1576<tex2html_verb_mark> 
+casa con el punto en la cadena en el que terminó el último emparejamiento.
+
+<P>
+La expresión regular describiendo el patrón de interés se pone
+entre paréntesis para usar la estrategia de los paréntesis
+con memoria (véanse 
+<A HREF=<tex2html_cr_mark>#section:variablesmagicasereg#10607><tex2html_cr_mark></A>
+y
+<A HREF=<tex2html_cr_mark>#section:dolar1#10608><tex2html_cr_mark></A>). 
+
+<P>
+Las opciones <tex2html_verb_mark>1577<tex2html_verb_mark> y <tex2html_verb_mark>1578<tex2html_verb_mark> son especialmente 
+útiles para la construcción del analizador.
+
+<P>
+
+<H4><A NAME="SECTION05630030000000000000">
+La opción <TT>g</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+<SPAN  CLASS="textbf">
+Como lo usamos en un contexto escalar, la opción <#10610#><TT>g</TT><#10610#> itera sobre la cadena, devolviendo
+cierto cada vez que casa, y falso cuando deja de casar.</SPAN> 
+Se puede averiguar la posicion del emparejamiento
+utilizando la función <tex2html_verb_mark>1579<tex2html_verb_mark>. 
+(véase la sección <A HREF=<tex2html_cr_mark>#section:g#10611><tex2html_cr_mark></A> para mas información sobre la opción <tex2html_verb_mark>1580<tex2html_verb_mark>).
+
+<P>
+
+<H4><A NAME="SECTION05630040000000000000">
+La opción <TT>c</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+La opción
+<tex2html_verb_mark>1581<tex2html_verb_mark> afecta a las operaciones de emparejamiento
+con <tex2html_verb_mark>1582<tex2html_verb_mark> en un contexto escalar. Normalmente, <SPAN  CLASS="textbf">cuando una
+búsqueda global escalar tiene lugar y no ocurre casamiento,
+la posici&#243;n de comienzo de búsqueda es reestablecida</SPAN> al comienzo de
+la cadena.
+La opci&#243;n <tex2html_verb_mark>1583<tex2html_verb_mark> hace que la posici&#243;n inicial de 
+emparejamiento permanezca donde la dej&#243; el &#250;ltimo
+emparejamiento con &#233;xito y no se vaya al comienzo. 
+Al combinar esto con el ancla <tex2html_verb_mark>1584<tex2html_verb_mark>, la cuál
+casa con el final del último emparejamiento, obtenemos que la combinación
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5504#</PRE>
+
+<P>
+logra el efecto deseado: Si la primera expresión regular
+en la cadena <tex2html_verb_mark>1585<tex2html_verb_mark> fracasa, la posición de búsqueda no es inicializada
+de nuevo gracias a la opción <tex2html_verb_mark>1586<tex2html_verb_mark> y el ancla <tex2html_verb_mark>1587<tex2html_verb_mark> sigue recordando
+donde terminó el ultimo casamiento.
+
+<P>
+
+<H4><A NAME="SECTION05630050000000000000">
+La opción <TT>i</TT></A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Por último, la opción <tex2html_verb_mark>1588<tex2html_verb_mark> permite ignorar el tipo de letra (mayúsculas 
+o minúsculas).
+
+<P>
+Repase la sección
+<A HREF=<tex2html_cr_mark>#section:opciones#10617><tex2html_cr_mark></A>
+para ver algunas de las opciones mas usadas.
+
+<P>
+
+<H4><A NAME="SECTION05630060000000000000">
+Código del Analizador Léxico</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Este es el código completo de la subrutina <tex2html_verb_mark>1589<tex2html_verb_mark> que se encarga
+del análisis léxico:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5505#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05630070000000000000">
+Relación de corutina con el Analizador Sintáctico</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Si decidieramos establecer una relación de corutina con el analizador léxico los 
+condicionales se pueden programar siguiendo secuencias con esta estructura:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5506#</PRE>
+
+<P>
+
+<H4><A NAME="SECTION05630080000000000000">
+Manejo de Errores</A>
+</H4>
+  <TABLE CELLPADDING=3>
+</TABLE>
+
+
+<P>
+Para completar el analizador solo quedan declarar 
+las variables usadas y las subrutinas de manejo de errores:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5507#</PRE>
+
+<P>
+El uso de <tex2html_verb_mark>1590<tex2html_verb_mark> es necesario porque hemos 
+declarado al comienzo del módulo <tex2html_verb_mark>1591<tex2html_verb_mark>.
+El pragma <#10627#><TT>use strict</TT><#10627#> le indica al compilador Perl 
+que debe considerar como obligatorias un conjunto de reglas de
+buen estilo de programación. Entre otras restricciones, el uso del
+pragma implica que
+todas las variables (no-mágicas) 
+deben ser declaradas explícitamente (uso de <tex2html_verb_mark>1592<tex2html_verb_mark>, <tex2html_verb_mark>1593<tex2html_verb_mark>, etc.)
+La declaración <tex2html_verb_mark>1594<tex2html_verb_mark> se describe en <A HREF=<tex2html_ext_cr_mark>#subsection:our#12025><tex2html_ext_cr_mark></A> [#CasianoIntroAPerl#<tex2html_cite_mark>#1##<tex2html_cite_mark>#].
+
+<P>
+
+<H2><A NAME="SECTION05631000000000000000">
+Ejercicio: La opción <TT>g</TT></A>
+</H2>
+   <A NAME="12031"><tex2html_anchor_invisible_mark></A>
+  
+
+<P>
+Explique cada una de las líneas que siguen:
+<PRE><tex2html_verbatim_mark>verbatim5508#</PRE>
+
+<P>
+
+<H2><A NAME="SECTION05632000000000000000">
+Ejercicio: Opciones <TT>g</TT> y <TT>c</TT> en Expresiones Regulares</A>
+</H2>
+   <A NAME="12039"><tex2html_anchor_invisible_mark></A>
+  
+
+<P>
+Explique cada una de las conductas que siguen
+
+<UL>
+<LI>¿Porqué en la línea 18 se casa con la primera <tex2html_verb_mark>1595<tex2html_verb_mark>?
+<PRE><tex2html_verbatim_mark>verbatim5509#</PRE>
+
+<P>
+</LI>
+<LI>¿Porqué en la línea 27 se casa con la última <tex2html_verb_mark>1596<tex2html_verb_mark>?
+<PRE><tex2html_verbatim_mark>verbatim5510#</PRE>
+
+<P>
+</LI>
+<LI>¿Porqué en la línea 5 se produce casamiento y en la línea 8 no?
+<PRE><tex2html_verbatim_mark>verbatim5511#</PRE>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION05633000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12045"><tex2html_anchor_invisible_mark></A><BR>
+Ejercicio: El orden de las expresiones regulares
+</H2>
+  
+¿Que ocurriría en la subrutina <tex2html_verb_mark>1597<tex2html_verb_mark> si el código en las líneas
+17-19 que reconoce los identificadores se adelanta a la línea 8? 
+¿Que ocurriría con el reconocimiento de las palabras reservadas como
+<tex2html_verb_mark>1598<tex2html_verb_mark>? ¿Seguiría funcionando correctamente 
+el analizador?
+
+<P>
+
+<H2><A NAME="SECTION05634000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12047"><tex2html_anchor_invisible_mark></A><BR>
+Ejercicio: Regexp para cadenas
+</H2>
+  
+En la rutina <tex2html_verb_mark>1599<tex2html_verb_mark>. ¿Es legal que una cadena correspondiente
+al terminal <tex2html_verb_mark>1600<tex2html_verb_mark> contenga retornos de carro entre las comillas dobles?
+
+<P>
+
+<H2><A NAME="SECTION05635000000000000000">
+Ejercicio: El <TT>or</TT> es vago</A>
+</H2>
+   <A NAME="12052"><tex2html_anchor_invisible_mark></A>
+  
+Explique el resultado de la siguiente sesión con el depurador:
+<PRE><tex2html_verbatim_mark>verbatim5512#</PRE>
+Perl convierte la expresión regular en un NFA. A diferencia de lo 
+que ocurre en otras herramientas, el NFA no es convertido en un DFA.
+El NFA es entonces simulado. ¿Que está ocurriendo en la simulación? 
+
+<P>
+
+<H2><A NAME="SECTION05636000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12056"><tex2html_anchor_invisible_mark></A>
+  
+<A NAME="practica:lineasyerrores"><tex2html_anchor_mark></A><BR>
+Práctica: Números de Línea, Errores, Cadenas y Comentarios
+</H2>
+Extienda el analizador léxico para que:
+
+<UL>
+<LI>Reescriba la expresión regular para las cadenas de manera que acepte comillas dobles 
+escapadas <tex2html_verb_mark>1601<tex2html_verb_mark> en el interior de una cadena.
+Por ejemplo en <tex2html_verb_mark>1602<tex2html_verb_mark>.
+
+<P>
+Analice esta solución ¿Es correcta?:
+<PRE><tex2html_verbatim_mark>verbatim5513#</PRE>
+
+<P>
+</LI>
+<LI>Consuma comentarios a la Perl: 
+cualesquiera caracteres después de una almohadilla hasta el final 
+de la línea (<tex2html_verb_mark>1603<tex2html_verb_mark>).
+</LI>
+<LI>Consuma comentarios no anidados a la <SPAN  CLASS="textbf">C</SPAN> (<tex2html_verb_mark>1604<tex2html_verb_mark>.).
+Repase las secciones sobre expresiones regulares no ``greedy'' (p. ej. sección
+<A HREF=<tex2html_cr_mark>#section:nogreedy#10653><tex2html_cr_mark></A>) y la sección <A HREF=<tex2html_cr_mark>#section:x#10654><tex2html_cr_mark></A>.
+Recuerde que, en una expresión regular, 
+la opción <tex2html_verb_mark>1605<tex2html_verb_mark> hace que el punto <tex2html_verb_mark>1606<tex2html_verb_mark> empareje con un 
+retorno de carro <tex2html_verb_mark>1607<tex2html_verb_mark>.  Esto es, el punto ``casa'' con cualquier carácter.
+
+<P>
+Observe el siguiente ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim5514#</PRE>
+Cuando se ejecuta produce:
+<PRE><tex2html_verbatim_mark>verbatim5515#</PRE>
+
+<P>
+Explique la conducta.
+
+<P>
+</LI>
+<LI>Números en punto flotante (como <tex2html_verb_mark>1608<tex2html_verb_mark> o <tex2html_verb_mark>1609<tex2html_verb_mark>).
+El siguiente ejemplo intenta ayudarle en la búsqueda de la solución:
+<PRE><tex2html_verbatim_mark>verbatim5516#</PRE>
+¿Sabría decir porque la respuesta al primer comando del depurador es
+<tex2html_verb_mark>1610<tex2html_verb_mark>?.
+
+<P>
+</LI>
+<LI>Tenga presente el posible conflicto entre los terminales <tex2html_verb_mark>1611<tex2html_verb_mark> y <tex2html_verb_mark>1612<tex2html_verb_mark>.
+Si la entrada contiene <tex2html_verb_mark>1613<tex2html_verb_mark> el terminal debería ser <tex2html_verb_mark>1614<tex2html_verb_mark>
+y no <tex2html_verb_mark>1615<tex2html_verb_mark>.
+
+<P>
+</LI>
+<LI>En esta práctica si lo desea puede instalar y usar 
+<A NAME="tex2html349"
+  HREF="http://search.cpan.org/&#126;abigail/Regexp-Common-2.120/lib/Regexp/Common.pm">el módulo</A>
+<#12057#><TT>Regexp::Common</TT><#12057#> 
+<A NAME="tex2html350"
+  HREF="http://search.cpan.org/&#126;abigail/">mantenido por</A>
+<A NAME="12058"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">Abigail</SPAN> el cual provee expresiones regulares para las situaciones mas comunes: números, 
+teléfonos, IP, códigos postales, listas, etc. Puede incluso usarlo para encontrar 
+soluciones a las cuestiones planteadas en esta práctica:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5517#</PRE>
+Podemos hacer uso directo del hash <tex2html_verb_mark>1617<tex2html_verb_mark> directamente 
+en las expresiones regulares aprovechando que estas interpolan
+las variables en su interior:
+ <PRE><tex2html_verbatim_mark>verbatim5518#</PRE>
+</LI>
+<LI>Para mejorar la calidad de los mensajes de error extienda el par <tex2html_verb_mark>1618<tex2html_verb_mark>
+devuelto por el <tex2html_verb_mark>1619<tex2html_verb_mark> a un par <tex2html_verb_mark>1620<tex2html_verb_mark> cuya
+segunda componente es un array anónimo conteniendo 
+el valor y el número de línea en el que aparece el terminal.
+
+<P>
+El siguiente extracto de un analizador léxico muestra como hacerlo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5519#</PRE>
+El operador <tex2html_verb_mark>1621<tex2html_verb_mark> ha sido utilizado para contar los retornos de carro
+(descrito en la sección 
+<A HREF=<tex2html_cr_mark>#section:tr#10673><tex2html_cr_mark></A>). El operador, ademas de reemplazar
+devuelve el número de carácteres reeemplazados
+o suprimidos: 
+<PRE><tex2html_verbatim_mark>verbatim5520#</PRE>
+Para aprender soluciones alternativas consulte 
+<tex2html_verb_mark>1622<tex2html_verb_mark>.
+</LI>
+<LI>Mejore sus mensajes de error ahora que lleva la cuenta de los números
+de línea. En vez de usar las rutinas <tex2html_verb_mark>1623<tex2html_verb_mark> y <tex2html_verb_mark>1624<tex2html_verb_mark>
+introducidas en la sección anterior escriba una sola rutina
+que recibe el nivel de severidad del error (parámetro <tex2html_verb_mark>1625<tex2html_verb_mark>
+en el siguiente ejemplo)
+y ejecuta la acción apropiada. El código de <tex2html_verb_mark>1626<tex2html_verb_mark>
+ilustra como hacerlo:
+<PRE><tex2html_verbatim_mark>verbatim5521#</PRE>
+
+<P>
+</LI>
+</UL>
+
+<P>

@@ -1,0 +1,38 @@
+
+<H1><A NAME="SECTION05340000000000000000">
+Rangos</A>
+</H1>
+Cuando se usan dos direcciones separadas por una coma, el rango que
+representan se extiende desde la primera línea que casa con el patrón
+hasta la siguiente línea que casa con el segundo patrón.
+El siguiente <#3163#><I>script</I><#3163#> muestra las tablas que aparecen en un fichero <SPAN CLASS="logo,LaTeX">L<SUP><SMALL>A</SMALL></SUP>T<SMALL>E</SMALL>X</SPAN>:
+<PRE><tex2html_verbatim_mark>verbatim711#</PRE>
+
+<P>
+La siguiente selección para un rango comienza después de la
+última línea del rango previo; esto es, si el rango es /A/,/B/,
+el primer conjunto de líneas que casa va desde la primera
+aparicion de /A/ hasta la siguiente aparición de /B/. Asi,
+el número mínimo de líneas seleccionadas (si no es cero)
+es dos. Sólo en el caso en que la primera dirección es una
+expresión regular y la segunda un número de línea que viene
+antes de la línea que casa, es que sólo se selecciona una
+línea de emparejamiento.  No hay por tanto solapes entre dos
+casamientos en un misma rango de direcciones.  
+El siguiente ejemplo ilustra la forma en la que <tex2html_verb_mark>463<tex2html_verb_mark> interpreta
+los rangos de direcciones. Es una aproximación al problema de escribir
+los comentarios de un programa <#3166#><I>C</I><#3166#>.
+<PRE><tex2html_verbatim_mark>verbatim712#</PRE>
+Este <#3169#><I>script</I><#3169#> puede funcionar con programas cuyos
+comentarios (no anidados) empiecen y terminen en líneas 
+diferentes, como el del ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim713#</PRE>
+La ejecución del script selecciona los dos grupos de líneas
+que contienen comentarios:
+<PRE><tex2html_verbatim_mark>verbatim714#</PRE>
+Sin embargo, el script fallará en este otro ejemplo:
+<PRE><tex2html_verbatim_mark>verbatim715#</PRE>
+La ejecución del programa da como resultado:
+<PRE><tex2html_verbatim_mark>verbatim716#</PRE>
+
+<P>

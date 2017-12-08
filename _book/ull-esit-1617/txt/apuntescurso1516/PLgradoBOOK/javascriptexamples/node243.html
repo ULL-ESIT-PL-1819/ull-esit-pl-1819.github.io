@@ -1,0 +1,922 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Ejemplo de Uso de DataMapper</TITLE>
+<META NAME="description" CONTENT="Ejemplo de Uso de DataMapper">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="next" HREF="node244.html">
+<LINK REL="previous" HREF="node242.html">
+<LINK REL="up" HREF="node240.html">
+<LINK REL="next" HREF="node244.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html6116"
+  HREF="node244.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6110"
+  HREF="node240.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6104"
+  HREF="node242.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6112"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6114"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html6117"
+  HREF="node244.html">Configurando la Base de</A>
+<B>Sup:</B> <A NAME="tex2html6111"
+  HREF="node240.html">DataMapper y Sinatra</A>
+<B> Ant:</B> <A NAME="tex2html6105"
+  HREF="node242.html">Introducción al Patrón DataMapper</A>
+<B> Con:</B> 
+<A NAME="tex2html6112"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html6114"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsecciones</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><UL>
+<LI><UL>
+<LI><A NAME="tex2html6118"
+  HREF="node243.html#SECTION012930010000000000000">Donde</A>
+<LI><A NAME="tex2html6119"
+  HREF="node243.html#SECTION012930020000000000000">Enlaces</A>
+<LI><A NAME="tex2html6120"
+  HREF="node243.html#SECTION012930030000000000000">La Clase Song</A>
+<LI><A NAME="tex2html6121"
+  HREF="node243.html#SECTION012930040000000000000">DataMapper.finalize</A>
+<LI><A NAME="tex2html6122"
+  HREF="node243.html#SECTION012930050000000000000">Mas código de Song.rb</A>
+<LI><A NAME="tex2html6123"
+  HREF="node243.html#SECTION012930060000000000000">Song.create</A>
+<LI><A NAME="tex2html6124"
+  HREF="node243.html#SECTION012930070000000000000">Una sesión con pry probando DataMapper</A>
+<LI><A NAME="tex2html6125"
+  HREF="node243.html#SECTION012930080000000000000">DataMapper.setup</A>
+<LI><A NAME="tex2html6126"
+  HREF="node243.html#SECTION012930090000000000000">Multiple Data-Store Connections</A>
+<LI><A NAME="tex2html6127"
+  HREF="node243.html#SECTION0129300100000000000000">El Objeto DataMapper::Adapters</A>
+<LI><A NAME="tex2html6128"
+  HREF="node243.html#SECTION0129300110000000000000">Creando las tablas con DataMapper.auto_migrate!</A>
+<LI><A NAME="tex2html6129"
+  HREF="node243.html#SECTION0129300120000000000000">DataMapper.auto_upgrade!</A>
+<LI><A NAME="tex2html6130"
+  HREF="node243.html#SECTION0129300130000000000000">Métodos de la Clase Mapeada</A>
+<LI><A NAME="tex2html6131"
+  HREF="node243.html#SECTION0129300140000000000000">El método create</A>
+<LI><A NAME="tex2html6132"
+  HREF="node243.html#SECTION0129300150000000000000">first_or_create</A>
+<LI><A NAME="tex2html6133"
+  HREF="node243.html#SECTION0129300160000000000000">Comprobando con sqlite3</A>
+<LI><A NAME="tex2html6134"
+  HREF="node243.html#SECTION0129300170000000000000">Búsquedas y Consultas</A>
+<LI><A NAME="tex2html6135"
+  HREF="node243.html#SECTION0129300180000000000000">Borrando</A>
+<LI><A NAME="tex2html6136"
+  HREF="node243.html#SECTION0129300190000000000000">Búsqueda con Condiciones</A>
+<LI><A NAME="tex2html6137"
+  HREF="node243.html#SECTION0129300200000000000000">Insertando SQL</A>
+<LI><A NAME="tex2html6138"
+  HREF="node243.html#SECTION0129300210000000000000">main.rb</A>
+</UL></UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION012930000000000000000"></A>
+<A NAME="section:ejemplodedatamapper"></A>
+<BR>
+Ejemplo de Uso de DataMapper
+</H1>
+
+<P>
+
+<H4><A NAME="SECTION012930010000000000000">
+Donde</A>
+</H4>
+  
+
+<UL>
+<LI><PRE>
+[~/sinatra/sinatra-datamapper-jump-start(master)]$ pwd -P
+/Users/casiano/local/src/ruby/sinatra/sinatra-datamapper-jump-start
+</PRE>
+</LI>
+<LI><PRE>
+[~/sinatra/sinatra-datamapper-jump-start(master)]$ git remote -v
+origin  git@github.com:crguezl/sinatra-datamapper-jump-start.git (fetch)
+origin  git@github.com:crguezl/sinatra-datamapper-jump-start.git (push)
+</PRE>
+</LI>
+<LI><A NAME="tex2html648"
+  HREF="https://github.com/crguezl/sinatra-datamapper-jump-start">Este ejemplo en GitHub</A>
+</LI>
+<LI><A NAME="tex2html649"
+  HREF="http://sinadm.herokuapp.com/">http://sinadm.herokuapp.com/</A>
+(Puede que este caída)
+</LI>
+</UL>
+
+<P>
+
+<H4><A NAME="SECTION012930020000000000000">
+Enlaces</A>
+</H4>
+  
+
+<OL>
+<LI><A NAME="tex2html650"
+  HREF="http://rubydoc.info/github/datamapper/dm-core/">Documentación del módulo DataMapper</A>
+en RubyDoc
+</LI>
+<LI><A NAME="tex2html651"
+  HREF="https://github.com/crguezl/datamapper_example">https://github.com/crguezl/datamapper_example</A>
+</LI>
+<LI><A NAME="tex2html652"
+  HREF="https://github.com/crguezl/datamapper-intro">https://github.com/crguezl/datamapper-intro</A>
+<P>
+</LI>
+</OL>
+
+<P>
+
+<H4><A NAME="SECTION012930030000000000000">
+La Clase Song</A>
+</H4>
+  
+
+<PRE>
+[~/sinatra/sinatra-datamapper-jump-start(master)]$ cat song.rb 
+require 'dm-core'
+require 'dm-migrations'
+
+class Song
+  include DataMapper::Resource
+  property :id, Serial
+  property :title, String
+  property :lyrics, Text
+  property :length, Integer
+  
+end
+</PRE>
+The <code>Song</code> model is going to need to be persistent, 
+so we'll include <code>DataMapper::Resource</code>. 
+
+<P>
+The convention with model names is to use the singular, not plural version...
+but that's just the convention, we can do whatever we want.
+
+<P>
+<PRE>
+configure do
+  enable :sessions
+  set :username, 'frank'
+  set :password, 'sinatra'
+end
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012930040000000000000">
+DataMapper.finalize</A>
+</H4>
+  
+
+<P>
+<PRE>
+DataMapper.finalize
+</PRE>
+This method performs the  necessary steps to finalize <A NAME="tex2html653"
+  HREF="http://datamapper.org/docs/"><TT>DataMapper</TT></A> 
+for the current repository. It should be called after loading all models and plugins.
+It ensures foreign key properties and anonymous join models are
+created. These are otherwise lazily declared, which can lead to
+unexpected errors. It also performs basic validity checking of the
+<A NAME="tex2html654"
+  HREF="http://datamapper.org/docs/"><TT>DataMapper</TT></A> models.
+
+<P>
+
+<H4><A NAME="SECTION012930050000000000000">
+Mas código de Song.rb</A>
+</H4>
+  
+
+<PRE>
+get '/songs' do
+  @songs = Song.all
+  slim :songs
+end
+
+get '/songs/new' do
+  halt(401,'Not Authorized') unless session[:admin]
+  @song = Song.new
+  slim :new_song
+end
+
+get '/songs/:id' do
+  @song = Song.get(params[:id])
+  slim :show_song
+end
+
+get '/songs/:id/edit' do
+  @song = Song.get(params[:id])
+  slim :edit_song
+end
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012930060000000000000">
+Song.create</A>
+</H4>
+  
+
+<P>
+If you want to create a new resource with some given attributes and
+then save it all in one go, you can use the <code>#create</code> method:
+<PRE>
+post '/songs' do  
+  song = Song.create(params[:song])
+  redirect to("/songs/#{song.id}")
+end
+
+put '/songs/:id' do
+  song = Song.get(params[:id])
+  song.update(params[:song])
+  redirect to("/songs/#{song.id}")
+end
+
+delete '/songs/:id' do
+  Song.get(params[:id]).destroy
+  redirect to('/songs')
+end
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012930070000000000000">
+Una sesión con pry probando DataMapper</A>
+</H4>
+  
+
+<PRE>
+[~/sinatra/sinatra-datamapper-jump-start(master)]$ pry
+[1] pry(main)&gt; require 'sinatra'
+=&gt; true
+[2] pry(main)&gt; require './song'
+=&gt; true
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012930080000000000000">
+DataMapper.setup</A>
+</H4>
+  
+
+<P>
+We must specify our database connection.
+
+<P>
+We need to make sure to do this before you use our models, 
+i.e. before we actually start accessing the database.
+
+<P>
+<PRE>
+  # If you want the logs displayed you have to do this before the call to setup
+  DataMapper::Logger.new($stdout, :debug)
+
+  # An in-memory Sqlite3 connection:
+  DataMapper.setup(:default, 'sqlite::memory:')
+
+  # A Sqlite3 connection to a persistent database
+  DataMapper.setup(:default, 'sqlite:///path/to/project.db')
+
+  # A MySQL connection:
+  DataMapper.setup(:default, 'mysql://user:password@hostname/database')
+
+  # A Postgres connection:
+  DataMapper.setup(:default, 'postgres://user:password@hostname/database')
+Note: that currently you must setup a :default repository to work with DataMapper (and to be able to use additional differently named repositories). This might change in the future.
+</PRE>
+
+<P>
+In our case:
+
+<P>
+<PRE>
+[4] pry(main)&gt; pry(main)&gt; DataMapper.setup(:default,'sqlite:development.db')
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION012930090000000000000">
+Multiple Data-Store Connections</A>
+</H4>
+  
+
+<P>
+DataMapper sports a concept called a context which encapsulates the
+data-store context in which you want operations to occur. For example,
+when you setup a connection you are defining a
+context known as <code>:default</code>
+
+<P>
+<PRE>
+   DataMapper.setup(:default, 'mysql://localhost/dm_core_test')
+</PRE>
+If you supply another context name, you will now have 2 database contexts
+with their own unique loggers, connection pool, identity map....one
+<A NAME="15420"></A><SPAN  CLASS="textbf">default context</SPAN> and one <A NAME="15422"></A><SPAN  CLASS="textbf">named context</SPAN>.
+
+<P>
+<PRE>
+ DataMapper.setup(:external, 'mysql://someother_host/dm_core_test')
+</PRE>
+To use one context rather than another, simply wrap your code block inside
+a <code>repository</code> call. It will return whatever your block of code returns.
+
+<P>
+<PRE>
+ DataMapper.repository(:external) { Person.first }
+ # hits up your :external database and retrieves the first Person
+</PRE>
+This will use your connection to the <code>:external</code>
+ data-store and the first
+<code>Person</code> it finds. Later, when you call <code>.save</code> 
+on that person, it'll get
+saved back to the <code>:external</code> data-store; 
+An 
+<FONT COLOR="#ff0000"> object is aware of what
+context it came from and should be saved back to</FONT>.
+
+<P>
+
+<H4><A NAME="SECTION0129300100000000000000">
+El Objeto DataMapper::Adapters</A>
+</H4>
+  
+
+<PRE>
+=&gt; #&lt;DataMapper::Adapters::SqliteAdapter:0x007fad2c0f6a50
+ @field_naming_convention=DataMapper::NamingConventions::Field::Underscored,
+ @name=:default,
+ @normalized_uri=
+  #&lt;DataObjects::URI:0x007fad2c0f62a8
+   @fragment="{Dir.pwd}/development.db",
+   @host="",
+   @password=nil,
+   @path=nil,
+   @port=nil,
+   @query=
+    {"scheme"=&gt;"sqlite3",
+     "user"=&gt;nil,
+     "password"=&gt;nil,
+     "host"=&gt;"",
+     "port"=&gt;nil,
+     "query"=&gt;nil,
+     "fragment"=&gt;"{Dir.pwd}/development.db",
+     "adapter"=&gt;"sqlite3",
+     "path"=&gt;nil},
+   @relative=nil,
+   @scheme="sqlite3",
+   @subscheme=nil,
+   @user=nil&gt;,
+ @options=
+  {"scheme"=&gt;"sqlite3",
+   "user"=&gt;nil,
+   "password"=&gt;nil,
+   "host"=&gt;"",
+   "port"=&gt;nil,
+   "query"=&gt;nil,
+   "fragment"=&gt;"{Dir.pwd}/development.db",
+   "adapter"=&gt;"sqlite3",
+   "path"=&gt;nil},
+ @resource_naming_convention=
+  DataMapper::NamingConventions::Resource::UnderscoredAndPluralized&gt;
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0129300110000000000000">
+Creando las tablas con DataMapper.auto_migrate!</A>
+</H4>
+  
+
+We can create the table by issuing the following command:
+<PRE>
+[4] pry(main)&gt; DataMapper.auto_migrate!
+</PRE>
+
+<OL>
+<LI>This will issue the necessary <code>CREATE</code> statements (<code>DROP</code>ing
+the table first, if it exists) to define each storage according to
+their properties. 
+</LI>
+<LI>After <code>auto_migrate!</code> has been run, the
+database should be in a pristine state. 
+</LI>
+<LI>All the tables will be empty
+and match the model definitions.
+</LI>
+</OL>
+
+<P>
+
+<H4><A NAME="SECTION0129300120000000000000">
+DataMapper.auto_upgrade!</A>
+</H4>
+  
+
+This wipes out existing data, so you could also do:
+<PRE>
+DataMapper.auto_upgrade!
+</PRE>
+
+<P>
+
+<OL>
+<LI>This tries to make the schema match the model. 
+</LI>
+<LI>It will <code>CREATE</code>
+new tables, and add columns to existing tables. 
+</LI>
+<LI>It won't change any
+existing columns though (say, to add a <code>NOT NULL</code> constraint)
+and it doesn't drop any columns. 
+</LI>
+<LI>Both these commands also can be
+used on an individual model (e.g. <code>Song.auto_migrate!</code>)
+</LI>
+</OL>
+
+<P>
+
+<H4><A NAME="SECTION0129300130000000000000">
+Métodos de la Clase Mapeada</A>
+</H4>
+  
+
+<PRE>
+[5] pry(main)&gt; song = Song.new
+=&gt; #&lt;Song @id=nil @title=nil @lyrics=nil @length=nil @released_on=nil&gt;
+[6] pry(main)&gt; song.save
+=&gt; true
+[7] pry(main)&gt; song
+=&gt; #&lt;Song @id=1 @title=&lt;not loaded&gt; @lyrics=&lt;not loaded&gt; @length=&lt;not loaded&gt; @released_on=&lt;not loaded&gt;&gt;
+[8] pry(main)&gt; song.title = "My Way"
+=&gt; "My Way"
+[9] pry(main)&gt; song.lyrics
+=&gt; nil
+[10] pry(main)&gt; song.lyrics = "And now, the end is near ..."
+=&gt; "And now, the end is near ..."
+[11] pry(main)&gt; song.length = 435
+=&gt; 435
+[42] pry(main)&gt; song.save
+=&gt; true
+[43] pry(main)&gt; song
+=&gt; #&lt;Song @id=1 @title="My Way" @lyrics="And now, the end is near ..." @length=435 @released_on=nil&gt;
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0129300140000000000000">
+El método create</A>
+</H4>
+  
+
+If you want to create a new resource with some given attributes and
+then save it all in one go, you can use the <code>#create</code>
+method.
+<PRE>
+[28] pry(main)&gt; Song.create(title: "Come fly with me", lyrics: "Come fly with me, let's fly, let's fly away ...", length: 199) 
+=&gt; #&lt;Song @id=2 @title="Come fly with me" @lyrics="Come fly with me, let's fly, let's fly away ..." @length=199 @released_on=&lt;not loaded&gt;&gt;
+</PRE>
+
+<OL>
+<LI>If the creation was successful, <code>#create</code> will return the newly created <code>DataMapper::Resource</code>
+</LI>
+<LI>If it failed, it will return a new resource that is initialized with the given attributes and possible default values declared for that resource, but that's not yet saved
+</LI>
+<LI>To find out wether the creation was successful or not, you can call <code>#saved</code>? on the returned resource
+</LI>
+<LI>It will return <code>true</code> if the resource was successfully persisted, or <code>false</code> otherwise
+</LI>
+</OL>
+
+<P>
+
+<H4><A NAME="SECTION0129300150000000000000">
+first_or_create</A>
+</H4>
+  
+
+If you want to either find the first resource matching some given criteria or just create that resource if it can't be found, you can use <code>#first_or_create</code>.
+
+<P>
+<PRE>
+s = Song.first_or_create(:title =&gt; 'New York, New York')
+</PRE>
+This will first try to find a <code>Song</code> instance with the given <code>title</code>, and if it fails to do so, it will return a newly created <code>Song</code> with that <code>title</code>.
+
+<P>
+If the criteria you want to use to query for the resource differ from the attributes you need for creating a new resource, you can pass the attributes for creating a new resource as the second parameter to <code>#first_or_create</code>, also in the form of a <code>#Hash</code>.
+
+<P>
+<PRE>
+s = Song.first_or_create({ :title =&gt; 'My Way' }, { :lyrics =&gt; '... the end is not near' })
+</PRE>
+
+<P>
+This will search for a <code>Song</code> named '<code>My Way</code>' and if it
+can't find one, it will return a new <code>Song</code> instance with its
+name set to '<code>My Way</code>' and the <code>lyrics</code> set to 
+<code>.. the end is not near</code> 
+
+<P>
+
+<OL>
+<LI>You can see that for creating a new resource, both hash
+arguments will be merged so you don't need to specify the query
+criteria again in the second argument Hash that lists the attributes
+for creating a new resource
+</LI>
+<LI>However, if you really need to create the new resource with
+different values from those used to query for it, the second Hash
+argument will overwrite the first one.
+</LI>
+</OL>
+
+<P>
+<PRE>
+s = Song.first_or_create({ :title =&gt; 'My Way' }, {
+  :title  =&gt; 'My Way Home',
+  :lyrics =&gt; '... the end is not near'
+})
+</PRE>
+This will search for a <code>Song</code> named 
+<code>'My Way'</code> but if it fails to find one, 
+it will return a <code>Song</code> instance with its 
+title set to <code>'My Way Home'</code> and its 
+<code>lyrics</code> set to <code>'... the end is not near'</code>.
+
+<P>
+
+<H4><A NAME="SECTION0129300160000000000000">
+Comprobando con sqlite3</A>
+</H4>
+  
+
+<P>
+Podemos abrir la base de datos con el gestor de base de datos y comprobar
+que las tablas y los datos están allí:
+<PRE>
+[~/sinatra/sinatra-datamapper-jump-start(master)]$ sqlite3 development.db 
+SQLite version 3.7.11 2012-03-20 11:35:50
+Enter ".help" for instructions
+Enter SQL statements terminated with a ";"
+sqlite&gt; .schema
+CREATE TABLE "songs" ("id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+		      "title" VARCHAR(50), "lyrics" TEXT, "length"
+		      INTEGER, "released_on" TIMESTAMP);
+sqlite&gt; select * from songs;
+1|My Way|And now, the end is near ...|435|
+2|Come fly with me|Come fly with me, let's fly, let's fly away ...|199|
+sqlite&gt;
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0129300170000000000000">
+Búsquedas y Consultas</A>
+</H4>
+  
+
+<A NAME="tex2html655"
+  HREF="http://datamapper.org/docs/"><TT>DataMapper</TT></A> has methods which allow you to grab a single record by
+key, the first match to a set of conditions, or a collection of
+records matching conditions.
+
+<P>
+<PRE>
+song  = Song.get(1)                     # get the song with primary key of 1.
+song  = Song.get!(1)                    # Or get! if you want an ObjectNotFoundError on failure
+song  = Song.first(:title =&gt; 'Girl')    # first matching record with the title 'Girl'
+song  = Song.last(:title =&gt; 'Girl')     # last matching record with the title 'Girl'
+songs = Song.all                        # all songs
+</PRE>
+
+<P>
+<PRE>
+[29] pry(main)&gt; Song.count
+=&gt; 2
+[30] pry(main)&gt; Song.all
+=&gt; [#&lt;Song @id=1 @title=nil @lyrics=&lt;not loaded&gt; @length=nil @released_on=nil&gt;, #&lt;Song @id=2 @title="Come fly with me" @lyrics=&lt;not loaded&gt; @length=199 @released_on=nil&gt;]
+[31] pry(main)&gt; Song.get(1)
+=&gt; #&lt;Song @id=1 @title=nil @lyrics=&lt;not loaded&gt; @length=nil @released_on=nil&gt;
+[32] pry(main)&gt; Song.first
+=&gt; #&lt;Song @id=1 @title=nil @lyrics=&lt;not loaded&gt; @length=nil @released_on=nil&gt;
+[33] pry(main)&gt; Song.last
+=&gt; #&lt;Song @id=2 @title="Come fly with me" @lyrics=&lt;not loaded&gt; @length=199 @released_on=nil&gt;
+[35] pry(main)&gt; x = Song.first(title: 'Come fly with me')
+=&gt; #&lt;Song @id=2 @title="Come fly with me" @lyrics=&lt;not loaded&gt; @length=199 @released_on=nil&gt;
+</PRE>
+
+<P>
+<PRE>
+[44] pry(main)&gt; y = Song.first(title: 'My Way')
+=&gt; #&lt;Song @id=1 @title="My Way" @lyrics=&lt;not loaded&gt; @length=435 @released_on=nil&gt;
+[45] pry(main)&gt; y.length
+=&gt; 435
+[46] pry(main)&gt; y.update(length: 275)
+=&gt; true
+</PRE>
+
+<P>
+En Sqlite3:
+<PRE>
+sqlite&gt; select * from songs;
+1|My Way|And now, the end is near ...|275|
+2|Come fly with me|Come fly with me, let's fly, let's fly away ...|199|
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0129300180000000000000">
+Borrando</A>
+</H4>
+  
+
+<PRE>
+[47] pry(main)&gt; Song.create(title: "One less lonely girl")
+=&gt; #&lt;Song @id=3 @title="One less lonely girl" @lyrics=&lt;not loaded&gt; @length=&lt;not loaded&gt; @released_on=&lt;not loaded&gt;&gt;
+[48] pry(main)&gt; Song.last.destroy
+=&gt; true
+[49] pry(main)&gt; Song.all
+=&gt; [#&lt;Song @id=1 @title="My Way" @lyrics=&lt;not loaded&gt; @length=275 @released_on=nil&gt;, #&lt;Song @id=2 @title="Come fly with me" @lyrics=&lt;not loaded&gt; @length=199 @released_on=nil&gt;]
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0129300190000000000000">
+Búsqueda con Condiciones</A>
+</H4>
+  
+
+Rather than defining conditions using SQL fragments, we can actually specify conditions using a hash.
+
+<P>
+The examples above are pretty simple, but you might be wondering
+how we can specify conditions beyond equality without resorting to
+SQL. Well, thanks to some clever additions to the <A NAME="tex2html656"
+  HREF="http://ruby-doc.org/core-2.0.0/Symbol.html"><TT>Symbol</TT></A> class,
+it's easy!
+
+<P>
+<PRE>
+exhibitions = Exhibition.all(:run_time.gt =&gt; 2, :run_time.lt =&gt; 5)
+# =&gt; SQL conditions: 'run_time &gt; 1 AND run_time &lt; 5'
+</PRE>
+Valid symbol operators for the conditions are:
+
+<P>
+<PRE>
+gt    # greater than
+lt    # less than
+gte   # greater than or equal
+lte   # less than or equal
+not   # not equal
+eql   # equal
+like  # like
+</PRE>
+Veamos un ejemplo de uso con nuestra clase <code>Song</code>:
+<PRE>
+[31] pry(main)&gt; Song.all.each do |s|
+[31] pry(main)*   s.update(length: rand(400))
+[31] pry(main)* end  
+=&gt; [#&lt;Song @id=1 @title="My Way" @lyrics=&lt;not loaded&gt; @length=122 @released_on=nil&gt;,
+   #&lt;Song @id=2 @title="Come fly with me" @lyrics=&lt;not loaded&gt; @length=105 @released_on=nil&gt;,
+   #&lt;Song @id=4 @title="Girl from Ipanema" @lyrics=&lt;not loaded&gt; @length=389 @released_on=nil&gt;]
+[32] pry(main)&gt; long = Song.all(:length.gt =&gt; 120)
+=&gt; [#&lt;Song @id=1 @title="My Way" @lyrics=&lt;not loaded&gt; @length=122 @released_on=nil&gt;,
+   #&lt;Song @id=4 @title="Girl from Ipanema" @lyrics=&lt;not loaded&gt; @length=389 @released_on=nil&gt;]
+</PRE>
+
+<P>
+
+<H4><A NAME="SECTION0129300200000000000000">
+Insertando SQL</A>
+</H4>
+  
+
+Sometimes you may find that you need to tweak a query manually:
+<PRE>
+[40] pry(main)&gt; songs = repository(:default).adapter.select('SELECT title FROM songs WHERE length &gt;= 110')
+=&gt; ["My Way", "Girl from Ipanema"]
+</PRE>
+Note that this will not return <code>Song</code> objects, 
+rather the raw data straight from the database
+
+<P>
+
+<H4><A NAME="SECTION0129300210000000000000">
+main.rb</A>
+</H4>
+  
+
+<P>
+<PRE>
+[~/sinatra/sinatra-datamapper-jump-start(master)]$ cat main.rb
+require 'sinatra'
+require 'slim'
+require 'sass'
+require './song'
+
+configure do
+  enable :sessions
+  set :username, 'frank'
+  set :password, 'sinatra'
+end
+
+configure :development do
+  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+end
+
+configure :production do
+  DataMapper.setup(:default, ENV['DATABASE_URL'])
+end
+
+get('/styles.css'){ scss :styles }
+
+get '/' do
+  slim :home
+end
+
+get '/about' do
+  @title = "All About This Website"
+  slim :about
+end
+
+get '/contact' do
+  slim :contact
+end
+
+not_found do
+  slim :not_found
+end
+
+get '/login' do
+  slim :login
+end
+
+post '/login' do
+  if params[:username] == settings.username &amp;&amp; params[:password] == settings.password
+    session[:admin] = true
+    redirect to('/songs')
+  else
+    slim :login
+  end
+end
+
+get '/logout' do
+  session.clear
+  redirect to('/login')
+end
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html6116"
+  HREF="node244.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html6110"
+  HREF="node240.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html6104"
+  HREF="node242.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html6112"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html6114"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html6117"
+  HREF="node244.html">Configurando la Base de</A>
+<B>Sup:</B> <A NAME="tex2html6111"
+  HREF="node240.html">DataMapper y Sinatra</A>
+<B> Ant:</B> <A NAME="tex2html6105"
+  HREF="node242.html">Introducción al Patrón DataMapper</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

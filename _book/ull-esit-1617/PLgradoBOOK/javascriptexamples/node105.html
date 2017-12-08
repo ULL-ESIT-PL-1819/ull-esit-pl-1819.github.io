@@ -1,0 +1,16 @@
+
+<H1><A NAME="SECTION052240000000000000000">
+Declaraciones pointer y array</A>
+</H1>
+Como se coment&#243;, las opciones <tex2html_verb_mark>436<tex2html_verb_mark> y <tex2html_verb_mark>437<tex2html_verb_mark>
+controlan la definici&#243;n que
+<SPAN  CLASS="textit">flex</SPAN> hace de <SPAN  CLASS="textit">yytext</SPAN>. en el caso en que eligamos la opci&#243;n 
+<tex2html_verb_mark>439<tex2html_verb_mark> la variable <tex2html_verb_mark>440<tex2html_verb_mark> controla el tama&#241;o del
+<SPAN  CLASS="textit">array</SPAN>. Supongamos que en el fichero <SPAN  CLASS="textit">trivial.l</SPAN> del ejemplo
+anterior introducimos las siguientes modificaciones:
+<PRE><tex2html_verbatim_mark>verbatim676#</PRE>
+En tal caso, la definici&#243;n excesivamente peque&#241;a de YYLMAX provoca
+un error en tiempo de ejecuci&#243;n:
+<PRE><tex2html_verbatim_mark>verbatim677#</PRE>
+
+<P>

@@ -1,0 +1,416 @@
+
+<H1><A NAME="SECTION058180000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="18449"><tex2html_anchor_invisible_mark></A>
+  
+<A NAME="section:samplec"><tex2html_anchor_mark></A><BR>
+Práctica: Un C simplificado
+</H1>
+Escriba un analizador sintáctico 
+usando <tex2html_verb_mark>2532<tex2html_verb_mark> para el siguiente lenguaje.
+La descripción utiliza una notación tipo BNF: las llaves indican 
+0 o mas repeticiones y los corchetes opcionalidad.
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT">program</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7187#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37613#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">definitions { definitions }</TD>
+</TR>
+<TR><TD ALIGN="LEFT">definitions</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7188#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37615#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">datadefinition <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37617#</SPAN>
+<tex2html_verbatim_mark>mathend000# functiondefinition</TD>
+</TR>
+<TR><TD ALIGN="LEFT">datadefinition</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7189#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37619#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">basictype declarator { ',' declarator } ';'</TD>
+</TR>
+<TR><TD ALIGN="LEFT">declarator</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7190#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37621#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">ID { '<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37623#</SPAN>
+<tex2html_verbatim_mark>mathend000#' constantexp '<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37625#</SPAN>
+<tex2html_verbatim_mark>mathend000#' }</TD>
+</TR>
+<TR><TD ALIGN="LEFT">functiondefinition</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7191#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37627#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37629#</SPAN>
+<tex2html_verbatim_mark>mathend000# basictype <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37631#</SPAN>
+<tex2html_verbatim_mark>mathend000# functionheader functionbody</TD>
+</TR>
+<TR><TD ALIGN="LEFT">basictype</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7192#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37633#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">INT  <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37635#</SPAN>
+<tex2html_verbatim_mark>mathend000# CHAR</TD>
+</TR>
+<TR><TD ALIGN="LEFT">functionheader</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7193#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37637#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">ID '(' <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37639#</SPAN>
+<tex2html_verbatim_mark>mathend000# parameters <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37641#</SPAN>
+<tex2html_verbatim_mark>mathend000# ')'</TD>
+</TR>
+<TR><TD ALIGN="LEFT">parameters</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7194#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37643#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">basictype declarator { ',' basictype declarator }</TD>
+</TR>
+<TR><TD ALIGN="LEFT">functionbody</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7195#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37645#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">'{' { datadefinition } { statement } '}'</TD>
+</TR>
+<TR><TD ALIGN="LEFT">statement</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7196#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37647#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37649#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37651#</SPAN>
+<tex2html_verbatim_mark>mathend000# ';'</TD>
+</TR>
+<TR><TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37653#</SPAN>
+<tex2html_verbatim_mark>mathend000# '{' { datadefinition } { statement } '}'</TD>
+</TR>
+<TR><TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37655#</SPAN>
+<tex2html_verbatim_mark>mathend000# IF '(' exp ')' statement <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37657#</SPAN>
+<tex2html_verbatim_mark>mathend000# ELSE statement <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37659#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37661#</SPAN>
+<tex2html_verbatim_mark>mathend000# WHILE '(' exp ')' statement</TD>
+</TR>
+<TR><TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37663#</SPAN>
+<tex2html_verbatim_mark>mathend000# RETURN <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37665#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37667#</SPAN>
+<tex2html_verbatim_mark>mathend000# ';'</TD>
+</TR>
+<TR><TD ALIGN="LEFT">constantexp</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7197#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37669#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">exp</TD>
+</TR>
+<TR><TD ALIGN="LEFT">exp</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7198#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37671#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">lvalue '=' exp <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37673#</SPAN>
+<tex2html_verbatim_mark>mathend000# lvalue '+=' exp</TD>
+</TR>
+<TR><TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37675#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '<tex2html_ampersand_mark><tex2html_ampersand_mark>' exp <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37677#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37679#</SPAN>
+<tex2html_verbatim_mark>mathend000#' exp  <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37681#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37683#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '==' exp <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37685#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '!=' exp  <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37687#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37689#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37691#</SPAN>
+<tex2html_verbatim_mark>mathend000#' exp <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37693#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37695#</SPAN>
+<tex2html_verbatim_mark>mathend000#' exp  <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37697#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37699#</SPAN>
+<tex2html_verbatim_mark>mathend000#' exp <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37701#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37703#</SPAN>
+<tex2html_verbatim_mark>mathend000#' exp  <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37705#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37707#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '+' exp <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37709#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '-' exp  <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37711#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37713#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '*' exp <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37715#</SPAN>
+<tex2html_verbatim_mark>mathend000# exp '/' exp <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37717#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT">;SPMnbsp;</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37719#</SPAN>
+<tex2html_verbatim_mark>mathend000# unary</TD>
+</TR>
+<TR><TD ALIGN="LEFT">unary</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7199#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37721#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">'<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37723#</SPAN>
+<tex2html_verbatim_mark>mathend000#' lvalue  <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37725#</SPAN>
+<tex2html_verbatim_mark>mathend000# '<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37727#</SPAN>
+<tex2html_verbatim_mark>mathend000#' lvalue <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37729#</SPAN>
+<tex2html_verbatim_mark>mathend000# primary</TD>
+</TR>
+<TR><TD ALIGN="LEFT">primary</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7200#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37731#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">'(' exp ')' <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37733#</SPAN>
+<tex2html_verbatim_mark>mathend000# ID '(' <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37735#</SPAN>
+<tex2html_verbatim_mark>mathend000# argumentlist <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37737#</SPAN>
+<tex2html_verbatim_mark>mathend000# ')' <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37739#</SPAN>
+<tex2html_verbatim_mark>mathend000# lvalue <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37741#</SPAN>
+<tex2html_verbatim_mark>mathend000# NUM <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37743#</SPAN>
+<tex2html_verbatim_mark>mathend000# CHARACTER</TD>
+</TR>
+<TR><TD ALIGN="LEFT">lvalue</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7201#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37745#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">ID  { '<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37747#</SPAN>
+<tex2html_verbatim_mark>mathend000#' exp '<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37749#</SPAN>
+<tex2html_verbatim_mark>mathend000#' }</TD>
+</TR>
+<TR><TD ALIGN="LEFT">argumentlist</TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math7202#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37751#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT">exp { ',' exp }</TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+Su analizador, además de seguir los consejos explícitados en la 
+sección <A HREF=<tex2html_cr_mark>#section:consejosyapp#17945><tex2html_cr_mark></A>,
+deberá cumplir las siguientes especificaciones:
+
+<P>
+
+<OL>
+<LI><#17947#><B>Método de Trabajo</B><#17947#>
+
+<P>
+Parta de la definición BNF y proceda a introducir las reglas poco a poco:
+<PRE><tex2html_verbatim_mark>verbatim6183#</PRE>
+
+<P>
+
+<OL>
+<LI>Comienze trabajando en el cuerpo de la gramática.
+</LI>
+<LI>Olvídese del 
+analizador léxico por ahora. Su objetivo es tener una gramática limpia
+de conflictos y que reconozca el lenguaje dado. 
+</LI>
+<LI>Sustituya las repeticiones
+BNF por listas. Si una variable describe una lista de <tex2html_verb_mark>2533<tex2html_verb_mark> llámela
+<tex2html_verb_mark>2534<tex2html_verb_mark>. 
+</LI>
+<LI>Si tiene un elemento opcional en la BNF, por ejemplo, en la regla: 
+
+<P>
+functiondefinition <tex2html_verbatim_mark>#math7203#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37831#</SPAN>
+<tex2html_verbatim_mark>mathend000# <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37833#</SPAN>
+<tex2html_verbatim_mark>mathend000# basictype <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37835#</SPAN>
+<tex2html_verbatim_mark>mathend000# functionheader functionbody
+
+<P>
+sustitúyala por dos reglas una en la que aparece el elemento y otra en la 
+que no.
+<PRE><tex2html_verbatim_mark>verbatim6184#</PRE>
+</LI>
+<LI>Cada par de reglas que introduzca vuelva a recompilar con <tex2html_verb_mark>2535<tex2html_verb_mark> la gramática
+para ver si se han producido conflictos. Cuando estoy editando la gramática
+suelo escribir a menudo la orden 
+
+<P>
+<tex2html_verb_mark>2537<tex2html_verb_mark> 
+
+<P>
+para recompilar:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=411><PRE><tex2html_verbatim_mark>verbatim6185#</PRE></TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+
+<P>
+Esto llama a <tex2html_verb_mark>2538<tex2html_verb_mark> con el fichero bajo edición. Si hay errores los detectaré
+enseguida.
+</LI>
+<LI>Insisto, procure detectar la aparición de un conflicto lo antes posible. Es terrible
+tener que limpiar una gramática llena de conflictos.
+</LI>
+<LI><SPAN ID="txt17960">Ponga nombres significativos a las variables y terminales</SPAN>. Por favor,
+no los llame <tex2html_verb_mark>2539<tex2html_verb_mark>, <tex2html_verb_mark>2540<tex2html_verb_mark>, etc.
+</LI>
+<LI>Cuando esté en el proceso de construcción de la gramática y aún le queden
+por rellenar variables sintácticas, declárelas como terminales mediante
+<tex2html_verb_mark>2542<tex2html_verb_mark> como en el código que aparece encima. De esta manera
+evitará las quejas de <tex2html_verb_mark>2543<tex2html_verb_mark>.
+</LI>
+</OL>
+
+<P>
+</LI>
+<LI><#17962#><B>Resolución de Conflictos</B><#17962#>
+
+<P>
+Las operaciones de asignación tienen la prioridad mas baja,
+seguidas  de las lógicas, los test de igualdad y después 
+de los de comparación, a continuación las aditivas, multiplicativas y por 
+último los <tex2html_verb_mark>2544<tex2html_verb_mark> y <tex2html_verb_mark>2545<tex2html_verb_mark>. Exprese la asociatividad natural y la
+prioridad especificada usando
+los mecanismos que <tex2html_verb_mark>2546<tex2html_verb_mark> provee al efecto.
+
+<P>
+La gramática es ambigua, ya que para una sentencia como 
+
+<P>
+<DIV ALIGN="CENTER">
+if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37838#</SPAN>
+<tex2html_verbatim_mark>mathend000# then if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37840#</SPAN>
+<tex2html_verbatim_mark>mathend000# then <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37842#</SPAN>
+<tex2html_verbatim_mark>mathend000# else <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37844#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+existen dos árboles posibles: uno que asocia el ``else'' con el primer ``if'' y otra
+que lo asocia con el segundo. Los dos árboles corresponden a las
+dos posibles parentizaciones:
+
+<P>
+<DIV ALIGN="CENTER">
+if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37846#</SPAN>
+<tex2html_verbatim_mark>mathend000# then (if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37848#</SPAN>
+<tex2html_verbatim_mark>mathend000# then <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37850#</SPAN>
+<tex2html_verbatim_mark>mathend000# else <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37852#</SPAN>
+<tex2html_verbatim_mark>mathend000#)
+
+</DIV>
+
+<P>
+Esta es la regla de prioridad usada en la mayor parte de los lenguajes:
+un ``else'' casa con el ``if'' mas cercano. La otra posible parentización
+es:
+
+<P>
+<DIV ALIGN="CENTER">
+if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37854#</SPAN>
+<tex2html_verbatim_mark>mathend000# then (if <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37856#</SPAN>
+<tex2html_verbatim_mark>mathend000# then <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37858#</SPAN>
+<tex2html_verbatim_mark>mathend000#) else <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline37860#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+Utilice los mecanismos de priorización proporcionados por <tex2html_verb_mark>2547<tex2html_verb_mark>
+para resolver el conflicto shift-reduce generado. ¿Es correcta 
+en este caso particular la conducta a la que da lugar la acción <tex2html_verb_mark>2548<tex2html_verb_mark>
+por defecto?
+
+<P>
+</LI>
+<LI><#17969#><B>Analizador Léxico</B><#17969#>
+
+<P>
+Además del tipo de terminal y su valor el analizador
+léxico deberá devolver el número de línea.
+El analizador léxico deberá aceptar comentarios C.
+En la gramática, el terminal <tex2html_verb_mark>2549<tex2html_verb_mark> se refiere a 
+caracteres entre comillas simples (por ejemplo <tex2html_verb_mark>2550<tex2html_verb_mark>).
+
+<P>
+Se aconseja que las palabras reservadas del lenguaje
+no se traten con expresiones regulares específicas sino que se
+capturen en el patrón de identificador <tex2html_verb_mark>2551<tex2html_verb_mark>. 
+Se mantiene para ello un hash con las palabras reservadas 
+que es inicializado al comienzo del programa. Cuando 
+el analizador léxico encuentra un identificador
+mira en primer lugar en dicho hash 
+para ver si es una palabra reservada y,
+si lo es, devuelve el terminal correspondiente.
+En caso contrario se trata de un identificador.
+
+<P>
+</LI>
+<LI><#17970#><B>Recuperación de Errores</B><#17970#>
+
+<P>
+Extienda la práctica 
+con reglas para la recuperación de errores. 
+Para las listas, siga los consejos 
+dados en la sección <A HREF=<tex2html_cr_mark>#table:err#17971><tex2html_cr_mark></A>.
+En aquellos casos en los que la introducción de las reglas
+de recuperación produzca ambiguedad, resuelva los conflictos.
+
+<P>
+</LI>
+<LI><#17972#><B>Árbol de Análisis Abstracto</B><#17972#>
+
+<P>
+La semántica del lenguaje es similar a la del lenguaje C (por ejemplo,
+las expresiones lógicas se tratan como expresiones enteras).
+El analizador deberá producir un árbol sintáctico abstracto. Como se hizo para el
+lenguaje Tutu introducido en el capítulo 
+<A HREF=<tex2html_cr_mark>#chapter:introcomp#17973><tex2html_cr_mark></A>, cada clase de nodo 
+deberá corresponderse con una clase Perl. 
+Por ejemplo, para una regla como 
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>2552<tex2html_verb_mark>
+
+</DIV>
+
+<P>
+la acción asociada sería algo parecido a 
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>2553<tex2html_verb_mark>
+
+</DIV>
+
+<P>
+donde usamos un array anónimo. Mejor aún es usar un hash anónimo:
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>2554<tex2html_verb_mark>
+
+</DIV>
+
+<P>
+Defina formalmente el arbol especificando la gramática árbol correspondiente a su diseño
+(repase la sección <A HREF=<tex2html_cr_mark>#subsection:lenguajesarbol#17980><tex2html_cr_mark></A>).
+Introduzca en esta parte la tabla de símbolos.
+La tabla de símbolos es, como en el compilador de Tutu, una lista 
+de referencias a hashes conteniendo las tablas de símbolos locales a 
+cada bloque.  En cada momento, la lista refleja el anidamiento de bloques 
+actual. Es posible que, en la declaración 
+de funciones, le interese crear un nuevo bloque en el que guardar los parámetros,
+de manera que las variables globales queden a nivel 0, los parámetros 
+de una función a nivel 1 y las variables locales de la función a nivel 2
+o superior.
+</LI>
+</OL>
+
+<P>

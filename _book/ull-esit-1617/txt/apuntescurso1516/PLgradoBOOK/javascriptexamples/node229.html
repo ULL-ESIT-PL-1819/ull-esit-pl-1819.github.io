@@ -1,0 +1,426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Práctica: Servicio de Syntax Highlighting</TITLE>
+<META NAME="description" CONTENT="Práctica: Servicio de Syntax Highlighting">
+<META NAME="keywords" CONTENT="javascriptexamples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mystyle.css">
+
+<LINK REL="previous" HREF="node228.html">
+<LINK REL="up" HREF="node199.html">
+<LINK REL="next" HREF="node230.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation">
+<A NAME="tex2html5894"
+  HREF="node230.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5888"
+  HREF="node199.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5884"
+  HREF="node228.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5890"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5892"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5895"
+  HREF="node230.html">Sinatra desde Dentro</A>
+<B>Sup:</B> <A NAME="tex2html5889"
+  HREF="node199.html">Fundamentos</A>
+<B> Ant:</B> <A NAME="tex2html5885"
+  HREF="node228.html">Práctica: TicTacToe usando DataMapper</A>
+<B> Con:</B> 
+<A NAME="tex2html5890"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A>
+<B> Ind:</B> 
+<A NAME="tex2html5892"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A>
+<BR> <P>
+</DIV>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION0123300000000000000000"></A>
+   <A NAME="15007"></A>
+<BR>
+Práctica: Servicio de Syntax Highlighting
+</H1>
+  
+Construya una aplicación que provee syntax higlighting
+para un código que se vuelca en un formulario.
+Use la gema <A NAME="tex2html627"
+  HREF="http://syntaxi.rubyforge.org/">syntaxi</A>.
+
+<P>
+El siguiente ejemplo muestra como funciona la gema <code>syntaxi</code>:
+
+<P>
+<PRE>
+[~/rubytesting/syntax_highlighting]$ cat ex_syntaxi.rb 
+require 'syntaxi'
+text = &lt;&lt;"EOF"
+[code lang="ruby"]
+  def foo
+    puts 'bar'
+  end
+[/code]
+EOF
+formatted_text = Syntaxi.new(text).process
+puts formatted_text
+</PRE>
+Ejecución:
+<PRE>
+[~/rubytesting/syntax_highlighting]$ ruby ex_syntaxi.rb 
+&lt;pre&gt;
+&lt;code&gt;
+&lt;span class="line_number"&gt;1&lt;/span&gt; &lt;span class="keyword"&gt;def &lt;/span&gt;&lt;span class="method"&gt;foo&lt;/span&gt;
+&lt;span class="line_number"&gt;2&lt;/span&gt; &lt;span class="ident"&gt;puts&lt;/span&gt; 
+&lt;span class="punct"&gt;'&lt;/span&gt;&lt;span class="string"&gt;bar&lt;/span&gt;&lt;span class="punct"&gt;'&lt;/span&gt;
+&lt;span class="line_number"&gt;3&lt;/span&gt; &lt;span class="keyword"&gt;end&lt;/span&gt;
+&lt;/code&gt;
+&lt;/pre&gt;
+</PRE>
+La gema <code>syntaxi</code> usa la gema <code>syntax</code>:
+<PRE>
+[~/rubytesting/syntax_highlighting]$ gem which syntaxi/Users/casiano/.rvm/gems/ruby-1.9.2-head/gems/syntaxi-0.5.0/lib/syntaxi.rb
+[~/rubytesting/syntax_highlighting]$ grep "require.*'" /Users/casiano/.rvm/gems/ruby-1.9.2-head/gems/syntaxi-0.5.0/lib/syntaxi.rb 
+require 'syntax/convertors/html'
+</PRE>
+Es en esta gema que se definen las hojas de estilo:
+<PRE>
+[~/rubytesting/syntax_highlighting]$ gem which syntax
+/Users/casiano/.rvm/gems/ruby-1.9.2-head/gems/syntax-1.0.0/lib/syntax.rb
+[~/rubytesting/syntax_highlighting]$ tree /Users/casiano/.rvm/gems/ruby-1.9.2-head/gems/syntax-1.0.0/
+/Users/casiano/.rvm/gems/ruby-1.9.2-head/gems/syntax-1.0.0/
+|-- data
+|   |-- ruby.css
+|   |-- xml.css
+|   `-- yaml.css
+|-- lib
+|   |-- syntax
+|   |   |-- common.rb
+|   |   |-- convertors
+|   |   |   |-- abstract.rb
+|   |   |   `-- html.rb
+|   |   |-- lang
+|   |   |   |-- ruby.rb
+|   |   |   |-- xml.rb
+|   |   |   `-- yaml.rb
+|   |   `-- version.rb
+|   `-- syntax.rb
+`-- test
+    |-- ALL-TESTS.rb
+    |-- syntax
+    |   |-- tc_ruby.rb
+    |   |-- tc_xml.rb
+    |   |-- tc_yaml.rb
+    |   `-- tokenizer_testcase.rb
+    `-- tc_syntax.rb
+
+7 directories, 17 files
+</PRE>
+
+<P>
+En el esquema incompleto que sigue se ha hecho para el lenguaje
+Ruby. Añada que se pueda elegir el lenguaje a colorear (xml, yaml).
+
+<P>
+<PRE>
+$ tree -A
+.
+|-- Gemfile
+|-- Gemfile.lock
+|-- toopaste.rb
+`-- views
+    |-- layout.erb
+    |-- new.erb
+    `-- show.erb
+</PRE>
+
+<P>
+<PRE>
+$ cat Gemfile
+source 'https://rubygems.org'
+
+# Specify your gem's dependencies in my-gem.gemspec
+# gemspec
+# gem 'guard'
+# gem 'guard-rspec'
+# gem 'guard-bundler'
+# gem 'rb-fsevent', '~&gt; 0.9.1''
+
+gem 'syntaxi'
+</PRE>
+
+<P>
+Este es un fragmento de la aplicación:
+<PRE>
+[~/srcSTW/syntax_highlighting(withoutdm)]$ cat  toopaste.rb 
+require 'sinatra'
+require 'syntaxi'
+
+class String
+  def formatted_body
+    source = "[code lang='ruby']
+                #{self}
+              [/code]"
+    html = Syntaxi.new(source).process
+    %Q{
+      &lt;div class="syntax syntax_ruby"&gt;
+        #{html}
+      &lt;/div&gt;
+    }
+  end
+end
+
+get '/' do
+  erb :new
+end
+
+post '/' do
+  .....
+end
+</PRE>
+Una versión simple de lo que puede ser <code>new.erb</code>:
+<PRE>
+[~/srcSTW/syntax_highlighting(withoutdm)]$ cat views/new.erb 
+&lt;div class="snippet"&gt;
+  &lt;form action="/" method="POST"&gt;
+    &lt;textarea name="body" id="body" rows="20"&gt;&lt;/textarea&gt;
+    &lt;br/&gt;&lt;input type="submit" value="Save"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+</PRE>
+
+<P>
+Véase la página  HTML generada por el programa para la entrada <code>a = 5</code>:
+<PRE>
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+  &lt;title&gt;Toopaste!&lt;/title&gt;
+  &lt;style&gt;
+    html {
+      background-color: #eee;
+    }
+    .snippet {
+      margin: 5px;
+    }
+    .snippet textarea, .snippet .sbody {
+      border: 5px dotted #eee;
+      padding: 5px;
+      width: 700px;
+      color: #fff;
+      background-color: #333;
+    }
+    .snippet textarea {
+      padding: 20px;
+    }
+    .snippet input, .snippet .sdate {
+      margin-top: 5px;
+    }
+
+    /* Syntax highlighting */
+    #content .syntax_ruby .normal {}
+    #content .syntax_ruby .comment { color: #CCC; font-style: italic; border: none; margin: none; }
+    #content .syntax_ruby .keyword { color: #C60; font-weight: bold; }
+    #content .syntax_ruby .method { color: #9FF; }
+    #content .syntax_ruby .class { color: #074; }
+    #content .syntax_ruby .module { color: #050; }
+    #content .syntax_ruby .punct { color: #0D0; font-weight: bold; }
+    #content .syntax_ruby .symbol { color: #099; }
+    #content .syntax_ruby .string { color: #C03; }
+    #content .syntax_ruby .char { color: #F07; }
+    #content .syntax_ruby .ident { color: #0D0; }
+    #content .syntax_ruby .constant { color: #07F; }
+    #content .syntax_ruby .regex { color: #B66; }
+    #content .syntax_ruby .number { color: #FF0; }
+    #content .syntax_ruby .attribute { color: #7BB; }
+    #content .syntax_ruby .global { color: #7FB; }
+    #content .syntax_ruby .expr { color: #909; }
+    #content .syntax_ruby .escape { color: #277; }
+    #content .syntax {
+      background-color: #333;
+      padding: 2px;
+      margin: 5px;
+      margin-left: 1em;
+      margin-bottom: 1em;
+    }
+    #content .syntax .line_number {
+      text-align: right;
+      font-family: monospace;
+      padding-right: 1em;
+      color: #999;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="snippet"&gt;
+  &lt;div class="snippet"&gt;
+  &lt;div class="sbody" id="content"&gt;
+      &lt;div class="syntax syntax_ruby"&gt;
+        &lt;pre&gt;
+           &lt;code&gt;
+              &lt;span class="line_number"&gt;1&lt;/span&gt;  
+              &lt;span class="ident"&gt;a&lt;/span&gt; 
+              &lt;span class="punct"&gt;=&lt;/span&gt; 
+              &lt;span class="number"&gt;5&lt;/span&gt;
+            &lt;/code&gt;
+         &lt;/pre&gt;
+      &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;br/&gt;&lt;a href="/"&gt;New Paste!&lt;/a&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</PRE>
+
+<P>
+La gema
+
+<P>
+<PRE>
+</PRE>
+Una versión resumida de <code>layout.erb</code>:
+<PRE>
+[~/srcSTW/syntax_highlighting(withoutdm)]$ cat views/layout.erb 
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+  &lt;title&gt;&lt;%= @title || 'Toopaste!' %&gt;&lt;/title&gt;
+  &lt;style&gt;
+    ..............
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;%= yield %&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<A NAME="tex2html5894"
+  HREF="node230.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html5888"
+  HREF="node199.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html5884"
+  HREF="node228.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A> 
+<A NAME="tex2html5890"
+  HREF="node281.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents.png"></A> 
+<A NAME="tex2html5892"
+  HREF="node284.html">
+<IMG WIDTH="43" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="index" SRC="index.png"></A> <A NAME="tex2html2"
+  HREF="http://nereida.deioc.ull.es/~plgrado/index.html"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="logoLPP.png"
+ ALT="PL"></A><A NAME="tex2html3"
+  HREF="https://campusvirtual.ull.es/1415/course/view.php?id=5669"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2014/2015"></A><A NAME="tex2html4"
+  HREF="http://campusvirtual.ull.es/1314/course/view.php?id=1104"><IMG
+  WIDTH="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="moodleLHPlogo.jpeg"
+ ALT="PL moodle 2013/2014"></A><A NAME="tex2html5"
+  HREF="javascriptexamples.pdf"><IMG
+  WIDTH="30" ALIGN="BOTTOM" BORDER="0"
+ SRC="gv.jpeg"
+ ALT="ps"></A><A NAME="tex2html6"
+  HREF="https://plus.google.com/u/0/communities/103299470687051533933"><IMG
+  WIDTH="27" ALIGN="BOTTOM" BORDER="0"
+ SRC="perl6.jpg"
+ ALT="comunidad g+ PL1415"></A><A NAME="tex2html7"
+  HREF="http://www.google.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ggoogle.gif"
+ ALT="google"></A><A NAME="tex2html8"
+  HREF="http://www.ull.es/view/centros/etsii/Grado_en_Ingenieria_Informatica/es"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="etsii.png"
+ ALT="etsii"></A><A NAME="tex2html9"
+  HREF="http://www.ull.es/"><IMG
+  WIDTH="35" ALIGN="BOTTOM" BORDER="0"
+ SRC="ull.gif"
+ ALT="ull"></A><A NAME="tex2html10"
+  HREF="https://github.com/crguezl"><IMG
+  WIDTH="32" ALIGN="BOTTOM" BORDER="0"
+ SRC="logopcgull.gif"
+ ALT="crguezl at github"></A>
+<BR>
+<B> Sig:</B> <A NAME="tex2html5895"
+  HREF="node230.html">Sinatra desde Dentro</A>
+<B>Sup:</B> <A NAME="tex2html5889"
+  HREF="node199.html">Fundamentos</A>
+<B> Ant:</B> <A NAME="tex2html5885"
+  HREF="node228.html">Práctica: TicTacToe usando DataMapper</A>
+</DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Casiano Rodríguez León <BR>
+2015-01-25</I>
+</ADDRESS>
+</BODY>
+</HTML>

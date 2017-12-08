@@ -1,0 +1,129 @@
+@import url(print.css) print;
+
+/* Century Schoolbook font is very similar to Computer Modern Math: cmmi */
+.MATH    { font-family: "Century Schoolbook", serif; }
+.MATH I  { font-family: "Century Schoolbook", serif; font-style: italic }
+.BOLDMATH { font-family: "Century Schoolbook", serif; font-weight: bold }
+
+/* implement both fixed-size and relative sizes */
+SMALL.XTINY		{ font-size : xx-small }
+SMALL.TINY		{ font-size : x-small  }
+SMALL.SCRIPTSIZE	{ font-size : smaller  }
+SMALL.FOOTNOTESIZE	{ font-size : small    }
+SMALL.SMALL		{  }
+BIG.LARGE		{  }
+BIG.XLARGE		{ font-size : large    }
+BIG.XXLARGE		{ font-size : x-large  }
+BIG.HUGE		{ font-size : larger   }
+BIG.XHUGE		{ font-size : xx-large }
+
+/* heading styles */
+H1		{  }
+H2		{  }
+H3		{  }
+H4		{  }
+H5		{  }
+
+/* mathematics styles */
+DIV.displaymath		{ }	/* math displays */
+TD.eqno			{ }	/* equation-number cells */
+
+
+/* document-specific styles come next */
+DIV.logo-LaTeX		{   }
+SPAN.itshape		{   }
+/* PRE.preform		{   } */
+/* pre { color: #fff; background-color: #000; padding: 10px; } */
+pre { color: LightGreen; font-size: larger; background-color: black; padding: 10px; overflow-x: none; } /* width: 900px;} */
+tr pre { color: LightGreen; font-size: larger; background-color: black; padding: 10px; width: auto; overflow-x: none; } 
+/* CODE             { color: brown; padding: 10px; } */
+CODE             { color: brown; }
+i i              { color: red; }
+
+/* @media print { CODE {color: black; } } */
+
+BLOCKQUOTE { background-color: #ADD8E6; }
+DIV.Large		{   }
+DIV.small		{   }
+DIV.quote		{   }
+DIV.center		{   }
+DIV.verse		{   }
+DIV.flushleft		{   }
+TABLE.equation*		{  }
+SPAN.it		{   }
+DIV.navigation		{   }
+SPAN.bfseries		{   }
+TABLE.equation		{  }
+DIV.LaTeX		{   }
+SPAN.tt		{   }
+DIV.alltt		{   }
+SPAN.textbf		{ /* font-weight: bold; */
+                          color: red  
+                        }
+SPAN.arabic		{   }
+SPAN.textit		{ font-style: italic; color: blue  }
+#txt7229		{ text-decoration: underline;  }
+#txt7230		{ text-decoration: underline;  }
+#txt7757		{ text-decoration: underline;  }
+
+.c { color: #FFFFFF; font-style: italic } /* Comment */
+.err { border: 1px solid #FF0000 } /* Error */
+.k { color: #FFFFFF; font-weight: bold } /* Keyword */
+.o { color: #FFFF33; } /* Operator */
+.cm { color: #408090; font-style: italic } /* Comment.Multiline */
+.cp { color: #007020 } /* Comment.Preproc */
+.c1 { color: #FFFFFF; font-style: italic } /* Comment.Single */
+.cs { color: #408090; background-color: #fff0f0 } /* Comment.Special */
+.gd { color: #A00000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #FF0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00A000 } /* Generic.Inserted */
+.go { color: #303030 } /* Generic.Output */
+.gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #0040D0 } /* Generic.Traceback */
+.kc { color: #FFFF99; font-weight: bold } /* Keyword.Constant */
+.kd { color: #FFFF99; font-weight: bold } /* Keyword.Declaration */
+.kp { color: #FFFF99 } /* Keyword.Pseudo */
+.kr { color: #FFFF99; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #902000 } /* Keyword.Type */
+.m { color: #208050 } /* Literal.Number */
+.s { color: #FF99CC } /* Literal.String */
+.na { color: #FFFFCC } /* Name.Attribute */
+.nb { color: #FFFFCC } /* Name.Builtin */
+.nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+.no { color: #60add5 } /* Name.Constant */
+.nd { color: #555555; font-weight: bold } /* Name.Decorator */
+.ni { color: #d55537; font-weight: bold } /* Name.Entity */
+.ne { color: #007020 } /* Name.Exception */
+.nf { color: #06287e } /* Name.Function */
+.nl { color: #002070; font-weight: bold } /* Name.Label */
+.nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+.nt { color: #00FFFF; font-weight: bold } /* Name.Tag */
+.nv { color: #bb60d5 } /* Name.Variable */
+.ow { color: #007020; font-weight: bold } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #208050 } /* Literal.Number.Float */
+.mh { color: #208050 } /* Literal.Number.Hex */
+.mi { color: #208050 } /* Literal.Number.Integer */
+.mo { color: #208050 } /* Literal.Number.Oct */
+.sb { color: #4070a0 } /* Literal.String.Backtick */
+.sc { color: #4070a0 } /* Literal.String.Char */
+.sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+.s2 { color: #FF0000 } /* Literal.String.Double */
+.se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+.sh { color: #4070a0 } /* Literal.String.Heredoc */
+.si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+.sx { color: #0099FF } /* Literal.String.Other */
+.sr { color: #3366FF } /* Literal.String.Regex */
+.s1 { color: #0099FF } /* Literal.String.Single */
+.ss { color: #517918 } /* Literal.String.Symbol */
+.bp { color: #007020 } /* Name.Builtin.Pseudo */
+.vc { color: #bb60d5 } /* Name.Variable.Class */
+.vg { color: #bb60d5 } /* Name.Variable.Global */
+.vi { color: #bb60d5 } /* Name.Variable.Instance */
+.il { color: #208050 } /* Literal.Number.Integer.Long */
+
+

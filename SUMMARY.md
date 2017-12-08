@@ -8,6 +8,7 @@
   * [Análisis Recursivo Descendente](recursivodescendente/README.md)
   * [RD](parsing/recursivodescendente/README.md)
   * [EJS](parsing/eloquentjs/README.md)
+  * [PEGJS](parsing/pegjs/PEGS.md)
   * [GLL](parsing/gll/README.md)
   * [tdop](parsing/tdop/README.md)
   * [Grammars](parsing/grammars/README.md)

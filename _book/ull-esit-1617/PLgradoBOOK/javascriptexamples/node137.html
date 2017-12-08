@@ -1,0 +1,59 @@
+
+<H1><A NAME="SECTION05600000000000000000">
+Análisis Sintáctico Descendente en Perl</A>
+</H1>
+<tex2html_file>#./chapter_descendente/descendente_en_perl.tex#
+<A NAME="chapter:introcomp"><tex2html_anchor_mark></A>Este capítulo tiene por objeto darte una visión global de la 
+estructura de un compilador e introducirte en las técnicas básicas
+de la construcción de compiladores usando Perl.
+
+<P>
+Puesto que no todos los alumnos que se incorporan en este capítulo 
+han leído los anteriores y no necesariamente conocen Perl, en la sección
+<A HREF=<tex2html_cr_mark>#section:lasbases#10456><tex2html_cr_mark></A>
+comenzamos haciendo un breve repaso a como construir un módulo en Perl.
+Si quieres tener un conocimiento mas profundo
+lee el capítulo sobre módulos en 
+<A HREF=<tex2html_ext_cr_mark>#chapter:modulos#11884><tex2html_ext_cr_mark></A> [#CasianoIntroAPerl#<tex2html_cite_mark>#1##<tex2html_cite_mark>#]. 
+
+<P>
+La sección 
+<A HREF=<tex2html_cr_mark>#section:fases#10458><tex2html_cr_mark></A>
+describe las fases en las que -al menos conceptualmente-
+se divide un compilador.
+A continuación la sección 
+<A HREF=<tex2html_cr_mark>#section:analisislexico#10459><tex2html_cr_mark></A>
+presenta la primera de dichas fases, el análisis léxico.
+En la sección 
+<A HREF=<tex2html_cr_mark>#section:conceptos#10460><tex2html_cr_mark></A>
+repasamos conceptos de análisis sintáctico 
+que deberían ser familiares a cualquiera que haya 
+seguido un curso en teoría de autómatas 
+y lenguajes formales.
+Antes de comenzar a traducir es conveniente tener un <SPAN  CLASS="textbf">esquema</SPAN> o estrategia
+de traducción para cada constructo sintáctico. 
+La sección 
+<A HREF=<tex2html_cr_mark>#section:esquemas#10462><tex2html_cr_mark></A>
+introduce el concepto de esquema de traducción.
+La fase de análisis sintáctico consiste en la construcción
+del <SPAN  CLASS="textbf">árbol de análisis</SPAN> a partir de la <SPAN  CLASS="textbf">secuencia de unidades léxicas</SPAN>. 
+Existen diversas estrategias para resolver esta fase.
+En la sección 
+<A HREF=<tex2html_cr_mark>#section:predictivo#10465><tex2html_cr_mark></A>
+introducimos la que posiblemente sea la mas sencilla de todas: el análisis
+descendente predictivo recursivo.
+En la sección
+<A HREF=<tex2html_cr_mark>#section:recursionizquierda#10466><tex2html_cr_mark></A>
+abordamos una estrategia para transformar ciertas
+gramáticas para las que dicho método no funciona.
+
+<P>
+Un analizador sintáctico implícitamente construye 
+el árbol de análisis concreto. En muchas ocasiones
+resulta mas rentable trabajar con una forma simplificada
+(<SPAN  CLASS="textbf">abstracta</SPAN>) del árbol que contiene la misma información 
+que aquél. La sección 
+<A HREF=<tex2html_cr_mark>#section:aat#10468><tex2html_cr_mark></A> trata de la construcción de los 
+árboles de análisis abstractos.
+
+<P>

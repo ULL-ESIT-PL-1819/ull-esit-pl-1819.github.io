@@ -1,0 +1,537 @@
+<tex2html_file>#./chapter_bottomup/aSb.tex#
+\subsection<<16796>>Version<<16796>>
+\begin<<17082>>tex2html_deferred<<17082>>\par\end<<17083>>tex2html_deferred<<17083>>
+En esta sección estudiamos el analizador generado por Jison:
+\begin<<16797>>tex2html_preform<<16797>><tex2html_verbatim_mark>verbatim5762#\end<<16798>>tex2html_preform<<16798>>
+\begin<<17084>>tex2html_deferred<<17084>>\par\end<<17085>>tex2html_deferred<<17085>>
+\subsection<<16799>>Gramática Inicial<<16799>>
+Veamos el módulo generado por jison para esta gramática:
+\begin<<16800>>tex2html_preform<<16800>><tex2html_verbatim_mark>verbatim5763#\end<<16801>>tex2html_preform<<16801>>
+\begin<<17086>>tex2html_deferred<<17086>>\par\end<<17087>>tex2html_deferred<<17087>>
+\subsection<<16802>>Tablas<<16802>>
+Esta es la primera parte del parser generado:
+\begin<<16803>>tex2html_preform<<16803>><tex2html_verbatim_mark>verbatim5764#\end<<16804>>tex2html_preform<<16804>>
+\begin<<17088>>tex2html_deferred<<17088>>\par\end<<17089>>tex2html_deferred<<17089>>
+\begin<<16805>>center<<16805>>
+<tex2html_verbatim_mark>rawhtml5765#
+\end<<16806>>center<<16806>>
+\begin<<17090>>tex2html_deferred<<17090>>\par\end<<17091>>tex2html_deferred<<17091>>
+\subsection<<16807>>Acciones Semánticas<<16807>>
+Cada vez que se produce una acción de reducción esta función es llamada:
+\begin<<16808>>tex2html_preform<<16808>><tex2html_verbatim_mark>verbatim5766#\end<<16809>>tex2html_preform<<16809>>
+\begin<<16810>>itemize<<16810>>
+\item
+Parece que  cuando se llama a este método <tex2html_verb_mark>2132<tex2html_verb_mark> refiere a un objeto <tex2html_verb_mark>2133<tex2html_verb_mark>. Este es el
+punto  de llamada a la acción semántica dentro del parser generado por Jison.
+Puede encontrarse dentro del parser en el caso de un <tex2html_verb_mark>2134<tex2html_verb_mark> 
+que corresponde a la acción de reducción:
+\begin<<16811>>tex2html_preform<<16811>><tex2html_verbatim_mark>verbatim5767#\end<<16812>>tex2html_preform<<16812>>
+El método <tex2html_verb_mark>2135<tex2html_verb_mark>
+nos permite invocar una función como si fuera un método de algún otro 
+objeto. Véase la sección 
+\ref<<16813>>subsection:callyapply<<16813>>.
+\begin<<17092>>tex2html_deferred<<17092>>\par\end<<17093>>tex2html_deferred<<17093>>
+Este objeto <tex2html_verb_mark>2136<tex2html_verb_mark> tiene dos atributos: <tex2html_verb_mark>2137<tex2html_verb_mark> y <tex2html_verb_mark>2138<tex2html_verb_mark>.
+  \begin<<16814>>itemize<<16814>>
+  \item
+  El atributo 
+  <tex2html_verb_mark>2139<tex2html_verb_mark> se corresponde con <tex2html_verb_mark>2140<tex2html_verb_mark> de la gramática (atributo de la variable
+  sintactica en la parte izquierda)
+  \item
+  El atributo <tex2html_verb_mark>2141<tex2html_verb_mark> guarda información
+  sobre la posición del último token leído.
+  \end<<16815>>itemize<<16815>>
+\item
+<tex2html_verb_mark>2142<tex2html_verb_mark> parece contener el texto asociado con el token actual
+\item
+<tex2html_verb_mark>2143<tex2html_verb_mark> es la longitud del token actual
+\item
+<tex2html_verb_mark>2144<tex2html_verb_mark> es la línea actual (empezando en 0)
+\item
+<tex2html_verb_mark>2145<tex2html_verb_mark> es un objeto con dos atributos <tex2html_verb_mark>2146<tex2html_verb_mark> y <tex2html_verb_mark>2147<tex2html_verb_mark> 
+\item
+<tex2html_verb_mark>2148<tex2html_verb_mark> es el estado actual 
+\item
+<tex2html_verb_mark>2149<tex2html_verb_mark> parece ser un array/pila conteniendo 
+los valores de los atributos asociados con los estados de la pila (<tex2html_verb_mark>2150<tex2html_verb_mark> ¿Por value stack?)
+\item
+Asi pues <tex2html_verb_mark>2151<tex2html_verb_mark> es el índice en <tex2html_verb_mark>2152<tex2html_verb_mark> del último elemento de <tex2html_verb_mark>2153<tex2html_verb_mark>.
+Por ejemplo, una acción semántica como:
+\begin<<16816>>tex2html_preform<<16816>><tex2html_verbatim_mark>verbatim5768#\end<<16817>>tex2html_preform<<16817>>
+Se traduce por:
+\begin<<16818>>tex2html_preform<<16818>><tex2html_verbatim_mark>verbatim5769#\end<<16819>>tex2html_preform<<16819>>
+\item
+<tex2html_verb_mark>2154<tex2html_verb_mark>
+Es un array con la información sobre la localización de los simbolos (<tex2html_verb_mark>2155<tex2html_verb_mark> ¿Por location stack?)
+\end<<16820>>itemize<<16820>>
+\begin<<17094>>tex2html_deferred<<17094>>\par\end<<17095>>tex2html_deferred<<17095>>
+\subsection<<16821>>Tabla de Acciones y GOTOs<<16821>>
+\begin<<17096>>tex2html_deferred<<17096>>\par\end<<17097>>tex2html_deferred<<17097>>
+\begin<<16822>>tex2html_preform<<16822>><tex2html_verbatim_mark>verbatim5770#\end<<16823>>tex2html_preform<<16823>>
+\begin<<17098>>tex2html_deferred<<17098>>\par\end<<17099>>tex2html_deferred<<17099>>
+\begin<<16824>>itemize<<16824>>
+\item
+La tabla es un array de objetos
+\item
+El índice de la tabla es el estado. En el ejemplo tenemos 5 estados
+\item
+El objeto/hash que es el valor contiene las acciones ante los símbolos.
+\begin<<16825>>enumerate<<16825>>
+\item
+Los atributos/claves son los símbolos, los valores las acciones
+\item
+Las acciones son de dos tipos:
+\begin<<16826>>enumerate<<16826>>
+\item
+El número del estado al que se transita mediante la tabla <tex2html_verb_mark>2156<tex2html_verb_mark>
+cuando el símbolo es una variable sintactica 
+\item
+Un par <tex2html_verb_mark>2157<tex2html_verb_mark>. 
+Si el <tex2html_verb_mark>2158<tex2html_verb_mark> es 1 indica un shift al <tex2html_verb_mark>2159<tex2html_verb_mark> con ese número.
+Si el <tex2html_verb_mark>2160<tex2html_verb_mark> es 2 indica una reducción por la <tex2html_verb_mark>2161<tex2html_verb_mark> con ese número.
+\end<<16827>>enumerate<<16827>>
+\item
+Por ejemplo <tex2html_verb_mark>2162<tex2html_verb_mark> es 
+\begin<<16828>>tex2html_preform<<16828>><tex2html_verbatim_mark>verbatim5771#\end<<16829>>tex2html_preform<<16829>>
+\end<<16830>>enumerate<<16830>>
+\begin<<17100>>tex2html_deferred<<17100>>\par\end<<17101>>tex2html_deferred<<17101>>
+\end<<16831>>itemize<<16831>>
+\begin<<17102>>tex2html_deferred<<17102>>\par\end<<17103>>tex2html_deferred<<17103>>
+\subsection<<16832>>defaultActions<<16832>>
+\begin<<16833>>tex2html_preform<<16833>><tex2html_verbatim_mark>verbatim5772#\end<<16834>>tex2html_preform<<16834>>
+\begin<<17104>>tex2html_deferred<<17104>>\par\end<<17105>>tex2html_deferred<<17105>>
+\begin<<16835>>itemize<<16835>>
+\item
+<tex2html_verb_mark>2163<tex2html_verb_mark> contiene las acciones por defecto.
+\begin<<17106>>tex2html_deferred<<17106>>\par\end<<17107>>tex2html_deferred<<17107>>
+\item
+Después de la construcción de la tabla, Jison identifica para
+cada estado la reducción que tiene el conjunto 
+de lookaheads mas grande. Para reducir el tamaño del parser,
+Jison puede decidir suprimir dicho conjunto y asiganr esa reducción como 
+acción del parser por defecto. Tal reducción se conoce como
+\index<<16986>>reducción por defecto<<16986>>\emph<<16987>>reducción por defecto<<16987>>.
+\item Esto puede verse en este segmento del código del parser:
+\begin<<16837>>tex2html_preform<<16837>><tex2html_verbatim_mark>verbatim5773#\end<<16838>>tex2html_preform<<16838>>
+\end<<16839>>itemize<<16839>>
+\begin<<17108>>tex2html_deferred<<17108>>\par\end<<17109>>tex2html_deferred<<17109>>
+\subsection<<16840>>Reducciones<<16840>>
+\begin<<16841>>tex2html_preform<<16841>><tex2html_verbatim_mark>verbatim5774#\end<<16842>>tex2html_preform<<16842>>
+\begin<<17110>>tex2html_deferred<<17110>>\par\end<<17111>>tex2html_deferred<<17111>>
+\subsection<<16843>>Desplazamientos/Shifts<<16843>>
+\begin<<17112>>tex2html_deferred<<17112>>\par\end<<17113>>tex2html_deferred<<17113>>
+\begin<<16844>>tex2html_preform<<16844>><tex2html_verbatim_mark>verbatim5775#\end<<16845>>tex2html_preform<<16845>>
+\begin<<17114>>tex2html_deferred<<17114>>\par\end<<17115>>tex2html_deferred<<17115>>
+\subsection<<16846>>Manejo de Errores<<16846>>
+\begin<<17116>>tex2html_deferred<<17116>>\par\end<<17117>>tex2html_deferred<<17117>>
+\begin<<16847>>tex2html_preform<<16847>><tex2html_verbatim_mark>verbatim5776#\end<<16848>>tex2html_preform<<16848>>
+\begin<<17118>>tex2html_deferred<<17118>>\par\end<<17119>>tex2html_deferred<<17119>>
+La función <tex2html_verb_mark>2164<tex2html_verb_mark> genera una excepción:
+\begin<<17120>>tex2html_deferred<<17120>>\par\end<<17121>>tex2html_deferred<<17121>>
+\begin<<16849>>tex2html_preform<<16849>><tex2html_verbatim_mark>verbatim5777#\end<<16850>>tex2html_preform<<16850>>
+\begin<<17122>>tex2html_deferred<<17122>>\par\end<<17123>>tex2html_deferred<<17123>>
+\begin<<16851>>itemize<<16851>>
+\item
+<tex2html_verb_mark>2165<tex2html_verb_mark> es llamada cada vez que ocurre un error sintáctico.
+<tex2html_verb_mark>2166<tex2html_verb_mark> contiene la cadena con el mensaje de error del tipo: 
+<tex2html_verb_mark>2167<tex2html_verb_mark>.
+<tex2html_verb_mark>2168<tex2html_verb_mark> contiene atributos como <tex2html_verb_mark>2169<tex2html_verb_mark>: el array de tokens esperados; 
+<tex2html_verb_mark>2170<tex2html_verb_mark> la línea implicada, <tex2html_verb_mark>2171<tex2html_verb_mark> una descripción de la localización detallada del punto/terminal
+en el que ocurre el error; etc.
+\end<<16852>>itemize<<16852>>
+\begin<<17124>>tex2html_deferred<<17124>>\par\end<<17125>>tex2html_deferred<<17125>>
+\subsection<<16853>>Analizador Léxico<<16853>>
+El analizador léxico:
+\begin<<16854>>tex2html_preform<<16854>><tex2html_verbatim_mark>verbatim5778#\end<<16855>>tex2html_preform<<16855>>
+\begin<<17126>>tex2html_deferred<<17126>>\par\end<<17127>>tex2html_deferred<<17127>>
+\subsection<<16856>>Exportación<<16856>>
+\begin<<17128>>tex2html_deferred<<17128>>\par\end<<17129>>tex2html_deferred<<17129>>
+Si no ha sido exportado ya ...
+\begin<<16857>>tex2html_preform<<16857>><tex2html_verbatim_mark>verbatim5779#\end<<16858>>tex2html_preform<<16858>>
+El objeto <tex2html_verb_mark>2172<tex2html_verb_mark> representa al parser. Este es el código que lo crea.
+\begin<<16859>>tex2html_preform<<16859>><tex2html_verbatim_mark>verbatim5780#\end<<16860>>tex2html_preform<<16860>>
+También se exporta una función <tex2html_verb_mark>2173<tex2html_verb_mark>:
+\begin<<16861>>tex2html_preform<<16861>><tex2html_verbatim_mark>verbatim5781#\end<<16862>>tex2html_preform<<16862>>
+y una función <tex2html_verb_mark>2174<tex2html_verb_mark>:
+\begin<<16863>>tex2html_preform<<16863>><tex2html_verbatim_mark>verbatim5782#\end<<16864>>tex2html_preform<<16864>>
+Esto permite ejecutar el módulo directamente:
+\begin<<16865>>tex2html_preform<<16865>><tex2html_verbatim_mark>verbatim5783#\end<<16866>>tex2html_preform<<16866>>
+\begin<<17130>>tex2html_deferred<<17130>>\par\end<<17131>>tex2html_deferred<<17131>>
+\begin<<16867>>tex2html_preform<<16867>><tex2html_verbatim_mark>verbatim5784#\end<<16868>>tex2html_preform<<16868>>
+\begin<<17132>>tex2html_deferred<<17132>>\par\end<<17133>>tex2html_deferred<<17133>>
+\begin<<16869>>tex2html_preform<<16869>><tex2html_verbatim_mark>verbatim5785#\end<<16870>>tex2html_preform<<16870>>
+<tex2html_endfile>#./chapter_bottomup/aSb.tex#
+\begin<<17134>>tex2html_deferred<<17134>>\par\end<<17135>>tex2html_deferred<<17135>>
+\section<<16871>>Precedencia y Asociatividad<<16871>>
+\label<<16872>>section:prioridades<<16872>>
+Recordemos que si al construir la tabla LALR,
+alguna de las entradas de la tabla resulta multievaluada, decimos
+que existe un conflicto.
+Si una de las acciones es de `reducción'' y la otra es de
+`desplazamiento'', se dice que hay un \index<<16988>>conflicto shift-reduce<<16988>>\emph<<16989>>conflicto shift-reduce<<16989>> o
+\index<<16990>>conflicto de desplazamiento-reducción<<16990>>\emph<<16991>>conflicto de desplazamiento-reducción<<16991>>. Si las
+dos reglas indican una acción de reducción, decimos que tenemos un 
+\index<<16992>>conflicto reduce-reduce<<16992>>\emph<<16993>>conflicto reduce-reduce<<16993>> o de \index<<16994>>reducción-reducción<<16994>>\emph<<16995>>reducción-reducción<<16995>>.
+En caso de que no existan indicaciones específicas \emph<<16877>>jison<<16877>> resuelve
+los conflictos que aparecen en la construcción de la tabla utilizando
+las siguientes reglas:
+\begin<<17136>>tex2html_deferred<<17136>>\par\end<<17137>>tex2html_deferred<<17137>>
+\begin<<16878>>enumerate<<16878>>
+\item
+Un conflicto \emph<<16879>>reduce-reduce<<16879>> se resuelve eligiendo la producción
+que se listó primero en la especificación de la gramática.
+\item
+Un conflicto \emph<<16880>>shift-reduce<<16880>> se resuelve siempre en favor del \emph<<16881>>shift<<16881>>
+\end<<16882>>enumerate<<16882>>
+\begin<<17138>>tex2html_deferred<<17138>>\par\end<<17139>>tex2html_deferred<<17139>>
+Las declaraciones de precedencia y asociatividad mediante las
+palabras reservadas  <<16996>>\begin<<17140>>tex2html_deferred<<17140>>\tt\end<<17141>>tex2html_deferred<<17141>>\%left<<16996>> ,  <<16997>>\begin<<17142>>tex2html_deferred<<17142>>\tt\end<<17143>>tex2html_deferred<<17143>>\%right<<16997>> ,  <<16998>>\begin<<17144>>tex2html_deferred<<17144>>\tt\end<<17145>>tex2html_deferred<<17145>>\%nonassoc<<16998>> 
+se utilizan para modificar estos criterios por defecto. 
+La declaración de  <<16999>>\begin<<17146>>tex2html_deferred<<17146>>\tt\end<<17147>>tex2html_deferred<<17147>>token<<16999>> s mediante la palabra
+reservada  <<17000>>\begin<<17148>>tex2html_deferred<<17148>>\tt\end<<17149>>tex2html_deferred<<17149>>\%token<<17000>>  no modifica la precedencia. Si lo hacen las
+declaraciones realizadas usando las palabras  <<17001>>\begin<<17150>>tex2html_deferred<<17150>>\tt\end<<17151>>tex2html_deferred<<17151>>left<<17001>> ,  <<17002>>\begin<<17152>>tex2html_deferred<<17152>>\tt\end<<17153>>tex2html_deferred<<17153>>right<<17002>> 
+y  <<17003>>\begin<<17154>>tex2html_deferred<<17154>>\tt\end<<17155>>tex2html_deferred<<17155>>nonassoc<<17003>> . 
+\begin<<17156>>tex2html_deferred<<17156>>\par\end<<17157>>tex2html_deferred<<17157>>
+\begin<<16891>>enumerate<<16891>>
+\item
+Los \emph<<16892>>tokens<<16892>> declarados  en la misma línea
+tienen igual precedencia e igual asociatividad. 
+La precedencia es mayor cuanto mas abajo 
+su posición en
+el texto. Así, en el ejemplo de la calculadora en la sección 
+\ref<<16893>>section:ejemplodeuso<<16893>>, el \emph<<16894>>token<<16894>> <tex2html_verb_mark>2175<tex2html_verb_mark> tiene 
+mayor precedencia que <tex2html_verb_mark>2176<tex2html_verb_mark> pero la misma que <tex2html_verb_mark>2177<tex2html_verb_mark>.
+\item
+La precedencia de una regla \begin<<17038>>tex2html_wrap_inline<<17038>>$A \rightarrow \alpha$\end<<17039>>tex2html_wrap_inline<<17039>>\space se
+define como la del terminal mas a la derecha que aparece en
+\begin<<17040>>tex2html_wrap_inline<<17040>>$\alpha$\end<<17041>>tex2html_wrap_inline<<17041>>. En el ejemplo, la producción 
+\begin<<17158>>tex2html_deferred<<17158>>\par\end<<17159>>tex2html_deferred<<17159>>
+\begin<<16895>>center<<16895>>
+<tex2html_verb_mark>2178<tex2html_verb_mark> 
+\end<<16896>>center<<16896>>
+\begin<<17160>>tex2html_deferred<<17160>>\par\end<<17161>>tex2html_deferred<<17161>>
+tiene la precedencia del \emph<<16897>>token<<16897>> <tex2html_verb_mark>2179<tex2html_verb_mark>.
+\item
+Para decidir en un conflicto \emph<<16898>>shift-reduce<<16898>> se comparan la precedencia 
+de la regla con la del terminal que va a ser desplazado. Si la de la
+regla es mayor se reduce
+si la del \emph<<16899>>token<<16899>> es mayor, se desplaza.
+\item
+Si en un conflicto \emph<<16900>>shift-reduce<<16900>> ambos la regla y el terminal que
+va a ser desplazado tiene la misma precedencia \emph<<16901>>jison<<16901>> considera la
+asociatividad, si es asociativa a izquierdas, reduce y si es asociativa
+a derechas desplaza. Si no es asociativa, genera un mensaje de error.\\ 
+Obsérvese que, en esta situación, la asociatividad de la regla y la del
+\emph<<16902>>token<<16902>> han de ser por fuerza, las mismas.  Ello es así, porque en
+\emph<<16903>>jison<<16903>> los \emph<<16904>>tokens<<16904>> con la misma precedencia se declaran en
+la misma línea y sólo se permite una declaración por línea.
+\begin<<17162>>tex2html_deferred<<17162>>\par\end<<17163>>tex2html_deferred<<17163>>
+\item
+\emph<<16980>> Por tanto es imposible declarar dos \emph<<16905>>tokens<<16905>> con diferente
+asociatividad y la misma precedencia<<16980>>.
+\item
+Es posible modificar la precedencia ``natural'' de una regla, calificándola
+con un \emph<<16906>>token<<16906>> específico.  para ello se escribe a la derecha de
+la regla <tex2html_verb_mark>2180<tex2html_verb_mark>, donde <tex2html_verb_mark>2181<tex2html_verb_mark> es un \emph<<16907>>token<<16907>> con
+la precedencia que deseamos. Vea el uso del \emph<<16908>>token<<16908>> <tex2html_verb_mark>2182<tex2html_verb_mark>
+en el siguiente ejercicio.
+\end<<16909>>enumerate<<16909>>
+\begin<<17164>>tex2html_deferred<<17164>>\par\end<<17165>>tex2html_deferred<<17165>>
+Para ilustrar las reglas anteriores usaremos el siguiente 
+programa <tex2html_verb_mark>2183<tex2html_verb_mark>:
+\begin<<17166>>tex2html_deferred<<17166>>\par\end<<17167>>tex2html_deferred<<17167>>
+\begin<<16910>>tex2html_preform<<16910>><tex2html_verbatim_mark>verbatim5786#\end<<16911>>tex2html_preform<<16911>>            
+\begin<<17168>>tex2html_deferred<<17168>>\par\end<<17169>>tex2html_deferred<<17169>>
+El código del programa cliente es el siguiente:
+\begin<<17170>>tex2html_deferred<<17170>>\par\end<<17171>>tex2html_deferred<<17171>>
+\begin<<16912>>tex2html_preform<<16912>><tex2html_verbatim_mark>verbatim5787#\end<<16913>>tex2html_preform<<16913>>
+\begin<<17172>>tex2html_deferred<<17172>>\par\end<<17173>>tex2html_deferred<<17173>>
+Observe la llamada al analizador en la línea 34. Hemos 
+añadido el parámetro con nombre \index<<17004>>yydebug<<17004>>\emph<<17005>>yydebug<<17005>> 
+con argumento <tex2html_verb_mark>2184<tex2html_verb_mark> (véase la
+sección \ref<<16915>>section:depuracion<<16915>> para ver los posibles
+valores de depuración).
+\begin<<17174>>tex2html_deferred<<17174>>\par\end<<17175>>tex2html_deferred<<17175>>
+Compilamos a continuación el módulo usando la opción <tex2html_verb_mark>2185<tex2html_verb_mark> para
+producir información sobre los conflictos y las tablas de salto y 
+de acciones:
+\begin<<16916>>tex2html_preform<<16916>><tex2html_verbatim_mark>verbatim5788#\end<<16917>>tex2html_preform<<16917>>
+\begin<<17176>>tex2html_deferred<<17176>>\par\end<<17177>>tex2html_deferred<<17177>>
+La opción <tex2html_verb_mark>2186<tex2html_verb_mark> genera el fichero <tex2html_verb_mark>2187<tex2html_verb_mark>
+el cual contiene información detallada sobre el autómata:
+\begin<<17178>>tex2html_deferred<<17178>>\par\end<<17179>>tex2html_deferred<<17179>>
+\begin<<16918>>tex2html_preform<<16918>><tex2html_verbatim_mark>verbatim5789#\end<<16919>>tex2html_preform<<16919>>
+¿Porqué se produce un conflicto en el estado 8 entre la regla
+6 (<tex2html_verb_mark>2188<tex2html_verb_mark>) y el terminal <tex2html_verb_mark>2189<tex2html_verb_mark>?. Editando el fichero
+<tex2html_verb_mark>2190<tex2html_verb_mark> podemos ver los contenidos
+del estado 8:
+\begin<<16920>>tex2html_preform<<16920>><tex2html_verbatim_mark>verbatim5790#\end<<16921>>tex2html_preform<<16921>>
+El item de la línea 88 indica que debemos desplazar, el de 
+la línea 89 que debemos reducir por la regla 6. ¿Porqué <tex2html_verb_mark>2191<tex2html_verb_mark>
+resuelve el conflicto optando por reducir?
+¿Que prioridad tiene la regla 6?
+¿Que asociatividad tiene la regla 6?
+La declaración en la línea 13 modifica la precedencia y asociatividad
+de la regla:
+\begin<<17180>>tex2html_deferred<<17180>>\par\end<<17181>>tex2html_deferred<<17181>>
+\begin<<16922>>tex2html_preform<<16922>><tex2html_verbatim_mark>verbatim5791#\end<<16923>>tex2html_preform<<16923>>
+\begin<<17182>>tex2html_deferred<<17182>>\par\end<<17183>>tex2html_deferred<<17183>>
+de manera que la regla pasa a tener la precedencia y asociatividad
+de <tex2html_verb_mark>2192<tex2html_verb_mark>. Recuerde que habíamos declarado <tex2html_verb_mark>2193<tex2html_verb_mark> como
+asociativo a derechas:
+\begin<<16924>>tex2html_preform<<16924>><tex2html_verbatim_mark>verbatim5792#\end<<16925>>tex2html_preform<<16925>>
+¿Que ocurre? Que <tex2html_verb_mark>2194<tex2html_verb_mark> tiene mayor prioridad
+que <tex2html_verb_mark>2195<tex2html_verb_mark> y por tanto la regla tiene mayor prioridad
+que el terminal: por tanto se reduce.
+\begin<<17184>>tex2html_deferred<<17184>>\par\end<<17185>>tex2html_deferred<<17185>>
+¿Que ocurre cuando el terminal en conflicto es <tex2html_verb_mark>2196<tex2html_verb_mark>?
+En ese caso la regla y el terminal tienen la misma prioridad.
+Se hace uso de la asociatividad a derechas que indica que el conflicto
+debe resolverse desplazando.
+\begin<<17186>>tex2html_deferred<<17186>>\par\end<<17187>>tex2html_deferred<<17187>>
+\begin<<16984>>theorem_type<<16984>>[exercise][exercise][section][][][]
+Explique la forma en que <tex2html_verb_mark>2197<tex2html_verb_mark> resuelve 
+los conflictos que aparecen en el estado 9.
+Esta es la información sobre el estado 9:
+\begin<<17188>>tex2html_deferred<<17188>>\par\end<<17189>>tex2html_deferred<<17189>>
+\begin<<16927>>tex2html_preform<<16927>><tex2html_verbatim_mark>verbatim5793#\end<<16928>>tex2html_preform<<16928>>\end<<16985>>theorem_type<<16985>>
+\begin<<17190>>tex2html_deferred<<17190>>\par\end<<17191>>tex2html_deferred<<17191>>
+Veamos un ejemplo de ejecución:
+\begin<<17192>>tex2html_deferred<<17192>>\par\end<<17193>>tex2html_deferred<<17193>>
+\begin<<16930>>tex2html_preform<<16930>><tex2html_verbatim_mark>verbatim5794#\end<<16931>>tex2html_preform<<16931>>
+Lo primero que ocurre es una reducción por la regla 
+en la que <tex2html_verb_mark>2198<tex2html_verb_mark> produce vacío. Si miramos el estado 0
+del autómata vemos que contiene:
+\begin<<16932>>tex2html_preform<<16932>><tex2html_verbatim_mark>verbatim5795#\end<<16933>>tex2html_preform<<16933>>
+A continuación se transita desde 0 con <tex2html_verb_mark>2199<tex2html_verb_mark>
+y se consume el primer terminal:
+\begin<<16934>>tex2html_preform<<16934>><tex2html_verbatim_mark>verbatim5796#\end<<16935>>tex2html_preform<<16935>>
+En el estado 5 se reduce por la regla <tex2html_verb_mark>2200<tex2html_verb_mark>.
+Esto hace que se retire el estado 5 de la pila y se
+transite desde el estado 1 viendo el símbolo <tex2html_verb_mark>2201<tex2html_verb_mark>:
+\begin<<16936>>tex2html_preform<<16936>><tex2html_verbatim_mark>verbatim5797#\end<<16937>>tex2html_preform<<16937>>
+Obsérvese la resolución del conflicto en el estado 8
+\begin<<17194>>tex2html_deferred<<17194>>\par\end<<17195>>tex2html_deferred<<17195>>
+La presencia de conflictos, aunque no siempre, en muchos casos es debida
+a la introducción de ambiguedad en la gramática. Si el conflicto 
+es de desplazamiento-reducción se puede resolver explicitando 
+alguna regla que rompa la ambiguedad. Los conflictos de
+reducción-reducción suelen producirse por un diseño erróneo
+de la gramática. En tales casos, suele ser mas adecuado
+modificar la gramática.
+\begin<<17196>>tex2html_deferred<<17196>>\par\end<<17197>>tex2html_deferred<<17197>>
+\section<<16981>>Depuración en <<16938>>\begin<<17198>>tex2html_deferred<<17198>>\tt\end<<17199>>tex2html_deferred<<17199>>jison<<16938>><<16981>>
+\label<<16939>>section:depuracion<<16939>>
+\begin<<17200>>tex2html_deferred<<17200>>\par\end<<17201>>tex2html_deferred<<17201>>
+\section<<16940>>Construcción del Árbol Sintáctico<<16940>>
+El siguiente ejemplo usa <tex2html_verb_mark>2202<tex2html_verb_mark> 
+para construir el árbol sintáctico de una expresión en infijo:
+\begin<<17202>>tex2html_deferred<<17202>>\par\end<<17203>>tex2html_deferred<<17203>>
+\section<<16941>>Esquemas de Traducción<<16941>>
+Un \index<<17006>>esquema de traducción<<17006>>\emph<<17007>>esquema de traducción<<17007>> es una gramática independiente del
+contexto en la cuál se han asociado atributos a los símbolos de la gramática.
+Un atributo queda caracterizado por un identificador
+o nombre y un tipo o clase. Además se han insertado acciones, esto es,
+código Perl/Python/C, \ldots en medio de las partes derechas.
+En ese código es posible referenciar los atributos de los
+símbolos de la gramática como variables del lenguaje subyacente.
+\begin<<17204>>tex2html_deferred<<17204>>\par\end<<17205>>tex2html_deferred<<17205>>
+Recuerde que el orden en que se evalúan los fragmentos de código
+es el de un recorrido primero-profundo del árbol de análisis sintáctico.
+Mas específicamente, considerando a las acciones como hijos-hoja del nodo,
+el recorrido que realiza un esquema de traducción es:
+\begin<<17206>>tex2html_deferred<<17206>>\par\end<<17207>>tex2html_deferred<<17207>>
+\section<<16943>>Definición Dirigida por la Sintáxis<<16943>>
+Una \index<<17008>>definición dirigida por la sintáxis<<17008>>\emph<<17009>>definición dirigida por la sintáxis<<17009>> es un pariente cercano
+de los esquemas de traducción. En una definición dirigida por la
+sintáxis una gramática \begin<<17042>>tex2html_wrap_inline<<17042>>$G = (V, \Sigma, P, S)$\end<<17043>>tex2html_wrap_inline<<17043>>\space se aumenta 
+con nuevas características:
+\begin<<16945>>itemize<<16945>>
+\item
+A cada símbolo \begin<<17044>>tex2html_wrap_inline<<17044>>$S \in V \cup \Sigma$\end<<17045>>tex2html_wrap_inline<<17045>>\space de la gramática se le asocian
+cero o mas atributos. Un atributo queda caracterizado por un identificador
+o nombre y un tipo o clase. A este nivel son \index<<17010>>atributos formales<<17010>>\emph<<17011>>atributos formales<<17011>>,
+como los parámetros formales, en el sentido de que su realización 
+se produce cuando el nodo del árbol es creado.
+\item
+A cada regla de producción \begin<<17046>>tex2html_wrap_inline<<17046>>$A \rightarrow X_1 X_2 \ldots X_n \in P$\end<<17047>>tex2html_wrap_inline<<17047>>
+se le asocian un conjunto de \index<<17012>>reglas de evaluación de los atributos<<17012>>\emph<<17013>>reglas de evaluación de los atributos<<17013>>
+o \index<<17014>>reglas semánticas<<17014>>\emph<<17015>>reglas semánticas<<17015>> que indican que el atributo en la parte
+izquierda de la regla semántica depende de los atributos que aparecen en la parte
+derecha de la regla. El atributo que aparece en la parte izquierda de la regla semántica
+puede estar asociado con un símbolo en la parte derecha de la regla de producción.
+\item
+Los atributos de cada símbolo de la gramática \begin<<17048>>tex2html_wrap_inline<<17048>>$X \in V \cup \Sigma$\end<<17049>>tex2html_wrap_inline<<17049>>
+se dividen en dos grupos disjuntos: \index<<17016>>atributos sintetizados<<17016>>\emph<<17017>>atributos sintetizados<<17017>>
+y \index<<17018>>atributos heredados<<17018>>\emph<<17019>>atributos heredados<<17019>>. Un atributo de \begin<<17050>>tex2html_wrap_inline<<17050>>$X$\end<<17051>>tex2html_wrap_inline<<17051>>\space es un \index<<17020>>atributo heredado<<17020>>\emph<<17021>>atributo heredado<<17021>> 
+si depende de atributos de su padre y hermános en el árbol.
+Un \index<<17022>>atributo sintetizado<<17022>>\emph<<17023>>atributo sintetizado<<17023>> es aquél tal que el valor del atributo depende
+de los valores de los atributos de los hijos, 
+es decir en tal caso \begin<<17052>>tex2html_wrap_inline<<17052>>$X$\end<<17053>>tex2html_wrap_inline<<17053>>\space ha de ser una variable sintáctica
+y los atributos en la parte derecha de la regla semántica deben
+ser atributos de símbolos en la parte derecha de la regla de producción 
+asociada.
+\item
+Los atributos predefinidos se denominán \index<<17024>>atributos intrínsecos<<17024>>\emph<<17025>>atributos intrínsecos<<17025>>.
+Ejemplos de atributos intrínsecos son los atributos 
+sintetizados de los terminales, los cuáles se han
+computado durante la fase de análisis léxico. También
+son atributos intrínsecos los atributos heredados del símbolo
+de arranque, los cuales son pasados como parámetros 
+al comienzo de la computación.
+\end<<16954>>itemize<<16954>>
+\begin<<17208>>tex2html_deferred<<17208>>\par\end<<17209>>tex2html_deferred<<17209>>
+La diferencia principal con un esquema de traducción está en que
+no se especifica el orden de ejecución de las reglas semánticas.
+Se asume que, bien de forma manual o automática, se resolverán
+las dependencias existentes entre los atributos determinadas
+por la aplicación de las reglas semánticas, de manera
+que serán evaluados primero aquellos atributos que no dependen
+de ningún otro, despues los que dependen de estos, etc. siguiendo
+un esquema de ejecución que viene guiado por las dependencias
+existentes entre los datos.
+\begin<<17210>>tex2html_deferred<<17210>>\par\end<<17211>>tex2html_deferred<<17211>>
+Aunque hay muchas formas de realizar un evaluador de una definición
+dirigida por la sintáxis, conceptualmente, tal evaluador debe:
+\begin<<17212>>tex2html_deferred<<17212>>\par\end<<17213>>tex2html_deferred<<17213>>
+\begin<<16955>>enumerate<<16955>>
+\item
+Construir el árbol de análisis sintáctico para la gramática
+y la entrada dadas.
+\item
+Analizar las reglas semánticas para determinar los atributos,
+su clase y las dependencias entre los mismos.
+\item
+Construir el \index<<17026>>grafo de dependencias<<17026>>\emph<<17027>>grafo de dependencias<<17027>> de los atributos,
+el cual tiene
+un nodo para cada ocurrencia de un atributo en el árbol de análisis
+sintáctico etiquetado con dicho atributo. El grafo tiene una arista entre dos
+nodos si existe una dependencia entre los dos atributos a través de alguna
+regla semántica. 
+\item
+Supuesto que el grafo de dependencias determina un \index<<17028>>orden parcial<<17028>>\emph<<17029>>orden parcial<<17029>>
+(esto es cumple las propiedades reflexiva, antisimétrica y transitiva) 
+construir un \index<<17030>>orden topológico<<17030>>\emph<<17031>>orden topológico<<17031>> compatible con el orden parcial.
+\item
+Evaluar las reglas semánticas de acuerdo con el orden topológico.
+\end<<16959>>enumerate<<16959>>
+\begin<<17214>>tex2html_deferred<<17214>>\par\end<<17215>>tex2html_deferred<<17215>>
+Una definición dirigida por la sintáxis en la que las reglas semánticas
+no tienen efectos laterales se denomina una \index<<17032>>gramática atribuída<<17032>>\emph<<17033>>gramática atribuída<<17033>>.
+\begin<<17216>>tex2html_deferred<<17216>>\par\end<<17217>>tex2html_deferred<<17217>>
+Si la definición dirigida por la sintáxis puede ser realizada 
+mediante un esquema de traducción se dice que es \index<<17034>>L-atribuída<<17034>>\emph<<17035>>L-atribuída<<17035>>.
+Para que una definición dirigida por la sintáxis sea L-atribuída
+deben cumplirse que cualquiera que sea la regla de producción
+\begin<<17054>>tex2html_wrap_inline<<17054>>$A \rightarrow X_1 \ldots X_n$\end<<17055>>tex2html_wrap_inline<<17055>>, los atributos heredados de
+\begin<<17056>>tex2html_wrap_inline<<17056>>$X_j$\end<<17057>>tex2html_wrap_inline<<17057>>\space pueden depender únicamente de:
+\begin<<16962>>enumerate<<16962>>
+\item
+Los atributos de los símbolos a la izquierda de \begin<<17058>>tex2html_wrap_inline<<17058>>$X_j$\end<<17059>>tex2html_wrap_inline<<17059>>
+\item
+Los atributos heredados de \begin<<17060>>tex2html_wrap_inline<<17060>>$A$\end<<17061>>tex2html_wrap_inline<<17061>>
+\end<<16963>>enumerate<<16963>>
+\begin<<17218>>tex2html_deferred<<17218>>\par\end<<17219>>tex2html_deferred<<17219>>
+Nótese que las restricciones se refieren a los atributos heredados.
+El cálculo de los atributos sintetizados no supone 
+problema para un esquema de traducción. Si la gramática
+es LL(1), resulta fácil realizar una definición 
+L-atribuída en un analizador descendente recursivo predictivo.
+\begin<<17220>>tex2html_deferred<<17220>>\par\end<<17221>>tex2html_deferred<<17221>>
+Si la definición dirigida por la sintáxis sólo utiliza 
+atributos sintetizados se denomina \index<<17036>>S-atribuída<<17036>>\emph<<17037>>S-atribuída<<17037>>. Una
+definición S-atribuída puede ser fácilmente trasladada a un programa
+<tex2html_verb_mark>2203<tex2html_verb_mark>.
+\begin<<17222>>tex2html_deferred<<17222>>\par\end<<17223>>tex2html_deferred<<17223>>
+\section<<16982>>Manejo en <<16965>>\begin<<17224>>tex2html_deferred<<17224>>\tt\end<<17225>>tex2html_deferred<<17225>>jison<<16965>> de Atributos Heredados<<16982>>
+\label<<16966>>section:heredados<<16966>>
+Jison no soporta acciones en medio de una regla.
+\begin<<17226>>tex2html_deferred<<17226>>\par\end<<17227>>tex2html_deferred<<17227>>
+\section<<16967>>Acciones en Medio de una Regla y Atributos Heredados<<16967>>
+\label<<16968>>section:mediaregla<<16968>>
+Jison no soporta acciones en medio de una regla.
+\begin<<17228>>tex2html_deferred<<17228>>\par\end<<17229>>tex2html_deferred<<17229>>
+\section<<16969>>Recuperación de Errores<<16969>>
+\label<<16970>>section:errores<<16970>>
+Jison no soporta recuperación de errores.
+\begin<<17230>>tex2html_deferred<<17230>>\par\end<<17231>>tex2html_deferred<<17231>>
+\section<<16983>>Consejos a seguir al escribir un programa <<16971>>\begin<<17232>>tex2html_deferred<<17232>>\tt\end<<17233>>tex2html_deferred<<17233>>jison<<16971>><<16983>>
+\label<<16972>>section:consejosjison<<16972>>
+Cuando escriba un programa <tex2html_verb_mark>2204<tex2html_verb_mark> asegurese
+de seguir los siguientes consejos:
+\begin<<17234>>tex2html_deferred<<17234>>\par\end<<17235>>tex2html_deferred<<17235>>
+\begin<<16973>>enumerate<<16973>>
+\item
+Coloque el punto y coma de separación de reglas en una línea aparte.
+Un punto y coma ``pegado'' al final de una regla puede confundirse
+con un terminal de la regla.
+\begin<<17236>>tex2html_deferred<<17236>>\par\end<<17237>>tex2html_deferred<<17237>>
+\item
+Si hay una regla que produce vacío, coloquela en primer lugar y acompáñela de 
+un comentario resaltando ese hecho.
+\item
+Nunca escriba dos reglas de producción en la misma línea.
+\item
+Sangre convenientemente todas las partes derechas de las reglas
+de producción de una variable, de modo que queden
+alineadas.
+\item
+Ponga nombres representativos a sus variables sintácticas. No llame 
+<tex2html_verb_mark>2205<tex2html_verb_mark> a una variable que representa el concepto ``lista de parámetros'',
+llámela <tex2html_verb_mark>2206<tex2html_verb_mark>.
+\item
+Es conveniente que declare los terminales simbólicos, esto es, aquellos que 
+llevan un identificador asociado. Si no llevan prioridad asociada o no 
+es necesaria, use una declaración <tex2html_verb_mark>2208<tex2html_verb_mark>. De esta manera
+el lector de su programa se dará cuenta rápidamente que dichos identificadores
+no se corresponden con variables sintácticas. Por la misma razón,
+si se trata de terminales
+asociados con caracteres o cadenas no es tan necesario que los declare, 
+a menos que, 
+como en el ejemplo de la calculadora para <tex2html_verb_mark>2209<tex2html_verb_mark> y <tex2html_verb_mark>2210<tex2html_verb_mark>,
+sea necesario asociarles una
+precedencia.
+\item
+Es importante que use la opción <tex2html_verb_mark>2211<tex2html_verb_mark> para producir
+el fichero <tex2html_verb_mark>2212<tex2html_verb_mark> conteniendo información detallada sobre
+los conflictos y el autómata. Cuando haya un conflicto shift-reduce
+no resuelto busque en el fichero el estado implicado y 
+vea que LR(0) items \begin<<17062>>tex2html_wrap_inline<<17062>>$A \rightarrow \alpha_\uparrow$\end<<17063>>tex2html_wrap_inline<<17063>>
+y \begin<<17064>>tex2html_wrap_inline<<17064>>$B \rightarrow \beta_\uparrow \gamma$\end<<17065>>tex2html_wrap_inline<<17065>>\space entran en conflicto.
+\begin<<17238>>tex2html_deferred<<17238>>\par\end<<17239>>tex2html_deferred<<17239>>
+\item
+\label<<16974>>item:conflictos<<16974>>
+Si según el informe de <tex2html_verb_mark>2213<tex2html_verb_mark>
+el conflicto se produce ante un terminal \begin<<17066>>tex2html_wrap_inline<<17066>>$a$\end<<17067>>tex2html_wrap_inline<<17067>>,
+es porque \begin<<17068>>tex2html_wrap_inline<<17068>>$a \in FOLLOW(A)$\end<<17069>>tex2html_wrap_inline<<17069>>\space y
+\begin<<17070>>tex2html_wrap_inline<<17070>>$a \in FIRST(\gamma)$\end<<17071>>tex2html_wrap_inline<<17071>>. Busque las causas por las que esto ocurre 
+y modifique su gramática con vistas a eliminar la presencia
+del terminal \begin<<17072>>tex2html_wrap_inline<<17072>>$a$\end<<17073>>tex2html_wrap_inline<<17073>>\space en uno de los dos conjuntos implicados
+o bien establezca reglas de prioridad entre los terminales
+implicados que resuelvan el conflicto.
+\begin<<17240>>tex2html_deferred<<17240>>\par\end<<17241>>tex2html_deferred<<17241>>
+\item
+Nótese que cuando existe un conflicto de desplazamiento 
+reducción entre \begin<<17074>>tex2html_wrap_inline<<17074>>$A \rightarrow \alpha_\uparrow$\end<<17075>>tex2html_wrap_inline<<17075>> 
+y  \begin<<17076>>tex2html_wrap_inline<<17076>>$B \rightarrow \beta_\uparrow \gamma$\end<<17077>>tex2html_wrap_inline<<17077>>, el programa
+<tex2html_verb_mark>2214<tex2html_verb_mark> contabiliza un error por cada terminal 
+\begin<<17078>>tex2html_wrap_inline<<17078>>$a \in FOLLOW(A) \cap FIRST(\gamma)$\end<<17079>>tex2html_wrap_inline<<17079>>. Por esta razón,
+si hay 16 elementos en \begin<<17080>>tex2html_wrap_inline<<17080>>$FOLLOW(A) \cap FIRST(\gamma)$\end<<17081>>tex2html_wrap_inline<<17081>>,
+el analizador <tex2html_verb_mark>2215<tex2html_verb_mark> informará de la existencia
+de 16 conflictos \emph<<16975>>shift-reduce<<16975>>,
+cuando en realidad se trata de uno sólo. No desespere, 
+los conflictos ``auténticos'' suelen
+ser menos de los que <tex2html_verb_mark>2216<tex2html_verb_mark> anuncia.
+\begin<<17242>>tex2html_deferred<<17242>>\par\end<<17243>>tex2html_deferred<<17243>>
+\item
+Si necesita declarar variables globales, inicializaciones, etc.
+que afectan la conducta global del analizador, escriba el código 
+correspondiente en la cabecera del analizador, protegido
+por los delimitadores <tex2html_verb_mark>2218<tex2html_verb_mark> y <tex2html_verb_mark>2219<tex2html_verb_mark>. Estos delimitadores
+deberán aparecer en una línea aparte. Por ejemplo:
+\begin<<17244>>tex2html_deferred<<17244>>\par\end<<17245>>tex2html_deferred<<17245>>
+\begin<<16976>>tex2html_preform<<16976>><tex2html_verbatim_mark>verbatim5798#\end<<16977>>tex2html_preform<<16977>>
+\begin<<17246>>tex2html_deferred<<17246>>\par\end<<17247>>tex2html_deferred<<17247>>
+\end<<16978>>enumerate<<16978>>
+\begin<<17248>>tex2html_deferred<<17248>>\par\end<<17249>>tex2html_deferred<<17249>>
+\chapter<<16979>>Análisis Sintáctico Ascendente en Perl<<16979>>

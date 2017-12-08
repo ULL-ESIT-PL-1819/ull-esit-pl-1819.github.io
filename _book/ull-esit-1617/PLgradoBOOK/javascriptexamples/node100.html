@@ -1,0 +1,28 @@
+
+<H1><A NAME="SECTION052190000000000000000">
+Leer desde una Cadena: YY_INPUT</A>
+</H1>
+En general, la rutina que hace el an&#225;lisis l&#233;xico,
+<SPAN  CLASS="textit">yylex()</SPAN>, lee su entrada a trav&#233;s de la macro
+<tex2html_verb_mark>358<tex2html_verb_mark>. Esta macro es llamada con tres par&#225;metros
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>359<tex2html_verb_mark> 
+
+</DIV>
+el primero, <SPAN  CLASS="textit">buf</SPAN> es utilizado para guardar la entrada.
+el tercero <SPAN  CLASS="textit">max</SPAN> indica el n&#250;mero de caracteres que <SPAN  CLASS="textit">yylex()</SPAN>
+pretende leer de la entrada. El segundo <SPAN  CLASS="textit">result</SPAN> contendr&#225; el n&#250;mero 
+de caracteres realmente le&#305;dos. Para poder leer desde una cadena
+(<SPAN  CLASS="textit">string</SPAN>) basta
+con modificar <tex2html_verb_mark>360<tex2html_verb_mark> para que copie los datos de la cadena en
+el <SPAN  CLASS="textit">buffer</SPAN> pasado como par&#225;metro a <tex2html_verb_mark>361<tex2html_verb_mark>. 
+Sigue un ejemplo: 
+<PRE><tex2html_verbatim_mark>verbatim657#</PRE>
+Este es el fichero conteniendo la funci&#243;n <SPAN  CLASS="textit">main</SPAN>:
+<PRE><tex2html_verbatim_mark>verbatim658#</PRE>
+Y esta es la salida:
+<PRE><tex2html_verbatim_mark>verbatim659#</PRE>
+La cadena <tex2html_verb_mark>362<tex2html_verb_mark> definida en la línea 2 ha sido utilizada 
+como entrada para el análisis léxico.
+
+<P>

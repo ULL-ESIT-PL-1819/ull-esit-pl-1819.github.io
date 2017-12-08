@@ -1,0 +1,1276 @@
+\section{Introducción a {\tt yacc}}
+\label{section:introyacc}
+Los fuentes de esta sección pueden encontrarse en
+\htmladdnormallink{https://github.com/crguezl/yacc-examples}{https://github.com/crguezl/yacc-examples}.
+
+
+Veamos un ejemplo sencillo de analizador sintáctico escrito en \tei{yacc}.
+La gramática se especifica entre las dos líneas de \verb|%%|. 
+Por defecto, el símbolo de arranque es el primero que aparece, en este caso
+\verb|list|. En \verb|bison| es posible hacer que otro variable lo sea
+utilizando la declaración \verb|%start|:
+
+\parrafo{Ejemplo: La Calculadora en {\tt yacc}}
+
+\begin{program} Calculadora elemental. Análizador sintáctico.
+\label{prog:calc1}
+\begin{verbatim}
+nereida:~/src/precedencia/hoc1> cat -n hoc1.y
+ 1  %{
+ 2  /* File: /home/pl/src/precedencia/hoc1/hoc1.y */
+ 3  #define YYSTYPE double
+ 4  #include <stdio.h>
+ 5  %}
+ 6  %token NUMBER
+ 7  %left '+' '-'
+ 8  %left '*' '/'
+ 9  %%
+10  list
+11      :
+12      | list '\n'
+13      | list expr   { printf("%.8g\n",$2);}
+14      ;
+15
+16  expr
+17      : NUMBER { $$ = $1;}
+18      | expr '+' expr {$$ = $1 + $3;}
+19      | expr '-' expr {$$ = $1 - $3;}
+20      | expr '*' expr {$$ = $1 * $3;}
+21      | expr '/' expr {$$ = $1 / $3;}
+22      ;
+23
+24  %%
+25
+26  extern FILE * yyin;
+27
+28  main(int argc, char **argv) {
+29    if (argc > 1) yyin = fopen(argv[1],"r");
+30    yydebug = 1;
+31    yyparse();
+32  }
+33
+34  yyerror(char *s) {
+35    printf("%s\n",s);
+36  }
+\end{verbatim}
+\end{program}
+La macro \tei{YYSTYPE} (línea 3) contiene el tipo del valor semántico.
+Si no se declara se asume \verb|int|.
+
+El fichero \tei{yyin} (líneas 26 y 29) es definido en el 
+fichero conteniendo el analizador léxico 
+\tei{lex.yy.c}. Refiere al fichero de entrada conteniendo
+el texto a analizar.
+
+Al poner la variable \tei{yydebug} a 1 activamos el modo depuración.
+Para que la depuración se haga efectiva es necesario definir además
+la macro \tei{YYDEBUG}.
+
+El analizador sintáctico proveido por \verb|yacc| se llama \tei{yyparse} 
+(línea 31). Por defecto su declaración es \verb|int yyparse ()|
+
+\parrafo{El Analizador Léxico}
+
+\begin{program} 
+\label{program:hoc1l}
+Calculadora elemental.  Analizador léxico:
+\begin{verbatim}
+nereida:~/src/precedencia/hoc1> cat -n hoc1.l
+ 1  %{
+ 2  #include "y.tab.h"
+ 3  extern YYSTYPE yylval;
+ 4  %}
+ 5  number [0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?
+ 6  %%
+ 7  {number} { yylval = atof(yytext); return NUMBER; }
+ 8  .|\n     { return yytext[0];}
+ 9  %%
+10  int yywrap() { return 1; }
+\end{verbatim}
+\end{program}
+
+\parrafo{Compilación}
+
+Al compilar el program \verb|yacc| con la opción \verb|-d|
+se produce además del fichero \tei{y.tab.c} conteniendo el
+analizador sintáctico un fichero adicional de cabecera \tei{y.tab.h}
+conteniendo
+las definiciones de los terminales:
+\begin{verbatim}
+nereida:~/src/precedencia/hoc1> yacc -d -v hoc1.y
+nereida:~/src/precedencia/hoc1> ls -lt | head -4
+total 200
+-rw-rw----  1 pl users    2857 2007-01-18 10:26 y.output
+-rw-rw----  1 pl users   35936 2007-01-18 10:26 y.tab.c
+-rw-rw----  1 pl users    1638 2007-01-18 10:26 y.tab.h
+nereida:~/src/precedencia/hoc1> sed -ne '27,48p' y.tab.h | cat -n
+ 1  #ifndef YYTOKENTYPE
+ 2  # define YYTOKENTYPE
+ 3     /* Put the tokens into the symbol table, so that GDB and other debuggers
+ 4        know about them.  */
+ 5     enum yytokentype {
+ 6       NUMBER = 258
+ 7     };
+ 8  #endif
+ 9  /* Tokens.  */
+10  #define NUMBER 258
+..  .........................................................
+15  #if ! defined (YYSTYPE) && ! defined (YYSTYPE_IS_DECLARED)
+16  typedef int YYSTYPE;
+17  # define yystype YYSTYPE /* obsolescent; will be withdrawn */
+18  # define YYSTYPE_IS_DECLARED 1
+19  # define YYSTYPE_IS_TRIVIAL 1
+20  #endif
+21
+22  extern YYSTYPE yylval;
+\end{verbatim}
+La variable \tei{yylval} (líneas 3 y 7 del listado \ref{program:hoc1l}) 
+es declarada por el
+analizador sintáctico y usada por el analizador 
+léxico. El analizador léxico deja en la misma el valor semántico
+asociado con el token actual.
+
+\parrafo{Makefile}
+
+Para compilar todo el proyecto usaremos el siguiente
+fichero Makefile:
+\begin{program} Calculadora elemental.  Makefile:
+\begin{verbatim}
+> cat Makefile
+hoc1: y.tab.c lex.yy.c
+        gcc -DYYDEBUG=1 -g -o hoc1 y.tab.c lex.yy.c
+y.tab.c y.tab.h: hoc1.y
+        yacc -d -v hoc1.y
+lex.yy.c: hoc1.l y.tab.h
+        flex -l hoc1.l
+clean:
+        - rm -f y.tab.c lex.yy.c *.o core hoc1
+\end{verbatim}
+\end{program}
+
+\parrafo{Ejecución}
+
+\begin{execution}
+Para saber que esta haciendo el analizador, insertamos una
+asignación: \verb2yydebug = 1;2 justo antes de la llamada a
+\verb1yyparse()1 y ejecutamos el programa resultante:
+\begin{verbatim}
+$ hoc1
+yydebug: state 0, reducing by rule 1 (list :)
+yydebug: after reduction, shifting from state 0 to state 1
+2.5+3.5+1
+\end{verbatim}
+Introducimos la expresión \verb|2.5+3.5+1|. Antes que incluso ocurra la entrada, el algoritmo LR reduce por la regla $List \rightarrow \epsilon$.
+\begin{verbatim}
+yydebug: state 1, reading 257 (NUMBER)
+yydebug: state 1, shifting to state 2
+yydebug: state 2, reducing by rule 4 (expr : NUMBER)
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 43 ('+')
+yydebug: state 4, shifting to state 5
+yydebug: state 5, reading 257 (NUMBER)
+yydebug: state 5, shifting to state 2
+yydebug: state 2, reducing by rule 4 (expr : NUMBER)
+yydebug: after reduction, shifting from state 5 to state 6
+yydebug: state 6, reducing by rule 5 (expr : expr '+' expr)
+\end{verbatim}
+Observe como la declaración de la asociatividad a izquierdas \verb|%left '+'| se traduce en la reducción por la regla 5.
+
+\begin{verbatim}
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 43 ('+')
+yydebug: state 4, shifting to state 5
+yydebug: state 5, reading 257 (NUMBER)
+yydebug: state 5, shifting to state 2
+yydebug: state 2, reducing by rule 4 (expr : NUMBER)
+yydebug: after reduction, shifting from state 5 to state 6
+yydebug: state 6, reducing by rule 5 (expr : expr '+' expr)
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 10 ('\n')
+yydebug: state 4, reducing by rule 3 (list : list expr)
+7
+\end{verbatim}
+La reducción por la regla $list \rightarrow list\ expr$ produce la ejecución
+del \verb|printf("%.8g\n",$2);| asociado con la regla y la salida
+del valor \verb|7| que constituye el atributo de $expr$.
+\begin{verbatim}    
+yydebug: after reduction, shifting from state 0 to state 1
+yydebug: state 1, shifting to state 3
+yydebug: state 3, reducing by rule 2 (list : list '\n')
+yydebug: after reduction, shifting from state 0 to state 1
+yydebug: state 1, reading 0 (end-of-file)
+$                         
+\end{verbatim}
+En Unix la combinación de teclas CTRL-D nos permite
+generar el final de fichero.
+
+\end{execution}
+
+\section{Precedencia y Asociatividad}
+\label{section:precandascoyacc}
+En caso de que no existan indicaciones específicas \emph{yacc} resuelve
+los conflictos que aparecen en la construcción de la tabla utilizando las siguientes reglas:
+\begin{enumerate}
+\item
+Un conflicto \emph{reduce-reduce} se resuelve eligiendo la producción que se listó primero en la especificación de la gramática.
+\item
+Un conflicto \emph{shift-reduce} se resuelve siempre en favor del \emph{shift}
+\end{enumerate}
+La precedencia se utiliza para modificar estos criterios. Para 
+ello se define:
+
+\begin{enumerate}
+\item
+La precedencia de los \emph{tokens} es determinada según el orden de 
+declaración. La declaración de \emph{tokens} mediante la palabra reservada \verb1token1 no modifica la precedencia. Si lo hacen las declaraciones realizadas usando las palabras \verb1left1, \verb1right1 y \verb1nonassoc1. Los \emph{tokens} declarados  en la misma línea
+tienen igual precedencia. La precedencia es mayor cuanto mas abajo en
+el texto. Así, en el ejemplo que sigue, el \emph{token} \verb1*1 tiene 
+mayor precedencia que \verb1+1 pero la misma que \verb1/1.
+\item
+La precedencia de una regla $A \rightarrow \alpha$ se
+define como la del terminal mas a la derecha que aparece en
+$\alpha$. En el ejemplo, la producción 
+
+\begin{center}
+\verb1 expr : expr '+' expr1 
+\end{center}
+
+tiene la precedencia del \emph{token} \verb1+1.
+\item
+Para decidir en un conflicto \emph{shift-reduce} se comparan la precedencia 
+de la regla con la del terminal que va a ser desplazado. Si la de la regla es mayor se reduce
+si la del \emph{token} es mayor, se desplaza.
+\item
+Si en un conflicto \emph{shift-reduce} ambos la regla y el terminal que va a ser desplazado
+tiene la misma precedencia \emph{yacc} considera la asociatividad, si es asociativa a izquierdas,
+reduce y si es asociativa a derechas desplaza. Si no es asociativa, genera un mensaje de error.\\
+Obsérvese que, en esta situación, la asociatividad de la regla y la del \emph{token} han de ser por fuerza, las mismas. 
+Ello es así, porque en \emph{yacc} los \emph{tokens} con la misma 
+precedencia se declaran en la misma línea. 
+
+\emph{ Por tanto es imposible declarar dos \emph{tokens} con diferente asociatividad y la misma precedencia}.
+\item
+Es posible modificar la precedencia ``natural'' de una regla, calificándola con un \emph{token} específico.
+para ello se escribe a la derecha de la regla \verb|prec token|, donde \verb|token| es un \emph{token}
+con la precedencia que deseamos. Vea el uso del \emph{token} \verb|dummy| en el siguiente ejercicio.
+\end{enumerate}
+
+\begin{program} Este programa muestra el manejo de las reglas de precedencia.
+\label{prog:prec}
+\begin{verbatim}
+%{
+#define YYSTYPE double
+#include <stdio.h>
+%}
+%token NUMBER
+%left '@' 
+%right '&'  dummy
+%%
+list 
+    :
+    | list '\n'  
+    | list e 
+    ;
+
+e : NUMBER  
+  | e '&' e 
+  | e '@' e %prec dummy
+    ;
+
+%%
+extern FILE * yyin;
+ 
+main(int argc, char **argv) {
+  if (argc > 1) yyin = fopen(argv[1],"r");
+  yydebug = 1;
+  yyparse();
+}
+ 
+yyerror(char *s) {
+  printf("%s\n",s);
+}
+\end{verbatim}            
+\end{program}
+
+\begin{exercise} Dado el programa \verb|yacc| \ref{prog:prec}
+Responda a las siguientes cuestiones:
+\begin{enumerate}
+\item
+Construya las tablas SLR de acciones y \emph{gotos}.
+\item
+Determine el árbol construido para las frases:
+\verb|4@3@5|, \verb|4&3&5|, \verb|4@3&5|, \verb|4&3@5|.
+\item
+¿Cuál es la asociatividad final de la regla \verb|e : e '@' e|?
+\end{enumerate}
+\end{exercise}
+
+\begin{listing}
+Fichero \emph{y.output}:\\
+\begin{verbatim}
+   0  $accept : list $end
+
+   1  list :
+   2       | list '\n'
+   3       | list e
+
+   4  e : NUMBER
+   5    | e '&' e
+   6    | e '@' e
+\end{verbatim}
+
+\begin{tabular}{|p{6cm}|p{6cm}|}
+\hline
+\begin{verbatim}
+state 0
+	$accept : . list $end  (0)
+	list : .  (1)
+
+	.  reduce 1
+
+	list  goto 1
+
+
+state 1
+	$accept : list . $end  (0)
+	list : list . '\n'  (2)
+	list : list . e  (3)
+
+	$end  accept
+	NUMBER  shift 2
+	'\n'  shift 3
+	.  error
+
+	e  goto 4
+
+
+state 2
+	e : NUMBER .  (4)
+
+	.  reduce 4
+
+
+state 3
+	list : list '\n' .  (2)
+
+	.  reduce 2
+
+
+state 4
+	list : list e .  (3)
+	e : e . '&' e  (5)
+	e : e . '@' e  (6)
+
+	'@'  shift 5
+	'&'  shift 6
+	$end  reduce 3
+	NUMBER  reduce 3
+	'\n'  reduce 3
+\end{verbatim}
+&
+\begin{verbatim}
+state 5
+	e : e '@' . e  (6)
+
+	NUMBER  shift 2
+	.  error
+
+	e  goto 7
+
+
+state 6
+	e : e '&' . e  (5)
+
+	NUMBER  shift 2
+	.  error
+
+	e  goto 8
+
+
+state 7
+	e : e . '&' e  (5)
+	e : e . '@' e  (6)
+	e : e '@' e .  (6)
+
+	'&'  shift 6
+	$end  reduce 6
+	NUMBER  reduce 6
+	'@'  reduce 6
+	'\n'  reduce 6
+
+state 8
+	e : e . '&' e  (5)
+	e : e '&' e .  (5)
+	e : e . '@' e  (6)
+
+	'&'  shift 6
+	$end  reduce 5
+	NUMBER  reduce 5
+	'@'  reduce 5
+	'\n'  reduce 5
+\end{verbatim}\\
+\hline
+\end{tabular}
+
+\begin{verbatim}
+7 terminals, 3 nonterminals
+7 grammar rules, 9 states
+\end{verbatim}
+\end{listing}
+
+\begin{example}
+Contrasta tu respuesta con la traza seguida por el programa anterior
+ante la entrada \verb|1@2&3|, al establecer la variable \verb|yydebug = 1|
+y definir la macro \verb|YYDEBUG|:
+\begin{execution}
+\begin{verbatim}
+$ hocprec
+yydebug: state 0, reducing by rule 1 (list :)
+yydebug: after reduction, shifting from state 0 to state 1
+1@2&3
+yydebug: state 1, reading 257 (NUMBER)
+yydebug: state 1, shifting to state 2
+yydebug: state 2, reducing by rule 4 (e : NUMBER)
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 64 ('@')
+yydebug: state 4, shifting to state 5
+yydebug: state 5, reading 257 (NUMBER)
+yydebug: state 5, shifting to state 2
+yydebug: state 2, reducing by rule 4 (e : NUMBER)
+yydebug: after reduction, shifting from state 5 to state 7
+yydebug: state 7, reading 38 ('&')
+yydebug: state 7, shifting to state 6
+\end{verbatim}
+\end{execution}
+¿Por  que se desplaza? ¿No va eso en contra de la declaración 
+\verb|%left '@'|?.  ¿O quizá es porque la precedencia de \verb|@|
+es menor que la de \verb|&|? La respuesta es que la precedencia
+asignada por la declaración 
+\begin{center}
+\verb|e : e '@' e %prec dummy|
+\end{center}
+cambio la asociatividad de la regla. Ahora la regla se
+``enfrenta'' a un \emph{token}, \verb|&| con su misma precedencia.
+Al pasar a ser asociativa a derechas (debido a que
+\verb|dummy| lo es), se debe desplazar y no reducir.
+\end{example}
+
+\begin{example}
+Otra ejecución, esta vez con entrada \verb41&2@34. Compara tus predicciones con los resultados. 
+
+\begin{execution}
+\begin{verbatim}
+$ hocprec
+yydebug: state 0, reducing by rule 1 (list :)
+yydebug: after reduction, shifting from state 0 to state 1
+1&2@3
+yydebug: state 1, reading 257 (NUMBER)
+yydebug: state 1, shifting to state 2
+yydebug: state 2, reducing by rule 4 (e : NUMBER)
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 38 ('&')
+yydebug: state 4, shifting to state 6
+yydebug: state 6, reading 257 (NUMBER)
+yydebug: state 6, shifting to state 2
+yydebug: state 2, reducing by rule 4 (e : NUMBER)
+yydebug: after reduction, shifting from state 6 to state 8
+yydebug: state 8, reading 64 ('@')
+yydebug: state 8, reducing by rule 5 (e : e '&' e)
+\end{verbatim}
+\end{execution}
+En este caso se comparan la producción :
+\begin{center}
+\verb1e1 $\rightarrow$ \verb1e & e1 
+\end{center}
+con el \emph{token} \verb1@1. La regla tiene mayor  precedencia
+que el \emph{token},dado que la precedencia de la regla es la de 
+\verb|&|. 
+\end{example}
+
+\section{Uso de union y type}
+\label{section:union}
+En general, los atributos asociados con las diferentes variables sintácticas y terminales tendrán tipos de datos distintos. Para ello, \verb|yacc| provee
+la declaración \verb|%union|.
+
+La declaración \verb|%union| especifica la colección de posibles tipos de datos de \verb|yylval| y de los atributos \verb|$1|, \verb|$2|, \ldots 
+
+He aqui un ejemplo:
+
+\begin{verbatim}
+%union {
+  double val;
+  int index;
+}
+\end{verbatim}
+Esto dice que los dos tipos de alternativas son \verb|double| y \verb|int |. Se les han dado los nombres \verb|val| y \verb|index|.
+\begin{verbatim}
+%token <val>   NUMBER
+%token <index> VAR
+%type  <val>   expr
+%right '='
+%left '+' '-'
+%left '*' '/'
+\end{verbatim}
+
+Estos nombres \verb|<val>| e \verb|<index>| se utilizan en las declaraciones de \verb1%token1 y \verb1%type1 para definir el tipo del correspondiente atributo asociado.
+
+Dentro de las acciones, se puede especificar el tipo de un símbolo insertando \verb|<tipo>| despues del \verb|$| que referencia al atributo. En el ejemplo anterior podríamos escribir \verb|$<val>1| para indicar que manipulamos el atributo
+del primer símbolo de la parte derecha de la regla como si fuera un \verb|double|.
+
+La información que provee la declaración \verb|%union| es utilizada por  \verb|yacc|
+para realizar la sustitución de las referencias textuales/formales
+(\verb|$$|, \verb|$1|, \ldots \verb|$|$|\alpha|$) a los  atributos de
+los símbolos que conforman la regla (que pueden verse como parámetros
+formales de las acciones) por las referencias a las zonas de memoria
+en las que se guardan (que están asociadas con los correspondientes
+estados de la pila) cuando tiene lugar la reducción en el algoritmo de
+análisis LR:
+
+\begin{flushleft}
+    \verb|    case "reduce A |$\rightarrow \alpha$\verb|" : |
+\\* \verb|      execute("reduce A |$\rightarrow \alpha$\verb|", top(|$|\alpha|$\verb|-1), |$\cdots$\verb| , top(0));| 
+\\* \verb|      pop(|$|\alpha|$\verb|);| 
+\\* \verb|      push(goto[top(0)][A];| 
+\\* \verb|      break;|
+\end{flushleft}
+
+Asi, \verb|yacc| es capaz de insertar 
+el código de ahormado de tipos correcto.
+Ello puede hacerse porque se conocen los tipos 
+asociados con los símbolos en la parte derecha de 
+una regla, ya que han sido proveídos en  
+las declaraciones \verb|%union|, \verb|%token| y \verb|%type|.
+ 
+\section{Acciones en medio de una regla}
+\label{section:mediareglayacc}
+A veces necesitamos insertar una acción en medio de una regla.
+Una acción en medio de una regla puede hacer referencia a los atributos de
+los símbolos que la preceden (usando \verb|$n|), pero no a los que le siguen.
+
+Cuando se  inserta una acción $\left \{ action_1\right \}$
+para su ejecución en medio de una regla $A \rightarrow \alpha
+\beta$ :
+\begin{center}
+$A \rightarrow \alpha \left \{ action_1 \right \} \beta \left \{ action_2\right \}$ 
+\end{center}
+\verb|yacc| crea una variable sintáctica temporal $T$ e introduce una nueva regla:
+
+\begin{center}
+\begin{enumerate}
+\item
+$A \rightarrow \alpha T \beta \left \{ action_2\right \}$ 
+\item
+$T \rightarrow \epsilon \left \{ action_1 \right \}$ 
+\end{enumerate}
+\end{center}
+
+Las acciones en mitad de una regla cuentan como un símbolo mas en la parte 
+derecha de la regla. Asi pues, en una acción posterior en la regla,
+se deberán referenciar los  atributos de los símbolos, teniendo en cuenta este hecho.
+
+Las acciones en mitad de la regla pueden tener un atributo. La acción en cuestión puede
+hacer referencia a ese atributo mediante \verb|$$|, y las acciones posteriores
+en la regla se referirán a él como \verb|$n|, siendo \verb|n| su número de orden
+en la parte derecha. Dado que no existe un símbolo explícito que identifique a 
+la acción, no hay manera de que el programador declare su tipo. Sin embargo, es
+posible utilizar la construcción \verb|$<valtipo>#| para especificar 
+la forma en la que queremos manipular su atributo.
+
+Na hay forma de darle, en una acción a media regla, un valor al atributo asociado con
+la variable en la izquierda de la regla de producción (ya que \verb|$$| se refiere
+al atributo de la variable temporal utilizada para introducir la acción a media regla).
+
+\begin{program} El siguiente programa ilustra el uso de \verb|%union| y de las
+acciones en medio de una regla.
+\label{prog:media}
+\begin{verbatim}
+%{
+#include <string.h>
+char buffer[256];
+#define YYDEBUG 1
+%}
+%union {
+  char tA;
+  char *tx;
+}
+%token <tA> A
+%type <tx> x
+%%
+s : x { *$1 = '\0'; printf("%s\n",buffer); } '\n' s 
+  |
+  ;
+
+x : A { $$ = buffer + sprintf(buffer,"%c",$1); }
+  | A { $<tx>$ = strdup("**"); } x 
+    { $$ = $3 + sprintf($3,"%s%c",$<tx>2,$1); free($2); }
+  ;
+
+%%
+
+main() {
+  yydebug=1;
+  yyparse();
+}
+
+yyerror(char *s) {
+  printf("%s\n",s);
+}
+\end{verbatim}
+\end{program}
+
+\begin{program} El analizador léxico utilizado es el siguiente:
+\begin{verbatim}
+%{
+#include "y.tab.h"
+%}
+%%
+[\t ]+
+[a-zA-Z0-9]   { yylval.tA = yytext[0]; return A; }
+(.|\n)        { return yytext[0]; }
+%%
+yywrap() { return 1; }
+\end{verbatim}
+\end{program}
+
+\begin{example}
+Considere el programa \verb|yacc| \ref{prog:media}. ¿Cuál es la salida para la entrada 
+$ABC$?
+
+La gramática inicial se ve aumentada con dos nuevas variables sintácticas temporales
+y dos reglas $t_1 \rightarrow \epsilon$ y $t_2 \rightarrow \epsilon$. Además las reglas
+correspondientes pasan a ser: $s \rightarrow x t_1 s$ y $x \rightarrow A t_2 x$. El análisis 
+de la entrada $ABC$ nos produce el siguiente árbol anotado:
+
+\end{example}
+
+\begin{execution}
+Observe la salida de la ejecución del programa \ref{prog:media}.
+La variable ``temporal'' creada por \verb|yacc|  para la acción
+en medio de la regla
+\begin{center}
+\verb|s |$\rightarrow$ \verb@ x { *$1 = '\0'; printf("%s\n",buffer); } '\n' s@ 
+\end{center}
+se denota por \verb|$$1|. La asociada con la acción en medio de la regla
+\begin{center}
+\verb|x | $\rightarrow$ \verb| A { $<tx>$ = strdup("**"); } x| 
+\end{center}
+se denota \verb|$$2|.
+\begin{verbatim}
+$ yacc -d -v media4.y ; flex -l medial.l ; gcc -g y.tab.c lex.yy.c
+$ a.out
+ABC
+yydebug: state 0, reading 257 (A)
+yydebug: state 0, shifting to state 1
+yydebug: state 1, reading 257 (A)
+yydebug: state 1, reducing by rule 5 ($$2 :)
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, shifting to state 1
+yydebug: state 1, reading 257 (A)
+yydebug: state 1, reducing by rule 5 ($$2 :)
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, shifting to state 1
+yydebug: state 1, reading 10 ('\n')
+yydebug: state 1, reducing by rule 4 (x : A)
+yydebug: after reduction, shifting from state 4 to state 6
+yydebug: state 6, reducing by rule 6 (x : A $$2 x)
+yydebug: after reduction, shifting from state 4 to state 6
+yydebug: state 6, reducing by rule 6 (x : A $$2 x)
+yydebug: after reduction, shifting from state 0 to state 3
+yydebug: state 3, reducing by rule 1 ($$1 :)
+C**B**A
+yydebug: after reduction, shifting from state 3 to state 5
+yydebug: state 5, shifting to state 7
+yydebug: state 7, reading 0 (end-of-file)
+yydebug: state 7, reducing by rule 3 (s :)
+yydebug: after reduction, shifting from state 7 to state 8
+yydebug: state 8, reducing by rule 2 (s : x $$1 '\n' s)
+yydebug: after reduction, shifting from state 0 to state 2      
+\end{verbatim}
+\end{execution}
+
+\begin{example}
+\label{exa:conflicto}
+¿Que ocurre si en el programa \ref{prog:media} adelantamos la acción intermedia  en la regla
+\begin{center}
+\verb|x| $\rightarrow$ \verb| A { $<tx>$ = strdup("**"); } x|
+\end{center}
+y la reescribimos 
+\begin{center}
+\verb|x| $\rightarrow$ \verb|  { $<tx>$ = strdup("**"); } A x|?
+\end{center}
+
+\begin{execution} En tal caso obtendremos:
+\begin{verbatim}
+$ yacc -d -v media3.y
+yacc: 1 rule never reduced
+yacc: 3 shift/reduce conflicts. 
+\end{verbatim}
+¿Cuáles son esos 3 conflictos?
+\end{execution}
+\begin{listing} El fichero \verb|y.output| comienza enumerando las reglas de 
+la gramática extendida:
+\begin{verbatim}
+ 1    0  $accept : s $end
+ 2
+ 3    1  $$1 :
+ 4
+ 5    2  s : x $$1 '\n' s
+ 6    3    |
+ 7
+ 8    4  x : A
+ 9
+10    5  $$2 :
+11
+12    6  x : $$2 A x
+13 ^L
+\end{verbatim}
+A continuación nos informa de un conflicto 
+en el estado 0. Ante el \emph{token} \verb|A|
+no se sabe si se debe desplazar al estado 1
+o reducir por la regla 5: \verb| $$2 : |.
+\begin{verbatim}
+14 0: shift/reduce conflict (shift 1, reduce 5) on A
+15 state 0
+16         $accept : . s $end  (0)
+17         s : .  (3)
+18         $$2 : .  (5)
+19
+20         A  shift 1
+21         $end  reduce 3
+22
+23         s  goto 2
+24         x  goto 3
+25         $$2  goto 4         
+\end{verbatim}
+Observe que, efectivamente, \verb|$$2 : .| esta
+en la clausura del estado de arranque del NFA (\verb|$accept : . s $end|)
+Esto es asi, ya que al estar el marcador junto a \verb|x|, estará el item
+ \verb|s : . x $$1 '\n' s| y de aqui que también este
+\verb|x : . $$2 A x|. 
+
+Además el \emph{token} \verb|A| está en 
+el conjunto $FOLLOW(\verb|$$2|)$ (Basta con mirar la regla 6 para confirmarlo). 
+Por razones análogas también está en la clausura del estado de 
+arranque el item \verb|x : . A| que es el que motiva el
+desplazamiento al estado 1.
+
+La dificultad para \verb|yacc| se resolvería si
+dispusiera de información acerca de cual es el \emph{token}
+que viene después de la \verb|A| que causa el conflicto. 
+\end{listing}
+\end{example}
+
+\begin{exercise}
+¿Que acción debe tomarse en el conflicto del ejemplo \ref{exa:conflicto} 
+si el \emph{token} que viene después de \verb|A| es \verb|\n|?
+¿Y si el \emph{token} es \verb|A|? ¿Se debe reducir o desplazar?
+\end{exercise}
+
+\section{Recuperación de Errores}
+\label{section:recuperryacc}
+Las entradas de un traductor pueden contener errores. 
+El lenguaje \verb|yacc| proporciona un \emph{token} especial,
+\verb|error|, que puede ser utilizado en el programa fuente
+para extender el traductor con producciones de error 
+que lo doten de cierta capacidad para 
+recuperase de  una entrada errónea y poder continuar 
+analizando el resto de la entrada.
+\begin{execution}
+Consideremos lo que ocurre al ejecutar el programa \verb|yacc|
+\ref{prog:calc1} con una entrada errónea:
+\begin{verbatim}
+$ hoc1
+yydebug: state 0, reducing by rule 1 (list :)
+yydebug: after reduction, shifting from state 0 to state 1
+3--2
+yydebug: state 1, reading 257 (NUMBER)
+yydebug: state 1, shifting to state 2
+yydebug: state 2, reducing by rule 4 (expr : NUMBER)
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 45 (illegal-symbol)
+syntax error
+yydebug: error recovery discarding state 4
+yydebug: error recovery discarding state 1
+yydebug: error recovery discarding state 0
+\end{verbatim}
+\end{execution}
+
+Después de detectar el mensaje \verb|yacc| emite el mensaje 
+\verb|syntax error| y comienza a sacar estados de la pìla hasta que esta se vacía.
+
+\begin{program}
+\label{prog:calc1err}
+La conducta anterior puede modificarse si se introducen ``reglas de 
+recuperación de errores'' como en la siguiente modificación
+del programa \ref{prog:calc1}:
+\begin{verbatim}
+%{
+#define YYSTYPE double
+#define YYDEBUG 1
+#include <stdio.h>
+%}
+%token NUMBER
+%left '-'
+%%
+list 
+    :
+    | list '\n'  
+    | list error '\n'  { yyerrok; }
+    | list expr   { printf("%.8g\n",$2);}
+    ;
+
+expr 
+    : NUMBER { $$ = $1;} 
+    | expr '-' expr {$$ = $1 - $3;}
+    ;
+
+%%
+\end{verbatim}
+\end{program}
+La regla \verb|list |$\rightarrow$ \verb|list error '\n'| es una producción de
+error. La idea general de uso es que, a traves de la misma, el programador 
+le indica a \verb|yacc| que, cuando se produce un error
+dentro de una expresión, descarte todos los \emph{tokens} hasta llegar al
+retorno del carro y prosiga con el análisis. 
+Además, mediante la llamada a  la macro \verb|yyerrok| el programador
+anuncia que, si se alcanza este punto, la recuperación puede considerarse ``completa''  y que 
+\verb|yacc| puede emitir a partir de ese moemnto mensajes de error
+con la seguridad de que no son consecuencia de un comportamiento inestable
+provocado por el primer error.
+
+\begin{algorithm}
+\label{alg:errorrecovery1}
+El esquema general del algoritmo de recuperación de errores usado 
+por la versión actual de \verb|yacc| es el siguiente:
+
+\begin{enumerate}
+\item
+Cuando se encuentra ante una acción de error, el analizador genera un 
+\emph{token} \verb1error1.
+
+\item
+A continuación pasa a retirar estados de la pila hasta que descubre un estado capaz de transitar ante 
+el \emph{token} \verb1error1. 
+
+\item
+En este punto transita al estado correspondiente a desplazar el 
+\emph{token} \verb1error1. 
+
+\item
+Entonces lee \emph{tokens} y los descarta hasta encontrar
+uno que sea aceptable. 
+
+\item
+Sólo se envían nuevos mensajes de error una vez asimilados (desplazados) tres símbolos terminales. De este modos se intenta evitar la aparición masiva de mensajes de error.
+\end{enumerate}
+\end{algorithm}
+
+\begin{algorithm} El cuerpo principal del analizador LR permanece
+sin demasiados cambios:
+\begin{verbatim}
+goodtoken = 3; b = yylex();
+for( ; ; ;) {
+  s = top(); a = b;
+  switch (action[s][a])) {
+    case "shift t" : push(t); b = yylex(); goodtoken++; break;
+    case "reduce A -> alpha" : 
+            pop(strlen(alpha));
+            push(goto[top()][A]; 
+          break; 
+    case "accept" : return (1); 
+    default : if (errorrecovery("syntax error")) return (ERROR);
+  }
+}
+\end{verbatim}
+\end{algorithm}
+\begin{algorithm}
+El siguiente seudocódigo es una reescritura mas detallada del algoritmo \ref{alg:errorrecovery1}. Asumimos que las funciones \verb1pop()1 y \verb1popstate()1
+comprueban que hay suficientes elementos en
+la pila para retirar. En caso contrario se emitirá un mensaje de error y 
+se terminará el análisis. 
+
+\begin{verbatim}
+errorrecovery(char * s) {
+ if (goodtoken > 2) { 
+   yyerror(s); goodtoken = 0; 
+ }
+ while (action[s][error] != shift)
+   popstate(s);
+ push(goto[s][error]);
+ s = top();
+ while (action[s][a] == reduce A -> alpha) {
+   pop(strlen(|alpha|)); 
+   push(goto[top()][A]; 
+   s = top(); 
+ }
+ switch (action[s][a])) {
+   case "shift t" : 
+     push(t); 
+     b = yylex(); 
+     goodtoken++; 
+     RETURN RECOVERING;
+   case "accept" : return (ERROR); 
+   default : 
+     do b = yylex(); 
+     while ((b != EOF)&&(action[s][b] == error); 
+     if (b == EOF) 
+       return (ERROR); 
+     else 
+       RETURN RECOVERING
+}
+\end{verbatim}
+\end{algorithm}
+Parecen existir diferencias en la forma en la que \emph{bison} y \emph{yacc} se recuperan de los errores.
+
+\begin{execution}
+Ejecutemos el programa \ref{prog:calc1err} con \verb|yacc|.
+\begin{verbatim}
+$ yacc -d hoc1.y; flex -l hoc1.l; gcc y.tab.c lex.yy.c; a.out
+yydebug: state 0, reducing by rule 1 (list :)
+yydebug: after reduction, shifting from state 0 to state 1
+2--3-1
+yydebug: state 1, reading 257 (NUMBER)
+yydebug: state 1, shifting to state 3
+yydebug: state 3, reducing by rule 5 (expr : NUMBER)
+yydebug: after reduction, shifting from state 1 to state 5
+yydebug: state 5, reading 45 ('-')
+yydebug: state 5, shifting to state 7
+yydebug: state 7, reading 45 ('-')
+syntax error
+\end{verbatim}
+Puesto que es el primer error, se cumple que 
+\verb|(goodtoken > 2)|, emitiéndose el mensaje de error.
+Ahora comienzan a ejecutarse las líneas:
+
+\begin{center}
+\noindent \verb|while (!(action[s][error] != shift)) popstate(s);|
+\end{center}
+
+\noindent que descartan los estados, hasta encontrar el estado
+que contiene el item 
+
+\verb|list| $\rightarrow$ \verb| list| $\uparrow$ \verb| error '\n'|  
+\begin{verbatim}
+yydebug: error recovery discarding state 7
+yydebug: error recovery discarding state 5
+yydebug: state 1, error recovery shifting to state 2
+\end{verbatim}
+Una vez en ese estado, transitamos con el token \verb|error|,
+\begin{verbatim}
+yydebug: state 2, error recovery discards token 45 ('-')
+yydebug: state 2, reading 257 (NUMBER)
+yydebug: state 2, error recovery discards token 257 (NUMBER)
+yydebug: state 2, reading 45 ('-')
+yydebug: state 2, error recovery discards token 45 ('-')
+yydebug: state 2, reading 257 (NUMBER)
+yydebug: state 2, error recovery discards token 257 (NUMBER)
+\end{verbatim}
+Se ha procedido a descartar \emph{tokens} hasta encontrar el retorno
+de carro, ejecutando las líneas:
+\begin{center}
+\verb|b = yylex(); while ((b != EOF)&&(action[s][b] == error);|
+\end{center}
+
+\begin{verbatim}
+yydebug: state 2, reading 10 ('\n')
+yydebug: state 2, shifting to state 6
+yydebug: state 6, reducing by rule 3 (list : list error '\n')
+yydebug: after reduction, shifting from state 0 to state 1
+\end{verbatim}
+Al reducir por la regla de error, se ejecuta \verb|yyerrok|
+y \verb|yacc| reestablece el valor de \verb|goodtoken|.
+Si se producen nuevos errores serán señalados.
+\end{execution}
+
+\section{Recuperación de Errores en Listas}
+\label{section:recuperryacclistas}
+Aunque no existe un método exacto para decidir como ubicar
+las reglas de recuperación de errores, 
+en general, los s\'{\i}mbolos de error deben ubicarse intentado 
+satisfacer las siguientes reglas:
+
+\begin{itemize}
+\item
+Tan cerca como sea posible del s\'{\i}mbolo de arranque.
+\item
+Tan cerca como sea posible de los s\'{\i}mbolos terminales.
+\item
+Sin introducir nuevos conflictos.
+\end{itemize}
+
+\begin{scheme}
+\label{scheme:errinlists}
+En el caso particular de las listas, se recomienda seguir el
+siguiente esquema:
+
+\begin{math}
+\begin{array}{lll}
+Construct         & EBNF & yacc\ input\\
+\hline
+optional\ sequence & x:\{y\}   & \verb|x : /* null */             |\\ 
+                   &           & \verb|  | x y  { yyerrok; }      |\\
+                   &           & \verb|  | x error                |\\
+\hline
+sequence          & x:y\{y\}  & \verb|x : y                      |\\ 
+                  &           & \verb|  | xy   { yyerrok; }      |\\
+                &           & \verb|  | error                  |\\
+                &           & \verb|  | x error                |\\
+\hline
+list              & x:y\{Ty\} & \verb|x : y                       |\\ 
+                  &           & \verb|  | x T y { yyerrok; }      |\\
+                &           & \verb|  | error                   |\\
+                &           & \verb|  | x error                 |\\
+                &           & \verb|  | x error y { yyerrok; }  |\\
+                &           & \verb|  | x  T error              |\\
+\hline
+\end{array}
+\end{math}
+\end{scheme}
+
+\begin{program} 
+Para comprobar el funcionamiento y la validez de la metodología 
+esquematizada en el esquema \ref{scheme:errinlists}, 
+consideremos los contenidos del fichero \verb1error.y1.
+En el se muestra el tercer caso x:y\{Ty\} con 
+x = {\tt list}, T = {\tt ,} e y = {\tt NUMBER}:
+\begin{verbatim}
+%{
+#include <stdio.h>
+void put(double x);
+void err(int code); 
+%}
+
+%union { 
+  double val; 
+}
+%token <val>NUMBER
+%%
+command 
+  : 
+  | command list '\n' { yyerrok; } 
+  ;
+
+list 
+    : NUMBER            { put($1); }
+    | list ',' NUMBER   { put($3); yyerrok; }
+    | error             { err(1); }
+    | list error        { err(2); }
+    | list error NUMBER { err(3); put($3); yyerrok; }
+    | list ',' error    { err(4); }
+    ;
+    
+%%    
+void put(double x) {   
+  printf("%2.1lf\n",x);
+}
+
+void err(int code) {
+  printf("err %d\n",code);
+}
+
+main() {
+  yydebug = 1;
+  yyparse();
+}
+
+yyerror(char *s) {
+  printf("%s\n",s);
+}
+\end{verbatim} 
+\end{program} 
+
+\begin{listing}
+La compilación con \verb1yacc1 da lugar a una tabla ligeramente diferente
+de la producida por \verb|bison|.
+El fichero \verb1y.output1 contiene la tabla:
+\begin{verbatim}
+   0  $accept : command $end
+
+   1  command :
+   2          | command list '\n'
+
+   3  list : NUMBER
+   4       | list ',' NUMBER
+   5       | error
+   6       | list error
+   7       | list error NUMBER
+   8       | list ',' error
+
+state 0
+	$accept : . command $end  (0)
+	command : .  (1)
+
+	.  reduce 1
+
+	command  goto 1
+
+
+state 1
+	$accept : command . $end  (0)
+	command : command . list '\n'  (2)
+
+	$end  accept
+	error  shift 2
+	NUMBER  shift 3
+	.  error
+
+	list  goto 4
+
+
+state 2
+	list : error .  (5)
+
+	.  reduce 5
+
+
+state 3
+	list : NUMBER .  (3)
+
+	.  reduce 3
+
+
+state 4
+	command : command list . '\n'  (2)
+	list : list . ',' NUMBER  (4)
+	list : list . error  (6)
+	list : list . error NUMBER  (7)
+	list : list . ',' error  (8)
+
+	error  shift 5
+	'\n'  shift 6
+	','  shift 7
+	.  error
+
+
+state 5
+	list : list error .  (6)
+	list : list error . NUMBER  (7)
+
+	NUMBER  shift 8
+	error  reduce 6
+	'\n'  reduce 6
+	','  reduce 6
+
+
+state 6
+	command : command list '\n' .  (2)
+
+	.  reduce 2
+
+
+state 7
+	list : list ',' . NUMBER  (4)
+	list : list ',' . error  (8)
+
+	error  shift 9
+	NUMBER  shift 10
+	.  error
+
+
+state 8
+	list : list error NUMBER .  (7)
+
+	.  reduce 7
+
+
+state 9
+	list : list ',' error .  (8)
+
+	.  reduce 8
+
+
+state 10
+	list : list ',' NUMBER .  (4)
+
+	.  reduce 4
+
+
+5 terminals, 3 nonterminals
+9 grammar rules, 11 states
+\end{verbatim}
+\end{listing}
+\begin{execution}
+La ejecución del programa generado por {\tt yacc} es como sigue:
+\begin{verbatim}
+> error
+yydebug: state 0, reducing by rule 1 (command :)
+yydebug: after reduction, shifting from state 0 to state 1
+10 20
+yydebug: state 1, reading 257 (NUMBER)
+yydebug: state 1, shifting to state 3
+yydebug: state 3, reducing by rule 3 (list : NUMBER)
+10.0
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 257 (NUMBER)
+syntax error
+yydebug: state 4, error recovery shifting to state 5
+yydebug: state 5, shifting to state 8
+yydebug: state 8, reducing by rule 7 (list : list error NUMBER)
+err 3
+20.0
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 10 ('\n')
+yydebug: state 4, shifting to state 6
+yydebug: state 6, reducing by rule 2 (command : command list '\n')
+yydebug: after reduction, shifting from state 0 to state 1
+10;20 30
+yydebug: state 1, reading 257 (NUMBER)
+yydebug: state 1, shifting to state 3
+yydebug: state 3, reducing by rule 3 (list : NUMBER)
+10.0
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 59 (illegal-symbol)
+syntax error
+yydebug: state 4, error recovery shifting to state 5
+yydebug: state 5, error recovery discards token 59 (illegal-symbol)
+yydebug: state 5, reading 257 (NUMBER)
+yydebug: state 5, shifting to state 8
+yydebug: state 8, reducing by rule 7 (list : list error NUMBER)
+err 3
+20.0
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 257 (NUMBER)
+syntax error
+yydebug: state 4, error recovery shifting to state 5
+yydebug: state 5, shifting to state 8
+yydebug: state 8, reducing by rule 7 (list : list error NUMBER)
+err 3
+30.0
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 10 ('\n')
+yydebug: state 4, shifting to state 6
+yydebug: state 6, reducing by rule 2 (command : command list '\n')
+yydebug: after reduction, shifting from state 0 to state 1
+3,
+yydebug: state 1, reading 257 (NUMBER)
+yydebug: state 1, shifting to state 3
+yydebug: state 3, reducing by rule 3 (list : NUMBER)
+3.0
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, reading 44 (',')
+yydebug: state 4, shifting to state 7
+yydebug: state 7, reading 10 ('\n')
+syntax error
+yydebug: state 7, error recovery shifting to state 9
+yydebug: state 9, reducing by rule 8 (list : list ',' error)
+err 4
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, shifting to state 6
+yydebug: state 6, reducing by rule 2 (command : command list '\n')
+yydebug: after reduction, shifting from state 0 to state 1
+#
+yydebug: state 1, reading 35 (illegal-symbol)
+syntax error
+yydebug: state 1, error recovery shifting to state 2
+yydebug: state 2, reducing by rule 5 (list : error)
+err 1
+yydebug: after reduction, shifting from state 1 to state 4
+yydebug: state 4, error recovery discards token 35 (illegal-symbol)
+yydebug: state 4, reading 10 ('\n')
+yydebug: state 4, shifting to state 6
+yydebug: state 6, reducing by rule 2 (command : command list '\n')
+yydebug: after reduction, shifting from state 0 to state 1
+yydebug: state 1, reading 0 (end-of-file)
+\end{verbatim}
+\end{execution}
+

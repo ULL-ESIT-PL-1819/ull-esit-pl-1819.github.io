@@ -1,0 +1,33 @@
+
+<H1><A NAME="SECTION053100000000000000000">
+Suprimir: El Comando <I>D</I></A>
+</H1>
+El comando <#3277#><I>D</I><#3277#> suprime la primera parte (hasta el retorno de
+carro empotrado) en un espacio de patrones multilínea y bifurca al
+primer comando en el <#3278#><I>script</I><#3278#>. El retorno de carro empotrado puede
+describirse mediante la secuencia de escape el espacio de patrones quede vacío como consecuencia de la supresión,
+se lee una nueva línea.
+
+<P>
+El siguiente ejemplo compacta una secuencia de líneas vacías en una sóla línea vacía.
+<PRE><tex2html_verbatim_mark>verbatim740#</PRE>
+Si la línea  es vacía se lee la línea siguiente. Si esta también es vacía el espacio de patrones contiene
+(sin que se lea una nueva línea).
+Por tanto nada ha sido impreso, no se ejecuta el comnado final <tex2html_verb_mark>479<tex2html_verb_mark> que actúa por defecto.
+Como el espacio de trabajo contiene con el patrón especificado en línea 2
+y se lee la siguiente línea. Si esta nueva línea es no vacía, no se ejecutará la orden
+vacía y la nueva línea no vacía.
+
+<P>
+Al ejecutar este ``<#3281#><I>script</I><#3281#>'' sobre un fichero conteniendo una secuencia de líneas en blanco:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim741#</PRE>
+Se obtiene el resultado:
+<PRE><tex2html_verbatim_mark>verbatim742#</PRE>
+Un buen ejercicio es intentar predecir la conducta de esta otra solución alternativa,
+en la que la supresión <SPAN  CLASS="textit">D</SPAN>  es sustituida por la <SPAN  CLASS="textit">d</SPAN>:
+<PRE><tex2html_verbatim_mark>verbatim743#</PRE>
+¿Qué ocurrirá? ¿Es correcta esta segunda solución? 
+
+<P>

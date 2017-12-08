@@ -1,0 +1,54 @@
+\section{Prácticas: Centro de Cálculo}
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{Modo de trabajo en el sistema de archivos del CC de la ETSII}{https://cc.etsii.ull.es/perfillinux}
+\item 
+\htmladdnormallink{Ubicación de las salas}{https://cc.etsii.ull.es/Salas}
+\end{enumerate}
+
+
+\section{Despliegue de una Aplicación Web en la ETSII}
+Para desplegar una aplicación web usaremos \verb|exthost2| (en 2013).
+
+Veamos que puertos están libres usando \tei{netstat}:
+\begin{verbatim}
+casiano@exthost2:~$ netstat -an | less
+\end{verbatim}
+o bien usamos \tei{lsof}: 
+\begin{verbatim}
+lsof -i | less
+\end{verbatim}
+y después - si es necesario - terminamos el proceso que ya estuviera escuchando en el puerto
+\begin{verbatim}
+kill -9 PID
+\end{verbatim}
+
+Veamos una simple aplicación usando \verb|rack|:
+\begin{verbatim}
+casiano@exthost2:~/src/ruby/simplewebapp$ cat hello.rb 
+require 'rack'
+
+app = lambda { |env| [200, {"Content-Type" => "text/plain"}, ["Hello. The time is #{Time.now}"]] }
+Rack::Handler::WEBrick.run app,:Port => 4567
+\end{verbatim}
+La ejecutamos:
+\begin{verbatim}
+casiano@exthost2:~/src/ruby/simplewebapp$ ruby hello.rb 
+[2013-10-28 09:58:54] INFO  WEBrick 1.3.1
+[2013-10-28 09:58:54] INFO  ruby 1.9.3 (2011-10-30) [i686-linux]
+[2013-10-28 09:58:54] WARN  TCPServer Error: Address already in use - bind(2)
+[2013-10-28 09:58:54] INFO  WEBrick::HTTPServer#start: pid=16597 port=4567
+\end{verbatim}
+Ya tenemos disponible la página en \verb|exthost2| en el puerto correspondiente.
+
+El acceso al servidor está limitado a
+la red de la ULL.
+
+\parrafo{Véase también}
+\begin{enumerate}
+\item 
+{\it Gemas instaladas en local} \ref{section:gemasinstaladasenlocal}
+\end{enumerate}
+
+

@@ -1,0 +1,41 @@
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{How to create a Twilio app on Heroku de Morten Baga }{https://vimeo.com/5403424}
+\item 
+\htmladdnormallink{Twilio HackPack for Heroku and Sinatra}{https://github.com/labcoder/Twilio-Hackpack-for-Heroku-and-Sinatra}
+\item 
+\htmladdnormallink{heroku-twilio}{https://github.com/CEWendel/heroku-twilio}
+A fork of the Twilio node library that is Heroku friendly
+\item 
+\htmladdnormallink{Twilio HackPack for Sinatra and Heroku
+Posted by Oscar Sanchez on July 05, 2012 in Tips, Tricks and Sample Code}{https://www.twilio.com/blog/2012/07/twilio-hackpack-for-sinatra-and-heroku.html}
+\end{enumerate}
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{Clockworks SMS}{http://www.clockworksms.com/}
+\item 
+\htmladdnormallink{Documentación de Clockworks SMS}{http://www.clockworksms.com/doc/}
+\item 
+\htmladdnormallink{Ruby gem para Clockworks}{http://www.clockworksms.com/doc/easy-stuff/code-wrappers/ruby/}.
+En 
+\htmladdnormallink{Github}{https://github.com/mediaburst/clockwork-ruby/blob/master/README.md}
+\end{enumerate}
+
+\begin{verbatim}
+require 'clockwork'
+ 
+api = Clockwork::API.new( 'API_KEY_GOES_HERE' )
+message = api.messages.build( :to => '441234123456', :content => 'This is a test message.' )
+response = message.deliver
+ 
+if response.success
+    puts response.message_id
+else
+    puts response.error_code
+    puts response.error_description
+end
+\end{verbatim}
+
+

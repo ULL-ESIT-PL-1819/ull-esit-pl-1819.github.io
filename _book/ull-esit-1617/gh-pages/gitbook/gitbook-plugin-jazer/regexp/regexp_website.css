@@ -1,0 +1,129 @@
+.regexp{
+
+  border: medium solid rgb(223, 64, 4);
+  //width: 300px;
+  background-color: white;
+  color:black;
+
+}
+
+.regexp .header{
+  background-color: rgb(223, 64, 4);
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+.regexp .message{
+  padding:5px;
+  font-weight: bold;
+
+}
+
+.regexp .editor{
+
+  margin: 10px;
+  border-radius: 3px;
+  width: 90%;
+  height: 200px;
+}
+
+.regexp .buttons{
+  margin: 10px;
+  margin-left: 15%;
+}
+
+.regexp .buttons .button{
+
+   border-radius: 8px;
+   margin-right: 20px;
+}
+
+.regexp .submit{
+
+  background-color: rgb(19, 143, 72);
+  width: 40%;
+  color:white;
+  border:none;
+}
+
+.regexp .solution{
+
+  background-color: rgb(16, 115, 147);
+  width: 40%;
+  color:white;
+  border:none;
+}
+
+.regexp .submit:hover{
+
+  background-color: rgb(47, 161, 96);
+  width: 40%;
+  color:white;
+}
+
+.regexp .solution:hover{
+
+  background-color: rgb(34, 138, 172);
+  width: 40%;
+  color:white;
+}
+
+.regexp .submit:active{
+
+  background-color: rgb(14, 108, 54);
+  width: 40%;
+  color:white;
+}
+
+.regexp .solution:active{
+
+  background-color: rgb(9, 91, 117);
+  width: 40%;
+  color:white;
+}
+
+.regexp .correct{
+  border-radius: 8px;
+  color: white;
+  margin-left:10px;
+  padding-left:5px;
+  width:35%;
+  padding: 5px;
+  left: 30%;
+  position: relative;
+  background: #17c048;
+  height: 0;
+  opacity: 0;
+  font-weight: bold;
+
+}
+
+.regexp .fail{
+
+  border-radius: 8px;
+  color: white;
+  padding-left:5px;
+  margin-left:10px;
+  width:35%;
+  padding: 5px;
+  left: 30%;
+  position: relative;
+  background: rgba(246,41,12,1);
+  height: 0;
+  opacity: 0;
+  font-weight: bold;
+
+}
+
+.regexp .correct.show{
+  height: 100%;
+  opacity: 1;
+  transition: all 1s ease-in;
+}
+
+.regexp .fail.show{
+  height: 100%;
+  opacity: 1;
+  transition: all 1s ease-in;
+}

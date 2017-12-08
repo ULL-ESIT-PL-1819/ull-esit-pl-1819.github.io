@@ -1,0 +1,47 @@
+\subsection{Preguntas de Repaso de
+Gulp}\label{preguntas-de-repaso-de-gulp}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Complete las partes que faltan del siguiente \texttt{gulpfile.js} en
+  el que se lleva a cabo una tarea para la optimización (uglify/minify)
+  de la aplicación de la práctica de la temperatura:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\OtherTok{/tmp/pl}\NormalTok{-grado-temperature-}\FunctionTok{converter}\NormalTok{(karma)]$ cat }\OtherTok{gulpfile}\NormalTok{.}\FunctionTok{js}
+\KeywordTok{var} \NormalTok{gulp    = }\FunctionTok{require}\NormalTok{(}\StringTok{'gulp'}\NormalTok{),}
+    \NormalTok{gutil   = }\FunctionTok{require}\NormalTok{(}\StringTok{'gulp-util'}\NormalTok{),}
+    \NormalTok{uglify  = }\FunctionTok{require}\NormalTok{(}\StringTok{'gulp-uglify'}\NormalTok{),}
+    \NormalTok{concat  = }\FunctionTok{require}\NormalTok{(}\StringTok{'gulp-concat'}\NormalTok{);}
+\KeywordTok{var} \NormalTok{minifyHTML = }\FunctionTok{require}\NormalTok{(}\StringTok{'gulp-minify-html'}\NormalTok{);}
+\KeywordTok{var} \NormalTok{minifyCSS  = }\FunctionTok{require}\NormalTok{(}\StringTok{'gulp-minify-css'}\NormalTok{);}
+
+\OtherTok{gulp}\NormalTok{.}\FunctionTok{____}\NormalTok{(}\StringTok{'minify'}\NormalTok{, }\KeywordTok{function} \NormalTok{() \{}
+  \OtherTok{gulp}\NormalTok{.}\FunctionTok{___}\NormalTok{(}\StringTok{'temperature.js'}\NormalTok{)}
+  \NormalTok{.}\FunctionTok{____}\NormalTok{(}\FunctionTok{uglify}\NormalTok{())}
+  \NormalTok{.}\FunctionTok{___}\NormalTok{(}\OtherTok{gulp}\NormalTok{.}\FunctionTok{____}\NormalTok{(}\StringTok{'minified'}\NormalTok{));}
+
+  \OtherTok{gulp}\NormalTok{.}\FunctionTok{__}\NormalTok{(}\StringTok{'./index.html'}\NormalTok{)}
+    \NormalTok{.}\FunctionTok{___}\NormalTok{(}\FunctionTok{minifyHTML}\NormalTok{())}
+    \NormalTok{.}\FunctionTok{___}\NormalTok{(}\OtherTok{gulp}\NormalTok{.}\FunctionTok{___}\NormalTok{(}\StringTok{'./minified/'}\NormalTok{))}
+
+  \OtherTok{gulp}\NormalTok{.}\FunctionTok{__}\NormalTok{(}\StringTok{'./*.css'}\NormalTok{)}
+   \NormalTok{.}\FunctionTok{___}\NormalTok{(}\FunctionTok{minifyCSS}\NormalTok{(\{}\DataTypeTok{keepBreaks}\NormalTok{:}\KeywordTok{true}\NormalTok{\}))}
+   \NormalTok{.}\FunctionTok{___}\NormalTok{(}\OtherTok{gulp}\NormalTok{.}\FunctionTok{___}\NormalTok{(}\StringTok{'./minified/'}\NormalTok{))}
+        \NormalTok{\});}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Explique los pasos para publicar un libro GitBook en GitHub usando
+  \texttt{gulp}
+\item
+  Explique los pasos para actualizar automáticamente los HTML del libro
+  GitBook en su máquina virtual del iaas usando \texttt{gulp}
+\end{itemize}

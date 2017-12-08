@@ -1,0 +1,46 @@
+
+<H1><A NAME="SECTION058210000000000000000">
+La Estructura de Datos Generada por <TT>YappParse.yp</TT></A>
+</H1>
+
+<P>
+El fichero <tex2html_verb_mark>2730<tex2html_verb_mark>.
+contiene la gramática <tex2html_verb_mark>2731<tex2html_verb_mark> del lenguaje
+<tex2html_verb_mark>2732<tex2html_verb_mark><A NAME="tex2html408"
+  HREF="footnode.html#foot18248"><SUP><SPAN CLASS="arabic">35</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A>. 
+Además de las dos rutinas de soporte típicas,
+la de tratamiento de errores <tex2html_verb_mark>2733<tex2html_verb_mark> y la
+de análisis léxico <tex2html_verb_mark>2734<tex2html_verb_mark>, el fichero
+contiene una subrutina para el manejo de las 
+reglas <tex2html_verb_mark>2735<tex2html_verb_mark> y otra rutina <tex2html_verb_mark>2736<tex2html_verb_mark> la cuál
+ actúa como <SPAN  CLASS="textbf">wrapper</SPAN> o filtro sobre el analizador
+<tex2html_verb_mark>2737<tex2html_verb_mark>.
+
+<P>
+Durante el análisis sintáctico 
+de un programa <tex2html_verb_mark>2738<tex2html_verb_mark> se construye una estructura de 
+datos para la posterior manipulación y tratamiento de 
+la gramática.  
+Como ejemplo usaremosla gramática:
+<PRE><tex2html_verbatim_mark>verbatim6215#</PRE>
+Para construir la estructura podemos usar la siguiente subrutina:
+<PRE><tex2html_verbatim_mark>verbatim6216#</PRE>
+La llamada a <tex2html_verb_mark>2739<tex2html_verb_mark> produce la siguiente estructura de datos:
+<PRE><tex2html_verbatim_mark>verbatim6217#</PRE>
+
+<P>
+Las componentes del hash que aparece
+arriba se corresponden
+con diversas variables usadas por <tex2html_verb_mark>2740<tex2html_verb_mark> durante el análisis. La correspondencia
+se establece dentro  del método <tex2html_verb_mark>2741<tex2html_verb_mark> cuando se hace la asignación:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim6218#</PRE>
+esta asignación es la que crea el hash.
+Las variables con identificadores en minúsculas son usadas 
+en el analizador. Son visibles en todo el fichero ya que,
+aunque declaradas léxicas, su declaración se encuentra 
+en la cabecera del analizador:
+<PRE><tex2html_verbatim_mark>verbatim6219#</PRE>
+
+<P>

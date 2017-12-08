@@ -1,0 +1,2261 @@
+\section{Ejemplo Simple de uso de Sinatra}
+
+\parrafo{Código}
+\begin{verbatim}
+[~/sinatra/sinatra-simple(master)]$ cat hi.rb 
+require 'sinatra'
+
+get '/hi' do
+  "Hello World!"
+end
+\end{verbatim}
+
+\parrafo{Opciones de Ejecución}
+\begin{verbatim}
+[~/sinatra/sinatra-simple(master)]$ ruby hi.rb --help
+Usage: hi [options]
+    -p port                          set the port (default is 4567)
+    -o addr                          set the host (default is localhost)
+    -e env                           set the environment (default is development)
+    -s server                        specify rack server/handler (default is thin)
+    -x                               turn on the mutex lock (default is off)
+\end{verbatim}
+Sinatra can be used in threaded environments where more than a
+single request is processed at a time. 
+
+However, not all applications
+and libraries are thread-safe and may cause intermittent errors or
+general weirdness. 
+
+Enabling the \verb|-x| setting causes all requests
+to synchronize on a mutex lock, ensuring that only a single request
+is processed at a time.
+
+The mutex lock setting is disabled by default.
+
+\section{Rutas/Routes}\label{routes}
+
+Repase la sección
+{\it HTTP}
+\ref{section:http}.
+
+Vease el código de este ejemplo en 
+\htmladdnormallink{GitHub}{https://github.com/crguezl/sinatra-simple}
+
+\parrafo{Aplicacion}
+\begin{verbatim}
+[~/Dropbox/src/ruby/sinatra/sinatra-simple(master)]$ cat app.rb
+require 'sinatra/base'
+
+class App < Sinatra::Base
+  get '/' do
+    "hello get!"
+  end
+
+  post '/' do
+    'hello post!'
+  end
+
+  put '/' do
+    'hello put!'
+  end
+
+  delete '/' do
+    'hello delete!'
+  end
+
+  get '/:name' do |name|
+    "hello #{name}!"
+  end
+
+  get '/:name/?:apelido1?' do |name, apellido|
+    "hello #{apellido}, #{name}!"
+  end
+end
+\end{verbatim}
+
+
+In Sinatra, a route is an HTTP method paired with a URL-matching
+pattern. Each route is associated with a block
+
+Routes are matched in the order they are defined. The first route
+that matches the request is invoked.
+
+Route patterns may include named parameters, accessible via the params hash:
+
+\begin{verbatim}        get '/hello/:name' do
+          # matches "GET /hello/foo" and "GET /hello/bar"
+          # params[:name] is 'foo' or 'bar'
+          "Hello #{params[:name]}!"
+        end
+\end{verbatim}
+
+You can also access named parameters via block parameters:
+
+\begin{verbatim}        get '/:name' do |name|
+          "hello #{name}!"
+        end
+\end{verbatim}
+
+Route patterns may also include splat (or wildcard) parameters,
+accessible via the {\tt params[:splat]} array:
+
+\begin{verbatim}        get '/say/*/to/*' do
+          # matches /say/hello/to/world
+          params[:splat] # => ["hello", "world"]
+        end
+
+        get '/download/*.*' do
+          # matches /download/path/to/file.xml
+          params[:splat] # => ["path/to/file", "xml"]
+        end
+\end{verbatim}
+
+\parrafo{config.ru}
+\begin{verbatim}
+[~/sinatra/sinatra-simple(master)]$ cat config.ru 
+require './app'
+
+run App
+\end{verbatim}
+
+\parrafo{Rakefile}
+\begin{verbatim}
+[~/sinatra/sinatra-simple(master)]$ cat Rakefile 
+task :default => :server
+
+desc "run server"
+task :server do
+  sh "rackup"
+end
+
+desc "make a get / request via curl"
+task :get do
+  sh "curl -v localhost:9292"
+end
+
+desc "make a post / request via curl"
+task :post do
+  sh "curl -X POST -v -d 'ignored data' localhost:9292"
+end
+
+desc "make a put / request via curl"
+task :put do
+  sh "curl -X PUT -v localhost:9292"
+end
+
+desc "make a DELETE / request via curl"
+task :delete do
+  sh "curl -X DELETE -v localhost:9292"
+end
+
+desc "make a get /name request via curl"
+task :getname, :name do |t,h|
+  name = h[:name] or 'pepe'
+  sh "curl -v localhost:9292/#{name}"
+end
+
+desc "make a get /name/appellido request via curl"
+task :getfullname, :name, :apellido do |t,h|
+  name = h[:name] or 'pepe'
+  apellido = h[:apellido] or 'rodriguez'
+  sh "curl -v localhost:9292/#{name}/#{apellido}"
+end
+
+task :html do
+  sh "kramdown README.md > README.html"
+end
+\end{verbatim}
+
+\parrafo{Ejecución del servidor}
+
+\begin{verbatim}
+[~/sinatra/sinatra-simple(master)]$ rake server
+rackup
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+127.0.0.1 - - [01/Jul/2013 20:25:16] "GET /juana HTTP/1.1" 200 12 0.0689
+\end{verbatim}
+
+\parrafo{Ejecución de los clientes}
+
+\begin{verbatim}
+[~/Dropbox/src/ruby/sinatra/sinatra-simple(master)]$ rake getname[juana]
+{:name=>"juana"}
+curl -v localhost:9292/juana
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /juana HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html;charset=utf-8
+< Content-Length: 12
+< X-XSS-Protection: 1; mode=block
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: SAMEORIGIN
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+hello juana!
+\end{verbatim}
+
+\begin{verbatim}
+[~/Dropbox/src/ruby/sinatra/sinatra-simple(master)]$ rake getfullname[Ana,Hernandez]
+curl -v localhost:9292/Ana/Hernandez
+* About to connect() to localhost port 9292 (#0)
+*   Trying ::1... Connection refused
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /Ana/Hernandez HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html;charset=utf-8
+< Content-Length: 21
+< X-XSS-Protection: 1; mode=block
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: SAMEORIGIN
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+* Connection #0 to host localhost left intact
+* Closing connection #0
+hello Hernandez, Ana!
+\end{verbatim}
+
+\subsection{Verbos HTTP en Sinatra/Base}
+
+\htmladdnormallink{Método {\tt get}}{https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb\#L1351}
+\begin{verbatim}
+      def get(path, opts = {}, &block)
+        conditions = @conditions.dup
+        route('GET', path, opts, &block)
+
+        @conditions = conditions
+        route('HEAD', path, opts, &block)
+      end
+\end{verbatim}
+
+\begin{verbatim}
+      def put(path, opts = {}, &bk)     route 'PUT',     path, opts, &bk end
+      def post(path, opts = {}, &bk)    route 'POST',    path, opts, &bk end
+      def delete(path, opts = {}, &bk)  route 'DELETE',  path, opts, &bk end
+      def head(path, opts = {}, &bk)    route 'HEAD',    path, opts, &bk end
+      def options(path, opts = {}, &bk) route 'OPTIONS', path, opts, &bk end
+      def patch(path, opts = {}, &bk)   route 'PATCH',   path, opts, &bk end
+      def link(path, opts = {}, &bk)    route 'LINK',    path, opts, &bk end
+      def unlink(path, opts = {}, &bk)  route 'UNLINK',  path, opts, &bk end
+\end{verbatim}
+
+\htmladdnormallink{Método {\tt route}}{https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb\#L1563}
+\begin{verbatim}
+      def route(verb, path, options = {}, &block)
+        # Because of self.options.host
+        host_name(options.delete(:host)) if options.key?(:host)
+        enable :empty_path_info if path == "" and empty_path_info.nil?
+        signature = compile!(verb, path, block, options)
+        (@routes[verb] ||= []) << signature
+        invoke_hook(:route_added, verb, path, block)
+        signature
+      end
+\end{verbatim}
+
+
+\section{Ficheros Estáticos}
+\begin{enumerate}
+\item 
+Static files are served from the \verb|./public| directory. 
+\item 
+You can specify a different location by setting the \verb|:public_folder| option:
+\begin{verbatim}
+set :public_folder, File.dirname(__FILE__) + '/static'
+\end{verbatim}
+Put this code in a \verb|configure| block
+\item 
+Note that the public directory name is not included in the URL. 
+\item 
+A file \verb|./public/css/style.css| is made available as \verb|http://example.com/css/style.css|.
+\item 
+Use the \verb|:static_cache_control| setting to add Cache-Control header info.
+Use an explicit array when setting multiple values:
+\begin{verbatim}
+ set :static_cache_control, [:public, :max_age => 300]
+\end{verbatim}
+\item 
+What would be delivered in the event that a defined route conflicts with the name of the static resource?.
+The answer is the static resource.
+\end{enumerate}
+
+\section{Vistas}
+
+\begin{quote}
+Writing a program that spits out HTML is often more difficult than
+you might imagine. Although programming languages are better at
+creating text than they used to be (some of us remember character
+handling in Fortran and standard Pascal), creating and concatenating
+string constructs is still painful. If there isn't much to do, it
+isn't too bad, but a whole HTML page is a lot of text manipulation.
+
+With static HTML pages - those that don't change from request to
+request - you can use nice WYSIWG editors. Even those of us who
+like raw text editors find it easier to just type in the text and
+tags rather than fiddle with string concatenation in a programming
+language.
+
+Of course the issue is with dynamic Web pages - those that take the
+results of something like database queries and embed them into the
+HTML. The page looks different with each result, and as a result
+regular HTML editors aren't up to the job.
+
+The best way to work is to compose the dynamic Web page as you do
+a static page but put in markers that can be resolved into calls
+to gather dynamic information. Since the static part of the page
+acts as a template for the particular response, I call this a
+\cei{Template View}.
+
+\flushright{Martin Fowler}
+
+\end{quote}
+
+Views in Sinatra  are \cei{HTML templates} that can optionally contain data
+passed from the application.
+
+There are two ways to work with views in Sinatra: \cei{inline templates} and
+\cei{external templates}.
+
+Véase en GitHub 
+\htmladdnormallink{sinatra-up-and-running/tree/master/chapter2/views}{https://github.com/crguezl/sinatra-up-and-running/tree/master/chapter2/views}.
+
+\subsection{Templates Inline}
+
+Templates may be defined at the end of the source file.
+En este ejemplo trabajamos con varios templates inline en diferentes ficheros:
+\begin{verbatim}
+[~/sinatra/sinatraupandrunning/chapter2/views(master)]$ cat example2-14.rb 
+require 'sinatra/base'
+
+class App < Sinatra::Base
+  enable :inline_templates
+  get '/index' do 
+    puts "Visiting #{request.url}"
+    erb :index
+  end
+end
+
+require './another'
+__END__
+@@index
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="UTF-8">
+    <title>Inline template</title> 
+  </head>
+  <body> 
+    <h1>Worked!</h1>
+  </body> 
+</html>
+\end{verbatim}
+
+En este fichero tenemos un segundo template inline:
+\begin{verbatim}
+[~/sinatra/sinatraupandrunning/chapter2/views(master)]$ cat another.rb 
+class App 
+  enable :inline_templates
+  get '/' do
+    erb :another
+  end
+end
+
+__END__
+@@another
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="UTF-8">
+    <title>Separated file</title> 
+  </head>
+  <body> 
+    <h1>Inside another!</h1>
+  </body> 
+</html>
+\end{verbatim}
+
+Este es nuestro config.ru:
+
+\begin{verbatim}
+[~/sinatra/sinatraupandrunning/chapter2/views(master)]$ cat config.ru 
+require './example2-14'
+
+run App
+\end{verbatim}
+Para simplificar las cosas hemos hecho un \verb|Rakefile|:
+\begin{verbatim}
+[~/sinatra/sinatraupandrunning/chapter2/views(master)]$ cat Rakefile 
+task :default => :server
+
+desc "run server"
+task :server do
+  sh "rackup"
+end
+
+desc "make a get / request via curl"
+task :root do
+  sh "curl -v localhost:9292"
+end
+
+desc "make a get /index request via curl"
+task :index do 
+  sh "curl -v localhost:9292/index"
+end
+\end{verbatim}
+
+El resultado de la ejecución es:
+\begin{verbatim}
+[~/sinatra/sinatra-up-and-running/chapter2/views/inline_templates(master)]$ curl http://localhost:9292/index
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="UTF-8">
+    <title>Inline template</title> 
+  </head>
+  <body> 
+    <h1>Worked!</h1>
+  </body> 
+</html>
+[~/sinatra/sinatra-up-and-running/chapter2/views/inline_templates(master)]$ curl http://localhost:9292/
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="UTF-8">
+    <title>Separated file</title> 
+  </head>
+  <body> 
+    <h1>Inside another!</h1>
+  </body> 
+</html>
+\end{verbatim}
+
+\subsection{Named Templates}
+Templates may also be defined using the top-level \verb|template| method:
+
+\begin{verbatim}
+template :layout do
+  "%html\n  =yield\n"
+end
+
+template :index do
+  '%div.title Hello World!'
+end
+
+get '/' do
+  haml :index
+end
+\end{verbatim}
+If a template named \verb|layout| exists, it will be used each time a template is rendered. 
+
+You can individually disable layouts by passing \verb|:layout => false| or disable them by default via \verb|set :haml, :layout => false|:
+
+\begin{verbatim}
+get '/' do
+  haml :index, :layout => !request.xhr?
+end
+\end{verbatim}
+
+\subsection{Templates Externos}
+
+\begin{verbatim}
+$ ls
+Rakefile               example2-16.rb         views
+config.ru              
+\end{verbatim}
+
+\begin{verbatim}
+$ cat example2-16.rb 
+require 'sinatra/base'
+
+class App < Sinatra::Base
+  get '/index' do 
+    puts "Visiting #{request.url}"
+    erb :index
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+$ cat views/index.erb 
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="UTF-8">
+    <title>Inline template</title> 
+  </head>
+  <body> 
+    <h1>Worked!</h1>
+  </body> 
+</html>
+\end{verbatim}
+
+\begin{verbatim}
+$ cat config.ru 
+require './example2-16'
+
+run App
+\end{verbatim}
+
+\begin{verbatim}
+$ cat Rakefile 
+task :default => :server
+
+desc "run server"
+task :server do
+  sh "rackup"
+end
+
+desc "make a get / request via curl"
+task :root do
+  sh "curl -v localhost:9292"
+end
+
+desc "make a get /index request via curl"
+task :index do 
+  sh "curl -v localhost:9292/index"
+end
+\end{verbatim}
+
+\begin{verbatim}
+$ rake server
+rackup
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+Visiting http://localhost:9292/index
+127.0.0.1 - - [03/Jul/2013 22:30:16] "GET /index HTTP/1.1" 200 157 0.0774
+\end{verbatim}
+
+\begin{verbatim}
+$ rake index
+curl -v localhost:9292/index
+* About to connect() to localhost port 9292 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /index HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html;charset=utf-8
+< Content-Length: 157
+< X-XSS-Protection: 1; mode=block
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: SAMEORIGIN
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="UTF-8">
+    <title>Inline template</title> 
+  </head>
+  <body> 
+    <h1>Worked!</h1>
+  </body> 
+</html>
+
+* Connection #0 to host localhost left intact
+* Closing connection #0
+\end{verbatim}
+
+\subsection{Templates Externos en Subcarpetas}
+
+Véase en GitHub 
+\htmladdnormallink{sinatra-up-and-running/tree/master/chapter2/views/external\_view\_files/external\_in\_subfolders}{https://github.com/crguezl/sinatra-up-and-running/tree/master/chapter2/views/external\_view\_files/external\_in\_subfolders}
+
+\begin{verbatim}
+$ ls
+Rakefile  app.rb    config.ru views
+\end{verbatim}
+
+\begin{verbatim}
+$ cat app.rb 
+require 'sinatra/base'
+
+class App < Sinatra::Base
+  get '/:user/profile' do |user|
+    @user = user
+    erb '/user/profile'.to_sym
+  end
+
+  get '/:user/help' do |user|
+    @user = user
+    erb :'/user/help'
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+$ cat views/user/profile.erb 
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="UTF-8">
+    <title>Profile Template</title> 
+  </head>
+  <body> 
+    <h1>Profile of <%= @user %></h1>
+     <%= params %>
+  </body> 
+</html>
+\end{verbatim}
+
+
+\begin{verbatim}
+$ cat views/user/help.erb 
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="UTF-8">
+    <title>HELP Template</title> 
+  </head>
+  <body> 
+    <h1>Help for user <%= @user %></h1>
+     <pre>
+       <%= params %>
+     </pre>
+  </body> 
+</html>
+\end{verbatim}
+
+\begin{verbatim}
+$ cat config.ru 
+require './app'
+
+run App
+\end{verbatim}
+
+\begin{verbatim}
+$ cat Rakefile 
+PORT = 9292
+task :default => :server
+
+desc "run server"
+task :server do
+  sh "rackup"
+end
+
+desc "make a get /pepe/profile request via curl"
+task :profile, :name do |t, h|
+  user = h['name'] || 'pepe'
+  sh "curl -v localhost:#{PORT}/#{user}/profile"
+end
+
+desc "make a get /pepe/help request via curl"
+task :help do 
+  sh "curl -v localhost:#{PORT}/pepe/help"
+end
+\end{verbatim}
+
+\begin{verbatim}
+$ rake server
+rackup
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+127.0.0.1 - - [03/Jul/2013 21:40:04] "GET /Pedro/profile HTTP/1.1" 200 227 0.1077
+\end{verbatim}
+
+
+\begin{verbatim}
+$ rake profile[Pedro]
+curl -v localhost:9292/Pedro/profile
+* About to connect() to localhost port 9292 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /Pedro/profile HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html;charset=utf-8
+< Content-Length: 227
+< X-XSS-Protection: 1; mode=block
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: SAMEORIGIN
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta charset="UTF-8">
+    <title>Profile Template</title> 
+  </head>
+  <body> 
+    <h1>Profile of Pedro</h1>
+     {"splat"=>[], "captures"=>["Pedro"], "user"=>"Pedro"}
+  </body> 
+</html>
+
+
+* Connection #0 to host localhost left intact
+* Closing connection #0
+\end{verbatim}
+
+\subsection{Variables en las Vistas}
+
+\parrafo{Comunicación vía variables de instancia}
+Los templates se evaluan en el mismo contexto que los manejadores de las rutas.
+Las variables de instancia son accesibles directamente en los templates.
+
+\begin{verbatim}
+get '/:id' do
+  @foo = Foo.find(params[:id])
+  haml '%h1= @foo.name'
+end
+\end{verbatim}
+Veamos un ejemplo de comunicación via variables de instancia entre el manejador de la ruta
+y el template:
+
+\begin{verbatim}
+[~/sinatra/sinatra-views/passing_data_into_views(master)]$ ls
+Rakefile        config.ru       via_instance.rb
+\end{verbatim}
+
+
+\begin{verbatim}
+[~/sinatra/sinatra-views/passing_data_into_views(master)]$ cat via_instance.rb 
+require 'sinatra/base'
+
+
+class App < Sinatra::Base
+  get '/*' do |name|
+    def some_template
+       <<-'HAMLTEMP'
+%ol
+  - @foo.each do |item|
+    %li 
+      %i #{item}
+HAMLTEMP
+    end
+
+    puts "*---***#{name}*---****"
+    @foo = name.split('/')
+    haml some_template
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/sinatra/sinatra-views/passing_data_into_views(master)]$ cat config.ru 
+require './via_instance'
+
+run App
+\end{verbatim}
+
+\begin{verbatim}
+[~/sinatra/sinatra-views/passing_data_into_views(master)]$ cat Rakefile 
+task :default => :server
+
+desc "run server"
+task :server do
+  sh "rackup"
+end
+
+desc "make a get /juan/leon/hernandez request via curl"
+task :client do
+  sh "curl -v localhost:9292/juan/leon/hernandez"
+end
+\end{verbatim}
+
+\begin{verbatim}
+[~/sinatra/sinatraupandrunning/chapter2/views/passing_data_into_views(master)]$ rake server
+rackup
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+*---***juan/leon/hernandez*---****
+127.0.0.1 - - [05/Jul/2013 17:06:05] "GET /juan/leon/hernandez HTTP/1.1" 200 109 0.3502
+\end{verbatim}
+
+\begin{verbatim}
+[~/sinatra/sinatra-views/passing_data_into_views(master)]$ rake client
+curl -v localhost:9292/juan/leon/hernandez
+* About to connect() to localhost port 9292 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /juan/leon/hernandez HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html;charset=utf-8
+< Content-Length: 109
+< X-XSS-Protection: 1; mode=block
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: SAMEORIGIN
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+<ol>
+  <li>
+    <i>juan</i>
+  </li>
+  <li>
+    <i>leon</i>
+  </li>
+  <li>
+    <i>hernandez</i>
+  </li>
+</ol>
+* Connection #0 to host localhost left intact
+* Closing connection #0
+\end{verbatim}
+
+\subsection{Pasando variables a la vista explícitamente via un hash}
+
+También es posible pasar en la llamada un hash especificando 
+las variables locales:
+\begin{verbatim}
+get '/:id' do
+  foo = Foo.find(params[:id])
+  haml '%h1= bar.name', :locals => { :bar => foo }
+end
+\end{verbatim}
+This is typically used when rendering templates as partials from within other templates.
+
+Veamos un ejemplo:
+
+\begin{verbatim}
+$ ls
+Rakefile    config.ru   via_hash.rb views
+\end{verbatim}
+
+\begin{verbatim}
+$ cat via_hash.rb
+require 'sinatra/base'
+
+class App < Sinatra::Base
+  get '/*' do |name|
+    def some_template
+       <<-'ERBTEMP'
+<ul><% name.each do |item| %>
+      <li> <i> <%= item %> </i> </li>
+    <% end %>
+</ul>
+ERBTEMP
+    end # method some_template
+
+    puts "*---***#{name}*---****"
+    erb some_template, :locals => { :name => name.split('/')}
+  end
+end
+\end{verbatim}
+
+\begin{verbatim}
+$ cat views/layout.erb 
+<!DOCTYPE html>
+<html>
+  <head>
+        <title>Sinatra</title>
+  </head>
+  <body>
+    <h1>Accesing variables in templates via a parameter hash</h1>
+    <%= yield %>
+  </body>
+</html>
+\end{verbatim}
+
+\begin{verbatim}
+$ cat config.ru 
+require './via_hash'
+
+run App
+\end{verbatim}
+
+\begin{verbatim}
+$ cat Rakefile task :default => :server
+
+desc "run server"
+task :server do
+  sh "rackup"
+end
+
+desc "make a get /juan/leon/hernandez request via curl"
+task :client do
+  sh "curl -v localhost:9292/juan/leon/hernandez"
+end
+\end{verbatim}
+
+\begin{verbatim}
+$ rake serverrackup
+>> Thin web server (v1.5.1 codename Straight Razor)
+>> Maximum connections set to 1024
+>> Listening on 0.0.0.0:9292, CTRL+C to stop
+*---***juan/leon/hernandez*---****
+127.0.0.1 - - [05/Jul/2013 17:50:20] "GET /juan/leon/hernandez HTTP/1.1" 200 290 0.0352
+\end{verbatim}
+
+\begin{verbatim}
+$ rake client
+curl -v localhost:9292/juan/leon/hernandez
+* About to connect() to localhost port 9292 (#0)
+*   Trying 127.0.0.1... connected
+* Connected to localhost (127.0.0.1) port 9292 (#0)
+> GET /juan/leon/hernandez HTTP/1.1
+> User-Agent: curl/7.21.4 (universal-apple-darwin11.0) libcurl/7.21.4 OpenSSL/0.9.8x zlib/1.2.5
+> Host: localhost:9292
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html;charset=utf-8
+< Content-Length: 290
+< X-XSS-Protection: 1; mode=block
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: SAMEORIGIN
+< Connection: keep-alive
+< Server: thin 1.5.1 codename Straight Razor
+< 
+<!DOCTYPE html>
+<html>
+  <head>
+        <title>Sinatra</title>
+  </head>
+  <body>
+    <h1>Accesing variables in templates via a parameter hash</h1>
+    <ul>
+      <li> <i> juan </i> </li>
+    
+      <li> <i> leon </i> </li>
+    
+      <li> <i> hernandez </i> </li>
+    
+</ul>
+
+  </body>
+</html>
+* Connection #0 to host localhost left intact
+* Closing connection #0
+\end{verbatim}
+
+\subsection{Opciones pasadas a los Métodos de los Templates}
+
+Options passed to the render method override options set via \verb|set|.
+
+Available Options:
+
+\begin{enumerate}
+\item \verb|locals|
+
+List of locals passed to the document. Handy with partials. Example: 
+\begin{verbatim}
+erb "<%= foo %>", :locals => {:foo => "bar"}
+\end{verbatim}
+\item \verb|default_encoding|
+
+String encoding to use if uncertain. Defaults to 
+\begin{verbatim}
+settings.default_encoding.
+\end{verbatim}
+
+\item 
+\verb|views|
+
+Views folder to load templates from. Defaults to \verb|settings.views|.
+
+\item 
+\verb|layout|
+
+Whether to use a layout (true or false), if it's a Symbol, specifies what template to use. Example: 
+\begin{verbatim}
+erb :index, :layout => !request.xhr?
+\end{verbatim}
+
+\item 
+\verb|content_type|
+
+Content-Type the template produces, default depends on template language.
+
+\item 
+\verb|scope|
+
+Scope to render template under. 
+
+Defaults to the application instance. 
+
+If you change this, instance variables and helper methods will not be available.
+
+\item 
+\verb|layout_engine|
+
+Template engine to use for rendering the layout. 
+
+Useful for languages
+that do not support layouts otherwise. 
+
+Defaults to the engine used
+for the template. Example: 
+
+\begin{verbatim}
+set :rdoc, :layout_engine => :erb
+\end{verbatim}
+
+\item 
+\verb|layout_options|
+
+Special options only used for rendering the layout. Example: 
+
+\begin{verbatim}
+set :rdoc, :layout_options => { :views => 'views/layouts' }
+\end{verbatim}
+
+\item 
+Templates are assumed to be located directly under the \verb|./views| directory. 
+
+To use a different views directory: 
+
+\begin{verbatim}
+set :views, settings.root + '/templates'
+\end{verbatim}
+
+\item 
+One important thing to remember is that you always have to reference
+templates with symbols, even if they’re in a subdirectory (in this
+case, use: 
+\verb|:'subdir/template'| 
+or 
+\verb|'subdir/template'.to_sym|). 
+
+You
+must use a symbol because otherwise rendering methods will render
+any strings passed to them directly.
+\end{enumerate}
+
+\section{Filtros}
+
+\parrafo{Before Filters}
+\cei{Before filters} are evaluated before each request within the
+same context as the routes will be and can modify the request and
+response. 
+
+Instance variables set in filters are accessible by routes
+and templates:
+
+\begin{verbatim}
+before do
+  @note = 'Hi!'
+  request.path_info = '/foo/bar/baz'
+end
+
+get '/foo/*' do
+  @note #=> 'Hi!'
+  params[:splat] #=> 'bar/baz'
+end
+\end{verbatim}
+
+\parrafo{After Filters}
+\cei{After filters} are evaluated after each request within the same
+context and can also modify the request and response. 
+
+Instance
+variables set in before filters and routes are accessible by after
+filters:
+
+\begin{verbatim}
+after do
+  puts response.status
+end
+\end{verbatim}
+Note: Unless you use the \verb|body| method rather than just returning a
+String from the routes, the body will not yet be available in the
+after filter, since it is generated later on.
+
+\parrafo{Filters can take a Pattern}
+Filters optionally take a pattern, causing them to be evaluated
+only if the request path matches that pattern:
+\begin{verbatim}
+before '/protected/*' do
+  authenticate!
+end
+
+after '/create/:slug' do |slug|
+  session[:last_slug] = slug
+end
+\end{verbatim}
+
+\parrafo{Filters can take a Condition}
+Like routes, filters also take conditions:
+\begin{verbatim}
+before :agent => /Songbird/ do
+  # ...
+end
+
+after '/blog/*', :host_name => 'example.com' do
+  # ...
+end
+\end{verbatim}
+
+\section{Manejo de Errores}
+
+\begin{enumerate}
+\item 
+The HTTP specification states that response status in the range  200-299
+indicate success in processing a request
+\item 
+500-599 is reserved for server errors
+\item 
+Sinatra  offers helpers for the 404 (Not Found) and 500 (Internal Server Error) status
+\end{enumerate}
+
+\parrafo{not\_found}
+When a \verb|Sinatra::NotFound| exception is raised, or the response’s
+status code is 404, the \verb|not_found| handler is invoked:
+
+\begin{verbatim}
+not_found do
+  'This is nowhere to be found.'
+end
+\end{verbatim}
+
+\parrafo{error}
+The \verb|error| handler is invoked any time an exception is raised from
+a route block or a filter. 
+
+The exception object can be obtained
+from the \verb|sinatra.error| Rack variable:
+
+\begin{verbatim}
+error do
+  'Sorry there was a nasty error - ' + env['sinatra.error'].name
+end
+\end{verbatim}
+Custom errors:
+
+\begin{verbatim}
+error MyCustomError do
+  'So what happened was...' + env['sinatra.error'].message
+end
+\end{verbatim}
+Then, if this happens:
+
+\begin{verbatim}
+get '/' do
+  raise MyCustomError, 'something bad'
+end
+\end{verbatim}
+You get this:
+
+\begin{verbatim}
+So what happened was... something bad
+\end{verbatim}
+Alternatively, you can install an error handler for a status code:
+
+\begin{verbatim}
+error 403 do
+  'Access forbidden'
+end
+
+get '/secret' do
+  403
+end
+\end{verbatim}
+Or a range:
+
+\begin{verbatim}
+error 400..510 do
+  'Boom'
+end
+\end{verbatim}
+Sinatra installs special \verb|not_found| and \verb|error| handlers 
+when running under the development environment to display nice stack
+traces and additional debugging information in your browser (esto es,
+en producción estos handlers son mucho mas "parcos").
+
+
+\section{The methods body, status and headers}
+\begin{enumerate}
+\item 
+It is possible and recommended to set the status code and response
+body with the return value of the route block. 
+\item 
+However, in some
+scenarios you might want to set the body at an arbitrary point in
+the execution flow. 
+\item 
+You can do so with the \verb|body| helper method. 
+\item 
+If
+you do so, you can use that method from there on to access the body:
+\begin{verbatim}
+get '/foo' do
+  body "bar"
+end
+
+after do
+  puts body
+end
+\end{verbatim}
+It is also possible to pass a block to \verb|body|, which will be executed
+by the Rack handler (this can be used to implement \cei{streaming}).
+
+\item 
+Similar to the \verb|body|, you can also set the \verb|status| code and \verb|headers|:
+
+\begin{verbatim}
+get '/foo' do
+  status 418
+  headers \
+    "Allow"   => "BREW, POST, GET, PROPFIND, WHEN",
+    "Refresh" => "Refresh: 20; http://www.ietf.org/rfc/rfc2324.txt"
+  body "I'm a tea pot!"
+end
+\end{verbatim}
+\item 
+Like \verb|body|, \verb|headers| and \verb|status| with no arguments
+can be used to access their current values.
+\end{enumerate}
+
+
+\section{Acceso al Objeto Request}
+\label{section:requestobject}
+El objeto que representa la solicitud {\it the request object}
+es un hash con información de la solicitud: quien hizo la petición, 
+que versión de HTTP usar, etc.
+
+El objeto que representa la solicitud 
+puede ser accedido desde el nivel de solicitud:
+filtros, rutas y manejadores de error.
+
+Véase \htmladdnormallink{https://github.com/crguezl/sinatra\_intro/blob/master/accesing\_the\_request\_object.rb}{https://github.com/crguezl/sinatra\_intro/blob/master/accesing\_the\_request\_object.rb}
+% Dropbox/src/ruby/sinatra/intro/accesing_the_request_object.rb
+
+\begin{rawhtml}
+<img src="request_object.png" />
+\end{rawhtml}
+
+
+\section{Caching / Caches}
+Mediante el uso del helper \verb|headers|podemos establecer los headers que queramos
+para influir sobre la forma en la que ocurre el caching downstream.
+
+\begin{enumerate}
+\item \htmladdnormallink{Caching Tutorial}{http://www.mnot.net/cache\_docs/}
+\end{enumerate}
+
+\section{Sesiones y Cookies en Sinatra}
+\input{sinatra/sessions.tex}
+
+
+\section{Downloads / Descargas / Attachments}
+
+
+\parrafo{Usando attachment}
+
+There is a built-in \verb|attachment| method
+that optionally takes a filename parameter. If the filename has
+an extension (\verb|.jpg|, etc.) that extension 
+will be used to determine the \verb|Content-Type| header for the response.
+
+The evaluation of the route will provide the contents of the attachment.
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{Documentación de attachment}{http://rubydoc.info/github/sinatra/sinatra/Sinatra/Helpers\#attachment-instance_method}
+\item 
+\htmladdnormallink{Código de attachment}{https://github.com/sinatra/sinatra/blob/master/lib/sinatra/base.rb\#L338-L348} en GitHub
+\item 
+\htmladdnormallink{Upload and download files in Sinatra}{http://alfuken.tumblr.com/post/874428235/upload-and-download-files-in-sinatra}
+Random Ruby Thoughts
+\end{enumerate}
+
+\begin{verbatim}
+[~/sinatra/sinatra-download(master)]$ cat app.rb
+require 'sinatra'
+
+before do 
+  content_type :txt
+end
+
+get '/attachment?' do
+  attachment 'file.txt'
+  "Here's what will be sent downstream, in an attachment called 'file.txt'." 
+end
+\end{verbatim}
+Cuando visitamos la página con el navegador se nos abre una ventana para la descarga de
+un fichero que será guardado (por defecto) como \verb|file.txt|.
+
+Los contenidos de ese fichero serán:
+\begin{verbatim}
+[~/sinatra/sinatra-download(master)]$ cat ~/Downloads/file.txt 
+Here's what will be sent downstream, in an attachment called 'file.txt'.
+\end{verbatim}
+
+\parrafo{Usando send\_file}
+
+Véase la documentación del módulo 
+\sinatra{Sinatra::Streaming}{Sinatra/Streaming.html\#M000022}
+
+\begin{verbatim}
+[~/sinatra/sinatra-download(master)]$ cat sending_file.rb 
+require 'sinatra'
+
+get '/' do
+   send_file 'foo.png', 
+              :type => 'img/png', 
+              :disposition => 'attachment', 
+              :filename =>'tutu.png',
+              :stream => false
+end
+\end{verbatim}
+
+The options are:
+
+\begin{enumerate}
+\item 
+\verb|filename|
+file name, in response, defaults to the real file name.
+\item 
+\verb|last_modified|
+value for Last-Modified header, defaults to the file's \verb|mtime|.
+\item 
+\verb|type|
+content type to use, guessed from the file extension if missing.
+\item 
+\verb|disposition|
+used for \verb|Content-Disposition|, possible value: \verb|nil| (default), \verb|:attachment| and 
+\verb|:inline|
+\item 
+\verb|length|
+\verb|Content-Length| header, defaults to file size.
+\item 
+\verb|status|
+Status code to be send. 
+
+Useful when sending a static file as an
+error page. 
+If supported by the Rack handler, other means than
+streaming from the Ruby process will be used. If you use this helper
+method, Sinatra will automatically handle range requests.
+\end{enumerate}
+
+\section{Uploads. Subida de Ficheros en Sinatra}
+
+\parrafo{Véase}
+\begin{enumerate}
+\item 
+\htmladdnormallink{El repositorio sinatra-upload en GitHub}{https://github.com/crguezl/sinatra-upload}
+con el código de este ejemplo
+\item 
+\htmladdnormallink{FILE UPLOAD WITH SINATRA}{http://www.wooptoot.com/file-upload-with-sinatra} BY PANDAFOX POSTED IN RUBY, TUTORIALS
+\item 
+\htmladdnormallink{Multiple file uploads in Sinatra}{http://stackoverflow.com/questions/18860656/multiple-file-uploads-in-sinatra}
+\end{enumerate}
+
+\parrafo{Jerarquía de ficheros}
+\begin{verbatim}
+[~/sinatra/sinatra-upload]$ tree
+.
+|-- app.rb
+|-- uploads
+|   `--- README
+`--- views
+    `--- upload.haml
+
+2 directories, 3 files
+\end{verbatim}
+
+\parrafo{upload.haml}
+
+The important part is not to forget to set the \verb|enctype| 
+in your form element, otherwise you will just get the filename instead of an object:
+
+\begin{verbatim}
+[~/sinatra/sinatra-upload(master)]$ cat views/upload.haml 
+%html
+  %body
+    %h1 File uploader!
+    %form(method="post" enctype='multipart/form-data')   
+      %input(type='file' name='myfile')    
+      %br
+      %input(type='submit' value='Upload!')
+\end{verbatim}
+
+\parrafo{app.rb}
+\begin{verbatim}
+[~/sinatra/sinatra-upload(master)]$ cat app.rb 
+require 'rubygems'
+require 'sinatra'
+require 'haml'
+require 'pp'
+ 
+# Handle GET-request (Show the upload form)
+get "/upload?" do
+  haml :upload
+end      
+    
+# Handle POST-request (Receive and save the uploaded file)
+post "/upload" do 
+  pp params
+  File.open('uploads/' + params['myfile'][:filename], "w") do |f|
+    f.write(params['myfile'][:tempfile].read)
+  end
+  return "The file was successfully uploaded!"
+end
+[~/sinatra/sinatra-upload(master)]$ 
+\end{verbatim}
+
+As you can see, you don’t have to write much code to get this to
+work. The \verb|params|-hash contains our uploaded element with data such
+as filename, type and the actual datafile, which can be accessed
+as a Tempfile-object. 
+
+We read the contents from this file and store
+it into a directory called uploads, which you will have to create
+before running this script.
+
+Here’s an example of what the \verb|params|-hash may look like when uploading
+a picture of a cat:
+
+\begin{verbatim}
+{
+  "myfile" => {
+    :type => "image/png",
+    :head =>  "Content-Disposition: form-data;
+               name=\"myfile\";
+               filename=\"cat.png\"\r\n
+               Content-Type: image/png\r\n",
+    :name => "myfile",
+    :tempfile => #<File:/var/folders/3n/3asd/-Tmp-/RackMultipart201-1476-nfw2-0>,
+    :filename=>"cat.png"
+  }
+}  
+\end{verbatim}
+
+\htmladdnormallink{File upload with sinatra. YouTube}{http://youtu.be/7tkQUTUxJWE}
+
+\parrafo{BEWARE!}
+
+This script offers little to no security at all. Clients will be able to overwrite old images, fill up your harddrive and so on. So just use some common sense and do some Ruby magic to patch up the security holes yourself.
+
+\section{halt}
+
+Sometimes we want to stop the program: maybe a critical error has ocurred.
+To immediately stop a request within a filter or route use:
+
+\begin{verbatim}
+halt
+\end{verbatim}
+You can also specify the status when halting:
+
+\begin{verbatim}
+halt 410
+\end{verbatim}
+Or the body:
+
+\begin{verbatim}
+halt 'this will be the body'
+\end{verbatim}
+Or both:
+
+\begin{verbatim}
+halt 401, 'go away!'
+\end{verbatim}
+With headers:
+
+\begin{verbatim}
+halt 402, {'Content-Type' => 'text/plain'}, 'revenge'
+\end{verbatim}
+It is of course possible to combine a template with halt:
+
+\begin{verbatim}
+halt erb(:error)
+\end{verbatim}
+
+\section{Passing a Request}
+When we want to pass processing 
+to the next matching route we use
+\verb|pass|:
+
+\begin{verbatim}
+get '/guess/:who' do
+  pass unless params[:who] == 'Frank'
+  'You got me!'
+end
+
+get '/guess/*' do
+  'You missed!'
+end
+\end{verbatim}
+The route block is immediately exited and control continues with
+the next matching route. 
+
+If no matching route is found, a 404 is
+returned.
+
+\section{Triggering Another Route: calling {\tt call}}
+Sometimes \verb|pass| is not what you want, 
+instead you would like to get the result of calling another route. 
+Simply use \verb|call| to achieve this:
+
+\begin{verbatim}
+get '/foo' do
+  status, headers, body = call env.merge("PATH_INFO" => '/bar')
+  [status, headers, body.map(&:upcase)]
+end
+
+get '/bar' do
+  "bar"
+end
+\end{verbatim}
+
+Note that in the example above, you would ease testing and increase performance by simply moving \verb|"bar"| into a helper used by both \verb|/foo| and \verb|/bar|.
+
+If you want the request to be sent to the same application instance rather than a duplicate, use \verb|call!| instead of \verb|call|.
+
+Check out the Rack specification if you want to learn more about \verb|call|.
+
+\section{Logging}
+In the request scope, the \verb|logger| helper exposes a \verb|Logger| instance:
+
+\begin{verbatim}
+get '/' do
+  logger.info "loading data"
+  # ...
+end
+\end{verbatim}
+\begin{enumerate}
+\item 
+This \verb|logger| will automatically take your Rack handler’s \verb|logging| settings into account
+\item  If \verb|logging| is disabled, this method will return a dummy object, so you do not have to worry in your routes and filters about it
+\end{enumerate}
+
+Note that \verb|logging| is only enabled for \verb|Sinatra::Application|
+ by default, so if you inherit from \sinatrabase{}, you probably want to enable it yourself:
+
+\begin{verbatim}
+class MyApp < Sinatra::Base
+  configure :production, :development do
+    enable :logging
+  end
+end
+\end{verbatim}
+\begin{enumerate}
+\item 
+To avoid any \verb|logging| middleware to be set up, set the \verb|logging| setting to \verb|nil|
+\item  However, keep in mind that \verb|logger| will in that case return \verb|nil|
+\item  A common use case is when you want to set your own \verb|logger|.
+Sinatra will use whatever it will find in \verb|env['rack.logger']|
+\end{enumerate}
+
+\parrafo{Logging a stdout y a un fichero}
+
+Véase 
+\htmladdnormallink{Rack::CommonLogger}{http://recipes.sinatrarb.com/p/middleware/rack\_commonlogger}
+en Sinatra Recipes.
+
+Sinatra has logging support, but it's nearly impossible to log to a file and to the stdout (like Rails does).
+
+However, there is a little trick you can use to log to stdout and to a file:
+
+\begin{verbatim}
+require 'sinatra'
+
+configure do
+  # logging is enabled by default in classic style applications,
+  # so `enable :logging` is not needed
+  file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
+  file.sync = true
+  use Rack::CommonLogger, file
+end
+
+get '/' do
+  'Hello World'
+end
+\end{verbatim}
+You can use the same configuration for modular style applications,
+but you have to \verb|enable :logging first|:
+
+\begin{verbatim}
+require 'sinatra/base'
+
+class SomeApp < Sinatra::Base
+  configure do
+    enable :logging
+    file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
+    file.sync = true
+    use Rack::CommonLogger, file
+  end
+
+  get '/' do
+    'Hello World'
+  end
+
+  run!
+end
+\end{verbatim}
+
+\parrafo{Ejecución}
+\begin{verbatim}
+~/sinatra/sinatra-logging]$ tree
+.
+|-- app.rb
+`-- log
+
+1 directory, 1 file
+[~/sinatra/sinatra-logging]$ ruby app.rb 
+== Sinatra/1.4.4 has taken the stage on 4567 for development with backup from Thin
+Thin web server (v1.6.1 codename Death Proof)
+Maximum connections set to 1024
+Listening on localhost:4567, CTRL+C to stop
+\end{verbatim}
+Consola después de visitar la página:
+\begin{verbatim}
+127.0.0.1 - - [19/Nov/2013 14:53:06] "GET / HTTP/1.1" 200 11 0.0041
+\end{verbatim}
+
+Fichero después de visitar la página:
+\begin{verbatim}
+[~/sinatra/sinatra-logging]$ cat log/development.log 
+127.0.0.1 - - [19/Nov/2013 14:53:06] "GET / HTTP/1.1" 200 11 0.0038
+\end{verbatim}
+
+\parrafo{Véase}
+\begin{enumerate}
+\item 
+ el código en GitHub de 
+\htmladdnormallink{Rack::CommonLogger}{https://github.com/rack/rack/blob/master/lib/rack/commonlogger.rb}
+\item Logging in Sinatra. StackOverflow.
+\htmladdnormallink{Destination is set by  changing 
+}{http://stackoverflow.com/questions/5995854/logging-in-sinatra/5995932\#5995932}
+\verb|env['rack.errors']|.  Konstantin Haase May 13 '11 at 21:18'
+\end{enumerate}
+
+\section{Generating URLs}
+For generating URLs you should use the \verb|url|
+helper method, for instance, in Haml:
+
+\begin{verbatim}
+%a{:href => url('/foo')} foo
+\end{verbatim}
+It takes reverse proxies and Rack routers into account, if present.
+
+This method is also aliased to \verb|to|.
+
+
+\section{Redireccionamientos/Browser Redirect}
+
+You can trigger a browser redirect with the \verb|redirect| helper method:
+
+\begin{verbatim}
+get '/foo' do
+  redirect to('/bar')
+end
+\end{verbatim}
+Any additional parameters are handled like arguments passed to \verb|halt|:
+
+\begin{verbatim}
+redirect to('/bar'), 303
+redirect 'http://google.com', 'wrong place, buddy'
+\end{verbatim}
+You can also easily \verb|redirect| back to the page the user came from with \verb|redirect back|:
+
+\begin{verbatim}
+get '/foo' do
+  "<a href='/bar'>do something</a>"
+end
+
+get '/bar' do
+  do_something
+  redirect back
+end
+\end{verbatim}
+To pass arguments with a \verb|redirect|, either add them to the query:
+
+\begin{verbatim}
+redirect to('/bar?sum=42')
+\end{verbatim}
+Or use a session:
+
+\begin{verbatim}
+enable :sessions
+
+get '/foo' do
+  session[:secret] = 'foo'
+  redirect to('/bar')
+end
+
+get '/bar' do
+  session[:secret]
+end
+\end{verbatim}
+
+\section{Configuration / Configuración}
+Run once, at startup, in any environment:
+
+\begin{verbatim}
+configure do
+  # setting one option
+  set :option, 'value'
+
+  # setting multiple options
+  set :a => 1, :b => 2
+
+  # same as `set :option, true`
+  enable :option
+
+  # same as `set :option, false`
+  disable :option
+
+  # you can also have dynamic settings with blocks
+  set(:css_dir) { File.join(views, 'css') }
+end
+\end{verbatim}
+Run only when the environment (\verb|RACK_ENV|
+ environment variable) is set to :\verb|production|:
+
+\begin{verbatim}
+configure :production do
+  ...
+end
+\end{verbatim}
+Run when the environment is set to either \verb|:production| or \verb|:test|:
+
+\begin{verbatim}
+configure :production, :test do
+  ...
+end
+\end{verbatim}
+You can access those options via settings:
+
+\begin{verbatim}
+configure do
+  set :foo, 'bar'
+end
+
+get '/' do
+  settings.foo? # => true
+  settings.foo  # => 'bar'
+  ...
+end
+\end{verbatim}
+
+\section{Configuring attack protection}
+Sinatra is using \rackprotection{}
+to defend your application against common, opportunistic attacks.
+
+\begin{enumerate}
+\item 
+You can easily disable this behavior (which will open up your
+application to tons of common vulnerabilities):
+
+\verb|disable :protection|
+\item 
+To skip a single defense layer, set protection to an options hash:
+
+\begin{verbatim}
+set :protection, :except => :path_traversal
+\end{verbatim}
+\item 
+You can also hand in an array in order to disable a list of protections:
+
+\begin{verbatim}
+set :protection, :except => [:path_traversal, :session_hijacking]
+\end{verbatim}
+\item 
+By default, Sinatra will only set up session based protection if
+\verb|:sessions| has been enabled. 
+
+Sometimes you want to set up sessions
+on your own, though. 
+
+In that case you can get it to set up session
+based protections by passing the \verb|:session option|:
+
+\begin{verbatim}
+use Rack::Session::Pool
+set :protection, :session => true
+\end{verbatim}
+\end{enumerate}
+
+\section{Settings disponibles/Available Settings}
+\begin{enumerate}
+\item 
+\verb|absolute_redirects|
+If disabled, Sinatra will allow relative redirects, however, Sinatra will no longer conform with RFC 2616 (HTTP 1.1), which only allows absolute redirects.
+
+Enable if your app is running behind a reverse proxy that has not been set up properly. Note that the \verb|url| helper will still produce absolute URLs, unless you pass in \verb|false| as the second parameter.
+Disabled by default.
+
+\item 
+\verb|add_charsets|
+mime types the \verb|content_type| helper will automatically add the charset info to. 
+
+You should add to it rather than overriding this option: 
+\begin{verbatim}
+settings.add_charsets << "application/foobar"
+\end{verbatim}
+\item 
+\verb|app_file|
+Path to the main application file, used to detect project root, views and public folder and inline templates.
+\item 
+\verb|bind|
+IP address to bind to (default: 0.0.0.0 or localhost if your \verb|environment| is set to 
+\verb|development|). Only used for built-in server.
+\item 
+\verb|default_encoding|
+encoding to assume if unknown (defaults to "utf-8").
+\item 
+\verb|dump_errors|
+display errors in the log.
+\item 
+\verb|environment|
+current environment, defaults to \verb|ENV['RACK_ENV']|, 
+or \verb"development" if not available.
+\item 
+\verb|logging|
+use the logger.
+\item 
+\verb|lock|
+Places a lock around every request, only running processing on request per Ruby process concurrently.
+Enabled if your app is not thread-safe. Disabled per default.
+\item 
+\verb|method_override|
+use \verb|_method magic| to allow put/delete forms in browsers that don't support it.
+\item 
+\verb|port|
+Port to listen on. Only used for built-in server.
+\item \verb|prefixed_redirects|
+Whether or not to insert \verb|request.script_name| into redirects if no absolute path is given. That way redirect '/foo' would behave like redirect to('/foo'). Disabled per default.
+\item \verb|protection|
+Whether or not to enable web attack protections. See protection section above.
+\item \verb|public_dir|
+Alias for \verb|public_folder|. See below.
+\item \verb|public_folder|
+Path to the folder public files are served from. Only used if static file serving is enabled (see static setting below). Inferred from \verb|app_file| setting if not set.
+\item \verb|reload_templates|
+Whether or not to reload templates between requests. Enabled in development mode.
+\item \verb|root|
+Path to project root folder. Inferred from \verb|app_file| setting if not set.
+\item \verb|raise_errors|
+raise exceptions (will stop application). Enabled by default when environment is set to "test", disabled otherwise.
+\item \verb|run|
+if enabled, Sinatra will handle starting the web server, do not enable if using rackup or other means.
+\item \verb|running|
+is the built-in server running now? do not change this setting!
+\item \verb|server|
+Server or list of servers to use for built-in server. order indicates priority, default depends on Ruby implementation.
+\item \verb|sessions|
+Enable cookie-based sessions support using Rack::Session::Cookie. See 'Using Sessions' section for more information.
+\item \verb|show_exceptions|
+Show a stack trace in the browser when an exception happens. Enabled by default when environment is set to "development", disabled otherwise.
+Can also be set to \verb|:after_handler| to trigger app-specified error handling before showing a stack trace in the browser.
+\item \verb|static|
+Whether Sinatra should handle serving static files.
+Disable when using a server able to do this on its own.
+Disabling will boost performance.
+Enabled per default in classic style, disabled for modular apps.
+\item \verb|static_cache_control|
+When Sinatra is serving static files, set this to add Cache-Control headers to the responses. 
+Uses the \verb|cache_control| helper. Disabled by default.
+Use an explicit array when setting multiple values: 
+\begin{verbatim}
+set :static_cache_control, [:public, :max_age => 300]
+\end{verbatim}
+\item \verb|threaded|
+If set to true, will tell Thin to use EventMachine.defer for processing the request.
+\item \verb|views|
+Path to the views folder. Inferred from \verb|app_file| setting if not set.
+\item \verb|x_cascade|
+Whether or not to set the X-Cascade header if no route matches. Defaults to true.
+\end{enumerate}
+
+\section{Environments}
+\begin{enumerate}
+\item 
+There are three predefined environments:
+\tei{development}, \tei{production} and \tei{test}. 
+
+\item 
+Environments can be set through the \verb|RACK_ENV| environment variable. 
+
+\item 
+The default value is \verb"development"
+\item  In the \verb"development" environment all templates are
+reloaded between requests, and special \verb|not_found| and 
+\verb|error| handlers
+display stack traces in your browser
+\item  In the \verb"production" and \verb"test" environments, templates are cached by default
+\item 
+To run different environments, set the \verb|RACK_ENV| environment variable:
+
+\begin{verbatim}
+RACK_ENV=production ruby my_app.rb
+\end{verbatim}
+\item 
+You can use predefined methods: \verb|development?|, \verb|test?| 
+and \verb|production?| to check the current environment setting:
+
+\begin{verbatim}
+get '/' do
+  if settings.development?
+    "development!"
+  else
+    "not development!"
+  end
+end
+\end{verbatim}
+\end{enumerate}
+
+\section{Correo}
+\label{section:correo}
+\begin{verbatim}
+[~/srcSTW/sinatra-faq/mail(esau)]$ cat app.rb 
+require 'sinatra'
+require 'pony'
+raise "Execute:\n\t#{$0} password email_to email_from" if ARGV.length.zero?
+get '/' do
+    email = ARGV.shift
+    pass = ARGV.shift
+    Pony.mail({
+      :to => email,
+      :body => "Hello Casiano",
+      :subject => 'Howdy, Partna!',
+      :via => :smtp,
+      :via_options => {
+          :address              => 'smtp.gmail.com',
+          :port                 => '587',
+          :enable_starttls_auto => true,
+          :user_name            => ARGV.shift,
+          :password             => pass,
+          :authentication       => :plain, # :plain, :login, :cram_md5, no auth by default
+          :domain               => "localhost.localdomain" # the HELO domain provided by the client to the server
+        }
+    })
+    "Check your email at #{email}"
+end
+
+\end{verbatim}
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{Getting started with Sinatra}{http://www.millwoodonline.co.uk/blog/getting-started-with-sinatra}
+\end{enumerate}
+
+\section{Ambito}
+The scope you are currently in determines what methods and variables are available.
+
+\parrafo{Ámbito de Clase/Class Scope}
+
+\begin{enumerate}
+\item 
+Every Sinatra application corresponds to a subclass of \sinatrabase{Sinatra::Base}
+\item  If you are using the top-level DSL (\verb|require 'sinatra'|), then this class is \sinatraapplication{Sinatra::Application}, otherwise it is the subclass you created explicitly
+\item  At class level you have methods like \verb|get| or \verb|before|, 
+but you cannot access the \verb|request| or \verb|session| objects, 
+as there is only a single application class for all requests
+\end{enumerate}
+
+Options created via \verb|set| are methods at class level:
+
+\begin{verbatim}
+class MyApp < Sinatra::Base
+  # Hey, I'm in the application scope!
+  set :foo, 42
+  foo # => 42
+
+  get '/foo' do
+    # Hey, I'm no longer in the application scope!
+  end
+end
+\end{verbatim}
+
+You have the application scope binding inside:
+
+\begin{enumerate}
+\item 
+Your application class body
+\item 
+Methods defined by extensions
+\item 
+The block passed to \verb|helpers|
+\item 
+Procs/blocks used as value for \verb|set|
+\item 
+The block passed to \verb|Sinatra.new|
+\end{enumerate}
+
+You can reach the scope object (the class) like this:
+
+\begin{enumerate}
+\item 
+Via the object passed to configure blocks (\verb:configure { |c| ... }:)
+\item 
+\verb|settings| from within the request scope
+\end{enumerate}
+
+\parrafo{Ámbito de Instancia/Instance Scope}
+
+For every incoming request, a new instance of your application class is created and all handler blocks run in that scope
+\begin{enumerate}
+\item  From within this scope you can access the \verb|request| and \verb|session| objects or 
+\item 
+call rendering methods like \verb|erb| or \verb|haml|
+\item  You can access the application scope from within the \verb|request| scope via the \verb|settings| helper:
+\end{enumerate}
+
+\begin{verbatim}
+[~/sinatra/sinatra-scope]$ cat app.rb 
+require 'sinatra'
+
+class MyApp < Sinatra::Base
+  # Hey, I'm in the application scope!
+  get '/define_route/:name' do
+    # Request scope for '/define_route/:name'
+    @value = 42
+    puts "Inside /define_route/:name @value = #{@value}"
+    puts self.class
+
+    settings.get("/#{params[:name]}") do
+      # Request scope for "/#{params[:name]}"
+      puts "@value = <#{@value}>"
+      "Inside defined route #{params[:name]}"
+    end
+
+    "Route #{params[:name]} defined!"
+  end
+  
+  run! if __FILE__ == $0
+end
+\end{verbatim}
+
+\parrafo{Ejecución en el servidor}
+\begin{verbatim}
+[~/sinatra/sinatra-scope]$ ruby app.rb 
+== Sinatra/1.4.4 has taken the stage on 4567 for development with backup from Thin
+Thin web server (v1.6.1 codename Death Proof)
+Maximum connections set to 1024
+Listening on localhost:4567, CTRL+C to stop
+Inside /define_route/:name @value = 42
+MyApp
+@value = <>
+
+\end{verbatim}
+
+\parrafo{Ejecución en el cliente. Ruta: /define\_route/juan}
+\begin{verbatim}
+[~/sinatra/sinatra-scope]$ curl -v 'http://localhost:4567/define_route/juan'
+* Adding handle: conn: 0x7fbacb004000
+* Adding handle: send: 0
+* Adding handle: recv: 0
+* Curl_addHandleToPipeline: length: 1
+* - Conn 0 (0x7fbacb004000) send_pipe: 1, recv_pipe: 0
+* About to connect() to localhost port 4567 (#0)
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 4567 (#0)
+> GET /define_route/juan HTTP/1.1
+> User-Agent: curl/7.30.0
+> Host: localhost:4567
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html;charset=utf-8
+< Content-Length: 19
+< X-XSS-Protection: 1; mode=block
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: SAMEORIGIN
+< Connection: keep-alive
+* Server thin 1.6.1 codename Death Proof is not blacklisted
+< Server: thin 1.6.1 codename Death Proof
+< 
+* Connection #0 to host localhost left intact
+Route juan defined!
+[~/sinatra/sinatra-scope]$
+\end{verbatim}
+
+\parrafo{Ejecución en el cliente. Ruta: /juan}
+\begin{verbatim}
+[~/sinatra/sinatra-scope]$ curl -v 'http://localhost:4567/juan'
+* Adding handle: conn: 0x7fbdd1800000
+* Adding handle: send: 0
+* Adding handle: recv: 0
+* Curl_addHandleToPipeline: length: 1
+* - Conn 0 (0x7fbdd1800000) send_pipe: 1, recv_pipe: 0
+* About to connect() to localhost port 4567 (#0)
+*   Trying ::1...
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 4567 (#0)
+> GET /juan HTTP/1.1
+> User-Agent: curl/7.30.0
+> Host: localhost:4567
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Content-Type: text/html;charset=utf-8
+< Content-Length: 21
+< X-XSS-Protection: 1; mode=block
+< X-Content-Type-Options: nosniff
+< X-Frame-Options: SAMEORIGIN
+< Connection: keep-alive
+* Server thin 1.6.1 codename Death Proof is not blacklisted
+< Server: thin 1.6.1 codename Death Proof
+< 
+* Connection #0 to host localhost left intact
+Inside defined route
+\end{verbatim}
+You have the request scope binding inside:
+
+\begin{enumerate}
+\item 
+\verb|get|, \verb|head|, \verb|post|, \verb|put|, \verb|delete|, \verb|options|, \verb|patch|, \verb|link|, and \verb|unlink| blocks
+\item 
+\verb|before| and \verb|after| filters
+\item 
+\verb|helper| methods
+\item 
+templates/views
+\end{enumerate}
+
+\section{Sinatra Authentication}
+\label{section:authentication}
+
+
+\subsection{Referencias}
+\begin{enumerate}
+\item \htmladdnormallink{Ejemplo de uso de sinatra-authentication}{https://github.com/maxjustus/sinatra-authentication/tree/master/example}
+\end{enumerate}
+
+
+\section{Autentificación Básica}
+\label{section:basicauthentication}
+\begin{verbatim}
+[~/srcSTW/sinatra-faq/authentication/basic(esau)]$ cat app.rb 
+require 'rubygems'
+require 'sinatra'
+
+use Rack::Auth::Basic, "Restricted Area" do |username, password|
+  [username, password] == ['admin', 'admin']
+end
+
+get '/' do
+  "You're welcome"
+end
+
+get '/foo' do
+  "You're also welcome"
+end
+
+\end{verbatim}
+
+\section{Sinatra como Middleware}
+
+Not only is Sinatra able to use other Rack middleware, any Sinatra
+application can in turn be added in front of any Rack endpoint as
+middleware itself. 
+
+This endpoint could be another Sinatra application,
+or any other Rack-based application (Rails/Ramaze/Camping/…):
+
+
+\begin{enumerate}
+\item 
+When a request comes in, all \verb|before| filters are triggered
+\item 
+Then, if a route matches, the corresponding block will be executed
+\item 
+If no route matches, the request is handed off to the wrapped application
+\item 
+The \verb|after| filters are executed after we've got a response back from the
+route or  the wrapped app
+\end{enumerate}
+Thus, our Sinatra app is a middleware.
+
+\begin{rawhtml}
+<img src="rack_stack.png" />
+\end{rawhtml}
+
+\begin{verbatim}
+[~/sinatra/sinatra-as-middleware]$ cat app.rb
+require 'sinatra/base'
+require 'haml'
+require 'pp'
+
+class LoginScreen < Sinatra::Base
+  enable :sessions
+  enable :inline_templates
+
+  get('/login') { haml :login }
+
+  post('/login') do
+    if params[:name] == 'admin' && params[:password] == 'admin'
+      puts "params = "
+      pp params
+      session['user_name'] = params[:name]
+      redirect '/'
+    else
+      redirect '/login'
+    end
+  end
+end
+
+class MyApp < Sinatra::Base
+  enable :inline_templates
+  # middleware will run before filters
+  use LoginScreen
+
+  before do
+    unless session['user_name']
+      halt haml :denied
+    end
+  end
+
+  get('/') do
+    haml :cheer, :locals => { :name => session['user_name'] }
+  end
+
+  run!
+end
+
+__END__
+
+@@ layout
+!!!
+%html
+  %head
+    %title Sinatra as Middleware
+  %body
+    %h1 Sinatra as Middleware
+    = yield
+
+@@ login
+%form{:action=>'/login', :method=>'post'}
+  %label{:for=>'name'} Name
+  %input#name{:type=>"text",     :name=>"name", :autofocus => true }
+  %br
+  %label{:for=>'password'} Password
+  %input#password{:type=>"password", :name=>"password"}
+  %br
+  %button#go{:type=>"submit",  :name=>"submit", :value=>"submit"} Click me!
+
+@@ cheer
+%h1
+  Hello #{name}
+  %br
+
+@@ denied
+%h1 
+  Access denied, please 
+  %a{:href=>'/login'}login.
+\end{verbatim}

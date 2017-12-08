@@ -1,0 +1,2241 @@
+\chapter{Expresiones Regulares en C} 
+
+\section{Expresiones Regulares Posix en C}
+Las Expresiones Regulares 'a la Perl' no forman parte de ANSI C. 
+La forma mas sencilla de usar regexps en C es utilizando la versión POSIX de la
+librería que viene con la mayoría de los Unix.
+Sigue un ejemplo que usa regex POSIX en C:
+\begin{verbatim}
+[~/src/C/regexp]$ cat use_posix.c 
+#include <stdio.h>
+#include <stdlib.h>
+#include <regex.h>        
+
+int main() {
+       regex_t regex;
+       int reti;
+       char msgbuf[100];
+
+/* Compile regular expression */
+        reti = regcomp(&regex, "^a[[:alnum:]]", 0);
+        if( reti ){ fprintf(stderr, "Could not compile regex\n"); exit(1); }
+
+/* Execute regular expression */
+        reti = regexec(&regex, "abc", 0, NULL, 0);
+        if( !reti ){
+                puts("Match");
+        }
+        else if( reti == REG_NOMATCH ){
+                puts("No match");
+        }
+        else{
+                regerror(reti, &regex, msgbuf, sizeof(msgbuf));
+                fprintf(stderr, "Regex match failed: %s\n", msgbuf);
+                exit(1);
+        }
+
+/* Free compiled regular expression if you want to use the regex_t again */
+    regfree(&regex);
+}
+\end{verbatim}
+Compilación y ejecución:
+\begin{verbatim}
+[~/src/C/regexp]$ cc use_posix.c  -o use_posix
+[~/src/C/regexp]$ ./use_posix 
+Match
+\end{verbatim}
+
+
+\parrafo{Enlaces Relacionados}
+\begin{enumerate}
+\item 
+\htmladdnormallink{Regular Expression Matching in GNU C}{http://www.gnu.org/software/libc/manual/html_node/Regular-Expressions.html}
+\item 
+\htmladdnormallink{Pattern Matching in GNU C}{http://www.gnu.org/software/libc/manual/html_node/Pattern-Matching.html\#Pattern-Matching}
+\item 
+\htmladdnormallink{PCRE}{http://www.pcre.org/}
+\item 
+\htmladdnormallink{PCRE doc}{http://www.pcre.org/pcre.txt}
+\end{enumerate}
+
+\section{Expresiones Regulares en Flex} 
+Puede encontrar los ejemplos de este capítulo en
+\htmladdnormallink{https://github.com/crguezl/flex-examples}{https://github.com/crguezl/flex-examples}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Un lenguaje regular es aquel que puede ser descrito mediante expresiones
+regulares como las que se utilizan en \verb|ex|, \verb|vi|, \verb|sed|,
+\verb|perl| y en tantas otras utilidades UNIX. Dado un lenguaje regular,
+un analizador l\'exico es un programa capaz de reconocer las entradas
+que pertenecen a dicho lenguaje y realizar las acciones sem\'anticas
+que se hayan asociado con los estados de aceptaci\'on.
+Un generador de analizadores l\'exicos es una herramienta que facilita
+la construcci\'on de un analizador l\'exico. Un generador de analizadores
+l\'exicos parte, por tanto, de un lenguaje adecuado para la descripci\'on
+de lenguajes regulares (y de su sem\'antica) y produce como salida
+una funci\'on (en C, por ejemplo) que materializa el correspondiente
+analizador l\'exico.
+La mayor parte de los generadores producen a partir del conjunto de
+expresiones regulares los correspondientes tablas de los autómatas
+finitos deterministas. Utilizando dichas tablas y un algoritmo de
+simulación genérico del autómata finito determinista se obtiene el
+analizador léxico. Una vez obtenido el estado de aceptación a partir de
+la entrada es posible, mediante una sentencia \verb|switch| ejecutar la
+acción semántica asociada con la correspondiente expresión regular.
+
+\subsection{Estructura de un programa LEX}
+\label{section:estructuraflex}
+
+\parrafo{Estructura de un programa}
+
+\tei{LEX} y \tei{FLEX} son ejemplos de generadores léxicos. \tei{Flex}
+lee desde la entrada est\'andar si no se especifica explícitamente
+un fichero de entrada. El fichero de entrada \verb|reglen.l| (se suele usar el tipo \verb|l|)
+debe tener la forma:\\
+
+\begin{tt}
+\noindent \%\{              \\
+declaration C1              \\
+.\\
+.\\
+.\\                   \\
+declaration CM              \\
+\%\}              \\
+macro\_name1 regular\_definition1                  \\
+.\\
+.\\
+.\\                       \\
+macro\_nameR regular\_definitionR                  \\
+
+\noindent \%x exclusive\_state\\
+\%s inclusive\_state\\
+\%\%              \\
+              \\
+regular\_expression1 \{ action1(); \}              \\
+.\\
+.\\
+.\\              \\
+regular\_expressionN \{ actionN(); \}              \\
+              \\
+\%\%              \\
+support\_routine1() \{              \\
+\}              \\
+.\\
+.\\
+.\\              \\
+support\_routineS() \{              \\
+\}              \\
+\end{tt}
+
+Como vemos,  un programa \verb|LEX| consta de 3 secciones, separadas
+por \verb|%%|. La primera secci\'on se denomina \cei{secci\'on de
+definiciones},
+la segunda \cei{secci\'on de reglas} 
+y la tercera \cei{secci\'on de c\'odigo}. 
+La primera y la \'ultima son opcionales, as\'{\i} el programa legal \verb|LEX| mas simple es:
+
+\begin{tabular}{|p{8cm}|}
+\hline
+\begin{verbatim}
+%%
+\end{verbatim}\\
+\hline
+\end{tabular}
+
+que genera un analizador que copia su entrada en \verb|stdout|.
+
+
+\parrafo{Compilación}
+
+\noindent Una vez compilado el fichero de entrada \verb|regleng.l|
+mediante la correspondiente orden:
+
+\verb|flex reglen.l| 
+
+\noindent obtenemos un fichero denominado \verb|lex.yy.c|. Este fichero
+contiene la rutina \verb|yylex()| que realiza el an\'alisis l\'exico
+del lenguaje descrito en \verb|regleng.l|. Supuesto que una de las
+\verb|support_routines| es una funci\'on \verb|main()| que llama a la
+funci\'on \verb|yylex()|, podemos compilar el fichero generado con un
+compilador C para obtener un ejecutable \verb|a.out|:
+
+\verb|cc lex.yy.c -lfl| 
+
+\noindent La inclusi\'on de la opci\'on \verb|-fl| enlaza con la
+librer\'{\i}a de \verb|flex|, que contiene dos funciones: \verb|main|
+y \verb|yywrap()|.
+
+\parrafo{Ejecución}
+
+Cuando ejecutamos el programa \verb|a.out|, la funci\'on \verb|yylex()|
+analiza las entradas, buscando la secuencia mas larga que casa con alguna
+de las expresiones regulares (\verb|regular_expressionK|) y ejecuta la
+correspondiente acci\'on (\verb|actionK()|).
+Si no se encuentra ningun  emparejamiento se ejecuta la \cei{regla por defecto}, que es:
+
+\verb@(.|\n)  { printf("%s",yytext); }@
+
+Si encuentran dos expresiones regulares con las que la cadena mas larga
+casa, elige la que figura primera en el programa \verb|lex|.
+Una vez que \verb|yylex()| ha encontrado el \emph{token}, esto es, el
+patr\'on que casa con la cadena mas larga, dicha cadena queda disponible
+a trav\'es del puntero global \tei{yytext}, y su longitud queda en la
+variable entera global \tei{yyleng}.
+
+Una vez que se ha ejecutado la correspondiente acci\'on, \verb|yylex()|
+contin\'ua con el resto de la entrada, buscando por subsiguientes
+emparejamientos. Asi continúa hasta encontrar un \verb|end of file|,
+en cuyo caso termina, retornando un cero o bien hasta que una de las
+acciones explicitamente ejecuta una sentencia \verb|return|.
+
+
+\parrafo{Secci\'on de definiciones}
+
+La primera secci\'on contiene, si las hubiera,  las definiciones regulares
+y las declaraciones de los estados de arranque.
+
+Las definiciones tiene la forma:
+
+\emph{name regular\_definition}
+
+donde \emph{name} puede ser descrito mediante la expresi\'on regular:
+
+\verb|[a-zA-Z_][a-zA-Z_0-9-]*| 
+
+La \emph{regular\_definition} comienza en el primer car\'acter no
+blanco que sigue a \emph{name} y termina al final de la l\'{\i}nea. La
+definici\'on es una expresi\'on regular extendida. Las subsiguientes
+definiciones pueden ``llamar'' a la macro \verb|{name}| escribi\'endola
+entre llaves. La macro se expande entonces a \verb|(regular_definition)|
+en \verb|flex| y a \verb|regular_definition| en \verb|lex|.
+
+El c\'odigo entre los delimitadores \verb|%{| y \verb|%}| se copia
+verbatim al fichero de salida, situ\'andose en la parte de declaraciones
+globales. Los delimitadores deben aparecer (s\'olos) al comienzo de
+la l\'{\i}nea.
+
+\parrafo{El Lenguaje de las Expresiones Regulares Flex}
+
+La sint\'axis que puede utilizarse para la descripci\'on de las
+expresiones regulares es la que se conoce como ``extendida'':
+
+\begin{itemize}
+\item
+\verb@x@	      Casa con 'x'
+\item
+\verb@.@	      Cualquier car\'acter, excepto \verb|\n|.
+\item
+\verb@[xyz]@      Una ``clase''; en este caso una de las letras \verb'x', \verb'y', \verb'z'
+\item
+\verb@[abj-oZ]@   Una ``clase'' con un rango; casa con  \verb'a',  \verb'b', cualquier letra desde  \verb'j' hasta \verb'o', o una \verb'Z'
+\item
+\verb@[^A-Z]@     Una ``Clase complementada'' esto es, todos los caracteres que no est\'an en la clase. Cualquier car\'acter, excepto las letras may\'usculas. Obs\'ervese que el retorno de carro \verb|\n| casa
+con esta expresion. As\'{\i} es posible que, <un patr\'on como \verb|[^"]+| pueda casar con todo el fichero!.
+\item
+\verb@[^A-Z\n]@   Cualquier car\'acter, excepto las letras may\'usculas o un \verb|\n|.
+\item
+
+\verb|[[:alnum:]]| Casa con cualquier caracter alfanum\'erico. Aqui \verb|[:alnum:]| se refiere a una de las clases predefinidas. Las otras clases son: \verb|[:alpha:]| \verb|[:blank:]| \verb|[:cntrl:]| \verb|[:digit:]| \verb|[:graph:]| \verb|[:lower:]| \verb|[:print:]| \verb|[:punct:]| \verb|[:space:]| \verb|[:upper:]| \verb|[:xdigit:]|. Estas clases designan el mismo conjunto de caracteres que la correspondiente funci\'on C \verb|isXXXX|.
+
+\item
+\verb@r*@	Cero o mas \verb|r|.
+\item
+\verb@r+@       Una o mas \verb|r|.
+\item
+\verb@r?@	Cero o una  \verb|r|.
+\item
+\verb@r{2,5}@     Entre 2 y 5  \verb|r|.
+\item
+\verb@r{2,}@      2 o mas \verb|r|. 
+\verb@r{4}@	  Exactamente 4 \verb|r|. 
+\item
+\verb@{macro_name}@     La expansi\'on de \verb"macro_name" por su \emph{regular\_definition}
+\item
+\verb@"[xyz]\"foo"@ Exactamente la cadena: [xyz]"foo
+\item
+\verb@\X@	      Si \verb|X| is an \verb'a', \verb'b', \verb'f', \verb'n', \verb'r', \verb't', o \verb'v', entonces, la interpretaci\'on ANSI-C de \verb|\x|.  En cualquier otro caso \verb'X'.
+\item
+\verb@\0@	      El car\'acter NUL (ASCII 0).
+\item
+\verb@\123@	      El car\'acter cuyo c\'odigo octal es 123.
+\item
+\verb@\x2a@	      El car\'acter cuyo c\'odigo hexadecimal es 2a.
+\item
+\verb@(r)@	      Los par\'entesis son utilizados para cambiar la precedencia.
+\item
+\verb@rs@	      Concatenation
+\item
+\verb@r|s@	      Casa con  \verb|r| o \verb|s|
+\item
+\verb@r/s@	      Una \verb@r@ pero s\'olo si va seguida de una \verb@s@. El texto casado con \verb@s@ se incluye a la hora de decidir cual es el emparejamiento mas largo, pero se devuelve a la entrada cuando se ejecuta la acci\'on. La acci\'on s\'olo ve el texto asociado con \verb@r@. Este tipo de patr\'on se denomina \emph{trailing context} o \emph{lookahead} positivo.  
+\item
+\verb@^r@	      Casa con \verb@r@, al comienzo de una l\'{\i}nea.
+                      Un \verb|^| que no aparece al comienzo de la l\'{\i}nea o un \verb|$| que no aparece al final de la l\'{\i}nea, pierde su naturaleza de ``ancla'' y es tratado como un car\'acter ordinario. Asi: \verb#foo|(bar$)# se empareja con \verb|bar$|. Si lo que se quer\'{\i}a es la otra interpretaci\'on, es posible escribir \verb#foo|(bar\n)#, o bien:
+\begin{verbatim}
+foo |
+bar$   { /* action */ }
+\end{verbatim}
+\item
+\verb@r$@	      Casa con \verb@r@, al final de una l\'{\i}nea. Este es tambi\'en un operador de \emph{trailing context}. Una regla no puede tener mas de un operador de \emph{trailing context}. Por ejemplo, la expresi\'on \verb|foo/bar$| es incorrecta.
+\item
+\verb@<s>r@	      Casa con \verb@r@, pero s\'olo si se est\'a en el estado \verb|s|.
+\item
+\verb@<s1,s2,s3>r@    Idem, si se esta en alguno de los estados \verb|s1|, \verb|s2|, or \verb|s3|
+\item
+\verb@<*>r@	      Casa con \verb@r@ cualquiera que sea el estado, incluso si este es exclusivo.
+\item
+\verb@<<EOF>>@        Un final de fichero.
+\item
+\verb@<s1,s2><<EOF>>@ Un final de fichero, si los estados son \verb|s1| o \verb|s2|
+\end{itemize}
+
+Los operadores han sido listados en orden de precedencia, de la
+mas alta a la mas baja. Por ejemplo \verb#foo|bar+# es lo mismo que
+\verb#(foo)|(ba(r)+)#.
+
+\parrafo{Las Acciones Semánticas}
+
+Cada patrón regular tiene su correspondiente acción asociada. El patrón
+termina en el primer espacio en blanco (sin contar aquellos que están
+entre comillas dobles o prefijados de secuencias de escape).
+Si la acción comienza con \verb|{|, entonces se puede extender a través
+de multiples líneas, hasta la correspondiente \verb|}|.  El programa
+\verb|flex|  no hace un análisis del código C dentro de la acción.
+Existen tres directivas que pueden insertarse dentro de las acciones:
+\verb|BEGIN|, \verb|ECHO| y \verb|REJECT|. Su uso se muestra en los
+subsiguientes ejemplos.
+
+
+La secci\'on de c\'odigo se copia verbatim en \verb|lex.yy.c|. Es
+utilizada para proveer las funciones de apoyo que se requieran para la
+descripci\'on de las acciones asociadas con los patrones que parecen en
+la secci\'on de reglas.
+
+\subsection{Versi\'on Utilizada}
+Todos los ejemplos que aparecen en este documento fueron
+preparados con la versi\'on 2.5.4 de \emph{flex} en un entorno
+Linux 
+\begin{verbatim}
+$ uname -a
+Linux nereida.deioc.ull.es 2.2.12-20 #10 Mon May 8 19:40:16 WEST 2000 i686 unknown
+$ flex --version   
+flex version 2.5.4      
+\end{verbatim}
+y con la versi\'on 2.5.2 en un entorno Solaris
+\begin{verbatim}
+> uname -a
+SunOS fonil 5.7 Generic_106541-04 sun4u sparc SUNW,Ultra-5_10
+> flex --version
+flex version 2.5.2       
+\end{verbatim}
+
+\subsection{Espacios en blanco dentro de la expresión regular}
+\label{section:blancos}
+La expresión regular va desde el comienzo de la línea hasta el primer espacio en blanco 
+no escapado. Todos los espacios en blanco que formen parte de la 
+expresión regular 
+deben ser escapados o protegidos entre comillas. Así, el siguiente
+programa produce un error en tiempo de compilación C:
+\begin{verbatim}
+> cat spaces.l
+%%
+one two { printf("spaces\n"; }
+%%
+nereida:~/public_html/regexpr/lex/src> flex spaces.l
+nereida:~/public_html/regexpr/lex/src> gcc lex.yy.c
+spaces.l: In function `yylex':
+spaces.l:2: `two' undeclared (first use in this function)
+spaces.l:2: (Each undeclared identifier is reported only once
+spaces.l:2: for each function it appears in.)
+spaces.l:2: parse error before `{'
+spaces.l:4: case label not within a switch statement
+lex.yy.c:632: case label not within a switch statement
+lex.yy.c:635: case label not within a switch statement
+lex.yy.c:757: default label not within a switch statement
+lex.yy.c: At top level:
+lex.yy.c:762: parse error before `}'
+\end{verbatim}
+Deberíamos escapar el blanco entre \verb|one| y \verb|two| o bien
+proteger la cadena poniéndola entre comillas: \verb|"one two"|.
+
+\subsection{Ejemplo Simple}
+\label{section:ejemplosimple}
+Este primer ejemplo sustituye las apariciones de la palabra 
+\emph{username} por el \emph{login} del usuario:
+\begin{verbatim}
+$ cat subst.l
+%option main
+%{
+#include <unistd.h>
+%}
+%%
+username    printf( "%s",  getlogin());
+%%
+$ flex -osubst.c subst.l
+$ gcc -o subst subst.c
+$ subst
+Dear username:
+Dear pl:
+\end{verbatim}
+He presionado CTRL-D para finalizar la entrada.\\
+Observe el uso de la opci\'on \verb|%option main| en el fichero
+\emph{subst.l} para hacer que \emph{flex} genere una funci\'on
+\emph{main}. Tambi\'en merece especial
+atenci\'on el uso de la opci\'on  \verb|-osubst| para cambiar el
+nombre del fichero de salida, que por defecto ser\'a \emph{lex.yy.c}.
+
+\subsection{Suprimir}
+\label{section:suprimir}
+Al igual que en \emph{sed} y \emph{awk}, es muy sencillo
+suprimir las apariciones de una expresi\'on regular. 
+\begin{verbatim}
+$ cat delete.l
+/* delete all entries of zap me */
+%%
+"zap me"
+$ flex delete.l ; gcc lex.yy.c -lfl; a.out
+this is zap me a first zap me phrase
+this is  a first  phrase 
+\end{verbatim}
+
+\subsection{Declaraci\'on de yytext}
+\label{section:yytextdec}
+En la sección de definiciones es posible utilizar las directivas
+\verb@%pointer@ o \verb@%array@. Estas directivas hacen que \tei{yytext}
+se declare como un puntero o un \emph{array} respectivamente.
+La opción por defecto es declararlo como un puntero, salvo que se haya
+usado la opción \verb|-l| en la línea de comandos, para garantizar una
+mayor compatibilidad con \verb|LEX|.
+Sin embargo, y aunque la opci\'on  \verb|%pointer| es la mas eficiente
+(el análisis es mas rápido y se evitan los \emph{buffer overflow}),
+limita la posible manipulaci\'on de \emph{yytext} y de las llamadas
+a \verb|unput()|.
+\begin{verbatim}
+$ cat yytextp.l
+%%
+hello {
+        strcat(yytext, " world");
+        printf("\n%d: %s\n",strlen(yytext),yytext);
+      }
+$ flex yytextp.l ; gcc lex.yy.c -lfl ; a.out
+hello
+ 
+11: hello world
+ 
+fatal flex scanner internal error--end of buffer missed 
+\end{verbatim}
+Este error no aparece si se utiliza la opci\'on \verb|%array|:
+\begin{verbatim}
+$ cat yytext.l
+%array
+%%
+hello {
+        strcat(yytext, " world");
+        printf("\n%d: %s\n",strlen(yytext),yytext);
+      }
+$ flex yytext.l; gcc lex.yy.c -lfl; a.out
+hello
+ 
+11: hello world
+                              
+\end{verbatim}
+
+Además, algunos programs \verb|LEX|  modifican directamente \verb|yytext|, utilizando la declaración:
+
+\noindent \verb|extern char yytext[]|
+
+\noindent que es incompatible con la directiva \verb@%pointer@ (pero correcta con \verb@%array@).
+La directiva \verb@%array@ define \verb|yytext| como un \emph{array} de tamaño \verb|YYLMAX|.
+Si deseamos trabajar con un mayor tamaño, basta con redefinir \verb|YYLMAX|.
+
+\subsection{Declaraci\'on de yylex()}
+\label{section:yylexdec}
+Por defecto la funci\'on \emph{yylex()} que realiza el an\'alisis l\'exico es
+declarada como  \verb|int yylex()|. Es posible cambiar la declaraci\'on
+por defecto utilizando la macro \emph{YY\_DECL}. En el siguiente ejemplo
+la definici\'on:
+\begin{verbatim}
+#define YY_DECL char *scanner(int *numcount, int *idcount)
+\end{verbatim}
+hace que la rutina de an\'alisis l\'exico pase a llamarse 
+\emph{scanner} y tenga dos parametros de entrada, retornando
+un valor de tipo \verb|char *|.
+\begin{verbatim}
+$ cat decl.l
+%{
+#define YY_DECL char *scanner(int *numcount, int *idcount)
+%}
+ 
+num [0-9]+
+id [a-z]+
+%%
+{num} {(*numcount)++;}
+halt  {return ((char *) strdup(yytext));}
+{id}  {(*idcount)++;}
+%%
+main() {
+  int a,b;
+  char *t;
+ 
+  a = 0; b = 0;
+  t = scanner(&a, &b);
+  printf("numcount = %d, idcount = %d, yytext = %s\n",a,b,t);
+  t = scanner(&a, &b);
+  printf("numcount = %d, idcount = %d, yytext = %s\n",a,b,t);
+}
+ 
+int yywrap() {
+  return 1;
+}                                
+\end{verbatim}
+La ejecuci\'on del programa anterior produce la siguiente salida:
+\begin{verbatim}
+$ decl
+a b 1 2 3 halt
+     numcount = 3, idcount = 2, yytext = halt
+ 
+e 4 5 f
+ 
+numcount = 5, idcount = 4, yytext = (null)
+$ decl
+a b 1 2 3 halt
+     numcount = 3, idcount = 2, yytext = halt
+ 
+e 4 f 5 halt
+    numcount = 5, idcount = 4, yytext = halt     
+\end{verbatim}
+
+\subsection{yywrap()}
+Cuando el analizador l\'exico alcanza el final del fichero, el
+comportamiento en las subsiguientes llamadas a \emph{yylex}
+resulta indefinido.  En el momento en que  \emph{yylex()}
+alcanza el final del fichero llama a la funci\'on \emph{yywrap}, la cual retorna un
+valor de 0 o 1 seg\'un haya mas entrada o no. Si el valor es 0,
+la funci\'on \emph{yylex} asume que la propia \emph{yywrap}
+se ha encargado de abrir el nuevo fichero y asignarselo
+a \tei{yyin}.  Otra manera de continuar es haciendo uso de
+la funci\'on \emph{yyrestart(FILE *file)}. 
+El siguiente ejemplo cuenta el n\'umero de l\'{\i}neas, palabras y
+caracteres en una lista de ficheros proporcionados como entrada.
+
+%\listinginput{1}{../src/countlwc2.l}
+\begin{verbatim}
+%{
+unsigned long charCount = 0, wordCount = 0, lineCount = 0;
+%}
+
+word [^ \t\n]+ 
+eol \n 
+
+%%
+{word} { wordCount++; charCount += yyleng; }
+{eol} { charCount++; lineCount++; }
+. charCount++;
+
+%%
+
+char **fileList;
+unsigned nFiles;
+unsigned currentFile = 0;
+unsigned long totalCC = 0;
+unsigned long totalWC = 0;
+unsigned long totalLC = 0;
+
+main ( int argc, char **argv) {
+  FILE *file;
+
+  fileList = argv + 1; nFiles = argc - 1;
+
+  if (nFiles == 0) {
+    fprintf(stderr,"Usage is:\n%s file1 file2 file3 ...\n",argv[0]);
+    exit(1);
+  }
+  file = fopen (fileList[0], "r");
+  if (!file) {
+      fprintf (stderr, "could not open %s\n", argv[1]);
+      exit (1);
+  }
+  currentFile = 1; yyrestart(file);
+  yylex ();
+  printf ("%8lu %8lu %8lu %s\n", lineCount, wordCount,
+    charCount, fileList[currentFile - 1]);
+  if (argc > 2) {
+      totalCC += charCount; totalWC += wordCount; totalLC += lineCount;
+      printf ("%8lu %8lu %8lu total\n", totalLC, totalWC, totalCC);
+  }
+  return 0;
+}
+
+int yywrap () {
+  FILE *file;
+
+  if (currentFile < nFiles) {
+     printf ("%8lu %8lu %8lu %s\n", lineCount, wordCount,
+       charCount, fileList[currentFile - 1]);
+     totalCC += charCount; totalWC += wordCount; totalLC += lineCount;
+     charCount = wordCount = lineCount = 0;
+     fclose (yyin);
+
+     while (fileList[currentFile] != (char *) 0) {
+       file = fopen (fileList[currentFile++], "r");
+       if (file != NULL) { yyrestart(file); break; }
+	  fprintf (stderr, "could not open %s\n", fileList[currentFile - 1]);
+     }
+     return (file ? 0 : 1);
+    }
+    return 1;
+}
+\end{verbatim}
+
+La figura muestra el proceso de compilaci\'on y la ejecuci\'on:
+\begin{verbatim}
+$ flex countlwc.l;gcc lex.yy.c; a.out *.l
+      58      179     1067 ape-05.l
+      88      249     1759 countlwc.l
+      11       21      126 magic.l
+       9       17      139 mgrep.l
+       9       16      135 mlg.l
+       5       15      181 ml.l
+       7       12       87 subst.l
+     187      509     3494 total          
+\end{verbatim}
+La diferencia esencial entre asignar \emph{yyin} o llamar a la
+funci\'on \emph{yyrestart} es que esta \'ultima puede ser utilizada para
+conmutar entre ficheros en medio de un an\'alisis l\'exico. El
+funcionamiento del programa anterior no se modifica si se 
+se intercambian asignaciones a \emph{yyin} (\emph{yyin = file})
+y llamadas a \emph{yyrestart(file)}.
+
+\subsection{unput()}
+La funci\'on \emph{unput(c)} coloca el car\'acter \emph{c} en el flujo
+de entrada, de manera que ser\'a el primer car\'acter le\'{\i}do en pr\'oxima
+ocasi\'on.
+\begin{verbatim}
+$ cat unput2.l
+%array
+%%
+[a-z] {unput(toupper(yytext[0]));}
+[A-Z] ECHO;
+%%
+$ flex unput2.l ; gcc lex.yy.c -lfl;a.out
+abcd
+ABCD                             
+\end{verbatim}
+Un problema importante con \emph{unput} es que, cuando se utiliza la
+opci\'on \verb|%pointer|, las llamadas a \emph{unput} destruyen los
+contenidos de \emph{yytext}. Es por eso que, en el siguiente ejemplo se
+hace una copia de \emph{yytext}. La otra alternativa es, por supuesto,
+usar la opci\'on \verb|%array|.
+\begin{verbatim}
+$ cat unput.l
+%%
+[0-9]+ {
+  int i;
+  char *yycopy = (char *) strdup(yytext);
+ 
+  unput(')');
+  for(i=strlen(yycopy)-1; i>=0; --i)
+    unput(yycopy[i]);
+  unput('(');
+  free(yycopy);
+}
+\([0-9]+\) printf("Num inside parenthesis: %s\n",yytext);
+.|\n
+$ flex unput.l ; gcc lex.yy.c -lfl ; a.out
+32
+Num inside parenthesis: (32)
+(43)
+Num inside parenthesis: (43)            
+\end{verbatim}
+
+\subsection{input()}
+\label{section:input}
+La funci\'on \emph{input()} lee desde el flujo de entrada 
+el siguiente car\'acter. Normalmente la utilizaremos si queremos 
+tomar ``personalmente el control''  del an\'alisis. El ejemplo 
+permite ``engullir'' los comentarios (no anidados):
+\begin{verbatim}
+$ cat input.l
+%%
+"/*" {
+        int c;
+        for(;;) {
+          while ((c=input()) != '*' && c != EOF)
+            ;
+          if (c == '*')  {
+            while ((c = input()) == '*')
+              ;
+            if (c == '/') break;
+          }
+          if (c == EOF) {
+            fprintf(stderr,"Error: EOF in comment");
+            yyterminate();
+          }
+        }
+      }                                              
+\end{verbatim}
+La funci\'on \verb|yyterminate()| termina la rutina de an\'alisis l\'exico y devuelve un cero indicándole a la rutina que llama que todo se ha acabado. 
+Por defecto, \verb|yyterminate()| es llamada cuando se encuentra 
+un final de fichero. Es una macro y puede ser redefinida.
+\begin{verbatim}
+$ flex input.l ; gcc lex.yy.c -lfl ; a.out
+hello /* world */
+hello
+unfinished /* comment
+unfinished Error: EOF in comment
+\end{verbatim}
+He presionado CTRL-D despu\'es de entrar la palabra \emph{comment}.
+
+%\subsection{Uso de Tablas para Palabras Reservadas e Identificadores}
+%Desde el punto de vista de la eficiencia no es una buena idea mantener una 
+%expresi\'on regular separada para cada \emph{token} del lenguaje. La alternativa 
+%es utilizar dos tablas: una primera para las palabras reservadas y la otra 
+%para los identificadores y definiciones de tipo.
+%
+%El siguiente  ejemplo muestra los contenidos de un analizador 
+%léxico típico. Comenzemos con el código de cabecera:
+%
+%\begin{verbatim}
+%%{
+%/*
+% * samplecl.l at /home/pl/src/samplec_casiano/lexer
+% */
+%
+%#ifdef LDEBUG
+%
+%#define Identifier 257
+%#define Constant 258
+%#define INT 259
+%#define IF 260
+%#define ELSE 261
+%#define WHILE 262
+%#define BREAK 263
+%#define CONTINUE 264
+%#define RETURN 265
+%#define GE 266
+%#define LE 267
+%#define EQ 268
+%#define NE 269
+%#define PE 270
+%#define ME 271
+%#define TE 272
+%#define DE 273
+%#define RE 274
+%#define PP 275
+%#define MM 276
+%
+%main() {
+%  int p;
+%
+%  while (p = yylex())
+%    printf("%d is \"%s\"\n",p,yytext);
+%}
+%
+%s_lookup() {}
+%
+%int yy_nerrs = 0;
+%
+%#define x x
+%
+%#else ! LDEBUG /* production version */
+%
+%#include "y.tab.h"
+%#define x x
+%
+%#endif LDEBUG
+%
+%#define END(v) (v-1 + sizeof v / sizeof v[0])
+%static int screen();
+%
+%%}
+%\end{verbatim}
+%
+%A continuación siguen las definiciones de macros de expresiones regulares:
+%
+%\begin{verbatim}
+%letter                   [a-zA-Z]
+%digit                    [0-9]
+%letter_or_digit          [a-zA-Z0-9]
+%white_space              [ \t\n]
+%blank                    [ \t]
+%other                    .
+%
+%%%
+%\end{verbatim}
+%
+%A continuación siguen las parejas patrón-acción:
+%
+%\begin{verbatim}
+%
+%"#"{blank}*{digit}+({blank}+.*)?\n  yymark();
+%">="    return GE;
+%"<="    return LE;
+%"!="    return NE;
+%"+="    return PE;
+%"-="    return ME;
+%"*="    return TE;
+%"/="    return DE;
+%"%="    return RE;
+%"++"    return PP;
+%"--"    return MM;
+%
+%{letter}{letter_or_digit}* return screen();
+%
+%{digit}+                   {
+%                             s_lookup(Constant);
+%                             return Constant;
+%                           }
+%{white_space}+             ;
+%
+%{other}                    return (yytext[0]);
+%
+%%%
+%\end{verbatim}
+%Por último, el código de cola:
+%\begin{verbatim}
+%/*
+% *  reserved word table
+% */
+%
+%static struct rwtable {
+%  char * rw_name;
+%  int rw_yylex;
+%  } rwtable[] = {
+%  "break", BREAK,
+%  "continue", CONTINUE,
+%  "else", ELSE,
+%  "if", IF,
+%  "int", INT,
+%  "return", RETURN,
+%  "while", WHILE
+%  };
+%
+%static int screen() {
+%  struct rwtable * low = rwtable, *high = END(rwtable), *mid;
+%  int c;
+%
+%  while (low <= high) {
+%    mid = low + (high -low)/2;
+%    if ((c = strcmp(mid->rw_name, yytext)) == 0)
+%      return mid->rw_yylex;
+%    else if (c < 0)
+%      low = mid+1;
+%    else
+%      high = mid-1;
+%  }
+%  s_lookup(Identifier);
+%  return Identifier;
+%}
+%
+%int yywrap() { return 1; }
+%
+%\end{verbatim}
+%
+%\subsubsection{popen y freopen}
+%La funci\'on \verb|*popen(const char *command, const char *type)| abre
+%un \emph{pipe}. Nuestro programa entra en una ejecuci\'on en canal con el
+%\emph{command} descrito como primer par\'ametro de la funci\'on. 
+%Si la variable \emph{type} es descrita como \verb|"r"|, ello
+%significa que nuestro programa ser\'a alimentado por el programa
+%descrito en \emph{command} a trav\'es del fichero retornado por la funci\'on.  
+%Si el fichero que usaramos fuera
+%\emph{stdin} ser\'{\i}a equivalente a:
+%\begin{center}
+%\verb|command | miprograma|
+%\end{center}
+%El siguiente ejemplo ilustra su uso:
+%\begin{verbatim}
+%% cat popenr.c
+%#include <stdio.h>
+%main() {
+%  int c, lineno = 1;
+%  char string[80];
+%        FILE * yyin;
+% 
+%  yyin = (FILE *)popen("cat hello.c","r");
+%        fprintf(stdout,"%2d ",lineno++);
+%  while ((c = fgetc(yyin)) != EOF) {
+%    putc(c,stdout);
+%    if (c == '\n') fprintf(stdout,"%2d ",lineno++);
+%  }
+%  pclose(yyin);
+%}                                         
+%\end{verbatim}
+%Su ejecuci\'on es equivalente a: 
+%\begin{center}
+%\verb|cat hello.c | a.out|
+%\end{center}
+%en efecto:
+%\begin{verbatim}
+%% a.out
+% 1 #include <stdio.h>
+% 2 main() {
+% 3   printf("Hello World!\n");
+% 4 }
+% 5 %     
+%\end{verbatim}
+%Cuando se usa la opci\'on \verb|"w"| es lo contrario, las
+%salidas de nuestro programa a trav\'es del fichero utilizado
+%son absorbidas por el programa especificado en \emph{command}.
+%He aqui un ejemplo:
+%\begin{verbatim}
+%% cat popenw.c
+%#include <stdio.h>
+%main() {
+%        FILE *yyout;
+% 
+%  yyout = (FILE *)popen("sort","w");
+%  fprintf(yyout,"6\n5\n4\n3\n2\n1\n");
+%  pclose(yyout);
+%}                                         
+%% gcc popenw.c; a.out
+%1
+%2
+%3
+%4
+%5
+%6                              
+%\end{verbatim}
+%Se observa que su ejecuci\'on es equivalente a:
+%\begin{center}
+%\verb|a.out | sort|
+%\end{center}
+%La otra funci\'on que usamos en el algoritmo de pre-proceso es
+%\emph{freopen}. Su formato es:
+%
+%\begin{center}
+%\verb| FILE  *freopen  (const  char *path, const char *mode, FILE *stream);|
+%\end{center}
+%
+%El fichero designado por \emph{path} se asocia con el fichero 
+%descrito en \emph{stream}. La cadena \emph{mode} determina el modo de
+%lectura. As\'{\i} en el ejemplo que sigue, todas 
+%las lecturas posteriores a la llamada a
+%\verb|freopen("hello.c","r",stdin);|
+%ocurren desde el fichero "hello.c".
+%\begin{verbatim}
+%% cat freopen.c
+%#include <stdio.h>
+%main() {
+%        int c;
+% 
+%        freopen("hello.c","r",stdin);
+%        while ((c = getchar()) != EOF) {
+%                putc(c,stdout);
+%        }
+%}
+%/home/casiano/regexp/lex[55]% gcc freopen.c;a.out
+%#include <stdio.h>
+%main() {
+%  printf("Hello World!\n");
+%}                                      
+%\end{verbatim}
+
+
+\subsection{REJECT}
+La directiva  \verb|REJECT| le indica al analizador que proceda con la 
+siguiente regla que casa con un prefijo de la entrada. Como es habitual en
+\emph{flex}, se elige la siguiente regla que casa  con la cadena mas
+larga. Consideremos el siguiente ejemplo:
+\begin{verbatim}
+$ cat reject.l
+%%
+a    |
+ab   |
+abc  |
+abcd ECHO; REJECT; printf("Never seen\n");
+.|\n                                  
+\end{verbatim}
+La salida es:
+\begin{verbatim}
+$ gcc lex.yy.c -lfl;a.out
+abcd
+abcdabcaba
+\end{verbatim}
+Observe que \verb|REJECT| supone un cambio en el flujo de control:
+El c\'odigo que figura despu\'es de \verb|REJECT| no es ejecutado.
+
+\subsection{yymore()}
+La funci\'on \verb|yymore()| hace que, en vez de vaciar \emph{yytext}
+para el siguiente \emph{matching}, el valor actual se mantenga,
+concatenando el valor actual de \emph{yytext} con el siguiente:
+\begin{verbatim}
+$ cat yymore.l
+%%
+mega- ECHO; yymore();
+kludge ECHO;
+ 
+$ flex yymore.l ; gcc lex.yy.c -lfl ; a.out
+mega-kludge
+mega-mega-kludge             
+\end{verbatim}
+La variable \verb|yyleng| no deber\'{\i}a ser modificada si se hace uso de la
+funci\'on \verb|yymore()|.
+
+\subsection{yyless()}
+La funci\'on \verb|yyless(n)| permite retrasar el puntero de lectura  
+de manera que apunta al car\'acter \emph{n} de \emph{yytext}. 
+Veamos un ejemplo:
+\begin{verbatim}
+$ cat yyless.l
+%%
+foobar ECHO; yyless(4);
+[a-z]+ ECHO;
+ 
+$ flex yyless.l; gcc lex.yy.c -lfl; a.out
+foobar
+foobarar                                   
+\end{verbatim}
+Veamos un ejemplo mas ``real''. supongamos que tenemos que reconocer 
+las cadenas entre comillas dobles, pero que pueden aparecer en las
+mismas secuencias de escape \verb|\"|. La estrategia general del algoritmo
+es utilizar la expresión regular \verb|\"[^"]+\"| y examinar si
+los dos últimos  carácteres en \verb|yytext| son \verb|\"|. En tal caso, 
+se concatena la cadena actual (sin la \verb|"| final) como prefijo para
+el próximo emparejamiento (utilizando \verb|yymore|). 
+La eliminación de la \verb|"| se hace a través de la ejecución de 
+\verb|yyless(yyleng-1)|, que al mismo tiempo garantiza que el próximo emparejamiento 
+tendrá lugar con este mismo patrón \verb|\"[^"]+\"|.
+\begin{verbatim}
+$ cat quotes.l
+%%
+\"[^"]+\" {
+            printf("Processing string. %d: %s\n",yyleng,yytext);
+            if (yytext[yyleng-2] =='\\') {
+             yyless(yyleng-1); /* so that it will match next time */
+             yymore(); /* concatenate  with current yytext */
+             printf("After yyless. %d: %s\n",yyleng,yytext);
+            } else {
+              printf("Finished. The string is: %s\n",yytext);
+            }
+          }                    
+\end{verbatim}
+El ejemplo no puede entenderse si no se tiene en cuenta que
+\verb2yyless(yyleng-1)2 actualiza los valores de \emph{yyleng} 
+y \emph{yytext}, como muestra la salida.\\
+¿Qu\'e ocurre si intercambiamos las posiciones de \verb|yymore()|
+e \verb2yyless(yyleng-1)2 en el c\'odigo? >Cambiara la salida? 
+La respuesta es que no. Parece que la concatenaci\'on se hace con el valor
+final de \emph{yytext} y no con el valor que este ten\'{\i}a en el momento de
+la llamada a \emph{yymore}.\\
+Otra observaci\'on  a tener en cuenta es que \emph{yyless()}
+es una macro y que, por tanto,
+s\'olo puede ser utilizada dentro del fichero \emph{lex} y no en otros
+ficheros fuentes.
+
+En general, el uso de estas funciones  nos puede resolver el problema
+de reconocer l\'{\i}mites que de otra forma ser\'{\i}an dif\'{\i}ciles de expresar
+con una expresi\'on regular.
+\begin{verbatim}
+$ flex quotes.l ; gcc lex.yy.c -lfl ; a.out
+"Hello \"Peter\", nice to meet you"
+Procesing string. 9: "Hello \"
+After yyless. 8: "Hello \
+Procesing string. 16: "Hello \"Peter\"
+After yyless. 15: "Hello \"Peter\
+Procesing string. 35: "Hello \"Peter\", nice to meet you"
+Finished. The string is: "Hello \"Peter\", nice to meet you"
+\end{verbatim}
+
+\subsection{Estados}
+Las expresiones regulares pueden ser prefijadas mediante \emph{estados}.
+Los estados o condiciones de arranque, se denotan mediante un
+identificador entre \'angulos y se declaran
+en la parte de las definiciones. Las declaraciones se hacen mediante 
+\verb|%s| para los estados ``inclusivos'' o bien \verb|%x| para los estados ``exclusivos'',
+seguidos de los nombres de los estados. No pueden haber caracteres en blanco antes de la declaración.
+Un \emph{estado} se activa mediante la 
+acci\'on BEGIN \emph{estado}. A partir de ese momento, las reglas que esten
+prefijadas con el estado pasan a estar activas. En el caso de que el estado
+sea inclusivo, las reglas no prefijadas tambi\'en permanecen activas.
+Los estados exclusivos son especialmente útiles para especificar ``sub analizadores''
+que analizan porciones de la entrada cuya estructura ``sintáctica'' es diferente
+de la del resto de la entrada.
+
+El ejemplo ``absorbe'' los comentarios, conservando el numero de
+l\'{\i}neas del fichero en la variable \verb|linenum|
+
+\begin{verbatim}
+$ cat comments.l
+%option noyywrap
+%{
+  int linenum = 0;
+%}
+%x comment
+%%
+ 
+"/*" BEGIN(comment); printf("comment=%d, YY_START = %d, YYSTATE = %d",comment,YY_START,YYSTATE);
+<comment>[^*\n]* /* eat anything that is not a star * /
+<comment>"*"+[^*/\n]* /* eat up starts not followed by / */
+<comment>\n ++linenum; /* update number of lines */
+<comment>"*"+"/" BEGIN(0);
+ 
+\n ECHO; linenum++;
+.  ECHO;
+%%
+main() {
+  yylex();
+  printf("\n%d lines\n",linenum);
+}
+\end{verbatim}
+La opción \verb|noyywrap| hace que \verb|yylex()| no llame a la función \verb|yywrap()|
+al final del fichero y que asuma que no hay mas entrada por procesar.
+
+Los estados se traducen por enteros, pudiendo ser manipulados como tales.
+La macro \verb|INITIAL| puede utilizarse para referirse al estado 0.
+Las macros \verb|YY_START| y \verb|YYSTATE| contienen el valor del estado actual.
+\begin{verbatim}
+$ flex comments.l ; gcc lex.yy.c ; a.out < hello.c
+main() <%
+int a<:1:>; comment=1, YY_START = 1, YYSTATE = 1
+  a<:0:> = 4; comment=1, YY_START = 1, YYSTATE = 1
+  printf("hello world! a(0) is %d\n",a<:0:>);
+%>
+ 
+6 lines     
+$ cat hello.c
+main() <%
+int a<:1:>; /* a comment */
+  a<:0:> = 4; /* a comment in
+                 two lines */
+  printf("hello world! a(0) is %d\n",a<:0:>);
+%>                                  
+\end{verbatim}
+En \emph{flex} es posible asociar un \'ambito con los estados o 
+condiciones iniciales. Basta con colocar entre llaves las 
+parejas \emph{patr\'on acci\'on} gobernadas por ese estado.
+El siguiente ejemplo procesa las cadenas \emph{C}:
+\begin{verbatim}
+$ cat ststring.l
+%option main
+%x str
+%{
+#define MAX_STR_CONST 256
+ 
+  char string_buffer[MAX_STR_CONST];
+  char *string_buf_ptr;
+%}
+ 
+%%
+\"  string_buf_ptr  = string_buffer; BEGIN(str);
+<str>{
+\"             {BEGIN (INITIAL); *string_buf_ptr = '\0'; printf("%s",string_buffer); }
+\n             { printf("Error: non terminated string\n"); exit(1); }
+\\[0-7]{1,3}   { int result; /* octal escape sequence */
+                        (void) sscanf(yytext+1,"%o",&result);
+                         if (result > 0xff) {printf("Error: constant out of bounds\n"); exit(2); }
+                         *string_buf_ptr++ = result;
+                    }
+\\[0-9]+       { printf("Error: bad escape sequence\n"); exit(2); }
+\\n            {*string_buf_ptr++ = '\n';}
+\\t            {*string_buf_ptr++ = '\t';}
+\\b            {*string_buf_ptr++ = '\b';}
+\\r            {*string_buf_ptr++ = '\r';}
+\\f            {*string_buf_ptr++ = '\f';}
+\\(.|\n)       {*string_buf_ptr++ = yytext[1];}
+[^\\\n\"]+     {char *yptr = yytext; while(*yptr) *string_buf_ptr++ = *yptr++; }
+}
+(.|\n)
+%%                            
+$ flex ststring.l ; gcc lex.yy.c ; a.out < hello.c
+        hello
+world! a(0) is %d
+$ cat hello.c
+main() <%
+int a<:1:>; /* a comment */
+  a<:0:> = 4; /* a comment in
+                 two lines */
+  printf("\thell\157\nworld! a(0) is %d\n",a<:0:>);
+%>                                   
+\end{verbatim}
+Obsérve la conducta del programa ante las siguientes entradas:
+\begin{itemize}
+\item
+Entrada:
+\begin{verbatim}
+"hello \
+dolly"
+\end{verbatim}
+¿Cuál será la salida? ¿Que patrón del programa anterior es el que casa aqui?
+%hello
+%dolly
+\item
+Entrada:
+\verb|"hello\ndolly"|.
+¿Cuál será la salida? ¿Que patrón del programa anterior es el que casa aqui?
+%hello
+%dolly
+\item
+\begin{verbatim}|
+"hello
+
+\end{verbatim}
+Donde hay un retorno del carro después de \verb|hello|.
+¿Cuál será la salida? %Error: non terminated string
+\end{itemize}
+
+\subsection{La pila de estados}
+Mediante el uso de la opción
+
+\verb|%option stack|
+
+\noindent tendremos acceso a una pila de estados y a tres rutinas para  manipularla:\\
+\begin{itemize}
+\item
+\verb|void yy_push_state(int new_state)|\\
+Empuja el estado actual y bifurca a \verb|new_state|.\\
+\item
+\verb|void yy_pop_state()|\\
+Saca el estado en el \emph{top} de la pila y bifurca a el mismo.\\
+\item
+\verb|int yy_top_state()|\\
+Nos devuelve el estado en el \emph{top} de la pila, sin alterar
+los contenidos de la misma.
+\end{itemize}
+
+\subsubsection{Ejemplo}
+El siguiente programa \verb|flex| utiliza las funciones de la pila
+de estados para reconocer el lenguaje (no regular) 
+$\{a^n b^n\ /\ n \in N\}$
+
+% \ listinginput{1}{../src/ab2.l}
+\begin{verbatim}
+%option main
+%option noyywrap
+%option stack
+%{
+#include <stdio.h>
+#include  <stdlib.h>
+%}
+%x estado_a
+%%
+^a { yy_push_state(estado_a);}
+<estado_a>{
+a      { yy_push_state(estado_a); }
+b      { yy_pop_state();  }
+b[^b\n]+    {   printf ("Error\n"); 
+        while (YYSTATE != INITIAL)
+          yy_pop_state();
+        while (input() != '\n') ;
+      }
+(.|\n)  {  printf ("Error\n"); 
+        while (YYSTATE != INITIAL)
+          yy_pop_state();
+        while (input() != '\n') ;
+      }
+}
+.      {  printf ("Error\n");
+        while (input() != '\n') ;
+      }
+\n      { printf("Aceptar\n");}
+%%
+\end{verbatim}
+
+%\subsubsection{Ejemplo}
+%El siguiente programa \verb|flex| utiliza las funciones de la pila de estados para reconocer el lenguaje (no regular) \{$x \in \{a,b\} $/ número de $a$es es igual al número de $b$es  y cualquier prefijo de $x$ contiene no menos $a$es que $b$es  \}.
+%\begin{verbatim}
+%$ cat push.l
+%%option stack
+%%x A ACCEPT
+%%%
+%"a"      {  ECHO; yy_push_state(A); printf("State: %d\n",YYSTATE); }
+%[^a\n]+.*\n  { printf("error\n"); }
+%[\n ]+
+%(.|\n)   { printf("Error!\n"); }
+%<A>{
+%"a" {  ECHO; yy_push_state(A); printf("State: %d\n",YYSTATE); }
+%"b" { ECHO;
+%       if (yy_top_state()) {
+%         yy_pop_state();
+%         printf("State: %d\n",YYSTATE);
+%       }
+%       else {
+%         printf("State: %d\n",YYSTATE);
+%         BEGIN(ACCEPT);
+%       }
+%    }
+%(.|\n)   { printf("Error!\n"); BEGIN(0); }
+%}
+%<ACCEPT>\n { BEGIN(0); printf("Accept\n"); }
+%<ACCEPT>. { BEGIN(0); printf("Error\n"); }
+%%%   
+%$ flex push.l ; gcc lex.yy.c -lfl ; a.out
+%ab
+%aState: 1
+%bState: 1
+%Accept
+%abb
+%aState: 1
+%bState: 1
+%Error
+%bbbbbbbbbba
+%error                             
+%\end{verbatim}
+
+\subsection{Final de Fichero}
+El patrón \verb|<<EOF>>| permite asociar acciones que se deban 
+ejecutar cuando se ha encontrado un \emph{end of file} y la 
+macro \verb|yywrap()| ha devuelto un valor no nulo. 
+
+Cualquiera que sea, la acción asociada deberá de optar por una de estas 
+cuatro alternativas:
+\begin{itemize}
+\item
+Asignar \verb|yyin| a un nuevo fichero de entrada
+\item
+Ejecutar \verb|return|
+\item
+Ejecutar \verb|yyterminate()| (véase  la sección \ref{section:input})
+\item
+Cambiar de \emph{buffer} de entrada utilizando la función
+\verb|yy_switch_buffer| (véase  la sección \ref{section:include}).
+\end{itemize}
+
+El patrón \verb|<<EOF>>| no puede usarse con otras expresiones regulares. Sin embargo, es correcto prefijarlo con estados.
+
+Si  \verb|<<EOF>>| aparece sin condiciones de arranque, la regla se aplica a todos los estados que no tienen una regla  \verb|<<EOF>>| específica.
+Si lo que se quiere es que la regla se restringa al ámbito del estado inicial se deberá escribir:
+
+\verb|<INITIAL><<EOF>>| 
+
+Sigue un programa que reconoce los comentarios anidados en C.
+Para detectar comentarios incacabados usaremos  \verb|<<EOF>>|.
+\label{nestedcomments}
+%\listinginput{1}{../src/nestedcom2.l}
+\begin{verbatim}
+%option stack
+%x comment
+%%
+"/*"   { yy_push_state(comment); }
+(.|\n) ECHO;
+<comment>"/*"     { yy_push_state(comment); } 
+<comment>"*/"     { yy_pop_state(); } 
+<comment>(.|\n)   ;
+<comment><<EOF>>  { fprintf(stderr,"Error\n"); exit(1); }
+%%
+\end{verbatim}
+
+\begin{verbatim}
+$ cat hello.c
+main() {
+int a[1]; /* a /* nested comment */. */
+  a[0] = 4; /* a  /* nested comment in
+                 /* two */ lines  */ *****/
+}                                                   
+$ flex nestedcom.l ; gcc lex.yy.c -lfl ; a.out < hello.c
+main() {
+int a[1];
+  a[0] = 4;
+}
+$ cat hello4.c
+main() {
+int a[1]; /* a /* nested comment */. */
+  a[0] = 4; /* an  /* incorrectly nested comment in
+                 /* two  lines  */ *****/
+}
+$ a.out < hello4.c
+main() {
+int a[1];
+Error
+  a[0] = 4; 
+\end{verbatim}
+
+\subsection{Uso de Dos Analizadores}
+La opción \verb|-Pprefix| de flex cambia el prefijo por defecto \verb|yy|
+para todas las variables globales y funciones. Por ejemplo 
+\verb|-Pfoo| cambia el nombre de  \verb|yytext| \verb|footext|.  
+También cambia el nombre del fichero de salida 
+de  \verb|lex.yy.c|  a \verb|lex.foo.c|.  
+Sigue la lista de identificadores afectados:
+\begin{verbatim} 
+yy_create_buffer
+yy_delete_buffer
+yy_flex_debug
+yy_init_buffer
+yy_flush_buffer
+yy_load_buffer_state
+yy_switch_to_buffer
+yyin
+yyleng
+yylex
+yylineno
+yyout
+yyrestart
+yytext
+yywrap
+\end{verbatim} 
+Desde dentro del analizador léxico puedes referirte a las 
+variables globales y funciones por cualquiera de los nombres,
+pero externamente tienen el nombre cambiado.
+Esta opción nos permite enlazar diferentes programas flex en un mismo ejecutable.
+
+Sigue un ejemplo de uso de dos analizadores l\'exicos dentro del mismo programa:
+\begin{verbatim}
+$ cat one.l
+%%
+one {printf("1\n"); return 1;}
+.   {printf("First analyzer: %s\n",yytext);}
+%%
+ 
+int onewrap(void) {
+  return 1;
+}
+ 
+$ cat two.l
+%%
+two {printf("2\n"); return 2;}
+.   {printf("Second analyzer: %s\n",yytext);}
+%%
+int twowrap(void) {
+  return 1;
+}
+$ cat onetwo.c
+main() {
+  onelex();
+  twolex();
+}                                 
+\end{verbatim}
+Como hemos mencionado, la compilaci\'on \emph{flex} se debe realizar con el opci\'on \verb|-P|,
+que cambia el prefijo por defecto \verb|yy| de las funciones
+y variables accesibles por el usuario.
+El mismo efecto puede conseguirse utilizando la opción \verb|prefix|, escribiendo
+\verb|%option prefix="one"| y \verb|%option prefix="two"| en los respectivos programas 
+\verb|one.l| y \verb|two.l|. 
+\begin{verbatim}
+$ flex -Pone one.l
+$ flex -Ptwo two.l
+$ ls -ltr | tail -2
+-rw-rw----   1 pl       casiano     36537 Nov  7 09:52 lex.one.c
+-rw-rw----   1 pl       casiano     36524 Nov  7 09:52 lex.two.c
+$ gcc onetwo.c lex.one.c lex.two.c
+$ a.out
+two
+First analyzer: t
+First analyzer: w
+First analyzer: o
+ 
+one
+1
+one
+Second analyzer: o
+Second analyzer: n
+Second analyzer: e
+ 
+two
+2
+$             
+\end{verbatim}
+
+\subsection{La Opción {\tt outfile}}
+Es posible utilizar la opción \verb|-ooutput.c|  para escribir el 
+analizador léxico en el fichero \verb|output.c| en vez de  en \verb|lex.yy.c|.
+El mismo efecto puede obtenerse usando la opción \verb|outfile="output.c"| dentro
+del programa \verb|lex|.
+
+\subsection{Leer desde una Cadena: YY\_INPUT}
+En general, la rutina que hace el an\'alisis l\'exico,
+\emph{yylex()}, lee su entrada a trav\'es de la macro
+\verb|YY_INPUT|. Esta macro es llamada con tres par\'ametros
+\begin{center}
+\verb|YY_INPUT(buf,result,max)| 
+\end{center}
+el primero, \emph{buf} es utilizado para guardar la entrada.
+el tercero \emph{max} indica el n\'umero de caracteres que \emph{yylex()}
+pretende leer de la entrada. El segundo \emph{result} contendr\'a el n\'umero 
+de caracteres realmente le\'{\i}dos. Para poder leer desde una cadena
+(\emph{string}) basta
+con modificar \verb|YY_INPUT| para que copie los datos de la cadena en
+el \emph{buffer} pasado como par\'ametro a \verb|YY_INPUT|. 
+Sigue un ejemplo: 
+\begin{verbatim}
+$ cat string.l
+%{
+#undef YY_INPUT
+#define YY_INPUT(b,r,m) (r = yystringinput(b,m))
+#define min(a,b) ((a<b)?(a):(b))
+%}
+ 
+%%
+[0-9]+ printf("Num-");
+[a-zA-Z][a-zA-Z_0-9]* printf("Id-");
+[ \t]+
+. printf("%c-",yytext[0]);
+%%
+ 
+extern char string[];
+extern char *yyinputptr;
+extern char *yyinputlim;
+ 
+int yystringinput(char *buf, int maxsize) {
+  int n = min(maxsize, yyinputlim-yyinputptr);
+ 
+  if (n > 0) {
+    memcpy(buf, yyinputptr, n);
+    yyinputptr += n;
+  }
+  return n;
+}
+ 
+int yywrap() { return 1; }              
+\end{verbatim}
+Este es el fichero conteniendo la funci\'on \emph{main}:
+\begin{verbatim}
+$ cat stringmain.c
+char string[] = "one=1;two=2";
+char *yyinputptr;
+char *yyinputlim;
+ 
+main() {
+  yyinputptr = string;
+  yyinputlim = string + strlen(string);
+  yylex();
+  printf("\n");
+}                              
+\end{verbatim}
+Y esta es la salida:
+\begin{verbatim}
+$ a.out
+Id-=-Num-;-Id-=-Num-    
+\end{verbatim}
+La cadena \verb|string = "one=1;two=2"| definida en la línea 2 ha sido utilizada 
+como entrada para el análisis léxico.
+
+\subsection{El operador de ``trailing context'' o ``lookahead'' positivo}
+En el lenguaje FORTRAN original los ``blancos'' no eran significativos
+y no se distinguía entre mayúsculas y minúsculas.
+Así pues la cadena \verb|do i = 1, 10| es equivalente a la cadena
+\verb|DOI=1,10|. Un conocido conflicto ocurre entre una cadena 
+con la estructura \verb|do i = 1.10| (esto es \verb|DOI=1.10|) y  
+la cadena anterior. En la primera \verb|DO| e \verb|I| son dos
+``tokens'' diferentes, el primero correspondiendo a la palabra reservada que indica un bucle. En la segunda, \verb|DOI| constituye un único ``token''
+y la sentencia se refiere a una asignación.
+El conflicto puede resolverse utilizando el operador de ``trailing'' \verb@r/s@. 
+Como se mencionó, el operador de ``trailing''\verb@r/s@ permite reconocer una \verb@r@ pero s\'olo si va seguida de una \verb@s@. El texto casado con \verb@s@ se incluye a la hora de decidir cual es el emparejamiento mas largo, pero se devuelve a la entrada cuando se ejecuta la acci\'on. La acci\'on s\'olo ve el texto asociado con \verb@r@.  El fichero \verb|fortran4.l| ilustra una posible solución:
+\begin{verbatim}
+ cat fortran4.l
+%array
+%{
+#include <string.h>
+#undef YY_INPUT
+#define YY_INPUT(buf,result,max) (result = my_input(buf,max))
+%}
+number [0-9]+
+integer [+-]?{number}
+float ({integer}\.{number}?|\.{number})(E{integer})?
+label [A-Z0-9]+
+id   [A-Z]{label}*
+%%
+DO/{label}={number}\, { printf("do loop\n"); }
+{id} { printf("Identifier %s\n",yytext); }
+{number} { printf("Num %d\n",atoi(yytext)); }
+{float} { printf("Float %f\n",atof(yytext)); }
+(.|\n)
+%%
+
+int my_input(char *buf, int max)
+{
+  char *q1, *q2, *p = (char *) malloc(max);
+  int i;
+  if ('\0' != fgets(p,max,yyin)) {
+    for(i=0, q1=buf, q2=p;(*q2 != '\0');q2++) {
+      if (*q2 != ' ') { *q1++ = toupper(*q2); i++; };
+    }
+    free(p);
+    return i;
+  }
+  else exit(1);
+}
+\end{verbatim}
+La función 
+
+\verb|char *fgets(char *s, int size, FILE *stream)| 
+
+lee a lo mas uno menos que \verb|size| caracteres desde \verb|stream| y los almacena en el \emph{buffer}
+apuntado por \verb|s|. La lectura termina después de un  \verb|EOF| o un retorno de carro.
+Si se lee un \verb|\n|, se almacena en el \emph{buffer}. La función pone un carácter nulo \verb|\0| 
+como último carácter en el \emph{buffer}.
+
+A continuación, puedes ver los detalles de una ejecución:
+\begin{verbatim}
+$ flex fortran4.l; gcc lex.yy.c -lfl; a.out
+do j = 1 . 10
+Identifier DOJ
+Float 1.100000
+do k = 1, 5
+do loop
+Identifier K
+Num 1
+Num 5                           
+\end{verbatim}
+
+\subsection{Manejo de directivas {\tt include}}
+\label{section:include}
+El analisis l\'exico de algunos lenguajes requiere que, durante la
+ejecuci\'on, se realice la lectura desde
+di\-fe\-ren\-tes ficheros de entrada. El ejemplo t\'{\i}pico es el manejo de las
+directivas \emph{include file} existentes en la mayor\'{\i}a de los lenguajes de
+programaci\'on.\\
+¿Donde est\'a el problema? La dificultad reside en que los
+analizadores generados por \emph{flex}
+proveen almacenamiento intermedio (\emph{buffers}) para aumentar el
+rendimiento. No basta con reescribir nuestro propio \emph{YY\_INPUT} de
+manera que tenga en cuenta con que fichero se esta trabajando. 
+El analizador s\'olo llama a \emph{YY\_INPUT} cuando alcanza el final de su
+\emph{buffer}, lo cual puede ocurrir bastante despu\'es de haber
+encontrado la sentencia \emph{include} que requiere el cambio de
+fichero de entrada.
+\begin{verbatim}
+$ cat include.l
+%x incl
+%{
+#define yywrap() 1
+#define MAX_INCLUDE_DEPTH 10
+YY_BUFFER_STATE include_stack[MAX_INCLUDE_DEPTH];
+int include_stack_ptr = 0;
+%}
+%%
+include          BEGIN(incl);
+.                ECHO;
+<incl>[ \t]*
+<incl>[^ \t\n]+  { /* got the file name */
+                   if (include_stack_ptr >= MAX_INCLUDE_DEPTH) {
+                     fprintf(stderr,"Includes nested too deeply\n");
+                     exit(1);
+                   }
+                   include_stack[include_stack_ptr++] = YY_CURRENT_BUFFER;
+                   yyin = fopen(yytext,"r");
+                   if (!yyin) {
+                     fprintf(stderr,"File %s not found\n",yytext);
+                     exit(1);
+                   }
+                   yy_switch_to_buffer(yy_create_buffer(yyin, YY_BUF_SIZE));
+                   BEGIN(INITIAL);
+                 }
+<<EOF>> {
+          if ( --include_stack_ptr < 0) {
+            yyterminate();
+          } else {
+            yy_delete_buffer(YY_CURRENT_BUFFER);
+            yy_switch_to_buffer(include_stack[include_stack_ptr]);
+          }
+        }
+%%
+main(int argc, char ** argv) {
+ 
+  yyin = fopen(argv[1],"r");
+  yylex();
+}
+\end{verbatim}
+La funci\'on \verb|yy_create_buffer(yyin, YY_BUF_SIZE));| crea  un \emph{buffer}
+lo suficientemente grande para mantener \verb|YY_BUF_SIZE| caracteres. Devuelve un 
+\verb|YY_BUFFER_STATE|, que puede ser pasado a otras rutinas. \verb|YY_BUFFER_STATE| es un puntero a
+una estructura de datos opaca (\verb|struct yy_buffer_state|) que contiene la informaci\'on para la manipulaci\'on
+del \emph{buffer}. Es posible por tanto inicializar un puntero \verb|YY_BUFFER_STATE|
+usando la expresión \verb|((YY_BUFFER_STATE) 0)|.
+
+La funci\'on \verb|yy_switch_to_buffer(YY_BUFFER_STATE new_buffer);| conmuta la entrada 
+del analizador l\'exico. La funci\'on \verb|void yy_delete_buffer( YY_BUFFER_STATE buffer )|
+se usa para recuperar la memoria consumida por un \emph{buffer}.  Tambi\'en se pueden limpiar 
+los contenidos actuales de un buffer llamando a:
+\verb|void yy_flush_buffer( YY_BUFFER_STATE buffer )|
+
+La regla especial \verb|<<EOF>>| indica la acci\'on a ejecutar cuando 
+se ha encontrado un final de fichero e \verb|yywrap()| retorna un valor
+distinto de cero. Cualquiera que sea la acci\'on asociada, esta debe terminar 
+con uno de estos cuatro supuestos:
+\begin{enumerate}
+\item Asignar \verb|yyin| a un nuevo fichero de entrada.
+\item Ejecutar \verb|return|.
+\item Ejecutar \verb|yyterminate()|.
+\item Cambiar a un nuevo buffer usando \verb|yy_switch_to_buffer()|.
+    
+La regla \verb|<<EOF>>| no se puede mezclar con otros patrones.
+\end{enumerate}
+
+Este es el resultado de una ejecuci\'on del programa:
+\begin{verbatim}
+$ cat hello.c
+#include hello2.c
+main() <%
+int a<:1:>; /* a comment */
+  a<:0:> = 4; /* a comment in
+                 two lines */
+  printf("\thell\157\nworld! a(0) is %d\n",a<:0:>);
+%>
+$ cat hello2.c
+#include hello3.c
+/* file hello2.c  */
+$ cat hello3.c
+/*
+third file
+*/
+$ flex include.l ; gcc lex.yy.c ; a.out hello.c
+##/*
+third file
+*/
+ 
+/* file hello2.c  */
+ 
+main() <%
+int a<:1:>; /* a comment */
+  a<:0:> = 4; /* a comment in
+                 two lines */
+  printf("\thell\157\nworld! a(0) is %d\n",a<:0:>);
+%>                                                            
+\end{verbatim}
+Una alternativa a usar el patrón \verb|<<EOF>>|
+es dejar la responsabilidad de recuperar el \emph{buffer} anterior
+a \verb|yywrap()|. En tal caso suprimiríamos esta parajea patrón-acción
+y reescribiríamos \verb|yywrap()|:
+\begin{verbatim}
+%x incl
+%{
+#define MAX_INCLUDE_DEPTH 10
+YY_BUFFER_STATE include_stack[MAX_INCLUDE_DEPTH];
+int include_stack_ptr = 0;
+%}
+%%
+include          BEGIN(incl);
+.                ECHO;
+<incl>[ \t]*
+<incl>[^ \t\n]+  { /* got the file name */
+                   if (include_stack_ptr >= MAX_INCLUDE_DEPTH) {
+		     fprintf(stderr,"Includes nested too deeply\n");
+		     exit(1);
+		   }
+		   include_stack[include_stack_ptr++] = YY_CURRENT_BUFFER;
+		   yyin = fopen(yytext,"r");
+		   if (!yyin) {
+		     fprintf(stderr,"File %s not found\n",yytext);
+		     exit(1);
+		   }
+		   yy_switch_to_buffer(yy_create_buffer(yyin, YY_BUF_SIZE));
+		   BEGIN(INITIAL);
+		 }
+%%
+main(int argc, char ** argv) {
+
+  yyin = fopen(argv[1],"r");
+  yylex();
+}
+
+int yywrap() {
+  if ( --include_stack_ptr < 0) { 
+    return 1;
+  } else {
+    yy_delete_buffer(YY_CURRENT_BUFFER);
+    yy_switch_to_buffer(include_stack[include_stack_ptr]);
+    return 0;
+  }
+}
+\end{verbatim}
+
+
+\subsection{An\'alisis Léxico desde una Cadena: {\tt yy\_scan\_string}}
+El objetivo de este ejercicio es mostrar como realizar un
+an\'alisis l\'exico de los argumentos pasados en la l\'{\i}nea de
+comandos. Para ello \emph{flex} provee la funci\'on \verb|yy_scan_string(const char * str)|.
+Esta rutina crea un nuevo \emph{buffer} de entrada y devuelve el correspondiente
+manejador \verb|YY_BUFFER_STATE| asociado con la cadena
+\verb|str|. Esta cadena debe estar terminada por un car\'acter \verb|\0|. 
+Podemos liberar la memoria asociada con
+dicho \emph{buffer} utilizando \verb|yy_delete_buffer(BUFFER)|.
+La siguiente llamada a \verb|yylex()| realizar\'a el an\'alisis l\'exico
+de la cadena \verb|str|.
+
+\begin{verbatim}
+$ cat scan_str.l
+%%
+[0-9]+     printf("num\n");
+[a-zA-Z]+  printf("Id\n");
+%%
+main(int argc, char ** argv) {
+int i;
+ 
+  for(i=1;i<argc;i++) {
+    yy_scan_string(argv[i]);
+    yylex();
+    yy_delete_buffer(YY_CURRENT_BUFFER);
+  }
+}
+ 
+int yywrap() { return 1; }
+$ flex scan_str.l ; gcc lex.yy.c ; a.out Hello World! 1234
+Id
+Id
+!num                       
+\end{verbatim}
+Alternativamente, la función \verb|main()| podría haber sido escrita asi:
+\begin{verbatim}
+main(int argc, char ** argv) {
+int i;
+YY_BUFFER_STATE p;
+
+  for(i=1;i<argc;i++) {
+    p = yy_scan_string(argv[i]);
+    yylex();
+    yy_delete_buffer(p);
+  }
+}
+\end{verbatim}
+La funci\'on \verb|yy_scan_bytes(const char * bytes, int len)| hace lo mismo que 
+\verb|yy_scan_string| pero en vez de una cadena terminada en
+el car\'acter nulo, se usa la longitud \verb|len|.
+Ambas funciones \verb|yy_scan_string(const char * str)| y
+\verb|yy_scan_bytes(const char * bytes, int len)| hacen una copia
+de la cadena pasada como argumento.
+
+Estas dos funciones crean una copia de la cadena original. Es mejor que sea asi, ya que \verb|yylex()|
+modifica los contenidos del \emph{buffer} de trabajo. Si queremos evitar la copia,
+podemos usar 
+
+\verb|yy_scan_buffer(char *base, yy_size_t size)|,
+
+la cual trabaja directamente con el \emph{buffer} que comienza en \verb|base|, 
+de tamaño \verb|size| \emph{bytes}, los últimos dos de los cuáles deben
+ser \verb|YY_END_OF_BUFFER_CHAR| (ASCII  NUL).   
+Estos dos últimos \emph{bytes} no son ``escaneados''. El área de rastreo va
+desde \verb|base[0]| a \verb|base[size-2]|, inclusive.
+Si nos olvidamos de hacerlo de este modo y no establecemos los dos \emph{bytes} finales,
+la función \verb|yy_scan_buffer()| devuelve un puntero nulo
+y no llega a crear el nuevo buffer de entrada.
+El tipo  \verb|yy_size_t| es un tipo entero.
+Como cabe esperar, \verb|size| se refiere al tamaño del \emph{buffer}.
+
+\subsection{An\'alisis de la L\'{\i}nea de Comandos y 2 Analizadores}
+El objetivo de este ejercicio es mostrar como realizar un
+an\'alisis l\'exico de los argumentos pasados en la l\'{\i}nea de
+comandos.  Para ello dise\~naremos una librer\'{\i}a que proporcionar\'a un 
+funci\'on \verb|yylexarg(argc,argv)| que hace el an\'alisis
+de la l\'{\i}nea de acuerdo con la especificaci\'on
+\emph{flex} correspondiente. En el ejemplo, esta descripci\'on del analizador l\'exico
+es proporcionada en el fichero \emph{fl.l}.  Para complicar un poco mas
+las cosas, supondremos que queremos hacer el an\'alisis l\'exico
+de un fichero (especificado en la l\'{\i}nea de comandos) seg\'un 
+se especifica en un segundo analizador l\'exico \emph{trivial.l}.
+El siguiente ejemplo de ejecuci\'on muestra la conducta del programa:
+\begin{verbatim}
+$ fl -v -V -f tokens.h
+verbose mode is on
+version 1.0
+File name is: tokens.h
+Analyzing tokens.h
+#-id-blanks-id-blanks-int-blanks-#-id-blanks-id-blanks-int-blanks-#-id-blanks-id-blanks
+-int-blanks-#-id-blanks-id-blanks-int-blanks-#-id-blanks-id-blanks-int-blanks-
+\end{verbatim}
+Los contenidos del fichero \emph{Makefile} definen las dependencias 
+y la estructura de la aplicaci\'on:
+\begin{verbatim}
+$ cat Makefile
+LIBS=-lflarg
+CC=gcc -g
+LIBPATH=-L. -L~/lib
+INCLUDES=-I. -I~/include
+ 
+fl: main.c lex.arg.c lex.yy.c libflarg.a tokens.h
+        $(CC) $(LIBPATH) $(INCLUDES) main.c lex.arg.c lex.yy.c $(LIBS) -o fl
+lex.arg.c: fl.l
+        flex -Parg fl.l
+lex.yy.c: trivial.l tokens.h
+        flex trivial.l
+libflarg.a: flarg.o
+        ar r libflarg.a flarg.o
+flarg.o: flarg.c
+        $(CC) -c flarg.c
+clean:                                 
+$ make clean;make
+rm lex.arg.c lex.yy.c *.o  fl
+flex -Parg fl.l
+flex trivial.l
+gcc -g -c flarg.c
+ar r libflarg.a flarg.o
+gcc -g -L. -L~/lib -I. -I~/include main.c lex.arg.c lex.yy.c -lflarg -o fl  
+\end{verbatim}
+Observa el uso de la opci\'on \verb|-Parg| en la traducci\'on del fichero 
+\emph{fl.l}. As\'{\i} no solo el fichero generado por \emph{flex}, sino todas las variables
+y rutinas accesibles estar\'an prefijadas por \emph{arg} en vez de \emph{yy}. 
+La librer\'{\i}a la denominamos \emph{libflarg.a}. (\emph{flarg} 
+por \underline{fl}ex \underline{arg}uments). 
+El correspondiente fichero cabecera ser\'a \emph{flarg.h}.
+Los fuentes de las rutinas que compondr\'an la 
+librer\'{\i}a se mantendr\'an en el fichero \emph{flarg.c}.
+
+
+Lo que haremos ser\'a redefinir \verb|YY_INPUT(buf, result, max)| para que
+lea su entrada desde la l\'{\i}nea de argumentos.
+\begin{verbatim}
+$ cat flarg.h
+int yyarglex(int argc, char **argv);
+int YY_input_from_argv(char *buf, int max);
+int argwrap(void);
+ 
+#undef YY_INPUT
+#define YY_INPUT(buf,result,max) (result = YY_input_from_argv(buf,max))   
+\end{verbatim}
+La funci\'on \verb|int YY_input_from_argv(char *buf, int max)| utiliza los punteros
+\verb|char **YY_targv| y \verb|char **YY_arglim| para moverse a trav\'es
+de la familia de argumentos. Mientras que el primero es utilizado para el
+recorrido, el segundo marca el l\'{\i}mite final. Su inicializaci\'on ocurre en
+
+\begin{center}
+\verb|yyarglex(int argc, char **argv)|
+\end{center}
+con las asignaciones:
+\begin{verbatim}
+  YY_targv = argv+1;
+  YY_arglim = argv+argc;
+\end{verbatim}
+
+despues, de lo cual, se llama al analizador l\'exico generado, \emph{arglex} .
+
+\begin{verbatim}
+$ cat flarg.c
+char **YY_targv;
+char **YY_arglim;
+ 
+int YY_input_from_argv(char *buf, int max)
+{
+  static unsigned offset = 0;
+ 
+  int len, copylen;
+ 
+    if (YY_targv >= YY_arglim) return 0;        /* EOF */
+    len = strlen(*YY_targv)-offset;     /* amount of current arg */
+    if(len >= max) {copylen = max-1; offset += copylen; }
+    else copylen = len;
+    if(len > 0) memcpy(buf, YY_targv[0]+offset, copylen);
+    if(YY_targv[0][offset+copylen] == '\0') {   /* end of arg */
+      buf[copylen] = ' '; copylen++; offset = 0; YY_targv++;
+    }
+    return copylen;
+}
+ 
+int yyarglex(int argc, char **argv) {
+  YY_targv = argv+1;
+  YY_arglim = argv+argc;
+  return arglex();
+}
+ 
+int argwrap(void) {
+  return 1;
+}    
+\end{verbatim}
+El fichero \emph{fl.l} contiene el analizador l\'exico de la l\'{\i}nea de comandos:
+\begin{verbatim}
+$ cat fl.l
+%{
+unsigned verbose;
+unsigned thereisfile;
+char *progName;
+char fileName[256];
+#include "flarg.h"
+#include "tokens.h"
+%}
+ 
+%%
+-h      |
+"-?"    |
+-help   { printf("usage is: %s [-help | -h | -? ] [-verbose | -v]"
+         " [-Version | -V]"
+         " [-f filename]\n", progName);
+        }
+ 
+-v      |
+-verbose { printf("verbose mode is on\n"); verbose = 1; }
+ 
+-V      |
+-version { printf("version 1.0\n"); }
+ 
+-f[[:blank:]]+[^ \t\n]+ {
+              strcpy(fileName,argtext+3);
+              printf("File name is: %s\n",fileName);
+              thereisfile = 1;
+            }
+.
+ 
+\n                                 
+\end{verbatim}
+Observe el uso de la clase \verb|[:blank:]| para reconocer
+los blancos. Las clases son las mismas que las introducidas
+en \emph{gawk}.
+
+El an\'alisis l\'exico del fichero que se lee despu\'es de procesar la
+l\'{\i}nea de comandos es descrito en \emph{trivial.l}.
+Partiendo de \emph{trivial.l}, la ejecuci\'on del \emph{Makefile}
+da lugar a la construcci\'on por parte de \emph{flex} del fichero 
+\emph{lex.yy.c} conteniendo la rutina \emph{yylex}.
+\begin{verbatim}
+$ cat trivial.l
+%{
+#include "tokens.h"
+%}
+digit [0-9]
+id [a-zA-Z][a-zA-Z0-9]+
+blanks [ \t\n]+
+operator [+*/-]
+%%
+{digit}+ {return INTTOKEN; }
+{digit}+"."{digit}+ {return FLOATTOKEN; }
+{id} {return IDTOKEN;}
+{operator} {return OPERATORTOKEN;}
+{blanks} {return BLANKTOKEN;}
+. {return (int) yytext[0];}
+%%
+int yywrap() {
+  return 1;
+}
+\end{verbatim}
+El fichero \emph{tokens.h} contiene la definici\'on de los \emph{tokens}
+y es compartido con \emph{main.c}. 
+\begin{verbatim}
+$ cat tokens.h
+#define INTTOKEN  256
+#define FLOATTOKEN 257
+#define IDTOKEN 258
+#define OPERATORTOKEN 259
+#define BLANKTOKEN 260         
+\end{verbatim}
+Nos queda por presentar el fichero \emph{main.c}:
+\begin{verbatim}
+$ cat main.c
+#include <stdio.h>
+#include "flarg.h"
+#include "tokens.h"
+extern unsigned verbose;
+extern unsigned thereisfile;
+extern char *progName;
+extern char fileName[256];
+extern FILE * yyin;
+ 
+main(int argc, char **argv) {
+  unsigned lookahead;
+  FILE * file;
+ 
+  progName = *argv;
+  yyarglex(argc,argv);
+  if (thereisfile) {
+    if (verbose) printf("Analyzing %s\n",fileName);
+    file = (fopen(fileName,"r"));
+    if (file == NULL) exit(1);
+    yyin = file;
+    while (lookahead = yylex()) {
+      switch (lookahead) {
+        case INTTOKEN:
+            printf("int-");
+            break;
+          case FLOATTOKEN:
+            printf("float-");
+            break;
+          case IDTOKEN:
+            printf("id-");
+            break;
+          case OPERATORTOKEN:
+            printf("operator-");
+            break;
+          case BLANKTOKEN:
+            printf("blanks-");
+            break;
+          default: printf("%c-",lookahead);
+       }
+    } /* while */
+    printf("\n");
+  } /* if */
+}                                       
+\end{verbatim}
+
+\subsection{Declaraciones pointer y array}
+Como se coment\'o, las opciones \verb|%pointer| y \verb|%array|
+controlan la definici\'on que
+\emph{flex} hace de \emph{yytext}. en el caso en que eligamos la opci\'on 
+\verb|%array| la variable \verb|YYLMAX| controla el tama\~no del
+\emph{array}. Supongamos que en el fichero \emph{trivial.l} del ejemplo
+anterior introducimos las siguientes modificaciones:
+\begin{verbatim}
+$ cat trivial.l
+%array
+%{
+#undef YYLMAX
+#define YYLMAX 4
+#include "tokens.h"
+%}
+digit [0-9]
+id [a-zA-Z][a-zA-Z0-9]+
+blanks [ \t\n]+
+operator [+*/-]
+%%
+{digit}+ {return INTTOKEN; }
+{digit}+"."{digit}+ {return FLOATTOKEN; }
+{id} {return IDTOKEN;}
+{operator} {return OPERATORTOKEN;}
+{blanks} {return BLANKTOKEN;}
+. {return (int) yytext[0];}
+%%
+int yywrap() {
+  return 1;
+  }                                        
+\end{verbatim}
+En tal caso, la definici\'on excesivamente peque\~na de YYLMAX provoca
+un error en tiempo de ejecuci\'on:
+\begin{verbatim}
+$ fl -V -f tokens.h
+version 1.0
+File name is: tokens.h
+token too large, exceeds YYLMAX 
+\end{verbatim}
+
+\subsection{Las Macros {\tt YY\_USER\_ACTION}, {\tt yy\_act} e {\tt YY\_NUM\_RULES}}
+La macro \verb|YY_USER_ACTION| permite ejecutar una acción inmediatamente después del ``emparejamiento'' y antes de  la ejecución de la acción asociada.
+cuando se la invoca, la variable \verb|yy_act| contiene el número de la regla que ha emparejado (las reglas se numeran a partir de uno). La macro \verb|YY_NUM_RULES| contiene el número de reglas, incluyendo la regla por defecto.
+
+El siguiente programa aprovecha
+dichas macros para mostrar las frecuencias de uso de las reglas.
+\begin{verbatim}
+$ cat user_action.l
+%array
+%{
+#include <string.h>
+ 
+int ctrl[YY_NUM_RULES];
+#undef YY_USER_ACTION
+#define YY_USER_ACTION { ++ctrl[yy_act]; }
+%}
+number [0-9]+
+id   [a-zA-Z_]+[a-zA-Z0-9_]*
+whites [ \t\n]+
+%%
+{id}
+{number}
+{whites}
+.
+%%
+ 
+int yywrap() {
+  int i;
+ 
+  for(i=1;i<YY_NUM_RULES;i++)
+    printf("Rule %d: %d occurrences\n",i,ctrl[i]);
+}
+                                                  
+$ flex user_action.l ; gcc lex.yy.c -lfl ; a.out
+a=b+2*(c-4)
+Rule 1: 3 occurrences
+Rule 2: 2 occurrences
+Rule 3: 1 occurrences
+Rule 4: 6 occurrences     
+\end{verbatim}
+
+\subsection{Las opciones {\tt interactive}}
+La opción \verb|option always-interactive|  hace que \verb|flex| genere un analizador que considera que su entrada es ``interactiva''. Concretamente, el analizador para cada nuevo fichero de entrada, intenta determinar si se trata de un a entrada interactiva o desde fichero haciendo una llamada a la función \verb|isatty()|.  Vea un ejemplo de uso de esta función:
+
+\begin{verbatim}
+$ cat isatty.c
+#include <unistd.h>
+#include <stdio.h>
+main() {
+ 
+  if (isatty(0))
+    printf("interactive\n");
+  else
+    printf("non interactive\n");
+}
+$ gcc isatty.c; a.out
+interactive
+$ a.out < isatty.c
+non interactive
+$                
+\end{verbatim}
+cuando se usa la opción \verb|option always-interactive|, se elimina esta llamada.
+
+\subsection{La macro {\tt YY\_BREAK}}
+Las acciones asociadas con los patrones se agrupan en 
+la rutina de análisis léxico \verb|yylex()| en una sentencia
+\verb|switch| y se separan mediante llamadas a la
+macro \verb|YY_BREAK|. Asi, al compilar con
+\verb|flex| el siguiente fichero \verb|.l|
+\begin{verbatim}
+$ cat interactive.l
+%%
+. printf("::%c",yytext[0]);
+\n printf("::%c",yytext[0]);      
+\end{verbatim}
+tenemos el fichero de salida \verb|lex.yy.c|
+que aparece a continuación (hemos omitido 
+las líneas de código en las que estamos menos interesados, 
+sustituyendolas por puntos suspensivos)
+\begin{verbatim}
+/* A lexical scanner generated by flex */
+....
+#define YY_NUM_RULES 3
+#line 1 "interactive.l"
+#define INITIAL 0
+#line 363 "lex.yy.c"
+....
+YY_DECL {
+ ....
+#line 1 "interactive.l"
+#line 516 "lex.yy.c"
+ ....
+ if ( yy_init ) {
+   yy_init = 0;
+#ifdef YY_USER_INIT
+   YY_USER_INIT;
+#endif
+   if ( ! yy_start ) yy_start = 1;  /* first start state */
+   if ( ! yyin ) yyin = stdin;
+   if ( ! yyout ) yyout = stdout;
+   if ( ! yy_current_buffer ) yy_current_buffer = yy_create_buffer( yyin, YY_BUF_SIZE );
+   yy_load_buffer_state();
+ }
+ while ( 1 )    /* loops until end-of-file is reached */ {
+   ............................
+yy_match:
+   do {
+    .....
+   }
+   ............
+yy_find_action:
+   ............
+   YY_DO_BEFORE_ACTION;
+   do_action:  /* This label is used only to access EOF actions. */
+     switch ( yy_act ) { /* beginning of action switch */
+       case 0: 
+         ...................
+         goto yy_find_action;
+     case 1:
+     YY_RULE_SETUP
+     #line 2 "interactive.l"
+     printf("::%c",yytext[0]);
+       YY_BREAK
+     case 2:
+     YY_RULE_SETUP
+     #line 3 "interactive.l"
+     printf("::%c",yytext[0]);
+       YY_BREAK
+     case 3:
+     YY_RULE_SETUP
+     #line 4 "interactive.l"
+     ECHO;
+       YY_BREAK
+     #line 614 "lex.yy.c"
+     case YY_STATE_EOF(INITIAL):
+       yyterminate();
+       case YY_END_OF_BUFFER:
+         { .....  }
+     default:
+       YY_FATAL_ERROR("fatal flex scanner internal error--no action found");
+  } /* end of action switch */
+ } /* end of scanning one token */
+} /* end of yylex */
+
+#if YY_MAIN
+int main()
+  { yylex(); return 0; }
+#endif
+#line 4 "interactive.l"
+\end{verbatim}
+Por defecto, la macro \verb%YY_BREAK% es simplemente un \verb%break%. Si cada acción de usuario termina en un \verb%return%, puedes encontrarte con que el compilador genera un buen número de \verb%warning! unreachable code%. Puedes entonces redefinir \verb%YY_BREAK% a vacío y evitar estos mensajes.
+
+%suppressed section
+%input{typedef}
+

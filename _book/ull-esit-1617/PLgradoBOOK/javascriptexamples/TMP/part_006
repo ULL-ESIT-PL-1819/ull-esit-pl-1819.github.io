@@ -1,0 +1,99 @@
+Node es un intérprete JavScript escrito en C++ y con una API ligada a
+Unix para trabajar con procesos, fichero, sockets, etc.  Los programas
+Node por defecto nunca se bloquean. Node utiliza manejadores de eventos
+que a menudo se implementan haciendo uso de funciones anidadas  y
+clausuras.
+\begin<<1392>>tex2html_deferred<<1392>>\par\end<<1393>>tex2html_deferred<<1393>>
+\section<<1335>>Instalar Node.js<<1335>>
+\begin<<1336>>enumerate<<1336>>
+\item \htmladdnormallink<<1337>>http://nodejs.org/download/<<1337>><<1338>>http://nodejs.org/download/<<1338>>
+\item 
+\htmladdnormallink<<1339>>Should I install node.js on Ubuntu using package manager or from source?<<1339>><<1340>>http://stackoverflow.com/questions/13845321/should-i-install-node-js-on-ubuntu-using-package-manager-or-from-source<<1340>>
+\item 
+\htmladdnormallink<<1341>>The Node Beginner Book<<1341>><<1342>>http://www.nodebeginner.org/<<1342>>
+\end<<1343>>enumerate<<1343>>
+\begin<<1394>>tex2html_deferred<<1394>>\par\end<<1395>>tex2html_deferred<<1395>>
+\section<<1344>>Primeros Pasos. Un Ejemplo Simple<<1344>>
+\begin<<1345>>tex2html_preform<<1345>><tex2html_verbatim_mark>verbatim62#\end<<1346>>tex2html_preform<<1346>>
+\begin<<1396>>tex2html_deferred<<1396>>\par\end<<1397>>tex2html_deferred<<1397>>
+\begin<<1347>>tex2html_preform<<1347>><tex2html_verbatim_mark>verbatim63#\end<<1348>>tex2html_preform<<1348>>
+\begin<<1398>>tex2html_deferred<<1398>>\par\end<<1399>>tex2html_deferred<<1399>>
+\begin<<1349>>tex2html_preform<<1349>><tex2html_verbatim_mark>verbatim64#\end<<1350>>tex2html_preform<<1350>>
+\begin<<1400>>tex2html_deferred<<1400>>\par\end<<1401>>tex2html_deferred<<1401>>
+\section<<1351>>Usando REPL desde un programa<<1351>>
+\begin<<1402>>tex2html_deferred<<1402>>\par\end<<1403>>tex2html_deferred<<1403>>
+Es posible crear un bucle REPL en cualquier punto de nuestro programa - quizá para depurarlo.
+Para ello usamos la función 
+ <<1389>>\begin<<1404>>tex2html_deferred<<1404>>\tt\end<<1405>>tex2html_deferred<<1405>>repl.start<<1389>> .
+Esta función retorna una instancia REPLServer. Acepta como argumento un objeto
+<tex2html_verb_mark>2<tex2html_verb_mark> que toma los siguientes valores:
+\begin<<1406>>tex2html_deferred<<1406>>\par\end<<1407>>tex2html_deferred<<1407>>
+\begin<<1353>>enumerate<<1353>>
+\item <tex2html_verb_mark>3<tex2html_verb_mark> - the prompt and stream for all I/O. Defaults to ;SPMgt; .
+\item <tex2html_verb_mark>4<tex2html_verb_mark> - the readable stream to listen to. Defaults to process.stdin.
+\item <tex2html_verb_mark>5<tex2html_verb_mark> - the writable stream to write readline data to. Defaults to process.stdout.
+\item <tex2html_verb_mark>6<tex2html_verb_mark> - pass true if the stream should be treated
+like a TTY, and have ANSI/VT100 escape codes written to it. Defaults
+to checking isTTY on the output stream upon instantiation.
+\item <tex2html_verb_mark>7<tex2html_verb_mark> - function that will be used to eval each given
+line. Defaults to an async wrapper for eval(). 
+\item <tex2html_verb_mark>8<tex2html_verb_mark> - a boolean which specifies whether or not
+the writer function should output colors. If a different writer
+function is set then this does nothing. Defaults to the repl's
+terminal value.
+\item <tex2html_verb_mark>9<tex2html_verb_mark> - if set to true, then the repl will use the
+global object, instead of running scripts in a separate context.
+Defaults to false.
+\item <tex2html_verb_mark>10<tex2html_verb_mark> - if set to true, then the repl will
+not output the return value of command if it's undefined. Defaults
+to false.
+\item <tex2html_verb_mark>11<tex2html_verb_mark> - the function to invoke for each command that
+gets evaluated which returns the formatting (including coloring)
+to display. Defaults to util.inspect.
+\end<<1354>>enumerate<<1354>>
+\begin<<1408>>tex2html_deferred<<1408>>\par\end<<1409>>tex2html_deferred<<1409>>
+\begin<<1355>>tex2html_preform<<1355>><tex2html_verbatim_mark>verbatim65#\end<<1356>>tex2html_preform<<1356>>
+\begin<<1410>>tex2html_deferred<<1410>>\par\end<<1411>>tex2html_deferred<<1411>>
+\begin<<1357>>tex2html_preform<<1357>><tex2html_verbatim_mark>verbatim66#\end<<1358>>tex2html_preform<<1358>>
+\begin<<1412>>tex2html_deferred<<1412>>\par\end<<1413>>tex2html_deferred<<1413>>
+el bucle REPL proporciona acceso a las variables de ámbito global. Es posible
+hacer explícitamente visible una variable al REPL asignándosela al
+<tex2html_verb_mark>12<tex2html_verb_mark> asociado con el
+REPLServer. Por ejemplo:
+\begin<<1414>>tex2html_deferred<<1414>>\par\end<<1415>>tex2html_deferred<<1415>>
+\begin<<1359>>tex2html_preform<<1359>><tex2html_verbatim_mark>verbatim67#\end<<1360>>tex2html_preform<<1360>>
+Las variables en el objeto <tex2html_verb_mark>13<tex2html_verb_mark> se ven como locales 
+al  REPL:
+\begin<<1416>>tex2html_deferred<<1416>>\par\end<<1417>>tex2html_deferred<<1417>>
+\begin<<1361>>tex2html_preform<<1361>><tex2html_verbatim_mark>verbatim68#\end<<1362>>tex2html_preform<<1362>>
+\begin<<1418>>tex2html_deferred<<1418>>\par\end<<1419>>tex2html_deferred<<1419>>
+\section<<1363>>Usando REPL via un socket TCP<<1363>>
+\begin<<1364>>tex2html_preform<<1364>><tex2html_verbatim_mark>verbatim69#\end<<1365>>tex2html_preform<<1365>>
+\begin<<1420>>tex2html_deferred<<1420>>\par\end<<1421>>tex2html_deferred<<1421>>
+Podemos ahora usar \index<<1390>>netcat<<1390>>\emph<<1391>>netcat<<1391>> para comunicar con el servidor:
+\begin<<1367>>tex2html_preform<<1367>><tex2html_verbatim_mark>verbatim70#\end<<1368>>tex2html_preform<<1368>>
+\begin<<1422>>tex2html_deferred<<1422>>\par\end<<1423>>tex2html_deferred<<1423>>
+\section<<1369>>Referencias sobre REPL<<1369>>
+\begin<<1424>>tex2html_deferred<<1424>>\par\end<<1425>>tex2html_deferred<<1425>>
+\begin<<1370>>enumerate<<1370>>
+\item 
+Véase \htmladdnormallink<<1371>>Node.js v0.8.18 Manual \& Documentation<<1371>><<1372>>http://nodejs.org/api/repl.html<<1372>>
+\item 
+Véase \htmladdnormallink<<1373>>How do I use node's REPL?<<1373>><<1374>>http://docs.nodejitsu.com/articles/REPL/how-to-use-nodejs-repl<<1374>> en \htmladdnormallink<<1375>>http://docs.nodejitsu.com/<<1375>><<1376>>http://docs.nodejitsu.com/<<1376>>.
+\end<<1377>>enumerate<<1377>>
+\begin<<1426>>tex2html_deferred<<1426>>\par\end<<1427>>tex2html_deferred<<1427>>
+\section<<1378>>Entrada Salida en Node.js<<1378>>
+\begin<<1428>>tex2html_deferred<<1428>>\par\end<<1429>>tex2html_deferred<<1429>>
+\begin<<1379>>enumerate<<1379>>
+\item 
+\htmladdnormallink<<1380>>How To Read User Input With NodeJS<<1380>><<1381>>http://st-on-it.blogspot.com.es/2011/05/how-to-read-user-input-with-nodejs.html<<1381>> por Nikolay V. Nemshilov
+\end<<1382>>enumerate<<1382>>
+\begin<<1430>>tex2html_deferred<<1430>>\par\end<<1431>>tex2html_deferred<<1431>>
+\section<<1383>>Debugger<<1383>>
+\begin<<1432>>tex2html_deferred<<1432>>\par\end<<1433>>tex2html_deferred<<1433>>
+\begin<<1384>>enumerate<<1384>>
+\item 
+\htmladdnormallink<<1385>>Node.js debugger<<1385>><<1386>>http://nodejs.org/api/debugger.html<<1386>>
+\end<<1387>>enumerate<<1387>>
+\begin<<1434>>tex2html_deferred<<1434>>\par\end<<1435>>tex2html_deferred<<1435>>
+\section<<1388>>Modulos<<1388>>

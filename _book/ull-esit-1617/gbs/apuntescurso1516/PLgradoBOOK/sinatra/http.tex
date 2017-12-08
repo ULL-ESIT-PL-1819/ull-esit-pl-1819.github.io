@@ -1,0 +1,227 @@
+\subsection{Introducción}
+
+\begin{enumerate}
+\item 
+HTTP es un protocolo sin estado: que no guarda ninguna
+información sobre conexiones anteriores. 
+
+\item 
+El desarrollo de aplicaciones
+web necesita frecuentemente mantener estado. 
+
+\item 
+Para esto se usan las
+cookies, que es información que un servidor puede almacenar en el
+sistema cliente. 
+
+\item 
+Esto le permite a las aplicaciones web introducir
+la noción de \cei{sesión}, y también permite rastrear usuarios ya que
+las cookies pueden guardarse en el cliente por tiempo indeterminado.
+\item
+Una transacción HTTP está formada por un \cei{encabezado} seguido,
+opcionalmente, por una línea en blanco y algún dato. 
+
+\item 
+El encabezado
+especificará cosas como la acción requerida del servidor, o el tipo
+de dato retornado, o el código de estado.
+\item 
+El uso de campos de encabezados enviados en las transacciones HTTP
+le da flexibilidad al protocolo. Estos campos permiten que
+se envíe información descriptiva en la transacción, permitiendo así
+la autenticación, cifrado e identificación de usuario.
+\item 
+Un encabezado es un bloque de datos que precede a la información
+propiamente dicha, por lo que a veces se hace referencia a él
+como metadato, porque tiene datos sobre los datos.
+\item 
+Si se reciben líneas de encabezado del cliente, el servidor las
+coloca en las variables de entorno de CGI con el prefijo \verb|HTTP_|
+seguido del nombre del encabezado. Cualquier carácter guion ( \verb|-| )
+del nombre del encabezado se convierte a caracteres \verb|"_"|.
+%\item 
+%El servidor puede excluir cualquier encabezado que ya esté procesado,
+%como 
+%\verb|Authorization|, 
+%\verb|Content-type| y 
+%\verb|Content-length|. 
+%\item 
+%El servidor puede
+%elegir excluir alguno o todos los encabezados.
+
+Ejemplos de estos encabezados del cliente son
+\verb|HTTP_ACCEPT| y 
+\verb|HTTP_USER_AGENT|.
+  \begin{enumerate}
+  \item 
+  \verb|HTTP_ACCEPT|. Los tipos MIME que el cliente aceptará, dados
+  los encabezados HTTP. 
+  Los elementos de esta lista deben
+  estar separados por comas
+  \item 
+  \verb|HTTP_USER_AGENT|. El navegador que utiliza el cliente para
+  realizar la petición. El formato general para esta variable es:
+  software/versión biblioteca/versión.
+  \end{enumerate}
+El servidor envía al cliente:
+  \begin{enumerate}
+  \item 
+  Un \cei{código de estado} que indica si la petición fue correcta o no.
+  Los códigos de error típicos indican que el archivo solicitado no
+  se encontró, que la petición no se realizó de forma correcta o que
+  se requiere autenticación para acceder al archivo.
+  \item 
+  La información propiamente dicha. HTTP permite enviar documentos
+  de todo tipo y formato, como
+  gráficos, audio y video.
+  \item 
+  Información sobre el objeto que se retorna.
+  \end{enumerate}
+\end{enumerate}
+
+\subsection{Sesiones HTTP}
+\begin{enumerate}
+\item 
+Una sesión HTTP es una secuencia de transacciones de red de peticiones y respuestas
+
+\item 
+Un cliente HTTP inicia una petición estableciendo una conexión TCP con un puerto 
+particular de un servidor (normalmente el puerto 80)
+\item 
+Un servidor que esté escuchando en ese puerto espera por un mensaje
+de petición de un cliente.
+\item 
+El servidor retorna la \cei{línea de estatus}, por ejemplo \verb"HTTP/1.1 200 OK",
+y su propio mensaje. El cuerpo de este mensaje suele ser el recurso
+solicitado, aunque puede que se trate de un mensaje de error u otro tipo de información.
+\end{enumerate}
+
+Veamos un ejemplo. Usemos este servidor:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ cat hello1.rb 
+require 'rack'
+
+class HelloWorld
+  def call env
+    [200, {"Content-Type" => "text/plain"}, ["Hello world"]]
+  end
+end
+
+Rack::Handler::WEBrick::run HelloWorld.new
+\end{verbatim}
+
+
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ ruby hello1.rb 
+[2013-09-23 15:16:58] INFO  WEBrick 1.3.1
+[2013-09-23 15:16:58] INFO  ruby 1.9.3 (2013-02-22) [x86_64-darwin11.4.2]
+[2013-09-23 15:16:58] INFO  WEBrick::HTTPServer#start: pid=12113 port=8080
+
+\end{verbatim}
+
+Arrancamos un cliente con telnet con la salida redirigida:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ telnet localhost 8080 > salida
+\end{verbatim}
+
+Escribimos esto en la entrada estandard:
+\begin{verbatim}
+GET /index.html HTTP/1.1
+Host: localhost
+Connection: close
+
+
+\end{verbatim}
+con una línea en blanco al final.
+Este texto es enviado al servidor.
+
+El cliente deja su salida en el fichero \verb|salida|:
+\begin{verbatim}
+[~/local/src/ruby/sinatra/rack/rack-debugging]$ cat salida
+Trying ::1...
+Connected to localhost.
+Escape character is '^]'.
+HTTP/1.1 200 OK 
+Content-Type: text/plain
+Server: WEBrick/1.3.1 (Ruby/1.9.3/2013-02-22)
+Date: Mon, 23 Sep 2013 14:33:16 GMT
+Content-Length: 11
+Connection: close
+
+Hello world
+\end{verbatim}
+El cliente escribe en la salida estandard:
+\begin{verbatim}
+Connection closed by foreign host.
+\end{verbatim}
+
+\subsection{Métodos de Petición}
+\label{subsection:metodosdepeticionhttp}
+\begin{enumerate}
+\item \cei{GET}
+
+Solicita una representación de un recurso especificado.
+Las peticiones que usen \cei{GET} deberían limitarse a obtener los datos 
+y no tener ningún otro efecto.
+\item \cei{HEAD}
+
+Pregunta por la misma respuesta que una petición \cei{GET} pero sin el 
+cuerpo de la respuesta
+\item \cei{POST}
+
+Requests that the server accept the entity enclosed in the request
+as a new subordinate of the web resource identified by the URI. The
+data POSTed might be, as examples, 
+  \begin{enumerate}
+  \item 
+  an annotation for existing
+  resources; 
+  \item 
+  a message for a bulletin board, newsgroup, mailing list,
+  or comment thread; 
+  \item 
+  a block of data that is the result of submitting
+  a web form to a data-handling process; 
+  \item 
+  or an item to add to a
+  database.
+  \end{enumerate}
+\item \cei{PUT}
+
+Requests that the enclosed entity be stored under the supplied URI.
+If the URI refers to an already existing resource, it is modified;
+if the URI does not point to an existing resource, then the server
+can create the resource with that URI.
+\item \cei{DELETE}
+
+Deletes the specified resource.
+\item \cei{TRACE}
+
+Echoes back the received request so that a client can see what (if
+any) changes or additions have been made by intermediate servers.
+\item \cei{OPTIONS}
+
+Returns the HTTP methods that the server supports for the specified
+URL. This can be used to check the functionality of a web server
+by requesting \verb'*' instead of a specific resource.
+\item \cei{CONNECT}
+
+Converts the request connection to a transparent TCP/IP tunnel,
+usually to facilitate SSL-encrypted communication (HTTPS) through
+an unencrypted HTTP proxy.
+\item \cei{PATCH}
+
+Is used to apply partial modifications to a resource.
+HTTP servers are required to implement at least the GET and HEAD
+methods and, whenever possible, also the OPTIONS method
+\end{enumerate}
+
+\subsection{Véase}
+
+\begin{enumerate}
+\item 
+\htmladdnormallink{ArrrrCamp \#6 - Konstantin Haase - We don't know HTTP}{https://vimeo.com/51903877}
+\item 
+\htmladdnormallink{Resources, For Real This Time (with Webmachine) Sean Cribbs}{http://www.confreaks.com/videos/699-rubyconf2011-resources-for-real-this-time-with-webmachine} Ruby Conference 2011
+\end{enumerate}

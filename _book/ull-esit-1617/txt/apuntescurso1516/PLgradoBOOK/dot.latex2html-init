@@ -1,0 +1,30 @@
+# Force white background and black text
+$BODYTEXT = "text=\"\#000000\" bgcolor=\"\#FFFFFF\"";
+# This ensures that some figures do not end up with a grey background
+$WHITE_BACKGROUND = 1;
+# Tell LATEX:
+$LATEX_COLOR = "\\pagecolor{white}";
+# Charset 
+$CHARSET = 'iso_8859_1';
+# ACCENT
+#$ACCENT_IMAGES = 'large';
+# No About page will be created
+$INFO  = 0 ;
+# Address
+$ADDRESS  = "Programación Avanzada 03-04" ;
+# Add a bottom navigation allways
+$BOTTOM_NAVIGATION = 1;
+# Icons are added to the directory to create a self contained web 
+$LOCAL_ICONS  = 1;
+#Show  section  numbers.
+$SHOW_SECTION_NUMBERS  =  1;
+#Treat a segmented document like it were  not  segmented.
+$UNSEGMENT = 1;
+#Stop splitting sections into separate files at this depth.
+#$MAX_SPLIT_DEPTH  = -0;
+$MAX_SPLIT_DEPTH  = -1;
+
+&process_commands_in_tex (<<_RAW_ARG_CMDS_);
+Tree
+_RAW_ARG_CMDS_
+1;      # This must be the last line

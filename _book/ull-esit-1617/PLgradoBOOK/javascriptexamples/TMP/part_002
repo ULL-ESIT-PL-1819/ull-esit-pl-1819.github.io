@@ -1,0 +1,540 @@
+<tex2html_file>#./booktt/commontex/commands.tex#
+\begin<<635>>tex2html_nowrap<<635>>
+\newedcommand<<38>>datetofill<<38>><<409>>\rule<<39>>5mm<<39>><<40>>.1pt<<40>>/\rule<<41>>5mm<<41>><<42>>.1pt<<42>>/\rule<<43>>10mm<<43>><<44>>.1pt<<44>><<409>>\end<<636>>tex2html_nowrap<<636>> 
+\begin<<637>>tex2html_deferred<<637>>\par\end<<638>>tex2html_deferred<<638>>
+\begin<<639>>tex2html_nowrap<<639>>
+\newedcommand<<45>>infinity<<45>><<46>>\infty<<46>>\end<<640>>tex2html_nowrap<<640>> 
+\begin<<641>>tex2html_deferred<<641>>\par\end<<642>>tex2html_deferred<<642>>
+\begin<<643>>tex2html_nowrap<<643>>
+\newedcommand<<47>>ici<<47>>[1]<<410>>\index<<48>>#1<<48>><<410>>\end<<644>>tex2html_nowrap<<644>> 
+\begin<<645>>tex2html_deferred<<645>>\par\end<<646>>tex2html_deferred<<646>>
+\begin<<647>>tex2html_nowrap<<647>>
+\newedcommand<<49>>perlcookbook<<49>>[2]<<411>>\htmladdnormallink<<50>>#1<<50>><<51>>http://docstore.mik.ua/orelly/perl/cookbook/#2<<51>><<411>>\end<<648>>tex2html_nowrap<<648>> 
+\begin<<649>>tex2html_deferred<<649>>\par\end<<650>>tex2html_deferred<<650>>
+\begin<<651>>tex2html_nowrap<<651>>
+\newedcommand<<52>>pci<<52>>[1]<<412>>\index<<53>>Práctica!#1<<53>><<412>>\end<<652>>tex2html_nowrap<<652>> 
+\begin<<653>>tex2html_deferred<<653>>\par\end<<654>>tex2html_deferred<<654>>
+\begin<<655>>tex2html_nowrap<<655>>
+\newedcommand<<54>>ci<<54>>[1]<<413>>\index<<55>>#1<<55>>#1<<413>>\end<<656>>tex2html_nowrap<<656>> 
+\begin<<657>>tex2html_deferred<<657>>\par\end<<658>>tex2html_deferred<<658>>
+\begin<<659>>tex2html_nowrap<<659>>
+\newedcommand<<56>>cei<<56>>[1]<<414>>\index<<57>>#1<<57>>\emph<<58>>#1<<58>><<414>>\end<<660>>tex2html_nowrap<<660>> 
+\begin<<661>>tex2html_deferred<<661>>\par\end<<662>>tex2html_deferred<<662>>
+\begin<<663>>tex2html_nowrap<<663>>
+\newedcommand<<59>>ceis<<59>>[2]<<415>>\index<<60>>#2<<60>>\emph<<61>>#1<<61>><<415>>\end<<664>>tex2html_nowrap<<664>> 
+\begin<<665>>tex2html_deferred<<665>>\par\end<<666>>tex2html_deferred<<666>>
+\begin<<667>>tex2html_nowrap<<667>>
+\newedcommand<<62>>tei<<62>>[1]<<416>> <<63>>\tt #1<<63>> <<416>>\end<<668>>tex2html_nowrap<<668>>  <tex2html_comment_mark>7
+\begin<<669>>tex2html_deferred<<669>>\par\end<<670>>tex2html_deferred<<670>>
+\begin<<671>>tex2html_nowrap<<671>>
+\newedcommand<<64>>htei<<64>>[1]<<65>> #1 <<65>>\end<<672>>tex2html_nowrap<<672>>  <tex2html_comment_mark>8
+\begin<<673>>tex2html_deferred<<673>>\par\end<<674>>tex2html_deferred<<674>>
+\begin<<675>>tex2html_nowrap<<675>>
+\newedcommand<<66>>teis<<66>>[2]<<521>>\index<<67>>#2<<67>><<417>><<68>>\tt #1<<68>><<417>><<521>>\end<<676>>tex2html_nowrap<<676>> 
+\begin<<677>>tex2html_deferred<<677>>\par\end<<678>>tex2html_deferred<<678>>
+\begin<<679>>tex2html_nowrap<<679>>
+\newedcommand<<69>>xsub<<69>>[1]<<522>>\index<<418>>XSUB!<<70>>\tt #1<<70>><<418>>
+   <<71>>\tt #1<<71>>
+  <<522>>\end<<680>>tex2html_nowrap<<680>> 
+\begin<<681>>tex2html_deferred<<681>>\par\end<<682>>tex2html_deferred<<682>>
+\begin<<683>>tex2html_nowrap<<683>>
+\newedcommand<<72>>typemap<<72>>[1]<<523>>\index<<419>>typemap!<<73>>\tt #1<<73>><<419>>
+   <<74>>\tt #1<<74>>
+  <<523>>\end<<684>>tex2html_nowrap<<684>> 
+\begin<<685>>tex2html_deferred<<685>>\par\end<<686>>tex2html_deferred<<686>>
+\begin<<687>>tex2html_nowrap<<687>>
+\newedcommand<<75>>api<<75>>[1]<<524>>\index<<420>>Perl API!<<76>>\tt #1<<76>><<420>>
+   <<77>>\tt #1<<77>>
+  <<524>>\end<<688>>tex2html_nowrap<<688>> 
+\begin<<689>>tex2html_deferred<<689>>\par\end<<690>>tex2html_deferred<<690>>
+\begin<<691>>tex2html_nowrap<<691>>
+\newedcommand<<78>>hueco<<78>>[1]<<525>>\underline<<421>>\hspace<<79>>#1cm<<79>><<421>><<525>>\end<<692>>tex2html_nowrap<<692>> 
+\begin<<693>>tex2html_deferred<<693>>\par\end<<694>>tex2html_deferred<<694>>
+\begin<<695>>tex2html_nowrap<<695>>
+\newedcommand<<80>>parrafo<<80>>[1]<<422>> 
+  \paragraph<<81>>#1<<81>>
+  \begin<<82>>tabular<<82>><<83>>c<<83>>
+  \end<<84>>tabular<<84>>
+<<422>>\end<<696>>tex2html_nowrap<<696>> 
+\begin<<697>>tex2html_deferred<<697>>\par\end<<698>>tex2html_deferred<<698>>
+\begin<<699>>tex2html_nowrap<<699>>
+\newedcommand<<85>>sectionpractica<<85>>[1]<<423>>\section<<86>>Práctica: #1<<86>>
+   \index<<87>>Práctica!#1<<87>>
+  <<423>>\end<<700>>tex2html_nowrap<<700>> 
+\begin<<701>>tex2html_deferred<<701>>\par\end<<702>>tex2html_deferred<<702>>
+\begin<<703>>tex2html_nowrap<<703>>
+\newedcommand<<88>>subsectionpractica<<88>>[1]<<424>>\subsection<<89>>Práctica: #1<<89>>
+   \index<<90>>Práctica!#1<<90>>
+  <<424>>\end<<704>>tex2html_nowrap<<704>> 
+\begin<<705>>tex2html_deferred<<705>>\par\end<<706>>tex2html_deferred<<706>>
+\begin<<707>>tex2html_nowrap<<707>>
+\newedcommand<<91>>subsubsectionpractica<<91>>[1]<<425>>\subsubsection<<92>>Práctica: #1<<92>>
+   \index<<93>>Práctica!#1<<93>>
+  <<425>>\end<<708>>tex2html_nowrap<<708>> 
+\begin<<709>>tex2html_deferred<<709>>\par\end<<710>>tex2html_deferred<<710>>
+\begin<<711>>tex2html_nowrap<<711>>
+\newedcommand<<94>>sectionejercicio<<94>>[1]<<426>>\section<<95>>Ejercicio: #1<<95>>
+   \index<<96>>Ejercicio!#1<<96>>
+  <<426>>\end<<712>>tex2html_nowrap<<712>> 
+\begin<<713>>tex2html_deferred<<713>>\par\end<<714>>tex2html_deferred<<714>>
+\begin<<715>>tex2html_nowrap<<715>>
+\newedcommand<<97>>parrafopractica<<97>>[1]<<427>> 
+  \paragraph<<628>>Práctica: #1<<628>>
+  \begin<<629>>tabular<<629>><<630>>c<<630>>
+  \end<<631>>tabular<<631>>
+
+   \index<<99>>Práctica!#1<<99>>
+  <<427>>\end<<716>>tex2html_nowrap<<716>> 
+\begin<<717>>tex2html_deferred<<717>>\par\end<<718>>tex2html_deferred<<718>>
+\begin<<719>>tex2html_nowrap<<719>>
+\newedcommand<<100>>subsectionejercicio<<100>>[1]<<428>>\subsection<<101>>Ejercicio: #1<<101>>
+   \index<<102>>Ejercicio!#1<<102>>
+  <<428>>\end<<720>>tex2html_nowrap<<720>> 
+\begin<<721>>tex2html_deferred<<721>>\par\end<<722>>tex2html_deferred<<722>>
+\begin<<723>>tex2html_nowrap<<723>>
+\newedcommand<<103>>subsubsectionejercicio<<103>>[1]<<429>>\subsubsection<<104>>Ejercicio: #1<<104>>
+   \index<<105>>Ejercicio!#1<<105>>
+  <<429>>\end<<724>>tex2html_nowrap<<724>> 
+\begin<<725>>tex2html_deferred<<725>>\par\end<<726>>tex2html_deferred<<726>>
+\begin<<727>>tex2html_nowrap<<727>>
+\newedcommand<<106>>subsectionrepaso<<106>>[1]<<430>>\subsection<<107>>Repaso: #1<<107>>
+   \index<<108>>Repaso!#1<<108>>
+  <<430>>\end<<728>>tex2html_nowrap<<728>> 
+\begin<<729>>tex2html_deferred<<729>>\par\end<<730>>tex2html_deferred<<730>>
+\begin<<731>>tex2html_nowrap<<731>>
+\newedcommand<<109>>eref<<109>>[1]<<431>>\externalref<<110>>#1<<110>> \cite<<111>>CasianoIntroAPerl<<111>><<431>>\end<<732>>tex2html_nowrap<<732>> 
+\begin<<733>>tex2html_deferred<<733>>\par\end<<734>>tex2html_deferred<<734>>
+\begin<<735>>tex2html_nowrap<<735>>
+\newedcommand<<112>>regexpg<<112>><<432>>\htmladdnormallink<<632>><<634>>\tt Regexp::Grammars<<634>><<632>>
+ <<633>>http://search.cpan.org/perldoc?Regexp::Grammars<<633>><<432>>\end<<736>>tex2html_nowrap<<736>> 
+\begin<<737>>tex2html_deferred<<737>>\par\end<<738>>tex2html_deferred<<738>>
+\begin<<739>>tex2html_nowrap<<739>>
+\newedcommand<<114>>rgsec<<114>>[2]<<433>>\htmladdnormallink<<115>>#1<<115>>
+ <<116>>http://search.cpan.org/~dconway/Regexp-Grammars/lib/Regexp/Grammars.pm\##2<<116>><<433>>\end<<740>>tex2html_nowrap<<740>> 
+\begin<<741>>tex2html_deferred<<741>>\par\end<<742>>tex2html_deferred<<742>>
+\begin<<743>>tex2html_nowrap<<743>>
+\newedtheorem<<117>>definition<<117>><<118>>Definición<<118>>[section]\end<<744>>tex2html_nowrap<<744>> \begin<<745>>tex2html_nowrap<<745>>
+\newedtheorem<<119>>theorem<<119>><<120>>Teorema<<120>>[section]\end<<746>>tex2html_nowrap<<746>> \begin<<747>>tex2html_nowrap<<747>>
+\newedtheorem<<121>>algorithm<<121>><<122>>Algoritmo<<122>>[section]\end<<748>>tex2html_nowrap<<748>> \begin<<749>>tex2html_nowrap<<749>>
+\newedtheorem<<123>>program<<123>><<124>>Programa<<124>>[section]\end<<750>>tex2html_nowrap<<750>> \begin<<751>>tex2html_nowrap<<751>>
+\newedtheorem<<125>>exercise<<125>><<126>>Ejercicio<<126>>[section]\end<<752>>tex2html_nowrap<<752>> \begin<<753>>tex2html_deferred<<753>>\par\end<<754>>tex2html_deferred<<754>>
+\begin<<755>>tex2html_nowrap<<755>>
+\newedtheorem<<127>>example<<127>><<128>>Ejemplo<<128>>[section]\end<<756>>tex2html_nowrap<<756>> \begin<<757>>tex2html_nowrap<<757>>
+\newedtheorem<<129>>execution<<129>><<130>>Ejecución<<130>>[section]\end<<758>>tex2html_nowrap<<758>> \begin<<759>>tex2html_nowrap<<759>>
+\newedtheorem<<131>>listing<<131>><<132>>Listado<<132>>[section]\end<<760>>tex2html_nowrap<<760>> \begin<<761>>tex2html_nowrap<<761>>
+\newedtheorem<<133>>advice<<133>><<134>>Consejo<<134>>[section]\end<<762>>tex2html_nowrap<<762>> \begin<<763>>tex2html_nowrap<<763>>
+\newedtheorem<<135>>scheme<<135>><<136>>Esquema<<136>>[section]\end<<764>>tex2html_nowrap<<764>> \begin<<765>>tex2html_deferred<<765>>\par\end<<766>>tex2html_deferred<<766>>
+\begin<<767>>tex2html_nowrap<<767>>
+\newedenvironment<<137>>unicodeverb<<137>><<434>>\begin<<138>>tex2html_preform<<138>><tex2html_verbatim_mark>verbatim31#\end<<139>>tex2html_preform<<139>><<434>>\end<<768>>tex2html_nowrap<<768>> 
+\begin<<769>>tex2html_deferred<<769>>\par\end<<770>>tex2html_deferred<<770>>
+\begin<<771>>tex2html_nowrap<<771>>
+\newedcommand<<140>>modern<<140>><<435>><<141>>\it Modern Perl<<141>><<435>>\end<<772>>tex2html_nowrap<<772>> 
+\begin<<773>>tex2html_deferred<<773>>\par\end<<774>>tex2html_deferred<<774>>
+\begin<<775>>tex2html_nowrap<<775>>
+\newedcommand<<142>>lhp<<142>>[2]<<436>>\htmladdnormallink<<143>>#1<<143>>
+<<144>>http://nereida.deioc.ull.es/~lhp/perlexamples/node#2.html<<144>><<436>>\end<<776>>tex2html_nowrap<<776>> 
+\begin<<777>>tex2html_deferred<<777>>\par\end<<778>>tex2html_deferred<<778>>
+\begin<<779>>tex2html_nowrap<<779>>
+\newedcommand<<145>>man<<145>>[1]<<526>>\htmladdnormallink<<437>><<146>>\tt #1<<146>><<437>>
+<<147>>http://manpages.debian.net/cgi-bin/man.cgi?query=#1<<147>><<526>>\end<<780>>tex2html_nowrap<<780>> 
+\begin<<781>>tex2html_deferred<<781>>\par\end<<782>>tex2html_deferred<<782>>
+\begin<<783>>tex2html_nowrap<<783>>
+\newedcommand<<148>>manuk<<148>>[1]<<527>>\htmladdnormallink<<438>><<149>>\tt #1<<149>><<438>>
+<<150>>http://unixhelp.ed.ac.uk/CGI/man-cgi?#1<<150>><<527>>\end<<784>>tex2html_nowrap<<784>> 
+\begin<<785>>tex2html_deferred<<785>>\par\end<<786>>tex2html_deferred<<786>>
+\begin<<787>>tex2html_nowrap<<787>>
+\newedcommand<<151>>mandragonfly<<151>>[1]<<528>>\htmladdnormallink<<439>><<152>>\tt #1<<152>><<439>>
+<<153>>http://leaf.dragonflybsd.org/cgi/web-man?command=#1;SPMamp;section=ANY<<153>><<528>>\end<<788>>tex2html_nowrap<<788>> 
+\begin<<789>>tex2html_deferred<<789>>\par\end<<790>>tex2html_deferred<<790>>
+\begin<<791>>tex2html_nowrap<<791>>
+\newedcommand<<154>>manopenbsd<<154>>[1]<<529>>\htmladdnormallink<<440>><<155>>\tt #1<<155>><<440>>
+<<156>>http://www.openbsd.org/cgi-bin/man.cgi?query=#1<<156>><<529>>\end<<792>>tex2html_nowrap<<792>> 
+\begin<<793>>tex2html_deferred<<793>>\par\end<<794>>tex2html_deferred<<794>>
+\begin<<795>>tex2html_nowrap<<795>>
+\newedcommand<<157>>link<<157>>[2]<<441>>\htmladdnormallink<<158>>#1<<158>>
+<<159>>#2<<159>><<441>>\end<<796>>tex2html_nowrap<<796>> 
+\begin<<797>>tex2html_deferred<<797>>\par\end<<798>>tex2html_deferred<<798>>
+\begin<<799>>tex2html_nowrap<<799>>
+\newedcommand<<160>>cpan<<160>>[1]<<530>>\htmladdnormallink<<442>><<161>>\tt #1<<161>><<442>>
+ <<162>>http://search.cpan.org/perldoc?#1<<162>><<530>>\end<<800>>tex2html_nowrap<<800>> 
+\begin<<801>>tex2html_deferred<<801>>\par\end<<802>>tex2html_deferred<<802>>
+\begin<<803>>tex2html_nowrap<<803>>
+\newedcommand<<163>>githelp<<163>>[2]<<443>>\htmladdnormallink<<164>>#1<<164>>
+ <<165>>http://help.github.com/#2/<<165>><<443>>\end<<804>>tex2html_nowrap<<804>> 
+\begin<<805>>tex2html_deferred<<805>>\par\end<<806>>tex2html_deferred<<806>>
+\begin<<807>>tex2html_nowrap<<807>>
+\newedcommand<<166>>github<<166>><<444>>\htmladdnormallink<<167>>GitHub<<167>>
+ <<168>>http://help.github.com<<168>><<444>>\end<<808>>tex2html_nowrap<<808>> 
+\begin<<809>>tex2html_nowrap<<809>>
+\newedcommand<<169>>npm<<169>><<531>>\htmladdnormallink<<445>><<170>>\tt npm<<170>><<445>>
+ <<171>>https://npmjs.org/<<171>><<531>>\end<<810>>tex2html_nowrap<<810>> 
+\begin<<811>>tex2html_deferred<<811>>\par\end<<812>>tex2html_deferred<<812>>
+\begin<<813>>tex2html_nowrap<<813>>
+\newedcommand<<172>>npmdoc<<172>>[1]<<532>>\htmladdnormallink<<446>><<173>>\tt #1<<173>><<446>>
+ <<174>>https://npmjs.org/doc/#1.html<<174>><<532>>\end<<814>>tex2html_nowrap<<814>> 
+\begin<<815>>tex2html_deferred<<815>>\par\end<<816>>tex2html_deferred<<816>>
+\begin<<817>>tex2html_nowrap<<817>>
+\newedcommand<<175>>ebnfparser<<175>><<533>>\htmladdnormallink<<447>><<176>>\tt ebnf-parser<<176>><<447>>
+ <<177>>https://github.com/zaach/ebnf-parser<<177>><<533>>\end<<818>>tex2html_nowrap<<818>> 
+\begin<<819>>tex2html_deferred<<819>>\par\end<<820>>tex2html_deferred<<820>>
+\begin<<821>>tex2html_nowrap<<821>>
+\newedcommand<<178>>markdown<<178>><<534>>\htmladdnormallink<<448>><<179>>\tt markdown<<179>><<448>>
+ <<180>>http://daringfireball.net/projects/markdown/syntax<<180>><<534>>\end<<822>>tex2html_nowrap<<822>> 
+\begin<<823>>tex2html_deferred<<823>>\par\end<<824>>tex2html_deferred<<824>>
+\begin<<825>>tex2html_nowrap<<825>>
+\newedcommand<<181>>rake<<181>><<535>>\htmladdnormallink<<449>><<182>>\tt Rake<<182>><<449>>
+ <<183>>http://rake.rubyforge.org/<<183>><<535>>\end<<826>>tex2html_nowrap<<826>> 
+\begin<<827>>tex2html_deferred<<827>>\par\end<<828>>tex2html_deferred<<828>>
+\begin<<829>>tex2html_nowrap<<829>>
+\newedcommand<<184>>rbp<<184>><<536>>\htmladdnormallink<<450>><<185>>\tt Ruby Best Practices<<185>><<450>>
+ <<186>>http://www.humbug.in/docs/ruby-best-practices/index.html<<186>> \cite<<187>>RBP<<187>><<536>>\end<<830>>tex2html_nowrap<<830>> 
+\begin<<831>>tex2html_deferred<<831>>\par\end<<832>>tex2html_deferred<<832>>
+\begin<<833>>tex2html_nowrap<<833>>
+\newedcommand<<188>>rspec<<188>><<537>>\htmladdnormallink<<451>><<189>>\tt RSpec<<189>><<451>>
+ <<190>>http://rspec.info/<<190>><<537>>\end<<834>>tex2html_nowrap<<834>> 
+\begin<<835>>tex2html_deferred<<835>>\par\end<<836>>tex2html_deferred<<836>>
+\begin<<837>>tex2html_nowrap<<837>>
+\newedcommand<<191>>rubyforge<<191>>[2]<<452>>\htmladdnormallink<<192>>#1<<192>>
+ <<193>>http://rake.rubyforge.org/classes/#2<<193>><<452>>\end<<838>>tex2html_nowrap<<838>> 
+\begin<<839>>tex2html_deferred<<839>>\par\end<<840>>tex2html_deferred<<840>>
+\begin<<841>>tex2html_nowrap<<841>>
+\newedcommand<<194>>rubygems<<194>><<538>>\htmladdnormallink<<453>><<195>>\tt RubyGems.org<<195>><<453>>
+ <<196>>https://rubygems.org/<<196>><<538>>\end<<842>>tex2html_nowrap<<842>> 
+\begin<<843>>tex2html_deferred<<843>>\par\end<<844>>tex2html_deferred<<844>>
+\begin<<845>>tex2html_nowrap<<845>>
+\newedcommand<<197>>gem<<197>><<539>>\htmladdnormallink<<454>><<198>>\tt gems<<198>><<454>>
+ <<199>>http://docs.rubygems.org/read/book/2<<199>><<539>>\end<<846>>tex2html_nowrap<<846>> 
+\begin<<847>>tex2html_deferred<<847>>\par\end<<848>>tex2html_deferred<<848>>
+\begin<<849>>tex2html_nowrap<<849>>
+\newedcommand<<200>>webrick<<200>><<540>>\htmladdnormallink<<455>><<201>>\tt Webrick<<201>><<455>><<202>>http://naupacto.com/rubydoc/guiaWEBrick/index.html<<202>><<540>>\end<<850>>tex2html_nowrap<<850>> 
+\begin<<851>>tex2html_nowrap<<851>>
+\newedcommand<<203>>shotgun<<203>><<541>>\htmladdnormallink<<456>><<204>>\tt Shotgun<<204>><<456>><<205>>http://ruby.about.com/od/sinatra/a/sinatra5.htm<<205>><<541>>\end<<852>>tex2html_nowrap<<852>> 
+\begin<<853>>tex2html_deferred<<853>>\par\end<<854>>tex2html_deferred<<854>>
+\begin<<855>>tex2html_nowrap<<855>>
+\newedcommand<<206>>rubymod<<206>>[1]<<542>>\index<<207>>#1<<207>>\htmladdnormallink<<457>><<208>>\tt #1<<208>><<457>>
+ <<209>>http://www.ruby-doc.org/core-1.9.3/#1.html<<209>><<542>>\end<<856>>tex2html_nowrap<<856>> 
+\begin<<857>>tex2html_deferred<<857>>\par\end<<858>>tex2html_deferred<<858>>
+\begin<<859>>tex2html_nowrap<<859>>
+\newedcommand<<210>>String<<210>><<543>>\htmladdnormallink<<458>><<211>>\tt String<<211>><<458>>
+ <<212>>http://www.ruby-doc.org/core-1.9.3/String.html<<212>><<543>>\end<<860>>tex2html_nowrap<<860>> 
+\begin<<861>>tex2html_deferred<<861>>\par\end<<862>>tex2html_deferred<<862>>
+\begin<<863>>tex2html_nowrap<<863>>
+\newedcommand<<213>>Symbol<<213>><<544>>\htmladdnormallink<<459>><<214>>\tt Symbol<<214>><<459>>
+ <<215>>http://www.ruby-doc.org/core-1.9.3/Symbol.html<<215>><<544>>\end<<864>>tex2html_nowrap<<864>> 
+\begin<<865>>tex2html_deferred<<865>>\par\end<<866>>tex2html_deferred<<866>>
+\begin<<867>>tex2html_nowrap<<867>>
+\newedcommand<<216>>Proc<<216>><<545>>\htmladdnormallink<<460>><<217>>\tt Proc<<217>><<460>>
+ <<218>>http://www.ruby-doc.org/core-1.9.3/Proc.html<<218>><<545>>\end<<868>>tex2html_nowrap<<868>> 
+\begin<<869>>tex2html_deferred<<869>>\par\end<<870>>tex2html_deferred<<870>>
+\begin<<871>>tex2html_nowrap<<871>>
+\newedcommand<<219>>Method<<219>><<546>>\htmladdnormallink<<461>><<220>>\tt Method<<220>><<461>>
+ <<221>>http://www.ruby-doc.org/core-1.9.3/Method.html<<221>><<546>>\end<<872>>tex2html_nowrap<<872>> 
+\begin<<873>>tex2html_deferred<<873>>\par\end<<874>>tex2html_deferred<<874>>
+\begin<<875>>tex2html_nowrap<<875>>
+\newedcommand<<222>>UnboundMethod<<222>><<547>>\htmladdnormallink<<462>><<223>>\tt UnboundMethod<<223>><<462>>
+ <<224>>http://www.ruby-doc.org/core-1.9.3/UnboundMethod.html<<224>><<547>>\end<<876>>tex2html_nowrap<<876>> 
+\begin<<877>>tex2html_deferred<<877>>\par\end<<878>>tex2html_deferred<<878>>
+\begin<<879>>tex2html_nowrap<<879>>
+\newedcommand<<225>>Binding<<225>><<548>>\htmladdnormallink<<463>><<226>>\tt Binding<<226>><<463>>
+ <<227>>http://www.ruby-doc.org/core-1.9.3/Binding.html<<227>><<548>>\end<<880>>tex2html_nowrap<<880>> 
+\begin<<881>>tex2html_deferred<<881>>\par\end<<882>>tex2html_deferred<<882>>
+\begin<<883>>tex2html_nowrap<<883>>
+\newedcommand<<228>>Kernel<<228>><<549>>\htmladdnormallink<<464>><<229>>\tt Kernel<<229>><<464>>
+ <<230>>http://www.ruby-doc.org/core-1.9.3/Kernel.html<<230>><<549>>\end<<884>>tex2html_nowrap<<884>> 
+\begin<<885>>tex2html_deferred<<885>>\par\end<<886>>tex2html_deferred<<886>>
+\begin<<887>>tex2html_nowrap<<887>>
+\newedcommand<<231>>BasicObject<<231>><<550>>\htmladdnormallink<<465>><<232>>\tt BasicObject<<232>><<465>>
+ <<233>>http://www.ruby-doc.org/core-1.9.3/BasicObject.html<<233>><<550>>\end<<888>>tex2html_nowrap<<888>> 
+\begin<<889>>tex2html_deferred<<889>>\par\end<<890>>tex2html_deferred<<890>>
+\begin<<891>>tex2html_nowrap<<891>>
+\newedcommand<<234>>Object<<234>><<551>>\htmladdnormallink<<466>><<235>>\tt Object<<235>><<466>>
+ <<236>>http://www.ruby-doc.org/core-1.9.3/Object.html<<236>><<551>>\end<<892>>tex2html_nowrap<<892>> 
+\begin<<893>>tex2html_deferred<<893>>\par\end<<894>>tex2html_deferred<<894>>
+\begin<<895>>tex2html_nowrap<<895>>
+\newedcommand<<237>>Enumerable<<237>><<552>>\htmladdnormallink<<467>><<238>>\tt Enumerable<<238>><<467>>
+ <<239>>http://www.ruby-doc.org/core-1.9.3/Enumerable.html<<239>><<552>>\end<<896>>tex2html_nowrap<<896>> 
+\begin<<897>>tex2html_deferred<<897>>\par\end<<898>>tex2html_deferred<<898>>
+\begin<<899>>tex2html_nowrap<<899>>
+\newedcommand<<240>>Class<<240>><<553>>\htmladdnormallink<<468>><<241>>\tt Class<<241>><<468>>
+ <<242>>http://www.ruby-doc.org/core-1.9.3/Class.html<<242>><<553>>\end<<900>>tex2html_nowrap<<900>> 
+\begin<<901>>tex2html_deferred<<901>>\par\end<<902>>tex2html_deferred<<902>>
+\begin<<903>>tex2html_nowrap<<903>>
+\newedcommand<<243>>Module<<243>><<554>>\htmladdnormallink<<469>><<244>>\tt Module<<244>><<469>>
+ <<245>>http://www.ruby-doc.org/core-1.9.3/Module.html<<245>><<554>>\end<<904>>tex2html_nowrap<<904>> 
+\begin<<905>>tex2html_deferred<<905>>\par\end<<906>>tex2html_deferred<<906>>
+\begin<<907>>tex2html_nowrap<<907>>
+\newedcommand<<246>>rubycoreclassmethod<<246>>[2]<<555>>\index<<247>>#1<<247>>\htmladdnormallink<<470>><<248>>\tt #1<<248>><<470>>
+ <<249>>http://www.ruby-doc.org/core-1.9.3/#2.html\#method-c-#1<<249>><<555>>\end<<908>>tex2html_nowrap<<908>> 
+\begin<<909>>tex2html_deferred<<909>>\par\end<<910>>tex2html_deferred<<910>>
+\begin<<911>>tex2html_nowrap<<911>>
+\newedcommand<<250>>rubycoreinstancemethod<<250>>[2]<<556>>\index<<251>>#1<<251>>\htmladdnormallink<<471>><<252>>\tt #1<<252>><<471>>
+ <<253>>http://www.ruby-doc.org/core-1.9.3/#2.html\#method-i-#1<<253>><<556>>\end<<912>>tex2html_nowrap<<912>> 
+\begin<<913>>tex2html_deferred<<913>>\par\end<<914>>tex2html_deferred<<914>>
+\begin<<915>>tex2html_nowrap<<915>>
+\newedcommand<<254>>modulec<<254>>[1]<<557>>\index<<255>>#1<<255>>\htmladdnormallink<<472>><<256>>\tt #1<<256>><<472>>
+ <<257>>http://www.ruby-doc.org/core-1.9.3/Module.html\#method-c-#1<<257>><<557>>\end<<916>>tex2html_nowrap<<916>> 
+\begin<<917>>tex2html_deferred<<917>>\par\end<<918>>tex2html_deferred<<918>>
+\begin<<919>>tex2html_nowrap<<919>>
+\newedcommand<<258>>classi<<258>>[1]<<558>>\index<<259>>#1<<259>>\htmladdnormallink<<473>><<260>>\tt #1<<260>><<473>>
+ <<261>>http://www.ruby-doc.org/core-1.9.3/Class.html\#method-i-#1<<261>><<558>>\end<<920>>tex2html_nowrap<<920>> 
+\begin<<921>>tex2html_deferred<<921>>\par\end<<922>>tex2html_deferred<<922>>
+\begin<<923>>tex2html_nowrap<<923>>
+\newedcommand<<262>>modulei<<262>>[1]<<559>>\index<<263>>#1<<263>>\htmladdnormallink<<474>><<264>>\tt #1<<264>><<474>>
+ <<265>>http://www.ruby-doc.org/core-1.9.3/Module.html\#method-i-#1<<265>><<559>>\end<<924>>tex2html_nowrap<<924>> 
+\begin<<925>>tex2html_deferred<<925>>\par\end<<926>>tex2html_deferred<<926>>
+\begin<<927>>tex2html_nowrap<<927>>
+\newedcommand<<266>>modulep<<266>>[1]<<560>>\index<<267>>#1?<<267>>\htmladdnormallink<<475>><<268>>\tt #1?<<268>><<475>>
+ <<269>>http://www.ruby-doc.org/core-1.9.3/Module.html\#method-i-#1-3F<<269>><<560>>\end<<928>>tex2html_nowrap<<928>> 
+\begin<<929>>tex2html_deferred<<929>>\par\end<<930>>tex2html_deferred<<930>>
+\begin<<931>>tex2html_nowrap<<931>>
+\newedcommand<<270>>symboli<<270>>[1]<<561>>\index<<271>>#1<<271>>\htmladdnormallink<<476>><<272>>\tt #1<<272>><<476>>
+ <<273>>http://www.ruby-doc.org/core-1.9.3/Symbol.html\#method-i-#1<<273>><<561>>\end<<932>>tex2html_nowrap<<932>> 
+\begin<<933>>tex2html_deferred<<933>>\par\end<<934>>tex2html_deferred<<934>>
+\begin<<935>>tex2html_nowrap<<935>>
+\newedcommand<<274>>kerneli<<274>>[1]<<562>>\index<<275>>#1<<275>>\htmladdnormallink<<477>><<276>>\tt #1<<276>><<477>>
+ <<277>>http://www.ruby-doc.org/core-1.9.3/Kernel.html\#method-i-#1<<277>><<562>>\end<<936>>tex2html_nowrap<<936>> 
+\begin<<937>>tex2html_deferred<<937>>\par\end<<938>>tex2html_deferred<<938>>
+\begin<<939>>tex2html_nowrap<<939>>
+\newedcommand<<278>>objecti<<278>>[1]<<563>>\index<<279>>#1<<279>>\htmladdnormallink<<478>><<280>>\tt #1<<280>><<478>>
+ <<281>>http://www.ruby-doc.org/core-1.9.3/Object.html\#method-i-#1<<281>><<563>>\end<<940>>tex2html_nowrap<<940>> 
+\begin<<941>>tex2html_deferred<<941>>\par\end<<942>>tex2html_deferred<<942>>
+\begin<<943>>tex2html_nowrap<<943>>
+\newedcommand<<282>>methodi<<282>>[1]<<564>>\index<<283>>#1<<283>>\htmladdnormallink<<479>><<284>>\tt #1<<284>><<479>>
+ <<285>>http://www.ruby-doc.org/core-1.9.3/Method.html\#method-i-#1<<285>><<564>>\end<<944>>tex2html_nowrap<<944>> 
+\begin<<945>>tex2html_deferred<<945>>\par\end<<946>>tex2html_deferred<<946>>
+\begin<<947>>tex2html_nowrap<<947>>
+\newedcommand<<286>>proci<<286>>[1]<<565>>\index<<287>>#1<<287>>\htmladdnormallink<<480>><<288>>\tt #1<<288>><<480>>
+ <<289>>http://www.ruby-doc.org/core-1.9.3/Proc.html\#method-i-#1<<289>><<565>>\end<<948>>tex2html_nowrap<<948>> 
+\begin<<949>>tex2html_deferred<<949>>\par\end<<950>>tex2html_deferred<<950>>
+\begin<<951>>tex2html_nowrap<<951>>
+\newedcommand<<290>>unboundmethodi<<290>>[1]<<566>>\index<<291>>#1<<291>>\htmladdnormallink<<481>><<292>>\tt #1<<292>><<481>>
+ <<293>>http://www.ruby-doc.org/core-1.9.3/UnboundMethod.html\#method-i-#1<<293>><<566>>\end<<952>>tex2html_nowrap<<952>> 
+\begin<<953>>tex2html_deferred<<953>>\par\end<<954>>tex2html_deferred<<954>>
+\begin<<955>>tex2html_nowrap<<955>>
+\newedcommand<<294>>bindingi<<294>>[1]<<567>>\index<<295>>#1<<295>>\htmladdnormallink<<482>><<296>>\tt #1<<296>><<482>>
+ <<297>>http://www.ruby-doc.org/core-1.9.3/Binding.html\#method-i-#1<<297>><<567>>\end<<956>>tex2html_nowrap<<956>> 
+\begin<<957>>tex2html_deferred<<957>>\par\end<<958>>tex2html_deferred<<958>>
+\begin<<959>>tex2html_nowrap<<959>>
+\newedcommand<<298>>basicobjecti<<298>>[1]<<568>>\index<<299>>#1<<299>>\htmladdnormallink<<483>><<300>>\tt #1<<300>><<483>>
+ <<301>>http://www.ruby-doc.org/core-1.9.3/BasicObject.html\#method-i-#1<<301>><<568>>\end<<960>>tex2html_nowrap<<960>> 
+\begin<<961>>tex2html_deferred<<961>>\par\end<<962>>tex2html_deferred<<962>>
+\begin<<963>>tex2html_nowrap<<963>>
+\newedcommand<<302>>rubyclass<<302>>[2]<<569>>\index<<303>>#1<<303>>\htmladdnormallink<<484>><<304>>\tt #1<<304>><<484>>
+ <<305>>http://ruby-doc.org/core-1.9.3/#2.html<<305>><<569>>\end<<964>>tex2html_nowrap<<964>> 
+\begin<<965>>tex2html_deferred<<965>>\par\end<<966>>tex2html_deferred<<966>>
+\begin<<967>>tex2html_nowrap<<967>>
+\newedcommand<<306>>rubystdlibclass<<306>>[2]<<570>>\htmladdnormallink<<485>><<307>>\tt #1<<307>><<485>>
+ <<308>>http://ruby-doc.org/stdlib-1.9.3/libdoc/#2.html<<308>><<570>>\end<<968>>tex2html_nowrap<<968>> 
+\begin<<969>>tex2html_deferred<<969>>\par\end<<970>>tex2html_deferred<<970>>
+\begin<<971>>tex2html_nowrap<<971>>
+\newedcommand<<309>>rubypackage<<309>>[1]<<571>>\htmladdnormallink<<486>><<310>>\tt #1<<310>><<486>>
+ <<311>>http://www.ruby-doc.org/stdlib-1.9.3/libdoc/#1/rdoc/<<311>><<571>>\end<<972>>tex2html_nowrap<<972>> 
+\begin<<973>>tex2html_deferred<<973>>\par\end<<974>>tex2html_deferred<<974>>
+\begin<<975>>tex2html_nowrap<<975>>
+\newedcommand<<312>>rdoc<<312>><<572>>\htmladdnormallink<<487>><<313>>\tt RDoc<<313>><<487>>
+ <<314>>http://rdoc.sourceforge.net/doc/index.html<<314>><<572>>\end<<976>>tex2html_nowrap<<976>> 
+\begin<<977>>tex2html_deferred<<977>>\par\end<<978>>tex2html_deferred<<978>>
+\begin<<979>>tex2html_nowrap<<979>>
+\newedcommand<<315>>ERB<<315>><<573>>\htmladdnormallink<<488>><<316>>\tt ERB<<316>><<488>>
+ <<317>>http://ruby-doc.org/stdlib-1.9.3/libdoc/erb/rdoc/ERB.html<<317>><<573>>\end<<980>>tex2html_nowrap<<980>> 
+\begin<<981>>tex2html_deferred<<981>>\par\end<<982>>tex2html_deferred<<982>>
+\begin<<983>>tex2html_nowrap<<983>>
+\newedcommand<<318>>cpanf<<318>>[2]<<489>>\htmladdnormallink<<319>>#2<<319>>
+ <<320>>http://search.cpan.org/perldoc?#1\##2<<320>><<489>>\end<<984>>tex2html_nowrap<<984>> 
+\begin<<985>>tex2html_deferred<<985>>\par\end<<986>>tex2html_deferred<<986>>
+\begin<<987>>tex2html_nowrap<<987>>
+\newedcommand<<321>>gnereida<<321>>[1]<<490>>\htmladdnormallink<<322>>#1<<322>>
+ <<323>>http://www.google.es/search?q=site:nereida.deioc.ull.es+#1;SPMamp;ie=UTF-8;SPMamp;hl=es<<323>><<490>>\end<<988>>tex2html_nowrap<<988>> 
+\begin<<989>>tex2html_deferred<<989>>\par\end<<990>>tex2html_deferred<<990>>
+\begin<<991>>tex2html_nowrap<<991>>
+\newedcommand<<324>>gdefine<<324>>[1]<<491>>\htmladdnormallink<<325>>#1<<325>>
+ <<326>>http://www.google.com/search?q=define:#1<<326>><<491>>\end<<992>>tex2html_nowrap<<992>> 
+\begin<<993>>tex2html_deferred<<993>>\par\end<<994>>tex2html_deferred<<994>>
+\begin<<995>>tex2html_nowrap<<995>>
+\newedcommand<<327>>googlecode<<327>>[1]<<492>>\htmladdnormallink<<328>>#1<<328>>
+ <<329>>http://code.google.com/p/#1/<<329>><<492>>\end<<996>>tex2html_nowrap<<996>> 
+\begin<<997>>tex2html_deferred<<997>>\par\end<<998>>tex2html_deferred<<998>>
+\begin<<999>>tex2html_nowrap<<999>>
+\newedcommand<<330>>perldocf<<330>>[1]<<574>>\htmladdnormallink<<493>><<331>>\tt #1<<331>><<493>>
+<<332>>http://www.ayni.com/perldoc/functions/#1.html<<332>><<574>>\end<<1000>>tex2html_nowrap<<1000>> 
+\begin<<1001>>tex2html_deferred<<1001>>\par\end<<1002>>tex2html_deferred<<1002>>
+\begin<<1003>>tex2html_nowrap<<1003>>
+\newedcommand<<333>>perldoc<<333>>[1]<<575>>\htmladdnormallink<<494>><<334>>\tt #1<<334>><<494>>
+<<335>>http://search.cpan.org/perldoc/?#1<<335>><<575>>\end<<1004>>tex2html_nowrap<<1004>> 
+\begin<<1005>>tex2html_deferred<<1005>>\par\end<<1006>>tex2html_deferred<<1006>>
+\begin<<1007>>tex2html_nowrap<<1007>>
+\newedcommand<<336>>vim<<336>><<576>>\htmladdnormallink<<495>><<337>>\tt vim<<337>><<495>><<338>>http://www.vim.org/<<338>><<576>>\end<<1008>>tex2html_nowrap<<1008>> 
+\begin<<1009>>tex2html_deferred<<1009>>\par\end<<1010>>tex2html_deferred<<1010>>
+\begin<<1011>>tex2html_nowrap<<1011>>
+\newedcommand<<339>>vimdoc<<339>>[2]<<577>>\htmladdnormallink<<496>><<340>>\tt #1<<340>><<496>>
+<<341>>http://vimdoc.sourceforge.net/htmldoc/#2<<341>><<577>>\end<<1012>>tex2html_nowrap<<1012>> 
+\begin<<1013>>tex2html_deferred<<1013>>\par\end<<1014>>tex2html_deferred<<1014>>
+\begin<<1015>>tex2html_nowrap<<1015>>
+\newedcommand<<342>>pd<<342>>[2]<<578>>la sección '#2' en \htmladdnormallink<<497>><<343>>\tt #1<<343>><<497>>
+<<344>>http://perldoc.perl.org/#1.html\##2<<344>><<578>>\end<<1016>>tex2html_nowrap<<1016>> 
+\begin<<1017>>tex2html_deferred<<1017>>\par\end<<1018>>tex2html_deferred<<1018>>
+\begin<<1019>>tex2html_nowrap<<1019>>
+\newedcommand<<345>>wikipedia<<345>>[2]<<498>>\htmladdnormallink<<346>>#1<<346>>
+<<347>>http://en.wikipedia.org/wiki/#1<<347>><<498>>\end<<1020>>tex2html_nowrap<<1020>> 
+\begin<<1021>>tex2html_deferred<<1021>>\par\end<<1022>>tex2html_deferred<<1022>>
+\begin<<1023>>tex2html_nowrap<<1023>>
+\newedcommand<<348>>wikip<<348>>[2]<<499>>\htmladdnormallink<<349>>#1<<349>>
+<<350>>http://en.wikipedia.org/wiki/#2<<350>><<499>>\end<<1024>>tex2html_nowrap<<1024>> 
+\begin<<1025>>tex2html_deferred<<1025>>\par\end<<1026>>tex2html_deferred<<1026>>
+\begin<<1027>>tex2html_nowrap<<1027>>
+\newedcommand<<351>>perlmonk<<351>>[1]<<500>>\htmladdnormallink<<352>>PerlMonks<<352>>
+<<353>>http://www.perlmonks.org/?node_id=#1<<353>><<500>>\end<<1028>>tex2html_nowrap<<1028>> 
+\begin<<1029>>tex2html_deferred<<1029>>\par\end<<1030>>tex2html_deferred<<1030>>
+\begin<<1031>>tex2html_nowrap<<1031>>
+\newedcommand<<354>>pmm<<354>>[2]<<501>>\htmladdnormallink<<355>>#2<<355>>
+<<356>>http://www.perlmonks.org/?node_id=#1<<356>><<501>>\end<<1032>>tex2html_nowrap<<1032>> 
+\begin<<1033>>tex2html_deferred<<1033>>\par\end<<1034>>tex2html_deferred<<1034>>
+\begin<<1035>>tex2html_nowrap<<1035>>
+\newedcommand<<357>>code<<357>>[1]<<502>><<358>>\tt #1<<358>><<502>>\end<<1036>>tex2html_nowrap<<1036>> 
+\begin<<1037>>tex2html_deferred<<1037>>\par\end<<1038>>tex2html_deferred<<1038>>
+\begin<<1039>>tex2html_nowrap<<1039>>
+\newedcommand<<359>>perlmarkmail<<359>>[1]<<503>>\htmladdnormallink<<360>>#1<<360>>
+<<361>>http://perl.markmail.org/search/?q=#1<<361>><<503>>\end<<1040>>tex2html_nowrap<<1040>> 
+\begin<<1041>>tex2html_deferred<<1041>>\par\end<<1042>>tex2html_deferred<<1042>>
+\begin<<1043>>tex2html_nowrap<<1043>>
+\newedcommand<<362>>cpandist<<362>>[1]<<579>>\htmladdnormallink<<504>><<363>>\tt #1<<363>><<504>>
+<<364>>http://search.cpan.org/dist/#1<<364>><<579>>\end<<1044>>tex2html_nowrap<<1044>> 
+\begin<<1045>>tex2html_deferred<<1045>>\par\end<<1046>>tex2html_deferred<<1046>>
+\begin<<1047>>tex2html_nowrap<<1047>>
+\newedcommand<<365>>I<<365>>[1]<<505>><<366>>\it #1<<366>><<505>>\end<<1048>>tex2html_nowrap<<1048>> 
+\begin<<1049>>tex2html_deferred<<1049>>\par\end<<1050>>tex2html_deferred<<1050>>
+\begin<<1051>>tex2html_nowrap<<1051>>
+\newedcommand<<367>>svnbook<<367>>[2]<<506>>\htmladdnormallink<<368>>#1<<368>><<369>>http://svnbook.red-bean.com/nightly/en/#2.html<<369>><<506>>\end<<1052>>tex2html_nowrap<<1052>> 
+\begin<<1053>>tex2html_nowrap<<1053>>
+\newedcommand<<370>>svnb<<370>>[2]<<507>>\htmladdnormallink<<371>>#1<<371>><<372>>http://svnbook.red-bean.com/en/1.5/#2<<372>><<507>>\end<<1054>>tex2html_nowrap<<1054>> 
+<tex2html_endfile>#./booktt/commontex/commands.tex#
+\begin<<1055>>tex2html_deferred<<1055>>\par\end<<1056>>tex2html_deferred<<1056>>
+\pagestyle<<373>>plain<<373>> <tex2html_comment_mark>23
+\begin<<1057>>tex2html_deferred<<1057>>\par\end<<1058>>tex2html_deferred<<1058>>
+\title<<374>>Apuntes de la Asignatura Procesadores de Lenguajes\
+  <<374>>
+\begin<<1059>>tex2html_deferred<<1059>>\author<<508>>Casiano R. León \thanks<<375>>DEIOC Universidad de La Laguna<<375>><<508>>\end<<1060>>tex2html_deferred<<1060>>
+\begin<<1061>>tex2html_deferred<<1061>>\par\end<<1062>>tex2html_deferred<<1062>>
+\makeindex
+\begin<<1063>>tex2html_deferred<<1063>>\par\end<<1064>>tex2html_deferred<<1064>>
+\htmladdtonavigation<<580>>\htmladdnormallink<<509>>
+     \htmladdimg[
+                 width=35 
+                 alt=;SPMquot;PL;SPMquot;
+                ]
+     <<376>>logoLPP.png<<376>><<509>>
+     <<377>>http://nereida.deioc.ull.es/~plgrado/index.html<<377>><<580>> 
+\begin<<1065>>tex2html_deferred<<1065>>\par\end<<1066>>tex2html_deferred<<1066>>
+\htmladdtonavigation<<581>>\htmladdnormallink<<510>>
+     \htmladdimg[
+                 width=50 
+                 alt=;SPMquot;PL moodle;SPMquot;
+                ]
+     <<378>>moodleLHPlogo.jpeg<<378>><<510>>
+     <<379>>http://campusvirtual.ull.es/1213m2/course/view.php?id=271<<379>><<581>> 
+\begin<<1067>>tex2html_deferred<<1067>>\par\end<<1068>>tex2html_deferred<<1068>>
+\htmladdtonavigation<<582>>\htmladdnormallink<<511>>
+     \htmladdimg[
+                 width=30 
+                 alt=;SPMquot;ps;SPMquot;
+                ]
+     <<380>>gv.jpeg<<380>><<511>>
+     <<381>>javascriptexamples.pdf<<381>><<582>> 
+\begin<<1069>>tex2html_deferred<<1069>>\par\end<<1070>>tex2html_deferred<<1070>>
+\htmladdtonavigation<<583>>\htmladdnormallink<<512>>
+     \htmladdimg[
+                 width=60 
+                 alt=;SPMquot;ruby gems;SPMquot;
+                ]
+     <<382>>lupa.gif<<382>><<512>>
+     <<383>>https://dl.dropbox.com/u/14539152/PLgrado/PLgradoBOOK/index.html<<383>><<583>> 
+\begin<<1071>>tex2html_deferred<<1071>>\par\end<<1072>>tex2html_deferred<<1072>>
+\htmladdtonavigation<<584>>\htmladdnormallink<<513>>
+     \htmladdimg[
+                 width=30 
+                 alt=;SPMquot;perldoc;SPMquot;
+                ]
+     <<384>>perlonion.jpeg<<384>><<513>>
+     <<385>>https://developer.mozilla.org/es/docs/JavaScript<<385>><<584>> 
+\begin<<1073>>tex2html_deferred<<1073>>\par\end<<1074>>tex2html_deferred<<1074>>
+\htmladdtonavigation<<585>>\htmladdnormallink<<514>>
+     \htmladdimg[
+                 width=27 
+                 alt=;SPMquot;google code project hosting;SPMquot;
+                ]
+     <<386>>google-code-project-hosting.jpeg<<386>><<514>>
+     <<387>>http://github.com<<387>><<585>> 
+\begin<<1075>>tex2html_deferred<<1075>>\par\end<<1076>>tex2html_deferred<<1076>>
+\htmladdtonavigation<<586>>\htmladdnormallink<<515>>
+     \htmladdimg[
+                 width=27 
+                 alt=;SPMquot;blogs;SPMquot;
+                ]
+     <<388>>perl6.jpg<<388>><<515>>
+     <<389>>http://jquery.com/<<389>><<586>> 
+\begin<<1077>>tex2html_deferred<<1077>>\par\end<<1078>>tex2html_deferred<<1078>>
+\htmladdtonavigation<<587>>\htmladdnormallink<<516>>
+     \htmladdimg[
+                 width=35 
+                 alt=;SPMquot;google;SPMquot;
+                ]
+     <<390>>ggoogle.gif<<390>><<516>>
+     <<391>>http://www.google.es/<<391>><<587>> 
+\begin<<1079>>tex2html_deferred<<1079>>\par\end<<1080>>tex2html_deferred<<1080>>
+\htmladdtonavigation<<588>>\htmladdnormallink<<517>>
+     \htmladdimg[
+                 width=35 
+                 alt=;SPMquot;etsii;SPMquot;
+                ]
+     <<392>>etsii.png<<392>><<517>>
+     <<393>>http://www.ull.es/view/centros/etsii/Grado/es<<393>><<588>> 
+\begin<<1081>>tex2html_deferred<<1081>>\par\end<<1082>>tex2html_deferred<<1082>>
+\htmladdtonavigation<<589>>\htmladdnormallink<<518>>
+     \htmladdimg[
+                 width=35 
+                 alt=;SPMquot;ull;SPMquot;
+                ]
+     <<394>>ull.gif<<394>><<518>>
+     <<395>>http://www.ull.es/<<395>><<589>> 
+\begin<<1083>>tex2html_deferred<<1083>>\par\end<<1084>>tex2html_deferred<<1084>>
+\htmladdtonavigation<<590>>\htmladdnormallink<<519>>
+     \htmladdimg[
+                 width=32 
+                 alt=;SPMquot;pcgull;SPMquot;
+                ]
+     <<396>>logopcgull.gif<<396>><<519>>
+     <<397>>http://crondinosaur.blogspot.com/<<397>><<590>> 
+\begin<<1085>>tex2html_deferred<<1085>>\par\end<<1086>>tex2html_deferred<<1086>>
+\begin<<398>>document<<398>>
+\begin<<1087>>tex2html_deferred<<1087>>\par\end<<1088>>tex2html_deferred<<1088>>
+\topmargin=5pt
+\maketitle
+\begin<<1089>>tex2html_deferred<<1089>>\par\end<<1090>>tex2html_deferred<<1090>>
+\begin<<1091>>tex2html_deferred<<1091>>\tableofcontents\end<<1092>>tex2html_deferred<<1092>>
+\begin<<1093>>tex2html_deferred<<1093>>\listoffigures\end<<1094>>tex2html_deferred<<1094>>
+\begin<<1095>>tex2html_deferred<<1095>>\listoftables\end<<1096>>tex2html_deferred<<1096>>
+\begin<<1097>>tex2html_deferred<<1097>>\par\end<<1098>>tex2html_deferred<<1098>>
+\chapter*<<399>>A Juana<<399>>
+\vspace<<400>>8cm<<400>>
+<<520>>\begin<<1099>>tex2html_deferred<<1099>>\it\end<<1100>>tex2html_deferred<<1100>>
+\begin<<401>>Large<<401>>
+\begin<<402>>verse<<402>>
+\flushright 
+For it is in teaching that we learn\\ 
+And it is in understanding that we are understood
+\end<<403>>verse<<403>>
+\end<<404>>Large<<404>>
+<<520>>
+\begin<<1101>>tex2html_deferred<<1101>>\par\end<<1102>>tex2html_deferred<<1102>>
+\chapter*<<405>>Agradecimientos/Acknowledgments<<405>>
+\begin<<406>>verse<<406>>
+\flushright \begin<<1103>>tex2html_deferred<<1103>>\it\end<<1104>>tex2html_deferred<<1104>>
+I'd like to thank 
+\begin<<1105>>tex2html_deferred<<1105>>\par\end<<1106>>tex2html_deferred<<1106>>
+A mis alumnos de 
+Procesadores de Lenguajes del Grado de Informática
+de la Escuela Superior de Informática en la Universidad de La Laguna
+\end<<407>>verse<<407>>
+\begin<<1107>>tex2html_deferred<<1107>>\par\end<<1108>>tex2html_deferred<<1108>>
+\part<<408>>PRIMERA PARTE: APUNTES DE JAVASCRIPT<<408>>
+\begin<<1109>>tex2html_deferred<<1109>>\par\end<<1110>>tex2html_deferred<<1110>>

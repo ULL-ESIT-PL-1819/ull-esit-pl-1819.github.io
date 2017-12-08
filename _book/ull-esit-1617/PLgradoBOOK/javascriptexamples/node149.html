@@ -1,0 +1,566 @@
+
+<H1><A NAME="SECTION056120000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:patronesarbol"><tex2html_anchor_mark></A><BR>
+Patrones Árbol y Transformaciones Árbol
+</H1>
+En la fase de optimización presentada en la sección
+<A HREF=<tex2html_cr_mark>#section:optimizacion#11463><tex2html_cr_mark></A> transformabamos el programa 
+en su representación intermedia, como un AAA
+decorado, para obtener otro AAA decorado.
+
+<P>
+Una transformación de un programa puede ser descrita
+como un conjunto de <A NAME="12218"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">reglas de transformación</SPAN> 
+o <A NAME="12220"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">esquema de traducción árbol</SPAN>
+sobre el árbol abstracto que representa el programa.
+
+<P>
+Antes de seguir, es conveniente que repase los conceptos
+en la sección 
+<A HREF=<tex2html_cr_mark>#subsection:lenguajesarbol#11466><tex2html_cr_mark></A>
+sobre lenguajes y gramáticas árbol.
+
+<P>
+En su forma mas sencilla, estas reglas de transformación
+vienen definidas
+por ternas <tex2html_verbatim_mark>#math6754#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35500#</SPAN>
+<tex2html_verbatim_mark>mathend000#, donde la primera componente de la
+terna <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35502#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un <A NAME="12222"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">patrón árbol</SPAN> que dice que árboles
+deben ser seleccionados. La segunda componente 
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35504#</SPAN>
+<tex2html_verbatim_mark>mathend000# dice cómo debe transformarse el árbol que casa con el patrón
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35506#</SPAN>
+<tex2html_verbatim_mark>mathend000#. La acción <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35508#</SPAN>
+<tex2html_verbatim_mark>mathend000# indica como deben
+computarse los atributos del árbol transformado
+a partir de los atributos 
+del árbol que casa con el patrón <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35510#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+Una forma de representar este esquema sería:
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6755#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35512#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1945<tex2html_verb_mark>
+
+</DIV>
+
+<P>
+Por ejemplo:
+
+<P>
+<BR>
+<BR>
+<tex2html_verbatim_mark>#math6756#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35514#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1946<tex2html_verb_mark>
+<BR>
+<BR>
+
+<P>
+cuyo significado es que dondequiera que haya un nódo del AAA que case 
+con el <A NAME="12224"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">patrón de entrada</SPAN> <tex2html_verbatim_mark>#math6757#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35516#</SPAN>
+<tex2html_verbatim_mark>mathend000# deberá sustituirse
+el subárbol <tex2html_verbatim_mark>#math6758#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35518#</SPAN>
+<tex2html_verbatim_mark>mathend000# por el subárbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35520#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Al igual que en los 
+esquemas de traducción, enumeramos las apariciones de los símbolos,
+para distinguirlos en la parte semántica. La acción indica 
+como deben recomputarse los atributos para el nuevo árbol:
+El atributo <tex2html_verb_mark>1947<tex2html_verb_mark> del árbol resultante es la suma de los atributos
+<tex2html_verb_mark>1948<tex2html_verb_mark> de los operandos en el árbol que ha casado.
+La transformación se repite hasta que se produce la <A NAME="12226"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">normalización del árbol</SPAN>.
+
+<P>
+Las reglas de ``casamiento''  de árboles pueden ser mas complejas, 
+haciendo alusión a propiedades de los atributos, por ejemplo
+
+<P>
+<BR>
+<BR>
+<tex2html_verbatim_mark>#math6759#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35522#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1949<tex2html_verb_mark> <tex2html_verbatim_mark>#math6760#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35524#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+<BR>
+<BR>
+
+<P>
+indica que se pueden eliminar aquellos árboles de tipo asignación
+en los cuáles la variable asociada con el nodo <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35526#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+no se usa posteriormente. 
+
+<P>
+Otros ejemplos con variables <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35528#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35530#</SPAN>
+<tex2html_verbatim_mark>mathend000#:
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6761#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35532#</SPAN>
+<tex2html_verbatim_mark>mathend000# and <tex2html_verb_mark>1950<tex2html_verb_mark> <tex2html_verbatim_mark>#math6762#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35534#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+<BR><tex2html_verbatim_mark>#math6763#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35536#</SPAN>
+<tex2html_verbatim_mark>mathend000# and <tex2html_verb_mark>1951<tex2html_verb_mark> <tex2html_verbatim_mark>#math6764#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35538#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+Observe que en el patrón de entrada <tex2html_verbatim_mark>#math6765#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35540#</SPAN>
+<tex2html_verbatim_mark>mathend000# aparece un
+``comodín'': la variable-árbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35542#</SPAN>
+<tex2html_verbatim_mark>mathend000#, que hace que el árbol
+patrón <tex2html_verbatim_mark>#math6766#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35544#</SPAN>
+<tex2html_verbatim_mark>mathend000# case con cualquier árbol de asignación,
+independientemente de la forma que tenga su subárbol derecho.
+
+<P>
+Las siguientes definiciones formalizan una aproximación simplificada 
+al significado de los conceptos <A NAME="12228"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">patrones árbol</SPAN> y
+<A NAME="12230"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">casamiento de árboles</SPAN>.
+
+<P>
+<P><DIV><#35546#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#35546#> &nbsp; 
+<#35549#><I>Sea <tex2html_verbatim_mark>#math6767#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35551#</SPAN>
+<tex2html_verbatim_mark>mathend000# un alfabeto con función de aridad
+y un conjunto (puede ser infinito) 
+de variables <tex2html_verbatim_mark>#math6768#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35553#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+Las variables tienen
+aridad cero: 
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6769#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35555#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+</I></DIV><I>
+</I>
+<P>
+<I>Un elemento de <tex2html_verbatim_mark>#math6770#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35557#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+se denomina <A NAME="12232"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">patrón</SPAN> sobre <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35559#</SPAN>
+<tex2html_verbatim_mark>mathend000#.</I><#35549#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35561#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#35561#> &nbsp; 
+<#35564#><I>Se dice que un
+patrón es un <A NAME="12234"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">patrón lineal</SPAN> si ninguna variable se repite.</I><#35564#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35566#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#35566#> &nbsp; 
+<#35569#><I>Se dice que un patrón es de tipo <tex2html_verbatim_mark>#math6771#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35571#</SPAN>
+<tex2html_verbatim_mark>mathend000# si las variables
+que aparecen en el patrón leidas de izquierda a derecha en el árbol
+son <tex2html_verbatim_mark>#math6772#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35573#</SPAN>
+<tex2html_verbatim_mark>mathend000#.</I><#35569#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35575#><B>Ejemplo  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#35575#> &nbsp; 
+<#35578#><I>Sea <tex2html_verbatim_mark>#math6773#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35580#</SPAN>
+<tex2html_verbatim_mark>mathend000# con <tex2html_verbatim_mark>#math6774#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35582#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+y sea <tex2html_verbatim_mark>#math6775#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35584#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Los siguientes árboles son ejemplos de 
+patrones sobre <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35586#</SPAN>
+<tex2html_verbatim_mark>mathend000#:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I>{ <tex2html_verbatim_mark>#math6776#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35588#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I>El patrón <tex2html_verbatim_mark>#math6777#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35590#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un ejemplo de patrón no lineal.
+La idea es que un patrón lineal como éste ``fuerza'' a que los árboles <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35592#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+que casen con el patrón deben tener iguales los dos correspondientes
+subárboles <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35594#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verbatim_mark>#math6778#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35596#</SPAN>
+<tex2html_verbatim_mark>mathend000# situados en las posiciones de las variables
+<A NAME="tex2html372"
+  HREF="footnode.html#foot11773"><SUP><SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">1</SPAN></SUP></A></I>
+<P>
+<I></I><#35578#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35600#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#35600#> &nbsp; 
+<#35603#><I>Dado la gramática árbol:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6779#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35605#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+<BR><tex2html_verbatim_mark>#math6780#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35607#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I>la cuál genera los árboles concretos para la gramática
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6781#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35609#</SPAN>
+<tex2html_verbatim_mark>mathend000# <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35611#</SPAN>
+<tex2html_verbatim_mark>mathend000# <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35613#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I>¿Es <tex2html_verbatim_mark>#math6782#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35615#</SPAN>
+<tex2html_verbatim_mark>mathend000# un patrón árbol sobre el conjunto de variables <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35617#</SPAN>
+<tex2html_verbatim_mark>mathend000#?
+¿Lo es <tex2html_verbatim_mark>#math6783#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35619#</SPAN>
+<tex2html_verbatim_mark>mathend000#? ¿Es <tex2html_verbatim_mark>#math6784#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35621#</SPAN>
+<tex2html_verbatim_mark>mathend000# un patrón árbol?</I><#35603#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35623#><B>Ejemplo  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#35623#> &nbsp; 
+<#35626#><I>Ejemplos de patrones para el AAA definido en el ejemplo
+<A HREF=<tex2html_cr_mark>#example:tutuast#11502><tex2html_cr_mark></A> para el lenguaje Tutu son:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6785#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35628#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I>considerando el conjunto de variables <tex2html_verbatim_mark>#math6786#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35630#</SPAN>
+<tex2html_verbatim_mark>mathend000#. El patrón 
+<tex2html_verbatim_mark>#math6787#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35632#</SPAN>
+<tex2html_verbatim_mark>mathend000# es del tipo <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35634#</SPAN>
+<tex2html_verbatim_mark>mathend000#.</I><#35626#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35636#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">4</SPAN></B><#35636#> &nbsp; 
+<#35639#><I>Una <A NAME="12236"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">sustitución</SPAN> es una aplicación <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35641#</SPAN>
+<tex2html_verbatim_mark>mathend000# que asigna variables
+a patrones <tex2html_verbatim_mark>#math6788#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35643#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+</I>
+<P>
+<I>Tal función puede ser naturalmente extendida de las variables
+a los árboles: los nodos (hoja) etiquetados con dichas variables son sustituidos
+por los correspondientes subárboles.
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I></I><TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><I>
+<tex2html_verbatim_mark>#math6789#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35645#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+<TR><TD ALIGN="LEFT"><I> 
+<tex2html_verbatim_mark>#math6790#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35647#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></TD>
+</TR>
+</TABLE><I></I></DIV><I>
+</I>
+<P>
+<I>Obsérvese que, al revés de lo que es costumbre, la aplicación 
+de la sustitución <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35651#</SPAN>
+<tex2html_verbatim_mark>mathend000# al patrón se escribe por detrás: <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35653#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+</I>
+<P>
+<I>También se escribe <tex2html_verbatim_mark>#math6791#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35655#</SPAN>
+<tex2html_verbatim_mark>mathend000# si las variables
+que aparecen en <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35657#</SPAN>
+<tex2html_verbatim_mark>mathend000# de izquierda a derecha son <tex2html_verbatim_mark>#math6792#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35659#</SPAN>
+<tex2html_verbatim_mark>mathend000#.</I><#35639#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35661#><B>Ejemplo  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">3</SPAN></B><#35661#> &nbsp; 
+<#35664#><I>Si aplicamos la sustitución  <tex2html_verbatim_mark>#math6793#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35666#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+al patrón <tex2html_verbatim_mark>#math6794#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35668#</SPAN>
+<tex2html_verbatim_mark>mathend000# obtenemos el árbol <tex2html_verbatim_mark>#math6795#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35670#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+En efecto:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6796#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35672#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I></I><#35664#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35674#><B>Ejemplo  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">4</SPAN></B><#35674#> &nbsp; 
+<#35677#><I>Si aplicamos la sustitución  <tex2html_verbatim_mark>#math6797#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35679#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+al patrón <tex2html_verbatim_mark>#math6798#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35681#</SPAN>
+<tex2html_verbatim_mark>mathend000# obtenemos el árbol <tex2html_verbatim_mark>#math6799#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35683#</SPAN>
+<tex2html_verbatim_mark>mathend000#:
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6800#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35685#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I></I><#35677#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35687#><B>Definición  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">5</SPAN></B><#35687#> &nbsp; 
+<#35690#><I>Se dice que un patrón <tex2html_verbatim_mark>#math6801#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35692#</SPAN>
+<tex2html_verbatim_mark>mathend000# con variables
+<tex2html_verbatim_mark>#math6802#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35694#</SPAN>
+<tex2html_verbatim_mark>mathend000# <A NAME="12238"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">casa con un árbol</SPAN>
+<tex2html_verbatim_mark>#math6803#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35696#</SPAN>
+<tex2html_verbatim_mark>mathend000# si existe una sustitución de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35698#</SPAN>
+<tex2html_verbatim_mark>mathend000# que produce <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35700#</SPAN>
+<tex2html_verbatim_mark>mathend000#, esto
+es, si existen <tex2html_verbatim_mark>#math6804#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35702#</SPAN>
+<tex2html_verbatim_mark>mathend000# tales que 
+<tex2html_verbatim_mark>#math6805#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35704#</SPAN>
+<tex2html_verbatim_mark>mathend000#. 
+También se dice que <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35706#</SPAN>
+<tex2html_verbatim_mark>mathend000# <A NAME="12240"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">casa con la sustitución</SPAN>
+<tex2html_verbatim_mark>#math6806#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35708#</SPAN>
+<tex2html_verbatim_mark>mathend000#.</I><#35690#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35710#><B>Ejemplo  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">5</SPAN></B><#35710#> &nbsp; 
+<#35713#><I>El patrón <tex2html_verbatim_mark>#math6807#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35715#</SPAN>
+<tex2html_verbatim_mark>mathend000# casa con el árbol <tex2html_verbatim_mark>#math6808#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35717#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+y con el subárbol  <tex2html_verbatim_mark>#math6809#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35719#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Las respectivas sustituciones son <tex2html_verbatim_mark>#math6810#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35721#</SPAN>
+<tex2html_verbatim_mark>mathend000# y 
+<tex2html_verbatim_mark>#math6811#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35723#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+</I>
+<P>
+<I></I>
+<DIV ALIGN="CENTER"><I><tex2html_verbatim_mark>#math6812#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35725#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+<BR><tex2html_verbatim_mark>#math6813#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35727#</SPAN>
+<tex2html_verbatim_mark>mathend000#</I></DIV><I>
+</I>
+<P>
+<I></I><#35713#></DIV><P></P>
+
+
+<P>
+<P><DIV><#35729#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">12</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#35729#> &nbsp; 
+<#35732#><I>Sea <tex2html_verbatim_mark>#math6814#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35734#</SPAN>
+<tex2html_verbatim_mark>mathend000# y <tex2html_verbatim_mark>#math6815#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35736#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+Calcule los subárboles <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35738#</SPAN>
+<tex2html_verbatim_mark>mathend000# de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35740#</SPAN>
+<tex2html_verbatim_mark>mathend000# y las sustituciones <tex2html_verbatim_mark>#math6816#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35742#</SPAN>
+<tex2html_verbatim_mark>mathend000# 
+que hacen que <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35744#</SPAN>
+<tex2html_verbatim_mark>mathend000# case con <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35746#</SPAN>
+<tex2html_verbatim_mark>mathend000#.  
+</I>
+<P>
+<I>Por ejemplo es obvio que para el árbol raíz <tex2html_verbatim_mark>#math6817#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35748#</SPAN>
+<tex2html_verbatim_mark>mathend000# no existe sustitución
+posible:
+</I>
+<P>
+<I><tex2html_verbatim_mark>#math6818#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35750#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</I>
+<P>
+<I>ya que un término con raíz <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35752#</SPAN>
+<tex2html_verbatim_mark>mathend000# nunca podrá ser igual a un término con raíz 
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35754#</SPAN>
+<tex2html_verbatim_mark>mathend000#.</I><#35732#></DIV><P></P>
+
+
+<P>
+El problema aquí es equivalente al de las expresiones regulares
+en el caso de los lenguajes lineales. En aquellos, los autómatas finitos 
+nos proveen con un mecanismo para reconocer si una determinada cadena
+``casa''' o no con la expresión regular. Existe un concepto análogo,
+el de <A NAME="12242"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">autómata árbol</SPAN> que resuelve el problema del ``casamiento''
+de patrones árbol. Al igual que el concepto de autómata permite 
+la construcción de software para la búsqueda de cadenas y su 
+posterior modificación, el concepto de autómata árbol 
+permite la construcción de software para la búsqueda de los
+subárboles que casan con un patrón árbol dado.
+
+<P>
+Estamos ahora en condiciones de plantear una segunda aproximación
+al problema de la optimización independiente de la máquina
+utilizando una subrutina que busque por aquellos
+árboles que queremos optimizar (en el caso del plegado 
+los árboles de tipo operación) y los transforme 
+adecuadamente. 
+
+<P>
+La función
+<tex2html_verb_mark>1952<tex2html_verb_mark> recibe una lista
+de árboles los cuales recorre sometiéndolos 
+a las transformaciones especificadas. La llamada para
+producir el plegado sería:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5614#</PRE>
+Además de la lista de nodos le pasamos como argumentos una
+referencia a la subrutina encargada de reconocer los patrónes
+árbol (clave <tex2html_verb_mark>1953<tex2html_verb_mark>) y una referencia a la
+subrutina que describe la acción que se ejecutará  (clave <tex2html_verb_mark>1954<tex2html_verb_mark>) sobre 
+el árbol que ha casado. Ambas subrutinas 
+asumen que el primer argumento que se les pasa 
+es la referencia a la raíz del árbol que está siendo explorado.
+
+<P>
+Los métodos <A NAME="12244"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">isa</SPAN>, <A NAME="12246"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">can</SPAN> y <A NAME="12248"><tex2html_anchor_invisible_mark></A><SPAN  CLASS="textbf">VERSION</SPAN> 
+son proporcionados por una clase especial denominada clase <tex2html_verb_mark>1955<tex2html_verb_mark>,
+de la cual implícitamente hereda toda clase. 
+El método <tex2html_verb_mark>1956<tex2html_verb_mark>  nos permite saber si una clase hereda de otra.
+
+<P>
+La subrutina <tex2html_verb_mark>1957<tex2html_verb_mark>
+recibe los argumentos y da valores por defecto a los mismos
+en el caso de que no hayan sido establecidos.
+Finalmente, llama a <tex2html_verb_mark>1958<tex2html_verb_mark>
+sobre cada uno de los nodos ``sentencia'' del programa.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5615#</PRE>
+
+<P>
+La subrutina <tex2html_verb_mark>1959<tex2html_verb_mark>
+utiliza el método <tex2html_verb_mark>1960<tex2html_verb_mark> para comprobar que el 
+nodo actual dispone de un método
+para calcular la lista con los hijos del nodo.
+Una vez transformados los subárboles del nodo actual
+procede a comprobar que el nodo casa con el patrón
+y si es el caso le aplica la acción definida:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5616#</PRE>
+
+<P>
+Recordemos el esquema de herencia que presentamos en la sección anterior.
+Las clases <tex2html_verb_mark>1961<tex2html_verb_mark> y <tex2html_verb_mark>1962<tex2html_verb_mark> proveen versiones del método <tex2html_verb_mark>1963<tex2html_verb_mark>.
+Teníamos:
+<PRE><tex2html_verbatim_mark>verbatim5617#</PRE>
+Los objetos de la clase <tex2html_verb_mark>1964<tex2html_verb_mark> tienen acceso 
+al método <tex2html_verb_mark>1965<tex2html_verb_mark>.
+
+<P>
+Las clases <tex2html_verb_mark>1966<tex2html_verb_mark> y <tex2html_verb_mark>1967<tex2html_verb_mark> 
+heredan de la clase <tex2html_verb_mark>1968<tex2html_verb_mark>:
+<PRE><tex2html_verbatim_mark>verbatim5618#</PRE>
+
+<P>
+La subrutina <tex2html_verb_mark>1969<tex2html_verb_mark> introducida en la
+sección 
+<A HREF=<tex2html_cr_mark>#section:optimizacion#11551><tex2html_cr_mark></A>
+es la encargada 
+de crear el nuevo nodo con el resultado de operar los
+hijos izquierdo y derecho:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5619#</PRE>
+
+<P>
+En la línea 4 se usa el método <tex2html_verb_mark>1970<tex2html_verb_mark> asociado 
+con un nodo operación. 
+
+<P>
+
+<H2><A NAME="SECTION056121000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12251"><tex2html_anchor_invisible_mark></A>
+  
+<A NAME="practica:casandoytransformando"><tex2html_anchor_mark></A><BR>
+Práctica: Casando y Transformando Árboles
+</H2>
+Complete su proyecto para el compilador de Tutu completando
+las subrutinas <tex2html_verb_mark>1971<tex2html_verb_mark> tal y como se explicó en la sección
+<A HREF=<tex2html_cr_mark>#section:patronesarbol#11556><tex2html_cr_mark></A>.
+
+<P>
+Ademas del plegado
+de constantes use las nuevas subrutinas 
+para aplicar simultáneamente 
+las siguientes transformaciones algebraicas:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6819#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35757#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35759#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1972<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6820#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35761#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6821#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35763#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35765#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1973<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6822#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35767#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6823#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35769#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35771#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1974<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6824#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35773#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6825#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35775#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35777#</SPAN>
+<tex2html_verbatim_mark>mathend000# <tex2html_verb_mark>1975<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6826#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35779#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+
+<P>
+
+<OL>
+<LI>Dado un programa como
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5620#</PRE>
+¿Será plegado el <tex2html_verb_mark>1976<tex2html_verb_mark>?
+Sin embargo si que se pliega si el programa es de la forma:
+<PRE><tex2html_verbatim_mark>verbatim5621#</PRE>
+No intente en esta práctica que programas como el primero  o como
+<tex2html_verb_mark>1977<tex2html_verb_mark> sean plegados.
+Para lograrlo sería necesario introducir transformaciones adicionales
+y esto no se requiere en esta práctica.
+</LI>
+<LI>¿Existe un orden óptimo en el que ejecutar las transformaciones?
+</LI>
+<LI>Ponga un ejemplo en el que sea beneficioso ejecutar el plegado primero.
+</LI>
+<LI>Ponga otro ejemplo en el que sea beneficioso ejecutar el plegado después.
+</LI>
+<LI>¿Es necesario  aplicar las transformaciones reiteradamente? 
+</LI>
+<LI><A NAME="item:parada"><tex2html_anchor_mark></A>¿Cuál es la condición de parada?
+</LI>
+<LI>Como es habitual la pregunta 
+<A HREF=<tex2html_cr_mark>#item:parada#11568><tex2html_cr_mark></A> tiene 
+una respuesta TIMTOWTDI: 
+una posibilidad la da el módulo 
+<A NAME="tex2html373"
+  HREF="http://search.cpan.org/&#126;dcantrell/Data-Compare-0.13/lib/Data/Compare.pm">Data::Compare</A>
+el cual puede obtenerse desde CPAN y que permite comparar estructuras de datos, 
+pero existe una solución mas sencilla. ¿Cuál?
+</LI>
+</OL>
+
+<P>

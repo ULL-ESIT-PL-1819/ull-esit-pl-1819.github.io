@@ -1,0 +1,980 @@
+
+<tex2html_mydb_mark>#6384#$\delimiter "026E30F$
+<tex2html_mydb_mark>#6385#$\mathsurround \z@ \tmspace  +\thinmuskip {.1667em}$
+<tex2html_mydb_mark>#6386#$\mathsurround \z@ \tmspace  +\thinmuskip {.1667em}$
+<tex2html_mydb_mark>#6387#$\{a^n b^n\ /\ n \in N\}$
+<tex2html_mydb_mark>#6388#$\backslash$
+<tex2html_mydb_mark>#6389#$\backslash$
+<tex2html_mydb_mark>#6390#$\backslash$
+<tex2html_mydb_mark>#6391#$\backslash$
+<tex2html_mydb_mark>#6392#$\backslash k$
+<tex2html_mydb_mark>#6393#$\backslash g$
+<tex2html_mydb_mark>#6394#$\backslash g$
+<tex2html_mydb_mark>#6395#$\backslash$
+<tex2html_mydb_mark>#6396#\begin{math}
+A^* = \cup_{n=0}^{\infty} A^n
+\end{math}
+<tex2html_mydb_mark>#6397#$A^0 = \{ \epsilon \}$
+<tex2html_mydb_mark>#6398#$G =(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6399#$V \times (V \cup \Sigma )^*$
+<tex2html_mydb_mark>#6400#$(A, \alpha) \in P$
+<tex2html_mydb_mark>#6401#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6402#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6403#$\mu = \alpha A \beta \in (V \cup \Sigma)^*$
+<tex2html_mydb_mark>#6404#$A \rightarrow \gamma$
+<tex2html_mydb_mark>#6405#$\alpha \gamma \beta$
+<tex2html_mydb_mark>#6406#$\alpha A \beta$
+<tex2html_mydb_mark>#6407#$\alpha A \beta$
+<tex2html_mydb_mark>#6408#$\mu  \stackrel{*}{\Longrightarrow}  \delta$
+<tex2html_mydb_mark>#6409#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6410#$L(G) = \{ x \in \Sigma^* : S \stackrel{*}{\Longrightarrow} x \}$
+<tex2html_mydb_mark>#6411#$\mu  \stackrel{*}{\Longrightarrow}  \delta$
+<tex2html_mydb_mark>#6412#$\alpha A x$
+<tex2html_mydb_mark>#6413#$A \rightarrow \gamma$
+<tex2html_mydb_mark>#6414#$\mu  \stackrel{*}{\Longrightarrow}  \delta$
+<tex2html_mydb_mark>#6415#$x A \alpha$
+<tex2html_mydb_mark>#6416#$A \rightarrow \gamma$
+<tex2html_mydb_mark>#6417#$V \cup \Sigma$
+<tex2html_mydb_mark>#6418#$A \rightarrow \gamma$
+<tex2html_mydb_mark>#6419#$X_1 \ldots X_n$
+<tex2html_mydb_mark>#6420#$\gamma = X_1 \ldots X_n$
+<tex2html_mydb_mark>#6421#$x \in L(G)$
+<tex2html_mydb_mark>#6422#$x_1 \ldots x_n$
+<tex2html_mydb_mark>#6423#$x \in L(G)$
+<tex2html_mydb_mark>#6424#$x \in L(G)$
+<tex2html_mydb_mark>#6425#$\rightarrow$
+<tex2html_mydb_mark>#6426#$\rightarrow$
+<tex2html_mydb_mark>#6427#$\rightarrow$
+<tex2html_mydb_mark>#6428#$\rightarrow$
+<tex2html_mydb_mark>#6429#$\rightarrow$
+<tex2html_mydb_mark>#6430#$\rightarrow$
+<tex2html_mydb_mark>#6431#$\rightarrow$
+<tex2html_mydb_mark>#6432#$\rightarrow$
+<tex2html_mydb_mark>#6433#$\rightarrow$
+<tex2html_mydb_mark>#6434#$L_A(G) = \{ x \in \Sigma^* : A \stackrel{*}{\Longrightarrow} x \}$
+<tex2html_mydb_mark>#6435#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6436#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6437#$L_{\alpha}(G)$
+<tex2html_mydb_mark>#6438#$\alpha = X_1 \ldots X_n$
+<tex2html_mydb_mark>#6439#$\rightarrow$
+<tex2html_mydb_mark>#6440#$\rightarrow$
+<tex2html_mydb_mark>#6441#$\rightarrow$
+<tex2html_mydb_mark>#6442#$\rightarrow$
+<tex2html_mydb_mark>#6443#$\rightarrow$
+<tex2html_mydb_mark>#6444#$A \rightarrow a \alpha$
+<tex2html_mydb_mark>#6445#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6446#$FIRST(\alpha)$
+<tex2html_mydb_mark>#6447#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6448#$\alpha \in (V \cup \Sigma)^*$
+<tex2html_mydb_mark>#6449#$FIRST(\alpha)$
+<tex2html_mydb_mark>#6450#$FIRST(\alpha) = \left \{ b \in \Sigma :  \alpha  \stackrel{*}{\Longrightarrow}  b \beta \right \}
+\cup N(\alpha)$
+<tex2html_mydb_mark>#6451#$N(\alpha) = \left \{ \begin{array}{ll}
+                         \left \{ \epsilon \right \}& \mbox{si $\alpha \stackrel{*}{\Longrightarrow} \epsilon$} \\
+                         \emptyset & \mbox{en otro caso} 
+                      \end{array}
+             \right.$
+<tex2html_mydb_mark>#6452#$A \rightarrow \gamma_1 \mid \ldots \mid \gamma_n$
+<tex2html_mydb_mark>#6453#$FIRST(\gamma_i)$
+<tex2html_mydb_mark>#6454#$X_1 \ldots X_k$
+<tex2html_mydb_mark>#6455#$i = 1 \ldots k$
+<tex2html_mydb_mark>#6456#$\rightarrow$
+<tex2html_mydb_mark>#6457#$\rightarrow$
+<tex2html_mydb_mark>#6458#$\rightarrow$
+<tex2html_mydb_mark>#6459#$FIRST(\gamma_i)$
+<tex2html_mydb_mark>#6460#$FIRST(\gamma_i)$
+<tex2html_mydb_mark>#6461#$FIRST(\gamma_i)$
+<tex2html_mydb_mark>#6462#$A   \rightarrow \alpha \beta \mid \alpha \gamma$
+<tex2html_mydb_mark>#6463#$FIRST(\beta) \cap FIRST(\gamma) = \emptyset$
+<tex2html_mydb_mark>#6464#$FIRST(\gamma_i)$
+<tex2html_mydb_mark>#6465#$A \rightarrow \gamma_1 \mid \ldots \mid \gamma_n$
+<tex2html_mydb_mark>#6466#$FIRST(\gamma_i)$
+<tex2html_mydb_mark>#6467#$A \rightarrow \gamma$
+<tex2html_mydb_mark>#6468#$\epsilon \in FIRST(\gamma)$
+<tex2html_mydb_mark>#6469#$\gamma \stackrel{*}{\Longrightarrow} \epsilon$
+<tex2html_mydb_mark>#6470#$A \rightarrow \gamma$
+<tex2html_mydb_mark>#6471#$S \stackrel{*}{\Longrightarrow} \beta A\ a \mu \Longrightarrow \beta \gamma\ a \mu \stackrel{*}{\Longrightarrow} \beta\ a \mu$
+<tex2html_mydb_mark>#6472#$a \in \Sigma$
+<tex2html_mydb_mark>#6473#$A \rightarrow \gamma$
+<tex2html_mydb_mark>#6474#$\gamma \stackrel{*}{\Longrightarrow} \epsilon$
+<tex2html_mydb_mark>#6475#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6476#$FOLLOW(A) = \left \{ b \in \Sigma :  \exists\ S  \stackrel{*}{\Longrightarrow}  \alpha A b \beta \right \} \cup E(A)$
+<tex2html_mydb_mark>#6477#$E(A) = \left \{ \begin{array}{ll}
+                         \{ \$  \}& \mbox{si $S \stackrel{*}{\Longrightarrow} \alpha A$} \\
+                         \emptyset & \mbox{en otro caso} 
+                      \end{array}
+             \right.$
+<tex2html_mydb_mark>#6478#$A \rightarrow \gamma_1 \mid \ldots \mid \gamma_n$
+<tex2html_mydb_mark>#6479#$FIRST(\gamma_i)$
+<tex2html_mydb_mark>#6480#$\gamma_n \stackrel{*}{\Longrightarrow} \epsilon$
+<tex2html_mydb_mark>#6481#$\gamma_n = \epsilon$
+<tex2html_mydb_mark>#6482#$Si\ X \in \Sigma\ entonces\ FIRST(X) = {X}$
+<tex2html_mydb_mark>#6483#$Si\ X \rightarrow \epsilon\ entonces\ FIRST(X) =  FIRST(X) \cup \{ \epsilon \}$
+<tex2html_mydb_mark>#6484#$Si X \in V \ y\ X \rightarrow Y_1 Y_2 \cdots Y_k \in P\ entonces$
+<tex2html_mydb_mark>#6485#\begin{eqnarray}
+&&i = 1; \nonumber\\
+&&hacer \nonumber\\
+&&\ \ FIRST(X) = FIRST(X) \cup FIRST^*(Y_i); \nonumber\\
+&&\ \ i++; \nonumber\\
+&&mientras\ (i \leq k\ y\ \epsilon \in FIRST(Y_i)) \nonumber
+\end{eqnarray}
+<tex2html_mydb_mark>#6486#$\epsilon \in FIRST(Y_k)$
+<tex2html_mydb_mark>#6487#$FIRST^*(Y)$
+<tex2html_mydb_mark>#6488#$FIRST(Y) - \{ \epsilon \}$
+<tex2html_mydb_mark>#6489#$FIRST(\alpha)$
+<tex2html_mydb_mark>#6490#$\alpha = X_1 X_2 \cdots X_n \in (V \cup \Sigma)^*$
+<tex2html_mydb_mark>#6491#$FIRST(\alpha)$
+<tex2html_mydb_mark>#6492#$FIRST(\alpha)$
+<tex2html_mydb_mark>#6493#\begin{eqnarray}
+&&i = 1; \nonumber\\
+&&FIRST(\alpha) = \emptyset; \nonumber\\
+&&hacer \nonumber\\
+&&\ \ FIRST(\alpha) = FIRST(\alpha) \cup FIRST^*(X_i); \nonumber\\
+&&\ \ i++; \nonumber\\
+&&mientras\ (i \leq n\ y\ \epsilon \in FIRST(X_i)) \nonumber
+\end{eqnarray}
+<tex2html_mydb_mark>#6494#$FOLLOW(A)\ \forall A \in V$
+<tex2html_mydb_mark>#6495#$FOLLOW(S) = \{\$\}$
+<tex2html_mydb_mark>#6496#$Si\ A \rightarrow \alpha B \beta\ entonces$
+<tex2html_mydb_mark>#6497#\begin{displaymath}
+FOLLOW(B) =  FOLLOW(B) \cup (FIRST(\beta) - \{\epsilon\})
+\end{displaymath}
+<tex2html_mydb_mark>#6498#$Si\ A \rightarrow \alpha B\ o\ A \rightarrow \alpha B \beta\ y\ \epsilon \in FIRST(\beta)\  entonces$
+<tex2html_mydb_mark>#6499#\begin{displaymath}
+FOLLOW(B) = FOLLOW(B) \cup FOLLOW(A)
+\end{displaymath}
+<tex2html_mydb_mark>#6500#$\rightarrow$
+<tex2html_mydb_mark>#6501#$\rightarrow$
+<tex2html_mydb_mark>#6502#$|\ \epsilon$
+<tex2html_mydb_mark>#6503#$\rightarrow$
+<tex2html_mydb_mark>#6504#$\rightarrow$
+<tex2html_mydb_mark>#6505#$\rightarrow$
+<tex2html_mydb_mark>#6506#$G = (\Sigma, V, P, S)$
+<tex2html_mydb_mark>#6507#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6508#$A \rightarrow \beta$
+<tex2html_mydb_mark>#6509#$FIRST(\alpha) \cap FIRST(\beta) = \emptyset$
+<tex2html_mydb_mark>#6510#$\epsilon \in FIRST(\alpha)$
+<tex2html_mydb_mark>#6511#$FIRST(\alpha) \cap FOLLOW(A) = \emptyset$
+<tex2html_mydb_mark>#6512#$FIRST(\alpha) \cap FIRST(\beta) = \emptyset$
+<tex2html_mydb_mark>#6513#$\epsilon \in FIRST(\alpha)$
+<tex2html_mydb_mark>#6514#$FIRST(\alpha) \cap FOLLOW(A) = \emptyset$
+<tex2html_mydb_mark>#6515#$FIRST(\alpha)$
+<tex2html_mydb_mark>#6516#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6517#$FIRST(\alpha) = \emptyset$
+<tex2html_mydb_mark>#6518#$FOLLOW(A) = \emptyset$
+<tex2html_mydb_mark>#6519#$\rightarrow$
+<tex2html_mydb_mark>#6520#$\rightarrow$
+<tex2html_mydb_mark>#6521#$\rightarrow$
+<tex2html_mydb_mark>#6522#$\rightarrow$
+<tex2html_mydb_mark>#6523#$\rightarrow$
+<tex2html_mydb_mark>#6524#$|\ \epsilon$
+<tex2html_mydb_mark>#6525#$\rightarrow$
+<tex2html_mydb_mark>#6526#$\rightarrow$
+<tex2html_mydb_mark>#6527#$\rightarrow$
+<tex2html_mydb_mark>#6528#$\rightarrow$
+<tex2html_mydb_mark>#6529#$(terminal, atributo)$
+<tex2html_mydb_mark>#6530#$A \rightarrow \alpha \beta$
+<tex2html_mydb_mark>#6531#$A \rightarrow \alpha \{ action \} \beta$
+<tex2html_mydb_mark>#6532#$\{ action \}$
+<tex2html_mydb_mark>#6533#$expr   \rightarrow expr_1  -  NUM$
+<tex2html_mydb_mark>#6534#$expr   \rightarrow NUM$
+<tex2html_mydb_mark>#6535#$decl   \rightarrow type$
+<tex2html_mydb_mark>#6536#$type   \rightarrow INT$
+<tex2html_mydb_mark>#6537#$type   \rightarrow STRING$
+<tex2html_mydb_mark>#6538#$list   \rightarrow ID$
+<tex2html_mydb_mark>#6539#$list   \rightarrow ID$
+<tex2html_mydb_mark>#6540#$A \stackrel{*}{\Longrightarrow} A \alpha$
+<tex2html_mydb_mark>#6541#$A \rightarrow A \alpha$
+<tex2html_mydb_mark>#6542#$A   \rightarrow A \alpha$
+<tex2html_mydb_mark>#6543#$\alpha, \beta \in (V \cup \Sigma)^*$
+<tex2html_mydb_mark>#6544#$A   \rightarrow \beta R$
+<tex2html_mydb_mark>#6545#$R   \rightarrow  \alpha R$
+<tex2html_mydb_mark>#6546#$|\ \epsilon$
+<tex2html_mydb_mark>#6547#$R   \rightarrow  \alpha R$
+<tex2html_mydb_mark>#6548#$expr   \rightarrow expr  -  NUM$
+<tex2html_mydb_mark>#6549#$expr   \rightarrow NUM$
+<tex2html_mydb_mark>#6550#$expr   \rightarrow NUM - expr_1$
+<tex2html_mydb_mark>#6551#$expr   \rightarrow NUM$
+<tex2html_mydb_mark>#6552#$e   \rightarrow\ NUM\ r$
+<tex2html_mydb_mark>#6553#$r   \rightarrow - e$
+<tex2html_mydb_mark>#6554#$r   \rightarrow \epsilon$
+<tex2html_mydb_mark>#6555#$e   \rightarrow NUM\  r$
+<tex2html_mydb_mark>#6556#$r   \rightarrow - e$
+<tex2html_mydb_mark>#6557#$r   \rightarrow \epsilon$
+<tex2html_mydb_mark>#6558#$A   \rightarrow A \alpha$
+<tex2html_mydb_mark>#6559#$A   \rightarrow A \beta$
+<tex2html_mydb_mark>#6560#$A   \rightarrow \gamma$
+<tex2html_mydb_mark>#6561#$\gamma \beta \alpha$
+<tex2html_mydb_mark>#6562#$A   \rightarrow \gamma$
+<tex2html_mydb_mark>#6563#$R   \rightarrow \beta$
+<tex2html_mydb_mark>#6564#$R   \rightarrow \alpha$
+<tex2html_mydb_mark>#6565#$R   \rightarrow \epsilon$
+<tex2html_mydb_mark>#6566#$expr   \rightarrow expr_1  -  NUM$
+<tex2html_mydb_mark>#6567#$expr   \rightarrow NUM$
+<tex2html_mydb_mark>#6568#$expr   \rightarrow NUM$
+<tex2html_mydb_mark>#6569#$r   \rightarrow - NUM$
+<tex2html_mydb_mark>#6570#$r \rightarrow \epsilon$
+<tex2html_mydb_mark>#6571#$expr   \rightarrow NUM$
+<tex2html_mydb_mark>#6572#$r   \rightarrow - NUM$
+<tex2html_mydb_mark>#6573#$r \rightarrow \epsilon$
+<tex2html_mydb_mark>#6574#$A   \rightarrow A_1 X_1 X_2 X_3$
+<tex2html_mydb_mark>#6575#$\{ A^s = f_X(A^s_1, X_1^s, X_2^s, X_3^s) \}$
+<tex2html_mydb_mark>#6576#$A   \rightarrow A_1 Y_1 Y_2 Y_3$
+<tex2html_mydb_mark>#6577#$\{ A^s = f_Y(A^s_1, Y_1^s, Y_2^s, Y_3^s) \}$
+<tex2html_mydb_mark>#6578#$A   \rightarrow Z_1 Z_2 Z_3$
+<tex2html_mydb_mark>#6579#$\{ A^s = f_Z(Z_1^s, Z_2^s, Z_3^s) \}$
+<tex2html_mydb_mark>#6580#$\rightarrow$
+<tex2html_mydb_mark>#6581#$\rightarrow$
+<tex2html_mydb_mark>#6582#$\rightarrow$
+<tex2html_mydb_mark>#6583#$\rightarrow$
+<tex2html_mydb_mark>#6584#$\rightarrow$
+<tex2html_mydb_mark>#6585#$\rightarrow$
+<tex2html_mydb_mark>#6586#$\rightarrow$
+<tex2html_mydb_mark>#6587#$\rightarrow$
+<tex2html_mydb_mark>#6588#$\rightarrow$
+<tex2html_mydb_mark>#6589#$\rightarrow$
+<tex2html_mydb_mark>#6590#$\rightarrow$
+<tex2html_mydb_mark>#6591#$\rightarrow$
+<tex2html_mydb_mark>#6592#$\rightarrow$
+<tex2html_mydb_mark>#6593#$\rightarrow$
+<tex2html_mydb_mark>#6594#$\rightarrow$
+<tex2html_mydb_mark>#6595#$\rightarrow$
+<tex2html_mydb_mark>#6596#$\rightarrow$
+<tex2html_mydb_mark>#6597#$\rightarrow$
+<tex2html_mydb_mark>#6598#$\rightarrow$
+<tex2html_mydb_mark>#6599#$\rightarrow$
+<tex2html_mydb_mark>#6600#$\rightarrow$
+<tex2html_mydb_mark>#6601#$\rightarrow$
+<tex2html_mydb_mark>#6602#$\rightarrow \epsilon$
+<tex2html_mydb_mark>#6603#$(\Sigma, \rho)$
+<tex2html_mydb_mark>#6604#$\rho: \Sigma \rightarrow \mathds{N}_0$
+<tex2html_mydb_mark>#6605#$\Sigma_k = \{ a \in \Sigma :\ \rho(a) = k \}$
+<tex2html_mydb_mark>#6606#$a \in  \Sigma_0$
+<tex2html_mydb_mark>#6607#$a \in B(\Sigma)$
+<tex2html_mydb_mark>#6608#$b_1, \ldots , b_k \in B(\Sigma)$
+<tex2html_mydb_mark>#6609#$f \in \Sigma_k$
+<tex2html_mydb_mark>#6610#$f(b_1, \ldots , b_k) \in B(\Sigma)$
+<tex2html_mydb_mark>#6611#$\Sigma = \{A, CONS, NIL \}$
+<tex2html_mydb_mark>#6612#$\rho(A) = \rho(NIL) = 0, \rho(CONS) = 2$
+<tex2html_mydb_mark>#6613#$B(\Sigma) = \{ A, NIL, CONS(A,NIL), CONS(NIL, A), CONS(A, A), CONS(NIL,NIL), \ldots \}$
+<tex2html_mydb_mark>#6614#$\Sigma = \{ID, NUM, LEFTVALUE, STR, PLUS, TIMES, ASSIGN, PRINT \}$
+<tex2html_mydb_mark>#6615#$\rho(ID) = \rho(NUM) = \rho(LEFTVALUE) = \rho(STR) = 0$
+<tex2html_mydb_mark>#6616#$\rho(PRINT) = 1$
+<tex2html_mydb_mark>#6617#$\rho(PLUS) = \rho(TIMES) = \rho(ASSIGN) = 2$
+<tex2html_mydb_mark>#6618#$ASSIGN(NUM, PRINT(ID))$
+<tex2html_mydb_mark>#6619#$((\Sigma, \rho), N, P, S)$
+<tex2html_mydb_mark>#6620#$(\Sigma, \rho)$
+<tex2html_mydb_mark>#6621#$\rho: \Sigma \rightarrow \mathds{N}$
+<tex2html_mydb_mark>#6622#$X \rightarrow s$
+<tex2html_mydb_mark>#6623#$s \in B(\Sigma \cup N)$
+<tex2html_mydb_mark>#6624#$(\Sigma, N, P, S)$
+<tex2html_mydb_mark>#6625#$t \in B(\Sigma \cup N)$
+<tex2html_mydb_mark>#6626#$(X_1, \ldots X_k)$
+<tex2html_mydb_mark>#6627#$p = X \rightarrow s$
+<tex2html_mydb_mark>#6628#$(X_1, \ldots X_n)$
+<tex2html_mydb_mark>#6629#$(X_1, \ldots X_n) \rightarrow X$
+<tex2html_mydb_mark>#6630#$t \in B(\Sigma \cup N)$
+<tex2html_mydb_mark>#6631#$(X_1, \ldots X_n)$
+<tex2html_mydb_mark>#6632#$(X_1, \ldots X_n)$
+<tex2html_mydb_mark>#6633#$X_i \rightarrow s_i \in P$
+<tex2html_mydb_mark>#6634#$t \Longrightarrow t'$
+<tex2html_mydb_mark>#6635#$t' = t\{X_i/s_i\}$
+<tex2html_mydb_mark>#6636#$t \stackrel{0}{\Longrightarrow} t$
+<tex2html_mydb_mark>#6637#$t \stackrel{n}{\Longrightarrow} t'$
+<tex2html_mydb_mark>#6638#$t \stackrel{*}{\Longrightarrow} t'$
+<tex2html_mydb_mark>#6639#$G = (\Sigma, N, P, S)$
+<tex2html_mydb_mark>#6640#$L(G) = \{ t \in B(\Sigma): \exists S \stackrel{*}{\Longrightarrow} t \}$
+<tex2html_mydb_mark>#6641#$G = (\Sigma, V, P, S)$
+<tex2html_mydb_mark>#6642#$\Sigma = \{A, CONS, NIL \}$
+<tex2html_mydb_mark>#6643#$\rho(A) = \rho(NIL) = 0, \rho(CONS) = 2$
+<tex2html_mydb_mark>#6644#$V = \{ E, L \}$
+<tex2html_mydb_mark>#6645#$P_1 = \{ L \rightarrow NIL, L \rightarrow CONS(E,L),E \rightarrow a \}$
+<tex2html_mydb_mark>#6646#$L \rightarrow CONS(E,L)$
+<tex2html_mydb_mark>#6647#$(E,L) \rightarrow L$
+<tex2html_mydb_mark>#6648#$L(G) = \{ NIL, CONS(A, NIL), CONS(A, CONS(A,NIL)), \ldots \}$
+<tex2html_mydb_mark>#6649#$CONS(A, CONS(A,NIL))$
+<tex2html_mydb_mark>#6650#$CONS(E, CONS(A, CONS(E,L)))$
+<tex2html_mydb_mark>#6651#$G = (\Sigma, V, P, S)$
+<tex2html_mydb_mark>#6652#$\Sigma = \{ID, NUM, LEFTVALUE, STR, PLUS, TIMES, ASSIGN, PRINT \}$
+<tex2html_mydb_mark>#6653#$\rho(ID) = \rho(NUM) = \rho(LEFTVALUE) = \rho(STR) = 0$
+<tex2html_mydb_mark>#6654#$\rho(PRINT) = 1$
+<tex2html_mydb_mark>#6655#$\rho(PLUS) = \rho(TIMES) = \rho(ASSIGN) = 2$
+<tex2html_mydb_mark>#6656#$V = \{ st, expr \}$
+<tex2html_mydb_mark>#6657#$\rightarrow ASSIGN(LEFTVALUE, expr)$
+<tex2html_mydb_mark>#6658#$\rightarrow PRINT(expr)$
+<tex2html_mydb_mark>#6659#$\rightarrow PLUS(expr, expr)$
+<tex2html_mydb_mark>#6660#$\rightarrow TIMES(expr, expr)$
+<tex2html_mydb_mark>#6661#$\rightarrow NUM$
+<tex2html_mydb_mark>#6662#$\rightarrow ID$
+<tex2html_mydb_mark>#6663#$\rightarrow STR$
+<tex2html_mydb_mark>#6664#$G = (\Sigma, V, P, S)$
+<tex2html_mydb_mark>#6665#$T = (\Omega, N, R, U)$
+<tex2html_mydb_mark>#6666#$t \in B(\Sigma)$
+<tex2html_mydb_mark>#6667#$t/\epsilon = t$
+<tex2html_mydb_mark>#6668#$t = a(t_1, \ldots t_k)$
+<tex2html_mydb_mark>#6669#$j \in \{ 1 \ldots k \}$
+<tex2html_mydb_mark>#6670#$t/j.n = t_j/n$
+<tex2html_mydb_mark>#6671#$t = ASSIGN$
+<tex2html_mydb_mark>#6672#$t/\epsilon$
+<tex2html_mydb_mark>#6673#$t/2\ldotp2\ldotp1$
+<tex2html_mydb_mark>#6674#$t/2\ldotp1$
+<tex2html_mydb_mark>#6675#$t/2\ldotp1\ldotp2$
+<tex2html_mydb_mark>#6676#$\rightarrow PROGRAM(decls, sts)$
+<tex2html_mydb_mark>#6677#$\rightarrow$
+<tex2html_mydb_mark>#6678#$\rightarrow$
+<tex2html_mydb_mark>#6679#$\rightarrow INT(idlist)$
+<tex2html_mydb_mark>#6680#$\rightarrow STRING(idlist)$
+<tex2html_mydb_mark>#6681#$\rightarrow$
+<tex2html_mydb_mark>#6682#$\rightarrow ASSIGN(LEFTVALUE, expr)$
+<tex2html_mydb_mark>#6683#$\rightarrow PRINT(expr)$
+<tex2html_mydb_mark>#6684#$\rightarrow PLUS(expr, expr)$
+<tex2html_mydb_mark>#6685#$\rightarrow TIMES(expr, expr)$
+<tex2html_mydb_mark>#6686#$\rightarrow NUM$
+<tex2html_mydb_mark>#6687#$\rightarrow ID$
+<tex2html_mydb_mark>#6688#$\rightarrow STR$
+<tex2html_mydb_mark>#6689#$e   \rightarrow\ e_1 + f$
+<tex2html_mydb_mark>#6690#$f   \rightarrow NUM$
+<tex2html_mydb_mark>#6691#$f   \rightarrow ID$
+<tex2html_mydb_mark>#6692#$\rightarrow list\ decl$
+<tex2html_mydb_mark>#6693#$\rightarrow$
+<tex2html_mydb_mark>#6694#$\rightarrow list\ st$
+<tex2html_mydb_mark>#6695#$\rightarrow$
+<tex2html_mydb_mark>#6696#$\rightarrow list\ SIMPLEID$
+<tex2html_mydb_mark>#6697#$\rightarrow$
+<tex2html_mydb_mark>#6698#$\rightarrow$
+<tex2html_mydb_mark>#6699#$\rightarrow INT(idlist)$
+<tex2html_mydb_mark>#6700#$\rightarrow STRING(idlist)$
+<tex2html_mydb_mark>#6701#$\rightarrow$
+<tex2html_mydb_mark>#6702#$\rightarrow$
+<tex2html_mydb_mark>#6703#$\rightarrow$
+<tex2html_mydb_mark>#6704#$\rightarrow$
+<tex2html_mydb_mark>#6705#$\rightarrow$
+<tex2html_mydb_mark>#6706#$\rightarrow$
+<tex2html_mydb_mark>#6707#$\rightarrow$
+<tex2html_mydb_mark>#6708#$\rightarrow$
+<tex2html_mydb_mark>#6709#$\rightarrow$
+<tex2html_mydb_mark>#6710#$\rightarrow$
+<tex2html_mydb_mark>#6711#$\rightarrow$
+<tex2html_mydb_mark>#6712#$\rightarrow$
+<tex2html_mydb_mark>#6713#$\rightarrow$
+<tex2html_mydb_mark>#6714#$\rightarrow$
+<tex2html_mydb_mark>#6715#$\rightarrow$
+<tex2html_mydb_mark>#6716#$\rightarrow \epsilon$
+<tex2html_mydb_mark>#6717#$\rightarrow$
+<tex2html_mydb_mark>#6718#$\rightarrow$
+<tex2html_mydb_mark>#6719#$\rightarrow$
+<tex2html_mydb_mark>#6720#$\rightarrow$
+<tex2html_mydb_mark>#6721#$\rightarrow$
+<tex2html_mydb_mark>#6722#$\rightarrow$
+<tex2html_mydb_mark>#6723#$\rightarrow$
+<tex2html_mydb_mark>#6724#$\rightarrow$
+<tex2html_mydb_mark>#6725#$\rightarrow$
+<tex2html_mydb_mark>#6726#$\rightarrow$
+<tex2html_mydb_mark>#6727#$\rightarrow$
+<tex2html_mydb_mark>#6728#$\rightarrow$
+<tex2html_mydb_mark>#6729#$\rightarrow$
+<tex2html_mydb_mark>#6730#$\rightarrow$
+<tex2html_mydb_mark>#6731#$\rightarrow$
+<tex2html_mydb_mark>#6732#$\rightarrow$
+<tex2html_mydb_mark>#6733#$\rightarrow$
+<tex2html_mydb_mark>#6734#$\rightarrow$
+<tex2html_mydb_mark>#6735#$\rightarrow$
+<tex2html_mydb_mark>#6736#$\rightarrow$
+<tex2html_mydb_mark>#6737#$\rightarrow$
+<tex2html_mydb_mark>#6738#$\rightarrow$
+<tex2html_mydb_mark>#6739#$\rightarrow$
+<tex2html_mydb_mark>#6740#$\rightarrow$
+<tex2html_mydb_mark>#6741#$\rightarrow \epsilon$
+<tex2html_mydb_mark>#6742#$\rightarrow$
+<tex2html_mydb_mark>#6743#$\rightarrow$
+<tex2html_mydb_mark>#6744#$\rightarrow$
+<tex2html_mydb_mark>#6745#$\rightarrow$
+<tex2html_mydb_mark>#6746#$\rightarrow$
+<tex2html_mydb_mark>#6747#$\rightarrow$
+<tex2html_mydb_mark>#6748#$\rightarrow$
+<tex2html_mydb_mark>#6749#$\rightarrow$
+<tex2html_mydb_mark>#6750#$\rightarrow$
+<tex2html_mydb_mark>#6751#$\rightarrow$
+<tex2html_mydb_mark>#6752#$\rightarrow$
+<tex2html_mydb_mark>#6753#$\rightarrow$
+<tex2html_mydb_mark>#6754#$(p, e, action)$
+<tex2html_mydb_mark>#6755#$p \Longrightarrow e$
+<tex2html_mydb_mark>#6756#$PLUS(NUM_1, NUM_2) \Longrightarrow NUM_3$
+<tex2html_mydb_mark>#6757#$PLUS(NUM, NUM)$
+<tex2html_mydb_mark>#6758#$PLUS(NUM, NUM)$
+<tex2html_mydb_mark>#6759#$ASSIGN(LEFTVALUE, x)\ and$
+<tex2html_mydb_mark>#6760#$\Longrightarrow NIL$
+<tex2html_mydb_mark>#6761#$IFELSE(NUM, S_1, S_2)$
+<tex2html_mydb_mark>#6762#$\Longrightarrow S_1$
+<tex2html_mydb_mark>#6763#$IFELSE(NUM, S_1, S_2)$
+<tex2html_mydb_mark>#6764#$\Longrightarrow S_2$
+<tex2html_mydb_mark>#6765#$ASSIGN(LEFTVALUE, x)$
+<tex2html_mydb_mark>#6766#$ASSIGN(LEFTVALUE, x)$
+<tex2html_mydb_mark>#6767#$(\Sigma, \rho)$
+<tex2html_mydb_mark>#6768#$V =\{ x_1, x_2, \ldots \}$
+<tex2html_mydb_mark>#6769#$\rho(x) = 0\ \forall x \in V$
+<tex2html_mydb_mark>#6770#$B(V \cup \Sigma)$
+<tex2html_mydb_mark>#6771#$(x_1, \ldots x_k)$
+<tex2html_mydb_mark>#6772#$x_1, \ldots x_k$
+<tex2html_mydb_mark>#6773#$\Sigma = \{A, CONS, NIL \}$
+<tex2html_mydb_mark>#6774#$\rho(A) = \rho(NIL) = 0, \rho(CONS) = 2$
+<tex2html_mydb_mark>#6775#$V = \{ x \}$
+<tex2html_mydb_mark>#6776#$x, CONS(A, x), CONS(A, CONS(x, NIL)), \ldots \}$
+<tex2html_mydb_mark>#6777#$CONS(x, CONS(x, NIL))$
+<tex2html_mydb_mark>#6778#$t/2 \ldotp 1$
+<tex2html_mydb_mark>#6779#$S \rightarrow S_1(a, S, b)$
+<tex2html_mydb_mark>#6780#$S \rightarrow S_2(NIL)$
+<tex2html_mydb_mark>#6781#$S \rightarrow aSb$
+<tex2html_mydb_mark>#6782#$S_1(a, X(NIL), b)$
+<tex2html_mydb_mark>#6783#$S_1(X, Y, a)$
+<tex2html_mydb_mark>#6784#$S_1(X, Y, Y)$
+<tex2html_mydb_mark>#6785#$x, y, PLUS(x, y), ASSIGN(x, TIMES(y,ID)), PRINT(y) \ldots$
+<tex2html_mydb_mark>#6786#$V = \{ x, y \}$
+<tex2html_mydb_mark>#6787#$ASSIGN(x, TIMES(y,ID))$
+<tex2html_mydb_mark>#6788#$\theta: V \rightarrow B(V \cup \Sigma)$
+<tex2html_mydb_mark>#6789#$\theta : B(V \cup \Sigma) \rightarrow B(V \cup \Sigma)$
+<tex2html_mydb_mark>#6790#$t \theta = \left \{ \begin{array}{ll}
+                         x \theta & \mbox{si $t = x \in V$}\\
+                         a(t_1  \theta, \ldots, t_k \theta) & \mbox{si $t = a(t_1, \ldots, t_k)$} 
+                      \end{array}
+             \right.$
+<tex2html_mydb_mark>#6791#$t \theta = t\{x_1/x_1 \theta, \ldots x_k/x_k \theta\}$
+<tex2html_mydb_mark>#6792#$x_1, \ldots x_k$
+<tex2html_mydb_mark>#6793#$\theta = \{x/A, y/CONS(A, NIL)\}$
+<tex2html_mydb_mark>#6794#$CONS(x, y)$
+<tex2html_mydb_mark>#6795#$CONS(A, CONS(A, NIL))$
+<tex2html_mydb_mark>#6796#$CONS(x, y)\theta = CONS(x\theta, y\theta) = CONS(A, CONS(A, NIL))$
+<tex2html_mydb_mark>#6797#$\theta = \{x/PLUS(NUM, x), y/TIMES(ID, NUM)\}$
+<tex2html_mydb_mark>#6798#$PLUS(x, y)$
+<tex2html_mydb_mark>#6799#$PLUS(PLUS(NUM,x), TIMES(ID, NUM))$
+<tex2html_mydb_mark>#6800#$PLUS(x, y)\theta = PLUS(x\theta, y\theta) = PLUS(PLUS(NUM,x), TIMES(ID, NUM))$
+<tex2html_mydb_mark>#6801#$\tau \in B(V \cup \Sigma)$
+<tex2html_mydb_mark>#6802#$x_1, \ldots x_k$
+<tex2html_mydb_mark>#6803#$t \in B(\Sigma)$
+<tex2html_mydb_mark>#6804#$t_1, \ldots t_k \in B(\Sigma)$
+<tex2html_mydb_mark>#6805#$t = \tau \{x_1/t_1, \ldots x_k/t_k\}$
+<tex2html_mydb_mark>#6806#$\{x_1/t_1, \ldots x_k/t_k\}$
+<tex2html_mydb_mark>#6807#$\tau = CONS(x, NIL)$
+<tex2html_mydb_mark>#6808#$t = CONS(CONS(A,NIL),NIL)$
+<tex2html_mydb_mark>#6809#$t \ldotp 1$
+<tex2html_mydb_mark>#6810#$t\{x/CONS(A,NIL)\}$
+<tex2html_mydb_mark>#6811#$t \ldotp 1 \{x/A\}$
+<tex2html_mydb_mark>#6812#$t = \tau \{x/CONS(A,NIL)\}$
+<tex2html_mydb_mark>#6813#$t \ldotp 1 = \tau \{x/A\}$
+<tex2html_mydb_mark>#6814#$\tau = PLUS(x, y)$
+<tex2html_mydb_mark>#6815#$t = TIMES(PLUS(NUM, NUM), TIMES(ID, ID))$
+<tex2html_mydb_mark>#6816#$\{x/t_1, y/t_2\}$
+<tex2html_mydb_mark>#6817#$t/\epsilon$
+<tex2html_mydb_mark>#6818#$t = TIMES(PLUS(NUM, NUM), TIMES(ID, ID)) = \tau\{x/t_1, y/t_2\} =
+PLUS(x, y)\{x/t_1, y/t_2\}$
+<tex2html_mydb_mark>#6819#$PLUS(NUM, x)$
+<tex2html_mydb_mark>#6820#$\Longrightarrow x$
+<tex2html_mydb_mark>#6821#$PLUS(x, NUM)$
+<tex2html_mydb_mark>#6822#$\Longrightarrow x$
+<tex2html_mydb_mark>#6823#$TIMES(NUM, x)$
+<tex2html_mydb_mark>#6824#$\Longrightarrow x$
+<tex2html_mydb_mark>#6825#$TIMES(x, NUM)$
+<tex2html_mydb_mark>#6826#$\Longrightarrow x$
+<tex2html_mydb_mark>#6827#$texto\ fuente \rightarrow arbol$
+<tex2html_mydb_mark>#6828#$arbol \rightarrow texto\ objeto$
+<tex2html_mydb_mark>#6829#$R_0 \ldots R_{k-1}$
+<tex2html_mydb_mark>#6830#$R_i += R_j$
+<tex2html_mydb_mark>#6831#$R_i += M_a$
+<tex2html_mydb_mark>#6832#$OP(t_1, t_2)$
+<tex2html_mydb_mark>#6833#$r_1 < r_2 \le k$
+<tex2html_mydb_mark>#6834#$r_2 - 1 \ge r_1$
+<tex2html_mydb_mark>#6835#$r_1 \neq r_2$
+<tex2html_mydb_mark>#6836#$\max\{r_1, r_2\}$
+<tex2html_mydb_mark>#6837#$OP(t_1, t_2)$
+<tex2html_mydb_mark>#6838#$r_t =  \left \{ \begin{array}{ll}
+               \max\{r_1, r_2\} & \mbox{si $r_1 \neq r_2$}\\
+               r_1 + 1 & \mbox{si $r_1 = r_2$} 
+           \end{array}
+        \right .$
+<tex2html_mydb_mark>#6839#$\min \{r_1, r_2 \} < k$
+<tex2html_mydb_mark>#6840#$\min \{r_1, r_2 \} \ge k$
+<tex2html_mydb_mark>#6841#$PLUS(ID, t)$
+<tex2html_mydb_mark>#6842#$\{ r_t \ge 1 \}$
+<tex2html_mydb_mark>#6843#$PLUS(ID, t)$
+<tex2html_mydb_mark>#6844#$\{ r_t \ge 1 \} \Longrightarrow PLUS(t, ID)$
+<tex2html_mydb_mark>#6845#$\max \{2, r_t \}$
+<tex2html_mydb_mark>#6846#$t = TIMES(TIMES(a,2),3)$
+<tex2html_mydb_mark>#6847#\begin{math}
+A^* = \cup_{n=0}^{\infty} A^n
+\end{math}
+<tex2html_mydb_mark>#6848#$A^0 = \{ \epsilon \}$
+<tex2html_mydb_mark>#6849#$G =(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6850#$V \times (V \cup \Sigma )^*$
+<tex2html_mydb_mark>#6851#$(A, \alpha) \in P$
+<tex2html_mydb_mark>#6852#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6853#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6854#$\mu = \alpha A \beta \in (V \cup \Sigma)^*$
+<tex2html_mydb_mark>#6855#$A \rightarrow \gamma$
+<tex2html_mydb_mark>#6856#$\alpha \gamma \beta$
+<tex2html_mydb_mark>#6857#$\alpha A \beta$
+<tex2html_mydb_mark>#6858#$\alpha A \beta$
+<tex2html_mydb_mark>#6859#$\mu  \stackrel{*}{\Longrightarrow}  \delta$
+<tex2html_mydb_mark>#6860#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6861#$L(G) = \{ x \in \Sigma^* : S \stackrel{*}{\Longrightarrow} x \}$
+<tex2html_mydb_mark>#6862#$\mu  \stackrel{*}{\Longrightarrow}  \delta$
+<tex2html_mydb_mark>#6863#$\alpha A x$
+<tex2html_mydb_mark>#6864#$A \rightarrow \gamma$
+<tex2html_mydb_mark>#6865#$\mu  \stackrel{*}{\Longrightarrow}  \delta$
+<tex2html_mydb_mark>#6866#$x A \alpha$
+<tex2html_mydb_mark>#6867#$A \rightarrow \gamma$
+<tex2html_mydb_mark>#6868#$V \cup \Sigma$
+<tex2html_mydb_mark>#6869#$A \rightarrow \gamma$
+<tex2html_mydb_mark>#6870#$X_1 \ldots X_n$
+<tex2html_mydb_mark>#6871#$\gamma = X_1 \ldots X_n$
+<tex2html_mydb_mark>#6872#$x \in L(G)$
+<tex2html_mydb_mark>#6873#$x_1 \ldots x_n$
+<tex2html_mydb_mark>#6874#$x \in L(G)$
+<tex2html_mydb_mark>#6875#$x \in L(G)$
+<tex2html_mydb_mark>#6876#$\rightarrow$
+<tex2html_mydb_mark>#6877#$\rightarrow$
+<tex2html_mydb_mark>#6878#$\rightarrow$
+<tex2html_mydb_mark>#6879#$\rightarrow$
+<tex2html_mydb_mark>#6880#$\rightarrow$
+<tex2html_mydb_mark>#6881#$\rightarrow$
+<tex2html_mydb_mark>#6882#$\rightarrow$
+<tex2html_mydb_mark>#6883#$\rightarrow$
+<tex2html_mydb_mark>#6884#$\rightarrow$
+<tex2html_mydb_mark>#6885#$S = program$
+<tex2html_mydb_mark>#6886#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6887#$FSD = \left \{ \alpha \in (\Sigma \cup V)* : \exists S \begin{array}{c} *\\\Longrightarrow \\{\scriptstyle RM} \end{array} \alpha \right \}$
+<tex2html_mydb_mark>#6888#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6889#$x \in L(G)$
+<tex2html_mydb_mark>#6890#$x \in L(G)$
+<tex2html_mydb_mark>#6891#$S \stackrel{*}{\Longrightarrow} y A z \Longrightarrow y w z = x$
+<tex2html_mydb_mark>#6892#$A \rightarrow w$
+<tex2html_mydb_mark>#6893#$\beta \alpha w$
+<tex2html_mydb_mark>#6894#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6895#$S \stackrel{*}{\Longrightarrow} \beta A w \Longrightarrow \beta \alpha w$
+<tex2html_mydb_mark>#6896#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6897#$\alpha = \beta \gamma x$
+<tex2html_mydb_mark>#6898#$x \in \Sigma^*$
+<tex2html_mydb_mark>#6899#$S \begin{array}{c} *\\\Longrightarrow  \\{\scriptstyle RM} \end{array} \beta B x \Longrightarrow \beta \gamma x = \alpha$
+<tex2html_mydb_mark>#6900#$handle(\alpha) = (B \rightarrow \gamma, \beta \gamma)$
+<tex2html_mydb_mark>#6901#$handle_1(\alpha) = B \rightarrow \gamma$
+<tex2html_mydb_mark>#6902#$handle_2(\alpha) =  \beta \gamma$
+<tex2html_mydb_mark>#6903#$\beta \gamma$
+<tex2html_mydb_mark>#6904#$PV = \left \{ \delta \in (\Sigma \cup V)* :  \exists S \begin{array}{c} *\\\Longrightarrow \\{\scriptstyle RM} \end{array} \alpha = \beta \gamma x \mbox{ y }\delta\ es\ un\ prefijo\ de\  handle_2(\alpha) = \beta \gamma \right \}$
+<tex2html_mydb_mark>#6905#$handle_2(\alpha)) =  \beta \gamma$
+<tex2html_mydb_mark>#6906#$\alpha \in FSD$
+<tex2html_mydb_mark>#6907#$\alpha = \beta \gamma x$
+<tex2html_mydb_mark>#6908#$\beta \gamma$
+<tex2html_mydb_mark>#6909#$\beta \gamma$
+<tex2html_mydb_mark>#6910#$V \cup \Sigma$
+<tex2html_mydb_mark>#6911#$(E \rightarrow E + E, 2)$
+<tex2html_mydb_mark>#6912#$Q =  \left \{ (A \rightarrow \alpha, n) :  A \rightarrow \alpha \in P,\ n \le |\alpha| \right \}$
+<tex2html_mydb_mark>#6913#$\mid \alpha \mid$
+<tex2html_mydb_mark>#6914#$\mid \alpha \mid$
+<tex2html_mydb_mark>#6915#$(A \rightarrow \alpha, n)$
+<tex2html_mydb_mark>#6916#$A \rightarrow \beta _\uparrow \gamma$
+<tex2html_mydb_mark>#6917#$n = \mid \beta \mid$
+<tex2html_mydb_mark>#6918#$\delta(A \rightarrow \alpha _\uparrow X \beta, X) = A \rightarrow \alpha X _\uparrow \beta\ \forall X \in  V \cup \Sigma$
+<tex2html_mydb_mark>#6919#$\delta(A \rightarrow \alpha _\uparrow B \beta, \epsilon) = B \rightarrow 
+_\uparrow \gamma\  \forall B \rightarrow \gamma \in  P$
+<tex2html_mydb_mark>#6920#$S' \rightarrow S$
+<tex2html_mydb_mark>#6921#$G = (\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6922#$S' \rightarrow _\uparrow S$
+<tex2html_mydb_mark>#6923#$LR(0)-items$
+<tex2html_mydb_mark>#6924#$\rightarrow$
+<tex2html_mydb_mark>#6925#$\rightarrow$
+<tex2html_mydb_mark>#6926#$L(G) = \{ a^n b^n\ :\ n \ge 0 \}$
+<tex2html_mydb_mark>#6927#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6928#$\alpha \in (V \cup \Sigma)^*$
+<tex2html_mydb_mark>#6929#$FIRST(\alpha)$
+<tex2html_mydb_mark>#6930#$FIRST(\alpha) = \left \{ b \in \Sigma :  \alpha  \stackrel{*}{\Longrightarrow}  b \beta \right \}
+\cup N(\alpha)$
+<tex2html_mydb_mark>#6931#$N(\alpha) = \left \{ \begin{array}{ll}
+                         \left \{ \epsilon \right \}& \mbox{si $\alpha \stackrel{*}{\Longrightarrow} \epsilon$} \\
+                         \emptyset & \mbox{en otro caso} 
+                      \end{array}
+             \right.$
+<tex2html_mydb_mark>#6932#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6933#$FOLLOW(A) = \left \{ b \in \Sigma :  \exists\ S  \stackrel{*}{\Longrightarrow}  \alpha A b \beta \right \} \cup E(A)$
+<tex2html_mydb_mark>#6934#$E(A) = \left \{ \begin{array}{ll}
+                         \{ \$  \}& \mbox{si $S \stackrel{*}{\Longrightarrow} \alpha A$} \\
+                         \emptyset & \mbox{en otro caso} 
+                      \end{array}
+             \right.$
+<tex2html_mydb_mark>#6935#$Si\ X \in \Sigma\ entonces\ FIRST(X) = {X}$
+<tex2html_mydb_mark>#6936#$Si\ X \rightarrow \epsilon\ entonces\ FIRST(X) =  FIRST(X) \cup \{ \epsilon \}$
+<tex2html_mydb_mark>#6937#$Si X \in V \ y\ X \rightarrow Y_1 Y_2 \cdots Y_k \in P\ entonces$
+<tex2html_mydb_mark>#6938#\begin{eqnarray*}
+&&i = 1; \\
+&&do\\
+&&\ \ FIRST(X) = FIRST(X) \cup FIRST(Y_i) - \{ \epsilon \};\\
+&&\ \ i++;\\
+&&mientras\ (\epsilon \in FIRST(Y_i)\ and\ (i \leq k))\\
+&&si\ (\epsilon \in FIRST(Y_k)\ and\ i > k)\ FIRST(X) = FIRST(X) \cup \{ \epsilon \}
+\end{eqnarray*}
+<tex2html_mydb_mark>#6939#$FIRST(\alpha)$
+<tex2html_mydb_mark>#6940#$\alpha = X_1 X_2 \cdots X_n \in (V \cup \Sigma)^*$
+<tex2html_mydb_mark>#6941#$FIRST(\alpha)$
+<tex2html_mydb_mark>#6942#\begin{eqnarray*}
+&&i = 1; \nonumber\\
+&&FIRST(\alpha) = \emptyset; \nonumber\\
+&&do \nonumber\\
+&&\ \ FIRST(\alpha) = FIRST(\alpha) \cup FIRST(X_i) - \{ \epsilon \}; \nonumber\\
+&&\ \ i++; \nonumber\\
+&&mientras\ (\epsilon \in FIRST(X_i)\ and\ (i \leq n)) \nonumber\\
+&&si\ (\epsilon \in FIRST(X_n)\ and\ i > n)\ FIRST(\alpha) = FIRST(X) \cup \{ \epsilon \}
+\end{eqnarray*}
+<tex2html_mydb_mark>#6943#$FOLLOW(S) = \{\$\}$
+<tex2html_mydb_mark>#6944#$Si\ A \rightarrow \alpha B \beta\ entonces$
+<tex2html_mydb_mark>#6945#\begin{displaymath}
+FOLLOW(B) =  FOLLOW(B) \cup (FIRST(\beta) - \{\epsilon\})
+\end{displaymath}
+<tex2html_mydb_mark>#6946#$Si\ A \rightarrow \alpha B$
+<tex2html_mydb_mark>#6947#$A \rightarrow \alpha B \beta$
+<tex2html_mydb_mark>#6948#$\epsilon \in FIRST(\beta)$
+<tex2html_mydb_mark>#6949#\begin{displaymath}
+FOLLOW(B) = FOLLOW(B) \cup FOLLOW(A)
+\end{displaymath}
+<tex2html_mydb_mark>#6950#$(Q, \Sigma, \delta, q_0)$
+<tex2html_mydb_mark>#6951#$\overline{\{q_0\}}$
+<tex2html_mydb_mark>#6952#$\overline{\delta(\overline{\{q_0\}},a)}$
+<tex2html_mydb_mark>#6953#$\overline{A}$
+<tex2html_mydb_mark>#6954#$\overline{A}$
+<tex2html_mydb_mark>#6955#$\overline{A} = \{ q \in Q\ /\  \exists q' \in Q\ :\ \hat{\delta}(q', \epsilon) = q \}$
+<tex2html_mydb_mark>#6956#$\hat{\delta}$
+<tex2html_mydb_mark>#6957#\begin{equation}
+\hat{\delta}(q, x) = \left \{ \begin{array}{ll}
+                         \delta(\hat{\delta}(q,y),a) & \mbox{si $x = ya$} \\
+                         q & \mbox{si $x = \epsilon$} 
+                      \end{array}
+             \right.
+\end{equation}
+<tex2html_mydb_mark>#6958#$\hat{\delta}$
+<tex2html_mydb_mark>#6959#$V \cup \Sigma$
+<tex2html_mydb_mark>#6960#$\delta_{| V \times Q} :  V \times Q \rightarrow Q$
+<tex2html_mydb_mark>#6961#$goto(i, A) = \delta(A,I_i)$
+<tex2html_mydb_mark>#6962#$\delta_{| \Sigma \times Q} :  \Sigma \times Q \rightarrow Q$
+<tex2html_mydb_mark>#6963#$\delta_{| \Sigma \times Q} :  \Sigma \times Q \rightarrow Q$
+<tex2html_mydb_mark>#6964#$action(i, a) = shift\ \delta(a,I_i)$
+<tex2html_mydb_mark>#6965#$A \rightarrow \alpha_\uparrow$
+<tex2html_mydb_mark>#6966#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6967#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6968#$a \in \Sigma$
+<tex2html_mydb_mark>#6969#$action(i, a) = reduce\ A \rightarrow \alpha$
+<tex2html_mydb_mark>#6970#$a \in \Sigma$
+<tex2html_mydb_mark>#6971#$a \in \Sigma$
+<tex2html_mydb_mark>#6972#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6973#$\exists S \begin{array}{c} *\\\Longrightarrow \\{\scriptstyle RM} \end{array} \beta A b x \begin{array}{c} *\\\Longrightarrow \\{\scriptstyle RM} \end{array}  
+\beta \alpha b x = \gamma$
+<tex2html_mydb_mark>#6974#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6975#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6976#$b \in FOLLOW(A)$
+<tex2html_mydb_mark>#6977#$action(i, b) = reduce\ A \rightarrow \alpha$
+<tex2html_mydb_mark>#6978#$b \in FOLLOW(A)$
+<tex2html_mydb_mark>#6979#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#6980#$(Q, V \cup \Sigma, \delta, I_0, F)$
+<tex2html_mydb_mark>#6981#$C = \left \{ I_1, I_2, \cdots I_n \right \}$
+<tex2html_mydb_mark>#6982#$goto(i,A) = \delta(I_i, A)$
+<tex2html_mydb_mark>#6983#$A \rightarrow \alpha _\uparrow a \beta \in I_i$
+<tex2html_mydb_mark>#6984#$\delta(I_i,a) = I_j$
+<tex2html_mydb_mark>#6985#$a \in \Sigma$
+<tex2html_mydb_mark>#6986#$action[i][a] = shift\ j$
+<tex2html_mydb_mark>#6987#$S' \rightarrow S_\uparrow \in I_i$
+<tex2html_mydb_mark>#6988#$action[i][\$] = accept$
+<tex2html_mydb_mark>#6989#$A \rightarrow \alpha _\uparrow \in I_i$
+<tex2html_mydb_mark>#6990#$\forall a \in\ FOLLOW(A):\ action[i][a] = reduce\ A \rightarrow \alpha$
+<tex2html_mydb_mark>#6991#$\rightarrow$
+<tex2html_mydb_mark>#6992#$\rightarrow$
+<tex2html_mydb_mark>#6993#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6994#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#6995#$G = (V, \Sigma, P, S)$
+<tex2html_mydb_mark>#6996#$S \in V \cup \Sigma$
+<tex2html_mydb_mark>#6997#$A \rightarrow X_1 X_2 \ldots X_n \in P$
+<tex2html_mydb_mark>#6998#$X \in V \cup \Sigma$
+<tex2html_mydb_mark>#6999#$A \rightarrow X_1 \ldots X_n$
+<tex2html_mydb_mark>#7000#$A \rightarrow \alpha_\uparrow$
+<tex2html_mydb_mark>#7001#$B \rightarrow \beta_\uparrow \gamma$
+<tex2html_mydb_mark>#7002#$a \in FOLLOW(A)$
+<tex2html_mydb_mark>#7003#$a \in FIRST(\gamma)$
+<tex2html_mydb_mark>#7004#$A \rightarrow \alpha_\uparrow$
+<tex2html_mydb_mark>#7005#$B \rightarrow \beta_\uparrow \gamma$
+<tex2html_mydb_mark>#7006#$a \in FOLLOW(A) \cap FIRST(\gamma)$
+<tex2html_mydb_mark>#7007#$FOLLOW(A) \cap FIRST(\gamma)$
+<tex2html_mydb_mark>#7008#$-(-(4,5),2)$
+<tex2html_mydb_mark>#7009#$-(4, -(5,2))$
+<tex2html_mydb_mark>#7010#$E \rightarrow - E$
+<tex2html_mydb_mark>#7011#$E \rightarrow E - E$
+<tex2html_mydb_mark>#7012#\begin{math}
+NUM + NUM \stackrel{NUM \leftarrow E}{\Longleftarrow} E + NUM \stackrel{NUM \leftarrow E}{\Longleftarrow} E + E \stackrel{E +E \leftarrow E}{\Longleftarrow} E
+\end{math}
+<tex2html_mydb_mark>#7013#$E \rightarrow E + E$
+<tex2html_mydb_mark>#7014#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#7015#$FSD = \left \{ \alpha \in (\Sigma \cup V)* : \exists S \begin{array}{c} *\\\Longrightarrow \\{\scriptstyle RM} \end{array} \alpha \right \}$
+<tex2html_mydb_mark>#7016#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#7017#$x \in L(G)$
+<tex2html_mydb_mark>#7018#$x \in L(G)$
+<tex2html_mydb_mark>#7019#$S \stackrel{*}{\Longrightarrow} y A z \Longrightarrow y w z = x$
+<tex2html_mydb_mark>#7020#$A \rightarrow w$
+<tex2html_mydb_mark>#7021#$\beta \alpha w$
+<tex2html_mydb_mark>#7022#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#7023#$S \stackrel{*}{\Longrightarrow} \beta A w \Longrightarrow \beta \alpha w$
+<tex2html_mydb_mark>#7024#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#7025#$\alpha = \beta \gamma x$
+<tex2html_mydb_mark>#7026#$x \in \Sigma^*$
+<tex2html_mydb_mark>#7027#$S \begin{array}{c} *\\\Longrightarrow  \\{\scriptstyle RM} \end{array} \beta B x \Longrightarrow \beta \gamma x = \alpha$
+<tex2html_mydb_mark>#7028#$handle(\alpha) = (B \rightarrow \gamma, \beta \gamma)$
+<tex2html_mydb_mark>#7029#$handle_1(\alpha) = B \rightarrow \gamma$
+<tex2html_mydb_mark>#7030#$handle_2(\alpha) =  \beta \gamma$
+<tex2html_mydb_mark>#7031#$\beta \gamma$
+<tex2html_mydb_mark>#7032#$PV = \left \{ \delta \in (\Sigma \cup V)* :  \exists S \begin{array}{c} *\\\Longrightarrow \\{\scriptstyle RM} \end{array} \alpha\  y\ \delta\ es\ un\ prefijo\ de\  handle_2(\alpha) \right \}$
+<tex2html_mydb_mark>#7033#$handle_2(\alpha)) =  \beta \gamma$
+<tex2html_mydb_mark>#7034#$\alpha \in FSD$
+<tex2html_mydb_mark>#7035#$\alpha = \beta \gamma x$
+<tex2html_mydb_mark>#7036#$\beta \gamma$
+<tex2html_mydb_mark>#7037#$\beta \gamma$
+<tex2html_mydb_mark>#7038#$Alfabeto = V \cup \Sigma$
+<tex2html_mydb_mark>#7039#$(E \rightarrow E + E, 2)$
+<tex2html_mydb_mark>#7040#$Q =  \left \{ (A \rightarrow \alpha, n) :  A \rightarrow \alpha \in P,\ n \le |\alpha| \right \}$
+<tex2html_mydb_mark>#7041#$\mid \alpha \mid$
+<tex2html_mydb_mark>#7042#$\mid \alpha \mid$
+<tex2html_mydb_mark>#7043#$(A \rightarrow \alpha, n)$
+<tex2html_mydb_mark>#7044#$A \rightarrow \beta _\uparrow \gamma$
+<tex2html_mydb_mark>#7045#$n = \mid \beta \mid$
+<tex2html_mydb_mark>#7046#$\delta(A \rightarrow \alpha _\uparrow X \beta, X) = A \rightarrow \alpha X _\uparrow \beta\ \forall X \in  V \cup \Sigma$
+<tex2html_mydb_mark>#7047#$\delta(A \rightarrow \alpha _\uparrow B \beta, \epsilon) = B \rightarrow \gamma  \forall B \in  V$
+<tex2html_mydb_mark>#7048#$S' \rightarrow S$
+<tex2html_mydb_mark>#7049#$G = (\Sigma,V,P,S)$
+<tex2html_mydb_mark>#7050#$S' \rightarrow _\uparrow S$
+<tex2html_mydb_mark>#7051#$LR(0)-items$
+<tex2html_mydb_mark>#7052#$\rightarrow$
+<tex2html_mydb_mark>#7053#$\rightarrow$
+<tex2html_mydb_mark>#7054#$L(G) = \{ a^n b^n\ :\ n \ge 0 \}$
+<tex2html_mydb_mark>#7055#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#7056#$\alpha \in (V \cup \Sigma)^*$
+<tex2html_mydb_mark>#7057#$FIRST(\alpha)$
+<tex2html_mydb_mark>#7058#$FIRST(\alpha) = \left \{ b \in \Sigma :  \alpha  \stackrel{*}{\Longrightarrow}  b \beta \right \}
+\cup N(\alpha)$
+<tex2html_mydb_mark>#7059#$N(\alpha) = \left \{ \begin{array}{ll}
+                         \left \{ \epsilon \right \}& \mbox{si $\alpha \stackrel{*}{\Longrightarrow} \epsilon$} \\
+                         \emptyset & \mbox{en otro caso} 
+                      \end{array}
+             \right.$
+<tex2html_mydb_mark>#7060#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#7061#$FOLLOW(A) = \left \{ b \in \Sigma :  \exists\ S  \stackrel{*}{\Longrightarrow}  \alpha A b \beta \right \} \cup E(A)$
+<tex2html_mydb_mark>#7062#$E(A) = \left \{ \begin{array}{ll}
+                         \{ \$  \}& \mbox{si $S \stackrel{*}{\Longrightarrow} \alpha A$} \\
+                         \emptyset & \mbox{en otro caso} 
+                      \end{array}
+             \right.$
+<tex2html_mydb_mark>#7063#$Si\ X \in \Sigma\ entonces\ FIRST(X) = {X}$
+<tex2html_mydb_mark>#7064#$Si\ X \rightarrow \epsilon\ entonces\ FIRST(X) =  FIRST(X) \cup \{ \epsilon \}$
+<tex2html_mydb_mark>#7065#$Si X \in V \ y\ X \rightarrow Y_1 Y_2 \cdots Y_k \in P\ entonces$
+<tex2html_mydb_mark>#7066#\begin{eqnarray*}
+&&i = 1; \\
+&&do\\
+&&\ \ FIRST(X) = FIRST(X) \cup FIRST(Y_i) - \{ \epsilon \};\\
+&&\ \ i++;\\
+&&mientras\ (\epsilon \in FIRST(Y_i)\ and\ (i \leq k))\\
+&&si\ (\epsilon \in FIRST(Y_k)\ and\ i > k)\ FIRST(X) = FIRST(X) \cup \{ \epsilon \}
+\end{eqnarray*}
+<tex2html_mydb_mark>#7067#$FIRST(\alpha)$
+<tex2html_mydb_mark>#7068#$\alpha = X_1 X_2 \cdots X_n \in (V \cup \Sigma)^*$
+<tex2html_mydb_mark>#7069#$FIRST(\alpha)$
+<tex2html_mydb_mark>#7070#\begin{eqnarray*}
+&&i = 1; \nonumber\\
+&&FIRST(\alpha) = \emptyset; \nonumber\\
+&&do \nonumber\\
+&&\ \ FIRST(\alpha) = FIRST(\alpha) \cup FIRST(X_i) - \{ \epsilon \}; \nonumber\\
+&&\ \ i++; \nonumber\\
+&&mientras\ (\epsilon \in FIRST(X_i)\ and\ (i \leq n)) \nonumber\\
+&&si\ (\epsilon \in FIRST(X_n)\ and\ i > n)\ FIRST(\alpha) = FIRST(X) \cup \{ \epsilon \}
+\end{eqnarray*}
+<tex2html_mydb_mark>#7071#$FOLLOW(S) = \{\$\}$
+<tex2html_mydb_mark>#7072#$Si\ A \rightarrow \alpha B \beta\ entonces$
+<tex2html_mydb_mark>#7073#\begin{displaymath}
+FOLLOW(B) =  FOLLOW(B) \cup (FIRST(\beta) - \{\epsilon\})
+\end{displaymath}
+<tex2html_mydb_mark>#7074#$Si\ A \rightarrow \alpha B$
+<tex2html_mydb_mark>#7075#$A \rightarrow \alpha B \beta$
+<tex2html_mydb_mark>#7076#$\epsilon \in FIRST(\beta)$
+<tex2html_mydb_mark>#7077#\begin{displaymath}
+FOLLOW(B) = FOLLOW(B) \cup FOLLOW(A)
+\end{displaymath}
+<tex2html_mydb_mark>#7078#$(Q, \Sigma, \delta, q_0)$
+<tex2html_mydb_mark>#7079#$\overline{\{q_0\}}$
+<tex2html_mydb_mark>#7080#$\overline{\delta(\overline{\{q_0\}},a)}$
+<tex2html_mydb_mark>#7081#$\overline{A}$
+<tex2html_mydb_mark>#7082#$\overline{A}$
+<tex2html_mydb_mark>#7083#$\overline{A} = \{ q \in Q\ /\  \exists q' \in Q\ :\ \hat{\delta}(q, \epsilon) = q \}$
+<tex2html_mydb_mark>#7084#$\hat{\delta}$
+<tex2html_mydb_mark>#7085#\begin{equation}
+\hat{\delta}(q, x) = \left \{ \begin{array}{ll}
+                         \delta(\hat{\delta}(q,y),a) & \mbox{si $x = ya$} \\
+                         q & \mbox{si $x = \epsilon$} 
+                      \end{array}
+             \right.
+\end{equation}
+<tex2html_mydb_mark>#7086#$\hat{\delta}$
+<tex2html_mydb_mark>#7087#$V \cup \Sigma$
+<tex2html_mydb_mark>#7088#$\delta_{| V \times Q} :  V \times Q \rightarrow Q$
+<tex2html_mydb_mark>#7089#$goto(i, A) = \delta(A,I_i)$
+<tex2html_mydb_mark>#7090#$\delta_{| \Sigma \times Q} :  \Sigma \times Q \rightarrow Q$
+<tex2html_mydb_mark>#7091#$\delta_{| \Sigma \times Q} :  \Sigma \times Q \rightarrow Q$
+<tex2html_mydb_mark>#7092#$action(i, a) = \delta(a,I_i)$
+<tex2html_mydb_mark>#7093#$A \rightarrow \alpha_\uparrow$
+<tex2html_mydb_mark>#7094#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#7095#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#7096#$a \in \Sigma$
+<tex2html_mydb_mark>#7097#$a \in \Sigma$
+<tex2html_mydb_mark>#7098#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#7099#$\exists S \begin{array}{c} *\\\Longrightarrow \\{\scriptstyle RM} \end{array} \beta A b x \begin{array}{c} *\\\Longrightarrow \\{\scriptstyle RM} \end{array}  
+\beta \alpha b x = \gamma$
+<tex2html_mydb_mark>#7100#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#7101#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#7102#$b \in FOLLOW(A)$
+<tex2html_mydb_mark>#7103#$G=(\Sigma,V,P,S)$
+<tex2html_mydb_mark>#7104#$(Q, V \cup \Sigma, \delta, I_0, F)$
+<tex2html_mydb_mark>#7105#$C = \left \{ I_1, I_2, \cdots I_n \right \}$
+<tex2html_mydb_mark>#7106#$goto(i,A) = \delta(I_i, A)$
+<tex2html_mydb_mark>#7107#$A \rightarrow \alpha _\uparrow a \beta \in I_i$
+<tex2html_mydb_mark>#7108#$\delta(I_i,a) = I_j$
+<tex2html_mydb_mark>#7109#$a \in \Sigma$
+<tex2html_mydb_mark>#7110#$action[i][a] = shift\ j$
+<tex2html_mydb_mark>#7111#$S' \rightarrow S_\uparrow \in I_i$
+<tex2html_mydb_mark>#7112#$action[i][\$] = accept$
+<tex2html_mydb_mark>#7113#$A \rightarrow \alpha _\uparrow \in I_i$
+<tex2html_mydb_mark>#7114#$\forall a \in\ FOLLOW(A):\ action[i][a] = reduce\ A \rightarrow \alpha$
+<tex2html_mydb_mark>#7115#$\rightarrow$
+<tex2html_mydb_mark>#7116#$\rightarrow$
+<tex2html_mydb_mark>#7117#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#7118#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#7119#$\left \{ action_1\right \}$
+<tex2html_mydb_mark>#7120#$A \rightarrow \alpha
+\beta$
+<tex2html_mydb_mark>#7121#$A \rightarrow \alpha \left \{ action_1 \right \} \beta \left \{ action_2\right \}$
+<tex2html_mydb_mark>#7122#$A \rightarrow \alpha T \beta \left \{ action_2\right \}$
+<tex2html_mydb_mark>#7123#$T \rightarrow \epsilon \left \{ action_1 \right \}$
+<tex2html_mydb_mark>#7124#$A \rightarrow X_1 \ldots X_j$
+<tex2html_mydb_mark>#7125#$X_{j+1} \ldots X_n$
+<tex2html_mydb_mark>#7126#$X_{j+1} \ldots X_n$
+<tex2html_mydb_mark>#7127#$X_{j+1} \ldots X_n$
+<tex2html_mydb_mark>#7128#$G = (V, \Sigma, P, S)$
+<tex2html_mydb_mark>#7129#$S \in V \cup \Sigma$
+<tex2html_mydb_mark>#7130#$A \rightarrow X_1 X_2 \ldots X_n \in P$
+<tex2html_mydb_mark>#7131#$X \in V \cup \Sigma$
+<tex2html_mydb_mark>#7132#$A \rightarrow X_1 \ldots X_n$
+<tex2html_mydb_mark>#7133#$X_m \ldots X_1 X_0 Y_1 \ldots  Y_n a_1 \ldots a_0$
+<tex2html_mydb_mark>#7134#$B \rightarrow Y_1 \ldots  Y_n$
+<tex2html_mydb_mark>#7135#$a_1 \ldots a_0$
+<tex2html_mydb_mark>#7136#$\rightarrow$
+<tex2html_mydb_mark>#7137#$\rightarrow$
+<tex2html_mydb_mark>#7138#$\rightarrow$
+<tex2html_mydb_mark>#7139#$\rightarrow$
+<tex2html_mydb_mark>#7140#$\rightarrow$
+<tex2html_mydb_mark>#7141#$\rightarrow$
+<tex2html_mydb_mark>#7142#$\rightarrow$
+<tex2html_mydb_mark>#7143#$\rightarrow$
+<tex2html_mydb_mark>#7144#$\Longrightarrow$
+<tex2html_mydb_mark>#7145#$\Longrightarrow$
+<tex2html_mydb_mark>#7146#$\Longrightarrow$
+<tex2html_mydb_mark>#7147#$\Longrightarrow$
+<tex2html_mydb_mark>#7148#$\Longrightarrow$
+<tex2html_mydb_mark>#7149#$\Longrightarrow$
+<tex2html_mydb_mark>#7150#$\Longrightarrow$
+<tex2html_mydb_mark>#7151#$\Longleftarrow$
+<tex2html_mydb_mark>#7152#$\Longleftarrow$
+<tex2html_mydb_mark>#7153#$\Longleftarrow$
+<tex2html_mydb_mark>#7154#$\Longleftarrow$
+<tex2html_mydb_mark>#7155#$\Longleftarrow$
+<tex2html_mydb_mark>#7156#$\Longleftarrow$
+<tex2html_mydb_mark>#7157#$\Longleftarrow$
+<tex2html_mydb_mark>#7158#$\rightarrow$
+<tex2html_mydb_mark>#7159#$\rightarrow$
+<tex2html_mydb_mark>#7160#$\Longleftarrow$
+<tex2html_mydb_mark>#7161#$\Longleftarrow$
+<tex2html_mydb_mark>#7162#$\Longleftarrow$
+<tex2html_mydb_mark>#7163#$\rightarrow$
+<tex2html_mydb_mark>#7164#$\rightarrow$
+<tex2html_mydb_mark>#7165#$\rightarrow$
+<tex2html_mydb_mark>#7166#$\rightarrow$
+<tex2html_mydb_mark>#7167#$\rightarrow$
+<tex2html_mydb_mark>#7168#$\rightarrow$
+<tex2html_mydb_mark>#7169#$\rightarrow$
+<tex2html_mydb_mark>#7170#$\rightarrow$
+<tex2html_mydb_mark>#7171#$\rightarrow$
+<tex2html_mydb_mark>#7172#$\rightarrow$
+<tex2html_mydb_mark>#7173#$\rightarrow$
+<tex2html_mydb_mark>#7174#$\rightarrow$
+<tex2html_mydb_mark>#7175#$\rightarrow \epsilon$
+<tex2html_mydb_mark>#7176#$\rightarrow$
+<tex2html_mydb_mark>#7177#$A \rightarrow \alpha_\uparrow$
+<tex2html_mydb_mark>#7178#$B \rightarrow \beta_\uparrow \gamma$
+<tex2html_mydb_mark>#7179#$a \in FOLLOW(A)$
+<tex2html_mydb_mark>#7180#$a \in FIRST(\gamma)$
+<tex2html_mydb_mark>#7181#$A \rightarrow \alpha_\uparrow$
+<tex2html_mydb_mark>#7182#$B \rightarrow \beta_\uparrow \gamma$
+<tex2html_mydb_mark>#7183#$a \in FOLLOW(A) \cap FIRST(\gamma)$
+<tex2html_mydb_mark>#7184#$FOLLOW(A) \cap FIRST(\gamma)$
+<tex2html_mydb_mark>#7185#$B \rightarrow \beta_\uparrow \gamma$
+<tex2html_mydb_mark>#7186#$A \rightarrow \alpha_\uparrow$
+<tex2html_mydb_mark>#7187#$\rightarrow$
+<tex2html_mydb_mark>#7188#$\rightarrow$
+<tex2html_mydb_mark>#7189#$\rightarrow$
+<tex2html_mydb_mark>#7190#$\rightarrow$
+<tex2html_mydb_mark>#7191#$\rightarrow$
+<tex2html_mydb_mark>#7192#$\rightarrow$
+<tex2html_mydb_mark>#7193#$\rightarrow$
+<tex2html_mydb_mark>#7194#$\rightarrow$
+<tex2html_mydb_mark>#7195#$\rightarrow$
+<tex2html_mydb_mark>#7196#$\rightarrow$
+<tex2html_mydb_mark>#7197#$\rightarrow$
+<tex2html_mydb_mark>#7198#$\rightarrow$
+<tex2html_mydb_mark>#7199#$\rightarrow$
+<tex2html_mydb_mark>#7200#$\rightarrow$
+<tex2html_mydb_mark>#7201#$\rightarrow$
+<tex2html_mydb_mark>#7202#$\rightarrow$
+<tex2html_mydb_mark>#7203#$\rightarrow$
+<tex2html_mydb_mark>#7204#$\rightarrow$
+<tex2html_mydb_mark>#7205#$List \rightarrow \epsilon$
+<tex2html_mydb_mark>#7206#$list \rightarrow list\ expr$
+<tex2html_mydb_mark>#7207#$A \rightarrow \alpha$
+<tex2html_mydb_mark>#7208#$\rightarrow$
+<tex2html_mydb_mark>#7209#$\rightarrow \alpha$
+<tex2html_mydb_mark>#7210#$\rightarrow \alpha$
+<tex2html_mydb_mark>#7211#$\left \{ action_1\right \}$
+<tex2html_mydb_mark>#7212#$A \rightarrow \alpha
+\beta$
+<tex2html_mydb_mark>#7213#$A \rightarrow \alpha \left \{ action_1 \right \} \beta \left \{ action_2\right \}$
+<tex2html_mydb_mark>#7214#$A \rightarrow \alpha T \beta \left \{ action_2\right \}$
+<tex2html_mydb_mark>#7215#$T \rightarrow \epsilon \left \{ action_1 \right \}$
+<tex2html_mydb_mark>#7216#$t_1 \rightarrow \epsilon$
+<tex2html_mydb_mark>#7217#$t_2 \rightarrow \epsilon$
+<tex2html_mydb_mark>#7218#$s \rightarrow x t_1 s$
+<tex2html_mydb_mark>#7219#$x \rightarrow A t_2 x$
+<tex2html_mydb_mark>#7220#$\rightarrow$
+<tex2html_mydb_mark>#7221#$\rightarrow$
+<tex2html_mydb_mark>#7222#$\rightarrow$
+<tex2html_mydb_mark>#7223#$\rightarrow$
+<tex2html_mydb_mark>#7224#$FOLLOW(\verb|$$2|)$
+<tex2html_mydb_mark>#7225#$\rightarrow$
+<tex2html_mydb_mark>#7226#$\rightarrow$
+<tex2html_mydb_mark>#7227#\begin{math}
+\begin{array}{lll}
+Construct         & EBNF & yacc\ input\\
+\hline
+optional\ sequence & x:\{y\}   & \verb|x : /* null */             |\\
+                   &           & \verb|  | x y  { yyerrok; }      |\\
+                   &           & \verb|  | x error                |\\
+\hline
+sequence          & x:y\{y\}  & \verb|x : y                      |\\
+                  &           & \verb|  | xy   { yyerrok; }      |\\
+                &           & \verb|  | error                  |\\
+                &           & \verb|  | x error                |\\
+\hline
+list              & x:y\{Ty\} & \verb|x : y                       |\\
+                  &           & \verb|  | x T y { yyerrok; }      |\\
+                &           & \verb|  | error                   |\\
+                &           & \verb|  | x error                 |\\
+                &           & \verb|  | x error y { yyerrok; }  |\\
+                &           & \verb|  | x  T error              |\\
+\hline
+\end{array}
+\end{math}

@@ -1,0 +1,94 @@
+\subsection{Preguntas de Repaso de
+Karma}\label{preguntas-de-repaso-de-karma}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Explique como funciona Karma
+\item
+  ¿Con que comando puedo crear el fichero de configuración de Karma?
+\item
+  ¿Que debemos poner en la entrada \texttt{frameworks} de karma para el
+  ejemplo de la temperatura?
+
+\begin{verbatim}
+    frameworks: ['_____'],
+\end{verbatim}
+\item
+  La librería/plugin \texttt{karma-mocha} provee el adapter de Karma
+  para Mocha. ¿Como le pasamos opciones para configurar Mocha desde
+  Karma? Rellene las partes que faltan:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{client: \{}
+  \DataTypeTok{args}\NormalTok{: [}\StringTok{'--grep'}\NormalTok{, }\StringTok{'pattern'}\NormalTok{], }\CommentTok{// solo pruebas que casan con pattern}
+  \DataTypeTok{mocha}\NormalTok{: \{}
+    \DataTypeTok{__}\NormalTok{: }\StringTok{'___'}
+  \NormalTok{\}}
+\NormalTok{\},}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\item
+  Explique que debe ponerse (y que no) en la sección \texttt{files} del
+  fichero de configuración de Karma ¿Donde son cargados dichos
+  ficheros?:
+
+\begin{verbatim}
+    files: [ ... ],
+\end{verbatim}
+\item
+  Los preprocesadores en Karma nos permiten procesar los ficheros en
+  \texttt{files} antes de que sean cargados en el navegador.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+          \NormalTok{preprocessors = \{}
+            \StringTok{'**/*.coffee'}\NormalTok{: }\StringTok{'coffee'}\NormalTok{,}
+            \StringTok{'**/*.html'}\NormalTok{: }\StringTok{'html2js'}
+          \NormalTok{\};}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+¿Que hace el preprocesador `html2js`? ¿Que hace el preprocesador
+`coffee`?
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Complete la función \texttt{setup} de las pruebas de la práctica de la
+  temperatura con Mocha, Chai y Karma:
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{setup}\NormalTok{(}\KeywordTok{function}\NormalTok{()\{}
+  \KeywordTok{if} \NormalTok{(}\KeywordTok{typeof} \NormalTok{________ !== }\StringTok{'undefined'}\NormalTok{) \{}
+      \OtherTok{document}\NormalTok{.}\OtherTok{body}\NormalTok{.}\FunctionTok{innerHTML} \NormalTok{= ________[}\StringTok{'tests/test.html'}\NormalTok{];}
+      \NormalTok{original = }\OtherTok{document}\NormalTok{.}\FunctionTok{______________}\NormalTok{(}\StringTok{'original'}\NormalTok{);}
+      \NormalTok{converted = }\OtherTok{document}\NormalTok{.}\FunctionTok{______________}\NormalTok{(}\StringTok{'converted'}\NormalTok{);}
+  \NormalTok{\}}
+\NormalTok{\});}
+\end{Highlighting}
+\end{Shaded}
+
+¿Como se llama la variable en la que se guardan los HTML de los ficheros
+cargados en los navegadores?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{7}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  ¿Que es PhantomJS? ¿Como funciona?
+\end{enumerate}

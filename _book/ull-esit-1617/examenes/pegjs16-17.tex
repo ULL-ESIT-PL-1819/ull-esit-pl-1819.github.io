@@ -1,0 +1,39 @@
+\subsubsection{Ejercicios sobre PEGs}\label{ejercicios-sobre-pegs}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Escriba un PEGJS que traduzca secuencias de expresiones aritméticas
+  (asignaciones, sumas, restas, productos, divisiones, paréntesis,
+  números y variables) separadas por dos puntos a JavaScript. Debe
+  respetar la precedencia y asociatividad naturales. Una secuencia de
+  expresiones como
+
+\begin{verbatim}
+b <- 5:
+c <- 2:
+a <- 4*b+c:
+b+c+a 
+\end{verbatim}
+
+  se debería traducir como:
+
+\begin{verbatim}
+let $a,$b,$c;
+$b = 5;
+$c = 2;
+$a = 4*$b+$c;
+$b+$c+$a
+\end{verbatim}
+\end{enumerate}
+
+\subsubsection{Ejercicios sobre Analizadores
+Predictivos}\label{ejercicios-sobre-analizadores-predictivos}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Construya un traductor como el descrito en el ejemplo anterior usando
+  un analizador sintáctico descendente predictivo recursivo
+\end{enumerate}

@@ -1,0 +1,51 @@
+
+<H1><A NAME="SECTION05760000000000000000"><tex2html_anchor_invisible_mark></A>
+<A NAME="section:algoritmoLR"><tex2html_anchor_mark></A><BR>
+Algoritmo de Análisis LR
+</H1>
+Asi  pues la tabla de transiciones del autómata nos genera dos tablas:
+la tabla de acciones y la de saltos.
+El  algoritmo  de análisis sintáctico <SPAN  CLASS="textbf">LR</SPAN> en el  que 
+se basa <SPAN  CLASS="textbf">jison</SPAN> utiliza una pila y dos tablas 
+para analizar la entrada. <tex2html_comment_mark>5704
+Como se ha visto, la tabla  de acciones contiene cuatro tipo de acciones: 
+
+<OL>
+<LI>Desplazar (<SPAN  CLASS="textbf">shift</SPAN>)
+</LI>
+<LI>Reducir (<SPAN  CLASS="textbf">reduce</SPAN>)
+</LI>
+<LI>Aceptar
+</LI>
+<LI>Error
+</LI>
+</OL>
+El algoritmo utiliza una pila en la que se guardan los estados
+del autómata. De este modo se evita tener que ``comenzar'' 
+el procesado de la forma sentencial derecha resultante
+después de una reducción (antiderivación).
+<P><DIV><A NAME="alg:parser"><#36672#><B>Algoritmo  <SPAN CLASS="arabic">34</SPAN>.<SPAN CLASS="arabic">6</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#36672#></A> &nbsp; 
+<#36675#><I>Análizador LR
+</I><PRE><tex2html_verbatim_mark>verbatim5735#</PRE><I></I><#36675#></DIV><P></P>
+
+Como es habitual, <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36677#</SPAN>
+<tex2html_verbatim_mark>mathend000# denota la longitud de la cadena <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36679#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+La función <tex2html_verb_mark>2109<tex2html_verb_mark> devuelve el elemento que ocupa la 
+posición <tex2html_verb_mark>2110<tex2html_verb_mark> desde el <SPAN  CLASS="textbf">top</SPAN> de la pila (esto es, está a profundidad <tex2html_verb_mark>2111<tex2html_verb_mark>).
+La función <tex2html_verb_mark>2112<tex2html_verb_mark> extrae <tex2html_verb_mark>2113<tex2html_verb_mark> elementos de la pila.
+La notación <tex2html_verb_mark>2114<tex2html_verb_mark> hace referencia al atributo
+asociado con cada estado. Denotamos por <tex2html_verb_mark>2115<tex2html_verb_mark>
+el código de la acción asociada con la regla <tex2html_verbatim_mark>#math6993#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline36681#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+Todos los analizadores LR comparten, salvo pequeñas
+exepciones, el mismo algoritmo
+de análisis. Lo que más los diferencia es la forma en 
+la que construyen las tablas.
+En <tex2html_verb_mark>2116<tex2html_verb_mark>
+la construcción de las tablas de <SPAN  CLASS="textbf">acciones</SPAN> y <SPAN  CLASS="textbf">gotos</SPAN>
+se realiza mediante el algoritmo <SPAN  CLASS="textbf">LALR</SPAN>.
+
+<P>

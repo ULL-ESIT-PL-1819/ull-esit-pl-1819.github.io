@@ -1,0 +1,347 @@
+\subsection{Introducción}
+
+\begin{verbatim}
+[~/javascript/node.js/creating_modules(master)]$ cat foo.js 
+var circle = require('./circle.js');
+console.log( 'The area of a circle of radius 4 is '
+           + circle.area(4));
+\end{verbatim}
+
+\begin{verbatim}
+[~/javascript/node.js/creating_modules(master)]$ cat circle.js 
+var PI = Math.PI;
+
+exports.area = function (r) {
+  return PI * r * r;
+};
+
+exports.circumference = function (r) {
+  return 2 * PI * r;
+};
+\end{verbatim}
+
+\begin{verbatim}
+[~/javascript/node.js/creating_modules(master)]$ node foo.js The area of a circle of radius 4 is 50.26548245743669
+\end{verbatim}
+
+El módulo \verb|circle.js| exporta las funciones \verb|area()| 
+y \verb|circumference()|. Para exportar un objeto lo añadimos 
+al objeto expecial \verb|exports|.
+
+Las variables locales al módulo serán privadas.
+En este ejemplo la variable \verb|PI| es privada a \verb|circle.js|.
+
+\begin{verbatim}
+[~/javascript/node.js/creating_modules(master)]$ node debug foo.js 
+< debugger listening on port 5858
+connecting... ok
+break in foo.js:1
+  1 var circle = require('./circle.js');
+  2 console.log( 'The area of a circle of radius 4 is '
+  3            + circle.area(4));
+debug> n
+break in foo.js:2
+  1 var circle = require('./circle.js');
+  2 console.log( 'The area of a circle of radius 4 is '
+  3            + circle.area(4));
+  4 
+debug> repl
+Press Ctrl + C to leave debug repl
+> circle
+{ circumference: [Function],
+  area: [Function] }
+> circle.area(2)
+12.566370614359172
+> PI
+ReferenceError: PI is not defined
+> 
+\end{verbatim}
+
+\subsection{Ciclos}
+
+\begin{verbatim}
+[~/javascript/node.js/creating_modules/cycles(master)]$ cat a.js
+console.log('a starting');
+exports.done = false;
+var b = require('./b.js');
+console.log('in a, b.done = %j', b.done);
+exports.done = true;
+console.log('a done');
+\end{verbatim}
+
+\begin{verbatim}
+[~/javascript/node.js/creating_modules/cycles(master)]$ cat b.js
+console.log('b starting');
+exports.done = false;
+var a = require('./a.js');
+console.log('in b, a.done = %j', a.done);
+exports.done = true;
+console.log('b done');
+\end{verbatim}
+
+\begin{verbatim}
+[~/javascript/node.js/creating_modules/cycles(master)]$ cat main.js
+console.log('main starting');
+var a = require('./a.js');
+var b = require('./b.js');
+console.log('in main, a.done=%j, b.done=%j', a.done, b.done);
+\end{verbatim}
+When \verb|main.js| loads \verb|a.js|, then \verb|a.js| in turn loads
+\verb|b.js|. At that point, \verb|b.js| tries to load \verb|a.js|. In
+order to prevent an infinite loop an unfinished copy of the \verb|a.js|
+exports object is returned to the \verb|b.js| module. \verb|b.js| then
+finishes loading, and its exports object is provided to the \verb|a.js|
+module.
+
+By the time \verb|main.js| has loaded both modules, they're both finished. The
+output of this program would thus be:
+
+\begin{verbatim}
+[~/javascript/node.js/creating_modules/cycles(master)]$ node main.js 
+main starting
+a starting
+b starting
+in b, a.done = false
+b done
+in a, b.done = true
+a done
+in main, a.done=true, b.done=true
+\end{verbatim}
+
+\subsection{Especificación de Ficheros Conteniendo Módulos}
+
+\begin{enumerate}
+\item If the exact filename is not found, then node will attempt to
+load the required filename with the added extension of \verb|.js|,
+\verb|.json|, and then \verb|.node|.
+
+\item
+\verb|.js| files are interpreted as JavaScript text files, and \verb|.json| files are parsed as JSON text files. \verb|.node| files are interpreted as compiled addon modules 
+
+\item
+A module prefixed with \verb|'/'| is an absolute path to the file. For example,
+\verb|require('/home/marco/foo.js')| will load the file at \verb|/home/marco/foo.js|.
+
+\item
+A module prefixed with \verb|'./'| is relative to the file calling require(). 
+
+\item
+Without a leading verb|'/'| or \verb|'./'| to indicate a file, the module is either a 
+\cei{core module} or is loaded from a \verb|node_modules| folder.
+
+\item
+If the given path does not exist, \verb|require()| 
+will throw an Error with its code property set to \verb'MODULE_NOT_FOUND'.
+\end{enumerate}
+
+\subsection{Carga desde Carpetas {\tt node\_modules}}
+
+\begin{enumerate}
+\item
+If the module identifier passed to \verb|require()| is not a native module,
+and does not begin with \verb|'/'|, \verb|'../'|, or \verb|'./'|, then node starts at the
+parent directory of the current module, and adds \verb|/node_mo1dules|, and
+attempts to load the module from that location.
+
+\item
+If it is not found there, then it moves to the parent directory, and so
+on, until the root of the tree is reached.
+\end{enumerate}
+
+For example, if the file at \verb|'/home/ry/projects/foo.js'| called
+require(\verb|'bar.js'|), then node would look in the following locations,
+in this order:
+
+\begin{verbatim}
+/home/ry/projects/node_modules/bar.js
+/home/ry/node_modules/bar.js
+/home/node_modules/bar.js
+/node_modules/bar.js
+\end{verbatim}
+
+This allows programs to localize their dependencies, so that they do not clash.
+
+\subsection{Las Carpetas Usadas Como Módulos}
+It is convenient to organize programs and libraries into self-contained
+directories, and then provide a single entry point to that library. 
+
+There
+are a few ways in which a folder may be passed to \verb|require()| as an
+argument.
+
+\begin{enumerate}
+\item
+The first is to create a \verb|package.json| file in the root of the
+folder, which specifies a \verb|main| module. 
+An example \verb|package.json| file
+might look like this:
+
+\begin{verbatim}
+{ "name" : "some-library",
+  "main" : "./lib/some-library.js" }
+\end{verbatim}
+
+If this was in a folder at 
+\verb|./some-library|, then \verb|require('./some-library')| would attempt
+to load \verb|./some-library/lib/some-library.js|.
+
+This is the extent of Node's awareness of \verb|package.json| files.
+
+\item
+If there is no \verb|package.json| 
+file present in the directory, then node will
+attempt to load an 
+\verb|index.js| or
+\verb|index.node| 
+file out of that directory. 
+
+For
+example, if there was no 
+\verb|package.json| file in the above example, then
+\verb|require('./some-library')| would attempt to load:
+
+\begin{verbatim}
+./some-library/index.js
+./some-library/index.node
+\end{verbatim}
+
+\end{enumerate}
+
+\subsection{Caching}
+
+\begin{enumerate}
+\item
+Modules are cached after the first time they are loaded. This means
+(among other things) that every call to \verb|require('foo')| will get exactly
+the same object returned, if it would resolve to the same file.
+
+\item
+Multiple calls to \verb|require('foo')| may not cause the module code
+to be executed multiple times. This is an important feature. With it,
+\cei{partially done} objects can be returned, thus allowing transitive
+dependencies to be loaded even when they would cause cycles.
+
+\item
+If you want to have a module execute code multiple times, then export
+a function, and call that function.
+
+\item
+Modules are cached based on their {\bf resolved filename}. Since modules may
+resolve to a different filename based on the location of the calling
+module (loading from \verb|node_modules folders|), it is not a guarantee that
+\verb|require('foo')| will always return the exact same object, if it would
+resolve to different files.
+
+\end{enumerate}
+
+\subsection{El Objeto {\tt module} y {\tt module.exports}}
+
+\begin{enumerate}
+\item
+In each module, the \verb|module| free variable is a reference to the object
+representing the current module. 
+
+\item
+In particular \verb|module.exports| is the
+same as the exports object. 
+
+\item
+\verb|module| isn't actually a global but rather
+local to each module.
+
+\item
+The exports object is created by the \verb|Module| system. 
+Sometimes this is not acceptable, 
+many want their module to be an instance of some class. 
+To do this assign the desired export object to \verb|module.exports|. 
+
+\begin{itemize}
+\item
+\begin{verbatim}
+[~/javascript/node.js/creating_modules/module_exports(master)]$ cat a.js
+var EventEmitter = require('events').EventEmitter;
+
+module.exports = new EventEmitter();
+
+// Do some work, and after some time emit
+// the 'ready' event from the module itself.
+setTimeout(function() {
+  module.exports.emit('ready');
+}, 1000);
+\end{verbatim}
+
+\item
+\begin{verbatim}
+$ cat main.js 
+var a = require('./a');
+a.on('ready', function() {
+  console.log('module a is ready');
+});
+\end{verbatim}
+\item
+\begin{verbatim}
+$ node main.js 
+module a is ready
+\end{verbatim}
+\end{itemize}
+La asignación a \verb|module.exports| debe hacerse inmediatamente. 
+No puede hacerse en un callback.
+
+\end{enumerate}
+
+\subsection{Algoritmo de Búsqueda Ejecutado por {\tt require}}
+
+\parrafo{require(X) from module at path Y}
+\begin{enumerate}
+\item If X is a core module,
+\begin{enumerate}
+  \item return the core module
+  \item STOP
+\end{enumerate}
+\item If X begins with './' or '/' or '../'
+\begin{enumerate}
+  \item \verb|LOAD_AS_FILE(Y + X)|
+  \item \verb|LOAD_AS_DIRECTORY(Y + X)|
+\end{enumerate}
+\item \verb|LOAD_NODE_MODULES(X, dirname(Y))|
+\item THROW "not found"
+\end{enumerate}
+
+\parrafo{LOAD\_AS\_FILE(X)}
+\begin{enumerate}
+\item If X is a file, load X as JavaScript text.  STOP
+\item If X.js is a file, load X.js as JavaScript text.  STOP
+\item If X.node is a file, load X.node as binary addon.  STOP
+\end{enumerate}
+
+\parrafo{LOAD\_AS\_DIRECTORY(X)}
+\begin{enumerate}
+\item If X/package.json is a file,
+   a. Parse X/package.json, and look for "main" field.
+   b. let M = X + (json main field)
+   c. \verb|LOAD_AS_FILE(M)|
+\item If X/index.js is a file, load X/index.js as JavaScript text.  STOP
+\item If X/index.node is a file, load X/index.node as binary addon.  STOP
+\end{enumerate}
+
+\parrafo{LOAD\_NODE\_MODULES(X, START)}
+\begin{enumerate}
+\item let \verb|DIRS=NODE_MODULES_PATHS(START)|
+\item for each DIR in DIRS:
+   a. \verb|LOAD_AS_FILE(DIR/X)|
+   b. \verb|LOAD_AS_DIRECTORY(DIR/X)|
+\end{enumerate}
+
+\parrafo{NODE\_MODULES\_PATHS(START)}
+\begin{enumerate}
+\item let PARTS = path split(START)
+\item let ROOT = index of first instance of "node\_modules" in PARTS, or 0
+\item let I = count of PARTS - 1
+\item let DIRS = []
+\item while I > ROOT,
+   a. if PARTS[I] = "node\_modules" CONTINUE
+   c. DIR = path join(PARTS[0 .. I] + "node\_modules")
+   b. DIRS = DIRS + DIR
+   c. let I = I - 1
+\item return DIRS
+\end{enumerate}

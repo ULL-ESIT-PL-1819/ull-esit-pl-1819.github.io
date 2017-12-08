@@ -1,0 +1,21 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}jQuery}{1}{section.1}
+\contentsline {section}{\numberline {2}Underscore}{2}{section.2}
+\contentsline {section}{\numberline {3}localStorage}{3}{section.3}
+\contentsline {section}{\numberline {4}Heroku}{3}{section.4}
+\contentsline {section}{\numberline {5}ECMA6}{4}{section.5}
+\contentsline {section}{\numberline {6}Mongo y Mongoose}{4}{section.6}
+\contentsline {section}{\numberline {7}EJS}{5}{section.7}
+\contentsline {section}{\numberline {8}Jade}{5}{section.8}
+\contentsline {section}{\numberline {9}SASS}{6}{section.9}
+\contentsline {section}{\numberline {10}Expresiones Regulares}{6}{section.10}
+\contentsline {section}{\numberline {11}JSON}{8}{section.11}
+\contentsline {section}{\numberline {12}OOP}{8}{section.12}
+\contentsline {section}{\numberline {13}Code Smelling}{8}{section.13}
+\contentsline {section}{\numberline {14}HTML}{8}{section.14}
+\contentsline {section}{\numberline {15}CSS}{8}{section.15}
+\contentsline {section}{\numberline {16}Mocha, Chai}{9}{section.16}
+\contentsline {section}{\numberline {17}Gulp}{10}{section.17}
+\contentsline {section}{\numberline {18}npm y package.json}{10}{section.18}
+\contentsline {section}{\numberline {19}Karma}{11}{section.19}
+\contentsline {section}{\numberline {20}Ajax}{12}{section.20}

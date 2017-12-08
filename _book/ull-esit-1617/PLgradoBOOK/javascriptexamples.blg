@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: javascriptexamples.aux
+The style file: unsrt.bst
+Database file #1: perlbib/ruby.bib
+Warning--I didn't find a database entry for "scott"
+Warning--I didn't find a database entry for "bestpractices"
+You've used 11 entries,
+            1791 wiz_defined-function locations,
+            508 strings with 4914 characters,
+and the built_in function-call counts, 1842 in all, are:
+= -- 156
+> -- 77
+< -- 0
++ -- 32
+- -- 21
+* -- 63
+:= -- 311
+add.period$ -- 38
+call.type$ -- 11
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 11
+duplicate$ -- 110
+empty$ -- 210
+format.name$ -- 21
+if$ -- 433
+int.to.chr$ -- 0
+int.to.str$ -- 11
+missing$ -- 22
+newline$ -- 59
+num.names$ -- 11
+pop$ -- 65
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 23
+stack$ -- 0
+substring$ -- 0
+swap$ -- 11
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 11
+width$ -- 13
+write$ -- 121
+(There were 2 warnings)

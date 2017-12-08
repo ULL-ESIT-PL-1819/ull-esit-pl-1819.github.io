@@ -1,0 +1,39 @@
+
+<H1><A NAME="SECTION05330000000000000000">
+Trasferencia de Control Condicional</A>
+</H1>
+La sintaxis de la orden <#3142#><I>t</I><#3142#> es:
+<DIV ALIGN="CENTER">
+<#3144#><I>[address1][,address2]t[label]</I><#3144#> 
+</DIV>
+Si la sustitución tiene éxito, se bifurca a <#3146#><I>label</I><#3146#>, Si la etiqueta no se especifica, 
+se salta al final del <#3147#><I>script</I><#3147#>.
+<BR>Consideremos el siguiente fichero de entrada:
+<PRE><tex2html_verbatim_mark>verbatim706#</PRE>
+Se asume que siempre que figura el teléfono se ha puesto la dirección y que si está
+la dirección se ha escrito el nombre. Se pretenden rellenar las líneas con un campo por defecto:
+<PRE><tex2html_verbatim_mark>verbatim707#</PRE>
+Esta es la llamada al script y la salida generada:
+<PRE><tex2html_verbatim_mark>verbatim708#</PRE>
+
+<P>
+<SPAN  CLASS="textit">Ejemplo:</SPAN>
+
+<P>
+El fichero de entrada es un <SPAN  CLASS="textit">folder</SPAN> de 
+
+...
+<PRE><tex2html_verbatim_mark>verbatim709#</PRE>
+...
+
+<P>
+Se trata de escribir un script que produzca como salida los <SPAN  CLASS="textit">emails</SPAN>
+de los diferentes alumnos. Esta es una solución (suponemos que el <SPAN  CLASS="textit">script</SPAN> se llama con la opción <PRE><tex2html_verbatim_mark>verbatim710#</PRE>
+
+<P>
+Una característica no comentada y observada en algunos <tex2html_verb_mark>462<tex2html_verb_mark>, incluyendo 
+la versión Linux, es que, si existen varias sustituciones consecutivas antes de la
+sentencia de transferencia de control, basta con que una tenga éxito para que el salto
+se realice. 
+
+<P>

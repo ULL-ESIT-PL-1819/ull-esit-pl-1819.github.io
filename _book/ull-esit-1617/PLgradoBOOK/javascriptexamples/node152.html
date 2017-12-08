@@ -1,0 +1,469 @@
+
+<H1><A NAME="SECTION056150000000000000000">
+Generación de Código: Máquina Basada en Registros</A>
+</H1>
+La máquina orientada a pila para la que generamos código en la sección
+<A HREF=<tex2html_cr_mark>#section:pila#11642><tex2html_cr_mark></A>
+es un ejemplo de la clase de máquinas que es usada por la mayoría 
+de los lenguajes interpretados: Perl, Python; java, etc.
+
+<P>
+En esta sección introduciremos una máquina basada en registros.
+Suponemos que la máquina tiene <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35801#</SPAN>
+<tex2html_verbatim_mark>mathend000# registros <tex2html_verbatim_mark>#math6829#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35803#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+Las instrucciones toman dos argumentos, dejando el resultado en
+el primer argumento. Son las siguientes:
+
+<P>
+<BR>
+<BR>
+<TABLE CELLPADDING=3>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>2014<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35805#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>2015<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35807#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>2016<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35809#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>2017<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6830#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35811#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>2018<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT"><tex2html_verbatim_mark>#math6831#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35813#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT"><tex2html_verb_mark>2019<tex2html_verb_mark></TD>
+<TD ALIGN="LEFT"><SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35815#</SPAN>
+<tex2html_verbatim_mark>mathend000#</TD>
+</TR>
+<TR><TD ALIGN="LEFT">...</TD>
+<TD ALIGN="LEFT">...</TD>
+</TR>
+</TABLE>
+
+<P>
+El problema es generar el código con el menor número 
+de instrucciones posible, teniendo 
+en cuenta la limitación existente de registros.
+
+<P>
+Supongamos que queremos traducir un subárbol
+<tex2html_verbatim_mark>#math6832#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35831#</SPAN>
+<tex2html_verbatim_mark>mathend000# y que la traducción del subárbol <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35833#</SPAN>
+<tex2html_verbatim_mark>mathend000# requiere <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35835#</SPAN>
+<tex2html_verbatim_mark>mathend000# registros
+y que la traducción de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35837#</SPAN>
+<tex2html_verbatim_mark>mathend000# requiere <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35839#</SPAN>
+<tex2html_verbatim_mark>mathend000# registros, con <tex2html_verbatim_mark>#math6833#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35841#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+Si realizamos primero la evaluación de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35843#</SPAN>
+<tex2html_verbatim_mark>mathend000#, debemos dejar el 
+resultado en un registro que no podrá ser utilizado en la evaluación de 
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35845#</SPAN>
+<tex2html_verbatim_mark>mathend000#. Si <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35847#</SPAN>
+<tex2html_verbatim_mark>mathend000#, la evaluación de <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35849#</SPAN>
+<tex2html_verbatim_mark>mathend000# podría dar lugar 
+a la necesidad de recurrir a almacenamiento temporal.
+Esta situación no se da si evaluamos primero <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35851#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+En tal caso, dado que hay un registro en el que se guarda el resultado de
+<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35853#</SPAN>
+<tex2html_verbatim_mark>mathend000#, quedan libres al menos <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35855#</SPAN>
+<tex2html_verbatim_mark>mathend000# registros. 
+Como <tex2html_verbatim_mark>#math6834#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35857#</SPAN>
+<tex2html_verbatim_mark>mathend000# se sigue que tenemos suficientes registros
+para traducir <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35859#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+Como regla general es mejor evaluar primero el subárbol
+que mayores requerimientos de registros tiene.
+
+<P>
+La siguiente cuestión es como calcular los requerimientos en registros
+de una expresión dada. No consideraremos en esta fase límites en el número de 
+registros disponibles. Obsérvese que si los requerimientos para los subárboles
+son distintos, <tex2html_verbatim_mark>#math6835#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35861#</SPAN>
+<tex2html_verbatim_mark>mathend000# la traducción puede realizarse usando 
+el máximo de ambos <tex2html_verbatim_mark>#math6836#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35863#</SPAN>
+<tex2html_verbatim_mark>mathend000# siguiendo la estrategia 
+de traducir primero el que mayores requerimentos tenga. 
+Si son iguales entonces se necesitan <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35865#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+registros ya que es necesario un registro para guardar el resultado de
+la primera traducción. 
+
+<P>
+Nótese que, como el juego de instrucciones
+para un operando  puede tener como segundo argumento una dirección de memoria,
+los ``segundos operandos'' no necesitan registro. Por ejemplo, 
+el árbol  <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35867#</SPAN>
+<tex2html_verbatim_mark>mathend000# se traduce por 
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5646#</PRE>
+
+<P>
+Asi <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35869#</SPAN>
+<tex2html_verbatim_mark>mathend000# no requiere registro, mientras que <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35871#</SPAN>
+<tex2html_verbatim_mark>mathend000# si lo requiere. Por tanto, las 
+hojas izquierdas requieren de registro mientras que las hojas derechas no.
+
+<P>
+Si <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35873#</SPAN>
+<tex2html_verbatim_mark>mathend000# es un nodo de la forma
+<tex2html_verbatim_mark>#math6837#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35875#</SPAN>
+<tex2html_verbatim_mark>mathend000# el número de registros <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35877#</SPAN>
+<tex2html_verbatim_mark>mathend000# requeridos por <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35879#</SPAN>
+<tex2html_verbatim_mark>mathend000# viene dado por 
+la fórmula:
+
+<P>
+<BR>
+<BR>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6838#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35881#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+<BR>
+<BR>
+
+<P>
+Dotaremos a cada nodo del AST de un método <tex2html_verb_mark>2020<tex2html_verb_mark>
+que computa la demanda en registros de dicho nodo. 
+Lo que haremos es introducir en la clase <tex2html_verb_mark>2021<tex2html_verb_mark> de la cual heredan
+las operaciones binarias el correspondiente método <tex2html_verb_mark>2022<tex2html_verb_mark>:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5647#</PRE>
+
+<P>
+El segundo argumento que recibe <tex2html_verb_mark>2023<tex2html_verb_mark> es 
+su posición (izquierda o derecha) entre los hijos de su padre.
+dicha información no es usada en los nodos binarios. 
+Su necesidad queda clara cuando se considera el cómputo
+del número de registros requeridos por las hojas.
+
+<P>
+El cómputo en las hojas corre a cargo del correspondiente método
+en la clase <tex2html_verb_mark>2024<tex2html_verb_mark>. Los nodos de tipo número (clase <tex2html_verb_mark>2025<tex2html_verb_mark>), cadena 
+(clase <tex2html_verb_mark>2026<tex2html_verb_mark>) y variable (clase <tex2html_verb_mark>2027<tex2html_verb_mark>)
+heredan de la clase <tex2html_verb_mark>2028<tex2html_verb_mark>.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5648#</PRE>
+
+<P>
+El atributo <tex2html_verb_mark>2029<tex2html_verb_mark> se computa para cada una de las sentencias 
+del programa:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5649#</PRE>
+
+<P>
+Por supuesto los nodos <tex2html_verb_mark>2030<tex2html_verb_mark> y <tex2html_verb_mark>2031<tex2html_verb_mark>
+poseen sus propios métodos <tex2html_verb_mark>2032<tex2html_verb_mark>.
+
+<P>
+Una vez computados los requerimientos en registros de cada
+nódo, la generación de código para un nodo gestiona la
+asignación de registros usando una cola en la que se guardan 
+los registros disponibles. Se
+siguen básicamente dos reglas para la traducción de un
+nodo  <tex2html_verb_mark>2033<tex2html_verb_mark>:
+
+<P>
+
+<OL>
+<LI>Realizar primero la traducción del hijo con mayores
+requerimientos y luego el otro
+</LI>
+<LI>El resultado queda siempre en el registro que ocupa 
+<SPAN ID="txt11666">la primera posición</SPAN> en la cola
+</LI>
+</OL>
+
+<P>
+Hay cuatro casos a considerar: el primero 
+es que el operando derecho sea una hoja.
+La generación de código para este caso es:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5650#</PRE>
+La generación del nemónico se basa en tres métodos:
+
+<P>
+
+<UL>
+<LI>El método <tex2html_verb_mark>2034<tex2html_verb_mark> devuelve el nemónico asociado con el nodo.
+Por ejemplo, para la clase <tex2html_verb_mark>2035<tex2html_verb_mark> el código es:
+<PRE><tex2html_verbatim_mark>verbatim5651#</PRE>
+</LI>
+<LI>El método <tex2html_verb_mark>2036<tex2html_verb_mark> devuelve el sufijo que hay que añadir 
+para completar el nemónico, en términos de como sea el
+operando: <tex2html_verb_mark>2037<tex2html_verb_mark> para los números, <tex2html_verb_mark>2038<tex2html_verb_mark> para los 
+identificadores, etc.
+</LI>
+<LI>El método <tex2html_verb_mark>2039<tex2html_verb_mark> genera el operando. Así para las clases
+número e identificador su código es:
+
+<P>
+<BR>
+<BR>
+<BR>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=142><PRE><tex2html_verbatim_mark>verbatim5652#</PRE></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=283><PRE><tex2html_verbatim_mark>verbatim5653#</PRE></TD>
+</TR>
+</TABLE>
+<BR>
+<BR>
+<BR>
+
+<P>
+</LI>
+</UL>
+
+<P>
+El resto del código distingue  tres casos,
+según sean <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35885#</SPAN>
+<tex2html_verbatim_mark>mathend000#, <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35887#</SPAN>
+<tex2html_verbatim_mark>mathend000# y el número de registros
+disponibles. 
+Los dos primeros casos desglosan
+la posibilidad de que uno de los dos subárboles
+pueda realizarse con el número de registros
+disponible (<tex2html_verbatim_mark>#math6839#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35889#</SPAN>
+<tex2html_verbatim_mark>mathend000#).
+El tercer caso corresponde a que 
+se necesiten temporales: <tex2html_verbatim_mark>#math6840#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35891#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5654#</PRE>
+En este caso debemos realizar primero la traducción
+del hijo derecho. Salvando su resultado en <tex2html_verb_mark>2040<tex2html_verb_mark>. 
+El registro es retirado de la cola y traducimos el 
+lado izquierdo. El resultado ha quedado en el primer
+registro de la cola. Emitimos la operación, añadiendo
+el sufijo <tex2html_verb_mark>2041<tex2html_verb_mark>, ya que se trata de una operación entre registros
+y posteriormente devolvemos el registro a la cola.
+
+<P>
+<P><DIV><#35893#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">15</SPAN>.<SPAN CLASS="arabic">1</SPAN></B><#35893#> &nbsp; 
+<#35896#><I>Responda a las siguientes preguntas:
+</I>
+<P>
+<I></I>
+<OL>
+<LI>Si en el código anterior sustituimos la línea 12
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>2042<tex2html_verb_mark>
+
+</DIV>
+
+<P>
+por 
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verb_mark>2043<tex2html_verb_mark> 
+
+</DIV>
+
+<P>
+¿Seguiría funcionando el código?
+
+<P>
+</LI>
+<LI>¿Podemos asegurar en este subcaso que el código generado para <tex2html_verb_mark>2044<tex2html_verb_mark>
+(línea 8) se ha realizado integramente en los registros?
+</LI>
+</OL><I></I><#35896#></DIV><P></P>
+
+
+<P>
+Los otros dos casos tienen similar tratamiento:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5655#</PRE>
+
+<P>
+Antes de comenzar a generar el código,
+la variable <tex2html_verb_mark>2045<tex2html_verb_mark> debe ser inicializada a un valor apropiado, 
+de manera que se usen direcciones no ocupadas por los datos.
+Por ejemplo:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5656#</PRE>
+
+<P>
+El método <tex2html_verb_mark>2046<tex2html_verb_mark> sólo debería ser llamado sobre una hoja
+si se trata de una hoja izquierda (en cuyo caso el número de
+registros requeridos es uno):
+<PRE><tex2html_verbatim_mark>verbatim5657#</PRE>
+
+<P>
+La pila de registros es inicializada al número de registros disponibles:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5658#</PRE>
+
+<P>
+<P><DIV><#35898#><B>Ejercicio  <SPAN CLASS="arabic">33</SPAN>.<SPAN CLASS="arabic">15</SPAN>.<SPAN CLASS="arabic">2</SPAN></B><#35898#> &nbsp; 
+<#35901#><I>Responda a las siguientes preguntas:
+</I>
+<P>
+<I></I>
+<UL>
+<LI>¿Cuáles son los requerimientos de registros para un nodo de la clase <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35903#</SPAN>
+<tex2html_verbatim_mark>mathend000#?
+</LI>
+<LI>¿Cuáles son los requerimientos de registros para un nodo de la clase <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35905#</SPAN>
+<tex2html_verbatim_mark>mathend000#?
+</LI>
+<LI>¿Se puede lograr la funcionalidad proveída por el método 
+<tex2html_verb_mark>2047<tex2html_verb_mark>
+<BR>usando <tex2html_verb_mark>2048<tex2html_verb_mark>? 
+
+<P>
+¿Sería necesario introducir modificaciones
+en <tex2html_verb_mark>2049<tex2html_verb_mark>? Si es así, ¿Cuáles?.
+</LI>
+</UL><I></I><#35901#></DIV><P></P>
+
+
+<P>
+
+<H2><A NAME="SECTION056151000000000000000"><tex2html_anchor_invisible_mark></A>
+   <A NAME="12255"><tex2html_anchor_invisible_mark></A>
+  
+<A NAME="practica:generaciondecodigo"><tex2html_anchor_mark></A><BR>
+Práctica: Generación de Código
+</H2>
+
+<OL>
+<LI>Complete la generación de código para la máquina basada en registros.
+Recuerde que debe escribir el método <tex2html_verb_mark>2050<tex2html_verb_mark>
+para las diferentes clases <tex2html_verb_mark>2051<tex2html_verb_mark>, <tex2html_verb_mark>2052<tex2html_verb_mark>,
+<tex2html_verb_mark>2053<tex2html_verb_mark>, <tex2html_verb_mark>2054<tex2html_verb_mark>, <tex2html_verb_mark>2055<tex2html_verb_mark>, etc. 
+Asi mismo deberá escribir el método <tex2html_verb_mark>2056<tex2html_verb_mark> para las diversas
+clases: <tex2html_verb_mark>2057<tex2html_verb_mark>, <tex2html_verb_mark>2058<tex2html_verb_mark>, <tex2html_verb_mark>2059<tex2html_verb_mark>, <tex2html_verb_mark>2060<tex2html_verb_mark>,
+<tex2html_verb_mark>2061<tex2html_verb_mark>, etc.
+Recuerde que los temporales usados durante la generación de código
+deben ubicarse en una zona que no esté en uso.
+
+<P>
+</LI>
+<LI>En la sección anterior no se consideraba la generación 
+de código para las cadenas. Amplíe y/o modifique el
+juego de instrucciones como considere conveniente.
+El siguiente ejemplo de traducción sugiere
+como puede ser la generación de código para las cadenas:
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85>Fuente</TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=312>Objeto</TD>
+</TR>
+<TR><TD ALIGN="LEFT" VALIGN="TOP" WIDTH=85><PRE><tex2html_verbatim_mark>verbatim5659#</PRE></TD>
+<TD ALIGN="LEFT" VALIGN="TOP" WIDTH=312><PRE><tex2html_verbatim_mark>verbatim5660#</PRE></TD>
+</TR>
+</TABLE>
+</DIV>
+
+<P>
+Asuma que los registros pueden contener dos direcciones de memoria
+(línea 1). La instrucción <tex2html_verb_mark>2062<tex2html_verb_mark> carga las constantes
+(direcciones)
+<tex2html_verb_mark>2063<tex2html_verb_mark> y <tex2html_verb_mark>2064<tex2html_verb_mark> en el registro.
+La constante <tex2html_verb_mark>2065<tex2html_verb_mark> ocupa en  la posición final
+en la que se colocan los contenidos de <tex2html_verb_mark>2066<tex2html_verb_mark> un desplazamiento
+de 4 y ocupa 4 palabras. 
+Las instrucción <tex2html_verb_mark>2067<tex2html_verb_mark> carga las dos palabras en las direcciones
+<tex2html_verb_mark>2068<tex2html_verb_mark> y <tex2html_verb_mark>2069<tex2html_verb_mark> en el registro <tex2html_verb_mark>2070<tex2html_verb_mark>. 
+La instrucción <tex2html_verb_mark>2071<tex2html_verb_mark> se encarga de que las dos palabras
+en la dirección <tex2html_verb_mark>2072<tex2html_verb_mark> queden referenciando 
+una cadena igual a la apuntada por el registro <tex2html_verb_mark>2073<tex2html_verb_mark>.
+La instrucción <tex2html_verb_mark>2074<tex2html_verb_mark> imprime la cadena apuntada
+por el registro.  En una situación mas realista instrucciones como
+<tex2html_verb_mark>2075<tex2html_verb_mark> y <tex2html_verb_mark>2076<tex2html_verb_mark> probablemente serían llamadas
+a funciones/servicios del sistema o de la librería para soporte
+en tiempo de ejecución asociada al lenguaje.
+
+<P>
+</LI>
+<LI>Se puede mejorar el código generado
+si hacemos uso de las propiedades algebraicas de los 
+operadores.
+Por ejemplo, cuando se tiene un operador conmutativo que ha sido asociado 
+a derechas, como ocurre en este programa fuente:
+<PRE><tex2html_verbatim_mark>verbatim5661#</PRE>
+
+<P>
+El código producido por el compilador es:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5662#</PRE>
+
+<P>
+En este caso, la expresión <tex2html_verb_mark>2077<tex2html_verb_mark>  corresponde a un árbol 
+que casa con el patrón árbol
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6841#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35912#</SPAN>
+<tex2html_verbatim_mark>mathend000# and <tex2html_verbatim_mark>#math6842#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35914#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+Donde <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35916#</SPAN>
+<tex2html_verbatim_mark>mathend000# es el número de registros requeridos por <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35918#</SPAN>
+<tex2html_verbatim_mark>mathend000#.
+En tales casos es posible sacar ventaja
+de la conmutatividad de la suma y transformar el
+árbol
+
+<P>
+<DIV ALIGN="CENTER">
+<tex2html_verbatim_mark>#math6843#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35920#</SPAN>
+<tex2html_verbatim_mark>mathend000# and <tex2html_verbatim_mark>#math6844#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35922#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+</DIV>
+
+<P>
+Observe que mientras el primer árbol requiere <tex2html_verbatim_mark>#math6845#<SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35924#</SPAN>
+<tex2html_verbatim_mark>mathend000#
+registros, el segundo requiere <SPAN CLASS="MATH"><tex2html_image_mark>#tex2html_wrap_inline35926#</SPAN>
+<tex2html_verbatim_mark>mathend000# registros, que en general es menor.
+Esta transformación invierte la traducción:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5663#</PRE>
+
+<P>
+que daría lugar a:
+
+<P>
+<PRE><tex2html_verbatim_mark>verbatim5664#</PRE>
+
+<P>
+la cual usa una instrucción y un registro menos.
+
+<P>
+Usando <tex2html_verb_mark>2078<tex2html_verb_mark> modifique el generador 
+de código para que, después de la fase de cálculo del número
+de registros requeridos, aplique esta 
+transformación sobre los nodos conmutativos cuyo hijo izquierdo
+sea un identificador y su hijo derecho requiera al menos un registro.
+</LI>
+</OL>
+
+<P>
