@@ -5,6 +5,7 @@
 * [RD](parsing/recursivodescendente/README.md)
 * [EJS](parsing/eloquentjs/README.md)
 * [GLL](parsing/gll/README.md)
+* [GLR](parsing/glr/README.md)
 * [tdop](parsing/tdop/README.md)
 * [Grammars](parsing/grammars/README.md)
 * [Lisp](parsing/pltutlisperator/README.md)
