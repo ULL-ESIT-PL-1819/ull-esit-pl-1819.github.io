@@ -1,3 +1,0 @@
-#!/bin/bash
-rsync -aue ssh /home/lhp/projects/perl/ 193.145.105.175:/home/lhp/projects/perl/
-#echo 'apuntes de perl sync' | mail -s 'perlsync' casiano@ull.es

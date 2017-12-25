@@ -1,5 +1,0 @@
-* [Microsoft Azure Documentation](https://docs.microsoft.com/en-us/azure/)
-* [Azure in education](https://azure.microsoft.com/en-us/community/education/)
-* [Express y Azure](http://gregtrowbridge.com/setting-up-a-custom-domain-website-using-azure-godaddy/)
-* [faq](https://www.microsoftazurepass.com/faq)
-* [Formulario para solicitar Azure for Research](https://www.microsoft.com/en-us/research/academic-program/microsoft-azure-for-research/)

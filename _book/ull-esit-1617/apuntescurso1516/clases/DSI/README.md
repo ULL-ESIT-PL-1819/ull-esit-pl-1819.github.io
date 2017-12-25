@@ -1,1 +1,0 @@
-## Desarrollo de Sistemas Informáticos
