@@ -4,6 +4,7 @@ ull-esit-1617
 # Logs
 logs
 *.log
+*.swp
 
 # Runtime data
 pids
