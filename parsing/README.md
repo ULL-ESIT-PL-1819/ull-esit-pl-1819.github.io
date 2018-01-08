@@ -6,6 +6,7 @@
 * [EJS](parsing/eloquentjs/README.md)
 * [Top Down Operator Precedence Analysis](tdop/tdop.md)
 * [tdop](parsing/tdop/README.md)
+* [PEGs](pegjs/PEGS.md)
 * [GLL](parsing/gll/README.md)
 
 
