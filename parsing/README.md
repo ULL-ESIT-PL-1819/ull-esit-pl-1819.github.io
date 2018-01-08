@@ -12,7 +12,9 @@
 
 ### Bottom Up
 
-* [GLR](parsing/glr/README.md)
+
+* [Earley](earley/README.md)
+* [GLR](glr/README.md)
 
 
 ### Parser Generators versus Hand-writing

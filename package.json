@@ -19,6 +19,7 @@
   "author": "Casiano Rodriguez-Leon <casiano.rodriguez.leon@gmail.com> (https://github.com/crguezl)",
   "license": "ISC",
   "dependencies": {
+    "gulp": "^3.9.1",
     "gulp-shell": "*"
   }
 }
