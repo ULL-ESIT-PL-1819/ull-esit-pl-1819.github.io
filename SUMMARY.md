@@ -1,6 +1,11 @@
 # Summary
 
 * [Introduction](README.md)
+* [Instrucciones](instrucciones/README.md)
+    * [Instrucciones para classroom](classroom.md)
+    * [Instrucciones para el envio](instruccionesparaelenvio.md)
+    * [Instrucciones para la evaluacion](instruccionesparalaevaluacion.md)
+    * [Instrucciones para las presentaciones de SYTW](instruccionesparalaspresentaciones.md)
 * [Expresiones Regulares](regexp/README.md)
    - [Ejercicios de Expresiones Regulares](regexp/regexpejercicios.md)
 * [Parsing](parsing/README.md)
