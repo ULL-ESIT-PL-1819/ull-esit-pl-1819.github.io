@@ -2,11 +2,11 @@
 
 * [Introduction](README.md)
 * [Instrucciones](instrucciones/README.md)
-    * [Instrucciones para classroom](classroom.md)
-    * [Instrucciones para el envio](instruccionesparaelenvio.md)
-    * [Instrucciones para la evaluacion](instruccionesparalaevaluacion.md)
-    * [Instrucciones para las presentaciones de SYTW](instruccionesparalaspresentaciones.md)
-* [Expresiones Regulares](regexp/README.md)
+    * [Instrucciones para classroom](instrucciones/classroom.md)
+    * [Instrucciones para el envio](instrucciones/instruccionesparaelenvio.md)
+    * [Instrucciones para la evaluacion](instrucciones/instruccionesparalaevaluacion.md)
+    * [Instrucciones para las presentaciones de SYTW](instrucciones/instruccionesparalaspresentaciones.md)
+* [Expresiones Regulares](instrucciones/regexp/README.md)
    - [Ejercicios de Expresiones Regulares](regexp/regexpejercicios.md)
 * [Parsing](parsing/README.md)
   * Top-Down
