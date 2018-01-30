@@ -1,6 +1,10 @@
 # Summary
 
+
 * [Introduction](README.md)
+
+## Instrucciones
+
 * [Instrucciones](instrucciones/README.md)
     * [Instrucciones para classroom](instrucciones/classroom.md)
     * [Instrucciones para el envio](instrucciones/instruccionesparaelenvio.md)
@@ -10,9 +14,6 @@
 ## Recursos
 
 * [Recursos](recursos/README.md)
-
-### Servicios en la Nube
-
 * [iaas.ull.es](recursos/iaas.md)
   - [Repaso: Preguntas de SSH](repasos/ssh.md) 
   - [Repasos: Preguntas sobre Plataformas de Despliegue](repasos/iaas.md)
@@ -22,8 +23,13 @@
 * [Azure in education](recursos/azure.md)
 * [c9](recursos/c9.md)
 
+## Análisis Léxico
+
 * [Expresiones Regulares](instrucciones/regexp/README.md)
    - [Ejercicios de Expresiones Regulares](regexp/regexpejercicios.md)
+
+## Análisis Sintáctico
+
 * [Parsing](parsing/README.md)
   * Top-Down
     * [Top Down Operator Precedence Analysis](tdop/tdop.md)
@@ -38,6 +44,12 @@
     * [Earley](parsing/earley/README.md)
     * [GLR](parsing/glr/README.md)
   * [Grammars](parsing/grammars/README.md)
+
+## Bibliografía
+
 * [Bibliografia](biblio.md)
+
+## Instrucciones para los Autores
+
 * [Author instructions](author-instructions.md)
 * [Markdown y GitBook](gitbook.md)
