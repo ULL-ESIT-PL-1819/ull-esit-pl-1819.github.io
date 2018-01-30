@@ -5,7 +5,23 @@
     * [Instrucciones para classroom](instrucciones/classroom.md)
     * [Instrucciones para el envio](instrucciones/instruccionesparaelenvio.md)
     * [Instrucciones para la evaluacion](instrucciones/instruccionesparalaevaluacion.md)
-    * [Instrucciones para las presentaciones de SYTW](instrucciones/instruccionesparalaspresentaciones.md)
+    * [Instrucciones para las presentaciones](instrucciones/instruccionesparalaspresentaciones.md)
+
+## Recursos
+
+* [Recursos](recursos/README.md)
+
+### Servicios en la Nube
+
+* [iaas.ull.es](recursos/iaas.md)
+  - [Repaso: Preguntas de SSH](repasos/ssh.md) 
+  - [Repasos: Preguntas sobre Plataformas de Despliegue](repasos/iaas.md)
+* [Heroku](recursos/heroku.md)
+  - [Repaso: Preguntas de heroku](repasos/heroku.md) 
+* [Yellow Circle](recursos/yellow.md)
+* [Azure in education](recursos/azure.md)
+* [c9](recursos/c9.md)
+
 * [Expresiones Regulares](instrucciones/regexp/README.md)
    - [Ejercicios de Expresiones Regulares](regexp/regexpejercicios.md)
 * [Parsing](parsing/README.md)

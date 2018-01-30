@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Ejercicios de Expresiones Regulares · GitBook</title>
+        <title>c9 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.2">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../parsing/" />
+    <link rel="next" href="../instrucciones/regexp/README.md" />
     
     
-    <link rel="prev" href="../instrucciones/regexp/README.md" />
+    <link rel="prev" href="azure.html" />
     
 
     </head>
@@ -180,9 +180,9 @@
         
         
     
-        <li class="chapter " data-level="2.1" data-path="../recursos/">
+        <li class="chapter " data-level="2.1" data-path="./">
             
-                <a href="../recursos/">
+                <a href="./">
             
                     
                     Recursos
@@ -200,9 +200,9 @@
         
         
     
-        <li class="chapter " data-level="3.1" data-path="../recursos/iaas.html">
+        <li class="chapter " data-level="3.1" data-path="iaas.html">
             
-                <a href="../recursos/iaas.html">
+                <a href="iaas.html">
             
                     
                     iaas.ull.es
@@ -245,9 +245,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.2" data-path="../recursos/heroku.html">
+        <li class="chapter " data-level="3.2" data-path="heroku.html">
             
-                <a href="../recursos/heroku.html">
+                <a href="heroku.html">
             
                     
                     Heroku
@@ -277,9 +277,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.3" data-path="../recursos/yellow.html">
+        <li class="chapter " data-level="3.3" data-path="yellow.html">
             
-                <a href="../recursos/yellow.html">
+                <a href="yellow.html">
             
                     
                     Yellow Circle
@@ -290,9 +290,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.4" data-path="../recursos/azure.html">
+        <li class="chapter " data-level="3.4" data-path="azure.html">
             
-                <a href="../recursos/azure.html">
+                <a href="azure.html">
             
                     
                     Azure in education
@@ -303,9 +303,9 @@
             
         </li>
     
-        <li class="chapter " data-level="3.5" data-path="../recursos/c9.html">
+        <li class="chapter active" data-level="3.5" data-path="c9.html">
             
-                <a href="../recursos/c9.html">
+                <a href="c9.html">
             
                     
                     c9
@@ -330,9 +330,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="3.6.1" data-path="regexpejercicios.html">
+        <li class="chapter " data-level="3.6.1" data-path="../regexp/regexpejercicios.html">
             
-                <a href="regexpejercicios.html">
+                <a href="../regexp/regexpejercicios.html">
             
                     
                     Ejercicios de Expresiones Regulares
@@ -617,7 +617,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Ejercicios de Expresiones Regulares</a>
+        <a href=".." >c9</a>
     </h1>
 </div>
 
@@ -632,208 +632,20 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="section:ejercicioslastindex">Ejercicios de Expresiones Regulares </h2>
-<h3 id="ejercicios-de-eloquentjs">Ejercicios de EloquentJS</h3>
-<ol>
-<li>Haga los ejercicios de expresiones regulares en 
-<a href="http://eloquentjavascript.net/09_regexp.html#h_TcUD2vzyMe" target="_blank">Eloquent JavaScript</a></li>
-</ol>
-<h3 id="ejercicios-de-cursos-anteriores">Ejercicios de Cursos Anteriores</h3>
-<ol>
-<li>Haga los ejercicios de expresiones regulares en los apuntes de otros a&#xF1;os
-<a href="http://crguezl.github.io/pl-html/node7.html" target="_blank">http://crguezl.github.io/pl-html/node7.html</a></li>
-</ol>
-<h3 id="cadenas">Cadenas</h3>
-<ol>
-<li>Escriba una expresi&#xF3;n regular que reconozca las cadenas de doble
-comillas. Debe permitir la presencia de comillas y caracteres
-escapados.</li>
-</ol>
-<h3 id="n&#xFA;meros">N&#xFA;meros</h3>
-<ol>
-<li>Escriba una expresi&#xF3;n regular que reconozca los n&#xFA;meros en punto flotante (por ejemplo <code>-2.3e-1</code>, <code>-3e2</code>, <code>23</code>, <code>3.2</code>)</li>
-<li><p>El siguiente ejemplo comprueba la validez de n&#xFA;meros de tel&#xE9;fono:</p>
-<pre><code>[~/local/src/javascript/PLgrado/regexp]$ pwd -P
-/Users/casiano/local/src/javascript/PLgrado/regexp
-[~/local/src/javascript/PLgrado/regexp]$ cat phone.html
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;  
-  &lt;head&gt;  
-    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=ISO-8859-1&quot;&gt;  
-    &lt;meta http-equiv=&quot;Content-Script-Type&quot; content=&quot;text/javascript&quot;&gt;  
-    &lt;script type=&quot;text/javascript&quot;&gt;  
-      var re = /\(?\d{3}\)?([-\/\.])\d{3}\1\d{4}/;  
-      function testInfo(phoneInput){  
-        var OK = re.exec(phoneInput.value);  
-        if (!OK)  
-          window.alert(RegExp.input + &quot; isn&apos;t a phone number with area code!&quot;);  
-        else
-          window.alert(&quot;Thanks, your phone number is &quot; + OK[0]);  
-      }  
-    &lt;/script&gt;  
-  &lt;/head&gt;  
-  &lt;body&gt;  
-    &lt;p&gt;Enter your phone number (with area code) and then click &quot;Check&quot;.
-        &lt;br&gt;The expected format is like ###-###-####.&lt;/p&gt;
-    &lt;form action=&quot;#&quot;&gt;  
-      &lt;input id=&quot;phone&quot;&gt;&lt;button onclick=&quot;testInfo(document.getElementById(&apos;phone&apos;));&quot;&gt;Check&lt;/button&gt;
-    &lt;/form&gt;  
-  &lt;/body&gt;  
-&lt;/html&gt;
-</code></pre></li>
-</ol>
-<h3 id="circuito-corto">Circuito Corto</h3>
-<ol>
-<li><p>&#xBF;Cual es la salida? &#xBF;Porqu&#xE9;?</p>
-<pre><code>&gt; &quot;bb&quot;.match(/b|bb/)
-
-&gt; &quot;bb&quot;.match(/bb|b/)
-</code></pre></li>
-</ol>
-<h3 id="par&#xE9;ntesis">Par&#xE9;ntesis</h3>
-<ol>
-<li><p>Par&#xE9;ntesis en la cadena de reemplazo</p>
-<pre><code> &gt; str = &quot;John Smith&quot;
- &apos;John Smith&apos;
- &gt; newstr = str.replace(re, &quot;$2, $1&quot;)
- &apos;Smith, John&apos;
-</code></pre></li>
-<li><p>&#xBF;Que casa con cada par&#xE9;ntesis en esta regexp para los  pares nombre-valor?</p>
-<pre><code>   &gt; x = &quot;h     = 4&quot;
-   &gt; r = /([^=]*)(\s*)=(\s*)(.*)/
-   &gt; r.exec(x)
-   &gt;
-</code></pre></li>
-</ol>
-<h3 id="lastindex">lastIndex</h3>
-<ol>
-<li><p>El m&#xE9;todo <code>exec</code>.</p>
-<p>If your regular expression uses the <code>g</code> flag, you can use the <code>exec</code>
-method multiple times to find successive matches in the same string.
-When you do so, the search starts at the substring of str specified
-by the regular expression&#x2019;s <code>lastIndex</code> property.</p>
-<pre><code>&gt; re = /d(b+)(d)/ig
-/d(b+)(d)/gi
-&gt; z = &quot;dBdxdbbdzdbd&quot;
-&apos;dBdxdbbdzdbd&apos;
-&gt; result = re.exec(z)
-[ &apos;dBd&apos;, &apos;B&apos;, &apos;d&apos;, index: 0, input: &apos;dBdxdbbdzdbd&apos; ]
-&gt; re.lastIndex
-3
-&gt; result = re.exec(z)
-[ &apos;dbbd&apos;, &apos;bb&apos;, &apos;d&apos;, index: 4, input: &apos;dBdxdbbdzdbd&apos; ]
-&gt; re.lastIndex
-8
-&gt; result = re.exec(z)
-[ &apos;dbd&apos;, &apos;b&apos;, &apos;d&apos;, index: 9, input: &apos;dBdxdbbdzdbd&apos; ]
-&gt; re.lastIndex
-12
-&gt; z.length
-12
-&gt; result = re.exec(z)
-null
-</code></pre></li>
-</ol>
-<h3 id="lookahead">Par&#xE9;ntesis de lookahead </h3>
-<ol>
-<li><p>JavaScript tiene lookaheads:</p>
-<pre><code>&gt; x = &quot;hello&quot;
-&apos;hello&apos;
-&gt; r = /l(?=o)/
-/l(?=o)/
-&gt; z = r.exec(x)
-[ &apos;l&apos;, index: 3, input: &apos;hello&apos; ]
-</code></pre></li>
-</ol>
-<h3 id="lookbehind">Par&#xE9;ntesis de lookbehind </h3>
-<ol>
-<li><p>JavaScript no tiene lookbehinds:</p>
-<pre><code>&gt; x = &quot;hello&quot;
-&apos;hello&apos;
-&gt; r = /(?&lt;=l)l/
-SyntaxError: Invalid regular expression: /(?&lt;=l)l/: Invalid group
-&gt; .exit
-
-[~/Dropbox/src/javascript/PLgrado/csv(master)]$ irb
-ruby-1.9.2-head :001 &gt; x = &quot;hello&quot;
- =&gt; &quot;hello&quot; 
-ruby-1.9.2-head :002 &gt; r = /(?&lt;=l)l/
- =&gt; ll 
-ruby-1.9.2-head :008 &gt; x =~ r
- =&gt; 3 
-ruby-1.9.2-head :009 &gt; $&amp;
- =&gt; &quot;l&quot; 
-</code></pre></li>
-</ol>
-<h3 id="backtracking">Backtracking. Par&#xE9;ntesis <strong>dentro de una RegExp</strong> </h3>
-<ol>
-<li><p>&#xBF;Con que cadenas casa la expresi&#xF3;n regular <code>/^(11+)\1+$/</code>?</p>
-<pre><code>&gt; &apos;1111&apos;.match(/^(11+)\1+$/) # 4 unos
-[ &apos;1111&apos;,
-  &apos;11&apos;,
-  index: 0,
-  input: &apos;1111&apos; ]
-&gt; &apos;111&apos;.match(/^(11+)\1+$/) # 3 unos
-null
-&gt; &apos;11111&apos;.match(/^(11+)\1+$/) # 5 unos
-null
-&gt; &apos;111111&apos;.match(/^(11+)\1+$/) # 6 unos
-[ &apos;111111&apos;,
-  &apos;111&apos;,
-  index: 0,
-  input: &apos;111111&apos; ]
-&gt; &apos;11111111&apos;.match(/^(11+)\1+$/) # 8 unos
-[ &apos;11111111&apos;,
-  &apos;1111&apos;,
-  index: 0,
-  input: &apos;11111111&apos; ]
-&gt; &apos;1111111&apos;.match(/^(11+)\1+$/)
-null
-&gt; 
-</code></pre></li>
-</ol>
-<h3 id="reemplazofunciones">Funciones en el Argumento de Reemplazo </h3>
-<ol>
-<li><p>Busque una soluci&#xF3;n al siguiente ejercicio (v&#xE9;ase &#x2019;Regex to add
-space after punctuation sign&#x2019; en <a href="http://www.perlmonks.org/?node_id=319742" target="_blank">PerlMonks</a>) Se quiere poner un espacio en
-blanco despu&#xE9;s de la aparici&#xF3;n de cada coma:</p>
-<pre><code>&gt; x = &quot;a,b,c,1,2,d, e,f&quot;
-&apos;a,b,c,1,2,d, e,f&apos;
-&gt; x.replace(/,/g,&quot;, &quot;)
-&apos;a, b, c, 1, 2, d,  e, f&apos;
-</code></pre><p>pero se quiere que la sustituci&#xF3;n no tenga lugar si la coma esta
-incrustada entre dos d&#xED;gitos. Adem&#xE1;s se pide que si hay ya un
-espacio despu&#xE9;s de la coma, no se duplique.</p>
-<ul>
-<li><p>La siguiente soluci&#xF3;n logra el segundo objetivo, pero estropea los n&#xFA;meros:</p>
-<pre><code> &gt; x = &quot;a,b,c,1,2,d, e,f&quot;
- &apos;a,b,c,1,2,d, e,f&apos;
- &gt; x.replace(/,(\S)/g,&quot;, $1&quot;)
- &apos;a, b, c, 1, 2, d, e, f&apos;
-</code></pre></li>
-<li><p>Esta otra funciona bien con los n&#xFA;meros pero no con los espacios ya existentes:</p>
-<pre><code> &gt; x = &quot;a,b,c,1,2,d, e,f&quot;
- &apos;a,b,c,1,2,d, e,f&apos;
- &gt; x.replace(/,(\D)/g,&quot;, $1&quot;)
- &apos;a, b, c,1,2, d,  e, f&apos;
-</code></pre></li>
-<li><p>Explique cuando casa esta expresi&#xF3;n regular:</p>
-<pre><code> &gt; r = /(\d[,.]\d)|(,(?=\S))/g
- /(\d[,.]\d)|(,(?=\S))/g
-</code></pre></li>
-<li><p>Aproveche que el m&#xE9;todo <code>replace</code> puede recibir como segundo
-argumento una funci&#xF3;n (vea
-<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global~O~bjects/String/replace" target="_blank">replace</a>):</p>
-<pre><code>  &gt; z = &quot;a,b,1,2,d, 3,4,e&quot;
-  &apos;a,b,1,2,d, 3,4,e&apos;
-  &gt; f = function(match, p1, p2, offset, string) { return (p1 || p2 + &quot; &quot;); }
-  [Function]
-  &gt; z.replace(r, f)
-  &apos;a, b, 1,2, d, 3,4, e&apos;
-</code></pre></li>
+                                <ul>
+<li><a href="https://c9.io/blog/cloud9-for-education/" target="_blank">Cloud 9 for Education</a></li>
+<li><a href="https://docs.c9.io/docs/" target="_blank">Cloud9 Documentation</a></li>
+<li><a href="https://community.c9.io/t/tutorials-table-of-contents/1450" target="_blank">An exhaustive overview of tutorials, guides, and how-to articles in the Cloud9 Community, </a></li>
+<li><a href="https://c9.io/blog/cloud9-for-education/" target="_blank">Cloud9 for Education</a> prices, 29 September 2016</li>
 </ul>
-</li>
-</ol>
+<h3 id="setting-up-an-ssh-workspace"><a href="https://docs.c9.io/docs/running-your-own-ssh-workspace" target="_blank">Setting Up an SSH Workspace</a></h3>
+<p>One of the most useful features on Cloud9 is SSH workspaces. If you own a server that you can SSH into, you can log into that machine with Cloud9 and work on your projects remotely. Here&apos;s a video demonstrating how you could instantly compile a C program using an SSH workspace and Cloud9:</p>
+<p><div style="position: relative;padding-bottom: 56.25%;padding-top: 25px;height: 0;"><iframe frameborder="0" allowfullscreen style="border: none;position: absolute;top: 0;left: 0;width: 100%;height: 100%;" src="//www.youtube.com/embed/CogX0tqugi0"></iframe></div></p>
+<ul>
+<li><a href="https://gist.github.com/RIAEvangelist/6335743" target="_blank">Gist: Install Cloud9 on local or remote computer, server, or raspberry pi</a></li>
+<li><a href="https://docs.c9.io/docs/run-an-application" target="_blank">On Hosted and SSH workspaces, Cloud9 provides two ways to run your application</a></li>
+<li><a href="https://cloud9-sdk.readme.io/docs/the-licenses-for-cloud9-sdk-and-packages#section-the-core-sdk" target="_blank">c9: Licenses for the SDK and packages</a></li>
+</ul>
 
                                 
                                 </section>
@@ -861,12 +673,12 @@ argumento una funci&#xF3;n (vea
 
             
                 
-                <a href="../instrucciones/regexp/README.md" class="navigation navigation-prev " aria-label="Previous page: Expresiones Regulares">
+                <a href="azure.html" class="navigation navigation-prev " aria-label="Previous page: Azure in education">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../parsing/" class="navigation navigation-next " aria-label="Next page: Parsing">
+                <a href="../instrucciones/regexp/README.md" class="navigation navigation-next " aria-label="Next page: Expresiones Regulares">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -877,7 +689,7 @@ argumento una funci&#xF3;n (vea
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Ejercicios de Expresiones Regulares","level":"3.6.1","depth":2,"next":{"title":"Parsing","level":"3.7","depth":1,"path":"parsing/README.md","ref":"parsing/README.md","articles":[{"title":"Top-Down","level":"3.7.1","depth":2,"ref":"","articles":[{"title":"Top Down Operator Precedence Analysis","level":"3.7.1.1","depth":3,"path":"tdop/tdop.md","ref":"tdop/tdop.md","articles":[]},{"title":"tdop","level":"3.7.1.2","depth":3,"path":"parsing/tdop/README.md","ref":"parsing/tdop/README.md","articles":[]},{"title":"Análisis Recursivo Descendente","level":"3.7.1.3","depth":3,"path":"recursivodescendente/README.md","ref":"recursivodescendente/README.md","articles":[]},{"title":"RD","level":"3.7.1.4","depth":3,"path":"parsing/recursivodescendente/README.md","ref":"parsing/recursivodescendente/README.md","articles":[]},{"title":"EJS","level":"3.7.1.5","depth":3,"path":"parsing/eloquentjs/README.md","ref":"parsing/eloquentjs/README.md","articles":[]},{"title":"Translating Lisp","level":"3.7.1.6","depth":3,"path":"parsing/pltutlisperator/README.md","ref":"parsing/pltutlisperator/README.md","articles":[]},{"title":"PEGJS","level":"3.7.1.7","depth":3,"path":"parsing/pegjs/PEGS.md","ref":"parsing/pegjs/PEGS.md","articles":[]},{"title":"GLL","level":"3.7.1.8","depth":3,"path":"parsing/gll/README.md","ref":"parsing/gll/README.md","articles":[]}]},{"title":"Bottom-Up","level":"3.7.2","depth":2,"ref":"","articles":[{"title":"Earley","level":"3.7.2.1","depth":3,"path":"parsing/earley/README.md","ref":"parsing/earley/README.md","articles":[]},{"title":"GLR","level":"3.7.2.2","depth":3,"path":"parsing/glr/README.md","ref":"parsing/glr/README.md","articles":[]}]},{"title":"Grammars","level":"3.7.3","depth":2,"path":"parsing/grammars/README.md","ref":"parsing/grammars/README.md","articles":[]}]},"previous":{"title":"Expresiones Regulares","level":"3.6","depth":1,"path":"instrucciones/regexp/README.md","ref":"instrucciones/regexp/README.md","articles":[{"title":"Ejercicios de Expresiones Regulares","level":"3.6.1","depth":2,"path":"regexp/regexpejercicios.md","ref":"regexp/regexpejercicios.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["youtube","copy-code-button"],"pluginsConfig":{"youtube":{},"copy-code-button":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"regexp/regexpejercicios.md","mtime":"2017-12-08T00:01:58.471Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-01-30T11:20:57.490Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"c9","level":"3.5","depth":1,"next":{"title":"Expresiones Regulares","level":"3.6","depth":1,"path":"instrucciones/regexp/README.md","ref":"instrucciones/regexp/README.md","articles":[{"title":"Ejercicios de Expresiones Regulares","level":"3.6.1","depth":2,"path":"regexp/regexpejercicios.md","ref":"regexp/regexpejercicios.md","articles":[]}]},"previous":{"title":"Azure in education","level":"3.4","depth":1,"path":"recursos/azure.md","ref":"recursos/azure.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["youtube","copy-code-button"],"pluginsConfig":{"youtube":{},"copy-code-button":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"recursos/c9.md","mtime":"2018-01-30T11:18:54.570Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2018-01-30T11:20:57.490Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
