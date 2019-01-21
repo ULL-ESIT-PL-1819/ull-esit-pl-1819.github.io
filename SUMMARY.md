@@ -2,8 +2,12 @@
 
 ## 1819
 
-* [Introduction](README.md)
-* [Participantes 18/19](https://campusvirtual.ull.es/1718/user/index.php?contextid=35114)
+* [PL 18/19 en el Campus Virtual](https://campusvirtual.ull.es/1819/course/view.php?id=1110)
+* [Página Web de PL](https://ull-esit-pl-1718.github.io/ull-esit-pl-1718.github.io/_book/)
+* [Organización ULL-ESIT-PL-1819](https://github.com/ULL-ESIT-PL-1819)
+* [Classroom ULL-ESIT-PL-1819](https://classroom.github.com/classrooms/33938084-procesadores-de-lenguaje)
+* [Participantes 18/19](https://campusvirtual.ull.es/1819/user/index.php?id=1110)
+* [Calificaciones](https://campusvirtual.ull.es/1819/grade/report/grader/index.php?id=1110)
 
 ## Instrucciones
 
