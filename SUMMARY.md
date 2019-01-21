@@ -24,6 +24,7 @@
 ## Recursos
     
 * [Recursos](recursos/README.md)
+* [PuntoQ](https://www.ull.es/servicios/biblioteca/servicios/puntoq/)
 * [iaas.ull.es](recursos/iaas.md)
     - [Instrucciones para el uso de iaas.ull.es](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/recursos/iaas.html)
     - [Gestor online de pools](https://iaas.ull.es/ovirtadmin/admin/)
