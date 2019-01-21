@@ -11,6 +11,7 @@
 
 * [Instrucciones para las prácticas y trabajos](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/content/instrucciones/)
 * [Comunidad Google+ PL1718](https://plus.google.com/u/0/communities/114135041844880347641)
+
 ## Instrucciones
 
 * [Instrucciones](instrucciones/README.md)
@@ -18,16 +19,19 @@
     * [Instrucciones para el envio](instrucciones/instruccionesparaelenvio.md)
     * [Instrucciones para la evaluacion](instrucciones/instruccionesparalaevaluacion.md)
     * [Instrucciones para las presentaciones](instrucciones/instruccionesparalaspresentaciones.md)
-    * [Instrucciones para el uso de iaas.ull.es](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/recursos/iaas.html)
-      - [Gestor online de pools](https://iaas.ull.es/ovirtadmin/admin/)
-      - [IaaS - Uso de la aplicación de gestión de pools](https://docs.google.com/document/d/13vP4bd5LhnfNJvV6ncz20ZNTXfeg8ehWbw_ECkn4MAY/edit#)
-      - [Video del profesor: iaas.ull.es](https://youtu.be/qKHgbV0lYbA)
-      - [https://iaas.ull.es/mismaquinas](https://iaas.ull.es/mismaquinas) ## Recursos
+
+      
+## Recursos
     
 * [Recursos](recursos/README.md)
 * [iaas.ull.es](recursos/iaas.md)
-  - [Repaso: Preguntas de SSH](repasos/ssh.md) 
-  - [Repasos: Preguntas sobre Plataformas de Despliegue](repasos/iaas.md)
+    - [Instrucciones para el uso de iaas.ull.es](https://casianorodriguezleon.gitbooks.io/ull-esit-1617/recursos/iaas.html)
+    - [Gestor online de pools](https://iaas.ull.es/ovirtadmin/admin/)
+    - [IaaS - Uso de la aplicación de gestión de pools](https://docs.google.com/document/d/13vP4bd5LhnfNJvV6ncz20ZNTXfeg8ehWbw_ECkn4MAY/edit#)
+    - [Video del profesor: iaas.ull.es](https://youtu.be/qKHgbV0lYbA)
+    - [https://iaas.ull.es/mismaquinas](https://iaas.ull.es/mismaquinas) 
+    - [Repaso: Preguntas de SSH](repasos/ssh.md) 
+    - [Repasos: Preguntas sobre Plataformas de Despliegue](repasos/iaas.md)
 * [Heroku](recursos/heroku.md)
   - [Repaso: Preguntas de heroku](repasos/heroku.md) 
 * [Yellow Circle](recursos/yellow.md)
